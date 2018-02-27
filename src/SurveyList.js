@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import Comment from './Comment';
+import Survey from './Survey';
 import style from './style';
 
-class CommentList extends Component {
+class SurveyList extends Component {
   render() {
     let commentNodes = this.props.data.map(comment => {
       return (
-        <Comment
+        <Survey
           beach={ comment.beach }
           uniqueID={ comment['_id'] }
           onCommentDelete={ this.props.onCommentDelete }
           onCommentUpdate={ this.props.onCommentUpdate }
           key={ comment.id }>
-          { comment.reason }
+          {comment.reason}
           {comment.st}
           {comment.lat}
           {comment.lon}
-        </Comment>
+          {comment.slope}
+        </Survey>
       )
     })
     return (
@@ -27,4 +28,4 @@ class CommentList extends Component {
   }
 }
 
-export default CommentList;
+export default SurveyList;

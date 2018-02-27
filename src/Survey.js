@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import style from './style';
 import marked from 'marked';
 
-class Comment extends Component {
+class Survey extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +11,8 @@ class Comment extends Component {
       reason: '',
       st: '',
       lat: '',
-      lon: ''
+      lon: '',
+      slope: ''
     };
     //binding all our functions to this class
     this.deleteComment = this.deleteComment.bind(this);
@@ -21,6 +22,7 @@ class Comment extends Component {
     this.handleSTChange = this.handleSTChange.bind(this);
     this.handleLatChange = this.handleLatChange.bind(this);
     this.handleLonChange = this.handleLonChange.bind(this);
+    this.handleSlopeChange = this.handleSlopeChange.bind(this);
     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
   }
   updateComment(e) {
@@ -38,7 +40,8 @@ class Comment extends Component {
     let st = (this.state.st) ? this.state.st : null;
     let lat = (this.state.lat) ? this.state.lat : null;
     let lon = (this.state.lon) ? this.state.lon : null;
-    let comment = { beach: beach, reason: reason, st: st, lat:lat, lon:lon};
+    let slope = (this.state.slope) ? this.state.slope : null;
+    let comment = { beach: beach, reason: reason, st: st, lat:lat, lon:lon, slope:slope};
     this.props.onCommentUpdate(id, comment);
     this.setState({
       toBeUpdated: !this.state.toBeUpdated,
@@ -46,7 +49,8 @@ class Comment extends Component {
       reason: '',
       st: '',
       lat: '',
-      lon: ''
+      lon: '',
+      slope: ''
     })
   }
   deleteComment(e) {
@@ -55,11 +59,11 @@ class Comment extends Component {
     this.props.onCommentDelete(id);
     console.log('deleted');
   }
-  handleReasonChange(e) {
-    this.setState({ reason: e.target.value });
-  }
   handleBeachChange(e) {
     this.setState({ beach: e.target.value });
+  }
+  handleReasonChange(e) {
+    this.setState({ reason: e.target.value });
   }
   handleSTChange(e) {
     this.setState({ st: e.target.value });
@@ -69,6 +73,9 @@ class Comment extends Component {
   }
   handleLonChange(e) {
     this.setState({ lon: e.target.value });
+  }
+  handleSlopeChange(e) {
+    this.setState({ slope: e.target.value });
   }
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
@@ -84,35 +91,42 @@ class Comment extends Component {
         { (this.state.toBeUpdated)
           ? (<form onSubmit={ this.handleCommentUpdate }>
               <input
-                type='reason'
+                type='text'
                 placeholder='Update Beach Name'
                 style={ style.commentFormText }
                 value={ this.state.beach }
                 onChange={ this.handleBeachChange } />
               <input
-                type='reason'
+                type='text'
                 placeholder='Update Reason'
                 style={ style.commentFormText }
                 value={ this.state.reason }
                 onChange={ this.handleReasonChange } />
                 <input
-                type='reason'
+                type='text'
                 placeholder='Update Substrate Type'
                 style={ style.commentFormText }
                 value={ this.state.st }
                 onChange={ this.handleSTChange } />
                 <input
-                type='reason'
+                type='text'
                 placeholder='Update Latitude'
                 style={ style.commentFormText }
                 value={ this.state.lat }
                 onChange={ this.handleLatChange } />
                 <input
-                type='reason'
+                type='text'
                 placeholder='Update Longitude'
                 style={ style.commentFormText }
                 value={ this.state.lon }
                 onChange={ this.handleLonChange } />
+                <input
+                type='text'
+                placeholder='Update Slope'
+                style={ style.commentFormText }
+                value={ this.state.slope }
+                onChange={ this.handleSlopeChange } />
+                <br />
               <input
                 type='submit'
                 style={ style.commentFormPost }
@@ -124,4 +138,4 @@ class Comment extends Component {
   }
 }
 
-export default Comment;
+export default Survey;

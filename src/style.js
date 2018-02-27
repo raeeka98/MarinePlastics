@@ -31,7 +31,6 @@ const style = {
   commentFormText: {
     flex:'4',
     minWidth:'400px',
-    margin:'3px',
     padding:'0 10px',
     height:'40px',
     borderRadius:'3px'
@@ -40,7 +39,6 @@ const style = {
     minWidth:'75px',
     flex:'1',
     height:'40px',
-    margin:'5px 3px',
     fontSize:'1rem',
     backgroundColor:'#A3CDFD',
     borderRadius:'3px',

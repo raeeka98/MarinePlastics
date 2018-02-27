@@ -11,7 +11,8 @@ var CommentsSchema = new Schema({
   reason: String,
   st: String,
   lat: String,
-  lon: String
+  lon: String,
+  slope: String
 });
 
 //export our module to use in server.js

@@ -58,6 +58,7 @@ router.route('/comments')
     (req.body.st) ? comment.st = req.body.st : null;
     (req.body.lat) ? comment.lat = req.body.lat : null;
     (req.body.lon) ? comment.lon = req.body.lon : null;
+    (req.body.slope) ? comment.slope = req.body.slope : null;
 
     comment.save(function(err) {
       if (err)
@@ -80,6 +81,7 @@ router.route('/comments/:comment_id')
       (req.body.st) ? comment.st = req.body.st : null;
       (req.body.lat) ? comment.lat = req.body.lat : null;
       (req.body.lon) ? comment.lon = req.body.lon : null;
+      (req.body.slope) ? comment.slope = req.body.slope : null;
       //save comment
       comment.save(function(err) {
         if (err)

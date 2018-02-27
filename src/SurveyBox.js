@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import CommentList from './CommentList';
-import CommentForm from './CommentForm';
+import SurveyList from './SurveyList';
+import SurveyForm from './SurveyForm';
 import style from './style';
 
-class CommentBox extends Component {
+class SurveyBox extends Component {
   constructor(props) {
     super(props);
     this.state = { data: [] };
@@ -56,23 +56,23 @@ class CommentBox extends Component {
   //when incorporating into another project
   //(with react-router for instance),
   //this will prevent error messages every 2 seconds
-  //once the CommentBox is unmounted
+  //once the SurveyBox is unmounted
   componentWillUnmount() {
   this.pollInterval && clearInterval(this.pollInterval);
   this.pollInterval = null;
 }
   render() {
     return (
-      <div style={ style.commentBox }>
-      <h2 style={ style.title }>Checking that everything works</h2>
-      <CommentList
+      <div style={ style.CommentBox }>
+      <h2 style={ style.title }>Entries</h2>
+      <SurveyList
         onCommentDelete={ this.handleCommentDelete }
         onCommentUpdate={ this.handleCommentUpdate }
         data={ this.state.data }/>
-      <CommentForm onCommentSubmit={ this.handleCommentSubmit }/>
+      <SurveyForm onCommentSubmit={ this.handleCommentSubmit }/>
       </div>
     )
   }
 }
 
-export default CommentBox;
+export default SurveyBox;

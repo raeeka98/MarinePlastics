@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import style from './style';
 
-class CommentForm extends Component {
+class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { beach: '', reason: '', st: '', lat: '', lon: '' };
+    this.state = { beach: '', reason: '', st: '', lat: '', lon: '' , slope: ''};
     this.handleBeachChange = this.handleBeachChange.bind(this);
     this.handleReasonChange = this.handleReasonChange.bind(this);
     this.handleSTChange = this.handleSTChange.bind(this);
     this.handleLatChange = this.handleLatChange.bind(this);
     this.handleLonChange = this.handleLonChange.bind(this);
+    this.handleSlopeChange = this.handleSlopeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleBeachChange(e) {
@@ -27,6 +28,9 @@ class CommentForm extends Component {
   handleLonChange(e) {
     this.setState({ lon: e.target.value });
   }
+  handleSlopeChange(e) {
+    this.setState({ slope: e.target.value });
+  }
   handleSubmit(e) {
     e.preventDefault();
     let beach = this.state.beach.trim();
@@ -34,56 +38,63 @@ class CommentForm extends Component {
     let st = this.state.st.trim();
     let lat = this.state.lat.trim();
     let lon = this.state.lon.trim();
-    if (!reason || !beach || !st || !lat || !lon) {
+    let slope = this.state.slope.trim();
+    if (!reason || !beach || !st || !lat || !lon || !slope) {
       return;
     }
-    this.props.onCommentSubmit({ beach: beach, reason: reason, st: st, lat: lat, lon: lon });
-    this.setState({ beach: '', reason: '', st: '', lat: '', lon: ''});
+    this.props.onCommentSubmit({ beach: beach, reason: reason, st: st, lat: lat, lon: lon, slope: slope });
+    this.setState({ beach: '', reason: '', st: '', lat: '', lon: '', slope: ''});
   }
   render() {
     return (
       <form style={ style.commentForm } onSubmit={ this.handleSubmit }>
       <h2>Survey Area</h2>
-        <input
+        Name of Beach<br /><input
           type='text'
           placeholder='Name of Beach'
           style={ style.commentFormText}
           value={ this.state.beach }
           onChange={ this.handleBeachChange } />
-          <br></br>
-        <input
+          <br /><br />
+        Reason for Location Choice<br /><input
           type='text'
-          placeholder='Reason for Location Choice'
+          placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
           style={ style.commentFormText}
           value={ this.state.reason }
           onChange={ this.handleReasonChange } />
-          <br></br>
+          <br /><br />
 
-          <input
+          Substrate Type<br /><input
           type='text'
-          placeholder='Substrate Type'
+          placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
           style={ style.commentFormText}
           value={ this.state.st }
           onChange={ this.handleSTChange } />
-          <br></br>
+          <br /><br />
 
-          <p>GPS Coordinates (Starting Point)</p>
-          <input
+          GPS Coordinates (Starting Point)<br /><input
           type='text'
           placeholder='Latitude'
           style={ style.commentFormText}
           value={ this.state.lat }
-          onChange={ this.handleLatChange } />
-          <br></br>
+          onChange={ this.handleLatChange } />&nbsp;
           <input
           type='text'
           placeholder='Longitude'
           style={ style.commentFormText}
           value={ this.state.lon }
           onChange={ this.handleLonChange } />
-          <br></br>
+          <br /><br />
+          Slope<br />
+          <input
+          type='text'
+          placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
+          style={ style.commentFormText}
+          value={ this.state.slope }
+          onChange={ this.handleSlopeChange } />
+          <br /><br />
 
-
+          
         <input
           type='submit'
           style={ style.commentFormPost }
@@ -93,4 +104,4 @@ class CommentForm extends Component {
   }
 }
 
-export default CommentForm;
+export default SurveyForm;
