@@ -6,11 +6,11 @@ const Header = (props) => (
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
           <li className="uk-logo">
-            {/* <Link to="/" > */}
+            <Link to="/" >
               <h1 className="uk-text-large uk-margin-remove-bottom">
                 Marine Plastics Monitor
               </h1>
-            {/* </Link> */}
+            </Link>
           </li>
           <li>
             {/* <Link to="/landing">Landing</Link> */}
@@ -23,14 +23,13 @@ const Header = (props) => (
       </div>
       <div className="uk-navbar-right">
         <ul className="uk-navbar-nav">
+          { props.auth.isAuthenticated()
+            ? <a onClick={props.auth.logout} className="uk-button uk-button-primary">Log Out</a>
+            : <a onClick={props.auth.login} className="uk-button uk-button-primary">Log In</a>
+          }
         </ul>
       </div>
     </nav>
 )
 
 export default Header
-
-// { props.auth.isAuthenticated()
-//     ? <a onClick={props.auth.logout} className="uk-button uk-button-primary">Log Out</a>
-//     : <a onClick={props.auth.login} className="uk-button uk-button-primary">Log In</a>
-//   }
