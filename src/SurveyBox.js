@@ -58,9 +58,9 @@ class SurveyBox extends Component {
   //this will prevent error messages every 2 seconds
   //once the SurveyBox is unmounted
   componentWillUnmount() {
-  this.pollInterval && clearInterval(this.pollInterval);
-  this.pollInterval = null;
-}
+    this.pollInterval && clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
   render() {
     return (
       <div style={ style.CommentBox }>

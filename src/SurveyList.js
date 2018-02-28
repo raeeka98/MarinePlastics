@@ -11,7 +11,7 @@ class SurveyList extends Component {
           uniqueID={ comment['_id'] }
           onCommentDelete={ this.props.onCommentDelete }
           onCommentUpdate={ this.props.onCommentUpdate }
-          key={ comment.id }>
+          key={ comment._id }>
           {comment.reason}
           {comment.st}
           {comment.lat}
