@@ -123,7 +123,7 @@ class SurveyForm extends Component {
     majorUse: majorUse});
   this.setState({ leader: '', surveyorNames: '', contactInfo: '', date: '',
     beach: '', reason: '', st: '', lat: '', lon: '' , slope: '', nroName: '', nroDist: '', nroFlow: '', nroOut: '',
-    aspect: '', weather: '', lastTide: '', nextTide: '', windDir: '', majorUse: ''});
+    aspect: '', weather: '', lastTide: '', nextTide: '', windDir: '', majorUse: '' });
 }
 render() {
   return (
@@ -172,7 +172,6 @@ render() {
     value={ this.state.reason }
     onChange={ this.handleReasonChange } />
     <br /><br />
-
     Substrate Type<br /><input
     type='text'
     placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
@@ -180,7 +179,6 @@ render() {
     value={ this.state.st }
     onChange={ this.handleSTChange } />
     <br /><br />
-
     GPS Coordinates (Starting Point)<br /><input
     type='text'
     placeholder='Latitude'
@@ -247,13 +245,13 @@ render() {
     Tide Information<br />
     <input
     type='text'
-    placeholder='Last Tide and Height'
+    placeholder='Last Tide / Height'
     style={ style.commentFormText}
     value={ this.state.lastTide}
-    onChange={ this.handleLastTideChange } />&nbsp;
+    onChange={ this.handleLastTideChange } />
     <input
     type='text'
-    placeholder='Next Tide and Height'
+    placeholder='Next Tide / Height'
     style={ style.commentFormText}
     value={ this.state.nextTide}
     onChange={ this.handleNextTideChange } />

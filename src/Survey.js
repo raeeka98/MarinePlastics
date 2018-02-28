@@ -85,7 +85,7 @@ class Survey extends Component {
     let majorUse = (this.state.majorUse) ? this.state.majorUse : null;
     
     let comment = { leader: leader, surveyorNames: surveyorNames, contactInfo: contactInfo, date: date,
-      beach: beach, reason: reason, st: st, lat:lat, lon:lon, slope:slope, nroName: nroName, nroDist: nroDist, 
+      beach: beach, reason: reason, st: st, lat:lat, lon:lon, slope: slope, nroName: nroName, nroDist: nroDist, 
       nroFlow: nroFlow, nroOut: nroOut, aspect: aspect, weather: weather, lastTide: lastTide, nextTide: nextTide,
       windDir: windDir, majorUse: majorUse };
     this.props.onCommentUpdate(id, comment);
@@ -187,7 +187,26 @@ class Survey extends Component {
   render() {
     return (
       <div style={ style.comment }>
-      <h3>{this.props.leader}</h3>
+      <h3>Team Information</h3>
+      <p>Team Leader: <i>{this.props.leader}</i></p>
+      <p>Surveyor Names: <i>{this.props.surveyorNames}</i></p>
+      <p>Contact Information: <i>{this.props.contactInfo}</i></p>
+      <p>Date: <i>{this.props.date}</i></p>
+      <h3>Survey Area</h3>
+      <p>Name of Beach: <i>{this.props.beach}</i></p>
+      <p>Reason for Location: <i>{this.props.reason}</i></p>
+      <p>Substrate Type: <i>{this.props.st}</i></p>
+      <p>GPS Coordinates (Starting Point): <i>{this.props.lat}</i>, <i>{this.props.lon}</i></p>
+      <p>Slope: <i>{this.props.slope}</i></p>
+      <p>Nearest River Output ~ Name: <i>{this.props.nroName}</i> Distance: <i>{this.props.nroDist}m</i>&nbsp; 
+      Direction of Flow: <i>{this.props.nroFlow}</i> Direction to Output: <i>{this.props.nroOut}</i></p>
+      <p>Aspect: <i>{this.props.aspect}</i></p>
+      <p>Weather: <i>{this.props.weather}</i></p>
+      <p>Last Tide and Height: <i>{this.props.lastTide}</i> Next Tide and Height: <i>{this.props.nextTide}</i></p>
+      <p>Wind Direction: <i>{this.props.windDir}</i></p>
+      <p>Major Usage: <i>{this.props.majorUse}</i></p>
+
+
       <span dangerouslySetInnerHTML={ this.rawMarkup() } />
       <a style={ style.updateLink } href='#' onClick={ this.updateComment }>update</a>
       <a style={ style.deleteLink } href='#' onClick={ this.deleteComment }>delete</a>
