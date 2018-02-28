@@ -14,7 +14,8 @@
     "mongoose": "^4.6.0",
     "nodemon": "^1.10.2",
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "react-router-dom": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
