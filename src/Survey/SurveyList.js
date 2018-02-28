@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Survey from './Survey';
-import style from './style';
+import style from '../style';
 
 class SurveyList extends Component {
   render() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SurveyList from './SurveyList';
 import SurveyForm from './SurveyForm';
-import style from './style';
+import style from '../style';
 
 class SurveyBox extends Component {
   constructor(props) {
