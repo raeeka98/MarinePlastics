@@ -7,7 +7,7 @@ export default class Auth {
     redirectUri: 'http://localhost:3000/',
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid profile'
+    scope: 'openid email profile'
   });
 
   userProfile;
