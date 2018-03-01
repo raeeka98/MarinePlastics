@@ -23,6 +23,10 @@ const Header = (props) => (
       </div>
       <div className="uk-navbar-right">
         <ul className="uk-navbar-nav">
+          { props.auth.isAuthenticated() 
+            ? <Link className="uk-button" to="/profile">Profile</Link>
+            : null
+          }
           { props.auth.isAuthenticated()
             ? <a onClick={props.auth.logout} className="uk-button uk-button-primary">Log Out</a>
             : <a onClick={props.auth.login} className="uk-button uk-button-primary">Log In</a>

@@ -1,21 +1,25 @@
 import auth0 from 'auth0-js';
 
 export default class Auth {
-  constructor() {
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
-  }
-
   auth0 = new auth0.WebAuth({
     domain: 'marine-plastics.auth0.com',
     clientID: 'MeGxwCE1JVNy9jsRYPWzqebekosCVRDN',
     redirectUri: 'http://localhost:3000/',
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid'
+    scope: 'openid profile'
   });
+
+  userProfile;
+
+  constructor() {
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.handleAuthentication = this.handleAuthentication.bind(this);
+    this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
+    this.getProfile = this.getProfile.bind(this);
+  }
 
   login() {
     this.auth0.authorize();
@@ -41,6 +45,24 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     window.location.replace('/');
+  }
+
+  getAccessToken() {
+    const accessToken = localStorage.getItem('access_token');
+    if(!accessToken) {
+      throw new Error('No access token found');
+    }
+    return accessToken;
+  }
+
+  getProfile(cb) {
+    let accessToken = this.getAccessToken();
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        this.userProfile = profile;
+      }
+      cb(err, profile);
+    });
   }
 
   logout() {

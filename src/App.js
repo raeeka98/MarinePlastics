@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
 import SurveyBox from './Survey/SurveyBox';
+import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
@@ -33,6 +34,14 @@ class App extends Component {
                           pollInterval={2000}
                         />
                 }
+              />
+              <Route
+                path='/profile'
+                render={() => (
+                  !this.auth.isAuthenticated()
+                  ? <Redirect to="/" />
+                  : <UserProfile auth={this.auth} />
+                )}
               />
             </div>
             <Footer />
