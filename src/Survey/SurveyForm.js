@@ -248,7 +248,7 @@ render() {
     placeholder='Last Tide / Height'
     style={ style.commentFormText}
     value={ this.state.lastTide}
-    onChange={ this.handleLastTideChange } />
+    onChange={ this.handleLastTideChange } />&nbsp;
     <input
     type='text'
     placeholder='Next Tide / Height'
