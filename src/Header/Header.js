@@ -13,6 +13,9 @@ const Header = (props) => (
             </Link>
           </li>
           <li>
+            <Link to="/survey">Survey</Link>
+          </li>
+          <li>
             {/* <Link to="/landing">Landing</Link> */}
           </li>
           <li>
