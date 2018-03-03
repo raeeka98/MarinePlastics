@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from './style';
+import style from '../style';
 import marked from 'marked';
 
 class Survey extends Component {
@@ -207,7 +207,7 @@ class Survey extends Component {
       <p>Major Usage: <i>{this.props.majorUse}</i></p>
 
 
-      <span dangerouslySetInnerHTML={ this.rawMarkup() } />
+      {/* <span id='HEY' dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
       <a style={ style.updateLink } href='#' onClick={ this.updateComment }>update</a>
       <a style={ style.deleteLink } href='#' onClick={ this.deleteComment }>delete</a>
       { (this.state.toBeUpdated)

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SurveyBox from './SurveyBox';
+// import SurveyBox from './Survey/SurveyBox';
+
+import App from './App';
 
 ReactDOM.render(
-  <SurveyBox
-    url='http://localhost:3001/api/comments'
-    pollInterval={2000} />,
+  <App/>,
   document.getElementById('root')
 );

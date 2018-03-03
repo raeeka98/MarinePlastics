@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SurveyList from './SurveyList';
 import SurveyForm from './SurveyForm';
-import style from './style';
+import style from '../style';
 
 class SurveyBox extends Component {
   constructor(props) {
@@ -58,9 +58,9 @@ class SurveyBox extends Component {
   //this will prevent error messages every 2 seconds
   //once the SurveyBox is unmounted
   componentWillUnmount() {
-  this.pollInterval && clearInterval(this.pollInterval);
-  this.pollInterval = null;
-}
+    this.pollInterval && clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
   render() {
     return (
       <div style={ style.CommentBox }>
