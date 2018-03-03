@@ -4,28 +4,44 @@ import style from '../style';
 
 class SurveyList extends Component {
   render() {
-    let commentNodes = this.props.data.map(comment => {
+    let surveyNodes = this.props.data.map(comment => {
       return (
+
         <Survey
-          beach={ comment.beach }
+          leader={comment.leader}
+          surveyorNames={comment.surveyorNames}
+          contactInfo={comment.contactInfo}
+          date={comment.date}
+          reason={comment.reason}
+          beach={comment.beach}
+          st={comment.st}
+          lat={comment.lat}
+          lon={comment.lon}
+          slope={comment.slope}
+          nroName={comment.nroName}
+          nroDist={comment.nroDist}
+          nroFlow={comment.nroFlow}
+          nroOut={comment.nroOut}
+          aspect={comment.aspect}
+          weather={comment.weather}
+          lastTide={comment.lastTide}
+          nextTide={comment.nextTide}
+          windDir={comment.windDir}
+          majorUse={comment.majorUse}
           uniqueID={ comment['_id'] }
           onCommentDelete={ this.props.onCommentDelete }
           onCommentUpdate={ this.props.onCommentUpdate }
           key={ comment._id }>
-          {comment.reason}
-          {comment.st}
-          {comment.lat}
-          {comment.lon}
-          {comment.slope}
         </Survey>
-      )
-    })
-    return (
-      <div style={ style.commentList }>
-        { commentNodes }
-      </div>
-    )
-  }
-}
 
-export default SurveyList;
+        )
+      })
+      return (
+      <div style={ style.commentList }>
+      { surveyNodes }
+      </div>
+      )
+    }
+  }
+
+  export default SurveyList;

@@ -53,12 +53,26 @@ router.route('/comments')
   //post new comment to the database
   .post(function(req, res) {
     var comment = new Comment();
+    (req.body.leader) ? comment.leader = req.body.leader : null;
+    (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
+    (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
+    (req.body.date) ? comment.date = req.body.date : null;
     (req.body.beach) ? comment.beach = req.body.beach : null;
     (req.body.reason) ? comment.reason = req.body.reason : null;
     (req.body.st) ? comment.st = req.body.st : null;
     (req.body.lat) ? comment.lat = req.body.lat : null;
     (req.body.lon) ? comment.lon = req.body.lon : null;
     (req.body.slope) ? comment.slope = req.body.slope : null;
+    (req.body.nroName) ? comment.nroName = req.body.nroName : null;
+    (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
+    (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
+    (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
+    (req.body.aspect) ? comment.aspect = req.body.aspect : null;
+    (req.body.weather) ? comment.weather = req.body.weather : null;
+    (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
+    (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
+    (req.body.windDir) ? comment.windDir = req.body.windDir : null;
+    (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
 
     comment.save(function(err) {
       if (err)
@@ -70,18 +84,32 @@ router.route('/comments')
 //Adding a route to a specific comment based on the database ID
 router.route('/comments/:comment_id')
 //The put method gives us the chance to update our comment based on the ID passed to the route
-  .put(function(req, res) {
-    Comment.findById(req.params.comment_id, function(err, comment) {
-      if (err)
-        res.send(err);
+.put(function(req, res) {
+  Comment.findById(req.params.comment_id, function(err, comment) {
+    if (err)
+      res.send(err);
       //setting the new beach and reason to whatever was changed. If nothing was changed
       // we will not alter the field.
+      (req.body.leader) ? comment.leader = req.body.leader : null;
+      (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
+      (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
+      (req.body.date) ? comment.date = req.body.date : null;
       (req.body.beach) ? comment.beach = req.body.beach : null;
       (req.body.reason) ? comment.reason = req.body.reason : null;
       (req.body.st) ? comment.st = req.body.st : null;
       (req.body.lat) ? comment.lat = req.body.lat : null;
       (req.body.lon) ? comment.lon = req.body.lon : null;
       (req.body.slope) ? comment.slope = req.body.slope : null;
+      (req.body.nroName) ? comment.nroName = req.body.nroName : null;
+      (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
+      (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
+      (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
+      (req.body.aspect) ? comment.aspect = req.body.aspect : null;
+      (req.body.weather) ? comment.weather = req.body.weather : null;
+      (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
+      (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
+      (req.body.windDir) ? comment.windDir = req.body.windDir : null;
+      (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
       //save comment
       comment.save(function(err) {
         if (err)
@@ -89,7 +117,7 @@ router.route('/comments/:comment_id')
         res.json({ message: 'Comment has been updated' });
       });
     });
-  })
+})
   //delete method for removing a comment from our database
   .delete(function(req, res) {
     //selects the comment by its ID, then removes it.
