@@ -30,7 +30,7 @@ class SurveyForm extends Component {
     }
 
     this.handleValChange = this.handleValChange.bind(this);
-    this.onCommentSubmit = this.onCommentSubmit.bind(this);
+    // this.onCommentSubmit = this.onCommentSubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -76,13 +76,12 @@ class SurveyForm extends Component {
       !weather || !lastTide || !nextTide || !windDir || !majorUse) {
       return;
   }
-  this.onCommentSubmit({ leader: leader, surveyorNames: surveyorNames, contactInfo: contactInfo, date: date,
+  this.props.onCommentSubmit({ leader: leader, surveyorNames: surveyorNames, contactInfo: contactInfo, date: date,
     beach: beach, reason: reason, st: st, lat: lat, lon: lon, slope: slope, nroName: nroName, nroDist: nroDist, 
     nroFlow: nroFlow, nroOut: nroOut, aspect: aspect, weather: weather, lastTide: lastTide, nextTide: nextTide, windDir: windDir, 
     majorUse: majorUse});
-  this.setState({ leader: '', surveyorNames: '', contactInfo: '', date: '',
-    beach: '', reason: '', st: '', lat: '', lon: '' , slope: '', nroName: '', nroDist: '', nroFlow: '', nroOut: '',
-    aspect: '', weather: '', lastTide: '', nextTide: '', windDir: '', majorUse: '' });
+
+  location.reload();
 }
 render() {
   return (
@@ -94,7 +93,6 @@ render() {
         placeholder='Trip Leader'
         id='leader'
         style={ style.commentFormText }
-        value={ this.state.leader }
         onChange={ this.handleValChange } 
       />
       <label>Surveyor Name(s)</label>
@@ -103,7 +101,6 @@ render() {
         placeholder='Surveyor Name(s)'
         id='surveyorNames'
         style={ style.commentFormText }
-        value={ this.state.surveyorNames }
         onChange={ this.handleValChange } 
       />
       <label>Contact Information</label>
@@ -112,7 +109,6 @@ render() {
         placeholder='Contact Information'
         id='contactInfo'
         style={ style.commentFormText}
-        value={ this.state.contactInfo }
         onChange={ this.handleValChange } 
       />
       <label>Date</label>
@@ -121,7 +117,6 @@ render() {
         placeholder='Date'
         id='date'
         style={ style.commentFormText}
-        value={ this.state.date }
         onChange={ this.handleValChange } 
       />
 
@@ -132,7 +127,6 @@ render() {
         placeholder='Name of Beach'
         id='beach'
         style={ style.commentFormText}
-        value={ this.state.beach }
         onChange={ this.handleValChange }
       />
       <label>Reason for Location Choice</label>
@@ -141,7 +135,6 @@ render() {
         placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
         id='reason'
         style={ style.commentFormText}
-        value={ this.state.reason }
         onChange={ this.handleValChange } 
       />
       <label>Substrate Type</label>
@@ -150,7 +143,6 @@ render() {
         placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
         id='st'
         style={ style.commentFormText}
-        value={ this.state.st }
         onChange={ this.handleValChange } 
       />
       <label>GPS Coordinates (Starting Point)</label>
@@ -159,15 +151,13 @@ render() {
         placeholder='Latitude'
         id='lat'
         style={ style.commentFormText}
-        value={ this.state.lat }
         onChange={ this.handleValChange }
-      />&nbsp;
+      />
       <input
         type='text'
         placeholder='Longitude'
         id='lon'
         style={ style.commentFormText}
-        value={ this.state.lon }
         onChange={ this.handleValChange }
       />
       <label>Slope</label>
@@ -176,7 +166,6 @@ render() {
         placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
         id='slope'
         style={ style.commentFormText}
-        value={ this.state.slope }
         onChange={ this.handleValChange }
       />
       <label>Nearest River Output</label>
@@ -185,15 +174,13 @@ render() {
         placeholder='Name'
         id='nroName'
         style={ style.commentFormText}
-        value={ this.state.nroName }
         onChange={ this.handleValChange }
-      />&nbsp;
+      />
       <input
         type='text'
         placeholder='Distance (m)'
         id='nroDist'
         style={ style.commentFormText}
-        value={ this.state.nroDist }
         onChange={ this.handleValChange }
       />
       <input
@@ -201,15 +188,13 @@ render() {
         placeholder='Direction of Flow'
         id='nroFlow'
         style={ style.commentFormText}
-        value={ this.state.nroFlow }
         onChange={ this.handleValChange }
-      />&nbsp;
+      />
       <input
         type='text'
         placeholder='Direction to Output'
         id='nroOut'
         style={ style.commentFormText}
-        value={ this.state.nroOut }
         onChange={ this.handleValChange }
       />
       <label>Aspect</label>
@@ -218,7 +203,6 @@ render() {
         placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
         id='aspect'
         style={ style.commentFormText}
-        value={ this.state.aspect }
         onChange={ this.handleValChange }
       />
       <label>Weather</label>
@@ -227,7 +211,6 @@ render() {
         placeholder='Weather (ex. Rainy, Sunny, etc.)'
         id='weather'
         style={ style.commentFormText}
-        value={ this.state.weather }
         onChange={ this.handleValChange }
       />
       <label>Tide Information</label>
@@ -236,7 +219,6 @@ render() {
         placeholder='Last Tide / Height'
         id='lastTide'
         style={ style.commentFormText}
-        value={ this.state.lastTide}
         onChange={ this.handleValChange }
       />
       <input
@@ -244,7 +226,6 @@ render() {
         placeholder='Next Tide / Height'
         id='nextTide'
         style={ style.commentFormText}
-        value={ this.state.nextTide}
         onChange={ this.handleValChange }
       />
       <label>Wind Direction</label>
@@ -253,7 +234,6 @@ render() {
         placeholder='Wind Speed/Direction'
         id='windDir'
         style={ style.commentFormText}
-        value={ this.state.windDir }
         onChange={ this.handleValChange }
       />
       <label>Major Usage</label>
@@ -262,7 +242,6 @@ render() {
         placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
         id='majorUse'
         style={ style.commentFormText}
-        value={ this.state.majorUse }
         onChange={ this.handleValChange }
       />
       <input

@@ -64,12 +64,14 @@ class SurveyBox extends Component {
   render() {
     return (
       <div style={ style.CommentBox }>
-      <h2 style={ style.title }>Entries</h2>
-      <SurveyList
-        onCommentDelete={ this.handleCommentDelete }
-        onCommentUpdate={ this.handleCommentUpdate }
-        data={ this.state.data }/>
-      <SurveyForm/>
+        <h2 style={ style.title }>Entries</h2>
+        <SurveyList
+          onCommentDelete={ this.handleCommentDelete }
+          onCommentUpdate={ this.handleCommentUpdate }
+          data={ this.state.data }/>
+        <SurveyForm
+          onCommentSubmit={ this.handleCommentSubmit }
+        />
       </div>
     )
   }
