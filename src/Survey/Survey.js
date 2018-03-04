@@ -178,7 +178,7 @@ class Survey extends Component {
     this.setState({ windDir: e.target.value });
   }
   handleMajorUseChange(e) {
-    this.setState({ slope: e.target.value });
+    this.setState({ majorUse: e.target.value });
   }
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
@@ -188,23 +188,24 @@ class Survey extends Component {
     return (
       <div style={ style.comment }>
       <h3>Team Information</h3>
-      <p>Team Leader: <i>{this.props.leader}</i></p>
-      <p>Surveyor Names: <i>{this.props.surveyorNames}</i></p>
-      <p>Contact Information: <i>{this.props.contactInfo}</i></p>
-      <p>Date: <i>{this.props.date}</i></p>
+      <p><b>Team Leader: </b><i>{this.props.leader}</i></p>
+      <p><b>Surveyor Names: </b><i>{this.props.surveyorNames}</i></p>
+      <p><b>Contact Information: </b><i>{this.props.contactInfo}</i></p>
+      <p><b>Date: </b><i>{this.props.date}</i></p>
       <h3>Survey Area</h3>
-      <p>Name of Beach: <i>{this.props.beach}</i></p>
-      <p>Reason for Location: <i>{this.props.reason}</i></p>
-      <p>Substrate Type: <i>{this.props.st}</i></p>
-      <p>GPS Coordinates (Starting Point): <i>{this.props.lat}</i>, <i>{this.props.lon}</i></p>
-      <p>Slope: <i>{this.props.slope}</i></p>
-      <p>Nearest River Output ~ Name: <i>{this.props.nroName}</i> Distance: <i>{this.props.nroDist}m</i>&nbsp; 
-      Direction of Flow: <i>{this.props.nroFlow}</i> Direction to Output: <i>{this.props.nroOut}</i></p>
-      <p>Aspect: <i>{this.props.aspect}</i></p>
-      <p>Weather: <i>{this.props.weather}</i></p>
-      <p>Last Tide and Height: <i>{this.props.lastTide}</i> Next Tide and Height: <i>{this.props.nextTide}</i></p>
-      <p>Wind Direction: <i>{this.props.windDir}</i></p>
-      <p>Major Usage: <i>{this.props.majorUse}</i></p>
+      <p><b>Name of Beach: </b><i>{this.props.beach}</i></p>
+      <p><b>Reason for Location: </b><i>{this.props.reason}</i></p>
+      <p><b>Substrate Type: </b><i>{this.props.st}</i></p>
+      <p><b>GPS Coordinates (Starting Point): </b><i>{this.props.lat}</i>, <i>{this.props.lon}</i></p>
+      <p><b>Slope: </b><i>{this.props.slope}</i></p>
+      <p><b>Nearest River Output ~ Name: </b><i>{this.props.nroName}</i> <b>Distance: </b>
+      <i>{this.props.nroDist}m</i>&nbsp;<b>Direction of Flow: </b><i>{this.props.nroFlow}</i>&nbsp; 
+      <b>Direction to Output: </b><i>{this.props.nroOut}</i></p>
+      <p><b>Aspect: </b><i>{this.props.aspect}</i></p>
+      <p><b>Weather: </b><i>{this.props.weather}</i></p>
+      <p><b>Last Tide and Height: </b><i>{this.props.lastTide}</i> <b>Next Tide and Height: </b><i>{this.props.nextTide}</i></p>
+      <p><b>Wind Direction: </b><i>{this.props.windDir}</i></p>
+      <p><b>Major Usage: </b><i>{this.props.majorUse}</i></p>
 
 
       {/* <span id='HEY' dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
