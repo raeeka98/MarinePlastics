@@ -30,23 +30,10 @@ class SurveyForm extends Component {
     }
 
     this.handleValChange = this.handleValChange.bind(this);
-    // this.onCommentSubmit = this.onCommentSubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleValChange(e) { this.setState({ [e.target.id]: e.target.value }); }
-
-  onCommentSubmit(comment) {
-    let comments = this.state.data;
-    comment.id = Date.now();
-    let newComments = comments.concat([comment]);
-    this.setState({ data: newComments });
-    axios.post(this.props.url, comment)
-      .catch(err => {
-        console.error(err);
-        this.setState({ data: comments });
-      });
-  }
 
   handleSubmit(e) {
     e.preventDefault();

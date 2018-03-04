@@ -3,7 +3,6 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
 import SurveyBox from './Survey/SurveyBox';
-import Survey from './Survey/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -35,10 +34,6 @@ class App extends Component {
                           pollInterval={2000}
                         />
                 }
-              />
-              <Route
-                path='/survey'
-                component={Survey}
               />
               <Route
                 path='/profile'
