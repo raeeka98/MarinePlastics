@@ -232,7 +232,7 @@ class Survey extends Component {
           value={ this.state.contactInfo }
           onChange={ this.handleContactInfoChange } />
           <input
-          type='text'
+          type='date'
           placeholder='Update Date'
           style={ style.commentFormText }
           value={ this.state.date }
@@ -280,8 +280,7 @@ class Survey extends Component {
           value={ this.state.nroName }
           onChange={ this.handleNroNameChange } />
           <input
-          type='text'
-          pattern='[0-9]'
+          type='number'
           placeholder='Update Dist of Nearest River Output'
           style={ style.commentFormText }
           value={ this.state.nroDist }
