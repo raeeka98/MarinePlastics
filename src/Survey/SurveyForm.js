@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import style from '../style';
+// import style from '../style';
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -85,39 +85,39 @@ class SurveyForm extends Component {
 }
 render() {
   return (
-    <form style={ style.commentForm } onSubmit={ this.handleSubmit }>
+    <form onSubmit={ this.handleSubmit }>
       <h2>Team Info</h2>
       <label>Trip Leader</label>
       <input
         type='text'
         placeholder='Trip Leader'
         id='leader'
-        style={ style.commentFormText }
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
       <label>Surveyor Name(s)</label>
       <input
         type='text'
         placeholder='Surveyor Name(s)'
         id='surveyorNames'
-        style={ style.commentFormText }
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
       <label>Contact Information</label>
       <input
         type='text'
         placeholder='Contact Information'
         id='contactInfo'
-        style={ style.commentFormText}
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
       <label>Date</label>
       <input
         type='text'
         placeholder='Date'
         id='date'
-        style={ style.commentFormText}
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
 
       <h2>Survey Area</h2>
@@ -126,128 +126,128 @@ render() {
         type='text'
         placeholder='Name of Beach'
         id='beach'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Reason for Location Choice</label>
       <input
         type='text'
         placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
         id='reason'
-        style={ style.commentFormText}
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
       <label>Substrate Type</label>
       <input
         type='text'
         placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
         id='st'
-        style={ style.commentFormText}
-        onChange={ this.handleValChange } 
+        onChange={ this.handleValChange }
+        className='uk-input uk-margin' 
       />
       <label>GPS Coordinates (Starting Point)</label>
       <input
         type='text'
         placeholder='Latitude'
         id='lat'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='text'
         placeholder='Longitude'
         id='lon'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Slope</label>
       <input
         type='text'
         placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
         id='slope'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Nearest River Output</label>
       <input
         type='text'
         placeholder='Name'
         id='nroName'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='text'
         placeholder='Distance (m)'
         id='nroDist'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='text'
         placeholder='Direction of Flow'
         id='nroFlow'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='text'
         placeholder='Direction to Output'
         id='nroOut'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Aspect</label>
       <input
         type='text'
         placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
         id='aspect'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Weather</label>
       <input
         type='text'
         placeholder='Weather (ex. Rainy, Sunny, etc.)'
         id='weather'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Tide Information</label>
       <input
         type='text'
         placeholder='Last Tide / Height'
         id='lastTide'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='text'
         placeholder='Next Tide / Height'
         id='nextTide'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Wind Direction</label>
       <input
         type='text'
         placeholder='Wind Speed/Direction'
         id='windDir'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <label>Major Usage</label>
       <input
         type='text'
         placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
         id='majorUse'
-        style={ style.commentFormText}
         onChange={ this.handleValChange }
+        className='uk-input uk-margin'
       />
       <input
         type='submit'
-        style={ style.commentFormPost }
-        value='Post'
+        value='Submit'
+        className='uk-button uk-button-primary'
       />
     </form>
     )
