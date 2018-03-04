@@ -180,13 +180,13 @@ render() {
     onChange={ this.handleSTChange } />
     <br /><br />
     GPS Coordinates (Starting Point)<br /><input
-    type='text'
+    type='number'
     placeholder='Latitude'
     style={ style.commentFormText}
     value={ this.state.lat }
     onChange={ this.handleLatChange } />&nbsp;
     <input
-    type='text'
+    type='number'
     placeholder='Longitude'
     style={ style.commentFormText}
     value={ this.state.lon }
@@ -208,6 +208,7 @@ render() {
     onChange={ this.handleNroNameChange } />&nbsp;
     <input
     type='text'
+    pattern="[0-9]"
     placeholder='Distance (m)'
     style={ style.commentFormText}
     value={ this.state.nroDist }

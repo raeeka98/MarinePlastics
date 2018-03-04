@@ -256,13 +256,13 @@ class Survey extends Component {
           value={ this.state.st }
           onChange={ this.handleSTChange } />
           <input
-          type='text'
+          type='number'
           placeholder='Update Latitude'
           style={ style.commentFormText }
           value={ this.state.lat }
           onChange={ this.handleLatChange } />
           <input
-          type='text'
+          type='number'
           placeholder='Update Longitude'
           style={ style.commentFormText }
           value={ this.state.lon }
@@ -281,6 +281,7 @@ class Survey extends Component {
           onChange={ this.handleNroNameChange } />
           <input
           type='text'
+          pattern='[0-9]'
           placeholder='Update Dist of Nearest River Output'
           style={ style.commentFormText }
           value={ this.state.nroDist }
