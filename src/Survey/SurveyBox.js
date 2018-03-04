@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SurveyList from './SurveyList';
 import SurveyForm from './SurveyForm';
-import style from '../style';
+// import style from '../style';
 
 class SurveyBox extends Component {
   constructor(props) {
@@ -63,13 +63,15 @@ class SurveyBox extends Component {
   }
   render() {
     return (
-      <div style={ style.CommentBox }>
-      <h2 style={ style.title }>Entries</h2>
-      <SurveyList
-        onCommentDelete={ this.handleCommentDelete }
-        onCommentUpdate={ this.handleCommentUpdate }
-        data={ this.state.data }/>
-      <SurveyForm onCommentSubmit={ this.handleCommentSubmit }/>
+      <div>
+        <h2>Entries</h2>
+        <SurveyList
+          onCommentDelete={ this.handleCommentDelete }
+          onCommentUpdate={ this.handleCommentUpdate }
+          data={ this.state.data }/>
+        <SurveyForm
+          onCommentSubmit={ this.handleCommentSubmit }
+        />
       </div>
     )
   }
