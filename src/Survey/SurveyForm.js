@@ -5,28 +5,32 @@ import axios from 'axios';
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.location.state.initialValues || {
-      leader: '',
-      surveyorNames: '',
-      contactInfo: '',
-      date: '',
-      beach: '',
-      reason: '',
-      st: '',
-      lat: '',
-      lon: '' ,
-      slope: '',
-      nroName: '',
-      nroDist: '',
-      nroFlow: '',
-      nroOut: '',
-      aspect: '',
-      weather: '',
-      lastTide: '',
-      nextTide: '',
-      windDir: '',
-      majorUse: '',
-    };
+    if (this.props.location.state !== undefined) {
+      this.state = this.props.location.state.initialValues;
+    } else {
+      this.state = {
+        leader: '',
+        surveyorNames: '',
+        contactInfo: '',
+        date: '',
+        beach: '',
+        reason: '',
+        st: '',
+        lat: '',
+        lon: '' ,
+        slope: '',
+        nroName: '',
+        nroDist: '',
+        nroFlow: '',
+        nroOut: '',
+        aspect: '',
+        weather: '',
+        lastTide: '',
+        nextTide: '',
+        windDir: '',
+        majorUse: '',
+      }
+    }
 
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
@@ -39,7 +43,7 @@ class SurveyForm extends Component {
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    } 
+    }
   }
 
   componentWillUnmount() {
@@ -48,6 +52,7 @@ class SurveyForm extends Component {
   }
 
   handleCommentSubmit(comment) {
+    comment.leader = LocalStorage.getItem('id_token');
     comment.id = Date.now();
     axios.post(this.url, comment)
       .catch(err => { console.error(err); });
@@ -80,7 +85,7 @@ class SurveyForm extends Component {
     return (
       <form onSubmit={ this.handleSubmit }>
         <h2>Team Info</h2>
-        <label>Trip Leader</label>
+        {/* <label>Trip Leader</label>
         <input
           type='text'
           placeholder='Trip Leader'
@@ -97,7 +102,7 @@ class SurveyForm extends Component {
           value={ this.state.surveyorNames }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
-        />
+        /> */}
         <label>Contact Information</label>
         <input
           type='text'
