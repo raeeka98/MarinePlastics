@@ -1,18 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import marked from 'marked';
+import axios from 'axios';
 
 class Survey extends Component {
   constructor(props) {
     super(props);
-    this.state = { toBeUpdated: false, };
+    this.state = {
+      toBeUpdated: false,
+      comment: this.props.location.state.comment || {},
+    };
+    this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.state.comment);
+  }
+
+  handleCommentDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+      .then(res => {
+        console.log('Comment deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+
   deleteComment(e) {
     e.preventDefault();
-    let id = this.props.uniqueID;
-    this.props.onCommentDelete(id);
+    // let id = this.props.uniqueID;
+    this.onCommentDelete(id);
     console.log('deleted');
   }
   
@@ -26,79 +46,79 @@ class Survey extends Component {
         <h3>Team Information</h3>
         <p>
           <b>Team Leader: </b>
-          <i>{this.props.comment.leader}</i>
+          <i>{this.state.comment.leader}</i>
         </p>
         <p>
           <b>Surveyor Names: </b>
-          <i>{this.props.comment.surveyorNames}</i>
+          <i>{this.state.comment.surveyorNames}</i>
         </p>
         <p>
           <b>Contact Information: </b>
-          <i>{this.props.comment.contactInfo}</i>
+          <i>{this.state.comment.contactInfo}</i>
         </p>
         <p>
           <b>Date: </b>
-          <i>{this.props.comment.date}</i>
+          <i>{this.state.comment.date}</i>
         </p>
 
         <h3>Survey Area</h3>
         <p>
           <b>Name of Beach: </b>
-          <i>{this.props.comment.beach}</i>
+          <i>{this.state.comment.beach}</i>
         </p>
         <p>
           <b>Reason for Location: </b>
-          <i>{this.props.comment.reason}</i>
+          <i>{this.state.comment.reason}</i>
         </p>
         <p>
           <b>Substrate Type: </b>
-          <i>{this.props.comment.st}</i>
+          <i>{this.state.comment.st}</i>
         </p>
         <p>
           <b>GPS Coordinates (Starting Point): </b>
-          <i>{this.props.comment.lat}</i>, <i>{this.props.comment.lon}</i>
+          <i>{this.state.comment.lat}</i>, <i>{this.state.comment.lon}</i>
         </p>
         <p>
           <b>Slope: </b>
-          <i>{this.props.comment.slope}</i>
+          <i>{this.state.comment.slope}</i>
         </p>
         <p>
           <b>Nearest River Output ~ Name: </b>
-          <i>{this.props.comment.nroName}</i>
+          <i>{this.state.comment.nroName}</i>
           <b> Distance: </b>
-          <i>{this.props.comment.nroDist}m</i>
+          <i>{this.state.comment.nroDist}m</i>
           <b>Direction of Flow: </b>
-          <i>{this.props.comment.nroFlow}</i>
+          <i>{this.state.comment.nroFlow}</i>
           <b>Direction to Output: </b>
-          <i>{this.props.comment.nroOut}</i>
+          <i>{this.state.comment.nroOut}</i>
         </p>
         <p>
           <b>Aspect: </b>
-          <i>{this.props.comment.aspect}</i>
+          <i>{this.state.comment.aspect}</i>
         </p>
         <p>
           <b>Weather: </b>
-          <i>{this.props.comment.weather}</i>
+          <i>{this.state.comment.weather}</i>
         </p>
         <p>
           <b>Last Tide and Height: </b>
-          <i>{this.props.comment.lastTide}</i>
+          <i>{this.state.comment.lastTide}</i>
           <b> Next Tide and Height: </b>
-          <i>{this.props.comment.nextTide}</i>
+          <i>{this.state.comment.nextTide}</i>
         </p>
         <p>
           <b>Wind Direction: </b>
-          <i>{this.props.comment.windDir}</i>
+          <i>{this.state.comment.windDir}</i>
         </p>
         <p>
           <b>Major Usage: </b>
-          <i>{this.props.comment.majorUse}</i>
+          <i>{this.state.comment.majorUse}</i>
         </p>
 
         {/* <span dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
         <Link to={{
           pathname: '/survey',
-          state: { initialValues: this.props.comment }
+          state: { initialValues: this.state.comment }
         }}>
           update
         </Link>

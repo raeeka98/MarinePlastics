@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import Survey from './Survey';
 
@@ -8,7 +9,6 @@ class SurveyList extends Component {
     super(props);
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
-    this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.pollInterval = null;
   }
 
@@ -17,16 +17,6 @@ class SurveyList extends Component {
       .then(res => {
         this.setState({ data: res.data });
       })
-  }
-
-  handleCommentDelete(id) {
-    axios.delete(`${this.props.url}/${id}`)
-      .then(res => {
-        console.log('Comment deleted');
-      })
-      .catch(err => {
-        console.error(err);
-      });
   }
 
   componentDidMount() {
@@ -47,20 +37,29 @@ class SurveyList extends Component {
 
   render() {
     let surveyNodes = this.state.data.map(comment => {
+      console.log(comment);
       return (
-        <Survey
-          comment={ comment }
-          onCommentDelete={ this.onCommentDelete }
-          key={ comment._id }>
-        </Survey>
-        )
-      });
-      return (
-      <div>
-        { surveyNodes }
-      </div>
+        <li key={comment._id}>
+          <Link to={{
+            pathname: `/entry/${comment._id}`,
+            state: { comment: comment  }
+          }}>
+            {comment.date}: {comment.beach}
+          </Link>
+        </li>
       );
-    }
+    });
+    return (
+      <ul>
+        { surveyNodes }
+      </ul>
+    );
   }
+}
 
   export default SurveyList;
+
+  //         <Survey
+//   comment={ comment }
+//   key={ comment._id }>
+// </Survey>
