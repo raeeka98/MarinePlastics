@@ -2,27 +2,25 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import Survey from './Survey';
-
 class SurveyList extends Component {
   constructor(props) {
     super(props);
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.pollInterval = null;
+    this.url = 'http://localhost:3001/api/comments';
   }
 
   loadCommentsFromServer() {
-    axios.get(this.props.url)
+    axios.get(this.url)
       .then(res => {
         this.setState({ data: res.data });
       })
   }
 
   componentDidMount() {
-    this.loadCommentsFromServer();
     if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     } 
   }
 
@@ -37,7 +35,6 @@ class SurveyList extends Component {
 
   render() {
     let surveyNodes = this.state.data.map(comment => {
-      console.log(comment);
       return (
         <li key={comment._id}>
           <Link to={{
@@ -58,8 +55,3 @@ class SurveyList extends Component {
 }
 
   export default SurveyList;
-
-  //         <Survey
-//   comment={ comment }
-//   key={ comment._id }>
-// </Survey>

@@ -30,21 +30,11 @@ class App extends Component {
             <div className="uk-grid">
               <Route 
                 exact path='/' 
-                component={ 
-                  () => <SurveyList
-                          url='http://localhost:3001/api/comments'
-                          pollInterval={2000}
-                        />
-                }
+                component={ SurveyList }
               />
               <Route 
-                exact path='/survey' 
-                component={ 
-                  () => <SurveyForm 
-                          url='http://localhost:3001/api/comments'
-                          pollInterval={2000}
-                        />
-                }
+                path='/survey' 
+                component={ SurveyForm }
               />
               <Route
                 path='/entry/:entryKey'

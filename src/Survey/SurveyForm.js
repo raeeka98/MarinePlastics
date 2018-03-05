@@ -5,7 +5,7 @@ import axios from 'axios';
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = props.initialValues || {
+    this.state =  {
       leader: '',
       surveyorNames: '',
       contactInfo: '',
@@ -33,11 +33,13 @@ class SurveyForm extends Component {
     this.handleValChange = this.handleValChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.pollInterval = null;
+    this.url = 'http://localhost:3001/api/comments';
   }
 
   componentDidMount() {
+    console.log(this.props);
     if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     } 
   }
 
@@ -48,13 +50,13 @@ class SurveyForm extends Component {
 
   handleCommentSubmit(comment) {
     comment.id = Date.now();
-    axios.post(this.props.url, comment)
+    axios.post(this.url, comment)
       .catch(err => { console.error(err); });
   }
 
   handleCommentUpdate(id, comment) {
     //sends the comment id and new beach/reason to our api
-    axios.put(`${this.props.url}/${id}`, comment)
+    axios.put(`${this.url}/${id}`, comment)
       .catch(err => {
         console.log(err);
       })
@@ -79,7 +81,6 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Trip Leader'
           id='leader'
-          name='leader'
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
