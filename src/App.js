@@ -44,7 +44,7 @@ class App extends Component {
                 path='/profile'
                 render={() => (
                   !this.auth.isAuthenticated()
-                  ? <Redirect to="/" />
+                  ? <Redirect to='/' />
                   : <UserProfile auth={this.auth} />
                 )}
               />
