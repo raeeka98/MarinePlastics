@@ -10,7 +10,6 @@ class SurveyList extends Component {
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
-    this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
     this.pollInterval = null;
   }
 
@@ -18,14 +17,6 @@ class SurveyList extends Component {
     axios.get(this.props.url)
       .then(res => {
         this.setState({ data: res.data });
-      })
-  }
-
-  handleCommentUpdate(id, comment) {
-    //sends the comment id and new beach/reason to our api
-    axios.put(`${this.props.url}/${id}`, comment)
-      .catch(err => {
-        console.log(err);
       })
   }
 
@@ -61,7 +52,6 @@ class SurveyList extends Component {
         <Survey
           comment={ comment }
           onCommentDelete={ this.onCommentDelete }
-          onCommentUpdate={ this.onCommentUpdate }
           key={ comment._id }>
         </Survey>
         )
