@@ -12,11 +12,12 @@ const Header = (props) => (
               </h1>
             </Link>
           </li>
+          { props.auth.isAuthenticated()
+            ? <li><Link to='/survey'>Survey</Link></li>
+            : null
+          }
           <li>
             {/* <Link to="/landing">Landing</Link> */}
-          </li>
-          <li>
-            {/* <Link to="/test">Test Page</Link> */}
           </li>
           {/* <li><Link to="/protocol">Protocol</Link></li> */}
         </ul>

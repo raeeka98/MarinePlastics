@@ -1,47 +1,57 @@
 import React, { Component } from 'react';
-import Survey from './Survey';
-import style from '../style';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class SurveyList extends Component {
-  render() {
-    let surveyNodes = this.props.data.map(comment => {
-      return (
-
-        <Survey
-          leader={comment.leader}
-          surveyorNames={comment.surveyorNames}
-          contactInfo={comment.contactInfo}
-          date={comment.date}
-          reason={comment.reason}
-          beach={comment.beach}
-          st={comment.st}
-          lat={comment.lat}
-          lon={comment.lon}
-          slope={comment.slope}
-          nroName={comment.nroName}
-          nroDist={comment.nroDist}
-          nroFlow={comment.nroFlow}
-          nroOut={comment.nroOut}
-          aspect={comment.aspect}
-          weather={comment.weather}
-          lastTide={comment.lastTide}
-          nextTide={comment.nextTide}
-          windDir={comment.windDir}
-          majorUse={comment.majorUse}
-          uniqueID={ comment['_id'] }
-          onCommentDelete={ this.props.onCommentDelete }
-          onCommentUpdate={ this.props.onCommentUpdate }
-          key={ comment._id }>
-        </Survey>
-
-        )
-      })
-      return (
-      <div style={ style.commentList }>
-      { surveyNodes }
-      </div>
-      )
-    }
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.pollInterval = null;
+    this.url = 'http://localhost:3001/api/comments';
   }
+
+  loadCommentsFromServer() {
+    axios.get(this.url)
+      .then(res => {
+        this.setState({ data: res.data });
+      })
+  }
+
+  componentDidMount() {
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
+    } 
+  }
+
+  //when incorporating into another project
+  //(with react-router for instance),
+  //this will prevent error messages every 2 seconds
+  //once the SurveyBox is unmounted
+  componentWillUnmount() {
+    this.pollInterval && clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
+
+  render() {
+    let surveyNodes = this.state.data.map(comment => {
+      return (
+        <li key={comment._id}>
+          <Link to={{
+            pathname: `/entry/${comment._id}`,
+            state: { comment: comment  }
+          }}>
+            {comment.date}: {comment.beach}
+          </Link>
+        </li>
+      );
+    });
+    return (
+      <ul>
+        { surveyNodes }
+      </ul>
+    );
+  }
+}
 
   export default SurveyList;

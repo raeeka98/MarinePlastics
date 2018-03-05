@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
-import SurveyBox from './Survey/SurveyBox';
+import SurveyList from './Survey/SurveyList';
+import SurveyEntry from './Survey/Survey';
+import SurveyForm from './Survey/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -28,18 +30,21 @@ class App extends Component {
             <div className="uk-grid">
               <Route 
                 exact path='/' 
-                component={ 
-                  () => <SurveyBox 
-                          url='http://localhost:3001/api/comments'
-                          pollInterval={2000}
-                        />
-                }
+                component={ SurveyList }
+              />
+              <Route 
+                path='/survey' 
+                component={ SurveyForm }
+              />
+              <Route
+                path='/entry/:entryKey'
+                component={ SurveyEntry }
               />
               <Route
                 path='/profile'
                 render={() => (
                   !this.auth.isAuthenticated()
-                  ? <Redirect to="/" />
+                  ? <Redirect to='/' />
                   : <UserProfile auth={this.auth} />
                 )}
               />
