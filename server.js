@@ -54,6 +54,7 @@ router.route('/comments')
   .post(function(req, res) {
     var comment = new Comment();
     (req.body.user_id) ? comment.user_id = req.body.user_id : null;
+    (req.body.org) ? comment.org = req.body.org : null;
     (req.body.leader) ? comment.leader = req.body.leader : null;
     (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
     (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
@@ -93,6 +94,7 @@ router.route('/comments/:comment_id')
       // we will not alter the field.
       (req.body.user_id) ? comment.user_id = req.body.user_id : null;
       (req.body.leader) ? comment.leader = req.body.leader : null;
+      (req.body.org) ? comment.org = req.body.org : null;
       (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
       (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
       (req.body.date) ? comment.date = req.body.date : null;

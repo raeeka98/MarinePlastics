@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
 //the shape of your database entries.
 var CommentsSchema = new Schema({
 	user_id: String,
+	org: String,
 	date: String,
 	beach: String,
 	reason: String,

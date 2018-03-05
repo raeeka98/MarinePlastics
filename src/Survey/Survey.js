@@ -41,11 +41,14 @@ class Survey extends Component {
 
   deleteComment(e) {
     e.preventDefault();
-    let id = this.state.comment._id;
-    this.handleCommentDelete(id);
-    console.log('deleted');
-    this.setState({ toRedirect: true  });
-    // window.location.replace()
+    if (this.auth.getAccessToken() === this.state.comment.user_id) {
+      let id = this.state.comment._id;
+      this.handleCommentDelete(id);
+      console.log('deleted');
+      this.setState({ toRedirect: true  });
+    } else {
+      window.alert('Can only delete your own entries.');
+    }
   }
   
   rawMarkup() {
@@ -62,6 +65,10 @@ class Survey extends Component {
           <p>
             <b>Team Leader: </b>
             <i>{this.state.formOwner.name}</i>
+          </p>
+          <p>
+            <b>Organization: </b>
+            <i>{this.state.comment.org}</i>
           </p>
           <p>
             <b>Surveyor Names: </b>

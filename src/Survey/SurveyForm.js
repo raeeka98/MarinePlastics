@@ -29,6 +29,7 @@ class SurveyForm extends Component {
         nextTide: '',
         windDir: '',
         majorUse: '',
+        org: '',
       }
     }
 
@@ -89,34 +90,16 @@ class SurveyForm extends Component {
   render() {
     return (
       <form onSubmit={ this.handleSubmit }>
-        <h2>Team Info</h2>
-        {/* <label>Trip Leader</label>
+        <h2>Clean Up Info</h2>
+        <label>Organization</label>
         <input
-          type='text'
-          placeholder='Trip Leader'
-          id='leader'
-          value={ this.state.leader }
+          type='string'
+          placeholder='Organization'
+          id='org'
+          value={ this.state.org }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
-        <label>Surveyor Name(s)</label>
-        <input
-          type='text'
-          placeholder='Surveyor Name(s)'
-          id='surveyorNames'
-          value={ this.state.surveyorNames }
-          onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
-        /> */}
-        {/* <label>Contact Information</label>
-        <input
-          type='text'
-          placeholder='Contact Information'
-          id='contactInfo'
-          value={ this.state.contactInfo }
-          onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
-        /> */}
         <label>Date</label>
         <input
           type='date'
