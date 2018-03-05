@@ -5,7 +5,7 @@ import axios from 'axios';
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = this.props.location.state.initialValues || {
       leader: '',
       surveyorNames: '',
       contactInfo: '',
@@ -37,7 +37,6 @@ class SurveyForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     } 
@@ -68,7 +67,12 @@ class SurveyForm extends Component {
   // either handleCommentSubmit or handleCommentUpdate
   handleSubmit(e) {
     e.preventDefault();
-    this.handleCommentSubmit(this.state);
+    if (this.props.location.state.initialValues) {
+      this.handleCommentUpdate(this.props.location.state.initialValues._id, this.state);
+    } else {
+      this.handleCommentSubmit(this.state);
+    }
+    // need to replace
     location.reload();
   }
 
@@ -81,6 +85,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Trip Leader'
           id='leader'
+          value={ this.state.leader }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -89,6 +94,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Surveyor Name(s)'
           id='surveyorNames'
+          value={ this.state.surveyorNames }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -97,6 +103,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Contact Information'
           id='contactInfo'
+          value={ this.state.contactInfo }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -105,6 +112,7 @@ class SurveyForm extends Component {
           type='date'
           placeholder='Date'
           id='date'
+          value={ this.state.date }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -115,6 +123,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Name of Beach'
           id='beach'
+          value={ this.state.beach }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -123,6 +132,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
           id='reason'
+          value={ this.state.reason }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -131,6 +141,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
           id='st'
+          value={ this.state.st }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         />
@@ -139,6 +150,7 @@ class SurveyForm extends Component {
           type='number'
           placeholder='Latitude'
           id='lat'
+          value={ this.state.lat }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -146,6 +158,7 @@ class SurveyForm extends Component {
           type='number'
           placeholder='Longitude'
           id='lon'
+          value={ this.state.lon }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -154,6 +167,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
           id='slope'
+          value={ this.state.slope }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -162,6 +176,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Name'
           id='nroName'
+          value={ this.state.nroName }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -169,6 +184,7 @@ class SurveyForm extends Component {
           type='number'
           placeholder='Distance (m)'
           id='nroDist'
+          value={ this.state.nroDist }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -176,6 +192,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Direction of Flow'
           id='nroFlow'
+          value={ this.state.nroFlow }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -183,6 +200,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Direction to Output'
           id='nroOut'
+          value={ this.state.nroOut }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -191,6 +209,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
           id='aspect'
+          value={ this.state.aspect }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -199,6 +218,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Weather (ex. Rainy, Sunny, etc.)'
           id='weather'
+          value={ this.state.weather }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -207,6 +227,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Last Tide / Height'
           id='lastTide'
+          value={ this.state.lastTide }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -214,6 +235,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Next Tide / Height'
           id='nextTide'
+          value={ this.state.nextTide }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -222,6 +244,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='Wind Speed/Direction'
           id='windDir'
+          value={ this.state.windDir }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />
@@ -230,6 +253,7 @@ class SurveyForm extends Component {
           type='text'
           placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
           id='majorUse'
+          value={ this.state.majorUse }
           onChange={ this.handleValChange }
           className='uk-input uk-margin'
         />

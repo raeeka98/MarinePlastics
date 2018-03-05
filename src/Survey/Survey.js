@@ -15,10 +15,6 @@ class Survey extends Component {
     this.url = 'http://localhost:3001/api/comments';
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   handleCommentDelete(id) {
     axios.delete(`${this.url}/${id}`)
       .then(res => {
