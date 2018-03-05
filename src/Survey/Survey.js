@@ -188,24 +188,24 @@ class Survey extends Component {
     return (
       <div style={ style.comment }>
       <h3>Team Information</h3>
-      <p><b>Team Leader: </b><i>{this.props.leader}</i></p>
-      <p><b>Surveyor Names: </b><i>{this.props.surveyorNames}</i></p>
-      <p><b>Contact Information: </b><i>{this.props.contactInfo}</i></p>
-      <p><b>Date: </b><i>{this.props.date}</i></p>
+      <p><b>Team Leader: </b><i>{this.props.comment.leader}</i></p>
+      <p><b>Surveyor Names: </b><i>{this.props.comment.surveyorNames}</i></p>
+      <p><b>Contact Information: </b><i>{this.props.comment.contactInfo}</i></p>
+      <p><b>Date: </b><i>{this.props.comment.date}</i></p>
       <h3>Survey Area</h3>
-      <p><b>Name of Beach: </b><i>{this.props.beach}</i></p>
-      <p><b>Reason for Location: </b><i>{this.props.reason}</i></p>
-      <p><b>Substrate Type: </b><i>{this.props.st}</i></p>
-      <p><b>GPS Coordinates (Starting Point): </b><i>{this.props.lat}</i>, <i>{this.props.lon}</i></p>
-      <p><b>Slope: </b><i>{this.props.slope}</i></p>
-      <p><b>Nearest River Output ~ Name: </b><i>{this.props.nroName}</i> <b>Distance: </b>
-      <i>{this.props.nroDist}m</i>&nbsp;<b>Direction of Flow: </b><i>{this.props.nroFlow}</i>&nbsp; 
-      <b>Direction to Output: </b><i>{this.props.nroOut}</i></p>
-      <p><b>Aspect: </b><i>{this.props.aspect}</i></p>
-      <p><b>Weather: </b><i>{this.props.weather}</i></p>
-      <p><b>Last Tide and Height: </b><i>{this.props.lastTide}</i> <b>Next Tide and Height: </b><i>{this.props.nextTide}</i></p>
-      <p><b>Wind Direction: </b><i>{this.props.windDir}</i></p>
-      <p><b>Major Usage: </b><i>{this.props.majorUse}</i></p>
+      <p><b>Name of Beach: </b><i>{this.props.comment.beach}</i></p>
+      <p><b>Reason for Location: </b><i>{this.props.comment.reason}</i></p>
+      <p><b>Substrate Type: </b><i>{this.props.comment.st}</i></p>
+      <p><b>GPS Coordinates (Starting Point): </b><i>{this.props.comment.lat}</i>, <i>{this.props.comment.lon}</i></p>
+      <p><b>Slope: </b><i>{this.props.comment.slope}</i></p>
+      <p><b>Nearest River Output ~ Name: </b><i>{this.props.comment.nroName}</i> <b>Distance: </b>
+      <i>{this.props.comment.nroDist}m</i>&nbsp;<b>Direction of Flow: </b><i>{this.props.comment.nroFlow}</i>&nbsp; 
+      <b>Direction to Output: </b><i>{this.props.comment.nroOut}</i></p>
+      <p><b>Aspect: </b><i>{this.props.comment.aspect}</i></p>
+      <p><b>Weather: </b><i>{this.props.comment.weather}</i></p>
+      <p><b>Last Tide and Height: </b><i>{this.props.comment.lastTide}</i> <b>Next Tide and Height: </b><i>{this.props.comment.nextTide}</i></p>
+      <p><b>Wind Direction: </b><i>{this.props.comment.windDir}</i></p>
+      <p><b>Major Usage: </b><i>{this.props.comment.majorUse}</i></p>
 
 
       {/* <span id='HEY' dangerouslySetInnerHTML={ this.rawMarkup() } /> */}

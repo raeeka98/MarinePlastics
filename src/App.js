@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
-import SurveyBox from './Survey/SurveyBox';
+import SurveyList from './Survey/SurveyList';
 import SurveyForm from './Survey/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
@@ -30,7 +30,7 @@ class App extends Component {
               <Route 
                 exact path='/' 
                 component={ 
-                  () => <SurveyBox 
+                  () => <SurveyList
                           url='http://localhost:3001/api/comments'
                           pollInterval={2000}
                         />

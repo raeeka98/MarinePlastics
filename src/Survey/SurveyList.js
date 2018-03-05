@@ -1,46 +1,76 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 import Survey from './Survey';
 import style from '../style';
 
 class SurveyList extends Component {
-  render() {
-    let surveyNodes = this.props.data.map(comment => {
-      return (
+  constructor(props) {
+    super(props);
+    this.state = { data: [] };
+    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.handleCommentDelete = this.handleCommentDelete.bind(this);
+    this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
+    this.pollInterval = null;
+  }
 
+  loadCommentsFromServer() {
+    axios.get(this.props.url)
+      .then(res => {
+        this.setState({ data: res.data });
+      })
+  }
+
+  handleCommentUpdate(id, comment) {
+    //sends the comment id and new beach/reason to our api
+    axios.put(`${this.props.url}/${id}`, comment)
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  handleCommentDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+      .then(res => {
+        console.log('Comment deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  componentDidMount() {
+    this.loadCommentsFromServer();
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadCommentsFromServer, this.props.pollInterval)
+    } 
+  }
+
+  //when incorporating into another project
+  //(with react-router for instance),
+  //this will prevent error messages every 2 seconds
+  //once the SurveyBox is unmounted
+  componentWillUnmount() {
+    this.pollInterval && clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
+
+  render() {
+    let surveyNodes = this.state.data.map(comment => {
+      return (
         <Survey
-          leader={comment.leader}
-          surveyorNames={comment.surveyorNames}
-          contactInfo={comment.contactInfo}
-          date={comment.date}
-          reason={comment.reason}
-          beach={comment.beach}
-          st={comment.st}
-          lat={comment.lat}
-          lon={comment.lon}
-          slope={comment.slope}
-          nroName={comment.nroName}
-          nroDist={comment.nroDist}
-          nroFlow={comment.nroFlow}
-          nroOut={comment.nroOut}
-          aspect={comment.aspect}
-          weather={comment.weather}
-          lastTide={comment.lastTide}
-          nextTide={comment.nextTide}
-          windDir={comment.windDir}
-          majorUse={comment.majorUse}
-          uniqueID={ comment['_id'] }
-          onCommentDelete={ this.props.onCommentDelete }
-          onCommentUpdate={ this.props.onCommentUpdate }
+          comment={ comment }
+          onCommentDelete={ this.onCommentDelete }
+          onCommentUpdate={ this.onCommentUpdate }
           key={ comment._id }>
         </Survey>
-
         )
-      })
+      });
       return (
       <div style={ style.commentList }>
-      { surveyNodes }
+        { surveyNodes }
       </div>
-      )
+      );
     }
   }
 
