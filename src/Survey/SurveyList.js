@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import Survey from './Survey';
-import style from '../style';
 
 class SurveyList extends Component {
   constructor(props) {
@@ -57,7 +56,7 @@ class SurveyList extends Component {
         )
       });
       return (
-      <div style={ style.commentList }>
+      <div>
         { surveyNodes }
       </div>
       );
