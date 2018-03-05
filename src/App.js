@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
 import SurveyBox from './Survey/SurveyBox';
+import SurveyForm from './Survey/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -30,6 +31,15 @@ class App extends Component {
                 exact path='/' 
                 component={ 
                   () => <SurveyBox 
+                          url='http://localhost:3001/api/comments'
+                          pollInterval={2000}
+                        />
+                }
+              />
+              <Route 
+                exact path='/survey' 
+                component={ 
+                  () => <SurveyForm 
                           url='http://localhost:3001/api/comments'
                           pollInterval={2000}
                         />

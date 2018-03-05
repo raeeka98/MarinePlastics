@@ -69,12 +69,13 @@ class SurveyBox extends Component {
           onCommentDelete={ this.handleCommentDelete }
           onCommentUpdate={ this.handleCommentUpdate }
           data={ this.state.data }/>
-        <SurveyForm
-          onCommentSubmit={ this.handleCommentSubmit }
-        />
       </div>
     )
   }
 }
 
 export default SurveyBox;
+
+{/* <SurveyForm
+onCommentSubmit={ this.handleCommentSubmit }
+/> */}
