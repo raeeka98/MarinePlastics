@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import style from '../style';
+import Auth from '../Auth';
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -37,6 +37,7 @@ class SurveyForm extends Component {
     this.handleValChange = this.handleValChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.pollInterval = null;
+    this.auth = new Auth();
     this.url = 'http://localhost:3001/api/comments';
   }
 
@@ -52,7 +53,7 @@ class SurveyForm extends Component {
   }
 
   handleCommentSubmit(comment) {
-    comment.leader = LocalStorage.getItem('id_token');
+    comment.user_id = this.auth.getAccessToken();
     comment.id = Date.now();
     axios.post(this.url, comment)
       .catch(err => { console.error(err); });
@@ -72,13 +73,17 @@ class SurveyForm extends Component {
   // either handleCommentSubmit or handleCommentUpdate
   handleSubmit(e) {
     e.preventDefault();
-    if (this.props.location.state.initialValues) {
-      this.handleCommentUpdate(this.props.location.state.initialValues._id, this.state);
+    if (this.auth.isAuthenticated()) {
+      if (this.props.location.state !== undefined) {
+        this.handleCommentUpdate(this.props.location.state.initialValues._id, this.state);
+      } else {
+        this.handleCommentSubmit(this.state);
+      }
+      // need to replace
+      location.reload();
     } else {
-      this.handleCommentSubmit(this.state);
+      window.alert('Please sign in to enter survey data.');
     }
-    // need to replace
-    location.reload();
   }
 
   render() {
@@ -103,7 +108,7 @@ class SurveyForm extends Component {
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
         /> */}
-        <label>Contact Information</label>
+        {/* <label>Contact Information</label>
         <input
           type='text'
           placeholder='Contact Information'
@@ -111,7 +116,7 @@ class SurveyForm extends Component {
           value={ this.state.contactInfo }
           onChange={ this.handleValChange }
           className='uk-input uk-margin' 
-        />
+        /> */}
         <label>Date</label>
         <input
           type='date'

@@ -7,9 +7,7 @@ var Schema = mongoose.Schema;
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
 var CommentsSchema = new Schema({
-	leader: String,
-	surveyorNames: String,
-	contactInfo: String,
+	user_id: String,
 	date: String,
 	beach: String,
 	reason: String,

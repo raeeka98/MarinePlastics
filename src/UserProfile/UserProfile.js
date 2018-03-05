@@ -9,9 +9,9 @@ class UserProfile extends Component {
   }
 
   componentWillMount() {
-    const { userProfile, getProfile } = this.props.auth;
+    const { userProfile, getLoggedInProfile } = this.props.auth;
     if (!userProfile) {
-      getProfile((err, profile) => {
+      getLoggedInProfile((err, profile) => {
         this.setState({ profile });
       });
     } else {

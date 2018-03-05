@@ -19,6 +19,7 @@ export default class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.getLoggedInProfile = this.getLoggedInProfile.bind(this);
   }
 
   login() {
@@ -55,14 +56,18 @@ export default class Auth {
     return accessToken;
   }
 
-  getProfile(cb) {
-    let accessToken = this.getAccessToken();
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
+  getProfile(token, cb) {
+    // let accessToken = this.getAccessToken();
+    this.auth0.client.userInfo(token, (err, profile) => {
       if (profile) {
         this.userProfile = profile;
       }
       cb(err, profile);
     });
+  }
+
+  getLoggedInProfile(cb) {
+    this.getProfile(this.getAccessToken(), cb);
   }
 
   logout() {

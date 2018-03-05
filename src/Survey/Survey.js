@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import marked from 'marked';
+import Auth from '../Auth';
 import axios from 'axios';
 
 class Survey extends Component {
@@ -9,10 +10,23 @@ class Survey extends Component {
     this.state = {
       toRedirect: false,
       comment: this.props.location.state.comment || {},
+      formOwner: {},
     };
+    this.getLeader = this.getLeader.bind(this);
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
+    this.auth = new Auth();
     this.url = 'http://localhost:3001/api/comments';
+  }
+
+  componentDidMount() {
+    this.getLeader();
+  }
+
+  getLeader() {
+    this.auth.getProfile(this.state.comment.user_id, (error, profile) => {
+      this.setState({ formOwner: profile });
+    });
   }
 
   handleCommentDelete(id) {
@@ -24,7 +38,6 @@ class Survey extends Component {
         console.error(err);
       });
   }
-
 
   deleteComment(e) {
     e.preventDefault();
@@ -48,7 +61,7 @@ class Survey extends Component {
           <h3>Team Information</h3>
           <p>
             <b>Team Leader: </b>
-            <i>{this.state.comment.leader}</i>
+            <i>{this.state.formOwner.name}</i>
           </p>
           <p>
             <b>Surveyor Names: </b>
@@ -56,7 +69,7 @@ class Survey extends Component {
           </p>
           <p>
             <b>Contact Information: </b>
-            <i>{this.state.comment.contactInfo}</i>
+            <i>{this.state.formOwner.email}</i>
           </p>
           <p>
             <b>Date: </b>
