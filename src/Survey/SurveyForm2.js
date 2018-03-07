@@ -9,10 +9,6 @@ class SurveyForm extends Component {
       this.state = this.props.location.state.initialValues;
     } else {
       this.state = {
-        leader: '',
-        surveyorNames: '',
-        contactInfo: '',
-        date: '',
         beach: '',
         reason: '',
         st: '',
@@ -90,26 +86,6 @@ class SurveyForm extends Component {
   render() {
     return (
       <form onSubmit={ this.handleSubmit }>
-        <h2>Clean Up Info</h2>
-        <label>Organization</label>
-        <input
-          type='string'
-          placeholder='Organization'
-          id='org'
-          value={ this.state.org }
-          onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
-        />
-        <label>Date</label>
-        <input
-          type='date'
-          placeholder='Date'
-          id='date'
-          value={ this.state.date }
-          onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
-        />
-
         <h2>Survey Area</h2>
         <label>Name of Beach</label>
         <input

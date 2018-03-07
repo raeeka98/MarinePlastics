@@ -4,10 +4,12 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Auth from './Auth';
 import SurveyList from './Survey/SurveyList';
 import SurveyEntry from './Survey/Survey';
-import SurveyForm from './Survey/SurveyForm';
+import SurveyForm1 from './Survey/SurveyForm1';
+import SurveyForm2 from './Survey/SurveyForm2';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+import Steps from './Survey/Steps';
 
 class App extends Component {
   constructor() {
@@ -34,11 +36,11 @@ class App extends Component {
               />
               <Route 
                 path='/survey' 
-                component={ SurveyForm }
+                component={ SurveyForm1 }
               />
               <Route
                 path='/entry/:entryKey'
-                component={ SurveyEntry }
+                component={ Steps }
               />
               <Route
                 path='/profile'
