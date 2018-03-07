@@ -28,5 +28,8 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
+  },
+  "node": {
+    "fs": "empty"
   }
 }

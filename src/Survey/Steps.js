@@ -2,21 +2,24 @@
 import React, { Component } from 'react';
 import SurveyForm1 from './SurveyForm1';
 import SurveyForm2 from './SurveyForm2';
+import StepZilla from '../../model/comments.js';
 
 class Steps extends Component {
 render() {
    const steps =
    [
-     {name:'Team Info', component: <SurveyForm1/>},
-     {name: 'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
+     {name:'Step1', component: <SurveyForm1/>},
+     {name: 'Step2', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
    ]
    return(
-     <div className'step-progress'>
-     <StepZilla
-      onStepChange = {(step) => console.log(step)}
-      steps = {steps}
-      showSteps = {true}
-      showNavigation={true}/>
+     <div className='Steps'>
+       <div className='step-progress'>
+       <StepZilla
+        onStepChange = {(step) => console.log(step)}
+        steps = {steps}
+        showSteps = {true}
+        showNavigation={true}/>
+        </div>
       </div>
 
    )
