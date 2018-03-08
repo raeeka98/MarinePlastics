@@ -10,6 +10,8 @@ import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Steps from './Survey/Steps.js';
+import Map from './Map/Map.js';
+
 
 
 class App extends Component {
@@ -27,19 +29,21 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div className="uk-container uk-container-center">
-            <Header 
+            <Header
               auth={this.auth}
             />
             <div className="uk-grid">
-              <Route 
-                exact path='/' 
+              <Route
+                exact path='/'
                 component={ SurveyList }
               />
-              <Route 
-                path='/survey' 
+              <Route
+                path='/survey'
                 component={Steps}
-            
-                
+              />
+              <Route
+                path='/map'
+                component={Map}
               />
               <Route
                 path='/entry/:entryKey'
@@ -54,7 +58,7 @@ class App extends Component {
                 )}
               />
             </div>
-        
+
             <Footer />
           </div>
         </BrowserRouter>
