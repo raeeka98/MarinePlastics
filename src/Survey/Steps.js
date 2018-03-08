@@ -3,14 +3,16 @@ import SurveyForm1 from './SurveyForm1';
 import SurveyForm2 from './SurveyForm2';
 import StepZilla from 'react-stepzilla'
 
-
+import Style from './Style.css';
+// Validation for the survey form
+// submitting on the next step 
 
 class Steps extends Component {
 render() {
   const steps =
   [
-    {name:'Step1', component: <SurveyForm1 />},
-    {name: 'Step2', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
+    {name:'Clean Up Information', component: <SurveyForm1 />},
+    {name: 'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
   ]
    return(
        <div className='step-progress'>

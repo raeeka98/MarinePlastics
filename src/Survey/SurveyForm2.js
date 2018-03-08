@@ -4,6 +4,9 @@ import axios from 'axios';
 class SurveyForm2 extends Component {
   constructor(props) {
     super(props);
+    // if (this.props.location.state !== undefined) {
+    //   this.state = this.props.location.state.initialValues;
+    // } else {
     this.state = {
       beach: '',
       reason: '',
@@ -22,6 +25,7 @@ class SurveyForm2 extends Component {
       windDir: '',
       majorUse: ''
     }
+  // }
 
     this.handleValChange = this.handleValChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

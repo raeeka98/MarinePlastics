@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Auth from '../Auth';
-import Steps from './Steps.js';
 import SurveyForm2 from './SurveyForm2';
-import StepZilla from 'react-stepzilla'
 
 class SurveyForm1 extends Component {
   constructor(props) {
@@ -16,8 +14,8 @@ class SurveyForm1 extends Component {
         surveyorNames: '',
         contactInfo: '',
         date: '',
-    //   }
-     }
+      }
+     // }
 
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
