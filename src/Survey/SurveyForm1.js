@@ -8,16 +8,16 @@ import StepZilla from 'react-stepzilla'
 class SurveyForm1 extends Component {
   constructor(props) {
     super(props);
-    if (this.props.location.state !== undefined) {
-      this.state = this.props.location.state.initialValues;
-    } else {
-      this.state = {
+    // if (this.props.location.state !== undefined) {
+    //   this.state = this.props.location.state.initialValues;
+    // } else {
+       this.state = {
         leader: '',
         surveyorNames: '',
         contactInfo: '',
         date: '',
-      }
-    }
+    //   }
+     }
 
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
@@ -74,20 +74,9 @@ class SurveyForm1 extends Component {
   }
 
   render() {
-    const steps = 
-      [
-        // {name:'Team Info', component: <SurveyForm1/> },
-        {name:'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
-      ]
     return (
       <div>
-      <div className='step-progress'>
-        <StepZilla 
-          onStepChange={ (step) => console.log(step) }
-          steps={steps}
-          showSteps={true}
-          showNavigation={true} />
-      </div>
+
       <form onSubmit={ this.handleSubmit }>
         <h2>Clean Up Info</h2>
         <label>Organization</label>

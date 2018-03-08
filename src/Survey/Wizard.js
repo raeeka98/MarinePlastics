@@ -77,7 +77,7 @@ class Wizard extends Component {
   render() {
     const steps = 
       [
-        {name:'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
+        {name:'Survey Area', component: <SurveyForm1 onCommentSubmit={ this.handleCommentSubmit }/> },
         {name:'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
       ]
     return (

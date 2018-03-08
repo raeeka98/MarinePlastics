@@ -10,7 +10,6 @@ import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Steps from './Survey/Steps.js';
-import Wizard from './Survey/Wizard.js';
 
 
 class App extends Component {
@@ -38,7 +37,7 @@ class App extends Component {
               />
               <Route 
                 path='/survey' 
-                component={Wizard}
+                component={Steps}
             
                 
               />
