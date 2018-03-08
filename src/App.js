@@ -9,7 +9,7 @@ import SurveyForm2 from './Survey/SurveyForm2';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import Steps from './Survey/Steps';
+import Steps from './Survey/Steps.js';
 
 class App extends Component {
   constructor() {
@@ -36,11 +36,13 @@ class App extends Component {
               />
               <Route 
                 path='/survey' 
-                component={ SurveyForm1 }
+                component={SurveyForm1}
+            
+                
               />
               <Route
                 path='/entry/:entryKey'
-                component={ Steps }
+                component={ SurveyEntry }
               />
               <Route
                 path='/profile'
@@ -51,6 +53,7 @@ class App extends Component {
                 )}
               />
             </div>
+        
             <Footer />
           </div>
         </BrowserRouter>

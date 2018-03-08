@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Auth from '../Auth';
+import Steps from './Steps.js';
+import SurveyForm2 from './SurveyForm2';
+import StepZilla from 'react-stepzilla'
 
 class SurveyForm1 extends Component {
   constructor(props) {
@@ -71,7 +74,20 @@ class SurveyForm1 extends Component {
   }
 
   render() {
+    const steps = 
+      [
+        // {name:'Team Info', component: <SurveyForm1/> },
+        {name:'Survey Area', component: <SurveyForm2 onCommentSubmit={ this.handleCommentSubmit }/> },
+      ]
     return (
+      <div>
+      <div className='step-progress'>
+        <StepZilla 
+          onStepChange={ (step) => console.log(step) }
+          steps={steps}
+          showSteps={true}
+          showNavigation={true} />
+      </div>
       <form onSubmit={ this.handleSubmit }>
         <h2>Clean Up Info</h2>
         <label>Organization</label>
@@ -93,6 +109,9 @@ class SurveyForm1 extends Component {
           className='uk-input uk-margin' 
         />
       </form>
+
+      </div>
+    
     );
   }
 }
