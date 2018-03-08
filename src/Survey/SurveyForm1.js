@@ -6,16 +6,16 @@ import SurveyForm2 from './SurveyForm2';
 class SurveyForm1 extends Component {
   constructor(props) {
     super(props);
-    // if (this.props.location.state !== undefined) {
-    //   this.state = this.props.location.state.initialValues;
-    // } else {
+    if (this.props.location !== undefined ) {
+      this.state = this.props.location.state.initialValues;
+    } else {
        this.state = {
         leader: '',
         surveyorNames: '',
         contactInfo: '',
         date: '',
       }
-     // }
+     }
 
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
@@ -84,7 +84,7 @@ class SurveyForm1 extends Component {
           id='org'
           value={ this.state.org }
           onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
+          className='uk-input uk-margin'
         />
         <label>Date</label>
         <input
@@ -93,12 +93,13 @@ class SurveyForm1 extends Component {
           id='date'
           value={ this.state.date }
           onChange={ this.handleValChange }
-          className='uk-input uk-margin' 
+          className='uk-input uk-margin'
+          required
         />
       </form>
 
       </div>
-    
+
     );
   }
 }

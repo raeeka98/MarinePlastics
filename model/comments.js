@@ -3,6 +3,8 @@
 //import dependency
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var StepZilla = require('react-stepzilla')
+
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.

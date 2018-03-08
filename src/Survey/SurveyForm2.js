@@ -4,9 +4,9 @@ import axios from 'axios';
 class SurveyForm2 extends Component {
   constructor(props) {
     super(props);
-    // if (this.props.location.state !== undefined) {
-    //   this.state = this.props.location.state.initialValues;
-    // } else {
+    if (this.props.location !== undefined) {
+      this.state = this.props.location.state.initialValues;
+    } else {
     this.state = {
       beach: '',
       reason: '',
@@ -25,7 +25,7 @@ class SurveyForm2 extends Component {
       windDir: '',
       majorUse: ''
     }
-  // }
+  }
 
     this.handleValChange = this.handleValChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,8 +57,8 @@ class SurveyForm2 extends Component {
       return;
   }
 
-  this.props.onCommentSubmit({ beach: beach, reason: reason, st: st, lat: lat, lon: lon, slope: slope, nroName: nroName, nroDist: nroDist, 
-    nroFlow: nroFlow, nroOut: nroOut, aspect: aspect, weather: weather, lastTide: lastTide, nextTide: nextTide, windDir: windDir, 
+  this.props.onCommentSubmit({ beach: beach, reason: reason, st: st, lat: lat, lon: lon, slope: slope, nroName: nroName, nroDist: nroDist,
+    nroFlow: nroFlow, nroOut: nroOut, aspect: aspect, weather: weather, lastTide: lastTide, nextTide: nextTide, windDir: windDir,
     majorUse: majorUse});
 
   location.reload();
@@ -82,7 +82,7 @@ render() {
         placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
         id='reason'
         onChange={ this.handleValChange }
-        className='uk-input uk-margin' 
+        className='uk-input uk-margin'
       />
       <label>Substrate Type</label>
       <input
@@ -90,7 +90,7 @@ render() {
         placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
         id='st'
         onChange={ this.handleValChange }
-        className='uk-input uk-margin' 
+        className='uk-input uk-margin'
       />
       <label>GPS Coordinates (Starting Point)</label>
       <input

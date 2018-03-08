@@ -50,7 +50,7 @@ class Survey extends Component {
       window.alert('Can only delete your own entries.');
     }
   }
-  
+
   rawMarkup() {
     let rawMarkup = marked(this.props.children.toString());
     return { __html: rawMarkup };
