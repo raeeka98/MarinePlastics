@@ -1,4 +1,4 @@
-const K_SIZE = 40;
+const K_SIZE = 30;
 
 const greatPlaceStyle = {
   width: K_SIZE,
