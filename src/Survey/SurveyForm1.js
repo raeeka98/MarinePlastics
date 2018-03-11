@@ -4,27 +4,6 @@ import Auth from '../Auth';
 import SurveyForm2 from './SurveyForm2';
 
 class SurveyForm1 extends Component {
-  constructor(props) {
-    super(props);
-    // if (this.props.location.state !== undefined) {
-    //   this.state = this.props.location.state.initialValues;
-    // } else {
-       this.state = {
-        leader: '',
-        surveyorNames: '',
-        contactInfo: '',
-        date: '',
-      }
-     // }
-
-    this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
-    this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
-    this.handleValChange = this.handleValChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.pollInterval = null;
-    this.auth = new Auth();
-    this.url = 'http://localhost:3001/api/comments';
-  }
 
   componentDidMount() {
     if (!this.pollInterval) {
@@ -42,6 +21,7 @@ class SurveyForm1 extends Component {
     comment.id = Date.now();
     axios.post(this.url, comment)
       .catch(err => { console.error(err); });
+    
   }
 
   handleCommentUpdate(id, comment) {

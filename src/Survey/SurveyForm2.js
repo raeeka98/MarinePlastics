@@ -2,34 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class SurveyForm2 extends Component {
-  constructor(props) {
-    super(props);
-    // if (this.props.location.state !== undefined) {
-    //   this.state = this.props.location.state.initialValues;
-    // } else {
-    this.state = {
-      beach: '',
-      reason: '',
-      st: '',
-      lat: '',
-      lon: '' ,
-      slope: '',
-      nroName: '',
-      nroDist: '',
-      nroFlow: '',
-      nroOut: '',
-      aspect: '',
-      weather: '',
-      lastTide: '',
-      nextTide: '',
-      windDir: '',
-      majorUse: ''
-    }
-  // }
 
-    this.handleValChange = this.handleValChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
 
   handleValChange(e) { this.setState({ [e.target.id]: e.target.value }); }
 

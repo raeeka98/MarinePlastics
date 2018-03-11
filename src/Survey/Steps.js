@@ -9,6 +9,45 @@ import Style from './Style.css';
 // submitting on the next step 
 
 class Steps extends Component {
+  constructor(props) {
+    super(props);
+    // if (this.props.location !== undefined ) {
+    //   this.state = this.props.location.state.initialValues;
+    // } else {
+       this.state = {
+        leader: '',
+        surveyorNames: '',
+        contactInfo: '',
+        date: '',
+        beach: '',
+        reason: '',
+        st: '',
+        lat: '',
+        lon: '' ,
+        slope: '',
+        nroName: '',
+        nroDist: '',
+        nroFlow: '',
+        nroOut: '',
+        aspect: '',
+        weather: '',
+        lastTide: '',
+        nextTide: '',
+        windDir: '',
+        majorUse: '',
+      // }
+     }
+     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+     this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
+     this.handleValChange = this.handleValChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+     this.handleValChange = this.handleValChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+     this.pollInterval = null;
+     this.auth = new Auth();
+     this.url = 'http://localhost:3001/api/comments';
+   }
+
 render() {
   const steps =
   [
