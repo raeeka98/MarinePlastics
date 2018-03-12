@@ -10,24 +10,24 @@ class Survey extends Component {
     this.state = {
       toRedirect: false,
       comment: this.props.location.state.comment || {},
-      formOwner: {},
+      // formOwner: {},
     };
-    this.getLeader = this.getLeader.bind(this);
+    // this.getLeader = this.getLeader.bind(this);
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
     this.auth = new Auth();
     this.url = 'http://localhost:3001/api/comments';
   }
 
-  componentDidMount() {
-    this.getLeader();
-  }
+  // componentDidMount() {
+  //   this.getLeader();
+  // }
 
-  getLeader() {
-    this.auth.getProfile(this.state.comment.user_id, (error, profile) => {
-      this.setState({ formOwner: profile });
-    });
-  }
+  // getLeader() {
+  //   this.auth.getProfile(this.state.comment.user_id, (error, profile) => {
+  //     this.setState({ formOwner: profile });
+  //   });
+  // }
 
   handleCommentDelete(id) {
     axios.delete(`${this.url}/${id}`)
@@ -64,7 +64,7 @@ class Survey extends Component {
           <h3>Team Information</h3>
           <p>
             <b>Team Leader: </b>
-            <i>{this.state.formOwner.name}</i>
+            {/* <i>{this.state.formOwner.name}</i> */}
           </p>
           <p>
             <b>Organization: </b>
@@ -76,7 +76,7 @@ class Survey extends Component {
           </p>
           <p>
             <b>Contact Information: </b>
-            <i>{this.state.formOwner.email}</i>
+            {/* <i>{this.state.formOwner.email}</i> */}
           </p>
           <p>
             <b>Date: </b>

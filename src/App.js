@@ -4,12 +4,10 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Auth from './Auth';
 import SurveyList from './Survey/SurveyList';
 import SurveyEntry from './Survey/Survey';
-import SurveyForm1 from './Survey/SurveyForm1';
-import SurveyForm2 from './Survey/SurveyForm2';
+import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import Steps from './Survey/Steps.js';
 
 
 class App extends Component {
@@ -30,7 +28,7 @@ class App extends Component {
             <Header 
               auth={this.auth}
             />
-            <div className="uk-grid">
+            <div>
               <Route 
                 exact path='/' 
                 component={ SurveyList }
@@ -38,8 +36,6 @@ class App extends Component {
               <Route 
                 path='/survey' 
                 component={Steps}
-            
-                
               />
               <Route
                 path='/entry/:entryKey'
@@ -54,7 +50,6 @@ class App extends Component {
                 )}
               />
             </div>
-        
             <Footer />
           </div>
         </BrowserRouter>
