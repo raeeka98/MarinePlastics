@@ -138,12 +138,12 @@ class Survey extends Component {
           </p>
 
           {/* <span dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
-          <Link to={{
+          {/* <Link to={{
             pathname: '/survey',
             state: { initialValues: this.state.comment },
           }}>
             update
-          </Link>
+          </Link> */}
           <button onClick={ this.deleteComment }>delete</button>
         </div>
       )

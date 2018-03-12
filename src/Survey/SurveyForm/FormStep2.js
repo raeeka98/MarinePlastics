@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
-
 class FormStep2 extends Component {
   render() {
     return (
-      <form onSubmit={ this.props.handleSubmit }>
-
+      <form>
         <h2>Survey Area</h2>
         <label>Name of Beach</label>
         <input
@@ -108,12 +106,6 @@ class FormStep2 extends Component {
           onChange={ this.props.handleInputChange }
           className='uk-input uk-margin'
         />
-        {/* <input
-          type='submit'
-          target="_top"
-          value='Submit'
-          className='uk-button uk-button-primary'
-        /> */}
       </form>
     )
   }

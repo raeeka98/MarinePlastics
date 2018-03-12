@@ -15,7 +15,7 @@ import '../Style.css';
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    // temp - need to fix this if
+    // temp - need to fix this if want to update to populate elements with original values
     // if (this.props.location !== undefined && this.props.location.state !== undefined  ) {
     //   this.state = this.props.location.state.initialValues;
     // } else {
@@ -75,15 +75,13 @@ class SurveyForm extends Component {
   }
 
   handleFormSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if (this.auth.isAuthenticated()) {
       if (this.props.location.state !== undefined) {
         this.handleServerUpdate(this.props.location.state.initialValues._id, this.state);
       } else {
         this.handleServerSubmit(this.state);
       }
-      // need to replace
-      location.reload();
     } else {
       window.alert('Please sign in to enter survey data.');
     }
@@ -119,24 +117,23 @@ class SurveyForm extends Component {
         component: 
           <FormStep2 
             handleInputChange={ this.handleInputChange }
-            handleFormSubmit={ this.handleFormSubmit }
           />
       }, {
         name: 'Done!',
-        component: <SubmitConfirm/>
-      },
+        component: <SubmitConfirm />
+      }
     ]
     return (
       <div className='step-progress'>
         <StepZilla
-          onStepChange={(step) => console.log(this.state)}
+          onStepChange={
+            (step) => { if (step === 2) this.handleFormSubmit() }
+          }
           steps={steps}
           showSteps={true}
-          nextTextOnFinalActionStep="Submit"
-          prevBtnOnLastStep={false}
+          prevBtnOnLastStep={true}
           showNavigation={true}
         />
-        <button onClick={this.handleFormSubmit}>submit</button>
       </div>
     );
   }
