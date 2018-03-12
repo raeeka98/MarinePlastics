@@ -57,10 +57,6 @@ class SurveyForm extends Component {
   handleInputChange(e) { this.setState({ [e.target.id]: e.target.value }); }
 
   handleServerSubmit(comment) {
-    this.auth.getLoggedInProfile((err, profile) => {
-      comment.user = profile.name;
-      comment.email = profile.email;
-    });
     comment.input_date = Date.now();
     axios.post(this.url, comment)
       .catch(err => { console.error(err); });
@@ -75,7 +71,6 @@ class SurveyForm extends Component {
   }
 
   handleFormSubmit(e) {
-    // e.preventDefault();
     if (this.auth.isAuthenticated()) {
       if (this.props.location.state !== undefined) {
         this.handleServerUpdate(this.props.location.state.initialValues._id, this.state);
@@ -91,6 +86,13 @@ class SurveyForm extends Component {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     }
+
+    this.auth.getLoggedInProfile((err, profile) => {
+      this.setState({
+        user: profile.name,
+        email: profile.email,
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -127,7 +129,12 @@ class SurveyForm extends Component {
       <div className='step-progress'>
         <StepZilla
           onStepChange={
-            (step) => { if (step === 2) this.handleFormSubmit() }
+            (step) => {
+              if (step === 2) {
+                this.handleFormSubmit();
+                console.log(this.state);
+              }
+            }
           }
           steps={steps}
           showSteps={true}

@@ -10,24 +10,13 @@ class Survey extends Component {
     this.state = {
       toRedirect: false,
       comment: this.props.location.state.comment || {},
-      // formOwner: {},
     };
-    // this.getLeader = this.getLeader.bind(this);
+
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
     this.auth = new Auth();
     this.url = 'http://localhost:3001/api/comments';
   }
-
-  // componentDidMount() {
-  //   this.getLeader();
-  // }
-
-  // getLeader() {
-  //   this.auth.getProfile(this.state.comment.user_id, (error, profile) => {
-  //     this.setState({ formOwner: profile });
-  //   });
-  // }
 
   handleCommentDelete(id) {
     axios.delete(`${this.url}/${id}`)
@@ -64,7 +53,7 @@ class Survey extends Component {
           <h3>Team Information</h3>
           <p>
             <b>Team Leader: </b>
-            {/* <i>{this.state.formOwner.name}</i> */}
+            <i>{this.state.comment.user}</i>
           </p>
           <p>
             <b>Organization: </b>
@@ -76,7 +65,7 @@ class Survey extends Component {
           </p>
           <p>
             <b>Contact Information: </b>
-            {/* <i>{this.state.formOwner.email}</i> */}
+            <i>{this.state.comment.email}</i>
           </p>
           <p>
             <b>Date: </b>
@@ -109,18 +98,10 @@ class Survey extends Component {
             <i>{this.state.comment.nroName}</i>
             <b> Distance: </b>
             <i>{this.state.comment.nroDist}m</i>
-            <b>Direction of Flow: </b>
-            <i>{this.state.comment.nroFlow}</i>
-            <b>Direction to Output: </b>
-            <i>{this.state.comment.nroOut}</i>
           </p>
           <p>
             <b>Aspect: </b>
             <i>{this.state.comment.aspect}</i>
-          </p>
-          <p>
-            <b>Weather: </b>
-            <i>{this.state.comment.weather}</i>
           </p>
           <p>
             <b>Last Tide and Height: </b>

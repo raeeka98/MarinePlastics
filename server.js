@@ -66,10 +66,7 @@ router.route('/comments')
     (req.body.slope) ? comment.slope = req.body.slope : null;
     (req.body.nroName) ? comment.nroName = req.body.nroName : null;
     (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-    (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
-    (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
     (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-    (req.body.weather) ? comment.weather = req.body.weather : null;
     (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
     (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
     (req.body.windDir) ? comment.windDir = req.body.windDir : null;
@@ -104,10 +101,7 @@ router.route('/comments/:comment_id')
       (req.body.slope) ? comment.slope = req.body.slope : null;
       (req.body.nroName) ? comment.nroName = req.body.nroName : null;
       (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-      (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
-      (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
       (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-      (req.body.weather) ? comment.weather = req.body.weather : null;
       (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
       (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
       (req.body.windDir) ? comment.windDir = req.body.windDir : null;

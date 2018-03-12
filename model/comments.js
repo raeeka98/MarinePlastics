@@ -9,8 +9,10 @@ var StepZilla = require('react-stepzilla')
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
 var CommentsSchema = new Schema({
-	user_id: String,
+	user: String,
+	email: String,
 	org: String,
+	input_date: String,
 	date: String,
 	beach: String,
 	reason: String,
@@ -20,10 +22,7 @@ var CommentsSchema = new Schema({
 	slope: String,
 	nroName: String,
 	nroDist: Number,
-	nroFlow: String,
-	nroOut: String,
 	aspect: String,
-	weather: String,
 	lastTide: String,
 	nextTide: String,
 	windDir: String,
