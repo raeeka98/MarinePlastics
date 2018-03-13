@@ -69,10 +69,11 @@ var CommentsSchema = new Schema({
 	nextTide: String,
 	windDir: String,
 	majorUse: String,
+  weight: Number,
+	NumberOfPeople: Number,
   SRSData: SRSdataSchema,
   SRSTotal: Number,
-	weight: Number,
-	NumberOfPeople: Number,
+
 });
 
 //export our module to use in server.js

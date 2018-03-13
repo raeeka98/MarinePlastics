@@ -71,10 +71,11 @@ router.route('/comments')
     (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
     (req.body.windDir) ? comment.windDir = req.body.windDir : null;
     (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
-    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
-    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
     (req.body.weight) ? comment.weight = req.body.weight : null;
     (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
+    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+
 
     // TEMP (might need to add later?????)
     // (req.body.totalFreshCig) ? data.totalFreshCig = req.body.totalFreshCig : null;
@@ -150,10 +151,11 @@ router.route('/comments/:comment_id')
       (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
       (req.body.windDir) ? comment.windDir = req.body.windDir : null;
       (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
-      (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
-      (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
       (req.body.weight) ? comment.weight = req.body.weight : null;
       (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
+      (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+      (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+
       //save comment
       comment.save(function(err) {
         if (err)
