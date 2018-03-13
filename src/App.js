@@ -8,6 +8,8 @@ import SurveyList from './Survey/SurveyList';
 import SurveyEntry from './Survey/Survey';
 import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
+import Protocol from './Protocol/Protocol';
+
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
@@ -56,6 +58,10 @@ class App extends Component {
                   ? <Redirect to='/' />
                   : <UserProfile auth={ this.auth } />
                 )}
+              />
+              <Route 
+                exact path='/protocol' 
+                component={ Protocol }
               />
             </div>
             <Footer />

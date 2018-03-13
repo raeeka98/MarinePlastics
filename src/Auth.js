@@ -4,7 +4,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'marine-plastics.auth0.com',
     clientID: 'MeGxwCE1JVNy9jsRYPWzqebekosCVRDN',
-    redirectUri: 'http://localhost:3000/home',
+    redirectUri: 'http://localhost:3000',
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid email profile'
@@ -24,7 +24,8 @@ export default class Auth {
 
   login() {
     this.auth0.authorize();
-    window.location.replace('/home');
+    // want to redirect here but doesnt work correctly (redirects before auth)
+    // window.location.replace('/home');
   }
 
   handleAuthentication() {
