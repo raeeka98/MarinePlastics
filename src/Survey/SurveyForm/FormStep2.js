@@ -57,54 +57,7 @@ class FormStep2 extends Component {
     onChange={ this.props.handleInputChange }
     className='uk-input uk-margin'
   />
-        <h2>Survey Area</h2>
-        <label>Name of Beach</label>
-        <input
-          type='text'
-          placeholder='Name of Beach'
-          id='beach'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-        <label>Reason for Location Choice</label>
-        <input
-          type='text'
-          placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
-          id='reason'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-        <label>Substrate Type</label>
-        <input
-          type='text'
-          placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
-          id='st'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-        <label>GPS Coordinates (Starting Point)</label>
-        <input
-          type='number'
-          placeholder='Latitude'
-          id='lat'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-        <input
-          type='number'
-          placeholder='Longitude'
-          id='lon'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-        <label>Slope</label>
-        <input
-          type='text'
-          placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
-          id='slope'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
+        
         <label>Nearest River Output</label>
     <br/>
   <input
