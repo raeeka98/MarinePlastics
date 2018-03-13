@@ -53,11 +53,10 @@ router.route('/comments')
   //post new comment to the database
   .post(function(req, res) {
     var comment = new Comment();
-    (req.body.user_id) ? comment.user_id = req.body.user_id : null;
+    (req.body.user) ? comment.user = req.body.user : null;
+    (req.body.email) ? comment.email = req.body.email : null;
+    (req.body.input_date) ? comment.input_date = req.body.input_date : null;
     (req.body.org) ? comment.org = req.body.org : null;
-    (req.body.leader) ? comment.leader = req.body.leader : null;
-    (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
-    (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
     (req.body.date) ? comment.date = req.body.date : null;
     (req.body.beach) ? comment.beach = req.body.beach : null;
     (req.body.reason) ? comment.reason = req.body.reason : null;
@@ -67,10 +66,7 @@ router.route('/comments')
     (req.body.slope) ? comment.slope = req.body.slope : null;
     (req.body.nroName) ? comment.nroName = req.body.nroName : null;
     (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-    (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
-    (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
     (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-    (req.body.weather) ? comment.weather = req.body.weather : null;
     (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
     (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
     (req.body.windDir) ? comment.windDir = req.body.windDir : null;
@@ -92,11 +88,10 @@ router.route('/comments/:comment_id')
       res.send(err);
       //setting the new beach and reason to whatever was changed. If nothing was changed
       // we will not alter the field.
-      (req.body.user_id) ? comment.user_id = req.body.user_id : null;
-      (req.body.leader) ? comment.leader = req.body.leader : null;
+      (req.body.user) ? comment.user = req.body.user : null;
+      (req.body.email) ? comment.email = req.body.email : null;
+      (req.body.input_date) ? comment.input_date = req.body.input_date : null;
       (req.body.org) ? comment.org = req.body.org : null;
-      (req.body.surveyorNames) ? comment.surveyorNames = req.body.surveyorNames : null;
-      (req.body.contactInfo) ? comment.contactInfo = req.body.contactInfo : null;
       (req.body.date) ? comment.date = req.body.date : null;
       (req.body.beach) ? comment.beach = req.body.beach : null;
       (req.body.reason) ? comment.reason = req.body.reason : null;
@@ -106,10 +101,7 @@ router.route('/comments/:comment_id')
       (req.body.slope) ? comment.slope = req.body.slope : null;
       (req.body.nroName) ? comment.nroName = req.body.nroName : null;
       (req.body.nroDist) ? comment.nroDist = req.body.nroDist : null;
-      (req.body.nroFlow) ? comment.nroFlow = req.body.nroFlow : null;
-      (req.body.nroOut) ? comment.nroOut = req.body.nroOut : null;
       (req.body.aspect) ? comment.aspect = req.body.aspect : null;
-      (req.body.weather) ? comment.weather = req.body.weather : null;
       (req.body.lastTide) ? comment.lastTide = req.body.lastTide : null;
       (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
       (req.body.windDir) ? comment.windDir = req.body.windDir : null;

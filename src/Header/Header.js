@@ -6,7 +6,7 @@ const Header = (props) => (
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
           <li className="uk-logo">
-            <Link to="/" >
+            <Link to="/home" >
               <h1 className="uk-text-large uk-margin-remove-bottom">
                 Marine Plastics Monitor
               </h1>
@@ -16,10 +16,7 @@ const Header = (props) => (
             ? <li><Link to='/survey'>Survey</Link></li>
             : null
           }
-          <li>
-            {/* <Link to="/landing">Landing</Link> */}
-          </li>
-          {/* <li><Link to="/protocol">Protocol</Link></li> */}
+          <li><Link to="/protocol">Protocol</Link></li>
         </ul>
       </div>
       <div className="uk-navbar-right">
