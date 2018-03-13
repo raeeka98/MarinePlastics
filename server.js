@@ -73,6 +73,8 @@ router.route('/comments')
     (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
     (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
     (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+    (req.body.weight) ? comment.weight = req.body.weight : null;
+    (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
 
     // TEMP (might need to add later?????)
     // (req.body.totalFreshCig) ? data.totalFreshCig = req.body.totalFreshCig : null;
@@ -150,6 +152,8 @@ router.route('/comments/:comment_id')
       (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
       (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
       (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+      (req.body.weight) ? comment.weight = req.body.weight : null;
+      (req.body.NumberOfPeople) ? comment.NumberOfPeople = req.body.NumberOfPeople : null;
       //save comment
       comment.save(function(err) {
         if (err)

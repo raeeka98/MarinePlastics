@@ -137,7 +137,9 @@ class Survey extends Component {
             <p><b>Hygiene Items </b><i>{this.state.comment.SRSData.FreshHygItems}</i>, <i>{this.state.comment.SRSData.WeatheredHygItems}</i></p>
             <p><b>Metal </b><i>{this.state.comment.SRSData.FreshMetal}</i>, <i>{this.state.comment.SRSData.WeatheredMetal}</i></p>
             <p><b>Tile/Brick </b><i>{this.state.comment.SRSData.FreshTileBrick}</i>, <i>{this.state.comment.SRSData.WeatheredTileBrick}</i></p>
-
+          <h4> Basic Cleanup </h4>
+            <p><b> Total Weight (in pounds): </b><i>{this.state.comment.weight}</i></p>
+            <p><b> Number of People: </b><i>{this.state.comment.NumberOfPeople}</i></p>
 
           {/* <span dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
           {/* <Link to={{

@@ -7,11 +7,12 @@ import Auth from '../../Auth';
 import FormStep1 from './FormStep1';
 import FormStep2 from './FormStep2';
 import FormStep3 from './FormStep3';
+import FormStep4 from './FormStep4';
 import SubmitConfirm from './SubmitConfirm';
 
 import '../Style.css';
 // Validation for the survey form
-// submitting on the next step 
+// submitting on the next step
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -42,6 +43,8 @@ class SurveyForm extends Component {
         nextTide: '',
         windDir: '',
         majorUse: '',
+        weight: '',
+        NumberOfPeople: '',
         SRSData: {
           FreshCig: '',
           WeatheredCig: '',
@@ -153,14 +156,14 @@ class SurveyForm extends Component {
     const steps = [
       {
         name:'Clean Up Information',
-        component: 
+        component:
           <FormStep1
             handleInputChange={ this.handleInputChange }
           />
       }, {
         name: 'Survey Area',
-        component: 
-          <FormStep2 
+        component:
+          <FormStep2
             handleInputChange={ this.handleInputChange }
           />
       }, {
@@ -169,7 +172,13 @@ class SurveyForm extends Component {
           <FormStep3
             handleInputChange={ this.handleInputChange }
           />
-      }, {
+      },{
+       name: 'Basic Cleanup',
+       component:
+       <FormStep4
+          handleInputChange={ this.handleInputChange }
+          />
+      },{
         name: 'Done!',
         component: <SubmitConfirm />
       }

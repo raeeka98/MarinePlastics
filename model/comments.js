@@ -45,7 +45,7 @@ var SRSdataSchema = new Schema({
     WeatheredMetal: Number,
     FreshTileBrick: Number,
 		WeatheredTileBrick: Number,
-  //}] // an array of debris totals for types should be useful 
+  //}] // an array of debris totals for types should be useful
 });
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
@@ -71,6 +71,8 @@ var CommentsSchema = new Schema({
 	majorUse: String,
   SRSData: SRSdataSchema,
   SRSTotal: Number,
+	weight: Number,
+	NumberOfPeople: Number,
 });
 
 //export our module to use in server.js
