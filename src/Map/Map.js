@@ -26,7 +26,7 @@ class Map extends Component {
     <Pin
       lat={36.949148}
       lng={-122.060356}
-      text={'Testing Location Service'}
+      text={'Seabright Beach'}
     />
   </GoogleMapReact>
   </div>
