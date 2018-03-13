@@ -6,6 +6,7 @@ import Auth from '../../Auth';
 
 import FormStep1 from './FormStep1';
 import FormStep2 from './FormStep2';
+import FormStep3 from './FormStep3';
 import SubmitConfirm from './SubmitConfirm';
 
 import '../Style.css';
@@ -40,7 +41,47 @@ class SurveyForm extends Component {
         lastTide: '',
         nextTide: '',
         windDir: '',
-        majorUse: ''
+        majorUse: '',
+        SRSData: {
+          FreshCig: '',
+          WeatheredCig: '',
+          FreshFline: '',
+          WeatheredFline: '',
+          FreshGlass: '',
+          WeatheredGlass: '',
+          FreshPaper: '',
+          WeatheredPaper: '',
+          FreshFplastic: '',
+          WeatheredFplastic: '',
+          FreshMiscPlastic: '',
+          WeatheredMiscPlastic: '',
+          FreshPlasticBottle: '',
+          WeatheredPlasticBottle: '',
+          FreshPlasticCap: '',
+          WeatheredPlasticCap: '',
+          FreshStyrofoam: '',
+          WeatheredStyrofoam: '',
+          FreshWood: '',
+          WeatheredWood: '',
+          FreshUrethaneFoam: '',
+          WeatheredUrethaneFoam: '',
+          FreshPlasticCup: '',
+          WeatheredPlasticCup: '',
+          FreshPlasticStraw: '',
+          WeatheredPlasticStraw: '',
+          FreshCottonCloth: '',
+          WeatheredCottonCloth: '',
+          FreshPolyRope: '',
+          WeatheredPolyRope: '',
+          FreshAlumCan: '',
+          WeatheredAlumCan: '',
+          FreshHygItems: '',
+          WeatheredHygItems: '',
+          FreshMetal: '',
+          WeatheredMetal: '',
+          FreshTileBrick: '',
+          WeatheredTileBrick: '',
+        }
       }
     // }
 
@@ -54,7 +95,15 @@ class SurveyForm extends Component {
     this.url = 'http://localhost:3001/api/comments';
   }
 
-  handleInputChange(e) { this.setState({ [e.target.id]: e.target.value }); }
+  handleInputChange(e) {
+    if (e.target.getAttribute('class') === 'uk-input uk-margin srs') {
+      let SRSData = this.state.SRSData;
+      SRSData[e.target.id] = e.target.value;
+      this.setState({ SRSData });
+    } else {
+      this.setState({ [e.target.id]: e.target.value });
+    }
+  }
 
   handleServerSubmit(comment) {
     comment.input_date = Date.now();
@@ -115,6 +164,12 @@ class SurveyForm extends Component {
             handleInputChange={ this.handleInputChange }
           />
       }, {
+        name: 'Surface Rib Scan',
+        component:
+          <FormStep3
+            handleInputChange={ this.handleInputChange }
+          />
+      }, {
         name: 'Done!',
         component: <SubmitConfirm />
       }
@@ -124,7 +179,7 @@ class SurveyForm extends Component {
         <StepZilla
           onStepChange={
             (step) => {
-              if (step === 2) {
+              if (step === 3) {
                 this.handleFormSubmit();
                 console.log(this.state);
               }

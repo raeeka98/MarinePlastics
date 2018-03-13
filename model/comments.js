@@ -5,6 +5,48 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var StepZilla = require('react-stepzilla')
 
+var SRSdataSchema = new Schema({
+  //debris: [{
+    FreshCig: Number,
+    WeatheredCig: Number,
+    FreshFline: Number,
+    WeatheredFline: Number,
+    FreshGlass: Number,
+    WeatheredGlass: Number,
+    FreshPaper: Number,
+    WeatheredPaper: Number,
+    FreshFplastic: Number,
+    WeatheredFplastic: Number,
+    FreshMiscPlastic: Number,
+    WeatheredMiscPlastic: Number,
+    FreshPlasticBottle: Number,
+    WeatheredPlasticBottle: Number,
+    FreshPlasticCap: Number,
+    WeatheredPlasticCap: Number,
+    FreshStyrofoam: Number,
+    WeatheredStyrofoam: Number,
+    FreshWood: Number,
+    WeatheredWood: Number,
+    FreshUrethaneFoam: Number,
+    WeatheredUrethaneFoam: Number,
+    FreshPlasticCup: Number,
+    WeatheredPlasticCup: Number,
+    FreshPlasticStraw: Number,
+    WeatheredPlasticStraw: Number,
+    FreshCottonCloth: Number,
+    WeatheredCottonCloth: Number,
+    FreshPolyRope: Number,
+    WeatheredPolyRope: Number,
+    FreshAlumCan: Number,
+    WeatheredAlumCan: Number,
+    FreshHygItems: Number,
+    WeatheredHygItems: Number,
+    FreshMetal: Number,
+    WeatheredMetal: Number,
+    FreshTileBrick: Number,
+		WeatheredTileBrick: Number,
+  //}] // an array of debris totals for types should be useful 
+});
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
@@ -26,7 +68,9 @@ var CommentsSchema = new Schema({
 	lastTide: String,
 	nextTide: String,
 	windDir: String,
-	majorUse: String
+	majorUse: String,
+  SRSData: SRSdataSchema,
+  SRSTotal: Number,
 });
 
 //export our module to use in server.js

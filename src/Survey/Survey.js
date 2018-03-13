@@ -117,6 +117,27 @@ class Survey extends Component {
             <b>Major Usage: </b>
             <i>{this.state.comment.majorUse}</i>
           </p>
+          <h3>Surface Rib Scan Survey</h3>
+           <p><b>Cig Butts </b><i>{this.state.comment.SRSData.FreshCig}</i>, <i>{this.state.comment.SRSData.WeatheredCig}</i></p>
+            <p><b>Fishing Line </b><i>{this.state.comment.SRSData.FreshFline}</i>, <i>{this.state.comment.SRSData.WeatheredFline}</i></p>
+            <p><b>Glass </b><i>{this.state.comment.SRSData.FreshGlass}</i>, <i>{this.state.comment.SRSData.WeatheredGlass}</i></p>
+            <p><b>Paper </b><i>{this.state.comment.SRSData.FreshPaper}</i>, <i>{this.state.comment.SRSData.WeatheredPaper}</i></p>
+            <p><b>Filmed Plastic </b><i>{this.state.comment.SRSData.FreshFplastic}</i>, <i>{this.state.comment.SRSData.WeatheredFplastic}</i></p>
+            <p><b>Misc. Plastics </b><i>{this.state.comment.SRSData.FreshMiscPlastic}</i>, <i>{this.state.comment.SRSData.WeatheredMiscPlastic}</i></p>
+            <p><b>Plastic Bottle </b><i>{this.state.comment.SRSData.FreshPlasticBottle}</i>, <i>{this.state.comment.SRSData.WeatheredPlasticBottle}</i></p>
+            <p><b>Plastic Cap </b><i>{this.state.comment.SRSData.FreshPlasticCap}</i>, <i>{this.state.comment.SRSData.WeatheredPlasticCap}</i></p>
+            <p><b>Styrofoam </b><i>{this.state.comment.SRSData.FreshStyrofoam}</i>, <i>{this.state.comment.SRSData.WeatheredStyrofoam}</i></p>
+            <p><b>Wood </b><i>{this.state.comment.SRSData.FreshWood}</i>, <i>{this.state.comment.SRSData.WeatheredWood}</i></p>
+            <p><b>Urethane Foam </b><i>{this.state.comment.SRSData.FreshUrethaneFoam}</i>, <i>{this.state.comment.SRSData.WeatheredUrethaneFoam}</i></p>
+            <p><b>Plastic Cup </b><i>{this.state.comment.SRSData.FreshPlasticCup}</i>, <i>{this.state.comment.SRSData.WeatheredPlasticCup}</i></p>
+            <p><b>Plastic Straw </b><i>{this.state.comment.SRSData.FreshPlasticStraw}</i>, <i>{this.state.comment.SRSData.WeatheredPlasticStraw}</i></p>
+            <p><b>Cotton/Cloth </b><i>{this.state.comment.SRSData.FreshCottonCloth}</i>, <i>{this.state.comment.SRSData.WeatheredCottonCloth}</i></p>
+            <p><b>Polypropylene Rope </b><i>{this.state.comment.SRSData.FreshPolyRope}</i>, <i>{this.state.comment.SRSData.WeatheredPolyRope}</i></p>
+            <p><b>Aluminum Can </b><i>{this.state.comment.SRSData.FreshAlumCan}</i>, <i>{this.state.comment.SRSData.WeatheredAlumCan}</i></p>
+            <p><b>Hygiene Items </b><i>{this.state.comment.SRSData.FreshHygItems}</i>, <i>{this.state.comment.SRSData.WeatheredHygItems}</i></p>
+            <p><b>Metal </b><i>{this.state.comment.SRSData.FreshMetal}</i>, <i>{this.state.comment.SRSData.WeatheredMetal}</i></p>
+            <p><b>Tile/Brick </b><i>{this.state.comment.SRSData.FreshTileBrick}</i>, <i>{this.state.comment.SRSData.WeatheredTileBrick}</i></p>
+
 
           {/* <span dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
           {/* <Link to={{

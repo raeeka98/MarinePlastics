@@ -71,6 +71,48 @@ router.route('/comments')
     (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
     (req.body.windDir) ? comment.windDir = req.body.windDir : null;
     (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
+    (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+    (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
+
+    // TEMP (might need to add later?????)
+    // (req.body.totalFreshCig) ? data.totalFreshCig = req.body.totalFreshCig : null;
+    // (req.body.totalWeatheredCig) ? data.totalWeatheredCig = req.body.totalWeatheredCig : null;
+    // (req.body.totalFreshFline) ? data.totalFreshFline = req.body.totalFreshFline : null;
+    // (req.body.totalWeatheredFline) ? data.totalWeatheredFline = req.body.totalWeatheredFline : null;
+    // (req.body.totalFreshGlass) ? data.totalFreshGlass = req.body.totalFreshGlass : null;
+    // (req.body.totalWeatheredGlass) ? data.totalWeatheredGlass = req.body.totalWeatheredGlass : null;
+    // (req.body.totalFreshPaper) ? data.totalFreshPaper = req.body.totalFreshPaper : null;
+    // (req.body.totalWeatheredPaper) ? data.totalWeatheredPaper = req.body.totalWeatheredPaper : null;
+    // (req.body.totalFreshFplastic) ? data.totalFreshFplastic = req.body.totalFreshFplastic : null;
+    // (req.body.totalWeatheredFplastic) ? data.totalWeatheredFplastic = req.body.totalWeatheredFplastic : null;
+    // (req.body.totalFreshMiscPlastic) ? data.totalFreshMiscPlastic = req.body.totalFreshMiscPlastic : null;
+    // (req.body.totalWeatheredMiscPlastic) ? data.totalWeatheredMiscPlastic = req.body.totalWeatheredMiscPlastic : null;
+    // (req.body.totalFreshPlasticBottle) ? data.totalFreshPlasticBottle = req.body.totalFreshPlasticBottle : null;
+    // (req.body.totalWeatheredPlasticBottle) ? data.totalWeatheredPlasticBottle = req.body.totalWeatheredPlasticBottle : null;
+    // (req.body.totalFreshPlasticCap) ? data.totalFreshPlasticCap = req.body.totalFreshPlasticCap : null;
+    // (req.body.totalWeatheredPlasticCap) ? data.totalWeatheredPlasticCap = req.body.totalWeatheredPlasticCap : null;
+    // (req.body.totalFreshStyrofoam) ? data.totalFreshStyrofoam = req.body.totalFreshStyrofoam : null;
+    // (req.body.totalWeatheredStyrofoam) ? data.totalWeatheredStyrofoam = req.body.totalWeatheredStyrofoam : null;
+    // (req.body.totalFreshWood) ? data.totalFreshWood = req.body.totalFreshWood : null;
+    // (req.body.totalWeatheredWood) ? data.totalWeatheredWood = req.body.totalWeatheredWood : null;
+    // (req.body.totalFreshUrethaneFoam) ? data.totalFreshUrethaneFoam = req.body.totalFreshUrethaneFoam : null;
+    // (req.body.totalWeatheredUrethaneFoam) ? data.totalWeatheredUrethaneFoam = req.body.totalWeatheredUrethaneFoam : null;
+    // (req.body.totalFreshPlasticCup) ? data.totalFreshPlasticCup = req.body.totalFreshPlasticCup : null;
+    // (req.body.totalWeatheredPlasticCup) ? data.totalWeatheredPlasticCup = req.body.totalWeatheredPlasticCup : null;
+    // (req.body.totalFreshPlasticStraw) ? data.totalFreshPlasticStraw = req.body.totalFreshPlasticStraw : null;
+    // (req.body.totalWeatheredPlasticStraw) ? data.totalWeatheredPlasticStraw = req.body.totalWeatheredPlasticStraw : null;
+    // (req.body.totalFreshCottonCloth) ? data.totalFreshCottonCloth = req.body.totalFreshCottonCloth : null;
+    // (req.body.totalWeatheredCottonCloth) ? data.totalWeatheredCottonCloth = req.body.totalWeatheredCottonCloth : null;
+    // (req.body.totalFreshPolyRope) ? data.totalFreshPolyRope = req.body.totalFreshPolyRope : null;
+    // (req.body.totalWeatheredPolyRope) ? data.totalWeatheredPolyRope = req.body.totalWeatheredPolyRope : null;
+    // (req.body.totalFreshAlumCan) ? data.totalFreshAlumCan = req.body.totalFreshAlumCan : null;
+    // (req.body.totalWeatheredAlumCan) ? data.totalWeatheredAlumCan = req.body.totalWeatheredAlumCan : null;
+    // (req.body.totalFreshHygItems) ? data.totalFreshHygItems = req.body.totalFreshHygItems : null;
+    // (req.body.totalWeatheredHygItems) ? data.totalWeatheredHygItems = req.body.totalWeatheredHygItems : null;
+    // (req.body.totalFreshMetal) ? data.totalFreshMetal = req.body.totalFreshMetal : null;
+    // (req.body.totalWeatheredMetal) ? data.totalWeatheredMetal = req.body.totalWeatheredMetal : null;
+    // (req.body.totalFreshTileBrick) ? data.totalFreshTileBrick = req.body.totalFreshTileBrick : null;
+    // (req.body.totalWeatheredTileBrick) ? data.totalWeatheredTileBrick = req.body.totalWeatheredTileBrick : null;
 
     comment.save(function(err) {
       if (err)
@@ -106,6 +148,8 @@ router.route('/comments/:comment_id')
       (req.body.nextTide) ? comment.nextTide = req.body.nextTide : null;
       (req.body.windDir) ? comment.windDir = req.body.windDir : null;
       (req.body.majorUse) ? comment.majorUse = req.body.majorUse : null;
+      (req.body.SRSData) ? comment.SRSData = req.body.SRSData : null;
+      (req.body.SRSTotal) ? comment.SRSTotal = req.body.SRSTotal : null;
       //save comment
       comment.save(function(err) {
         if (err)
