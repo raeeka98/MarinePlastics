@@ -16,10 +16,7 @@ const Header = (props) => (
             ? <li><Link to='/survey'>Survey</Link></li>
             : null
           }
-          <li>
-            {/* <Link to="/landing">Landing</Link> */}
-          </li>
-          {/* <li><Link to="/protocol">Protocol</Link></li> */}
+          <li><Link to="/protocol">Protocol</Link></li>
         </ul>
       </div>
       <div className="uk-navbar-right">

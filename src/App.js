@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
+
+import Landing from './Landing/Landing';
 import SurveyList from './Survey/SurveyList';
 import SurveyEntry from './Survey/Survey';
-import SurveyForm from './Survey/SurveyForm';
+import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
+import Protocol from './Protocol/Protocol';
+
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+
 
 class App extends Component {
   constructor() {
@@ -27,14 +32,20 @@ class App extends Component {
             <Header 
               auth={this.auth}
             />
-            <div className="uk-grid">
+            <div>
               <Route 
                 exact path='/' 
+                render={ () => (
+                  <Landing auth={ this.auth } />
+                 )}
+              />
+              <Route 
+                exact path='/home' 
                 component={ SurveyList }
               />
               <Route 
                 path='/survey' 
-                component={ SurveyForm }
+                component={ Steps }
               />
               <Route
                 path='/entry/:entryKey'
@@ -45,8 +56,12 @@ class App extends Component {
                 render={() => (
                   !this.auth.isAuthenticated()
                   ? <Redirect to='/' />
-                  : <UserProfile auth={this.auth} />
+                  : <UserProfile auth={ this.auth } />
                 )}
+              />
+              <Route 
+                exact path='/protocol' 
+                component={ Protocol }
               />
             </div>
             <Footer />
