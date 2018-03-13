@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 
 import Auth from './Auth';
+
+import Landing from './Landing/Landing';
 import SurveyList from './Survey/SurveyList';
 import SurveyEntry from './Survey/Survey';
 import Steps from './Survey/SurveyForm/SurveyForm';
@@ -31,11 +33,17 @@ class App extends Component {
             <div>
               <Route 
                 exact path='/' 
+                render={ () => (
+                  <Landing auth={ this.auth } />
+                 )}
+              />
+              <Route 
+                exact path='/home' 
                 component={ SurveyList }
               />
               <Route 
                 path='/survey' 
-                component={Steps}
+                component={ Steps }
               />
               <Route
                 path='/entry/:entryKey'
@@ -46,7 +54,7 @@ class App extends Component {
                 render={() => (
                   !this.auth.isAuthenticated()
                   ? <Redirect to='/' />
-                  : <UserProfile auth={this.auth} />
+                  : <UserProfile auth={ this.auth } />
                 )}
               />
             </div>

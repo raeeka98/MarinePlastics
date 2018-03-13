@@ -101,17 +101,11 @@ class SurveyForm extends Component {
   }
 
   render() {
-    const initialValues1 = [
-      this.state.org,
-      this.state.date,
-    ]
-
     const steps = [
       {
         name:'Clean Up Information',
         component: 
           <FormStep1
-            initialValues={ initialValues1 }
             handleInputChange={ this.handleInputChange }
           />
       }, {
