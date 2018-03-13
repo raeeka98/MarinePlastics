@@ -3,9 +3,14 @@
 //import dependency
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var StepZilla = require('react-stepzilla')
 
-var SRSdataSchema = new Schema({
+// var debrisSchema = new Schema ({
+//   name: String,
+//   fresh: Number,
+//   weathered: Number,
+// });
+
+var dataSchema = new Schema({
   //debris: [{
     FreshCig: Number,
     WeatheredCig: Number,
@@ -71,9 +76,10 @@ var CommentsSchema = new Schema({
 	majorUse: String,
   weight: Number,
 	NumberOfPeople: Number,
-  SRSData: SRSdataSchema,
+  SRSData: dataSchema,
   SRSTotal: Number,
-
+  ASData: dataSchema,
+  AStotal: Number,
 });
 
 //export our module to use in server.js

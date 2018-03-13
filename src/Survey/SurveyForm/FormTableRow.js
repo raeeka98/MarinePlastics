@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class FormTableRow extends Component {
   render() {
+    const classes = this.props.class + ' uk-input uk-margin uk-width-1-2@s'
     return (
       <tr>
         <td>{this.props.name}</td>
@@ -10,7 +11,7 @@ class FormTableRow extends Component {
             type='number'
             id={ this.props.freshID }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin srs uk-width-1-2@s'
+            className={ classes }
           />
         </td>
         <td>
@@ -18,7 +19,7 @@ class FormTableRow extends Component {
             type='number'
             id={ this.props.weatheredID }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin srs uk-width-1-2@s'
+            className={ classes }
           />
         </td>
       </tr>

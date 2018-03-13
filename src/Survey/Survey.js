@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+// import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import marked from 'marked';
 import Auth from '../Auth';
 import axios from 'axios';
@@ -148,7 +149,7 @@ class Survey extends Component {
           }}>
             update
           </Link> */}
-          <button onClick={ this.deleteComment }>delete</button>
+          {/* <button onClick={ this.deleteComment }>delete</button> */}
         </div>
       )
     );

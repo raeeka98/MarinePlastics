@@ -4,11 +4,12 @@ import axios from 'axios';
 
 import Auth from '../../Auth';
 
-import FormStep1 from './FormStep1';
-import FormStep2 from './FormStep2';
-import FormStep3 from './FormStep3';
-import FormStep4 from './FormStep4';
-import SubmitConfirm from './SubmitConfirm';
+import FormStep1 from './FormSteps/FormStep1';
+import FormStep2 from './FormSteps/FormStep2';
+import FormStep3 from './FormSteps/FormStep3';
+import FormStep4 from './FormSteps/FormStep4';
+import FormStep5 from './FormSteps/FormStep5';
+import SubmitConfirm from './FormSteps/SubmitConfirm';
 
 import '../Style.css';
 // Validation for the survey form
@@ -45,7 +46,49 @@ class SurveyForm extends Component {
         majorUse: '',
         weight: '',
         NumberOfPeople: '',
+        SRSTotal: '',
         SRSData: {
+          FreshCig: '',
+          WeatheredCig: '',
+          FreshFline: '',
+          WeatheredFline: '',
+          FreshGlass: '',
+          WeatheredGlass: '',
+          FreshPaper: '',
+          WeatheredPaper: '',
+          FreshFplastic: '',
+          WeatheredFplastic: '',
+          FreshMiscPlastic: '',
+          WeatheredMiscPlastic: '',
+          FreshPlasticBottle: '',
+          WeatheredPlasticBottle: '',
+          FreshPlasticCap: '',
+          WeatheredPlasticCap: '',
+          FreshStyrofoam: '',
+          WeatheredStyrofoam: '',
+          FreshWood: '',
+          WeatheredWood: '',
+          FreshUrethaneFoam: '',
+          WeatheredUrethaneFoam: '',
+          FreshPlasticCup: '',
+          WeatheredPlasticCup: '',
+          FreshPlasticStraw: '',
+          WeatheredPlasticStraw: '',
+          FreshCottonCloth: '',
+          WeatheredCottonCloth: '',
+          FreshPolyRope: '',
+          WeatheredPolyRope: '',
+          FreshAlumCan: '',
+          WeatheredAlumCan: '',
+          FreshHygItems: '',
+          WeatheredHygItems: '',
+          FreshMetal: '',
+          WeatheredMetal: '',
+          FreshTileBrick: '',
+          WeatheredTileBrick: '',
+        },
+        ASTotal: '',
+        ASData: {
           FreshCig: '',
           WeatheredCig: '',
           FreshFline: '',
@@ -99,10 +142,14 @@ class SurveyForm extends Component {
   }
 
   handleInputChange(e) {
-    if (e.target.getAttribute('class') === 'uk-input uk-margin srs') {
+    if (e.target.getAttribute('class').includes('srs')) {
       let SRSData = this.state.SRSData;
       SRSData[e.target.id] = e.target.value;
       this.setState({ SRSData });
+    } else if (e.target.getAttribute('class').includes('as')) {
+      let ASData = this.state.ASData;
+      ASData[e.target.id] = e.target.value;
+      this.setState({ ASData });
     } else {
       this.setState({ [e.target.id]: e.target.value });
     }
@@ -110,6 +157,7 @@ class SurveyForm extends Component {
 
   handleServerSubmit(comment) {
     comment.input_date = Date.now();
+    console.log('server submit', comment);
     axios.post(this.url, comment)
       .catch(err => { console.error(err); });
   }
@@ -172,13 +220,19 @@ class SurveyForm extends Component {
           <FormStep3
             handleInputChange={ this.handleInputChange }
           />
-      },{
-       name: 'Basic Cleanup',
+      }, {
+       name: 'Accumulation Survey',
        component:
-       <FormStep4
+        <FormStep4
           handleInputChange={ this.handleInputChange }
-          />
-      },{
+        />
+      }, {
+        name: 'Basic Cleanup',
+        component:
+         <FormStep5
+           handleInputChange={ this.handleInputChange }
+         />
+       }, {
         name: 'Done!',
         component: <SubmitConfirm />
       }
@@ -187,12 +241,7 @@ class SurveyForm extends Component {
       <div className='step-progress'>
         <StepZilla
           onStepChange={
-            (step) => {
-              if (step === 3) {
-                this.handleFormSubmit();
-                console.log(this.state);
-              }
-            }
+            (step) => { if (step === 5) this.handleFormSubmit(); }
           }
           steps={steps}
           showSteps={true}
