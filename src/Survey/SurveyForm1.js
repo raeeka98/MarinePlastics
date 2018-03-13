@@ -1,0 +1,86 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import Auth from '../Auth';
+import SurveyForm2 from './SurveyForm2';
+
+class SurveyForm1 extends Component {
+
+  componentDidMount() {
+    if (!this.pollInterval) {
+      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
+    }
+  }
+
+  componentWillUnmount() {
+    this.pollInterval && clearInterval(this.pollInterval);
+    this.pollInterval = null;
+  }
+
+  handleCommentSubmit(comment) {
+    comment.user_id = this.auth.getAccessToken();
+    comment.id = Date.now();
+    axios.post(this.url, comment)
+      .catch(err => { console.error(err); });
+    
+  }
+
+  handleCommentUpdate(id, comment) {
+    //sends the comment id and new beach/reason to our api
+    axios.put(`${this.url}/${id}`, comment)
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  handleValChange(e) { this.setState({ [e.target.id]: e.target.value }); }
+
+  // when add update functionality - check in this function if need to do
+  // either handleCommentSubmit or handleCommentUpdate
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.auth.isAuthenticated()) {
+      if (this.props.location.state !== undefined) {
+        this.handleCommentUpdate(this.props.location.state.initialValues._id, this.state);
+      } else {
+        this.handleCommentSubmit(this.state);
+      }
+      // need to replace
+      location.reload();
+    } else {
+      window.alert('Please sign in to enter survey data.');
+    }
+  }
+
+  render() {
+    return (
+      <div>
+
+      <form onSubmit={ this.handleSubmit }>
+        <h2>Clean Up Info</h2>
+        <label>Organization</label>
+        <input
+          type='string'
+          placeholder='Organization'
+          id='org'
+          value={ this.state.org }
+          onChange={ this.handleValChange }
+          className='uk-input uk-margin' 
+        />
+        <label>Date</label>
+        <input
+          type='date'
+          placeholder='Date'
+          id='date'
+          value={ this.state.date }
+          onChange={ this.handleValChange }
+          className='uk-input uk-margin' 
+        />
+      </form>
+
+      </div>
+    
+    );
+  }
+}
+
+export default SurveyForm1;

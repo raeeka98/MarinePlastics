@@ -9,9 +9,11 @@ import SurveyEntry from './Survey/Survey';
 import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
+import Map from './Map/Map.js';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+
 
 
 class App extends Component {
@@ -29,7 +31,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div className="uk-container uk-container-center">
-            <Header 
+            <Header
               auth={this.auth}
             />
             <div>
@@ -62,6 +64,10 @@ class App extends Component {
               <Route 
                 exact path='/protocol' 
                 component={ Protocol }
+              />
+              <Route
+                path='/map'
+                component={Map}
               />
             </div>
             <Footer />
