@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import FormTableRow from '../FormTableRow';
 
-class FormStep3 extends Component {
+class FormStep4 extends Component {
   render() {
     return(
       <form className="uk-form-horizontal">
@@ -16,7 +16,7 @@ class FormStep3 extends Component {
             </tr>
           </thead>
           <tbody>
-            <FormTableRow
+          <FormTableRow
               name='Cigarette Butts' 
               class={ this.props.class }
               id='cigaretteButts'
@@ -137,4 +137,4 @@ class FormStep3 extends Component {
   }
 }
 
-export default FormStep3;
+export default FormStep4;

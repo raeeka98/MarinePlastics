@@ -7,6 +7,7 @@ import Auth from '../../Auth';
 import FormStep1 from './FormSteps/FormStep1';
 import FormStep2 from './FormSteps/FormStep2';
 import FormStep3 from './FormSteps/FormStep3';
+import FormStep4 from './FormSteps/FormStep4';
 import FormStep5 from './FormSteps/FormStep5';
 import SubmitConfirm from './FormSteps/SubmitConfirm';
 
@@ -47,88 +48,8 @@ class SurveyForm extends Component {
         NumberOfPeople: '',
         SRSTotal: '',
         SRSData: [],
-        // SRSData: {
-        //   FreshCig: '',
-        //   WeatheredCig: '',
-        //   FreshFline: '',
-        //   WeatheredFline: '',
-        //   FreshGlass: '',
-        //   WeatheredGlass: '',
-        //   FreshPaper: '',
-        //   WeatheredPaper: '',
-        //   FreshFplastic: '',
-        //   WeatheredFplastic: '',
-        //   FreshMiscPlastic: '',
-        //   WeatheredMiscPlastic: '',
-        //   FreshPlasticBottle: '',
-        //   WeatheredPlasticBottle: '',
-        //   FreshPlasticCap: '',
-        //   WeatheredPlasticCap: '',
-        //   FreshStyrofoam: '',
-        //   WeatheredStyrofoam: '',
-        //   FreshWood: '',
-        //   WeatheredWood: '',
-        //   FreshUrethaneFoam: '',
-        //   WeatheredUrethaneFoam: '',
-        //   FreshPlasticCup: '',
-        //   WeatheredPlasticCup: '',
-        //   FreshPlasticStraw: '',
-        //   WeatheredPlasticStraw: '',
-        //   FreshCottonCloth: '',
-        //   WeatheredCottonCloth: '',
-        //   FreshPolyRope: '',
-        //   WeatheredPolyRope: '',
-        //   FreshAlumCan: '',
-        //   WeatheredAlumCan: '',
-        //   FreshHygItems: '',
-        //   WeatheredHygItems: '',
-        //   FreshMetal: '',
-        //   WeatheredMetal: '',
-        //   FreshTileBrick: '',
-        //   WeatheredTileBrick: '',
-        // },
         ASTotal: '',
         ASData: [],
-        // ASData: {
-        //   FreshCig: '',
-        //   WeatheredCig: '',
-        //   FreshFline: '',
-        //   WeatheredFline: '',
-        //   FreshGlass: '',
-        //   WeatheredGlass: '',
-        //   FreshPaper: '',
-        //   WeatheredPaper: '',
-        //   FreshFplastic: '',
-        //   WeatheredFplastic: '',
-        //   FreshMiscPlastic: '',
-        //   WeatheredMiscPlastic: '',
-        //   FreshPlasticBottle: '',
-        //   WeatheredPlasticBottle: '',
-        //   FreshPlasticCap: '',
-        //   WeatheredPlasticCap: '',
-        //   FreshStyrofoam: '',
-        //   WeatheredStyrofoam: '',
-        //   FreshWood: '',
-        //   WeatheredWood: '',
-        //   FreshUrethaneFoam: '',
-        //   WeatheredUrethaneFoam: '',
-        //   FreshPlasticCup: '',
-        //   WeatheredPlasticCup: '',
-        //   FreshPlasticStraw: '',
-        //   WeatheredPlasticStraw: '',
-        //   FreshCottonCloth: '',
-        //   WeatheredCottonCloth: '',
-        //   FreshPolyRope: '',
-        //   WeatheredPolyRope: '',
-        //   FreshAlumCan: '',
-        //   WeatheredAlumCan: '',
-        //   FreshHygItems: '',
-        //   WeatheredHygItems: '',
-        //   FreshMetal: '',
-        //   WeatheredMetal: '',
-        //   FreshTileBrick: '',
-        //   WeatheredTileBrick: '',
-        // }
       }
     // }
 
@@ -136,6 +57,7 @@ class SurveyForm extends Component {
     this.handleServerUpdate = this.handleServerUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSurveyInput = this.handleSurveyInput.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
@@ -144,29 +66,40 @@ class SurveyForm extends Component {
 
   handleInputChange(e) {
     if (e.target.getAttribute('class').includes('srs')) {
-      let SRSData = this.state.SRSData;
-
-      let filteredData = SRSData.filter( el => el.name === e.target.id);
-      if (filteredData.length > 0) {
-        filteredData[0]['fresh'] = 0;
-        filteredData[0]['weathered'] = 0;
-      } else {
-        SRSData.push({
-          name: e.target.id,
-          fresh: e.target.value,
-          weathered: e.target.value,
-        });
-      }
-      // SRSData[e.target.id] = e.target.value;
+      let SRSData = this.handleSurveyInput(e, this.state.SRSData);
       this.setState({ SRSData });
-      console.log(this.state.SRSData);
     } else if (e.target.getAttribute('class').includes('as')) {
-      // let ASData = this.state.ASData;
-      // ASData[e.target.id] = e.target.value;
-      // this.setState({ ASData });
-    } else {
-      this.setState({ [e.target.id]: e.target.value });
+      let ASData = this.handleSurveyInput(e, this.state.ASData);
+      this.setState({ ASData });
     }
+  }
+
+  handleSurveyInput(e, data) {
+    let isFreshInput = (e.target.className).indexOf('fresh');
+    let index = -1;
+
+    for (let i = 0; i < data.length; i++) {
+      if ((data[i]).name === e.target.id) { index = i; }
+    }
+
+    if (index > -1) {
+      if (isFreshInput > -1) {
+        (data[index]).fresh = parseInt(e.target.value);
+      } else {
+        (data[index]).weathered = parseInt(e.target.value);
+      }
+    } else {
+      let newData = { name: e.target.id }
+      if (isFreshInput > -1) {
+        newData.fresh = parseInt(e.target.value);
+        newData.weathered = 0;
+      } else {
+        newData.fresh = 0;
+        newData.weathered = parseInt(e.target.value);
+      }
+      data.push(newData);
+    }
+    return data;
   }
 
   handleServerSubmit(comment) {
@@ -239,7 +172,7 @@ class SurveyForm extends Component {
       }, {
         name: 'Accumulation Survey',
         component:
-          <FormStep3
+          <FormStep4
             title={ 'Accumulation Survey' }
             class={ 'as' }
             handleInputChange={ this.handleInputChange }
