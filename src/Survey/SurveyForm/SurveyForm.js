@@ -71,6 +71,8 @@ class SurveyForm extends Component {
     } else if (e.target.getAttribute('class').includes('as')) {
       let ASData = this.handleSurveyInput(e, this.state.ASData);
       this.setState({ ASData });
+    } else {
+      this.setState({ [e.target.id]: e.target.value });
     }
   }
 

@@ -48,6 +48,26 @@ class Survey extends Component {
     return { __html: rawMarkup };
   }
   render() {
+    let SRSRows = this.state.comment.SRSData.map(type => {
+      return(
+        <SurveyTableRow
+          name={type.name}
+          fresh={type.fresh}
+          weathered={type.weathered}
+        />
+      );
+    });
+
+    let ASRows = this.state.comment.ASData.map(type => {
+      return(
+        <SurveyTableRow
+          name={type.name}
+          fresh={type.fresh}
+          weathered={type.weathered}
+        />
+      );
+    });
+
     return (
       this.state.toRedirect
       ? <Redirect to='/' />
@@ -134,104 +154,8 @@ class Survey extends Component {
                 <th>Amount Weathered</th>
               </tr>
             </thead>
-            {/* when switch to array schema of debris, will be able to use map to programatically add rows */}
-            {/* Same for accumulation survey */}
             <tbody>
-              <SurveyTableRow 
-                name='Cigarette Butt'
-                fresh={ this.state.comment.SRSData.FreshCig }
-                weathered={ this.state.comment.SRSData.WeatheredCig }
-              />
-              <SurveyTableRow 
-                name='Fishing Line'
-                fresh={ this.state.comment.SRSData.FreshFline }
-                weathered={ this.state.comment.SRSData.WeatheredFline }
-              />
-              <SurveyTableRow 
-                name='Glass'
-                fresh={ this.state.comment.SRSData.FreshGlass }
-                weathered={ this.state.comment.SRSData.WeatheredGlass }
-              />
-              <SurveyTableRow 
-                name='Paper'
-                fresh={ this.state.comment.SRSData.FreshPaper }
-                weathered={ this.state.comment.SRSData.WeatheredPaper }
-              />
-              <SurveyTableRow 
-                name='Filmed Plastic'
-                fresh={ this.state.comment.SRSData.FreshFplastic }
-                weathered={ this.state.comment.SRSData.WeatheredFplastic }
-              />
-              <SurveyTableRow 
-                name='Misc. Plastic'
-                fresh={ this.state.comment.SRSData.FreshMiscPlastic }
-                weathered={ this.state.comment.SRSData.WeatheredMiscPlastic }
-              />
-              <SurveyTableRow 
-                name='Plastic Bottle'
-                fresh={ this.state.comment.SRSData.FreshPlasticBottle }
-                weathered={ this.state.comment.SRSData.WeatheredPlasticBottle }
-              />
-              <SurveyTableRow 
-                name='Plastic Cap'
-                fresh={ this.state.comment.SRSData.FreshPlasticCap }
-                weathered={ this.state.comment.SRSData.WeatheredPlasticCap }
-              />
-              <SurveyTableRow 
-                name='Styrofoam'
-                fresh={ this.state.comment.SRSData.FreshStyrofoam }
-                weathered={ this.state.comment.SRSData.WeatheredStyrofoam }
-              />
-              <SurveyTableRow 
-                name='Wood'
-                fresh={ this.state.comment.SRSData.FreshWood }
-                weathered={ this.state.comment.SRSData.WeatheredWood }
-              />
-              <SurveyTableRow 
-                name='Urethane Foam'
-                fresh={ this.state.comment.SRSData.FreshUrethaneFoam }
-                weathered={ this.state.comment.SRSData.WeatheredUrethaneFoam }
-              />
-              <SurveyTableRow 
-                name='Plastic Cup'
-                fresh={ this.state.comment.SRSData.FreshPlasticCup }
-                weathered={ this.state.comment.SRSData.WeatheredPlasticCup }
-              />
-              <SurveyTableRow 
-                name='Plastic Straw'
-                fresh={ this.state.comment.SRSData.FreshPlasticStraw }
-                weathered={ this.state.comment.SRSData.WeatheredPlasticStraw }
-              />
-              <SurveyTableRow 
-                name='Cotton/Cloth'
-                fresh={ this.state.comment.SRSData.FreshCottonCloth }
-                weathered={ this.state.comment.SRSData.WeatheredCottonCloth }
-              />
-              <SurveyTableRow 
-                name='Polypropylene Rope'
-                fresh={ this.state.comment.SRSData.FreshPolyRope }
-                weathered={ this.state.comment.SRSData.WeatheredPolyRope }
-              />
-              <SurveyTableRow 
-                name='Aluminum Can'
-                fresh={ this.state.comment.SRSData.FreshAlumCan }
-                weathered={ this.state.comment.SRSData.WeatheredAlumCan }
-              />
-              <SurveyTableRow 
-                name='Hygiene Items'
-                fresh={ this.state.comment.SRSData.FreshHygItems }
-                weathered={ this.state.comment.SRSData.WeatheredHygItems }
-              />
-              <SurveyTableRow 
-                name='Metal'
-                fresh={ this.state.comment.SRSData.FreshMetal }
-                weathered={ this.state.comment.SRSData.WeatheredMetal }
-              />
-              <SurveyTableRow 
-                name='Tile/Brick'
-                fresh={ this.state.comment.SRSData.FreshTileBrick }
-                weathered={ this.state.comment.SRSData.WeatheredTileBrick }
-              />
+              { SRSRows }
             </tbody>
           </table>
 
@@ -244,104 +168,9 @@ class Survey extends Component {
                 <th>Amount Weathered</th>
               </tr>
             </thead>
-            {/* when switch to array schema of debris, will be able to use map to programatically add rows */}
-            {/* Same for accumulation survey */}
             <tbody>
-              <SurveyTableRow 
-                name='Cigarette Butt'
-                fresh={ this.state.comment.ASData.FreshCig }
-                weathered={ this.state.comment.ASData.WeatheredCig }
-              />
-              <SurveyTableRow 
-                name='Fishing Line'
-                fresh={ this.state.comment.ASData.FreshFline }
-                weathered={ this.state.comment.ASData.WeatheredFline }
-              />
-              <SurveyTableRow 
-                name='Glass'
-                fresh={ this.state.comment.ASData.FreshGlass }
-                weathered={ this.state.comment.ASData.WeatheredGlass }
-              />
-              <SurveyTableRow 
-                name='Paper'
-                fresh={ this.state.comment.ASData.FreshPaper }
-                weathered={ this.state.comment.ASData.WeatheredPaper }
-              />
-              <SurveyTableRow 
-                name='Filmed Plastic'
-                fresh={ this.state.comment.ASData.FreshFplastic }
-                weathered={ this.state.comment.ASData.WeatheredFplastic }
-              />
-              <SurveyTableRow 
-                name='Misc. Plastic'
-                fresh={ this.state.comment.ASData.FreshMiscPlastic }
-                weathered={ this.state.comment.ASData.WeatheredMiscPlastic }
-              />
-              <SurveyTableRow 
-                name='Plastic Bottle'
-                fresh={ this.state.comment.ASData.FreshPlasticBottle }
-                weathered={ this.state.comment.ASData.WeatheredPlasticBottle }
-              />
-              <SurveyTableRow 
-                name='Plastic Cap'
-                fresh={ this.state.comment.ASData.FreshPlasticCap }
-                weathered={ this.state.comment.ASData.WeatheredPlasticCap }
-              />
-              <SurveyTableRow 
-                name='Styrofoam'
-                fresh={ this.state.comment.ASData.FreshStyrofoam }
-                weathered={ this.state.comment.ASData.WeatheredStyrofoam }
-              />
-              <SurveyTableRow 
-                name='Wood'
-                fresh={ this.state.comment.ASData.FreshWood }
-                weathered={ this.state.comment.ASData.WeatheredWood }
-              />
-              <SurveyTableRow 
-                name='Urethane Foam'
-                fresh={ this.state.comment.ASData.FreshUrethaneFoam }
-                weathered={ this.state.comment.ASData.WeatheredUrethaneFoam }
-              />
-              <SurveyTableRow 
-                name='Plastic Cup'
-                fresh={ this.state.comment.ASData.FreshPlasticCup }
-                weathered={ this.state.comment.ASData.WeatheredPlasticCup }
-              />
-              <SurveyTableRow 
-                name='Plastic Straw'
-                fresh={ this.state.comment.ASData.FreshPlasticStraw }
-                weathered={ this.state.comment.ASData.WeatheredPlasticStraw }
-              />
-              <SurveyTableRow 
-                name='Cotton/Cloth'
-                fresh={ this.state.comment.ASData.FreshCottonCloth }
-                weathered={ this.state.comment.ASData.WeatheredCottonCloth }
-              />
-              <SurveyTableRow 
-                name='Polypropylene Rope'
-                fresh={ this.state.comment.ASData.FreshPolyRope }
-                weathered={ this.state.comment.ASData.WeatheredPolyRope }
-              />
-              <SurveyTableRow 
-                name='Aluminum Can'
-                fresh={ this.state.comment.ASData.FreshAlumCan }
-                weathered={ this.state.comment.ASData.WeatheredAlumCan }
-              />
-              <SurveyTableRow 
-                name='Hygiene Items'
-                fresh={ this.state.comment.ASData.FreshHygItems }
-                weathered={ this.state.comment.ASData.WeatheredHygItems }
-              />
-              <SurveyTableRow 
-                name='Metal'
-                fresh={ this.state.comment.ASData.FreshMetal }
-                weathered={ this.state.comment.ASData.WeatheredMetal }
-              />
-              <SurveyTableRow 
-                name='Tile/Brick'
-                fresh={ this.state.comment.ASData.FreshTileBrick }
-                weathered={ this.state.comment.ASData.WeatheredTileBrick }
-              />
+              { ASRows }
+              
             </tbody>
           </table>
            
