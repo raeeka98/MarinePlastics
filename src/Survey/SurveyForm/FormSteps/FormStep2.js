@@ -91,15 +91,6 @@ class FormStep2 extends Component {
           onChange={ this.props.handleInputChange }
           className='uk-input uk-margin'
         />
-        
-        <label>Major Usage</label>
-        <input
-          type='text'
-          placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
-          id='majorUse'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
       </form>
     )
   }

@@ -51,6 +51,7 @@ class Survey extends Component {
     let SRSRows = this.state.comment.SRSData.map(type => {
       return(
         <SurveyTableRow
+          key={type._id}
           name={type.name}
           fresh={type.fresh}
           weathered={type.weathered}
@@ -61,6 +62,7 @@ class Survey extends Component {
     let ASRows = this.state.comment.ASData.map(type => {
       return(
         <SurveyTableRow
+          key={type._id}
           name={type.name}
           fresh={type.fresh}
           weathered={type.weathered}
