@@ -4,54 +4,54 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// var debrisSchema = new Schema ({
-//   name: String,
-//   fresh: Number,
-//   weathered: Number,
-// });
-
-var dataSchema = new Schema({
-  //debris: [{
-    FreshCig: Number,
-    WeatheredCig: Number,
-    FreshFline: Number,
-    WeatheredFline: Number,
-    FreshGlass: Number,
-    WeatheredGlass: Number,
-    FreshPaper: Number,
-    WeatheredPaper: Number,
-    FreshFplastic: Number,
-    WeatheredFplastic: Number,
-    FreshMiscPlastic: Number,
-    WeatheredMiscPlastic: Number,
-    FreshPlasticBottle: Number,
-    WeatheredPlasticBottle: Number,
-    FreshPlasticCap: Number,
-    WeatheredPlasticCap: Number,
-    FreshStyrofoam: Number,
-    WeatheredStyrofoam: Number,
-    FreshWood: Number,
-    WeatheredWood: Number,
-    FreshUrethaneFoam: Number,
-    WeatheredUrethaneFoam: Number,
-    FreshPlasticCup: Number,
-    WeatheredPlasticCup: Number,
-    FreshPlasticStraw: Number,
-    WeatheredPlasticStraw: Number,
-    FreshCottonCloth: Number,
-    WeatheredCottonCloth: Number,
-    FreshPolyRope: Number,
-    WeatheredPolyRope: Number,
-    FreshAlumCan: Number,
-    WeatheredAlumCan: Number,
-    FreshHygItems: Number,
-    WeatheredHygItems: Number,
-    FreshMetal: Number,
-    WeatheredMetal: Number,
-    FreshTileBrick: Number,
-		WeatheredTileBrick: Number,
-  //}] // an array of debris totals for types should be useful
+var dataSchema = new Schema ({
+  name: String,
+  fresh: Number,
+  weathered: Number,
 });
+
+// var dataSchema = new Schema({
+//   //debris: [{
+//     FreshCig: Number,
+//     WeatheredCig: Number,
+//     FreshFline: Number,
+//     WeatheredFline: Number,
+//     FreshGlass: Number,
+//     WeatheredGlass: Number,
+//     FreshPaper: Number,
+//     WeatheredPaper: Number,
+//     FreshFplastic: Number,
+//     WeatheredFplastic: Number,
+//     FreshMiscPlastic: Number,
+//     WeatheredMiscPlastic: Number,
+//     FreshPlasticBottle: Number,
+//     WeatheredPlasticBottle: Number,
+//     FreshPlasticCap: Number,
+//     WeatheredPlasticCap: Number,
+//     FreshStyrofoam: Number,
+//     WeatheredStyrofoam: Number,
+//     FreshWood: Number,
+//     WeatheredWood: Number,
+//     FreshUrethaneFoam: Number,
+//     WeatheredUrethaneFoam: Number,
+//     FreshPlasticCup: Number,
+//     WeatheredPlasticCup: Number,
+//     FreshPlasticStraw: Number,
+//     WeatheredPlasticStraw: Number,
+//     FreshCottonCloth: Number,
+//     WeatheredCottonCloth: Number,
+//     FreshPolyRope: Number,
+//     WeatheredPolyRope: Number,
+//     FreshAlumCan: Number,
+//     WeatheredAlumCan: Number,
+//     FreshHygItems: Number,
+//     WeatheredHygItems: Number,
+//     FreshMetal: Number,
+//     WeatheredMetal: Number,
+//     FreshTileBrick: Number,
+// 		WeatheredTileBrick: Number,
+//   //}] // an array of debris totals for types should be useful
+// });
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
@@ -76,9 +76,9 @@ var CommentsSchema = new Schema({
 	majorUse: String,
   weight: Number,
 	NumberOfPeople: Number,
-  SRSData: dataSchema,
+  SRSData: [ dataSchema ],
   SRSTotal: Number,
-  ASData: dataSchema,
+  ASData: [ dataSchema ],
   AStotal: Number,
 });
 

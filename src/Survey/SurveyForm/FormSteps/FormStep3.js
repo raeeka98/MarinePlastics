@@ -6,7 +6,7 @@ class FormStep3 extends Component {
   render() {
     return(
       <form className="uk-form-horizontal">
-        <h2>Surface Rib Scan</h2>
+        <h2>{ this.props.title }</h2>
         <table className="uk-table uk-table-striped">
           <thead>
             <tr>
@@ -18,135 +18,116 @@ class FormStep3 extends Component {
           <tbody>
             <FormTableRow
               name='Cigarette Butts' 
-              class='srs'
-              freshID='FreshCig'
-              weatheredID='WeatheredCig'
+              class={ this.props.class }
+              id='cigaretteButts'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Fishing Line' 
-              class='srs'
-              freshID='FreshFline'
-              weatheredID='WeatheredFline'
+              class={ this.props.class }
+              id='fishingLine'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Glass' 
-              class='srs'
-              freshID='FreshGlass'
-              weatheredID='WeatheredGlass'
+              class={ this.props.class }
+              id='glass'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Paper' 
-              class='srs'
-              freshID='FreshPaper'
-              weatheredID='WeatheredPaper'
+              class={ this.props.class }
+              id='paper'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Filmed Plastic' 
-              class='srs'
-              freshID='FreshFplastic'
-              weatheredID='WeatheredFplastic'
+              class={ this.props.class }
+              id='filmed_plastic'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Misc. Plastic' 
-              class='srs'
-              freshID='FreshMiscPlastic'
-              weatheredID='WeatheredMiscPlastic'
+              class={ this.props.class }
+              id='miscPlastic'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Plastic Bottle' 
-              class='srs'
-              freshID='FreshPlasticBottle'
-              weatheredID='WeatheredPlasticBottle'
+              class={ this.props.class }
+              id='plasticBottle'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Plastic Cap' 
-              class='srs'
-              freshID='FreshPlasticCap'
-              weatheredID='WeatheredPlasticCap'
+              class={ this.props.class }
+              id='plasticCap'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Styrofoam' 
-              class='srs'
-              freshID='FreshStyrofoam'
-              weatheredID='WeatheredStyrofoam'
+              class={ this.props.class }
+              id='styrofoam'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Wood' 
-              class='srs'
-              freshID='FreshWood'
-              weatheredID='WeatheredWood'
+              class={ this.props.class }
+              id='wood'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Urethane Foam' 
-              class='srs'
-              freshID='FreshUrethaneFoam'
-              weatheredID='WeatheredUrethaneFoam'
+              class={ this.props.class }
+              id='urethaneFoam'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Plastic Cup' 
-              class='srs'
-              freshID='FreshPlasticCup'
-              weatheredID='WeatheredPlasticCup'
+              class={ this.props.class }
+              id='plasticCup'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Plastic Straw' 
-              class='srs'
-              freshID='FreshPlasticStraw'
-              weatheredID='WeatheredPlasticStraw'
+              class={ this.props.class }
+              id='plasticStraw'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Cotton/Cloth' 
-              class='srs'
-              freshID='FreshCottonCloth'
-              weatheredID='WeatheredCottonCloth'
+              class={ this.props.class }
+              id='cottonCloth'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Polypropylene Rope' 
-              class='srs'
-              freshID='FreshPolyRope'
-              weatheredID='WeatheredPolyRope'
+              class={ this.props.class }
+              id='polypropyleneRope'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Aluminum Can' 
-              class='srs'
-              freshID='FreshAlumCan'
-              weatheredID='WeatheredAlumCan'
+              class={ this.props.class }
+              id='alumninumCan'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Hygiene Items' 
-              class='srs'
-              freshID='FreshHygItems'
-              weatheredID='WeatheredHygItems'
+              class={ this.props.class }
+              id='hygieneItem'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Metal' 
-              class='srs'
-              freshID='FreshMetal'
-              weatheredID='WeatheredMetal'
+              class={ this.props.class }
+              id='metal'
               handleInputChange={ this.props.handleInputChange }
             />
             <FormTableRow
               name='Tile/Brick' 
-              class='srs'
-              freshID='FreshTileBrick'
-              weatheredID='WeatheredTileBrick'
+              class={ this.props.class }
+              id='tileBrick'
               handleInputChange={ this.props.handleInputChange }
             />
           </tbody>

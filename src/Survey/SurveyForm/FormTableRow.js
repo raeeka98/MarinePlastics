@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 
 class FormTableRow extends Component {
   render() {
-    const classes = this.props.class + ' uk-input uk-margin uk-width-1-2@s'
+    const classes = this.props.class + ' uk-input uk-margin uk-width-1-2@s';
     return (
       <tr>
         <td>{this.props.name}</td>
         <td>
           <input
             type='number'
-            id={ this.props.freshID }
+            id={ this.props.id }
             onChange={ this.props.handleInputChange }
-            className={ classes }
+            className={ classes + ' fresh' }
           />
         </td>
         <td>
           <input
             type='number'
-            id={ this.props.weatheredID }
+            id={ this.props.id }
             onChange={ this.props.handleInputChange }
-            className={ classes }
+            className={ classes + ' weathered' }
           />
         </td>
       </tr>
