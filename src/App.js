@@ -10,6 +10,8 @@ import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
 import Map from './Map/Map.js';
+import ChooseForm from './Survey/ChooseForm.js';
+
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -35,18 +37,18 @@ class App extends Component {
               auth={this.auth}
             />
             <div>
-              <Route 
-                exact path='/' 
+              <Route
+                exact path='/'
                 render={ () => (
                   <Landing auth={ this.auth } />
                  )}
               />
-              <Route 
-                exact path='/home' 
+              <Route
+                exact path='/home'
                 component={ SurveyList }
               />
-              <Route 
-                path='/survey' 
+              <Route
+                path='/survey'
                 component={ Steps }
               />
               <Route
@@ -61,13 +63,17 @@ class App extends Component {
                   : <UserProfile auth={ this.auth } />
                 )}
               />
-              <Route 
-                exact path='/protocol' 
+              <Route
+                exact path='/protocol'
                 component={ Protocol }
               />
               <Route
                 path='/map'
                 component={Map}
+              />
+              <Route
+                path='/chooseform'
+                component={ ChooseForm }
               />
             </div>
             <Footer />

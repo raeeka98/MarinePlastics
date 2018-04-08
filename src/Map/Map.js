@@ -41,7 +41,7 @@ class Map extends Component {
     this.pollInterval = null;
   }
   static defaultProps = {
-     center: {lat: 30, lng: -122},
+     center: {lat: 36.962303, lng: -122},
      zoom: 11
    };
 
