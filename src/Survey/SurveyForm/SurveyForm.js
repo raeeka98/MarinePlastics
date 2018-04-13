@@ -50,6 +50,7 @@ class SurveyForm extends Component {
         SRSData: [],
         ASTotal: '',
         ASData: [],
+        surveyArea: '',
       }
     // }
 
@@ -150,6 +151,7 @@ class SurveyForm extends Component {
   }
 
   render() {
+ 
     const steps = [
       {
         name:'Clean Up Information',
@@ -188,8 +190,10 @@ class SurveyForm extends Component {
        }, {
         name: 'Done!',
         component: <SubmitConfirm />
-      }
+      } 
     ]
+
+
     return (
       <div className='step-progress'>
         <StepZilla
