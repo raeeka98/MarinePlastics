@@ -61,7 +61,7 @@ class SurveyForm extends Component {
 
     this.auth = new Auth();
     this.pollInterval = null;
-    this.url = 'http://localhost:3001/api/comments';
+    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
   handleInputChange(e) {
