@@ -4,6 +4,7 @@ import FormTableRow from '../FormTableRow';
 
 class FormStep4 extends Component {
   render() {
+    window.scrollTo(0,0);
     return(
       <form className="uk-form-horizontal">
         <h2>{ this.props.title }</h2>

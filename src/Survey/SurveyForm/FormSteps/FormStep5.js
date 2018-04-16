@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class FormStep4 extends Component {
   render() {
+    window.scrollTo(0,0);
     return (
       <div>
         <form>

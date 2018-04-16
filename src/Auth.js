@@ -1,10 +1,12 @@
 import auth0 from 'auth0-js';
 
+/*redirectUri: 'https://marineplastics.herokuapp.com/', for prod
+redirectUri: 'http://localhost:3000', for dev*/
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'marine-plastics.auth0.com',
     clientID: 'MeGxwCE1JVNy9jsRYPWzqebekosCVRDN',
-    redirectUri: 'https://marineplastics.herokuapp.com/',
+    redirectUri: 'http://localhost:3000',
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid email profile'

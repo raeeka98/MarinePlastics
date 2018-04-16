@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class FormStep2 extends Component {
   render() {
+    window.scrollTo(0,0);
     return (
       <form>
         <h2>Survey Area</h2>
