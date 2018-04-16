@@ -18,7 +18,7 @@ const Header = (props) => (
           }
         
           <li><Link to="/map">Map</Link></li>
-            <li><Link to="/protocol">Protcol</Link></li>
+            <li><Link to="/protocol">Protocol</Link></li>
         </ul>
       </div>
       <div className="uk-navbar-right">
