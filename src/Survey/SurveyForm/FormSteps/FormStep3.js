@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import FormTableRow from '../FormTableRow';
 
 class FormStep3 extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     return(
       <form className="uk-form-horizontal">

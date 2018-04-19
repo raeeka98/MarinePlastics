@@ -18,7 +18,7 @@ class Survey extends Component {
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
     this.auth = new Auth();
-    this.url = 'http://localhost:3001/api/comments';
+    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
   handleCommentDelete(id) {

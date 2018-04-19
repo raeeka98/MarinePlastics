@@ -12,7 +12,7 @@ var router = express.Router();
 //set our port to either a predetermined port number if you have set it up, or 3001
 var port = process.env.API_PORT || 3001;
 
-var mongoDB = 'mongodb://db:db@ds247688.mlab.com:47688/marine_plastics';
+var mongoDB = 'mongodb://db:db@ds143221.mlab.com:43221/heroku_h3hh7swq';
 mongoose.connect(mongoDB, { useMongoClient: true })
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

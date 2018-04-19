@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class FormStep2 extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     return (
       <form>

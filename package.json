@@ -2,6 +2,7 @@
   "name": "MarinePlastics",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://marineplastics.herokuapp.com",
   "devDependencies": {
     "react-scripts": "0.4.1"
   },

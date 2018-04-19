@@ -1,5 +1,7 @@
 import auth0 from 'auth0-js';
 
+/*redirectUri: 'https://marineplastics.herokuapp.com/', for prod
+redirectUri: 'http://localhost:3000', for dev*/
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'marine-plastics.auth0.com',

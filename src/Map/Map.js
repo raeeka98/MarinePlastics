@@ -16,7 +16,7 @@ class Map extends Component {
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.pollInterval = null;
-    this.url = 'http://localhost:3001/api/comments';
+    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
   loadCommentsFromServer() {
