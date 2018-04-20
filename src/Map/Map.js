@@ -9,7 +9,7 @@ import Pin from './Pin.jsx';
 import {K_SIZE} from './PinStyle.js'
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
+const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +29,7 @@ class Map extends Component {
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    } 
+    }
   }
 
   //when incorporating into another project
@@ -41,33 +41,34 @@ class Map extends Component {
     this.pollInterval = null;
   }
   static defaultProps = {
-     center: {lat: 30, lng: -122},
-     zoom: 11
+     center: {lat: 36.965652,lng: -121.954729},
+     zoom: 13
    };
 
-  render() {
-    let surveyNodes = this.state.data.map(comment => {
-      return (
-        <div key={ comment._id } style={{height: '500px', width: '1248px'}}>
-          <GoogleMapReact
-              bootstrapURLKeys={{ key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA'] }}
-              defaultCenter={this.props.center}
-              defaultZoom={this.props.zoom}>
 
-              <Pin
-                lat={comment.lat}
-                lng={comment.lon}
-                text={comment.beach}
-              />
+   render(){
+     const GoogleMapsMarkers = this.state.data.map(comment => (
+         <CustomMarker
+           key={comment.id}
+           lat={comment.lat}
+           lng={comment.lon}
+           text={comment.beach}
+         />
+       ));
+       return (
+          <div style={{height: '500px', width: '1248px'}}>
+      <GoogleMapReact
+        defaultCenter={this.props.center}
+        defaultZoom={this.props.zoom}
 
-          </GoogleMapReact>
+        bootstrapURLKeys={{
+        key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
+        }}
+      >
+
+        {GoogleMapsMarkers}
+      </GoogleMapReact>
         </div>
-      );
-    });
-    return (
-      <div>
-        { surveyNodes }
-      </div>
     );
   }
 }
