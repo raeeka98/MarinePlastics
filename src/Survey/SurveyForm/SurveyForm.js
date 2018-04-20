@@ -136,6 +136,11 @@ class SurveyForm extends Component {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     }
 
+    if(!this.auth.isAuthenticated()){
+      window.alert('Please sign in to continue');
+      window.location.replace('/');
+    }
+
     this.auth.getLoggedInProfile((err, profile) => {
       this.setState({
         user: profile.name,
