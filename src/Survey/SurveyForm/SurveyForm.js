@@ -132,6 +132,12 @@ class SurveyForm extends Component {
     }
   }
 
+  checkForm(){
+    console.log(localStorage.SurveyArea);
+    console.log(localStorage.SurfaceRibScan);
+    console.log(localStorage.AccumulationSurvey);
+  }
+
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
@@ -198,7 +204,8 @@ class SurveyForm extends Component {
       <div className='step-progress'>
         <StepZilla
           onStepChange={
-            (step) => { if (step === 5) this.handleFormSubmit(); }
+            (step) => { if (step === 5) this.handleFormSubmit();
+                        if (step === 1) this.checkForm();}
           }
           steps={steps}
           showSteps={true}
