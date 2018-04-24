@@ -8,7 +8,7 @@ import SurveyForm from './SurveyForm/SurveyForm';
 
 import SurveyTableRow from './SurveyTableRow';
 
-var SurveyArea = "0";
+var BasicCleanUp = "0";
 var SurfaceRibScan = "0";
 var AccumulationSurvey = "0";
 var Final;
@@ -17,8 +17,8 @@ function handleFormSubmit(e){
   console.log(e.target.id);
   /*console.log(e.target.checked);*/
   if(e.target.checked == true){
-    if(e.target.id == "SurveyArea"){
-      SurveyArea = "1";
+    if(e.target.id == "BasicCleanUp"){
+      BasicCleanUp = "1";
     } else if (e.target.id == "SurfaceRibScan"){
       SurfaceRibScan = "1";
     } else {
@@ -30,8 +30,8 @@ function handleFormSubmit(e){
     console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
     console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
   */} else if (e.target.checked == false){
-    if(e.target.id == "SurveyArea"){
-      SurveyArea = "0";
+    if(e.target.id == "BasicCleanUp"){
+      BasicCleanUp = "0";
     } else if (e.target.id == "SurfaceRibScan"){
       SurfaceRibScan = "0";
     } else {
@@ -42,17 +42,18 @@ function handleFormSubmit(e){
     console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
     console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
   */} 
-  console.log("SurveryArea: " + SurveyArea + "SurfaceRibScan: " + SurfaceRibScan + "AccumulationSurvey: " + AccumulationSurvey);
+  console.log("BasicCleanUp: " + BasicCleanUp + "SurfaceRibScan: " + SurfaceRibScan + "AccumulationSurvey: " + AccumulationSurvey);
 }
 
 
 class ChooseForm extends Component {
 
   _setState(){
-    var Final = SurveyArea + SurfaceRibScan + AccumulationSurvey;
+    var Final = BasicCleanUp + SurfaceRibScan + AccumulationSurvey;
     console.log("Final: " + Final);
-    localStorage.setItem("SurveyArea", SurveyArea);
-    console.log(localStorage.SurveyArea);
+    localStorage.setItem("Final", Final);
+    localStorage.setItem("BasicCleanUp", BasicCleanUp);
+    console.log(localStorage.BasicCleanUp);
     localStorage.setItem("SurfaceRibScan", SurfaceRibScan);
     console.log(localStorage.SurfaceRibScan);
     localStorage.setItem("AccumulationSurvey", AccumulationSurvey);
@@ -65,7 +66,7 @@ class ChooseForm extends Component {
       <div className="uk-margin">
       <h4 className="uk-heading-line  uk-text-center"><span>Choose which type of clean up surveys you have performed</span></h4>
         <ul className="uk-list uk-list-large uk-list-divider uk-text-center">
-          <li>  <label><input className="uk-checkbox" id="SurveyArea" type="checkbox" onChange={handleFormSubmit} /> Survey Area </label> </li>
+          <li>  <label><input className="uk-checkbox" id="BasicCleanUp" type="checkbox" onChange={handleFormSubmit} /> Basic Cleanup </label> </li>
           <li>  <label><input className="uk-checkbox" id="SurfaceRibScan" type="checkbox" onChange={handleFormSubmit}/> Surface Rib Scan </label> </li>
           <li>  <label><input className="uk-checkbox" id="AccumulationSurvey" type="checkbox" onChange={handleFormSubmit}/> Accumulation Survey</label> </li>
         </ul>

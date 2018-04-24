@@ -132,12 +132,6 @@ class SurveyForm extends Component {
     }
   }
 
-  checkForm(){
-    console.log(localStorage.SurveyArea);
-    console.log(localStorage.SurfaceRibScan);
-    console.log(localStorage.AccumulationSurvey);
-  }
-
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
@@ -157,21 +151,39 @@ class SurveyForm extends Component {
   }
 
   render() {
- 
-    const steps = [
-      {
+    
+    var steps = [{
         name:'Clean Up Information',
         component:
           <FormStep1
             handleInputChange={ this.handleInputChange }
           />
-      }, {
+        }];
+
+    if(localStorage.BasicCleanUp == '1'){
+      var BasicCleanUp = {
+        name: 'Basic Cleanup',
+        component:
+          <FormStep5
+            handleInputChange={ this.handleInputChange }
+          />
+        };
+      steps.push(BasicCleanUp);
+    };
+
+    if(localStorage.BasicCleanUp == '0'){
+      var surveys = {
         name: 'Survey Area',
         component:
           <FormStep2
             handleInputChange={ this.handleInputChange }
           />
-      }, {
+      };
+      steps.push(surveys); 
+    };
+
+    if(localStorage.SurfaceRibScan == '1'){
+      var SurfaceRibScan = {
         name: 'Surface Rib Scan',
         component:
           <FormStep3
@@ -179,7 +191,12 @@ class SurveyForm extends Component {
             class={ 'srs' }
             handleInputChange={ this.handleInputChange }
           />
-      }, {
+      };
+      steps.push(SurfaceRibScan);
+    };
+
+    if(localStorage.AccumulationSurvey == '1'){
+      var AccumulationSurvey = {
         name: 'Accumulation Survey',
         component:
           <FormStep4
@@ -187,27 +204,24 @@ class SurveyForm extends Component {
             class={ 'as' }
             handleInputChange={ this.handleInputChange }
           />
-      }, {
-        name: 'Basic Cleanup',
-        component:
-          <FormStep5
-            handleInputChange={ this.handleInputChange }
-          />
-       }, {
+        };
+      steps.push(AccumulationSurvey);
+    };
+
+    var Done = {
         name: 'Done!',
         component: <SubmitConfirm />
-      } 
-    ]
+        };
 
+    steps.push(Done);
 
     return (
       <div className='step-progress'>
         <StepZilla
           onStepChange={
-            (step) => { if (step === 5) this.handleFormSubmit();
-                        if (step === 1) this.checkForm();}
+            (step) => { if (step === steps.length-1) this.handleFormSubmit();}
           }
-          steps={steps}
+          steps={steps} 
           showSteps={true}
           prevBtnOnLastStep={true}
           showNavigation={true}
