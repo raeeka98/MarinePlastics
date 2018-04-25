@@ -14,9 +14,16 @@ Lee White - lnwhite@ucsc.edu
 
 Vincent Wu - vwu5@ucsc.edu
 
+How to run:
 
 git clone
 
 npm install
 
 npm run start-dev
+
+Scrum Meetings: 
+
+Tuesday/Thursday 3:15 at McHenry
+
+Sunday 12:00 at McHenry

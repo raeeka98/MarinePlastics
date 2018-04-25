@@ -13,7 +13,7 @@ const Header = (props) => (
             </Link>
           </li>
           { props.auth.isAuthenticated()
-            ? <li><Link to='/survey'>Survey</Link></li>
+            ? <li><Link to='/chooseform'>Survey</Link></li>
             : null
           }
         

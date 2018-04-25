@@ -5,8 +5,11 @@ class FormStep2 extends Component {
     window.scrollTo(0, 0)
   }
   render() {
+
     return (
+
       <form>
+      <a href="#" onClick={() => props.jumpToStep(4)}> Click to skip survey sweeps </a>
         <h2>Survey Area</h2>
         <label>GPS Coordinates (Starting Point)</label>
           <br/>
@@ -42,7 +45,7 @@ class FormStep2 extends Component {
           onChange={ this.props.handleInputChange }
           className='uk-input uk-margin'
         />
-              
+
         <label>Nearest River Output</label>
         <br/>
         <input
@@ -94,8 +97,10 @@ class FormStep2 extends Component {
           onChange={ this.props.handleInputChange }
           className='uk-input uk-margin'
         />
+
       </form>
     )
+
   }
 }
 
