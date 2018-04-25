@@ -42,7 +42,7 @@ class Map extends Component {
   }
   static defaultProps = {
      center: {lat: 36.962303, lng: -122},
-     zoom: 11
+     zoom: 13
    };
 
   render() {
