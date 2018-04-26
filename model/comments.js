@@ -10,6 +10,12 @@ var dataSchema = new Schema ({
   weathered: Number,
 });
 
+var tideSchema = new Schema ({
+	type: String,
+	time: Number,
+	height: Number,
+});
+
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
 var CommentsSchema = new Schema({
