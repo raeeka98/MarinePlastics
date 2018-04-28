@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import geolib from 'geolib';
+// import geolib from 'geolib';
+
+import { locationSort } from '../SortHelper.js';
 
 class SurveyList extends Component {
   constructor(props) {
@@ -38,31 +40,7 @@ class SurveyList extends Component {
   }
 
   render() {
-    let locations = []
-    for (let i = 0; i < this.state.data.length; i++) {
-      const findIndex = locations.findIndex((a) => {
-        const distance = geolib.getDistance(
-          {latitude: a.lat, longitude: a.lon},
-          {latitude: this.state.data[i].lat, longitude: this.state.data[i].lon}
-        );
-        // if distanc is less than 1000 meters (approx 1 mile), probably same beach
-        return distance < 1500;
-      });
-      
-      if (findIndex > -1) {
-        locations[findIndex].entries.push(this.state.data[i]);
-      } else {
-        locations.push(
-          {
-            name: this.state.data[i].beach,
-            lat: this.state.data[i].lat,
-            lon: this.state.data[i].lon,
-            entries: [this.state.data[i]]
-          }
-        );
-      }
-    }
-
+    const locations = locationSort(this.state.data);
     let locationNodes = locations.map((location, i) => {
       let path = location.name.replace(/\s/g, '').toLowerCase();
       return (
@@ -84,4 +62,4 @@ class SurveyList extends Component {
   }
 }
 
-  export default SurveyList;
+export default SurveyList;
