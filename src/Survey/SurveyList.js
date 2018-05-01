@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import geolib from 'geolib';
-
 import { locationSort } from '../SortHelper.js';
 
 class SurveyList extends Component {
@@ -42,7 +40,7 @@ class SurveyList extends Component {
   render() {
     const locations = locationSort(this.state.data);
     let locationNodes = locations.map((location, i) => {
-      let path = location.name.replace(/\s/g, '').toLowerCase();
+      let path = location.name.replace(/\s/g, '');
       return (
         <li key={i}>
           <Link to={{
