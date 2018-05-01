@@ -10,6 +10,7 @@ import {K_SIZE} from './PinStyle.js'
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
+
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -47,29 +48,29 @@ class Map extends Component {
 
 
    render(){
-     const GoogleMapsMarkers = this.state.data.map(comment => (
-         <CustomMarker
-           key={comment.id}
-           lat={comment.lat}
-           lng={comment.lon}
-           text={comment.beach}
-         />
-       ));
-       return (
-          <div style={{height: '500px', width: '1248px'}}>
-      <GoogleMapReact
-        defaultCenter={this.props.center}
-        defaultZoom={this.props.zoom}
+    const GoogleMapsMarkers = this.state.data.map(comment => (
+      <CustomMarker
+        key={comment.id}
+        lat={comment.lat}
+        lng={comment.lon}
+        text={comment.beach}
+      />
+    ));
+    return (
+      <div style={{height: '500px', width: '1248px'}}>
+        <GoogleMapReact
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
 
-        bootstrapURLKeys={{
-        key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
-        }}
-      >
-
-        {GoogleMapsMarkers}
-      </GoogleMapReact>
-        </div>
+          bootstrapURLKeys={{
+          key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
+          }}
+        >
+          { GoogleMapsMarkers }
+        </GoogleMapReact>
+      </div>
     );
   }
 }
-  export default Map;
+
+export default Map;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { locationSort } from '../SortHelper.js';
 
 class SurveyList extends Component {
   constructor(props) {
@@ -14,6 +15,9 @@ class SurveyList extends Component {
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
+        res.data.sort((a, b) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
         this.setState({ data: res.data });
       })
   }
@@ -21,7 +25,7 @@ class SurveyList extends Component {
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    } 
+    }
   }
 
   //when incorporating into another project
@@ -34,24 +38,26 @@ class SurveyList extends Component {
   }
 
   render() {
-    let surveyNodes = this.state.data.map(comment => {
+    const locations = locationSort(this.state.data);
+    let locationNodes = locations.map((location, i) => {
+      let path = location.name.replace(/\s/g, '');
       return (
-        <li key={comment._id}>
+        <li key={i}>
           <Link to={{
-            pathname: `/entry/${comment._id}`,
-            state: { comment: comment  }
+            pathname: `/location/${path}`,
+            state: { data: location }
           }}>
-            {comment.date}: {comment.beach}
+            {location.name}: {location.entries.length} Entries
           </Link>
         </li>
       );
     });
     return (
       <ul>
-        { surveyNodes }
+        { locationNodes }
       </ul>
     );
   }
 }
 
-  export default SurveyList;
+export default SurveyList;

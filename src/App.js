@@ -10,8 +10,8 @@ import Steps from './Survey/SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
 import Map from './Map/Map.js';
-import ChooseForm from './Survey/ChooseForm.js';
-
+import ChooseForm from './Survey/ChooseForm';
+import LocationPage from './Location/Location';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -54,6 +54,10 @@ class App extends Component {
               <Route
                 path='/entry/:entryKey'
                 component={ SurveyEntry }
+              />
+              <Route
+                path='/location/:id'
+                component={ LocationPage }
               />
               <Route
                 path='/profile'
