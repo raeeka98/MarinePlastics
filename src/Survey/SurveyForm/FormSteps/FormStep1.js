@@ -34,21 +34,19 @@ class FormStep1 extends Component {
             required
           />
           <label>Reason for Location Choice</label>
-          <input
-            type='text'
-            placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
-            id='reason'
-            onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin'
-          />
+          <select className="uk-select uk-margin "   id='reason' onChange={ this.props.handleInputChange }>
+            <option>Proximity</option>
+            <option>Known for debris</option>
+            <option>Other</option>
+          </select>
+        
           <label>Major Usage</label>
-          <input
-            type='text'
-            placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
-            id='majorUse'
-            onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin'
-          />
+          <select className="uk-select uk-margin "   id='majorUse' onChange={ this.props.handleInputChange }>
+            <option>Recreational</option>
+            <option>Commercial</option>
+            <option>Remote/Unused</option>
+            <option>Other</option>
+          </select>
         </form>
       </div>
 

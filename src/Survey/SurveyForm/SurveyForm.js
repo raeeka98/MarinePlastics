@@ -41,8 +41,9 @@ class SurveyForm extends Component {
         aspect: '',
         weather: '',
         lastTide: '',
-        nextTide: '',
+        nextTide: {},
         windDir: '',
+        windSpeed: '',
         majorUse: '',
         weight: '',
         NumberOfPeople: '',
@@ -59,6 +60,7 @@ class SurveyForm extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSurveyInput = this.handleSurveyInput.bind(this);
+    this.handleTideInput = this.handleTideInput.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
@@ -72,9 +74,21 @@ class SurveyForm extends Component {
     } else if (e.target.getAttribute('class').includes('as')) {
       let ASData = this.handleSurveyInput(e, this.state.ASData);
       this.setState({ ASData });
+    } else if (e.target.getAttribute('class').includes('next-tide')) {
+      let nextTide = this.handleTideInput(e, this.state.nextTide);
+      this.setState({ nextTide });
+    }else if (e.target.getAttribute('class').includes('last-tide')) {
+      let lastTide = this.handleTideInput(e, this.state.lastTide);
+      this.setState({ lastTide });
     } else {
+      // isvalidated(e.target.value)
       this.setState({ [e.target.id]: e.target.value });
     }
+  }
+  
+  handleTideInput(e, data) {
+    data[e.target.id] = e.target.value;
+    return data;
   }
 
   handleSurveyInput(e, data) {
