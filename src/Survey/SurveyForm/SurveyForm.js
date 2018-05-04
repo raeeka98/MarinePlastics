@@ -176,7 +176,7 @@ class SurveyForm extends Component {
       steps.push(BasicCleanUp);
     };
 
-    if(localStorage.BasicCleanUp == '0'){
+    if(localStorage.SurfaceRibScan | localStorage.AccumulationSurvey == '1'){
       var surveys = {
         name: 'Survey Area',
         component:

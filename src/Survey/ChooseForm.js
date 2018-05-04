@@ -24,12 +24,7 @@ function handleFormSubmit(e){
     } else {
       AccumulationSurvey = "1";
     }
-    /*console.log(e.target.id)
-    localStorage.setItem(e.target.id,1);
-    console.log("Survey Area: " + localStorage.SurveyArea);
-    console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
-    console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
-  */} else if (e.target.checked == false){
+  } else if (e.target.checked == false){
     if(e.target.id == "BasicCleanUp"){
       BasicCleanUp = "0";
     } else if (e.target.id == "SurfaceRibScan"){
@@ -37,11 +32,7 @@ function handleFormSubmit(e){
     } else {
       AccumulationSurvey = "0";
     }
-    /*localStorage.setItem(e.target.id,0);
-    console.log("Survey Area: " + localStorage.SurveyArea);
-    console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
-    console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
-  */} 
+  } 
   console.log("BasicCleanUp: " + BasicCleanUp + "SurfaceRibScan: " + SurfaceRibScan + "AccumulationSurvey: " + AccumulationSurvey);
 }
 
@@ -50,14 +41,10 @@ class ChooseForm extends Component {
 
   _setState(){
     var Final = BasicCleanUp + SurfaceRibScan + AccumulationSurvey;
-    console.log("Final: " + Final);
     localStorage.setItem("Final", Final);
     localStorage.setItem("BasicCleanUp", BasicCleanUp);
-    console.log(localStorage.BasicCleanUp);
     localStorage.setItem("SurfaceRibScan", SurfaceRibScan);
-    console.log(localStorage.SurfaceRibScan);
     localStorage.setItem("AccumulationSurvey", AccumulationSurvey);
-    console.log(localStorage.AccumulationSurvey);
   }
 
   render(){
