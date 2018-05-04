@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 
 class FormStep2 extends Component {
@@ -9,7 +10,6 @@ class FormStep2 extends Component {
     return (
 
       <form>
-      <a href="#" onClick={() => props.jumpToStep(4)}> Click to skip survey sweeps </a>
         <h2>Survey Area</h2>
         <label>GPS Coordinates (Starting Point)</label>
           <br/>
