@@ -81,9 +81,18 @@ class SurveyForm extends Component {
       let lastTide = this.handleTideInput(e, this.state.lastTide);
       this.setState({ lastTide });
     } else {
-      // isvalidated(e.target.value)
-      this.setState({ [e.target.id]: e.target.value });
+      // var isvalid = isValidated(e.target.value)
+      // if isvalid = true
+        this.setState({ [e.target.id]: e.target.value });
+      // else 
+        // e.target.class add the ui-warning
+        // make a dialog saying 'yo not valid'
     }
+  }
+  
+  isValidated(e) {
+    
+    
   }
   
   handleTideInput(e, data) {
