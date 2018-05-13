@@ -117,15 +117,12 @@ class SurveyForm extends Component {
       handleInvalid();
       return false;
     } else if (
-        e.target.id === 'weight' || 
-        e.target.id === 'NumberOfPeople' ||
-        e.target.classList.contains('srs') ||
-        e.target.classList.contains('as')
+        (e.target.id === 'weight' || e.target.id === 'NumberOfPeople' ||
+        e.target.classList.contains('srs') || e.target.classList.contains('as'))
+        && e.target.value < 0
     ) {
-      if (e.target.value < 0) {
-        handleInvalid();
-        return false;
-      }
+      handleInvalid();
+      return false;
     } else {
       handleValid();
       return true;
