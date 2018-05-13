@@ -74,7 +74,6 @@ class SurveyForm extends Component {
     this.handleTideInput = this.handleTideInput.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.previousStep = this.previousStep.bind(this);
-    this.updateProgressBar = this.updateProgressBar.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
@@ -178,6 +177,8 @@ class SurveyForm extends Component {
       this.setState({ currStep });
       formPages[currStep].hidden = false;
       this.setState({ formPages });
+
+      document.getElementById('progress').value = currStep + 1;
     }
   }
 
@@ -190,11 +191,9 @@ class SurveyForm extends Component {
       this.setState({ currStep });
       formPages[currStep].hidden = false;
       this.setState({ formPages });
+
+      document.getElementById('progress').value = currStep + 1;
     }
-  }
-
-  updateProgressBar() {
-
   }
 
   componentDidMount() {
@@ -272,8 +271,6 @@ class SurveyForm extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     let stepsComponents = this.state.formPages.map((el, i) => {
       let component;
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
@@ -291,7 +288,7 @@ class SurveyForm extends Component {
       <div>
         <h2>Clean Up Survey</h2>
 
-        <progress className="uk-progress" value="10" max="100"></progress>
+        <progress className="uk-progress" value="1" max={ this.state.formPages.length } id="progress" />
 
         <h3>{ this.state.formPages[this.state.currStep].name }</h3>
 
