@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 class SubmitConfirm extends Component {
   render() {
+    let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return (
-      <div>Thank you! Your response has been recorded.</div>
+      <div className={classNames}>Thank you! Your response has been recorded.</div>
     );
   }
 }

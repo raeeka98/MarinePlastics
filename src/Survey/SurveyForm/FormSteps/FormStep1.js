@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 class FormStep1 extends Component {
   render() {
+    let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return (
-      <div>
+      <div className={classNames}>
         <form>
-          {/* <h2>Clean Up Information</h2> */}
+          {/* <h3>Clean Up Information</h3> */}
           <label>Organization</label>
           <input
             type='string'
