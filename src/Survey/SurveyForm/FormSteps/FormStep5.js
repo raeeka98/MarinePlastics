@@ -18,6 +18,7 @@ class FormStep4 extends Component {
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            min="0"
           />
           <label>Number of People</label>
           <input
@@ -27,6 +28,7 @@ class FormStep4 extends Component {
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            min="0"
           />
         </form>
       </div>

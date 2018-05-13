@@ -93,20 +93,43 @@ class SurveyForm extends Component {
       let lastTide = this.handleTideInput(e, this.state.entry.lastTide);
       this.setState({ lastTide });
     } else {
-      if (e.target.classList.contains('uk-form-danger')) e.target.classList.remove('uk-form-danger');
       this.setState({ entry: {[e.target.id]: e.target.value }});
     }
   }
-  
-
-  // const isValid = this.handleValidation(e.target.value);
-  // if (isValid) {
-//       } else {
-//   e.target.classList.add('uk-form-danger');
-// }
 
   handleValidation(e) {
-    // return false;
+    let handleInvalid = () => {
+      let formPages = this.state.formPages;
+      formPages[this.state.currStep].valid = false;
+      this.setState({ formPages });
+      e.target.classList.add('uk-form-danger');
+    }
+
+    let handleValid = () => {
+      let formPages = this.state.formPages;
+      formPages[this.state.currStep].valid = true;
+      this.setState({ formPages });
+      if (e.target.classList.contains('uk-form-danger')) e.target.classList.remove('uk-form-danger');
+      
+    }
+
+    if (e.target.getAttribute('required') !== null && !this.state.entry[e.target.id]) {
+      handleInvalid();
+      return false;
+    } else if (
+        e.target.id === 'weight' || 
+        e.target.id === 'NumberOfPeople' ||
+        e.target.classList.contains('srs') ||
+        e.target.classList.contains('as')
+    ) {
+      if (e.target.value < 0) {
+        handleInvalid();
+        return false;
+      }
+    } else {
+      handleValid();
+      return true;
+    }
   }
   
   handleTideInput(e, data) {
@@ -277,11 +300,11 @@ class SurveyForm extends Component {
     let stepsComponents = this.state.formPages.map((el, i) => {
       let component;
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
-      if (el.formStep === 1) component = () => { return(<FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
-      else if (el.formStep === 2) component = () => { return(<FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
-      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
-      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
-      else if (el.formStep === 5) component = () => { return(<FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      if (el.formStep === 1) component = () => { return(<FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 2) component = () => { return(<FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 5) component = () => { return(<FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
       else component = component = () => { return(<SubmitConfirm isHidden={el.hidden}/>); };
 
       return(<div key={ i }>{ component() } </div>);
@@ -328,6 +351,10 @@ class SurveyForm extends Component {
                 Next Step
               </button>
               : null
+              }
+
+              { this.state.formPages[this.state.currStep].valid ? 
+                null : <div className="uk-text-danger uk-margin-top">Please fix the invalid inputs.</div>
               }
           </div>
         }

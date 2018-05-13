@@ -16,6 +16,7 @@ class FormStep1 extends Component {
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            required
           />
           <label>Name of Beach</label>
           <input
@@ -25,6 +26,7 @@ class FormStep1 extends Component {
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            required
           />
           <label>Date</label>
           <input
@@ -40,7 +42,7 @@ class FormStep1 extends Component {
           <label>Reason for Location Choice</label>
           <select
             className="uk-select uk-margin"
-            id='reason' onBlur={ this.props.handleValidation }
+            id='reason'
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
           >
