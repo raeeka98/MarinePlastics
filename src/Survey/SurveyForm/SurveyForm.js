@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import StepZilla from 'react-stepzilla';
 import axios from 'axios';
 
 import Auth from '../../Auth';
@@ -60,7 +59,7 @@ class SurveyForm extends Component {
             name: 'Clean Up Information',
             hidden: false,
             valid: true,
-            component: function() { return(<FormStep1 isHidden={this.hidden} handleInputChange={ this.handleInputChange } />); },
+            formStep: 1,
           }
         ],
         currStep: 0,
@@ -75,6 +74,7 @@ class SurveyForm extends Component {
     this.handleTideInput = this.handleTideInput.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.previousStep = this.previousStep.bind(this);
+    this.updateProgressBar = this.updateProgressBar.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
@@ -83,21 +83,21 @@ class SurveyForm extends Component {
 
   handleInputChange(e) {
     if (e.target.getAttribute('class').includes('srs')) {
-      let SRSData = this.handleSurveyInput(e, this.state.SRSData);
+      let SRSData = this.handleSurveyInput(e, this.state.entry.SRSData);
       this.setState({ SRSData });
     } else if (e.target.getAttribute('class').includes('as')) {
-      let ASData = this.handleSurveyInput(e, this.state.ASData);
+      let ASData = this.handleSurveyInput(e, this.state.entry.ASData);
       this.setState({ ASData });
     } else if (e.target.getAttribute('class').includes('next-tide')) {
-      let nextTide = this.handleTideInput(e, this.state.nextTide);
+      let nextTide = this.handleTideInput(e, this.state.entry.nextTide);
       this.setState({ nextTide });
     }else if (e.target.getAttribute('class').includes('last-tide')) {
-      let lastTide = this.handleTideInput(e, this.state.lastTide);
+      let lastTide = this.handleTideInput(e, this.state.entry.lastTide);
       this.setState({ lastTide });
     } else {
       // var isvalid = isValidated(e.target.value)
       // if isvalid = true
-        this.setState({ [e.target.id]: e.target.value });
+        this.setState({ entry: {[e.target.id]: e.target.value }});
       // else 
         // e.target.class add the ui-warning
         // make a dialog saying 'yo not valid'
@@ -174,11 +174,9 @@ class SurveyForm extends Component {
       let formPages = this.state.formPages;
       let currStep = this.state.currStep;
       formPages[currStep].hidden = true;
-      // steps[currStep].hidden = true;
       currStep += 1;
       this.setState({ currStep });
       formPages[currStep].hidden = false;
-      // steps[currStep].hidden = false;
       this.setState({ formPages });
     }
   }
@@ -188,13 +186,15 @@ class SurveyForm extends Component {
       let formPages = this.state.formPages;
       let currStep = this.state.currStep;
       formPages[currStep].hidden = true;
-      // steps[currStep].hidden = true;
       currStep -= 1;
       this.setState({ currStep });
-      // steps[currStep].hidden = false;
       formPages[currStep].hidden = false;
       this.setState({ formPages });
     }
+  }
+
+  updateProgressBar() {
+
   }
 
   componentDidMount() {
@@ -208,10 +208,10 @@ class SurveyForm extends Component {
     }
 
     this.auth.getLoggedInProfile((err, profile) => {
-      this.setState({
+      this.setState({ entry: {
         user: profile.name,
         email: profile.email,
-      });
+      }});
     });
 
     if (localStorage.BasicCleanUp === '1'){
@@ -220,18 +220,18 @@ class SurveyForm extends Component {
         name: 'Basic Cleanup',
         hidden: true,
         valid: true,
-        component: function() { return(<FormStep5 isHidden={this.hidden} handleInputChange={ this.handleInputChange } />); },
+        formStep: 5,
       });
-      this.setState( formPages );
+      this.setState({ formPages });
     } else if (localStorage.BasicCleanUp === '0') {
       let formPages = this.state.formPages;
       formPages.push({
         name: 'Survey Area',
         hidden: true,
         valid: true,
-        component: function() { return(<FormStep2 isHidden={this.hidden} handleInputChange={ this.handleInputChange } />); },
+        formStep: 2,
       });
-      this.setState( formPages );
+      this.setState({ formPages });
     }
 
     if (localStorage.SurfaceRibScan === '1'){
@@ -240,9 +240,9 @@ class SurveyForm extends Component {
         name: 'Surface Rib Scan',
         hidden: true,
         valid: true,
-        component: function() { return(<FormStep3 isHidden={this.hidden} handleInputChange={ this.handleInputChange } />); },
+        formStep: 3,
       });
-      this.setState( formPages );
+      this.setState({ formPages });
     };
 
     if (localStorage.AccumulationSurvey === '1'){
@@ -251,9 +251,9 @@ class SurveyForm extends Component {
         name: 'Accumulation Survey',
         hidden: true,
         valid: true,
-        component: function() { return(<FormStep4 isHidden={this.hidden} handleInputChange={ this.handleInputChange } />); },
+        formStep: 4,
       });
-      this.setState( formPages );
+      this.setState({ formPages });
     };
 
     let formPages = this.state.formPages;
@@ -261,11 +261,9 @@ class SurveyForm extends Component {
       name: 'Done!',
       hidden: true,
       valid: true,
-      component: function() { return(<SubmitConfirm isHidden={this.hidden}/>); },
+      formStep: 6,
     });
-    this.setState( formPages );
-
-    // console.log(this.state.formPages);
+    this.setState({ formPages });
   }
 
   componentWillUnmount() {
@@ -274,8 +272,19 @@ class SurveyForm extends Component {
   }
 
   render() {
+    console.log(this.state);
+
     let stepsComponents = this.state.formPages.map((el, i) => {
-      return( <div key={ i }>{ el.component() }</div> );
+      let component;
+      let isStep1Hidden = this.state.currStep === 0 ? false : true;
+      if (el.formStep === 1) component = <FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } />;
+      else if (el.formStep === 2) component = <FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
+      else if (el.formStep === 3) component = <FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
+      else if (el.formStep === 4) component = <FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
+      else if (el.formStep === 5) component = <FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
+      else component = <SubmitConfirm isHidden={el.hidden}/>;
+
+      return(<div key={ i }>{ component } </div>);
     });
 
     return (
@@ -283,10 +292,6 @@ class SurveyForm extends Component {
         <h2>Clean Up Survey</h2>
 
         <progress className="uk-progress" value="10" max="100"></progress>
-
-        {/* <div id="progress-bar-wrapper">
-          <div id="progress-bar" />
-        </div> */}
 
         <h3>{ this.state.formPages[this.state.currStep].name }</h3>
 
@@ -306,39 +311,9 @@ class SurveyForm extends Component {
             Submit Form
           </button>
         }
-
-        {/* <button onClick={this.moveProgressBar}>temp</button> */}
       </div>
     );
   }
 }
 
 export default SurveyForm;
-
-
-
-      // <div className='step-progress'>
-      //   <StepZilla
-      //     onStepChange={
-      //       (step) => { if (step === steps.length-1) this.handleFormSubmit();}
-      //     }
-      //     steps={steps} 
-      //     showSteps={true}
-      //     prevBtnOnLastStep={true}
-      //     showNavigation={true}
-      //   />
-      // </div>
-
-
-
-
-      
-  
-      // let nextStep = () => {
-        
-      //   // console.log(steps);
-      // }
-  
-      // let prevStep = () => {
-        
-      // }
