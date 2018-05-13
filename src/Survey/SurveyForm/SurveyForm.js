@@ -159,13 +159,15 @@ class SurveyForm extends Component {
   handleFormSubmit(e) {
     if (this.auth.isAuthenticated()) {
       if (this.props.location.state !== undefined) {
-        this.handleServerUpdate(this.props.location.state.initialValues._id, this.state);
+        this.handleServerUpdate(this.props.location.state.initialValues._id, this.state.entry);
       } else {
-        this.handleServerSubmit(this.state);
+        this.handleServerSubmit(this.state.entry);
       }
     } else {
       window.alert('Please sign in to enter survey data.');
     }
+
+    this.nextStep();
   }
 
   nextStep() {
@@ -294,19 +296,23 @@ class SurveyForm extends Component {
 
         { stepsComponents }
 
-        { this.state.currStep !== 0 ? 
+        { this.state.currStep !== 0 && this.state.currStep <= this.state.formPages.legnth  ? 
           <button className="uk-button uk-button-primary" onClick={ this.previousStep }>
             Previous Step
           </button> 
           : null 
         }
-        { this.state.currStep !== this.state.formPages.length - 1 ?
+        { this.state.currStep < this.state.formPages.length - 2 ?
           <button className="uk-button uk-button-primary" onClick={ this.nextStep }>
             Next Step
           </button>
-          : <button className="uk-button uk-button-secondary" onClick={ this.handleFormSubmit }>
+          : null
+        }
+        { this.state.currStep === this.state.formPages.length - 2 ? 
+          <button className="uk-button uk-button-secondary" onClick={ this.handleFormSubmit }>
             Submit Form
           </button>
+          : null
         }
       </div>
     );
