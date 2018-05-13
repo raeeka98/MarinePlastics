@@ -23,6 +23,7 @@ class FormStep2 extends Component {
             type='number'
             placeholder='Latitude'
             id='lat'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin uk-width-1-2@s'
           />
@@ -30,12 +31,18 @@ class FormStep2 extends Component {
             type='number'
             placeholder='Longitude'
             id='lon'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin uk-width-1-2@s'
           />
 
           <label>Substrate Type</label>
-          <select className="uk-select uk-margin "  id='st' onChange={ this.props.handleInputChange }>
+          <select
+            className="uk-select uk-margin"
+            id='st'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
             <option>Sand</option>
             <option>Pebble</option>
             <option>Rip Rap (large boulders)</option>
@@ -43,7 +50,12 @@ class FormStep2 extends Component {
             <option>Other</option>
           </select>
           <label>Slope</label>
-          <select className="uk-select uk-margin "  id='slope' onChange={ this.props.handleInputChange }>
+          <select
+            className="uk-select uk-margin"
+            id='slope'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
             <option>Steep</option>
             <option>Gradual</option>
             <option>Gentle</option>
@@ -55,6 +67,7 @@ class FormStep2 extends Component {
             type='text'
             placeholder='Name'
             id='nroName'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-2@s'
           />
@@ -62,6 +75,7 @@ class FormStep2 extends Component {
             type='number'
             placeholder='Distance (m)'
             id='nroDist'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-2@s'
           />
@@ -70,12 +84,18 @@ class FormStep2 extends Component {
             type='number'
             placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
             id='aspect'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
           />
           <label>Last Tide</label>
           <br/>
-          <select className="uk-select uk-margin uk-width-1-3@s"  id='lastTide' onChange={ this.props.handleInputChange }>
+          <select
+            className="uk-select uk-margin uk-width-1-3@s" 
+            id='lastTide'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
             <option>Low</option>
             <option>High</option>
           </select>
@@ -84,6 +104,7 @@ class FormStep2 extends Component {
             type='number'
             placeholder=' Height'
             id='lastTide'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-3@s'
           />
@@ -91,12 +112,18 @@ class FormStep2 extends Component {
             type='time'
             placeholder=' Time'
             id='lastTide'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-3@s'
           />
           <label>Next Tide</label>
           <br/>
-          <select className="uk-select uk-margin uk-width-1-3@s next-tide"  id='type' onChange={ this.props.handleInputChange }>
+          <select
+            className="uk-select uk-margin uk-width-1-3@s next-tide"
+            id='type'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
             <option>Low</option>
             <option>High</option>
           </select>
@@ -105,6 +132,7 @@ class FormStep2 extends Component {
             type='number'
             placeholder=' Height'
             id='height'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-3@s next-tide'
           />
@@ -112,18 +140,30 @@ class FormStep2 extends Component {
             type='time'
             placeholder=' Time'
             id='time'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin  uk-width-1-3@s next-tide'
           />
       
 
           <label>Wind Direction</label>
-          <select className="uk-select uk-margin" id="windDir" onChange={ this.props.handleInputChange }>
+          <select
+            className="uk-select uk-margin"
+            id="windDir"
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
             { dirSelects }
           </select>
           
           <label>Wind Speed</label>
-          <input className="uk-input uk-margin" type="number" id="windSpeed" />
+          <input
+            className="uk-input uk-margin"
+            type="number"
+            id="windSpeed"
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          />
         </form>
       </div>
     )

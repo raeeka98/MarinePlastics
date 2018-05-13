@@ -12,8 +12,6 @@ import FormStep5 from './FormSteps/FormStep5';
 import SubmitConfirm from './FormSteps/SubmitConfirm';
 
 import '../progress.css';
-// Validation for the survey form
-// submitting on the next step
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -72,6 +70,7 @@ class SurveyForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSurveyInput = this.handleSurveyInput.bind(this);
     this.handleTideInput = this.handleTideInput.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.previousStep = this.previousStep.bind(this);
 
@@ -90,22 +89,24 @@ class SurveyForm extends Component {
     } else if (e.target.getAttribute('class').includes('next-tide')) {
       let nextTide = this.handleTideInput(e, this.state.entry.nextTide);
       this.setState({ nextTide });
-    }else if (e.target.getAttribute('class').includes('last-tide')) {
+    } else if (e.target.getAttribute('class').includes('last-tide')) {
       let lastTide = this.handleTideInput(e, this.state.entry.lastTide);
       this.setState({ lastTide });
     } else {
-      // var isvalid = isValidated(e.target.value)
-      // if isvalid = true
-        this.setState({ entry: {[e.target.id]: e.target.value }});
-      // else 
-        // e.target.class add the ui-warning
-        // make a dialog saying 'yo not valid'
+      if (e.target.classList.contains('uk-form-danger')) e.target.classList.remove('uk-form-danger');
+      this.setState({ entry: {[e.target.id]: e.target.value }});
     }
   }
   
-  isValidated(e) {
-    
-    
+
+  // const isValid = this.handleValidation(e.target.value);
+  // if (isValid) {
+//       } else {
+//   e.target.classList.add('uk-form-danger');
+// }
+
+  handleValidation(e) {
+    // return false;
   }
   
   handleTideInput(e, data) {
@@ -209,10 +210,10 @@ class SurveyForm extends Component {
     }
 
     this.auth.getLoggedInProfile((err, profile) => {
-      this.setState({ entry: {
-        user: profile.name,
-        email: profile.email,
-      }});
+      let entry =  this.state.entry;
+      entry.user = profile.name;
+      entry.email = profile.email;
+      this.setState({ entry });
     });
 
     if (localStorage.BasicCleanUp === '1'){
@@ -276,43 +277,59 @@ class SurveyForm extends Component {
     let stepsComponents = this.state.formPages.map((el, i) => {
       let component;
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
-      if (el.formStep === 1) component = <FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } />;
-      else if (el.formStep === 2) component = <FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
-      else if (el.formStep === 3) component = <FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
-      else if (el.formStep === 4) component = <FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
-      else if (el.formStep === 5) component = <FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } />;
-      else component = <SubmitConfirm isHidden={el.hidden}/>;
+      if (el.formStep === 1) component = () => { return(<FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      else if (el.formStep === 2) component = () => { return(<FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      else if (el.formStep === 5) component = () => { return(<FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidate={ this.handleValidation } />); };
+      else component = component = () => { return(<SubmitConfirm isHidden={el.hidden}/>); };
 
-      return(<div key={ i }>{ component } </div>);
+      return(<div key={ i }>{ component() } </div>);
     });
 
     return (
       <div>
         <h2>Clean Up Survey</h2>
-
         <progress className="uk-progress" value="1" max={ this.state.formPages.length } id="progress" />
-
         <h3>{ this.state.formPages[this.state.currStep].name }</h3>
 
         { stepsComponents }
 
-        { this.state.currStep !== 0 && this.state.currStep <= this.state.formPages.legnth  ? 
-          <button className="uk-button uk-button-primary" onClick={ this.previousStep }>
-            Previous Step
-          </button> 
-          : null 
-        }
-        { this.state.currStep < this.state.formPages.length - 2 ?
-          <button className="uk-button uk-button-primary" onClick={ this.nextStep }>
-            Next Step
-          </button>
-          : null
-        }
-        { this.state.currStep === this.state.formPages.length - 2 ? 
-          <button className="uk-button uk-button-secondary" onClick={ this.handleFormSubmit }>
-            Submit Form
-          </button>
-          : null
+        {
+          this.state.currStep === this.state.formPages.length - 1 ? 
+          null : 
+          <div>
+            { this.state.currStep !== 0 ? 
+              <button
+                className="uk-button uk-button-primary"
+                onClick={ this.previousStep }
+                disabled={ !this.state.formPages[this.state.currStep].valid }
+              >
+                Previous Step
+              </button> 
+              : null 
+            }
+            { this.state.currStep === this.state.formPages.length - 2 ? 
+              <button
+                className="uk-button uk-button-secondary"
+                onClick={ this.handleFormSubmit }
+                disabled={ !this.state.formPages[this.state.currStep].valid }
+              >
+                Submit Form
+              </button>
+              : null
+            }
+            { this.state.currStep < this.state.formPages.length - 2 ?
+              <button
+                className="uk-button uk-button-primary"
+                onClick={ this.nextStep }
+                disabled={ !this.state.formPages[this.state.currStep].valid }
+              >
+                Next Step
+              </button>
+              : null
+              }
+          </div>
         }
       </div>
     );
