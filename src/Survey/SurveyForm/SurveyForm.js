@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StepZilla from 'react-stepzilla';
+// import StepZilla from 'react-stepzilla';
 import axios from 'axios';
 
 import Auth from '../../Auth';
@@ -11,7 +11,7 @@ import FormStep4 from './FormSteps/FormStep4';
 import FormStep5 from './FormSteps/FormStep5';
 import SubmitConfirm from './FormSteps/SubmitConfirm';
 
-import '../Style.css';
+import '../progress.css';
 // Validation for the survey form
 // submitting on the next step
 
@@ -61,10 +61,20 @@ class SurveyForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSurveyInput = this.handleSurveyInput.bind(this);
     this.handleTideInput = this.handleTideInput.bind(this);
+    this.moveProgressBar = this.moveProgressBar.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
+  }
+
+  moveProgressBar() {
+    const elem = document.getElementById("progress-bar"); 
+    const parent = document.getElementById("progress-bar-wrapper");
+    const distance = 20;
+    const width = ((elem.clientWidth / parent.clientWidth) * 100) + distance;
+
+    if (width < 101) elem.style.width = width + '%';
   }
 
   handleInputChange(e) {
@@ -180,83 +190,74 @@ class SurveyForm extends Component {
 
   render() {
     
-    var steps = [{
-        name:'Clean Up Information',
-        component:
-          <FormStep1
-            handleInputChange={ this.handleInputChange }
-          />
-        }];
+    let steps = [{
+      name: 'Clean Up Information',
+      component:
+        <FormStep1 handleInputChange={ this.handleInputChange } />
+    }];
 
-    if(localStorage.BasicCleanUp == '1'){
-      var BasicCleanUp = {
+    if (localStorage.BasicCleanUp === '1'){
+      steps.push({
         name: 'Basic Cleanup',
         component:
-          <FormStep5
-            handleInputChange={ this.handleInputChange }
-          />
-        };
-      steps.push(BasicCleanUp);
-    };
-
-    if(localStorage.BasicCleanUp == '0'){
-      var surveys = {
+          <FormStep5 handleInputChange={ this.handleInputChange } />
+      });
+    } else if (localStorage.BasicCleanUp === '0') {
+      steps.push({
         name: 'Survey Area',
         component:
-          <FormStep2
-            handleInputChange={ this.handleInputChange }
-          />
-      };
-      steps.push(surveys); 
-    };
+          <FormStep2 handleInputChange={ this.handleInputChange } />
+      }); 
+    }
 
-    if(localStorage.SurfaceRibScan == '1'){
-      var SurfaceRibScan = {
+    if (localStorage.SurfaceRibScan === '1'){
+      steps.push({
         name: 'Surface Rib Scan',
         component:
-          <FormStep3
-            title={ 'Surface Rib Scan' }
-            class={ 'srs' }
-            handleInputChange={ this.handleInputChange }
-          />
-      };
-      steps.push(SurfaceRibScan);
+          <FormStep3 handleInputChange={ this.handleInputChange } />
+      });
     };
 
-    if(localStorage.AccumulationSurvey == '1'){
-      var AccumulationSurvey = {
+    if (localStorage.AccumulationSurvey === '1'){
+      steps.push({
         name: 'Accumulation Survey',
         component:
-          <FormStep4
-            title={ 'Accumulation Survey' }
-            class={ 'as' }
-            handleInputChange={ this.handleInputChange }
-          />
-        };
-      steps.push(AccumulationSurvey);
+          <FormStep4 handleInputChange={ this.handleInputChange } />
+      });
     };
 
-    var Done = {
-        name: 'Done!',
-        component: <SubmitConfirm />
-        };
-
-    steps.push(Done);
+    steps.push({
+      name: 'Done!',
+      component: <SubmitConfirm />
+    });
 
     return (
-      <div className='step-progress'>
-        <StepZilla
-          onStepChange={
-            (step) => { if (step === steps.length-1) this.handleFormSubmit();}
-          }
-          steps={steps} 
-          showSteps={true}
-          prevBtnOnLastStep={true}
-          showNavigation={true}
-        />
+      <div>
+        <div id="progress-bar-wrapper">
+          <div id="progress-bar" />
+        </div>
+
+        <h2>{ steps[0].name }</h2>
+        { steps[0].component }
+
+        {/* <button onClick={this.moveProgressBar}>temp</button> */}
       </div>
     );
   }
 }
 
 export default SurveyForm;
+
+
+
+      // <div className='step-progress'>
+      //   <StepZilla
+      //     onStepChange={
+      //       (step) => { if (step === steps.length-1) this.handleFormSubmit();}
+      //     }
+      //     steps={steps} 
+      //     showSteps={true}
+      //     prevBtnOnLastStep={true}
+      //     showNavigation={true}
+      //   />
+      // </div>
