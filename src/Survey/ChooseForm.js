@@ -1,78 +1,82 @@
 import React, { Component } from 'react';
-// import { Link, Redirect } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
-// import marked from 'marked';
-// import Auth from '../Auth';
-// import axios from 'axios';
-import SurveyForm from './SurveyForm/SurveyForm';
-
-import SurveyTableRow from './SurveyTableRow';
-
-var BasicCleanUp = "0";
-var SurfaceRibScan = "0";
-var AccumulationSurvey = "0";
-var Final;
-
-function handleFormSubmit(e){
-  console.log(e.target.id);
-  /*console.log(e.target.checked);*/
-  if(e.target.checked == true){
-    if(e.target.id == "BasicCleanUp"){
-      BasicCleanUp = "1";
-    } else if (e.target.id == "SurfaceRibScan"){
-      SurfaceRibScan = "1";
-    } else {
-      AccumulationSurvey = "1";
-    }
-    /*console.log(e.target.id)
-    localStorage.setItem(e.target.id,1);
-    console.log("Survey Area: " + localStorage.SurveyArea);
-    console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
-    console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
-  */} else if (e.target.checked == false){
-    if(e.target.id == "BasicCleanUp"){
-      BasicCleanUp = "0";
-    } else if (e.target.id == "SurfaceRibScan"){
-      SurfaceRibScan = "0";
-    } else {
-      AccumulationSurvey = "0";
-    }
-    /*localStorage.setItem(e.target.id,0);
-    console.log("Survey Area: " + localStorage.SurveyArea);
-    console.log("Surface Rib Scan: " + localStorage.SurfaceRibScan);
-    console.log("Accumulation Survey: " + localStorage.AccumulationSurvey);
-  */} 
-  console.log("BasicCleanUp: " + BasicCleanUp + "SurfaceRibScan: " + SurfaceRibScan + "AccumulationSurvey: " + AccumulationSurvey);
-}
-
+import { Link } from 'react-router-dom';
 
 class ChooseForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      BasicCleanUp: '0',
+      SurfaceRibScan: '0',
+      AccumulationSurvey: '0',
+    }
 
-  _setState(){
-    var Final = BasicCleanUp + SurfaceRibScan + AccumulationSurvey;
-    console.log("Final: " + Final);
-    localStorage.setItem("Final", Final);
-    localStorage.setItem("BasicCleanUp", BasicCleanUp);
-    console.log(localStorage.BasicCleanUp);
-    localStorage.setItem("SurfaceRibScan", SurfaceRibScan);
-    console.log(localStorage.SurfaceRibScan);
-    localStorage.setItem("AccumulationSurvey", AccumulationSurvey);
-    console.log(localStorage.AccumulationSurvey);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
+  }
+
+  handleFormSubmit(e) {
+    if (e.target.checked) this.setState({ [e.target.id]: '1' });
+    else this.setState({ [e.target.id]: '0' });
+  }
+
+
+  setLocalStorage(){
+    localStorage.setItem("BasicCleanUp", this.state.BasicCleanUp);
+    localStorage.setItem("SurfaceRibScan", this.state.SurfaceRibScan);
+    localStorage.setItem("AccumulationSurvey", this.state.AccumulationSurvey);
   }
 
   render(){
     return(
-
       <div className="uk-margin">
-      <h4 className="uk-heading-line  uk-text-center"><span>Choose which type of clean up surveys you have performed</span></h4>
+        <h3 className="uk-text-center">
+          Choose which type of clean up surveys you have performed
+        </h3>
         <ul className="uk-list uk-list-large uk-list-divider uk-text-center">
-          <li>  <label><input className="uk-checkbox" id="BasicCleanUp" type="checkbox" onChange={handleFormSubmit} /> Basic Cleanup </label> </li>
-          <li>  <label><input className="uk-checkbox" id="SurfaceRibScan" type="checkbox" onChange={handleFormSubmit}/> Surface Rib Scan </label> </li>
-          <li>  <label><input className="uk-checkbox" id="AccumulationSurvey" type="checkbox" onChange={handleFormSubmit}/> Accumulation Survey</label> </li>
+          <li>
+            <input
+              className="uk-checkbox uk-margin-right"
+              id="BasicCleanUp"
+              type="checkbox"
+              onChange={this.handleFormSubmit}
+            />
+            <label>
+              Basic Cleanup
+            </label>
+          </li>
+          <li>
+            <input
+              className="uk-checkbox uk-margin-right"
+              id="SurfaceRibScan"
+              type="checkbox"
+              onChange={this.handleFormSubmit}
+            />
+            <label>
+              Surface Rib Scan
+            </label>
+          </li>
+          <li>
+            <input
+              className="uk-checkbox uk-margin-right"
+              id="AccumulationSurvey"
+              type="checkbox"
+              onChange={this.handleFormSubmit}
+            />
+            <label>
+              Accumulation Survey
+            </label>
+          </li>
         </ul>
-        <a className="uk-button uk-button-primary uk-align-right" onClick={this._setState} href={"./survey"}> Enter Survey</a>
+        <Link
+          className="uk-button uk-button-primary uk-align-center uk-width-1-3"
+          onClick={ this.setLocalStorage }
+          to="./survey"
+        >
+          Enter Survey
+        </Link>
       </div>
     );
   }
 }
+
 export default ChooseForm;
