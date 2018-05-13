@@ -8,7 +8,7 @@ class FormStep4 extends Component {
     return (
       <div>
         <form>
-          <h2>Basic Cleanup</h2>
+          {/* <h2>Basic Cleanup</h2> */}
           <label>Total Weight (in pounds)</label>
           <input
             type='number'

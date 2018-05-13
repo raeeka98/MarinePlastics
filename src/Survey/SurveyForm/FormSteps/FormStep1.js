@@ -5,7 +5,7 @@ class FormStep1 extends Component {
     return (
       <div>
         <form>
-          <h2>Clean Up Info</h2>
+          {/* <h2>Clean Up Information</h2> */}
           <label>Organization</label>
           <input
             type='string'
