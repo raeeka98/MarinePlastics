@@ -33,6 +33,7 @@ class SurveyList extends Component {
   //this will prevent error messages every 2 seconds
   //once the SurveyBox is unmounted
   componentWillUnmount() {
+    // eslint-disable-next-line
     this.pollInterval && clearInterval(this.pollInterval);
     this.pollInterval = null;
   }

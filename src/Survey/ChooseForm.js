@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-// import { Link, Redirect } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
-// import marked from 'marked';
-// import Auth from '../Auth';
-// import axios from 'axios';
-import SurveyForm from './SurveyForm/SurveyForm';
-
-import SurveyTableRow from './SurveyTableRow';
 
 var BasicCleanUp = "0";
 var SurfaceRibScan = "0";
 var AccumulationSurvey = "0";
-var Final;
+
 
 function handleFormSubmit(e){
   console.log(e.target.id);
   /*console.log(e.target.checked);*/
-  if(e.target.checked == true){
-    if(e.target.id == "BasicCleanUp"){
+  if(e.target.checked === true){
+    if(e.target.id === "BasicCleanUp"){
       BasicCleanUp = "1";
-    } else if (e.target.id == "SurfaceRibScan"){
+    } else if (e.target.id === "SurfaceRibScan"){
       SurfaceRibScan = "1";
     } else {
       AccumulationSurvey = "1";
     }
-  } else if (e.target.checked == false){
-    if(e.target.id == "BasicCleanUp"){
+  } else if (e.target.checked === false){
+    if(e.target.id === "BasicCleanUp"){
       BasicCleanUp = "0";
-    } else if (e.target.id == "SurfaceRibScan"){
+    } else if (e.target.id === "SurfaceRibScan"){
       SurfaceRibScan = "0";
     } else {
       AccumulationSurvey = "0";

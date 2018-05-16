@@ -1,14 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
-import Style from './Map.css';
-
-import Pin from './Pin.jsx';
-
-import {K_SIZE} from './PinStyle.js'
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
 
 class Map extends Component {
@@ -38,6 +31,7 @@ class Map extends Component {
   //this will prevent error messages every 2 seconds
   //once the SurveyBox is unmounted
   componentWillUnmount() {
+    // eslint-disable-next-line
     this.pollInterval && clearInterval(this.pollInterval);
     this.pollInterval = null;
   }

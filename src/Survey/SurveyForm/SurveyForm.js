@@ -15,6 +15,7 @@ import '../Style.css';
 // Validation for the survey form
 // submitting on the next step
 
+/* eslint-disable */
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
@@ -180,7 +181,7 @@ class SurveyForm extends Component {
           />
         }];
 
-    if(localStorage.BasicCleanUp == '1'){
+    if(localStorage.BasicCleanUp === '1'){
       var BasicCleanUp = {
         name: 'Basic Cleanup',
         component:
@@ -191,7 +192,7 @@ class SurveyForm extends Component {
       steps.push(BasicCleanUp);
     };
 
-    if(localStorage.SurfaceRibScan | localStorage.AccumulationSurvey == '1'){
+    if(localStorage.SurfaceRibScan | localStorage.AccumulationSurvey === '1'){
       var surveys = {
         name: 'Survey Area',
         component:
@@ -202,7 +203,7 @@ class SurveyForm extends Component {
       steps.push(surveys); 
     };
 
-    if(localStorage.SurfaceRibScan == '1'){
+    if(localStorage.SurfaceRibScan === '1'){
       var SurfaceRibScan = {
         name: 'Surface Rib Scan',
         component:
@@ -216,7 +217,7 @@ class SurveyForm extends Component {
       steps.push(SurfaceRibScan);
     };
 
-    if(localStorage.AccumulationSurvey == '1'){
+    if(localStorage.AccumulationSurvey === '1'){
       var AccumulationSurvey = {
         name: 'Accumulation Survey',
         component:
