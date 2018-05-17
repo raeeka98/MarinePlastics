@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Import Image
 import background from './nat_bridges.jpg';
 
-// Import Actions
+// the authentication object is passed through props from App.js
+// which is used to check if the user is currently logged in
+// and to sign in (links in header depend on status)
 
 export function LandingPage(props) {
+  // force the page to have these styles
   const background_image = {
     backgroundImage: `url(${background})`,
     height: `80vh`,
@@ -39,7 +41,5 @@ export function LandingPage(props) {
     </div>
   );
 }
-
-LandingPage.propTypes = {};
 
 export default LandingPage;

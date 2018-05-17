@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // the authentication object is passed through props from App.js
 // which is used to check if the user is currently logged in
-// (links in header depend on status)
+// and to sign in (links in header depend on status)
 
 const Header = (props) => (
     <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
@@ -31,8 +31,8 @@ const Header = (props) => (
             : null
           }
           { props.auth.isAuthenticated()
-            ? <a onClick={props.auth.logout} className="uk-button uk-button-primary">Log Out</a>
-            : <a onClick={props.auth.login} className="uk-button uk-button-primary">Log In</a>
+            ? <a onClick={ props.auth.logout } className="uk-button uk-button-primary">Log Out</a>
+            : <a onClick={ props.auth.login } className="uk-button uk-button-primary">Log In</a>
           }
         </ul>
       </div>
