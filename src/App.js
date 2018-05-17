@@ -4,13 +4,13 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Auth from './Auth';
 
 import Landing from './Landing/Landing';
-import SurveyList from './Survey/SurveyList';
-import SurveyEntry from './Survey/Survey';
-import Steps from './Survey/SurveyForm/SurveyForm';
+import Home from './Home/Home';
+import SurveyEntry from './SurveyEntry/SurveyEntry';
+import Steps from './SurveyForm/SurveyForm';
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
 import Map from './Map/Map.js';
-import ChooseForm from './Survey/ChooseForm';
+import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
 
 import Header from './Header/Header';
@@ -45,7 +45,7 @@ class App extends Component {
               />
               <Route
                 exact path='/home'
-                component={ SurveyList }
+                component={ Home }
               />
               <Route
                 path='/survey'
@@ -73,7 +73,7 @@ class App extends Component {
               />
               <Route
                 path='/map'
-                component={Map}
+                component={ Map }
               />
               <Route
                 path='/chooseform'

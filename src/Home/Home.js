@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort } from '../SortHelper.js';
+import { locationSort } from '../_helpers/SortHelper.js';
 
 class SurveyList extends Component {
   constructor(props) {

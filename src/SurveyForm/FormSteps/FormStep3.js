@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import FormTableRow from '../FormTableRow';
-import CustomFormTableRow from '../CustomFormTableRow';
+import FormTableRow from '../FormHelpers/FormTableRow';
+import CustomFormTableRow from '../FormHelpers/CustomFormTableRow';
 
-class FormStep4 extends Component {
+class FormStep3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,6 @@ class FormStep4 extends Component {
 
     this.addTextBox = this.addTextBox.bind(this);
   }
-
   componentDidMount() {
     window.scrollTo(0, 0)
   }
@@ -21,7 +20,7 @@ class FormStep4 extends Component {
     let numCustomRows = this.state.numCustomRows + 1;
     this.setState({ numCustomRows });
   }
-
+  
   render() {
     let customRows = [];
     let getRowsComponents = () => {
@@ -36,7 +35,6 @@ class FormStep4 extends Component {
       }
       return customRows;
     }
-                        
     let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return(
       <div className={classNames}>
@@ -50,117 +48,117 @@ class FormStep4 extends Component {
               </tr>
             </thead>
             <tbody>
-            <FormTableRow
+              <FormTableRow
                 name='Cigarette Butts' 
-                class='as'
+                class='srs'
                 id='cigaretteButts'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Fishing Line' 
-                class='as'
+                class='srs'
                 id='fishingLine'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Glass' 
-                class='as'
+                class='srs'
                 id='glass'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Paper' 
-                class='as'
+                class='srs'
                 id='paper'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Filmed Plastic' 
-                class='as'
+                class='srs'
                 id='filmed_plastic'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Misc. Plastic' 
-                class='as'
+                class='srs'
                 id='miscPlastic'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Plastic Bottle' 
-                class='as'
+                class='srs'
                 id='plasticBottle'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Plastic Cap' 
-                class='as'
+                class='srs'
                 id='plasticCap'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Styrofoam' 
-                class='as'
+                class='srs'
                 id='styrofoam'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Wood' 
-                class='as'
+                class='srs'
                 id='wood'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Urethane Foam' 
-                class='as'
+                class='srs'
                 id='urethaneFoam'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Plastic Cup' 
-                class='as'
+                class='srs'
                 id='plasticCup'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Plastic Straw' 
-                class='as'
+                class='srs'
                 id='plasticStraw'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Cotton/Cloth' 
-                class='as'
+                class='srs'
                 id='cottonCloth'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Polypropylene Rope' 
-                class='as'
+                class='srs'
                 id='polypropyleneRope'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Aluminum Can' 
-                class='as'
+                class='srs'
                 id='alumninumCan'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Hygiene Items' 
-                class='as'
+                class='srs'
                 id='hygieneItem'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Metal' 
-                class='as'
+                class='srs'
                 id='metal'
                 handleInputChange={ this.props.handleInputChange }
               />
               <FormTableRow
                 name='Tile/Brick' 
-                class='as'
+                class='srs'
                 id='tileBrick'
                 handleInputChange={ this.props.handleInputChange }
               />
@@ -180,4 +178,4 @@ class FormStep4 extends Component {
   }
 }
 
-export default FormStep4;
+export default FormStep3;

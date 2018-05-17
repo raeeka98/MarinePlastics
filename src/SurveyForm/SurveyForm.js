@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Auth from '../../Auth';
+import Auth from '../Auth';
 
 import FormStep1 from './FormSteps/FormStep1';
 import FormStep2 from './FormSteps/FormStep2';
@@ -157,18 +156,18 @@ class SurveyForm extends Component {
 
     if (index > -1) {
       if (isFreshInput > -1) {
-        (data[index]).fresh = parseInt(e.target.value);
+        (data[index]).fresh = parseInt(e.target.value, 10);
       } else {
-        (data[index]).weathered = parseInt(e.target.value);
+        (data[index]).weathered = parseInt(e.target.value, 10);
       }
     } else {
       let newData = { name: e.target.id }
       if (isFreshInput > -1) {
-        newData.fresh = parseInt(e.target.value);
+        newData.fresh = parseInt(e.target.value, 10);
         newData.weathered = 0;
       } else {
         newData.fresh = 0;
-        newData.weathered = parseInt(e.target.value);
+        newData.weathered = parseInt(e.target.value, 10);
       }
       data.push(newData);
     }
