@@ -28,7 +28,7 @@ class SurveyForm extends Component {
           org: '',
           date: '',
           beach: '',
-          reason: '',
+          reason: 'proximity',
           st: '',
           lat: '',
           lon: '' ,
@@ -43,7 +43,7 @@ class SurveyForm extends Component {
           nextTide: {},
           windDir: '',
           windSpeed: '',
-          majorUse: '',
+          majorUse: 'recreation',
           weight: '',
           NumberOfPeople: '',
           SRSTotal: '',
@@ -318,7 +318,7 @@ class SurveyForm extends Component {
         {
           this.state.currStep === this.state.formPages.length - 1 ? 
           null : 
-          <div>
+          <div className="uk-flex uk-flex-center uk-margin-medium">
             { this.state.currStep !== 0 ? 
               <button
                 className="uk-button uk-button-primary"
@@ -331,7 +331,7 @@ class SurveyForm extends Component {
             }
             { this.state.currStep === this.state.formPages.length - 2 ? 
               <button
-                className="uk-button uk-button-secondary"
+                className={ this.state.currStep === 0 ? "uk-button uk-button-secondary" : "uk-button uk-button-secondary uk-margin-large-left" }
                 onClick={ this.handleFormSubmit }
                 disabled={ !this.state.formPages[this.state.currStep].valid }
               >
@@ -341,7 +341,7 @@ class SurveyForm extends Component {
             }
             { this.state.currStep < this.state.formPages.length - 2 ?
               <button
-                className="uk-button uk-button-primary"
+                className={ this.state.currStep === 0 ? "uk-button uk-button-primary" : "uk-button uk-button-primary uk-margin-large-left" }
                 onClick={ this.nextStep }
                 disabled={ !this.state.formPages[this.state.currStep].valid }
               >
