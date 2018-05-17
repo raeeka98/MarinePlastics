@@ -19,7 +19,6 @@ class ChooseForm extends Component {
     else this.setState({ [e.target.id]: '0' });
   }
 
-
   setLocalStorage(){
     localStorage.setItem("BasicCleanUp", this.state.BasicCleanUp);
     localStorage.setItem("SurfaceRibScan", this.state.SurfaceRibScan);

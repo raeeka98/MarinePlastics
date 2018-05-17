@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import Map from '../Map';
 import GoogleMapReact from 'google-map-react';
-import Pin from '../Map/Pin.jsx';
+//import Pin from '../Map/Pin.jsx';
 
-import {K_SIZE} from '../Map/PinStyle.js'
+//import {K_SIZE} from '../Map/PinStyle.js'
 
 class Location extends Component {
   constructor(props) {
@@ -46,9 +46,9 @@ class Location extends Component {
                 }}
               >
                 <CustomMarker
-                  lat= { this.state.data.lat }
-                  lng = { this.state.data.lon }
-                  name= { this.state.data.name }
+                  lat={ this.state.data.lat }
+                  lng={ this.state.data.lon }
+                  name={ this.state.data.name }
                 />
               </GoogleMapReact>
             </div>

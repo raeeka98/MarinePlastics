@@ -17,8 +17,9 @@ export function locationSort(data) {
       return distance < 1500;
     });
     
-    if (findIndex > -1) sorted[findIndex].entries.push(data[i]); 
-    else {
+    if (findIndex > -1){
+      sorted[findIndex].entries.push(data[i]);
+    }else {
       sorted.push(
         {
           name: data[i].beach,

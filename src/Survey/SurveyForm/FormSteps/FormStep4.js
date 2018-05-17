@@ -1,17 +1,46 @@
 import React, { Component } from 'react';
 
 import FormTableRow from '../FormTableRow';
+import CustomFormTableRow from '../CustomFormTableRow';
 
 class FormStep4 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      numCustomRows: 1
+    }
+
+    this.addTextBox = this.addTextBox.bind(this);
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0)
   }
+
+  addTextBox() {
+    let numCustomRows = this.state.numCustomRows + 1;
+    this.setState({ numCustomRows });
+  }
+
   render() {
+    let customRows = [];
+    let getRowsComponents = () => {
+      for (let i = 0; i < this.state.numCustomRows; i++) {
+        customRows.push(<CustomFormTableRow
+          key={ i }
+          id=''
+          class={ this.props.class }
+          handleInputChange={ this.props.handleInputChange }
+          handleCustomInputChange={ this.props.handleCustomInputChange }
+        />);
+      }
+      return customRows;
+    }
+                        
     let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return(
       <div className={classNames}>
         <form className="uk-form-horizontal">
-          {/* <h3>Accumulation Survey</h3> */}
           <table className="uk-table uk-table-striped">
             <thead>
               <tr>
@@ -135,7 +164,15 @@ class FormStep4 extends Component {
                 id='tileBrick'
                 handleInputChange={ this.props.handleInputChange }
               />
+              { getRowsComponents() }
             </tbody>
+            <tfoot>
+              <tr>
+                <td id="itemCell">
+                  <input className="uk-button uk-button-default" type="button" id='addItem' value='Add Item' onClick={ this.addTextBox } />
+                </td>
+              </tr>
+          </tfoot>
           </table>
       </form>
     </div>

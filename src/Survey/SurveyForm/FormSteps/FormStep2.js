@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 
 class FormStep2 extends Component {
@@ -15,8 +16,6 @@ class FormStep2 extends Component {
     return (
       <div className={classNames}>
         <form>
-          {/* <a href="#" onClick={() => props.jumpToStep(4)}> Click to skip survey sweeps </a> */}
-          {/* <h3>Survey Area</h3> */}
           <label>GPS Coordinates (Starting Point)</label>
             <br/>
           <input
@@ -35,7 +34,6 @@ class FormStep2 extends Component {
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin uk-width-1-2@s'
           />
-
           <label>Substrate Type</label>
           <select
             className="uk-select uk-margin"
@@ -62,7 +60,7 @@ class FormStep2 extends Component {
             <option>Other</option>
           </select>
           <label>Nearest River Output</label>
-          <br/>
+          <br />
           <input
             type='text'
             placeholder='Name'

@@ -71,6 +71,7 @@ class SurveyForm extends Component {
     this.handleValidation = this.handleValidation.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.previousStep = this.previousStep.bind(this);
+    this.handleCustomInputChange = this.handleCustomInputChange.bind(this);
 
     this.auth = new Auth();
     this.pollInterval = null;
@@ -130,6 +131,20 @@ class SurveyForm extends Component {
   handleTideInput(e, data) {
     data[e.target.id] = e.target.value;
     return data;
+  }
+
+  handleCustomInputChange(e) {
+    const customTypeRAW = e.target.value;
+    // removes whitespace from custom input, capitalizes first letter of words
+    const customType = customTypeRAW.replace(/\w\S*/g, (txt) => {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }).replace(/\s/g,'');
+
+    // set id of all elements in row to what is in text input
+    const rowElements = e.target.parentElement.parentElement.childNodes;
+    for (let i = 0; i < rowElements.length; i++) {
+      rowElements[i].childNodes[0].id = customType;
+    }
   }
 
   handleSurveyInput(e, data) {
