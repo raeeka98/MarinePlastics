@@ -6,99 +6,164 @@ class FormStep2 extends Component {
     window.scrollTo(0, 0)
   }
   render() {
-
+    let classNames = this.props.isHidden ? 'uk-hidden' : '';
+    const directions = ['North', 'South', 'East', 'West', 'North East', 'North West', 'South East', 'South West'];
+    const dirSelects = directions.map((dir, i) => {
+      return (
+        <option key={i}>{dir}</option>
+      );
+    });
     return (
-
-      <form>
-        <h2>Survey Area</h2>
-        <label>GPS Coordinates (Starting Point)</label>
+      <div className={classNames}>
+        <form>
+          <label>GPS Coordinates (Starting Point)</label>
+            <br/>
+          <input
+            type='number'
+            placeholder='Latitude'
+            id='lat'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin uk-width-1-2@s'
+          />
+          <input
+            type='number'
+            placeholder='Longitude'
+            id='lon'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin uk-width-1-2@s'
+          />
+          <label>Substrate Type</label>
+          <select
+            className="uk-select uk-margin"
+            id='st'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
+            <option>Sand</option>
+            <option>Pebble</option>
+            <option>Rip Rap (large boulders)</option>
+            <option>Seaweed</option>
+            <option>Other</option>
+          </select>
+          <label>Slope</label>
+          <select
+            className="uk-select uk-margin"
+            id='slope'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
+            <option>Steep</option>
+            <option>Gradual</option>
+            <option>Gentle</option>
+            <option>Other</option>
+          </select>
+          <label>Nearest River Output</label>
+          <br />
+          <input
+            type='text'
+            placeholder='Name'
+            id='nroName'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-2@s'
+          />
+          <input
+            type='number'
+            placeholder='Distance (m)'
+            id='nroDist'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-2@s'
+          />
+          <label>Aspect</label>
+          <input
+            type='number'
+            placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
+            id='aspect'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin'
+          />
+          <label>Last Tide</label>
           <br/>
-        <input
-          type='number'
-          placeholder='Latitude'
-          id='lat'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin uk-width-1-2@s'
-        />
-        <input
-          type='number'
-          placeholder='Longitude'
-          id='lon'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin uk-width-1-2@s'
-        />
+          <select
+            className="uk-select uk-margin uk-width-1-3@s" 
+            id='lastTide'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
+            <option>Low</option>
+            <option>High</option>
+          </select>
+      
+          <input
+            type='number'
+            placeholder=' Height'
+            id='lastTide'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-3@s'
+          />
+          <input
+            type='time'
+            placeholder=' Time'
+            id='lastTide'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-3@s'
+          />
+          <label>Next Tide</label>
+          <br/>
+          <select
+            className="uk-select uk-margin uk-width-1-3@s next-tide"
+            id='type'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
+            <option>Low</option>
+            <option>High</option>
+          </select>
+      
+          <input
+            type='number'
+            placeholder=' Height'
+            id='height'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-3@s next-tide'
+          />
+          <input
+            type='time'
+            placeholder=' Time'
+            id='time'
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+            className='uk-input uk-margin  uk-width-1-3@s next-tide'
+          />
+      
 
-        <label>Substrate Type</label>
-        <input
-          type='text'
-          placeholder='Substrate Type (ex. Sand, Gravel, etc.)'
-          id='st'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-
-        <label>Slope</label>
-        <input
-          type='text'
-          placeholder='Slope (ex. Steep, Gradual, Gentle, etc.)'
-          id='slope'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-
-        <label>Nearest River Output</label>
-        <br/>
-        <input
-          type='text'
-          placeholder='Name'
-          id='nroName'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin  uk-width-1-2@s'
-        />
-        <input
-          type='number'
-          placeholder='Distance (m)'
-          id='nroDist'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin  uk-width-1-2@s'
-        />
-
-        <label>Aspect</label>
-        <input
-          type='text'
-          placeholder='(Compass direction facing water in degrees, perpendicular to spine)'
-          id='aspect'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-
-        <label>Tide Information</label>
-        <br/>
-        <input
-          type='text'
-          placeholder='Last Tide / Height'
-          id='lastTide'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin  uk-width-1-2@s'
-        />
-        <input
-          type='text'
-          placeholder='Next Tide / Height'
-          id='nextTide'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin  uk-width-1-2@s'
-        />
-
-        <label>Wind Direction</label>
-        <input
-          type='text'
-          placeholder='Wind Speed/Direction'
-          id='windDir'
-          onChange={ this.props.handleInputChange }
-          className='uk-input uk-margin'
-        />
-
-      </form>
+          <label>Wind Direction</label>
+          <select
+            className="uk-select uk-margin"
+            id="windDir"
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          >
+            { dirSelects }
+          </select>
+          
+          <label>Wind Speed</label>
+          <input
+            className="uk-input uk-margin"
+            type="number"
+            id="windSpeed"
+            onBlur={ this.props.handleValidation }
+            onChange={ this.props.handleInputChange }
+          />
+        </form>
+      </div>
     )
 
   }

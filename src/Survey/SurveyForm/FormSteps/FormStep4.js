@@ -36,143 +36,146 @@ class FormStep4 extends Component {
       }
       return customRows;
     }
+                        
+    let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return(
-      <form className="uk-form-horizontal">
-        <h2>{ this.props.title }</h2>
-        <table className="uk-table uk-table-striped">
-          <thead>
-            <tr>
-              <th>Debris Type</th>
-              <th>Amount Fresh</th>
-              <th>Amount Weathered</th>
-            </tr>
-          </thead>
-          <tbody>
-          <FormTableRow
-              name='Cigarette Butts' 
-              class={ this.props.class }
-              id='cigaretteButts'
-              handleInputChange={ this.props.handleInputChange }
-            />
+      <div className={classNames}>
+        <form className="uk-form-horizontal">
+          <table className="uk-table uk-table-striped">
+            <thead>
+              <tr>
+                <th>Debris Type</th>
+                <th>Amount Fresh</th>
+                <th>Amount Weathered</th>
+              </tr>
+            </thead>
+            <tbody>
             <FormTableRow
-              name='Fishing Line' 
-              class={ this.props.class }
-              id='fishingLine'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Glass' 
-              class={ this.props.class }
-              id='glass'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Paper' 
-              class={ this.props.class }
-              id='paper'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Filmed Plastic' 
-              class={ this.props.class }
-              id='filmed_plastic'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Misc. Plastic' 
-              class={ this.props.class }
-              id='miscPlastic'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Plastic Bottle' 
-              class={ this.props.class }
-              id='plasticBottle'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Plastic Cap' 
-              class={ this.props.class }
-              id='plasticCap'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Styrofoam' 
-              class={ this.props.class }
-              id='styrofoam'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Wood' 
-              class={ this.props.class }
-              id='wood'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Urethane Foam' 
-              class={ this.props.class }
-              id='urethaneFoam'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Plastic Cup' 
-              class={ this.props.class }
-              id='plasticCup'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Plastic Straw' 
-              class={ this.props.class }
-              id='plasticStraw'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Cotton/Cloth' 
-              class={ this.props.class }
-              id='cottonCloth'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Polypropylene Rope' 
-              class={ this.props.class }
-              id='polypropyleneRope'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Aluminum Can' 
-              class={ this.props.class }
-              id='alumninumCan'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Hygiene Items' 
-              class={ this.props.class }
-              id='hygieneItem'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Metal' 
-              class={ this.props.class }
-              id='metal'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            <FormTableRow
-              name='Tile/Brick' 
-              class={ this.props.class }
-              id='tileBrick'
-              handleInputChange={ this.props.handleInputChange }
-            />
-            { getRowsComponents() }
-          </tbody>
-          <tfoot>
-            <tr>
-              <td id="itemCell">
-                <input className="uk-button uk-button-default" type="button" id='addItem' value='Add Item' onClick={ this.addTextBox } />
-              </td>
-            </tr>
+                name='Cigarette Butts' 
+                class='as'
+                id='cigaretteButts'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Fishing Line' 
+                class='as'
+                id='fishingLine'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Glass' 
+                class='as'
+                id='glass'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Paper' 
+                class='as'
+                id='paper'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Filmed Plastic' 
+                class='as'
+                id='filmed_plastic'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Misc. Plastic' 
+                class='as'
+                id='miscPlastic'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Plastic Bottle' 
+                class='as'
+                id='plasticBottle'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Plastic Cap' 
+                class='as'
+                id='plasticCap'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Styrofoam' 
+                class='as'
+                id='styrofoam'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Wood' 
+                class='as'
+                id='wood'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Urethane Foam' 
+                class='as'
+                id='urethaneFoam'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Plastic Cup' 
+                class='as'
+                id='plasticCup'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Plastic Straw' 
+                class='as'
+                id='plasticStraw'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Cotton/Cloth' 
+                class='as'
+                id='cottonCloth'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Polypropylene Rope' 
+                class='as'
+                id='polypropyleneRope'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Aluminum Can' 
+                class='as'
+                id='alumninumCan'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Hygiene Items' 
+                class='as'
+                id='hygieneItem'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Metal' 
+                class='as'
+                id='metal'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              <FormTableRow
+                name='Tile/Brick' 
+                class='as'
+                id='tileBrick'
+                handleInputChange={ this.props.handleInputChange }
+              />
+              { getRowsComponents() }
+            </tbody>
+            <tfoot>
+              <tr>
+                <td id="itemCell">
+                  <input className="uk-button uk-button-default" type="button" id='addItem' value='Add Item' onClick={ this.addTextBox } />
+                </td>
+              </tr>
           </tfoot>
-        </table>
-    </form>
+          </table>
+      </form>
+    </div>
     );
   }
 }

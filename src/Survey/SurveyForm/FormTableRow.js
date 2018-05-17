@@ -12,6 +12,7 @@ class FormTableRow extends Component {
             id={ this.props.id }
             onChange={ this.props.handleInputChange }
             className={ classes + ' fresh' }
+            min="0"
           />
         </td>
         <td>
@@ -20,6 +21,7 @@ class FormTableRow extends Component {
             id={ this.props.id }
             onChange={ this.props.handleInputChange }
             className={ classes + ' weathered' }
+            min="0"
           />
         </td>
       </tr>

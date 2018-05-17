@@ -2,26 +2,31 @@ import React, { Component } from 'react';
 
 class FormStep1 extends Component {
   render() {
+    let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return (
-      <div>
+      <div className={classNames}>
         <form>
-          <h2>Clean Up Info</h2>
+          {/* <h3>Clean Up Information</h3> */}
           <label>Organization</label>
           <input
             type='string'
             placeholder='Organization'
             id='org'
             // value={ this.props.initialValues.org }
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            required
           />
           <label>Name of Beach</label>
           <input
             type='text'
             placeholder='Name of Beach'
             id='beach'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
+            required
           />
           <label>Date</label>
           <input
@@ -29,26 +34,35 @@ class FormStep1 extends Component {
             placeholder='Date'
             id='date'
             // value={ this.props.initialValues.date }
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
             className='uk-input uk-margin'
             required
           />
           <label>Reason for Location Choice</label>
-          <input
-            type='text'
-            placeholder='Reason for Location Choice (ex. Proximity, Problem Spot, etc.)'
+          <select
+            className="uk-select uk-margin"
             id='reason'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin'
-          />
+          >
+            <option>Proximity</option>
+            <option>Known for debris</option>
+            <option>Other</option>
+          </select>
+        
           <label>Major Usage</label>
-          <input
-            type='text'
-            placeholder='(ex. Recreational, Commercial, Remote/Unused, Private, etc.)'
+          <select
+            className="uk-select uk-margin " 
             id='majorUse'
+            onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin'
-          />
+          >
+            <option>Recreational</option>
+            <option>Commercial</option>
+            <option>Remote/Unused</option>
+            <option>Other</option>
+          </select>
         </form>
       </div>
 
