@@ -11,8 +11,6 @@ import FormStep4 from './FormSteps/FormStep4';
 import FormStep5 from './FormSteps/FormStep5';
 import SubmitConfirm from './FormSteps/SubmitConfirm';
 
-import '../progress.css';
-
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
@@ -29,10 +27,10 @@ class SurveyForm extends Component {
           date: '',
           beach: '',
           reason: 'proximity',
-          st: '',
+          st: 'sand',
           lat: '',
           lon: '' ,
-          slope: '',
+          slope: 'steep',
           nroName: '',
           nroDist: '',
           nroFlow: '',
@@ -245,7 +243,13 @@ class SurveyForm extends Component {
         formStep: 5,
       });
       this.setState({ formPages });
-    } else if (localStorage.BasicCleanUp === '0') {
+    }
+    
+    if (
+      localStorage.BasicCleanUp === '0' ||
+      localStorage.SurfaceRibScan === '1' ||
+      localStorage.AccumulationSurvey === '1'
+    ) {
       let formPages = this.state.formPages;
       formPages.push({
         name: 'Survey Area',
