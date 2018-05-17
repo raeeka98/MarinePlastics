@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort } from '../_helpers/SortHelper.js';
+import { locationSort } from '../_helpers/SortHelper';
 
-class SurveyList extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { data: [] };
@@ -12,6 +12,7 @@ class SurveyList extends Component {
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
+  // gets the entries from the server, saves them in the state
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
@@ -19,19 +20,17 @@ class SurveyList extends Component {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
         this.setState({ data: res.data });
-      })
+      });
   }
 
+  // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
   componentDidMount() {
     if (!this.pollInterval) {
       this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
     }
   }
 
-  //when incorporating into another project
-  //(with react-router for instance),
-  //this will prevent error messages every 2 seconds
-  //once the SurveyBox is unmounted
+  // stops checking the server when the component isn't loaded
   componentWillUnmount() {
     // eslint-disable-next-line
     this.pollInterval && clearInterval(this.pollInterval);
@@ -39,7 +38,9 @@ class SurveyList extends Component {
   }
 
   render() {
+    // locations is an array of sorted server entries based on location
     const locations = locationSort(this.state.data);
+    // returns HTML for every entry in the sorted array of locations
     let locationNodes = locations.map((location, i) => {
       let path = location.name.replace(/\s/g, '');
       return (
@@ -53,6 +54,7 @@ class SurveyList extends Component {
         </li>
       );
     });
+    // returns a list with all the sorted locations
     return (
       <ul>
         { locationNodes }
@@ -61,4 +63,4 @@ class SurveyList extends Component {
   }
 }
 
-export default SurveyList;
+export default Home;

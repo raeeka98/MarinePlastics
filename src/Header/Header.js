@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// the authentication object is passed through props from App.js
+// which is used to check if the user is currently logged in
+// (links in header depend on status)
+
 const Header = (props) => (
     <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
       <div className="uk-navbar-left">
@@ -16,9 +20,8 @@ const Header = (props) => (
             ? <li><Link to='/chooseform'>Survey</Link></li>
             : null
           }
-        
           <li><Link to="/map">Map</Link></li>
-            <li><Link to="/protocol">Protocol</Link></li>
+          <li><Link to="/protocol">Protocol</Link></li>
         </ul>
       </div>
       <div className="uk-navbar-right">
