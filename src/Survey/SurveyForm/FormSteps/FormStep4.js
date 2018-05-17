@@ -167,7 +167,7 @@ class FormStep4 extends Component {
           <tfoot>
             <tr>
               <td id="itemCell">
-                <input type="button" id='addItem' value='Add Item' onClick={ this.addTextBox } />
+                <input className="uk-button uk-button-default" type="button" id='addItem' value='Add Item' onClick={ this.addTextBox } />
               </td>
             </tr>
           </tfoot>
