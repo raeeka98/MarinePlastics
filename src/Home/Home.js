@@ -56,9 +56,12 @@ class Home extends Component {
     });
     // returns a list with all the sorted locations
     return (
-      <ul>
-        { locationNodes }
-      </ul>
+      <form classname="uk-search uk-search-default">
+        <input classname="uk-search-input" type="search" placeholder="Search..."/>
+        <ul>
+          { locationNodes }
+        </ul>
+      </form>
     );
   }
 }
