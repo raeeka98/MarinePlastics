@@ -8,6 +8,7 @@ class FormStep2 extends Component {
   render() {
     let classNames = this.props.isHidden ? 'uk-hidden' : '';
     const directions = ['North', 'South', 'East', 'West', 'North East', 'North West', 'South East', 'South West'];
+    // makes options for all the directions
     const dirSelects = directions.map((dir, i) => {
       return (
         <option key={i}>{dir}</option>

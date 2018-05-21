@@ -16,6 +16,8 @@ class Location extends Component {
   }
 
   render() {
+    // for every entry, returns a link to the entry page
+    // text is the date cleanup happened
     let entries = this.state.data.entries.map((entry) => {
       return(
         <li key={entry._id}>
@@ -26,6 +28,7 @@ class Location extends Component {
       );
     });
 
+    // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
     return(
       <div>
