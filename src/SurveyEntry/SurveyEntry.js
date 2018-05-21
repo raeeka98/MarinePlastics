@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-// import { Link, Redirect } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
-import marked from 'marked';
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -10,17 +7,41 @@ import SurveyTableRow from './SurveyTableRow';
 class Survey extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      toRedirect: false,
-      comment: this.props.location.state.comment || {},
-    };
+    this.state = { comment: {} };
 
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
+    this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
+  getComment() {
+    // get the id of the comment by splitting the current path (which is stored in the props) by '/'
+    let splitURL = (this.props.location.pathname).split('/');
+    // the id is the last part of the path, so pop the last element of the splitURL array
+    let entryID = splitURL.pop();
+
+    // call DB to get all the entries
+    axios.get(this.url)
+      .then(res => {
+        // search entries for the one that has the same ID as the path
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i]._id === entryID) {
+            // store that comment in the state
+            let comment = res.data[i];
+            this.setState({ comment });
+          }
+        }
+      });
+  }
+
+  // once the component is on the page, gets the comment from the server
+  componentDidMount() {
+    this.getComment();
+  }
+
+  // not sure if this works, also no users have ability to delete data as of now.
   handleCommentDelete(id) {
     axios.delete(`${this.url}/${id}`)
       .then(res => {
@@ -31,6 +52,7 @@ class Survey extends Component {
       });
   }
 
+  // in theory, deletes comment
   deleteComment(e) {
     e.preventDefault();
     if (this.auth.getAccessToken() === this.state.comment.user_id) {
@@ -43,32 +65,37 @@ class Survey extends Component {
     }
   }
 
-  rawMarkup() {
-    let rawMarkup = marked(this.props.children.toString());
-    return { __html: rawMarkup };
-  }
   render() {
-    let SRSRows = this.state.comment.SRSData.map(type => {
-      return(
-        <SurveyTableRow
-          key={type._id}
-          name={type.name}
-          fresh={type.fresh}
-          weathered={type.weathered}
-        />
-      );
-    });
+    // initializes to null because when component mounts, there is no data yet
+    let SRSRows = null;
+    let ASRows = null;
 
-    let ASRows = this.state.comment.ASData.map(type => {
-      return(
-        <SurveyTableRow
-          key={type._id}
-          name={type.name}
-          fresh={type.fresh}
-          weathered={type.weathered}
-        />
-      );
-    });
+    // if there is data (which is once the component mounts)
+    if (this.state.comment.SRSData) {
+      // for every type of trash, return a surveyTableRow component with the data
+      SRSRows = this.state.comment.SRSData.map(type => {
+        return(
+          <SurveyTableRow
+            key={type._id}
+            name={type.name}
+            fresh={type.fresh}
+            weathered={type.weathered}
+          />
+        );
+      });
+
+      // same as SRSData
+      ASRows = this.state.comment.ASData.map(type => {
+        return(
+          <SurveyTableRow
+            key={type._id}
+            name={type.name}
+            fresh={type.fresh}
+            weathered={type.weathered}
+          />
+        );
+      });
+    }
 
     return (
       this.state.toRedirect
@@ -92,10 +119,6 @@ class Survey extends Component {
             <b>Date Conducted: </b>
             <i>{this.state.comment.date}</i>
           </p>
-          {/* <p>
-            <b>Date Submitted: </b>
-            <i>{this.state.comment.input_date}</i>
-          </p> */}
 
           <h3>Survey Area</h3>
           <p>
@@ -172,18 +195,8 @@ class Survey extends Component {
             </thead>
             <tbody>
               { ASRows }
-              
             </tbody>
           </table>
-           
-          {/* <span dangerouslySetInnerHTML={ this.rawMarkup() } /> */}
-          {/* <Link to={{
-            pathname: '/survey',
-            state: { initialValues: this.state.comment },
-          }}>
-            update
-          </Link> */}
-          {/* <button onClick={ this.deleteComment }>delete</button> */}
         </div>
       )
     );
