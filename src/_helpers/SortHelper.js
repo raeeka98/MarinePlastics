@@ -32,3 +32,22 @@ export function locationSort(data) {
   }
   return sorted;
 }
+
+export function locationFilter(data){
+  if(document.getElementById("searchBar") === null){
+    console.log("null");
+  } else {
+    let input = document.getElementById("searchBar").value;
+    console.log(input);
+    /*for (let i = 0; i < data.locations.length; i++){
+      let name = data.locations[i].name;
+      console.log(name);
+      let a = name.getElementsByTagName('a')[0];
+      if(a.innerHTML.toUpperCase().indexOf(input.toUpperCase()) > -1){
+        data.locations[i].style.display="";
+      } else {
+        data.locations[i].style.display="none";
+      }
+    }*/
+  }
+}

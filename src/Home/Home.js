@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { locationSort } from '../_helpers/SortHelper';
+import { locationFilter } from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {
@@ -56,9 +57,9 @@ class Home extends Component {
     });
     // returns a list with all the sorted locations
     return (
-      <form classname="uk-search uk-search-default">
-        <input classname="uk-search-input" type="search" placeholder="Search..."/>
-        <ul>
+      <form className="uk-search uk-search-default">
+        <input className="uk-search-input" id="searchBar" type="search" onKeyPress={ locationFilter({ locations }) } placeholder="Search..."/>
+        <ul id="locations">
           { locationNodes }
         </ul>
       </form>
