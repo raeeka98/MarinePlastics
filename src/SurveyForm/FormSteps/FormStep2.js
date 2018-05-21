@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 
 class FormStep2 extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
   render() {
     let classNames = this.props.isHidden ? 'uk-hidden' : '';
     const directions = ['North', 'South', 'East', 'West', 'North East', 'North West', 'South East', 'South West'];
@@ -90,8 +87,8 @@ class FormStep2 extends Component {
           <label>Last Tide</label>
           <br/>
           <select
-            className="uk-select uk-margin uk-width-1-3@s" 
-            id='lastTide'
+            className="uk-select uk-margin uk-width-1-3@s last-tide" 
+            id='type'
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
           >
@@ -101,19 +98,19 @@ class FormStep2 extends Component {
       
           <input
             type='number'
-            placeholder=' Height'
-            id='lastTide'
+            placeholder='Height'
+            id='height'
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin  uk-width-1-3@s'
+            className='uk-input uk-margin  uk-width-1-3@s last-tide'
           />
           <input
             type='time'
-            placeholder=' Time'
-            id='lastTide'
+            placeholder='Time'
+            id='time'
             onBlur={ this.props.handleValidation }
             onChange={ this.props.handleInputChange }
-            className='uk-input uk-margin  uk-width-1-3@s'
+            className='uk-input uk-margin  uk-width-1-3@s last-tide'
           />
           <label>Next Tide</label>
           <br/>

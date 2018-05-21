@@ -4,21 +4,25 @@ import { Link } from 'react-router-dom';
 class ChooseForm extends Component {
   constructor(props) {
     super(props);
+    // 0 means they didn't check the box
+    // 1 means they did check the box
     this.state = {
       BasicCleanUp: '0',
       SurfaceRibScan: '0',
       AccumulationSurvey: '0',
     }
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
   }
 
-  handleFormSubmit(e) {
+  // toggles the value of the state (the id is the name of the corresponding state)
+  handleFormUpdate(e) {
     if (e.target.checked) this.setState({ [e.target.id]: '1' });
     else this.setState({ [e.target.id]: '0' });
   }
 
+  // saves the values from the state to localStorage
   setLocalStorage(){
     localStorage.setItem("BasicCleanUp", this.state.BasicCleanUp);
     localStorage.setItem("SurfaceRibScan", this.state.SurfaceRibScan);
@@ -37,33 +41,27 @@ class ChooseForm extends Component {
               className="uk-checkbox uk-margin-right"
               id="BasicCleanUp"
               type="checkbox"
-              onChange={this.handleFormSubmit}
+              onChange={this.handleFormUpdate}
             />
-            <label>
-              Basic Cleanup
-            </label>
+            <label>Basic Cleanup</label>
           </li>
           <li>
             <input
               className="uk-checkbox uk-margin-right"
               id="SurfaceRibScan"
               type="checkbox"
-              onChange={this.handleFormSubmit}
+              onChange={this.handleFormUpdate}
             />
-            <label>
-              Surface Rib Scan
-            </label>
+            <label>Surface Rib Scan</label>
           </li>
           <li>
             <input
               className="uk-checkbox uk-margin-right"
               id="AccumulationSurvey"
               type="checkbox"
-              onChange={this.handleFormSubmit}
+              onChange={this.handleFormUpdate}
             />
-            <label>
-              Accumulation Survey
-            </label>
+            <label>Accumulation Survey</label>
           </li>
         </ul>
         <Link

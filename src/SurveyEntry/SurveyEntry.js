@@ -52,18 +52,18 @@ class Survey extends Component {
       });
   }
 
-  // in theory, deletes comment
-  deleteComment(e) {
-    e.preventDefault();
-    if (this.auth.getAccessToken() === this.state.comment.user_id) {
-      let id = this.state.comment._id;
-      this.handleCommentDelete(id);
-      console.log('deleted');
-      this.setState({ toRedirect: true  });
-    } else {
-      window.alert('Can only delete your own entries.');
-    }
-  }
+  // // in theory, deletes comment
+  // deleteComment(e) {
+  //   e.preventDefault();
+  //   if (this.auth.getAccessToken() === this.state.comment.user_id) {
+  //     let id = this.state.comment._id;
+  //     this.handleCommentDelete(id);
+  //     console.log('deleted');
+  //     this.setState({ toRedirect: true  });
+  //   } else {
+  //     window.alert('Can only delete your own entries.');
+  //   }
+  // }
 
   render() {
     // initializes to null because when component mounts, there is no data yet
@@ -98,107 +98,103 @@ class Survey extends Component {
     }
 
     return (
-      this.state.toRedirect
-      ? <Redirect to='/' />
-      : (
-        <div>
-          <h3>Team Information</h3>
-          <p>
-            <b>Team Leader: </b>
-            <i>{this.state.comment.user}</i>
-          </p>
-          <p>
-            <b>Organization: </b>
-            <i>{this.state.comment.org}</i>
-          </p>
-          <p>
-            <b>Email: </b>
-            <i>{this.state.comment.email}</i>
-          </p>
-          <p>
-            <b>Date Conducted: </b>
-            <i>{this.state.comment.date}</i>
-          </p>
+      <div>
+        <h3>Team Information</h3>
+        <p>
+          <b>Team Leader: </b>
+          <i>{this.state.comment.user}</i>
+        </p>
+        <p>
+          <b>Organization: </b>
+          <i>{this.state.comment.org}</i>
+        </p>
+        <p>
+          <b>Email: </b>
+          <i>{this.state.comment.email}</i>
+        </p>
+        <p>
+          <b>Date Conducted: </b>
+          <i>{this.state.comment.date}</i>
+        </p>
 
-          <h3>Survey Area</h3>
-          <p>
-            <b>Name of Beach: </b>
-            <i>{this.state.comment.beach}</i>
-          </p>
-          <p>
-            <b>Reason for Location: </b>
-            <i>{this.state.comment.reason}</i>
-          </p>
-          <p>
-            <b>Substrate Type: </b>
-            <i>{this.state.comment.st}</i>
-          </p>
-          <p>
-            <b>GPS Coordinates (Starting Point): </b>
-            <i>{this.state.comment.lat}</i>, <i>{this.state.comment.lon}</i>
-          </p>
-          <p>
-            <b>Slope: </b>
-            <i>{this.state.comment.slope}</i>
-          </p>
-          <p>
-            <b>Nearest River Output ~ Name: </b>
-            <i>{this.state.comment.nroName}</i>
-            <b> Distance: </b>
-            <i>{this.state.comment.nroDist}m</i>
-          </p>
-          <p>
-            <b>Aspect: </b>
-            <i>{this.state.comment.aspect}</i>
-          </p>
-          <p>
-            <b>Last Tide and Height: </b>
-            <i>{this.state.comment.lastTide}</i>
-            <b> Next Tide and Height: </b>
-            <i>{this.state.comment.nextTide}</i>
-          </p>
-          <p>
-            <b>Wind Direction: </b>
-            <i>{this.state.comment.windDir}</i>
-          </p>
-          <p>
-            <b>Major Usage: </b>
-            <i>{this.state.comment.majorUse}</i>
-          </p>
+        <h3>Survey Area</h3>
+        <p>
+          <b>Name of Beach: </b>
+          <i>{this.state.comment.beach}</i>
+        </p>
+        <p>
+          <b>Reason for Location: </b>
+          <i>{this.state.comment.reason}</i>
+        </p>
+        <p>
+          <b>Substrate Type: </b>
+          <i>{this.state.comment.st}</i>
+        </p>
+        <p>
+          <b>GPS Coordinates (Starting Point): </b>
+          <i>{this.state.comment.lat}</i>, <i>{this.state.comment.lon}</i>
+        </p>
+        <p>
+          <b>Slope: </b>
+          <i>{this.state.comment.slope}</i>
+        </p>
+        <p>
+          <b>Nearest River Output ~ Name: </b>
+          <i>{this.state.comment.nroName}</i>
+          <b> Distance: </b>
+          <i>{this.state.comment.nroDist}m</i>
+        </p>
+        <p>
+          <b>Aspect: </b>
+          <i>{this.state.comment.aspect}</i>
+        </p>
+        <p>
+          <b>Last Tide and Height: </b>
+          <i>{this.state.comment.lastTide}</i>
+          <b> Next Tide and Height: </b>
+          <i>{this.state.comment.nextTide}</i>
+        </p>
+        <p>
+          <b>Wind Direction: </b>
+          <i>{this.state.comment.windDir}</i>
+        </p>
+        <p>
+          <b>Major Usage: </b>
+          <i>{this.state.comment.majorUse}</i>
+        </p>
 
-          <h3> Basic Cleanup </h3>
-          <p><b> Total Weight (in pounds): </b><i>{this.state.comment.weight}</i></p>
-          <p><b> Number of People: </b><i>{this.state.comment.NumberOfPeople}</i></p>
+        <h3> Basic Cleanup </h3>
+        <p><b> Total Weight (in pounds): </b><i>{this.state.comment.weight}</i></p>
+        <p><b> Number of People: </b><i>{this.state.comment.NumberOfPeople}</i></p>
 
-          <h3>Surface Rib Scan Survey</h3>
-          <table className="uk-table uk-table-striped">
-            <thead>
-              <tr>
-                <th>Debris Type</th>
-                <th>Amount Fresh</th>
-                <th>Amount Weathered</th>
-              </tr>
-            </thead>
-            <tbody>
-              { SRSRows }
-            </tbody>
-          </table>
+        <h3>Surface Rib Scan Survey</h3>
+        <table className="uk-table uk-table-striped">
+          <thead>
+            <tr>
+              <th>Debris Type</th>
+              <th>Amount Fresh</th>
+              <th>Amount Weathered</th>
+            </tr>
+          </thead>
+          <tbody>
+            { SRSRows }
+          </tbody>
+        </table>
 
-          <h3>Accumulation Survey</h3>
-          <table className="uk-table uk-table-striped">
-            <thead>
-              <tr>
-                <th>Debris Type</th>
-                <th>Amount Fresh</th>
-                <th>Amount Weathered</th>
-              </tr>
-            </thead>
-            <tbody>
-              { ASRows }
-            </tbody>
-          </table>
-        </div>
-      )
+        <h3>Accumulation Survey</h3>
+        <table className="uk-table uk-table-striped">
+          <thead>
+            <tr>
+              <th>Debris Type</th>
+              <th>Amount Fresh</th>
+              <th>Amount Weathered</th>
+            </tr>
+          </thead>
+          <tbody>
+            { ASRows }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
