@@ -8,6 +8,7 @@ class UserProfile extends Component {
     }
   }
 
+  // returns profile from auth0 when component loads
   componentWillMount() {
     const { userProfile, getLoggedInProfile } = this.props.auth;
     if (!userProfile) {
@@ -22,30 +23,10 @@ class UserProfile extends Component {
   render() {
     const { profile } = this.state;
     return (
-
-      <div className="uk-table ">
-        <thead>
-          <tr>
-            <th className="uk-width-small uk-heading-line" > <span className="uk-thumbnav"> <img src={profile.picture} alt="profile" /> </span></th>
-          </tr>
-          </thead>
-            <tbody>
-              <tr>
-              <th className="uk-table-expand uk-heading-line"><span>{profile.name}</span></th>
-              <th className="uk-heading-line uk-table-expand"><span>{profile.nickname}</span></th>
-              <th className="uk-table-expand uk-heading-line"><span>Last Log In</span></th>
-              <th className="uk-table-small uk-heading-line"></th>
-            </tr>
-            <tr>
-            <th className="uk-table-expand uk-heading-line"><span></span></th>
-            <th className="uk-heading-line uk-table-expand"><span></span></th>
-            <th className="uk-table-expand uk-heading-line"><span>{profile.updated_at}</span></th>
-            <th className="uk-table-small uk-heading-line"></th>
-          </tr>
-            </tbody>
-      
-      
-        
+      <div>
+        <img height="100px" width="100px" src={ profile.picture } alt="profile" />
+        <div>{ profile.name }</div>
+        <div>{ profile.nickname }</div>
       </div>
     );
   }

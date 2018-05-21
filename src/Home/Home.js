@@ -46,6 +46,7 @@ class Home extends Component {
       let path = location.name.replace(/\s/g, '');
       return (
         <li key={i}>
+          {/* state attr passes data to the location page */}
           <Link to={{
             pathname: `/location/${path}`,
             state: { data: location }

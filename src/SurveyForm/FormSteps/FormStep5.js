@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 
 class FormStep4 extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
   render() {
     let classNames = this.props.isHidden ? 'uk-hidden' : '';
     return (
       <div className={classNames}>
         <form>
-          {/* <h3>Basic Cleanup</h3> */}
           <label>Total Weight (in pounds)</label>
           <input
             type='number'
