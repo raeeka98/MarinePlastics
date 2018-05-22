@@ -6,7 +6,7 @@ class FormStep1 extends Component {
     return (
       <div className={classNames}>
         <form>
-          <label>Organization</label>
+          <label>Organization<span className="uk-text-danger">*</span></label>
           <input
             type='string'
             placeholder='Organization'
@@ -17,7 +17,7 @@ class FormStep1 extends Component {
             className='uk-input uk-margin'
             required
           />
-          <label>Name of Beach</label>
+          <label>Name of Beach<span className="uk-text-danger">*</span></label>
           <input
             type='text'
             placeholder='Name of Beach'
@@ -27,7 +27,7 @@ class FormStep1 extends Component {
             className='uk-input uk-margin'
             required
           />
-          <label>Date</label>
+          <label>Date<span className="uk-text-danger">*</span></label>
           <input
             type='date'
             placeholder='Date'
