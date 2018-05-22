@@ -45,24 +45,27 @@ class Home extends Component {
     let locationNodes = locations.map((location, i) => {
       let path = location.name.replace(/\s/g, '');
       return (
-        <li key={i}>
+        <div className="uk-card uk-card-default uk-card-body uk-margin" key={i}>
           {/* state attr passes data to the location page */}
-          <Link to={{
-            pathname: `/location/${path}`,
-            state: { data: location }
-          }}>
-            {location.name}: {location.entries.length} Entries
-          </Link>
-        </li>
+          <h3 className="uk-card-title">
+            <Link to={{
+              pathname: `/location/${path}`,
+              state: { data: location }
+            }}>
+              { location.name }
+            </Link>
+          </h3>
+          <p>{ location.entries.length } Entries</p>
+        </div>
       );
     });
     // returns a list with all the sorted locations
     return (
-      <form className="uk-search uk-search-default">
+      <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
         <input className="uk-search-input" id="searchBar" type="search" onKeyPress={ locationFilter({ locations }) } placeholder="Search..."/>
-        <ul id="locations">
+        <div id="locations">
           { locationNodes }
-        </ul>
+        </div>
       </form>
     );
   }
