@@ -45,16 +45,19 @@ export function locationSort(data) {
 }
 
 export function locationFind(locations, serachTerm){
+  console.log(serachTerm);
   if (serachTerm === '') {
     return locations;
   } else {
     const normalizedST = serachTerm.replace(/\s/g, '').toLowerCase();
+    console.log('normalized', normalizedST);
     let res = [];
       for (let i = 0; i < locations.length; i++) {
         if (locations[i].name.toLowerCase().includes(normalizedST)) {
           res.push(locations[i]);
         }
       }
+    console.log(res);
     return res;
   }
 }
