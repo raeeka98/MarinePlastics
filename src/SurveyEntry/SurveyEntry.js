@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import SurveyTableRow from './SurveyTableRow';
 
-class Survey extends Component {
+class SurveyEntry extends Component {
   constructor(props) {
     super(props);
     this.state = { comment: {} };
@@ -21,21 +21,10 @@ class Survey extends Component {
     let splitURL = (this.props.location.pathname).split('/');
     // the id is the last part of the path, so pop the last element of the splitURL array
     let entryID = splitURL.pop();
-    // call DB to get all the entries
-    console.log('id', entryID);
-    axios.get(`${this.url}`, {
-      params: { _id: entryID }
-    })
+    // call DB to get entry with the same id
+    axios.get(`${this.url}/${entryID}`)
     .then(res => {
-      console.log(res);
-      // search entries for the one that has the same ID as the path
-      // for (let i = 0; i < res.data.length; i++) {
-      //   if (res.data[i]._id === entryID) {
-      //     store that comment in the state
-      //     let comment = res.data[i];
-      //     this.setState({ comment });
-      //   }
-      // }
+      this.setState({ comment: res.data.comment });
     })
     .catch(err => {
       console.log(err);
@@ -205,4 +194,4 @@ class Survey extends Component {
   }
 }
 
-export default Survey;
+export default SurveyEntry;
