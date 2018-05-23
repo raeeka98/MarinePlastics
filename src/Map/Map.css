@@ -1,11 +1,9 @@
-
-
 .custom-marker {
   height: 25px;
- width: 25px;
- background-color: #fff;
- border-radius: 50%;
- display: inline-block;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
 }
 .pin {
   width: 30px;

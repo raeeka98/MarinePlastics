@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import Map from '../Map';
 import GoogleMapReact from 'google-map-react';
-//import Pin from '../Map/Pin.jsx';
 
-//import {K_SIZE} from '../Map/PinStyle.js'
+// to get the pin styles
+import '../Map/Map.css';
 
 class Location extends Component {
   constructor(props) {
     super(props);
+    // the data is passed from ../Home/Home.js from the Link
+    // this.props.location.state is where the Link passes the state to
     this.state = {
       data: this.props.location.state.data || {},
     }
   }
 
   render() {
+    // for every entry, returns a link to the entry page
+    // text is the date cleanup happened
     let entries = this.state.data.entries.map((entry) => {
       return(
         <li key={entry._id}>
-          <Link to={{
-            pathname: `/entry/${entry._id}`,
-            state: { comment: entry }
-          }}>
+          <Link to={{ pathname: `/entry/${entry._id}` }}>
             {entry.date}
           </Link>
         </li>
       );
     });
 
+    // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
     return(
       <div>
@@ -53,7 +54,6 @@ class Location extends Component {
               </GoogleMapReact>
             </div>
           </div>
-
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Entries</h3>

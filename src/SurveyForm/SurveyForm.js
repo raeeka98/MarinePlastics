@@ -13,123 +13,133 @@ import SubmitConfirm from './FormSteps/SubmitConfirm';
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    // temp - need to fix this if want to update to populate elements with original values
-    // if (this.props.location !== undefined && this.props.location.state !== undefined  ) {
-    //   this.state = this.props.location.state.initialValues;
-    // } else {
-      this.state = {
-        entry: {
-          user: '',
-          email: '',
-          input_date: '',
-          org: '',
-          date: '',
-          beach: '',
-          reason: 'proximity',
-          st: 'sand',
-          lat: '',
-          lon: '' ,
-          slope: 'steep',
-          nroName: '',
-          nroDist: '',
-          nroFlow: '',
-          nroOut: '',
-          aspect: '',
-          weather: '',
-          lastTide: '',
-          nextTide: {},
-          windDir: '',
-          windSpeed: '',
-          majorUse: 'recreation',
-          weight: '',
-          NumberOfPeople: '',
-          SRSTotal: '',
-          SRSData: [],
-          ASTotal: '',
-          ASData: [],
-          surveyArea: '',
-        },
-        formPages: [
-          {
-            name: 'Clean Up Information',
-            hidden: false,
-            valid: true,
-            formStep: 1,
-          }
-        ],
-        currStep: 0,
-      }
-    // }
+    // for the entry, the values that are default in the input are default in the state too
+    this.state = {
+      entry: {
+        user: '',
+        email: '',
+        input_date: '',
+        org: '',
+        date: '',
+        beach: '',
+        reason: 'proximity',
+        st: 'sand',
+        lat: '',
+        lon: '' ,
+        slope: 'steep',
+        nroName: '',
+        nroDist: '',
+        nroFlow: '',
+        nroOut: '',
+        aspect: '',
+        weather: '',
+        lastTide: { type: 'low' },
+        nextTide: { type: 'low' },
+        windDir: '',
+        windSpeed: '',
+        majorUse: 'recreation',
+        weight: '',
+        NumberOfPeople: '',
+        SRSTotal: '',
+        SRSData: [],
+        ASTotal: '',
+        ASData: [],
+        surveyArea: '',
+      },
+      formPages: [
+        {
+          name: 'Clean Up Information',
+          hidden: false,
+          valid: false,
+          formStep: 1,
+        }
+      ],
+      currStep: 0,
+    }
 
-    this.handleServerSubmit = this.handleServerSubmit.bind(this);
-    this.handleServerUpdate = this.handleServerUpdate.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSurveyInput = this.handleSurveyInput.bind(this);
-    this.handleTideInput = this.handleTideInput.bind(this);
     this.handleValidation = this.handleValidation.bind(this);
-    this.nextStep = this.nextStep.bind(this);
-    this.previousStep = this.previousStep.bind(this);
+    this.changeStep = this.changeStep.bind(this);
     this.handleCustomInputChange = this.handleCustomInputChange.bind(this);
 
     this.auth = new Auth();
-    this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
 
   handleInputChange(e) {
-    if (e.target.getAttribute('class').includes('srs')) {
-      let SRSData = this.handleSurveyInput(e, this.state.entry.SRSData);
-      this.setState({ SRSData });
-    } else if (e.target.getAttribute('class').includes('as')) {
-      let ASData = this.handleSurveyInput(e, this.state.entry.ASData);
-      this.setState({ ASData });
-    } else if (e.target.getAttribute('class').includes('next-tide')) {
-      let nextTide = this.handleTideInput(e, this.state.entry.nextTide);
-      this.setState({ nextTide });
-    } else if (e.target.getAttribute('class').includes('last-tide')) {
-      let lastTide = this.handleTideInput(e, this.state.entry.lastTide);
-      this.setState({ lastTide });
-    } else {
-      this.setState({ entry: {[e.target.id]: e.target.value }});
-    }
+    // arrow function for handling srs and as data
+    let handleSurveyInput = (e, data) => {
+      // bool for if input is fresh
+      let isFreshInput = e.target.classList.contains('fresh');
+      // search index initialized to -1 (not found)
+      let index = -1;
+  
+      // if entry in the data has the same name, sets index to index of result in data
+      for (let i = 0; i < data.length; i++) {
+        if ((data[i]).name === e.target.id) { index = i; }
+      }
+
+      // if not already in data, push a new object to data, also set index to the last element in data (the new one)
+      if (index === -1) {
+        let newData = {
+          name: e.target.id,
+          fresh: 0,
+          weathered: 0,
+        };
+        data.push(newData);
+        index = data.length - 1;
+      }
+
+      // sets value depending if its fresh or weathered
+      if (isFreshInput) { (data[index]).fresh = parseInt(e.target.value, 10); }
+      else { (data[index]).weathered = parseInt(e.target.value, 10); }
+
+      return data;
+    };
+
+    let entry = this.state.entry;
+
+    // changes entry depending on if classlist contains certain class
+    if (e.target.classList.contains('srs')) { entry.SRSData = handleSurveyInput(e, entry.SRSData); }
+    else if (e.target.classList.contains('as')) { entry.ASData = handleSurveyInput(e, entry.ASData); }
+    else if (e.target.classList.contains('next-tide')) { entry.nextTide[e.target.id] = e.target.value; }
+    else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; } 
+    else { entry[e.target.id] = e.target.value; }
+
+    this.setState({ entry });
   }
 
   handleValidation(e) {
+    let formPages = this.state.formPages;
+
+    // handleInvalid/handleValid change the current page's valid value and add/remove the danger class
     let handleInvalid = () => {
-      let formPages = this.state.formPages;
       formPages[this.state.currStep].valid = false;
-      this.setState({ formPages });
       e.target.classList.add('uk-form-danger');
     }
 
     let handleValid = () => {
-      let formPages = this.state.formPages;
       formPages[this.state.currStep].valid = true;
-      this.setState({ formPages });
-      if (e.target.classList.contains('uk-form-danger')) e.target.classList.remove('uk-form-danger');
-      
+      if (e.target.classList.contains('uk-form-danger')) { e.target.classList.remove('uk-form-danger'); }
     }
 
     if (e.target.getAttribute('required') !== null && !this.state.entry[e.target.id]) {
+      // if input is required and the value is empty or null, invalid
       handleInvalid();
-      return false;
     } else if (
         (e.target.id === 'weight' || e.target.id === 'NumberOfPeople' ||
         e.target.classList.contains('srs') || e.target.classList.contains('as'))
         && e.target.value < 0
     ) {
+      // if input is for weight, number of people, or for srs/as data and value is negative, invalid
       handleInvalid();
-      return false;
     } else {
+      // otherwise valid
       handleValid();
-      return true;
     }
-  }
-  
-  handleTideInput(e, data) {
-    data[e.target.id] = e.target.value;
-    return data;
+
+    this.setState({ formPages });
   }
 
   handleCustomInputChange(e) {
@@ -146,101 +156,56 @@ class SurveyForm extends Component {
     }
   }
 
-  handleSurveyInput(e, data) {
-    let isFreshInput = (e.target.className).indexOf('fresh');
-    let index = -1;
-
-    for (let i = 0; i < data.length; i++) {
-      if ((data[i]).name === e.target.id) { index = i; }
-    }
-
-    if (index > -1) {
-      if (isFreshInput > -1) {
-        (data[index]).fresh = parseInt(e.target.value, 10);
-      } else {
-        (data[index]).weathered = parseInt(e.target.value, 10);
-      }
-    } else {
-      let newData = { name: e.target.id }
-      if (isFreshInput > -1) {
-        newData.fresh = parseInt(e.target.value, 10);
-        newData.weathered = 0;
-      } else {
-        newData.fresh = 0;
-        newData.weathered = parseInt(e.target.value, 10);
-      }
-      data.push(newData);
-    }
-    return data;
-  }
-
-  handleServerSubmit(comment) {
-    comment.input_date = Date.now();
-    console.log('server submit', comment);
-    axios.post(this.url, comment)
-      .catch(err => { console.error(err); });
-  }
-
-  handleServerUpdate(id, comment) {
-    //sends the comment id and new beach/reason to our api
-    axios.put(`${this.url}/${id}`, comment)
-      .catch(err => {
-        console.log(err);
-      })
-  }
-
   handleFormSubmit(e) {
     if (this.auth.isAuthenticated()) {
-      if (this.props.location.state !== undefined) {
-        this.handleServerUpdate(this.props.location.state.initialValues._id, this.state.entry);
-      } else {
-        this.handleServerSubmit(this.state.entry);
-      }
+      let entry = this.state.entry;
+      entry.input_date = Date.now();
+      this.setState({ entry });
+
+      // submit entry data to server
+      axios.post(this.url, this.state.entry)
+        .catch(err => { console.error(err); });
     } else {
       window.alert('Please sign in to enter survey data.');
     }
 
-    this.nextStep();
+    // move to final page
+    this.changeStep(e)
   }
 
-  nextStep() {
-    if (this.state.currStep + 1 < this.state.formPages.length) {
-      let formPages = this.state.formPages;
-      let currStep = this.state.currStep;
+  changeStep(e) {
+    const moveNext = e.target.value === 'next' ? true : false;
+    let formPages = this.state.formPages;
+    let currStep = this.state.currStep;
+    let newStep = this.state.currStep;
+    let isInRange = false;
+
+    // check if moving within valid range
+    if ((moveNext && currStep + 1 < formPages.length) || (!moveNext && currStep - 1 > -1)) { isInRange = true; }
+
+    if (isInRange) {
+      // if moving next, add one. if moving prev, subtract 1.
+      newStep = moveNext ? currStep + 1 : currStep - 1;
+
+      // hide/show pages and set new state
       formPages[currStep].hidden = true;
-      currStep += 1;
-      this.setState({ currStep });
-      formPages[currStep].hidden = false;
+      formPages[newStep].hidden = false;
+      this.setState({ currStep: newStep });
       this.setState({ formPages });
-
-      document.getElementById('progress').value = currStep + 1;
     }
-  }
 
-  previousStep() {
-    if (this.state.currStep - 1 > -1) {
-      let formPages = this.state.formPages;
-      let currStep = this.state.currStep;
-      formPages[currStep].hidden = true;
-      currStep -= 1;
-      this.setState({ currStep });
-      formPages[currStep].hidden = false;
-      this.setState({ formPages });
-
-      document.getElementById('progress').value = currStep + 1;
-    }
+    // update progress bar, needs to be + 1 because progress bar starts at 1.
+    document.getElementById('progress').value = newStep + 1;
   }
 
   componentDidMount() {
-    if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    }
-
+    // check if user is authenticated (redirect if not)
     if(!this.auth.isAuthenticated()){
       window.alert('Please sign in to continue');
       window.location.replace('/');
     }
 
+    // set entry user/email from auth0
     this.auth.getLoggedInProfile((err, profile) => {
       let entry =  this.state.entry;
       entry.user = profile.name;
@@ -248,15 +213,16 @@ class SurveyForm extends Component {
       this.setState({ entry });
     });
 
+    let formPages = this.state.formPages;
+
+    // get pages based on contents of localStorage (from ./ChooseForm)
     if (localStorage.BasicCleanUp === '1'){
-      let formPages = this.state.formPages;
       formPages.push({
         name: 'Basic Cleanup',
         hidden: true,
-        valid: true,
+        valid: false,
         formStep: 5,
       });
-      this.setState({ formPages });
     }
     
     if (
@@ -264,54 +230,44 @@ class SurveyForm extends Component {
       localStorage.SurfaceRibScan === '1' ||
       localStorage.AccumulationSurvey === '1'
     ) {
-      let formPages = this.state.formPages;
       formPages.push({
         name: 'Survey Area',
         hidden: true,
         valid: true,
         formStep: 2,
       });
-      this.setState({ formPages });
     }
 
     if (localStorage.SurfaceRibScan === '1'){
-      let formPages = this.state.formPages;
       formPages.push({
         name: 'Surface Rib Scan',
         hidden: true,
-        valid: true,
+        valid: false,
         formStep: 3,
       });
-      this.setState({ formPages });
     };
 
     if (localStorage.AccumulationSurvey === '1'){
-      let formPages = this.state.formPages;
       formPages.push({
         name: 'Accumulation Survey',
         hidden: true,
-        valid: true,
+        valid: false,
         formStep: 4,
       });
-      this.setState({ formPages });
     };
 
-    let formPages = this.state.formPages;
     formPages.push({
       name: 'Done!',
       hidden: true,
-      valid: true,
+      valid: false,
       formStep: 6,
     });
+
     this.setState({ formPages });
   }
 
-  componentWillUnmount() {
-    this.pollInterval && clearInterval(this.pollInterval);
-    this.pollInterval = null;
-  }
-
   render() {
+    // based on formpages, return pages components
     let stepsComponents = this.state.formPages.map((el, i) => {
       let component;
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
@@ -340,8 +296,9 @@ class SurveyForm extends Component {
             { this.state.currStep !== 0 ? 
               <button
                 className="uk-button uk-button-primary"
-                onClick={ this.previousStep }
+                onClick={ this.changeStep }
                 disabled={ !this.state.formPages[this.state.currStep].valid }
+                value="previous"
               >
                 Previous Step
               </button> 
@@ -352,6 +309,7 @@ class SurveyForm extends Component {
                 className={ this.state.currStep === 0 ? "uk-button uk-button-secondary" : "uk-button uk-button-secondary uk-margin-large-left" }
                 onClick={ this.handleFormSubmit }
                 disabled={ !this.state.formPages[this.state.currStep].valid }
+                value="next"
               >
                 Submit Form
               </button>
@@ -360,8 +318,9 @@ class SurveyForm extends Component {
             { this.state.currStep < this.state.formPages.length - 2 ?
               <button
                 className={ this.state.currStep === 0 ? "uk-button uk-button-primary" : "uk-button uk-button-primary uk-margin-large-left" }
-                onClick={ this.nextStep }
+                onClick={ this.changeStep }
                 disabled={ !this.state.formPages[this.state.currStep].valid }
+                value="next"
               >
                 Next Step
               </button>

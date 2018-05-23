@@ -6,24 +6,22 @@ import CustomFormTableRow from '../FormHelpers/CustomFormTableRow';
 class FormStep3 extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numCustomRows: 1
-    }
-
+    this.state = { numCustomRows: 1 }
     this.addTextBox = this.addTextBox.bind(this);
   }
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
 
+  // increments number of custom rows and sets state
   addTextBox() {
     let numCustomRows = this.state.numCustomRows + 1;
     this.setState({ numCustomRows });
   }
   
   render() {
+    // initializes the array of custom rows to empty every time the component renders
     let customRows = [];
+    // getRowsComponents is a function that fills customRows with components
     let getRowsComponents = () => {
+      // adds numCustomRows number of components to the customrows array and returns the array
       for (let i = 0; i < this.state.numCustomRows; i++) {
         customRows.push(<CustomFormTableRow
           key={ i }
