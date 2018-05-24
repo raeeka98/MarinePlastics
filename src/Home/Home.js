@@ -6,6 +6,8 @@ import { locationSort, locationFind } from '../_helpers/SortHelper';
 class Home extends Component {
   constructor(props) {
     super(props);
+    // data state doesn't change, so when search - can go back to all entries easily
+    // locations change w/ what user searches
     this.state = {
       data: [],
       locations: [],
@@ -25,6 +27,7 @@ class Home extends Component {
         });
         // sorts data into locations 
         const sorted = locationSort(res.data);
+        // initializes data and locations states (data won't change)
         this.setState({
           data: sorted,
           locations: sorted
@@ -32,29 +35,21 @@ class Home extends Component {
       });
   }
 
-  handleSearch(e) {
+  handleSearch(e) { 
     if (e.target.value.length > 0) {
+      // get arr of matches, set locations state (which is used to load list)
       const result = locationFind(this.state.data, e.target.value);
       this.setState({ locations: result });
     } else {
+      // if nothing in input, put all entries back in locations state
       const allLocations = this.state.data;
       this.setState({ locations: allLocations });
     }
   }
 
-  // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
+  // once the component is on the page, checks the server for comments
   componentDidMount() {
     this.loadCommentsFromServer();
-    // if (!this.pollInterval) {
-    //   this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    // }
-  }
-
-  // stops checking the server when the component isn't loaded
-  componentWillUnmount() {
-    // eslint-disable-next-line
-    // this.pollInterval && clearInterval(this.pollInterval);
-    // this.pollInterval = null;
   }
 
   render() {
@@ -78,23 +73,25 @@ class Home extends Component {
         </div>
       );
     });
-    // returns a list with all the sorted locations
+
     return (
-      <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
-        <input
-          className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-large-top"
-          id="searchBar"
-          type="search"
-          onChange={ this.handleSearch } 
-          placeholder="Search..."
-        />
-        <div id="locations">
+      <div className="uk-width-1-2 uk-align-center">
+        <form className="uk-search uk-search-default uk-width-1-1">
+          <input
+            className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-medium-top"
+            id="searchBar"
+            type="search"
+            onChange={ this.handleSearch } 
+            placeholder="Search entries..."
+          />
+        </form>
+        <div id="locations" className="uk-height-large uk-background-muted uk-padding" style={{ overflowY: 'scroll' }}>
           { locationNodes }
-          { this.state.data.length === 0
+          { this.state.data.length < 1
             ? <div>No Entries</div> : null
           }
         </div>
-      </form>
+      </div>
     );
   }
 }
