@@ -4,13 +4,13 @@ import axios from 'axios';
 
 import SurveyTableRow from './SurveyTableRow';
 
-class Survey extends Component {
+class SurveyEntry extends Component {
   constructor(props) {
     super(props);
     this.state = { comment: {} };
 
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
+    // this.deleteComment = this.deleteComment.bind(this);
     this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
@@ -21,19 +21,14 @@ class Survey extends Component {
     let splitURL = (this.props.location.pathname).split('/');
     // the id is the last part of the path, so pop the last element of the splitURL array
     let entryID = splitURL.pop();
-
-    // call DB to get all the entries
-    axios.get(this.url)
-      .then(res => {
-        // search entries for the one that has the same ID as the path
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i]._id === entryID) {
-            // store that comment in the state
-            let comment = res.data[i];
-            this.setState({ comment });
-          }
-        }
-      });
+    // call DB to get entry with the same id
+    axios.get(`${this.url}/${entryID}`)
+    .then(res => {
+      this.setState({ comment: res.data.comment });
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   // once the component is on the page, gets the comment from the server
@@ -199,4 +194,4 @@ class Survey extends Component {
   }
 }
 
-export default Survey;
+export default SurveyEntry;

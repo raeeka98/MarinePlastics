@@ -23,10 +23,14 @@ class UserProfile extends Component {
   render() {
     const { profile } = this.state;
     return (
-      <div>
-        <img height="100px" width="100px" src={ profile.picture } alt="profile" />
-        <div>{ profile.name }</div>
-        <div>{ profile.nickname }</div>
+      <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
+        <div className="uk-card-header uk-align-center">
+          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } />
+          <h3 className="uk-card-title uk-margin-remove-bottom uk-text-center">{ profile.name }</h3>
+        </div>
+        <div className="uk-card-body">
+            <p>Email: <a href={`mailto:${ profile.email }`}>{ profile.email }</a></p>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,8 @@
 //mode/comments.js
 'use strict';
 //import dependency
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
+// var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var dataSchema = new Schema ({

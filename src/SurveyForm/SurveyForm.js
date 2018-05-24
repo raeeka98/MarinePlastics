@@ -233,7 +233,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Survey Area',
         hidden: true,
-        valid: true,
+        valid: false,
         formStep: 2,
       });
     }
