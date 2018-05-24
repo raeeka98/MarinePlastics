@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort } from '../_helpers/SortHelper';
-import { locationFilter } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind } from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = {
+      data: [],
+      locations: [],
+      filter: 'Name of Location',
+    };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
@@ -20,49 +25,92 @@ class Home extends Component {
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
-        this.setState({ data: res.data });
+        // sorts data into locations 
+        const sorted = locationSort(res.data);
+        this.setState({
+          data: sorted,
+          locations: sorted
+        });
       });
+  }
+
+  handleChange(e){
+    console.log(e.target.value);
+    this.setState({ filter: e.target.value });
+  }
+
+  handleSearch(e) {
+    if(this.state.filter == 'Name of Location'){
+      if (e.target.value.length > 0) {
+        const result = locationFind(this.state.data, e.target.value);
+        this.setState({ locations: result });
+      } else {
+        const allLocations = this.state.data;
+        this.setState({ locations: allLocations });
+      }
+    } else {
+      if (e.target.value.length > 0){
+        const result = debrisFind(this.state.data, e.target.value);
+      }
+    }
   }
 
   // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
   componentDidMount() {
-    if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    }
+    this.loadCommentsFromServer();
+    // if (!this.pollInterval) {
+    //   this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
+    // }
   }
 
   // stops checking the server when the component isn't loaded
   componentWillUnmount() {
     // eslint-disable-next-line
-    this.pollInterval && clearInterval(this.pollInterval);
-    this.pollInterval = null;
+    // this.pollInterval && clearInterval(this.pollInterval);
+    // this.pollInterval = null;
   }
 
   render() {
-    // locations is an array of sorted server entries based on location
-    const locations = locationSort(this.state.data);
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = locations.map((location, i) => {
+    let locationNodes = this.state.locations.map((location, i) => {
       let path = location.name.replace(/\s/g, '');
       return (
-        <li key={i}>
+        <div className="uk-card uk-card-default uk-card-body uk-margin" key={i}>
           {/* state attr passes data to the location page */}
-          <Link to={{
-            pathname: `/location/${path}`,
-            state: { data: location }
-          }}>
-            {location.name}: {location.entries.length} Entries
-          </Link>
-        </li>
+          <h3 className="uk-card-title">
+            <Link to={{
+              pathname: `/location/${path}`,
+              state: { data: location }
+            }}>
+              { location.name }
+            </Link>
+            <span className="uk-text-muted uk-text-small uk-position-center-right uk-padding">
+              { location.entries.length } Entr{location.entries.length > 1 ? 'ies': 'y'}
+            </span>
+          </h3>
+        </div>
       );
     });
     // returns a list with all the sorted locations
     return (
-      <form className="uk-search uk-search-default">
-        <input className="uk-search-input" id="searchBar" type="search" onKeyPress={ locationFilter({ locations }) } placeholder="Search..."/>
-        <ul id="locations">
+      <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
+        <select className="uk-select uk-margin" id='type' onChange = { this.handleChange }>
+          <option>Name of Location</option>
+          <option>Debris Type</option>
+        </select>
+        <input
+          className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-large-top"
+          id="searchBar"
+          type="search"
+          onChange={ this.handleSearch } 
+          placeholder="Search..."
+        />
+        <div id="locations">
           { locationNodes }
-        </ul>
+          { this.state.data.length === 0
+            ? <div>No Entries</div> : null
+          }
+        </div>
       </form>
     );
   }

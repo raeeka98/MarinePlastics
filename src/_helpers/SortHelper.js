@@ -44,21 +44,29 @@ export function locationSort(data) {
   return sorted;
 }
 
-export function locationFilter(data){
-  if(document.getElementById("searchBar") === null){
-    console.log("null");
+export function locationFind(locations, serachTerm){
+  console.log(serachTerm);
+  if (serachTerm === '') {
+    return locations;
   } else {
-    let input = document.getElementById("searchBar").value;
-    console.log(input);
-    /*for (let i = 0; i < data.locations.length; i++){
-      let name = data.locations[i].name;
-      console.log(name);
-      let a = name.getElementsByTagName('a')[0];
-      if(a.innerHTML.toUpperCase().indexOf(input.toUpperCase()) > -1){
-        data.locations[i].style.display="";
-      } else {
-        data.locations[i].style.display="none";
+    const normalizedST = serachTerm.replace(/\s/g, '').toLowerCase();
+    console.log('normalized', normalizedST);
+    let res = [];
+      for (let i = 0; i < locations.length; i++) {
+        if (locations[i].name.toLowerCase().includes(normalizedST)) {
+          res.push(locations[i]);
+        }
       }
-    }*/
+    console.log(res);
+    return res;
   }
 }
+
+/*export function debrisFind(locations, searchTerm){
+  console.log(searchTerm);
+  if(searchTerm === ''){
+    return locations;
+  } else {
+
+  }
+}*/
