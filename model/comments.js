@@ -1,8 +1,6 @@
-//mode/comments.js
 'use strict';
 //import dependency
 import mongoose from 'mongoose';
-// var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var dataSchema = new Schema ({
@@ -48,5 +46,4 @@ var CommentsSchema = new Schema({
 });
 
 //export our module to use in server.js
-export default mongoose.model('Comment', CommentsSchema);
-// module.exports = mongoose.model('Comment', CommentsSchema);
+module.exports = mongoose.model('Comment', CommentsSchema);
