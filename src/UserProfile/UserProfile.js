@@ -25,7 +25,7 @@ class UserProfile extends Component {
     return (
       <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
         <div className="uk-card-header uk-align-center">
-          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } />
+          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } role="presentation" />
           <h3 className="uk-card-title uk-margin-remove-bottom uk-text-center">{ profile.name }</h3>
         </div>
         <div className="uk-card-body">
