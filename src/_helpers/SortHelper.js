@@ -44,14 +44,29 @@ export function locationSort(data) {
   return sorted;
 }
 
-export function locationFind(locations, serachTerm) {
-  // normalize both searchTerm and location name because spacing/capitalization might be different
-  const normalizedST = serachTerm.replace(/\s/g, '').toLowerCase();
-  let res = [];
-    for (let i = 0; i < locations.length; i++) {
-      let normalizedLN = locations[i].name.replace(/\s/g, '').toLowerCase();
-      // if normalized serach term is in normalized location name, push to result arr
-      if (normalizedLN.includes(normalizedST)) { res.push(locations[i]); }
-    }
-  return res;
+export function locationFind(locations, serachTerm){
+  console.log(serachTerm);
+  if (serachTerm === '') {
+    return locations;
+  } else {
+    const normalizedST = serachTerm.replace(/\s/g, '').toLowerCase();
+    console.log('normalized', normalizedST);
+    let res = [];
+      for (let i = 0; i < locations.length; i++) {
+        if (locations[i].name.toLowerCase().includes(normalizedST)) {
+          res.push(locations[i]);
+        }
+      }
+    console.log(res);
+    return res;
+  }
 }
+
+/*export function debrisFind(locations, searchTerm){
+  console.log(searchTerm);
+  if(searchTerm === ''){
+    return locations;
+  } else {
+
+  }
+}*/

@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort, locationFind } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind } from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    // data state doesn't change, so when search - can go back to all entries easily
-    // locations change w/ what user searches
     this.state = {
       data: [],
       locations: [],
+      filter: 'Name of Location',
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
@@ -27,7 +27,6 @@ class Home extends Component {
         });
         // sorts data into locations 
         const sorted = locationSort(res.data);
-        // initializes data and locations states (data won't change)
         this.setState({
           data: sorted,
           locations: sorted
@@ -35,21 +34,40 @@ class Home extends Component {
       });
   }
 
-  handleSearch(e) { 
-    if (e.target.value.length > 0) {
-      // get arr of matches, set locations state (which is used to load list)
-      const result = locationFind(this.state.data, e.target.value);
-      this.setState({ locations: result });
+  handleChange(e){
+    console.log(e.target.value);
+    this.setState({ filter: e.target.value });
+  }
+
+  handleSearch(e) {
+    if(this.state.filter == 'Name of Location'){
+      if (e.target.value.length > 0) {
+        const result = locationFind(this.state.data, e.target.value);
+        this.setState({ locations: result });
+      } else {
+        const allLocations = this.state.data;
+        this.setState({ locations: allLocations });
+      }
     } else {
-      // if nothing in input, put all entries back in locations state
-      const allLocations = this.state.data;
-      this.setState({ locations: allLocations });
+      if (e.target.value.length > 0){
+        const result = debrisFind(this.state.data, e.target.value);
+      }
     }
   }
 
-  // once the component is on the page, checks the server for comments
+  // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
   componentDidMount() {
     this.loadCommentsFromServer();
+    // if (!this.pollInterval) {
+    //   this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
+    // }
+  }
+
+  // stops checking the server when the component isn't loaded
+  componentWillUnmount() {
+    // eslint-disable-next-line
+    // this.pollInterval && clearInterval(this.pollInterval);
+    // this.pollInterval = null;
   }
 
   render() {
@@ -73,25 +91,27 @@ class Home extends Component {
         </div>
       );
     });
-
+    // returns a list with all the sorted locations
     return (
-      <div className="uk-width-1-2 uk-align-center">
-        <form className="uk-search uk-search-default uk-width-1-1">
-          <input
-            className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-medium-top"
-            id="searchBar"
-            type="search"
-            onChange={ this.handleSearch } 
-            placeholder="Search entries..."
-          />
-        </form>
-        <div id="locations" className="uk-height-large uk-background-muted uk-padding" style={{ overflowY: 'scroll' }}>
+      <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
+        <select className="uk-select uk-margin" id='type' onChange = { this.handleChange }>
+          <option>Name of Location</option>
+          <option>Debris Type</option>
+        </select>
+        <input
+          className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-large-top"
+          id="searchBar"
+          type="search"
+          onChange={ this.handleSearch } 
+          placeholder="Search..."
+        />
+        <div id="locations">
           { locationNodes }
-          { this.state.data.length < 1
+          { this.state.data.length === 0
             ? <div>No Entries</div> : null
           }
         </div>
-      </div>
+      </form>
     );
   }
 }
