@@ -116,8 +116,7 @@ class SurveyForm extends Component {
     else if (e.target.classList.contains('next-tide')) { entry.nextTide[e.target.id] = e.target.value; }
     else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; } 
     else { entry[e.target.id] = e.target.value; }
-
-    console.log(entry);
+    
     this.setState({ entry });
   }
 

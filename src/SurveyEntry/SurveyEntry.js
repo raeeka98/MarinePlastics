@@ -10,7 +10,7 @@ class Survey extends Component {
     this.state = { comment: {} };
 
     this.handleCommentDelete = this.handleCommentDelete.bind(this);
-    this.deleteComment = this.deleteComment.bind(this);
+    // this.deleteComment = this.deleteComment.bind(this);
     this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
