@@ -40,9 +40,9 @@ class SurveyForm extends Component {
         majorUse: 'recreation',
         weight: '',
         NumberOfPeople: '',
-        SRSTotal: '',
+        SRSTotal: 0,
         SRSData: [],
-        ASTotal: '',
+        ASTotal: 0,
         ASData: [],
         surveyArea: '',
       },
@@ -69,7 +69,7 @@ class SurveyForm extends Component {
 
   handleInputChange(e) {
     // arrow function for handling srs and as data
-    let handleSurveyInput = (e, data) => {
+    let handleSurveyInput = (e, data, total) => {
       // bool for if input is fresh
       let isFreshInput = e.target.classList.contains('fresh');
       // search index initialized to -1 (not found)
@@ -95,18 +95,29 @@ class SurveyForm extends Component {
       if (isFreshInput) { (data[index]).fresh = parseInt(e.target.value, 10); }
       else { (data[index]).weathered = parseInt(e.target.value, 10); }
 
-      return data;
+      total += parseInt(e.target.value, 10);
+
+      // returns an array with the updated data and total
+      return [data, total];
     };
 
     let entry = this.state.entry;
 
     // changes entry depending on if classlist contains certain class
-    if (e.target.classList.contains('srs')) { entry.SRSData = handleSurveyInput(e, entry.SRSData); }
-    else if (e.target.classList.contains('as')) { entry.ASData = handleSurveyInput(e, entry.ASData); }
+    if (e.target.classList.contains('srs')) {
+      let data_total = handleSurveyInput(e, entry.SRSData, entry.SRSTotal); 
+      entry.SRSData = data_total[0];
+      entry.SRSTotal = data_total[1];
+    } else if (e.target.classList.contains('as')) {
+      let data_total = handleSurveyInput(e, entry.ASData, entry.ASTotal);
+      entry.ASData = data_total[0];
+      entry.ASTotal = data_total[1];
+    }
     else if (e.target.classList.contains('next-tide')) { entry.nextTide[e.target.id] = e.target.value; }
     else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; } 
     else { entry[e.target.id] = e.target.value; }
 
+    console.log(entry);
     this.setState({ entry });
   }
 
