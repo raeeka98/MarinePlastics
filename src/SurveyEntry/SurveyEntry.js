@@ -39,12 +39,12 @@ class SurveyEntry extends Component {
   // not sure if this works, also no users have ability to delete data as of now.
   handleCommentDelete(id) {
     axios.delete(`${this.url}/${id}`)
-      .then(res => {
-        console.log('Comment deleted');
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    .then(res => {
+      console.log('Comment deleted');
+    })
+    .catch(err => {
+      console.error(err);
+    });
   }
 
   // // in theory, deletes comment
@@ -79,7 +79,6 @@ class SurveyEntry extends Component {
         );
       });
 
-      // same as SRSData
       ASRows = this.state.comment.ASData.map(type => {
         return(
           <SurveyTableRow
@@ -94,45 +93,34 @@ class SurveyEntry extends Component {
 
     return (
       <div>
-        <h3>Team Information</h3>
-        <p>
-          <b>Team Leader: </b>
-          <i>{this.state.comment.user}</i>
-        </p>
-        <p>
-          <b>Organization: </b>
-          <i>{this.state.comment.org}</i>
-        </p>
-        <p>
-          <b>Email: </b>
-          <i>{this.state.comment.email}</i>
-        </p>
-        <p>
-          <b>Date Conducted: </b>
-          <i>{this.state.comment.date}</i>
-        </p>
+        <h2>{ this.state.comment.beach }: { this.state.comment.date }</h2>
+        <div className="uk-card uk-card-default uk-card-body uk-width-1-3">
+          <h3 className="uk-card-title">Team Information</h3>
+          <p><strong>Team Leader:</strong> { this.state.comment.user }</p>
+          <p><strong>Organization:</strong> { this.state.comment.org }</p>
+          <p><strong>Email:</strong> { this.state.comment.email }</p>
+        </div>
+        <div className="uk-card uk-card-default uk-card-body uk-width-1-3">
+          <h3 className="uk-card-title">Survey Area</h3>
+          {
+            this.state.comment.lat && this.state.comment.lon
+            ? <p><strong>GPS Coordinates:</strong> { this.state.comment.lat.toFixed(2) }, { this.state.comment.lon.toFixed(2) }</p> : null
+          }
+          {
+            this.state.comment.reason
+            ? <p><strong>Reason for Location Choice:</strong> { this.state.comment.reason }</p> : null
+          }
+          {
+            this.state.comment.st
+            ? <p><strong>Substrate Type:</strong> { this.state.comment.st }</p> : null
+          }
+          {
+            this.state.comment.slope
+            ? <p><strong>Beach Slope:</strong> { this.state.comment.slope }</p> : null
+          }
+        </div>
 
-        <h3>Survey Area</h3>
-        <p>
-          <b>Name of Beach: </b>
-          <i>{this.state.comment.beach}</i>
-        </p>
-        <p>
-          <b>Reason for Location: </b>
-          <i>{this.state.comment.reason}</i>
-        </p>
-        <p>
-          <b>Substrate Type: </b>
-          <i>{this.state.comment.st}</i>
-        </p>
-        <p>
-          <b>GPS Coordinates (Starting Point): </b>
-          <i>{this.state.comment.lat}</i>, <i>{this.state.comment.lon}</i>
-        </p>
-        <p>
-          <b>Slope: </b>
-          <i>{this.state.comment.slope}</i>
-        </p>
+
         <p>
           <b>Nearest River Output ~ Name: </b>
           <i>{this.state.comment.nroName}</i>
