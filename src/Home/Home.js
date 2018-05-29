@@ -8,12 +8,13 @@ class Home extends Component {
     super(props);
     this.state = {
       data: [],
-      locations: [],
-      filter: 'Name of Location',
+      rawData: [],
+      searchResult: [],
+      filter: 'beach',
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
@@ -29,50 +30,43 @@ class Home extends Component {
         const sorted = locationSort(res.data);
         this.setState({
           data: sorted,
-          locations: sorted
+          rawData: res.data,
+          searchResult: sorted
         });
       });
   }
 
-  handleChange(e){
-    console.log(e.target.value);
+  handleSearchTypeChange(e){
     this.setState({ filter: e.target.value });
   }
 
   handleSearch(e) {
-    if(this.state.filter == 'Name of Location'){
+    if (this.state.filter === 'beach'){
       if (e.target.value.length > 0) {
         const result = locationFind(this.state.data, e.target.value);
-        this.setState({ locations: result });
+        this.setState({ searchResult: result });
       } else {
         const allLocations = this.state.data;
-        this.setState({ locations: allLocations });
+        this.setState({ searchResult: allLocations });
+      }
+    } else if (this.state.filter === 'debris') {
+      if (e.target.value.length > 0){
+        const result = debrisFind(this.state.rawData, e.target.value);
       }
     } else {
-      if (e.target.value.length > 0){
-        const result = debrisFind(this.state.data, e.target.value);
-      }
+      const allLocations = this.state.data;
+      this.setState({ searchResult: allLocations });
     }
   }
 
-  // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
+  // once the component is on the page, checks the server for comments
   componentDidMount() {
     this.loadCommentsFromServer();
-    // if (!this.pollInterval) {
-    //   this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
-    // }
-  }
-
-  // stops checking the server when the component isn't loaded
-  componentWillUnmount() {
-    // eslint-disable-next-line
-    // this.pollInterval && clearInterval(this.pollInterval);
-    // this.pollInterval = null;
   }
 
   render() {
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = this.state.locations.map((location, i) => {
+    let locationNodes = this.state.searchResult.map((location, i) => {
       let path = location.name.replace(/\s/g, '');
       return (
         <div className="uk-card uk-card-default uk-card-body uk-margin" key={i}>
@@ -94,9 +88,9 @@ class Home extends Component {
     // returns a list with all the sorted locations
     return (
       <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
-        <select className="uk-select uk-margin" id='type' onChange = { this.handleChange }>
-          <option>Name of Location</option>
-          <option>Debris Type</option>
+        <select className="uk-select uk-margin" id='type' onChange = { this.handleSearchTypeChange }>
+          <option value="beach">By Beach</option>
+          <option value="debris">By Debris</option>
         </select>
         <input
           className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-large-top"
@@ -107,7 +101,7 @@ class Home extends Component {
         />
         <div id="locations">
           { locationNodes }
-          { this.state.data.length === 0
+          { this.state.data.length < 1
             ? <div>No Entries</div> : null
           }
         </div>

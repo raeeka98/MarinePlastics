@@ -44,29 +44,39 @@ export function locationSort(data) {
   return sorted;
 }
 
-export function locationFind(locations, serachTerm){
-  console.log(serachTerm);
-  if (serachTerm === '') {
+export function locationFind(locations, searchTerm){
+  if (searchTerm === '') {
     return locations;
   } else {
-    const normalizedST = serachTerm.replace(/\s/g, '').toLowerCase();
-    console.log('normalized', normalizedST);
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
     let res = [];
       for (let i = 0; i < locations.length; i++) {
         if (locations[i].name.toLowerCase().includes(normalizedST)) {
           res.push(locations[i]);
         }
       }
-    console.log(res);
     return res;
   }
 }
 
-/*export function debrisFind(locations, searchTerm){
-  console.log(searchTerm);
-  if(searchTerm === ''){
+export function debrisFind(locations, searchTerm){
+  if (searchTerm === ''){
     return locations;
   } else {
-
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      for (let j = 0; j < locations[i].SRSData.length; j++){
+        const currName = locations[i].SRSData[j].name;
+        const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+        if (normalizedDN.includes(normalizedST)){
+          res.push(locations[i]);
+          break;
+        }
+      }
+    }
+    res = locationSort(res);
+    console.log(res);
+    return res;
   }
-}*/
+}
