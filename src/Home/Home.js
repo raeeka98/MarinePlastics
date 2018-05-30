@@ -14,6 +14,7 @@ class Home extends Component {
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
@@ -38,29 +39,30 @@ class Home extends Component {
 
   handleSearchTypeChange(e){
     this.setState({ filter: e.target.value });
+    console.log(document.getElementById("searchBar").value);
+    this.handleSearch(document.getElementById("searchBar").value, e.target.value);
   }
 
-  handleSearch(e) {
-    if (this.state.filter === 'beach'){
-      if (e.target.value.length > 0) {
-        const result = locationFind(this.state.data, e.target.value);
+  handleSearchChange(e) {
+    this.handleSearch(e.target.value, this.state.filter);
+  }
+
+  handleSearch(value, filter) {
+    if (value.length > 0) {
+      if (filter === 'beach') {
+        const result = locationFind(this.state.data, value);
+        this.setState({ searchResult: result });
+      } else if (filter === 'debris') {
+        const result = debrisFind(this.state.rawData, value);
         this.setState({ searchResult: result });
       } else {
         const allLocations = this.state.data;
         this.setState({ searchResult: allLocations });
       }
-    } else if (this.state.filter === 'debris') {
-      if (e.target.value.length > 0){
-        const result = debrisFind(this.state.rawData, e.target.value);
-        this.setState({ searchResult: result});
-      } else {
-      const allLocations = this.state.data;
-      this.setState({ searchResult: allLocations });
-      }
     } else {
       const allLocations = this.state.data;
       this.setState({ searchResult: allLocations });
-    } 
+    }
   }
 
   // once the component is on the page, checks the server for comments
@@ -99,7 +101,7 @@ class Home extends Component {
               className="uk-input uk-form-large"
               id="searchBar"
               type="search"
-              onChange={ this.handleSearch } 
+              onChange={ this.handleSearchChange } 
               placeholder="Search..."
             />
           </div>
