@@ -31,7 +31,7 @@ class Home extends Component {
         this.setState({
           data: sorted,
           rawData: res.data,
-          searchResult: sorted
+          searchResult: sorted,
         });
       });
   }
@@ -52,11 +52,15 @@ class Home extends Component {
     } else if (this.state.filter === 'debris') {
       if (e.target.value.length > 0){
         const result = debrisFind(this.state.rawData, e.target.value);
+        this.setState({ searchResult: result});
+      } else {
+      const allLocations = this.state.data;
+      this.setState({ searchResult: allLocations });
       }
     } else {
       const allLocations = this.state.data;
       this.setState({ searchResult: allLocations });
-    }
+    } 
   }
 
   // once the component is on the page, checks the server for comments
@@ -81,31 +85,38 @@ class Home extends Component {
             <span className="uk-text-muted uk-text-small uk-position-center-right uk-padding">
               { location.entries.length } Entr{location.entries.length > 1 ? 'ies': 'y'}
             </span>
+          
           </h3>
         </div>
       );
     });
-    // returns a list with all the sorted locations
+
     return (
-      <form className="uk-search uk-search-default uk-width-1-2 uk-align-center">
-        <select className="uk-select uk-margin" id='type' onChange = { this.handleSearchTypeChange }>
-          <option value="beach">By Beach</option>
-          <option value="debris">By Debris</option>
-        </select>
-        <input
-          className="uk-search-input uk-margin uk-text-large uk-padding uk-margin-large-top"
-          id="searchBar"
-          type="search"
-          onChange={ this.handleSearch } 
-          placeholder="Search..."
-        />
-        <div id="locations">
+      <div className="uk-width-2-3 uk-align-center uk-margin-large-top">
+        <form className="uk-grid uk-grid-small uk-margin-small-bottom">
+          <div className="uk-width-2-3">
+            <input
+              className="uk-input uk-form-large"
+              id="searchBar"
+              type="search"
+              onChange={ this.handleSearch } 
+              placeholder="Search..."
+            />
+          </div>
+          <div className="uk-width-1-3">
+            <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
+              <option value="beach">By Beach</option>
+              <option value="debris">By Debris</option>
+            </select>
+          </div>
+        </form>
+        <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={{ overflowY: 'scroll' }}>
           { locationNodes }
           { this.state.data.length < 1
             ? <div>No Entries</div> : null
           }
         </div>
-      </form>
+      </div>
     );
   }
 }

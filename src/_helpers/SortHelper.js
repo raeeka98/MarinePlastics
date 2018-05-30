@@ -60,23 +60,33 @@ export function locationFind(locations, searchTerm){
 }
 
 export function debrisFind(locations, searchTerm){
-  if (searchTerm === ''){
-    return locations;
-  } else {
+  if (searchTerm === ''){ return locations; } 
+  else {
     const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
     let res = [];
     for (let i = 0; i < locations.length; i++) {
       for (let j = 0; j < locations[i].SRSData.length; j++){
-        const currName = locations[i].SRSData[j].name;
-        const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
-        if (normalizedDN.includes(normalizedST)){
+        let isMatch = debrisFindHELP(normalizedST, locations[i].SRSData[j].name, locations[i], res);
+        if (isMatch) {
+          res.push(locations[i]);
+          break;
+        }
+      }
+      for (let j = 0; j < locations[i].ASData.length; j++){
+        let isMatch = debrisFindHELP(normalizedST, locations[i].ASData[j].name, locations[i], res);
+        if (isMatch) {
           res.push(locations[i]);
           break;
         }
       }
     }
-    res = locationSort(res);
-    console.log(res);
-    return res;
+    return locationSort(res);
   }
+}
+
+function debrisFindHELP(searchTerm, currName, entry, res) {
+  let isMatch = false;
+  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+  if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
+  return isMatch;
 }
