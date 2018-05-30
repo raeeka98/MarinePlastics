@@ -22,7 +22,7 @@ class Location extends Component {
       return(
         <li key={entry._id}>
           <Link to={{ pathname: `/entry/${entry._id}` }}>
-            {entry.date}
+            { entry.date }
           </Link>
         </li>
       );
