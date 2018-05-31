@@ -18,7 +18,7 @@ export function locationSort(data) {
         );
       } 
       // if there is no lat, lon data : if their names are the same assume the distance is 0
-      else if (a.beach === data[i].beach) distance = 0;
+      else if (a.name === data[i].beach) distance = 0;
       // otherwise assume the distance is more than 1 mile (that it is not a match)
       else distance = 1501;
       // if distance is less than 1500 meters (approx 1 mile), probably same beach
