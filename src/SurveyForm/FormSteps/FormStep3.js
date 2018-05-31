@@ -26,7 +26,7 @@ class FormStep3 extends Component {
         customRows.push(<CustomFormTableRow
           key={ i }
           id=''
-          class={ this.props.class }
+          class='srs'
           handleInputChange={ this.props.handleInputChange }
           handleCustomInputChange={ this.props.handleCustomInputChange }
         />);

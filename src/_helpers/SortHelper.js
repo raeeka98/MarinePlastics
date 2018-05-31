@@ -18,7 +18,7 @@ export function locationSort(data) {
         );
       } 
       // if there is no lat, lon data : if their names are the same assume the distance is 0
-      else if (a.name === data[i].name) distance = 0;
+      else if (a.name === data[i].beach) distance = 0;
       // otherwise assume the distance is more than 1 mile (that it is not a match)
       else distance = 1501;
       // if distance is less than 1500 meters (approx 1 mile), probably same beach
@@ -42,4 +42,51 @@ export function locationSort(data) {
     }
   }
   return sorted;
+}
+
+export function locationFind(locations, searchTerm){
+  if (searchTerm === '') {
+    return locations;
+  } else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+      for (let i = 0; i < locations.length; i++) {
+        if (locations[i].name.toLowerCase().includes(normalizedST)) {
+          res.push(locations[i]);
+        }
+      }
+    return res;
+  }
+}
+
+export function debrisFind(locations, searchTerm){
+  if (searchTerm === ''){ return locations; } 
+  else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      for (let j = 0; j < locations[i].SRSData.length; j++){
+        let isMatch = debrisFindHELP(normalizedST, locations[i].SRSData[j].name, locations[i], res);
+        if (isMatch) {
+          res.push(locations[i]);
+          break;
+        }
+      }
+      for (let j = 0; j < locations[i].ASData.length; j++){
+        let isMatch = debrisFindHELP(normalizedST, locations[i].ASData[j].name, locations[i], res);
+        if (isMatch) {
+          res.push(locations[i]);
+          break;
+        }
+      }
+    }
+    return locationSort(res);
+  }
+}
+
+function debrisFindHELP(searchTerm, currName, entry, res) {
+  let isMatch = false;
+  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+  if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
+  return isMatch;
 }

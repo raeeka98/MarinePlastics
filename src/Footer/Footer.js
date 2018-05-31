@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <div className="uk-grid uk-margin-bottom">
+    <div className="uk-grid uk-margin-bottom uk-margin-large-top">
       <a
         className="uk-width-expand uk-text-center uk-text-primary"
         href="https://cleanoceansinternational.org/"

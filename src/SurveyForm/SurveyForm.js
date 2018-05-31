@@ -35,14 +35,14 @@ class SurveyForm extends Component {
         weather: '',
         lastTide: { type: 'low' },
         nextTide: { type: 'low' },
-        windDir: '',
+        windDir: 'north',
         windSpeed: '',
         majorUse: 'recreation',
         weight: '',
         NumberOfPeople: '',
-        SRSTotal: '',
+        SRSTotal: 0,
         SRSData: [],
-        ASTotal: '',
+        ASTotal: 0,
         ASData: [],
         surveyArea: '',
       },
@@ -50,7 +50,7 @@ class SurveyForm extends Component {
         {
           name: 'Clean Up Information',
           hidden: false,
-          valid: false,
+          valid: true,
           formStep: 1,
         }
       ],
@@ -107,6 +107,8 @@ class SurveyForm extends Component {
     else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; } 
     else { entry[e.target.id] = e.target.value; }
 
+    console.log(entry);
+
     this.setState({ entry });
   }
 
@@ -160,11 +162,11 @@ class SurveyForm extends Component {
     if (this.auth.isAuthenticated()) {
       let entry = this.state.entry;
       entry.input_date = Date.now();
-      this.setState({ entry });
+      // this.setState({ entry });
 
       // submit entry data to server
-      axios.post(this.url, this.state.entry)
-        .catch(err => { console.error(err); });
+      axios.post(this.url, entry)
+      .catch(err => { console.error(err); });
     } else {
       window.alert('Please sign in to enter survey data.');
     }
@@ -220,7 +222,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Basic Cleanup',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 5,
       });
     }
@@ -242,7 +244,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Surface Rib Scan',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 3,
       });
     };
@@ -251,7 +253,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Accumulation Survey',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 4,
       });
     };
@@ -259,7 +261,7 @@ class SurveyForm extends Component {
     formPages.push({
       name: 'Done!',
       hidden: true,
-      valid: false,
+      valid: true,
       formStep: 6,
     });
 
@@ -273,8 +275,8 @@ class SurveyForm extends Component {
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
       if (el.formStep === 1) component = () => { return(<FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
       else if (el.formStep === 2) component = () => { return(<FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
-      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
-      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleCustomInputChange={ this.handleCustomInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleCustomInputChange={ this.handleCustomInputChange } handleValidation={ this.handleValidation } />); };
       else if (el.formStep === 5) component = () => { return(<FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
       else component = component = () => { return(<SubmitConfirm isHidden={el.hidden}/>); };
 
