@@ -29,7 +29,6 @@ class Home extends Component {
         });
         // sorts data into locations 
         const sorted = locationSort(res.data);
-        console.log(sorted);
         this.setState({
           data: sorted,
           rawData: res.data,

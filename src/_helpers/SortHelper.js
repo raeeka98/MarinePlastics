@@ -6,7 +6,6 @@ import geolib from 'geolib';
 export function locationSort(data) {
   let sorted = [];
   for (let i = 0; i < data.length; i++) {
-    console.log(data[i].beach);
     // if data[i] matches anything in sorted, returns the index of the match in sorted
     const findIndex = sorted.findIndex((a) => {
       let distance;
@@ -42,7 +41,6 @@ export function locationSort(data) {
       );
     }
   }
-  console.log('HELPER', sorted);
   return sorted;
 }
 
