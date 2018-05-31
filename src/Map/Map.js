@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
-const CustomMarker = ({ text }) => <div className="custom-marker"><p>{text}</p></div>;
+const CustomMarker = ({ text }) => <div className="custom-marker"><p>{ text }</p></div>;
 
 class Map extends Component {
   constructor(props) {

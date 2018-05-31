@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind } from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = {
+      data: [],
+      rawData: [],
+      searchResult: [],
+      filter: 'beach',
+    };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.pollInterval = null;
     this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
   }
@@ -19,47 +27,137 @@ class Home extends Component {
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
-        this.setState({ data: res.data });
+        // sorts data into locations 
+        const sorted = locationSort(res.data);
+        this.setState({
+          data: sorted,
+          rawData: res.data,
+          searchResult: sorted,
+        });
       });
   }
 
-  // once the component is on the page, checks the server for comments every 2000 milliseconds? some sort of interval
-  componentDidMount() {
-    if (!this.pollInterval) {
-      this.pollInterval = setInterval(this.loadCommentsFromServer, 2000)
+  handleSearchTypeChange(e){
+    this.setState({ filter: e.target.value });
+    this.handleSearch(document.getElementById("searchBar").value, e.target.value);
+  }
+
+  handleSearchChange(e) {
+    this.handleSearch(e.target.value, this.state.filter);
+  }
+
+  handleSearch(value, filter) {
+    if (value.length > 0) {
+      if (filter === 'beach') {
+        const result = locationFind(this.state.data, value);
+        this.setState({ searchResult: result });
+      } else if (filter === 'debris') {
+        const result = debrisFind(this.state.rawData, value);
+        this.setState({ searchResult: result });
+      } else {
+        const allLocations = this.state.data;
+        this.setState({ searchResult: allLocations });
+      }
+    } else {
+      const allLocations = this.state.data;
+      this.setState({ searchResult: allLocations });
     }
   }
 
-  // stops checking the server when the component isn't loaded
-  componentWillUnmount() {
-    // eslint-disable-next-line
-    this.pollInterval && clearInterval(this.pollInterval);
-    this.pollInterval = null;
+  // once the component is on the page, checks the server for comments
+  componentDidMount() {
+    this.loadCommentsFromServer();
   }
 
   render() {
-    // locations is an array of sorted server entries based on location
-    const locations = locationSort(this.state.data);
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = locations.map((location, i) => {
-      let path = location.name.replace(/\s/g, '');
+    // console.log(this.state.searchResult);
+    let locationNodes = this.state.searchResult.map((location, i) => {
+      let path = location.name ? location.name.replace(/\s/g, '') : 'HELPPPPPPPPP';
+      let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
+
+      let entryNodes = location.entries.map((entry, i) => {
+        // console.log(entry);
+        return (
+          <li key={`entry-${i}`}>
+            <Link className="uk-link-muted" to={{ pathname: `/entry/${entry._id}` }}>
+              { entry.date }
+            </Link>
+          </li>
+        );
+      });
+
+      let handleAccordionClick = (e) => {
+        let accordionWrapper = e.target.parentElement;
+        let accordionContent = e.target.nextSibling;
+        if (e.target.classList.contains('uk-text-muted')) {
+          accordionWrapper = e.target.parentElement.parentElement;
+          accordionContent = e.target.parentElement.nextSibling;
+        }
+
+        if (accordionWrapper.classList.contains('uk-open')) {
+          accordionWrapper.classList.remove('uk-open');
+          accordionContent.style.display = 'none';
+        } else {
+          accordionWrapper.classList.add('uk-open');
+          accordionContent.style.display = 'block';
+        }
+      }
+
       return (
-        <li key={i}>
-          {/* state attr passes data to the location page */}
-          <Link to={{
-            pathname: `/location/${path}`,
-            state: { data: location }
-          }}>
-            {location.name}: {location.entries.length} Entries
-          </Link>
-        </li>
+        <div className="uk-card uk-card-default uk-card-body uk-margin" key={i}>
+          <div>
+            <ul className="uk-list uk-margin-remove-bottom">
+              <li id={`accordion${i}`}>
+                <a className="uk-accordion-title" onClick={ handleAccordionClick }>
+                  { location.name }
+                  <span className="uk-text-muted uk-text-small uk-margin-left">
+                    { location.entries.length } { entryString }
+                  </span>
+                </a>
+                <div className="uk-accordion-content" style={{ display: 'none' }}>
+                  <ul className="uk-list uk-list-bullet uk-padding-remove-left">
+                    { entryNodes } 
+                  </ul>
+                  <p>
+                    <Link to={{ pathname: `/location/${path}`, state: { data: location } }}>
+                      View location page
+                    </Link>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       );
     });
-    // returns a list with all the sorted locations
+
     return (
-      <ul>
-        { locationNodes }
-      </ul>
+      <div className="uk-width-2-3 uk-align-center uk-margin-large-top">
+        <form className="uk-grid uk-grid-small uk-margin-small-bottom">
+          <div className="uk-width-2-3">
+            <input
+              className="uk-input uk-form-large"
+              id="searchBar"
+              type="search"
+              onChange={ this.handleSearchChange } 
+              placeholder="Search..."
+            />
+          </div>
+          <div className="uk-width-1-3">
+            <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
+              <option value="beach">By Beach</option>
+              <option value="debris">By Debris</option>
+            </select>
+          </div>
+        </form>
+        <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={{ overflowY: 'scroll' }}>
+          { locationNodes }
+          { this.state.data.length < 1
+            ? <div>No Entries</div> : null
+          }
+        </div>
+      </div>
     );
   }
 }
