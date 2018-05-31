@@ -1,6 +1,7 @@
 import React from 'react';
 
 export function ProtocolPage() {
+  
   return (
     <div>
       <h2 className="uk-heading-primary">The COI Beach Cleanup Protocol</h2>

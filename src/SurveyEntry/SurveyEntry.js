@@ -144,7 +144,7 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          <div id="b-cleanup-section" className="uk-grid-margin" style={{ display: 'none' }}>
+          <div id="b-cleanup-section" className="uk-grid-margin uk-margin-bottom" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
@@ -157,7 +157,7 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          <div id="tide-section" className="uk-grid-margin" style={{ display: 'none' }}>
+          <div id="tide-section" className="uk-grid-margin uk-margin-bottom" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Tide Information</h3>
               <h4>The Last Tide</h4>
