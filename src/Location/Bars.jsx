@@ -8,7 +8,7 @@ export default class Bars extends Component {
 
     this.colorScale = scaleLinear()
       .domain([0, this.props.maxValue])
-      .range([' #9999ff', '#000099'])
+      .range([' #00ccff', '#000099'])
       .interpolate(interpolateLab)
   }
 
