@@ -90,3 +90,32 @@ function debrisFindHELP(searchTerm, currName, entry, res) {
   if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
   return isMatch;
 }
+
+export function userFind(locations, searchTerm){
+  if (searchTerm === ''){ return locations; } 
+  else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      let isMatch = debrisFindHELP(normalizedST, locations[i].user, locations[i], res);
+      if (isMatch) {
+        res.push(locations[i]);
+        break;
+      }
+      
+      for (let j = 0; j < locations[i].ASData.length; j++){
+        let isMatch = debrisFindHELP(normalizedST, locations[i].ASData[j].name, locations[i], res);
+        if (isMatch) {
+          res.push(locations[i]);
+          break;
+        }
+      }
+    }
+    return locationSort(res); 
+  }
+}
+
+export function orgFind(locations, searchTerm){
+  console.log("Org Function");
+}
+
