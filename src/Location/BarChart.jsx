@@ -7,15 +7,7 @@ import data from './data'
 import Axes from './Axes'
 import Bars from './Bars'
 import ResponsiveWrapper from './ResponsiveWrapper'
-let entries = this.state.data.entries.map((entry) => {
-  return(
-    <li key={entry._id}>
-      <Link to={{ pathname: `/entry/${entry._id}` }}>
-        {entry.date}
-      </Link>
-    </li>
-  );
-});
+
 
 class Chart extends Component {
   constructor() {
@@ -31,7 +23,7 @@ class Chart extends Component {
       height: 500
     }
 
-    const maxValue = Math.max(...entries.map(d => d.Astotal))
+    const maxValue = Math.max(...data.map(d => d.value))
 
     const xScale = this.xScale
       .padding(0.5)
@@ -52,7 +44,7 @@ class Chart extends Component {
         <Bars
           scales={{ xScale, yScale }}
           margins={margins}
-          data={entries}
+          data={data}
           maxValue={maxValue}
           svgDimensions={svgDimensions}
         />
