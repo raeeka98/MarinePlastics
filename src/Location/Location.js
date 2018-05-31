@@ -28,6 +28,13 @@ class Location extends Component {
       );
     });
 
+    let checkRange = (num, isLat) => {
+      let isInRange = false;
+      if (isLat && num < 91 && num > -91) isInRange = true;
+      else if (!isLat && num < 181 && num > -181) isInRange = true;
+      return isInRange;
+    }
+
     // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
     return(
@@ -35,24 +42,28 @@ class Location extends Component {
         <h1>{ this.state.data.name }</h1>
         <div className="uk-grid">
           <div>
-            <div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
-              <GoogleMapReact
-                defaultCenter={{
-                  lat: this.state.data.lat,
-                  lng: this.state.data.lon,
-                }}
-                defaultZoom={13}
-                bootstrapURLKeys={{
-                  key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
-                }}
-              >
-                <CustomMarker
-                  lat={ this.state.data.lat }
-                  lng={ this.state.data.lon }
-                  name={ this.state.data.name }
-                />
-              </GoogleMapReact>
-            </div>
+            {
+              this.state.data.lat && this.state.data.lon && checkRange(this.state.data.lat, true) && checkRange(this.state.data.lon, false) ?
+              (<div style={{height: '500px', width: '500px'}} className="uk-card uk-card-default uk-card-body">
+                <GoogleMapReact
+                  defaultCenter={{
+                    lat: this.state.data.lat,
+                    lng: this.state.data.lon,
+                  }}
+                  defaultZoom={13}
+                  bootstrapURLKeys={{
+                    key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
+                  }}
+                >
+                  <CustomMarker
+                    lat={ this.state.data.lat }
+                    lng={ this.state.data.lon }
+                    name={ this.state.data.name }
+                  />
+                </GoogleMapReact>
+              </div>) : null
+            }
+              
           </div>
           <div>
             <div className="uk-card uk-card-default uk-card-body">
