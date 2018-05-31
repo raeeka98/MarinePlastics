@@ -175,23 +175,6 @@ class SurveyForm extends Component {
     this.changeStep(e)
   }
 
-  // handleFormSubmit(e) {
-  //   if (this.auth.isAuthenticated()) {
-  //     let entry = this.state.entry;
-  //     entry.input_date = Date.now();
-  //     this.setState({ entry });
-
-  //     // submit entry data to server
-  //     axios.post(this.url, this.state.entry)
-  //       .catch(err => { console.error(err); });
-  //   } else {
-  //     window.alert('Please sign in to enter survey data.');
-  //   }
-
-  //   // move to final page
-  //   this.changeStep(e)
-  // }
-
   changeStep(e) {
     const moveNext = e.target.value === 'next' ? true : false;
     let formPages = this.state.formPages;

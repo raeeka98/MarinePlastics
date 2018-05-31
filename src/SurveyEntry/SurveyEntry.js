@@ -86,8 +86,6 @@ class SurveyEntry extends Component {
       document.getElementById('tide-section').style.display = 'block';
     }
 
-    console.log(this.state.comment);
-
     return (
       <div>
         <h2 className="uk-text-primary uk-heading-primary">
