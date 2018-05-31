@@ -86,8 +86,13 @@ class Home extends Component {
       });
 
       let handleAccordionClick = (e) => {
-        const accordionWrapper = e.target.parentElement;
-        const accordionContent = e.target.nextSibling;
+        let accordionWrapper = e.target.parentElement;
+        let accordionContent = e.target.nextSibling;
+        if (e.target.classList.contains('uk-text-muted')) {
+          accordionWrapper = e.target.parentElement.parentElement;
+          accordionContent = e.target.parentElement.nextSibling;
+        }
+
         if (accordionWrapper.classList.contains('uk-open')) {
           accordionWrapper.classList.remove('uk-open');
           accordionContent.style.display = 'none';
@@ -156,22 +161,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-
-// <div className="uk-grid uk-margin-remove-right uk-padding-remove-left">
-//   <div className="uk-width-expand">
-//     <h3 className="uk-card-title">
-//       {/* state attr passes data to the location page */}
-      
-//     </h3>
-//   </div>
-//   <div>
-    
-//   </div>
-// </div>
-// <ul className="uk-accordion">
-//   <li >
-    
-    
-//   </li>
-// </ul>
