@@ -29,6 +29,7 @@ class Home extends Component {
         });
         // sorts data into locations 
         const sorted = locationSort(res.data);
+        console.log(sorted);
         this.setState({
           data: sorted,
           rawData: res.data,
@@ -71,11 +72,13 @@ class Home extends Component {
 
   render() {
     // returns HTML for every entry in the sorted array of locations
+    // console.log(this.state.searchResult);
     let locationNodes = this.state.searchResult.map((location, i) => {
-      let path = location.name.replace(/\s/g, '');
+      let path = location.name ? location.name.replace(/\s/g, '') : 'HELPPPPPPPPP';
       let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
 
       let entryNodes = location.entries.map((entry, i) => {
+        // console.log(entry);
         return (
           <li key={`entry-${i}`}>
             <Link className="uk-link-muted" to={{ pathname: `/entry/${entry._id}` }}>

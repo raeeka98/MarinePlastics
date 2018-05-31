@@ -41,6 +41,7 @@ export function locationSort(data) {
       );
     }
   }
+  console.log('HELPER', sorted);
   return sorted;
 }
 
