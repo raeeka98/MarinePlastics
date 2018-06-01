@@ -84,9 +84,47 @@ export function debrisFind(locations, searchTerm){
   }
 }
 
+
+export function userFind(locations, searchTerm){
+  if (searchTerm === ''){ return locations; } 
+  else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      let isMatch = compare(normalizedST, locations[i].user);
+      if (isMatch) {
+        res.push(locations[i]);
+      }
+    }
+    return locationSort(res); 
+  }
+}
+
+export function orgFind(locations, searchTerm){
+   if (searchTerm === ''){ return locations; } 
+  else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      let isMatch = compare(normalizedST, locations[i].org);
+      if (isMatch) {
+        res.push(locations[i]);
+      }
+    }
+    return locationSort(res); 
+  }
+}
+
 function debrisFindHELP(searchTerm, currName, entry, res) {
   let isMatch = false;
   const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
   if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
+  return isMatch;
+}
+
+function compare(searchTerm, currName){
+  let isMatch = false;
+  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+  if (normalizedDN.includes(searchTerm)) isMatch = true;
   return isMatch;
 }

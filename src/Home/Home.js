@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort, locationFind, debrisFind } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind, userFind, orgFind} from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {
@@ -54,10 +54,16 @@ class Home extends Component {
       } else if (filter === 'debris') {
         const result = debrisFind(this.state.rawData, value);
         this.setState({ searchResult: result });
+      } else if (filter === 'user') {
+        const result = userFind(this.state.rawData, value);
+        this.setState({ searchResult: result });
+      } else if (filter === 'org') {
+        const result = orgFind(this.state.rawData, value);
+        this.setState({ searchResult: result });
       } else {
         const allLocations = this.state.data;
         this.setState({ searchResult: allLocations });
-      }
+      } 
     } else {
       const allLocations = this.state.data;
       this.setState({ searchResult: allLocations });
@@ -148,6 +154,8 @@ class Home extends Component {
             <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
               <option value="beach">By Beach</option>
               <option value="debris">By Debris</option>
+              <option value="user">By Team Leader</option>
+              <option value="org">By Organization</option>
             </select>
           </div>
         </form>
