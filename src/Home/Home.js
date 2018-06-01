@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { locationSort, locationFind, debrisFind } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
 
 class Home extends Component {
@@ -56,10 +56,17 @@ class Home extends Component {
       } else if (filter === 'debris') {
         const result = debrisFind(this.state.rawData, value);
         this.setState({ searchResult: result });
+      } else if (filter === 'user') {
+        const result = userFind(this.state.rawData, value);
+        this.setState({ searchResult: result });
+      } else if (filter === 'org') {
+        console.log('org');
+        const result = orgFind(this.state.rawData, value);
+        this.setState({ searchResult: result });
       } else {
         const allLocations = this.state.data;
         this.setState({ searchResult: allLocations });
-      }
+      } 
     } else {
       const allLocations = this.state.data;
       this.setState({ searchResult: allLocations });
@@ -154,6 +161,8 @@ class Home extends Component {
               <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
                 <option value="beach">By Beach</option>
                 <option value="debris">By Debris</option>
+                <option value="user">By Team Leader</option>
+                <option value="org">By Organization</option>
               </select>
             </div>
           </form>
@@ -163,10 +172,10 @@ class Home extends Component {
               ? <div>No Entries</div> : null
             }
           </div>
-        </div>
-        <div className="uk-section uk-section-primary uk-margin-top">
-          <div className="uk-container">
-            <h2 className="uk-text-center uk-heading">{totalWeight} pounds of marine debris picked up so far!</h2>
+          <div className="uk-section uk-section-primary uk-margin-top">
+            <div className="uk-container">
+              <h2 className="uk-text-center uk-heading">{totalWeight} pounds of marine debris picked up so far!</h2>
+            </div>
           </div>
         </div>
       </div>
