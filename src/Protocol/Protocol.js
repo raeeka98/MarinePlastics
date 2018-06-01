@@ -20,6 +20,7 @@ export function ProtocolPage() {
         To combine the power of beach cleanups and marine debris monitoring, we have developed a standardized protocols
         to gather data from beach cleanups and ways to analyze the differences in debris between regions and over time.
       </p>
+      <a href="https://www.scribd.com/document/380752641/COIDataSheet" target="_blank">View Our Data Sheet</a>
       <h3>Types of Surveys</h3>
       <p>
         The individual factors (i.e. number of people, time) determine which kind of survey is best for a cleanup. 
