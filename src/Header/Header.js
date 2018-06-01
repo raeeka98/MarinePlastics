@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 // and to sign in (links in header depend on status)
 
 class Submenu extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   render() {
     return (
          <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small uk-dropdown-nav ">
