@@ -39,6 +39,14 @@ export function sumTotals(data, isSRS) {
   return res;
 }
 
+export function getTotalPounds(data) {
+  let res = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].weight) res += data[i].weight;
+  }
+  return res;
+}
+
 function sumHelper (value, arr, key) {
   let found = -1;
   for (let i = 0; i < arr.length; i++) {
