@@ -95,24 +95,15 @@ class SurveyForm extends Component {
       if (isFreshInput) { (data[index]).fresh = parseInt(e.target.value, 10); }
       else { (data[index]).weathered = parseInt(e.target.value, 10); }
 
-      total += parseInt(e.target.value, 10);
-
       // returns an array with the updated data and total
-      return [data, total];
+      return data;
     };
 
     let entry = this.state.entry;
 
     // changes entry depending on if classlist contains certain class
-    if (e.target.classList.contains('srs')) {
-      let data_total = handleSurveyInput(e, entry.SRSData, entry.SRSTotal);
-      entry.SRSData = data_total[0];
-      entry.SRSTotal = data_total[1];
-    } else if (e.target.classList.contains('as')) {
-      let data_total = handleSurveyInput(e, entry.ASData, entry.ASTotal);
-      entry.ASData = data_total[0];
-      entry.ASTotal = data_total[1];
-    }
+    if (e.target.classList.contains('srs')) { entry.SRSData = handleSurveyInput(e, entry.SRSData); } 
+    else if (e.target.classList.contains('as')) { entry.ASData = handleSurveyInput(e, entry.ASData); }
     else if (e.target.classList.contains('next-tide')) { entry.nextTide[e.target.id] = e.target.value; }
     else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; }
     else { entry[e.target.id] = e.target.value; }
@@ -170,10 +161,27 @@ class SurveyForm extends Component {
     if (this.auth.isAuthenticated()) {
       let entry = this.state.entry;
       entry.input_date = Date.now();
-      // this.setState({ entry });
+
+      let SRSTotal = 0;
+      for (let i = 0; i < this.state.entry.SRSData.length; i++) {
+        SRSTotal += (this.state.entry.SRSData[i].fresh + this.state.entry.SRSData[i].weathered);
+      }
+
+      let ASTotal = 0;
+      for (let i = 0; i < this.state.entry.ASData.length; i++) {
+        ASTotal += (this.state.entry.ASData[i].fresh + this.state.entry.ASData[i].weathered);
+      }
+
+      entry.SRSTotal = SRSTotal;
+      entry.ASTotal = ASTotal;
+
+      this.setState({ entry });
 
       // submit entry data to server
-      axios.post(this.url, entry)
+      axios.post(this.url, this.state.entry)
+      .then(res => {
+        console.log('succesful', res);
+      })
       .catch(err => { console.error(err); });
     } else {
       window.alert('Please sign in to enter survey data.');
