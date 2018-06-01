@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
-import axios from 'axios';
 
 //import data from './data'
 import Axes from './Axes'

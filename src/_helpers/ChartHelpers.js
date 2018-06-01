@@ -1,5 +1,3 @@
-import react from "react";
-
 export function sumDebrisTypes (data) {
   let res = [];
   for (let i = 0; i < data.entries.length; i++) {
