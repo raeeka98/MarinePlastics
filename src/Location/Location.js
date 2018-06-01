@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 
+import { PieChart } from 'react-easy-chart';
+
 // to get the pin styles
 import '../Map/Map.css';
 
@@ -22,7 +24,6 @@ class Location extends Component {
   render() {
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
-    console.log(sumDebrisTypes(this.state.data));
     let entries = this.state.data.entries.map((entry) => {
       return(
         <li key={entry._id}>
@@ -33,7 +34,7 @@ class Location extends Component {
       );
     });
 
-
+    console.log(sumDebrisTypes(this.state.data));
 
     let checkRange = (num, isLat) => {
      let isInRange = false;

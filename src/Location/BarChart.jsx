@@ -23,7 +23,6 @@ class Chart extends Component {
       width: Math.max(this.props.parentWidth, 300),
       height: 500
     }
-    console.log(this.props)
 
 
     const data=this.props.data.entries.sort((a,b)=>{
