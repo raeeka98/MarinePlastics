@@ -7,6 +7,8 @@ import '../Map/Map.css';
 
 import Chart from '../Location/BarChart.jsx';
 
+import { sumDebrisTypes } from '../_helpers/ChartHelpers'
+
 class Location extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,7 @@ class Location extends Component {
   render() {
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
+    console.log(sumDebrisTypes(this.state.data));
     let entries = this.state.data.entries.map((entry) => {
       return(
         <li key={entry._id}>

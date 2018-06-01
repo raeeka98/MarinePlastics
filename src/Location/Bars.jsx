@@ -27,9 +27,6 @@ export default class Bars extends Component {
         }else if (!this.props.isSRS && datum.AStotal){
           Ydata = datum.AStotal
         }
-        console.log(Ydata)
-        console.log("hey", datum)
-        console.log("hi", this.props)
         return(
         <rect
           key={datum._id}

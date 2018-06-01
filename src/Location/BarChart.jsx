@@ -32,12 +32,10 @@ class Chart extends Component {
 
     const maxValue = Math.max(...data.map(d => {
       let value = this.props.isSRS ? d.SRSTotal : d.AStotal;
-      console.log('ASTOTAL', d.AStotal)
-      console.log('VALUE', value)
-      return (value);
+            return (value);
     }));
 
-    console.log('MAXVALUE', maxValue);
+    
     const xScale = this.xScale
       .padding(0.5)
       .domain(data.map(d => d.date))
@@ -46,7 +44,7 @@ class Chart extends Component {
     const yScale = this.yScale
       .domain([0, maxValue])
       .range([svgDimensions.height - margins.bottom, margins.top])
-      console.log(this.prpos)
+      
 
     return (
       <svg width={svgDimensions.width} height={svgDimensions.height}>
