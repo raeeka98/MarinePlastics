@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort, locationFind, debrisFind, userFind, orgFind} from '../_helpers/SortHelper';
+
+import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
+import { getTotalPounds } from '../_helpers/ChartHelpers';
 
 class Home extends Component {
   constructor(props) {
@@ -78,7 +80,6 @@ class Home extends Component {
 
   render() {
     // returns HTML for every entry in the sorted array of locations
-    // console.log(this.state.searchResult);
     let locationNodes = this.state.searchResult.map((location, i) => {
       let path = location.name ? location.name.replace(/\s/g, '') : 'HELPPPPPPPPP';
       let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
@@ -139,32 +140,43 @@ class Home extends Component {
       );
     });
 
+    let totalWeight = getTotalPounds(this.state.rawData);
+
+    console.log('home',totalWeight);
+
     return (
-      <div className="uk-width-2-3 uk-align-center uk-margin-large-top">
-        <form className="uk-grid uk-grid-small uk-margin-small-bottom">
-          <div className="uk-width-2-3">
-            <input
-              className="uk-input uk-form-large"
-              id="searchBar"
-              type="search"
-              onChange={ this.handleSearchChange } 
-              placeholder="Search..."
-            />
+      <div>
+        <div className="uk-width-2-3 uk-align-center uk-margin-top">
+          <form className="uk-grid uk-grid-small uk-margin-small-bottom">
+            <div className="uk-width-2-3">
+              <input
+                className="uk-input uk-form-large"
+                id="searchBar"
+                type="search"
+                onChange={ this.handleSearchChange } 
+                placeholder="Search..."
+              />
+            </div>
+            <div className="uk-width-1-3">
+              <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
+                <option value="beach">By Beach</option>
+                <option value="debris">By Debris</option>
+                <option value="user">By Team Leader</option>
+                <option value="org">By Organization</option>
+              </select>
+            </div>
+          </form>
+          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={{ overflowY: 'scroll' }}>
+            { locationNodes }
+            { this.state.data.length < 1
+              ? <div>No Entries</div> : null
+            }
           </div>
-          <div className="uk-width-1-3">
-            <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
-              <option value="beach">By Beach</option>
-              <option value="debris">By Debris</option>
-              <option value="user">By Team Leader</option>
-              <option value="org">By Organization</option>
-            </select>
+          <div className="uk-section uk-section-primary uk-margin-top">
+            <div className="uk-container">
+              <h2 className="uk-text-center uk-heading">{totalWeight} pounds of marine debris picked up so far!</h2>
+            </div>
           </div>
-        </form>
-        <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={{ overflowY: 'scroll' }}>
-          { locationNodes }
-          { this.state.data.length < 1
-            ? <div>No Entries</div> : null
-          }
         </div>
       </div>
     );

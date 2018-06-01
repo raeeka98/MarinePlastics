@@ -69,12 +69,12 @@ class SurveyForm extends Component {
 
   handleInputChange(e) {
     // arrow function for handling srs and as data
-    let handleSurveyInput = (e, data) => {
+    let handleSurveyInput = (e, data, total) => {
       // bool for if input is fresh
       let isFreshInput = e.target.classList.contains('fresh');
       // search index initialized to -1 (not found)
       let index = -1;
-  
+
       // if entry in the data has the same name, sets index to index of result in data
       for (let i = 0; i < data.length; i++) {
         if ((data[i]).name === e.target.id) { index = i; }
@@ -95,19 +95,18 @@ class SurveyForm extends Component {
       if (isFreshInput) { (data[index]).fresh = parseInt(e.target.value, 10); }
       else { (data[index]).weathered = parseInt(e.target.value, 10); }
 
+      // returns an array with the updated data and total
       return data;
     };
 
     let entry = this.state.entry;
 
     // changes entry depending on if classlist contains certain class
-    if (e.target.classList.contains('srs')) { entry.SRSData = handleSurveyInput(e, entry.SRSData); }
+    if (e.target.classList.contains('srs')) { entry.SRSData = handleSurveyInput(e, entry.SRSData); } 
     else if (e.target.classList.contains('as')) { entry.ASData = handleSurveyInput(e, entry.ASData); }
     else if (e.target.classList.contains('next-tide')) { entry.nextTide[e.target.id] = e.target.value; }
-    else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; } 
+    else if (e.target.classList.contains('last-tide')) { entry.lastTide[e.target.id] = e.target.value; }
     else { entry[e.target.id] = e.target.value; }
-
-    console.log(entry);
 
     this.setState({ entry });
   }
@@ -162,10 +161,27 @@ class SurveyForm extends Component {
     if (this.auth.isAuthenticated()) {
       let entry = this.state.entry;
       entry.input_date = Date.now();
-      // this.setState({ entry });
+
+      let SRSTotal = 0;
+      for (let i = 0; i < this.state.entry.SRSData.length; i++) {
+        SRSTotal += (this.state.entry.SRSData[i].fresh + this.state.entry.SRSData[i].weathered);
+      }
+
+      let ASTotal = 0;
+      for (let i = 0; i < this.state.entry.ASData.length; i++) {
+        ASTotal += (this.state.entry.ASData[i].fresh + this.state.entry.ASData[i].weathered);
+      }
+
+      entry.SRSTotal = SRSTotal;
+      entry.ASTotal = ASTotal;
+
+      this.setState({ entry });
 
       // submit entry data to server
-      axios.post(this.url, entry)
+      axios.post(this.url, this.state.entry)
+      .then(res => {
+        console.log('succesful', res);
+      })
       .catch(err => { console.error(err); });
     } else {
       window.alert('Please sign in to enter survey data.');
@@ -226,7 +242,7 @@ class SurveyForm extends Component {
         formStep: 5,
       });
     }
-    
+
     if (
       localStorage.BasicCleanUp === '0' ||
       localStorage.SurfaceRibScan === '1' ||
@@ -292,10 +308,10 @@ class SurveyForm extends Component {
         { stepsComponents }
 
         {
-          this.state.currStep === this.state.formPages.length - 1 ? 
-          null : 
+          this.state.currStep === this.state.formPages.length - 1 ?
+          null :
           <div className="uk-flex uk-flex-center uk-margin-medium">
-            { this.state.currStep !== 0 ? 
+            { this.state.currStep !== 0 ?
               <button
                 className="uk-button uk-button-primary"
                 onClick={ this.changeStep }
@@ -303,10 +319,10 @@ class SurveyForm extends Component {
                 value="previous"
               >
                 Previous Step
-              </button> 
-              : null 
+              </button>
+              : null
             }
-            { this.state.currStep === this.state.formPages.length - 2 ? 
+            { this.state.currStep === this.state.formPages.length - 2 ?
               <button
                 className={ this.state.currStep === 0 ? "uk-button uk-button-secondary" : "uk-button uk-button-secondary uk-margin-large-left" }
                 onClick={ this.handleFormSubmit }
@@ -329,7 +345,7 @@ class SurveyForm extends Component {
               : null
               }
 
-              { this.state.formPages[this.state.currStep].valid ? 
+              { this.state.formPages[this.state.currStep].valid ?
                 null : <div className="uk-text-danger uk-margin-top">Please fix the invalid inputs.</div>
               }
           </div>

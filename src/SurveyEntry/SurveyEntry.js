@@ -72,9 +72,9 @@ class SurveyEntry extends Component {
     }
 
     if (
-      this.state.comment.lat || this.state.comment.lon || 
-      this.state.comment.reason || this.state.comment.st || 
-      this.state.comment.slope || this.state.comment.aspect || 
+      this.state.comment.lat || this.state.comment.lon ||
+      this.state.comment.reason || this.state.comment.st ||
+      this.state.comment.slope || this.state.comment.aspect ||
       this.state.comment.majorUse || this.state.comment.lastTide ||
       this.state.comment.nextTide || this.state.comment.nroDist ||
       this.state.comment.nroName || this.state.comment.windDir
@@ -94,7 +94,7 @@ class SurveyEntry extends Component {
             { this.state.comment.date }
           </span>
         </h2>
-        <div className="uk-grid uk-grid-large uk-child-width-1-2">
+        <div className="uk-grid uk-grid-large uk-grid-match uk-child-width-1-2">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
@@ -107,7 +107,7 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
               {
-                this.state.comment.lat && this.state.comment.lon ? 
+                this.state.comment.lat && this.state.comment.lon ?
                 <p><strong>GPS Coordinates:</strong> { this.state.comment.lat }, { this.state.comment.lon }</p> : null
               }
               {
@@ -119,27 +119,27 @@ class SurveyEntry extends Component {
                 <p><strong>Major Use:</strong> { this.state.comment.majorUse }</p> : null
               }
               {
-                this.state.comment.st ? 
+                this.state.comment.st ?
                 <p><strong>Substrate Type:</strong> { this.state.comment.st }</p> : null
               }
               {
-                this.state.comment.slope ? 
+                this.state.comment.slope ?
                 <p><strong>Beach Slope:</strong> { this.state.comment.slope }</p> : null
               }
               {
-                this.state.comment.aspect ? 
+                this.state.comment.aspect ?
                 <p><strong>Beach Aspect:</strong> { this.state.comment.aspect }</p> : null
               }
               {
-                this.state.comment.windDir ? 
+                this.state.comment.windDir ?
                 <p><strong>Wind Direction:</strong> { this.state.comment.windDir }</p> : null
               }
               {
-                this.state.comment.nroName ? 
+                this.state.comment.nroName ?
                 <p><strong>Nearest River:</strong> { this.state.comment.nroName }</p> : null
               }
               {
-                this.state.comment.nroDist ? 
+                this.state.comment.nroDist ?
                 <p><strong>Distance to Nearest River:</strong> { this.state.comment.nroDist }m</p> : null
               }
             </div>
@@ -148,11 +148,11 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
-                this.state.comment.NumberOfPeople ? 
+                this.state.comment.NumberOfPeople ?
                 <p><strong>Number of People:</strong> { this.state.comment.NumberOfPeople }</p> : null
               }
               {
-                this.state.comment.weight ? 
+                this.state.comment.weight ?
                 <p><strong>Total Weight:</strong> { this.state.comment.weight }</p> : null
               }
             </div>
