@@ -160,10 +160,27 @@ class SurveyForm extends Component {
     if (this.auth.isAuthenticated()) {
       let entry = this.state.entry;
       entry.input_date = Date.now();
+
+      let SRSTotal = 0;
+      for (let i = 0; i < this.state.entry.SRSData.length; i++) {
+      SRSTotal += (this.state.entry.SRSData[i].fresh + this.state.entry.SRSData[i].weathered);
+      }
+
+      let ASTotal = 0;
+      for (let i = 0; i < this.state.entry.ASData.length; i++) {
+      ASTotal += (this.state.entry.ASData[i].fresh + this.state.entry.ASData[i].weathered);
+      }
+
+      entry.SRSTotal = SRSTotal;
+      entry.ASTotal = ASTotal;
+
       this.setState({ entry });
 
+      console.log(entry);
+
       // submit entry data to server
-      axios.post(this.url, this.state.entry)
+      axios.post(this.url, entry)
+        .then(res => {console.log(res)})
         .catch(err => { console.error(err); });
     } else {
       window.alert('Please sign in to enter survey data.');
@@ -273,8 +290,8 @@ class SurveyForm extends Component {
       let isStep1Hidden = this.state.currStep === 0 ? false : true;
       if (el.formStep === 1) component = () => { return(<FormStep1 isHidden={isStep1Hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
       else if (el.formStep === 2) component = () => { return(<FormStep2 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
-      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
-      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 3) component = () => { return(<FormStep3 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleCustomInputChange={ this.handleCustomInputChange } handleValidation={ this.handleValidation } />); };
+      else if (el.formStep === 4) component = () => { return(<FormStep4 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleCustomInputChange={ this.handleCustomInputChange } handleValidation={ this.handleValidation } />); };
       else if (el.formStep === 5) component = () => { return(<FormStep5 isHidden={el.hidden} handleInputChange={ this.handleInputChange } handleValidation={ this.handleValidation } />); };
       else component = component = () => { return(<SubmitConfirm isHidden={el.hidden}/>); };
 
