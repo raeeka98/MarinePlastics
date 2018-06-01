@@ -58,6 +58,7 @@ class Home extends Component {
         const result = userFind(this.state.rawData, value);
         this.setState({ searchResult: result });
       } else if (filter === 'org') {
+        console.log('org');
         const result = orgFind(this.state.rawData, value);
         this.setState({ searchResult: result });
       } else {

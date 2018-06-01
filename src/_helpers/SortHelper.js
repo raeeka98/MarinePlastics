@@ -92,23 +92,21 @@ export function userFind(locations, searchTerm){
     let res = [];
     for (let i = 0; i < locations.length; i++) {
       let isMatch = compare(normalizedST, locations[i].user);
-      if (isMatch) {
-        res.push(locations[i]);
-      }
+      if (isMatch) res.push(locations[i]);
     }
     return locationSort(res); 
   }
 }
 
 export function orgFind(locations, searchTerm){
-   if (searchTerm === ''){ return locations; } 
+  if (searchTerm === ''){ return locations; } 
   else {
     const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
     let res = [];
     for (let i = 0; i < locations.length; i++) {
-      let isMatch = compare(normalizedST, locations[i].org);
-      if (isMatch) {
-        res.push(locations[i]);
+      if (locations[i].org) {
+        let isMatch = compare(normalizedST, locations[i].org);
+        if (isMatch) res.push(locations[i]);
       }
     }
     return locationSort(res); 
