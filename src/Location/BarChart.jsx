@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import axios from 'axios';
 
-import data from './data'
+//import data from './data'
 import Axes from './Axes'
 import Bars from './Bars'
 import ResponsiveWrapper from './ResponsiveWrapper'
@@ -24,11 +24,20 @@ class Chart extends Component {
       height: 500
     }
     console.log(this.props)
+
+
     const data=this.props.data.entries.sort((a,b)=>{
       return new Date(a.date).getTime() - new Date(b.date).getTime();
-    })
-    const maxValue = Math.max(...data.map(d => d.AStotal))
-    console.log(data);
+    });
+
+    const maxValue = Math.max(...data.map(d => {
+      let value = this.props.isSRS ? d.SRSTotal : d.AStotal;
+      console.log('ASTOTAL', d.AStotal)
+      console.log('VALUE', value)
+      return (value);
+    }));
+
+    console.log('MAXVALUE', maxValue);
     const xScale = this.xScale
       .padding(0.5)
       .domain(data.map(d => d.date))
@@ -37,6 +46,7 @@ class Chart extends Component {
     const yScale = this.yScale
       .domain([0, maxValue])
       .range([svgDimensions.height - margins.bottom, margins.top])
+      console.log(this.prpos)
 
     return (
       <svg width={svgDimensions.width} height={svgDimensions.height}>
@@ -49,6 +59,7 @@ class Chart extends Component {
           scales={{ xScale, yScale }}
           margins={margins}
           data={data}
+          isSRS={this.props.isSRS}
           maxValue={maxValue}
           svgDimensions={svgDimensions}
         />

@@ -17,18 +17,31 @@ export default class Bars extends Component {
     const { xScale, yScale } = scales
     const { height } = svgDimensions
 
+
     const bars = (
-      data.map(datum =>
+
+      data.map(datum =>{
+        let Ydata;
+        if(this.props.isSRS && datum.SRSTotal){
+          Ydata= datum.SRSTotal
+        }else if (!this.props.isSRS && datum.AStotal){
+          Ydata = datum.AStotal
+        }
+        console.log(Ydata)
+        console.log("hey", datum)
+        console.log("hi", this.props)
+        return(
         <rect
-          key={datum.date}
+          key={datum._id}
           x={xScale(datum.date)}
-          y={yScale(datum.AStotal)}
-          height={height - margins.bottom - scales.yScale(datum.AStotal)}
+          y={yScale(Ydata)}
+          height={height - margins.bottom - scales.yScale(Ydata)}
           width={xScale.bandwidth()}
-          fill={this.colorScale(datum.AStotal)}
-        />,
-      )
-    )
+          fill={this.colorScale(Ydata)}
+        />
+      );
+    }
+  ));
 
     return (
       <g>{bars}</g>

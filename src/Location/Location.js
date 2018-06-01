@@ -31,7 +31,7 @@ class Location extends Component {
     });
 
 
-    
+
     let checkRange = (num, isLat) => {
      let isInRange = false;
      if (isLat && num < 91 && num > -91) isInRange = true;
@@ -77,15 +77,28 @@ class Location extends Component {
               </ul>
             </div><br />
               <div className="App-header">
-              <h3>BAD ASS CHART</h3>
+              <h3>Surface Rib Scan</h3>
               </div>
               <div className="App-chart-container">
                 <Chart
-                data={this.state.data} />
+                  data={this.state.data}
+                  isSRS={true}
+                />
+
               </div>
             </div>
-          </div>
-        </div>
+            </div><br />
+              <div className="App-header">
+              <h3>Accumulation Sweep</h3>
+              </div>
+              <div className="App-chart-container">
+                <Chart
+                  data={this.state.data}
+                  isSRS={false}
+                />
+
+              </div>
+            </div>
     );
   }
 }
