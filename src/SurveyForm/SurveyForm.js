@@ -233,7 +233,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Survey Area',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 2,
       });
     }
@@ -242,7 +242,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Surface Rib Scan',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 3,
       });
     };
@@ -251,7 +251,7 @@ class SurveyForm extends Component {
       formPages.push({
         name: 'Accumulation Survey',
         hidden: true,
-        valid: false,
+        valid: true,
         formStep: 4,
       });
     };
@@ -259,7 +259,7 @@ class SurveyForm extends Component {
     formPages.push({
       name: 'Done!',
       hidden: true,
-      valid: false,
+      valid: true,
       formStep: 6,
     });
 
