@@ -17,7 +17,7 @@ export function sumDebrisTypes (data) {
       }
     }
   }
-  return { res };
+  return res;
 }
 
 function sumHelper (value, arr) {
