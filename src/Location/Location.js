@@ -29,6 +29,9 @@ class Location extends Component {
         </li>
       );
     });
+
+
+    
     let checkRange = (num, isLat) => {
      let isInRange = false;
      if (isLat && num < 91 && num > -91) isInRange = true;
