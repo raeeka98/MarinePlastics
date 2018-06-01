@@ -82,7 +82,7 @@ class SurveyEntry extends Component {
       document.getElementById('survey-area-section').style.display = 'block';
     }
 
-    if (this.state.lastTide || this.state.nextTide) {
+    if (this.state.comment.lastTide || this.state.comment.nextTide) {
       document.getElementById('tide-section').style.display = 'block';
     }
 
@@ -162,23 +162,29 @@ class SurveyEntry extends Component {
               <h3 className="uk-card-title">Tide Information</h3>
               <h4>The Last Tide</h4>
               <div>
-
+                {
+                  this.state.comment.lastTide ?
+                  (<div>
+                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p> 
+                    <p><strong>Time:</strong> { this.state.comment.lastTide.time }</p>
+                    <p><strong>Height:</strong> { this.state.comment.lastTide.height }</p>
+                  </div>): null
+                }
               </div>
               <h4>The Next Tide</h4>
               <div>
-
+                {
+                  this.state.comment.nextTide ?
+                  (<div>
+                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p> 
+                    <p><strong>Time:</strong> { this.state.comment.nextTide.time }</p>
+                    <p><strong>Height:</strong> { this.state.comment.nextTide.height }</p>
+                  </div>): null
+                }
               </div>
             </div>
           </div>
         </div>
-
-        {/* <p>
-          <b>Last Tide and Height: </b>
-          <i>{this.state.comment.lastTide}</i>
-          <b> Next Tide and Height: </b>
-          <i>{this.state.comment.nextTide}</i>
-        </p> */}
-
         <div id="SRS-section" style={{ display: 'none' }}>
           <h3>Surface Rib Scan Survey</h3>
           <table className="uk-table uk-table-striped">
