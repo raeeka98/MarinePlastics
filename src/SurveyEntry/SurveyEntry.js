@@ -94,7 +94,7 @@ class SurveyEntry extends Component {
             { this.state.comment.date }
           </span>
         </h2>
-        <div className="uk-grid uk-grid-large uk-child-width-1-2">
+        <div className="uk-grid uk-grid-large uk-grid-match uk-child-width-1-2">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
