@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { locationSort, locationFind, debrisFind, orgFind, userFind } from '../_helpers/SortHelper';
+import { locationSort, locationFind, debrisFind, userFind, orgFind} from '../_helpers/SortHelper';
 
 class Home extends Component {
   constructor(props) {

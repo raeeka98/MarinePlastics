@@ -84,12 +84,6 @@ export function debrisFind(locations, searchTerm){
   }
 }
 
-function debrisFindHELP(searchTerm, currName, entry, res) {
-  let isMatch = false;
-  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
-  if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
-  return isMatch;
-}
 
 export function userFind(locations, searchTerm){
   if (searchTerm === ''){ return locations; } 
@@ -97,18 +91,9 @@ export function userFind(locations, searchTerm){
     const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
     let res = [];
     for (let i = 0; i < locations.length; i++) {
-      let isMatch = debrisFindHELP(normalizedST, locations[i].user, locations[i], res);
+      let isMatch = compare(normalizedST, locations[i].user);
       if (isMatch) {
         res.push(locations[i]);
-        break;
-      }
-      
-      for (let j = 0; j < locations[i].ASData.length; j++){
-        let isMatch = debrisFindHELP(normalizedST, locations[i].ASData[j].name, locations[i], res);
-        if (isMatch) {
-          res.push(locations[i]);
-          break;
-        }
       }
     }
     return locationSort(res); 
@@ -116,6 +101,30 @@ export function userFind(locations, searchTerm){
 }
 
 export function orgFind(locations, searchTerm){
-  console.log("Org Function");
+   if (searchTerm === ''){ return locations; } 
+  else {
+    const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();
+    let res = [];
+    for (let i = 0; i < locations.length; i++) {
+      let isMatch = compare(normalizedST, locations[i].org);
+      if (isMatch) {
+        res.push(locations[i]);
+      }
+    }
+    return locationSort(res); 
+  }
 }
 
+function debrisFindHELP(searchTerm, currName, entry, res) {
+  let isMatch = false;
+  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+  if (normalizedDN.includes(searchTerm) && !res.includes(entry)) isMatch = true;
+  return isMatch;
+}
+
+function compare(searchTerm, currName){
+  let isMatch = false;
+  const normalizedDN = currName.replace(/\s/g, '').replace(/_/, '').toLowerCase();
+  if (normalizedDN.includes(searchTerm)) isMatch = true;
+  return isMatch;
+}
