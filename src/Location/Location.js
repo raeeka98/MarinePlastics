@@ -74,10 +74,11 @@ class Location extends Component {
               </ul>
             </div><br />
               <div className="App-header">
-                <h4>Welcome to the</h4><h3>BAD ASS CHART</h3>
+              <h3>BAD ASS CHART</h3>
               </div>
               <div className="App-chart-container">
-                <Chart />
+                <Chart
+                data={this.state.data} />
               </div>
             </div>
           </div>

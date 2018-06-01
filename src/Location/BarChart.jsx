@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { scaleBand, scaleLinear } from 'd3-scale'
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import data from './data'
 import Axes from './Axes'
@@ -11,33 +11,27 @@ import ResponsiveWrapper from './ResponsiveWrapper'
 
 
 class Chart extends Component {
-  constructor() {
-    super()
-    this.xScale = scaleBand()
-    this.yScale = scaleLinear()
+  constructor(props) {
+    super(props);
+    this.xScale = scaleBand();
+    this.yScale = scaleLinear();
   }
 
   render() {
-    let entries = this.state.data.entries.map((entry) => {
-      return(
-        <li key={entry._id}>
-          <Link to={{ pathname: `/entry/${entry._id}` }}>
-            { entry.date }
-          </Link>
-        </li>
-      );
-    });
     const margins = { top: 50, right: 20, bottom: 100, left: 60 }
     const svgDimensions = {
       width: Math.max(this.props.parentWidth, 300),
       height: 500
     }
-
-    const maxValue = Math.max(...entries.map(d => d.ASTotal))
-
+    console.log(this.props)
+    const data=this.props.data.entries.sort((a,b)=>{
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    })
+    const maxValue = Math.max(...data.map(d => d.AStotal))
+    console.log(data);
     const xScale = this.xScale
       .padding(0.5)
-      .domain(entries.map(d => d.beach))
+      .domain(data.map(d => d.date))
       .range([margins.left, svgDimensions.width - margins.right])
 
     const yScale = this.yScale
@@ -54,7 +48,7 @@ class Chart extends Component {
         <Bars
           scales={{ xScale, yScale }}
           margins={margins}
-          data={entries}
+          data={data}
           maxValue={maxValue}
           svgDimensions={svgDimensions}
         />
