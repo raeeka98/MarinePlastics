@@ -22,7 +22,7 @@ export function sumDebrisTypes(data) {
 
 export function sumTotals(data, isSRS) {
   let res = [];
-  let attr = isSRS ? 'SRSTotal' : 'AStotal';
+  let attr = isSRS ? 'SRSTotal' : 'ASTotal';
   for (let i = 0; i < data.length; i++) {
     let date = data[i].date;
     let total = data[i][attr];

@@ -42,7 +42,7 @@ var CommentsSchema = new Schema({
   SRSData: [ dataSchema ],
   SRSTotal: Number,
   ASData: [ dataSchema ],
-  AStotal: Number,
+  ASTotal: Number,
 });
 
 //export our module to use in server.js

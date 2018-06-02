@@ -176,8 +176,6 @@ class SurveyForm extends Component {
 
       this.setState({ entry });
 
-      console.log(entry);
-
       // submit entry data to server
       axios.post(this.url, entry)
         .then(res => {console.log(res)})

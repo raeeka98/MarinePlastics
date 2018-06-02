@@ -49,6 +49,8 @@ class Location extends Component {
       );
     });
 
+    console.log(this.state.data);
+
     let pieChartData = sumDebrisTypes(this.state.data.entries);
 
     let checkRange = (num, isLat) => {

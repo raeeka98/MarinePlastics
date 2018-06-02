@@ -142,8 +142,6 @@ class Home extends Component {
 
     let totalWeight = getTotalPounds(this.state.rawData);
 
-    console.log('home',totalWeight);
-
     return (
       <div>
         <div className="uk-width-2-3 uk-align-center uk-margin-top">
