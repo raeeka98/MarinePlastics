@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "postinstall": "cp ./scripts/package.json node_modules/xmlhttprequest/ && echo 'hi'"
+    "postinstall": "cp ./scripts/package.json node_modules/xmlhttprequest/ && echo 'successfully replaced xmlhttprequest package.json'"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
