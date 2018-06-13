@@ -81,6 +81,10 @@ Which works in the development environment. However, when in production it break
 
 ## Product Backlog
 There is a lot that we would still love to see happen:
+  * Add on hover to pie charts that display the percentage
+    * Might be helpful: https://rma-consulting.github.io/react-easy-chart/pie-chart/index.html#mouseHandlers
+  * Add diagrams and pictures to the protocol page
+    * Could definitely use the diagrams from the final presentation (export them as SVGs so they look nice and are scalable)
   * Ability to update existing entries belonging to user
     * Might be nice if it was a table that had each entry as a row and the columns be the different form fields
   * Admin user role
