@@ -21,6 +21,14 @@ Code for the API is here: https://github.com/vincentwu96/MarinePlasticsDB
 2. Install the dependencies: `npm install`
 3. Run the development environment: `npm run start`
 
+### Deploying
+To deploy to the live site: https://devcenter.heroku.com/articles/git
+  1. Sign into Heroku in terminal
+  2. Add a remote to the existing Heroku site
+  3. Switch the redirectUri in `./src/Auth.js` from `http://localhost:3000` to `https://marineplastics.herokuapp.com/`
+  4. Deploy with `git push heroku master`
+If the site breaks, view the logs on Heroku for an error
+
 ### Quirks 
 In `package.json` there is a postinstall script:
 ```
@@ -70,12 +78,6 @@ Which works in the development environment. However, when in production it break
 * [Mongoose](http://mongoosejs.com/) - for setting up our database schemas
 * [Axios](https://github.com/axios/axios) - for interacting with our API
 * [Heroku](http://heroku.com/)
-  * To deploy to the live site: https://devcenter.heroku.com/articles/git
-    1. Sign into Heroku in terminal
-    2. Add a remote to the existing Heroku site
-    3. Switch the redirectUri in `./src/Auth.js` from `http://localhost:3000` to `https://marineplastics.herokuapp.com/`
-    4. Deploy with `git push heroku master`
-  * If the site breaks, view the logs on Heroku for an error
 
 ## Product Backlog
 There is a lot that we would still love to see happen:
