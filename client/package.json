@@ -1,6 +1,7 @@
 {
-  "name": "client",
+  "name": "marineplastics",
   "version": "0.1.0",
+  "homepage": "https://marineplastics.herokuapp.com",
   "private": true,
   "dependencies": {
     "auth0-js": "^9.10.0",
