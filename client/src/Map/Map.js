@@ -10,7 +10,7 @@ class Map extends Component {
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.pollInterval = null;
-    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
+    this.url = '/surveys';
   }
 
   loadCommentsFromServer() {

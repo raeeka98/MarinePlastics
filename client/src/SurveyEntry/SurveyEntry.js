@@ -10,7 +10,7 @@ class SurveyEntry extends Component {
     this.state = { comment: {} };
     this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
-    this.url = '/api/comments';
+    this.url = '/surveys';
   }
 
   getComment() {

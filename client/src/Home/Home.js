@@ -19,7 +19,7 @@ class Home extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.pollInterval = null;
-    this.url = '/api/comments';
+    this.url = '/surveys';
   }
 
   // gets the entries from the server, saves them in the state
