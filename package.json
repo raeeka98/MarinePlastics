@@ -19,13 +19,6 @@
         "url": "https://github.com/noll115/MarinePlastics/issues"
     },
     "homepage": "https://github.com/noll115/MarinePlastics#readme",
-    "devDependencies": {
-      "eslint": "^5.12.1",
-      "eslint-plugin-flowtype": "^3.2.1",
-      "eslint-plugin-jsx-a11y": "^6.2.0",
-      "eslint-plugin-react": "^7.12.4",
-      "react-scripts": "0.4.1"
-    },
     "dependencies": {
         "concurrently": "^4.1.0",
         "express": "^4.16.4",
