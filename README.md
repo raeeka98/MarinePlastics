@@ -14,10 +14,8 @@ Need access to our accounts on (need to contact one of the developers)
 
 If want to update the data sheet, need to contact a developer or COI for a Word doc version.
 
-Code for the API is here: https://github.com/vincentwu96/MarinePlasticsDB
-
 ### Installing
-1. Clone the repo: `git clone https://github.com/vincentwu96/MarinePlastics.git`
+1. Clone the repo: `git clone https://github.com/noll115/MarinePlastics.git`
 2. Install the dependencies: `npm install`
 3. Run the development environment: `npm run start`
 
