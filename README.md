@@ -80,12 +80,12 @@ There is a lot that we would still love to see happen:
       * Might be helpful: https://www.npmjs.com/package/mongoose-to-csv
     * Potential - accept CSV file of clean-up data (so could import multiple at once)
 ## Developers:
-* Cassia Artanegara: Product Owner, Developer
-* Frank Kohn: Developer
-* Justin Law: Developer
-* Nelson Perez: Scrum Master, Developer
-* Noel Gomez: Developer
-* William Koch: Developer
+* Cassia Artanegara: cartaneg@ucsc.edu
+* Frank Kohn: fkohn@ucsc.edu
+* Justin Law: jllaw@ucsc.edu
+* Nelson Perez: neeperez@ucsc.edu
+* Noel Gomez: nogomez@ucsc.edu
+* William Koch: wckoch@ucsc.edu
 
 
 ## Previous Developers:
