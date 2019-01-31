@@ -1,4 +1,4 @@
-const { commentModel: Comment } = require('../model/mongoose');
+const { commentModel: Comment } = require('../server_modules/mongoose');
 let router = require('express').Router();
 
 router.route('/')
