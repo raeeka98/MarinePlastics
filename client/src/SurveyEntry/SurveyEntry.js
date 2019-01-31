@@ -10,7 +10,7 @@ class SurveyEntry extends Component {
     this.state = { comment: {} };
     this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
-    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
+    this.url = '/api/comments';
   }
 
   getComment() {

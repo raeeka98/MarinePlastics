@@ -19,7 +19,7 @@ class Home extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.pollInterval = null;
-    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
+    this.url = '/api/comments';
   }
 
   // gets the entries from the server, saves them in the state

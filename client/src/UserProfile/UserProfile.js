@@ -14,7 +14,7 @@ class UserProfile extends Component {
 
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.addUserEntries = this.addUserEntries.bind(this);
-    this.url = 'https://marineplasticsdb.herokuapp.com/api/comments';
+    this.url = '/api/comments';
   }
 
   loadCommentsFromServer() {
