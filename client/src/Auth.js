@@ -5,9 +5,9 @@ redirectUri: 'http://localhost:3000', for dev*/
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: process.env.AUTH_DOMAIN,
-    clientID: process.env.AUTH_CLIENT_ID,
-    redirectUri: process.env.AUTH_REDIRECT_URI,
+    domain: process.env.REACT_APP_AUTH_DOMAIN,
+    clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
+    redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid email profile'

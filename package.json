@@ -23,6 +23,8 @@
         "concurrently": "^4.1.0",
         "dotenv": "^6.2.0",
         "express": "^4.16.4",
-        "mongoose": "^5.4.8"
+        "mongoose": "^5.4.8",
+        "react-app-env": "^1.2.3",
+        "react-scripts": "^2.1.3"
     }
 }

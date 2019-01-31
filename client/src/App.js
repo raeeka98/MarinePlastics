@@ -19,8 +19,10 @@ import LocationPage from './Location/Location';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
+
 class App extends Component {
   constructor() {
+    require('dotenv').config()
     super();
     // creates a new authentication object, which can be passed to other components
     this.auth = new Auth();
