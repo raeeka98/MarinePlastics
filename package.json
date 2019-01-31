@@ -4,11 +4,16 @@
   "private": true,
   "homepage": "https://marineplastics.herokuapp.com",
   "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
     "react-scripts": "0.4.1"
   },
   "dependencies": {
     "auth0-js": "^9.3.0",
     "axios": "^0.14.0",
+    "babel-eslint": "^10.0.1",
     "body-parser": "^1.15.2",
     "d3": "^5.4.0",
     "express": "^4.14.0",
