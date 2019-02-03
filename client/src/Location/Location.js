@@ -4,21 +4,24 @@ import GoogleMapReact from 'google-map-react';
 import {  } from 'react-easy-chart';
 import ReactChartkick,{ PieChart,ColumnChart } from "react-chartkick";
 import { Chart } from "chart.js";
-
 // to get the pin styles
 import '../Map/Map.css';
-
 import { sumDebrisTypes, sumTotals } from '../_helpers/ChartHelpers';
+
+ReactChartkick.addAdapter(Chart);
 
 class Location extends Component {
   constructor(props) {
     super(props);
-    ReactChartkick.addAdapter(Chart);
     // the data is passed from ../Home/Home.js from the Link
     // this.props.location.state is where the Link passes the state to
+    let entryData = this.props.location.state.data; 
     this.state = {
-      data: this.props.location.state.data || {},
-      barChartData: [],
+      data: entryData,
+      showSRSData:true,
+      srsBarData:sumTotals(entryData.entries, true),
+      asBarData: sumTotals(entryData.entries, false),
+      pieChartData:sumDebrisTypes(entryData.entries),
       pieOptions:{animation:{animateRotate:true},responsive:true}
     }
 
@@ -26,18 +29,7 @@ class Location extends Component {
   }
 
   changeBarGraph(e) {
-    let barChartData;
-    if (e.target.value === 'srs') {
-      barChartData = sumTotals(this.state.data.entries, true);
-    } else {
-      barChartData = sumTotals(this.state.data.entries, false);
-    }
-    this.setState({ barChartData });
-  }
-
-  componentDidMount() {
-    let barChartData = sumTotals(this.state.data.entries, true);
-    this.setState({ barChartData });
+    this.setState({showSRSData: e.target.value === 'srs'});    
   }
 
 
@@ -55,8 +47,6 @@ class Location extends Component {
     });
 
     
-    let pieChartData = sumDebrisTypes(this.state.data.entries);
-    console.log(pieChartData);
 
     let checkRange = (num, isLat) => {
      let isInRange = false;
@@ -80,7 +70,7 @@ class Location extends Component {
                 <option value="as">in Accumulation Sweep Surveys</option>
               </select>
               <div className="uk-align-center" style={{width: '650px'}}>
-                <ColumnChart data={ this.state.barChartData } library={{animation:{animateScale:true}}} />
+                <ColumnChart data={ this.state.showSRSData ? this.state.srsBarData : this.state.asBarData } library={{animation:{animateScale:true}}} />
               </div>
             </div>
           </div>
@@ -118,7 +108,7 @@ class Location extends Component {
           <div className="uk-grid-margin uk-width-1-1">
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Types of Debris Found</h3>
-                <PieChart id="pieChart" data={ pieChartData } library={this.state.pieOptions} height="500px" width="500px" />
+                <PieChart id="pieChart" data={ this.state.pieChartData } library={this.state.pieOptions} height="500px" width="500px" />
             </div>
           </div>
         </div>
