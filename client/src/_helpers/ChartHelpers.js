@@ -3,17 +3,17 @@ export function sumDebrisTypes(data) {
   for (let i = 0; i < data.length; i++) {
     let currEntrySRS = data[i].SRSData;
     for (let j = 0; j < currEntrySRS.length; j++) {
-      let foundIndex = sumHelper(currEntrySRS[j].name, res, 'key');
+      let foundIndex = nSumHelper(currEntrySRS[j].name, res, 'key');
       if (foundIndex > -1) {
-        res[foundIndex].value += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
+        res[foundIndex][1] += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
       }
       else {
         let name = currEntrySRS[j].name;
         let total = currEntrySRS[j].fresh + currEntrySRS[j].weathered;
-        res.push({
-          key: name,
-          value: total,
-        });
+        res.push([
+           name,
+           total,
+        ]);
       }
     }
   }
@@ -51,6 +51,14 @@ function sumHelper (value, arr, key) {
   let found = -1;
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][key] === value) found = i;
+  }
+  return found;
+}
+
+function nSumHelper (value, arr, key) {
+  let found = -1;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i][0] === value) found = i;
   }
   return found;
 }

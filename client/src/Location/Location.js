@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
-import { PieChart, Legend, BarChart } from 'react-easy-chart';
-import ReactChartkick,{ PieChart as rPieChart } from "react-chartkick";
+import {  BarChart } from 'react-easy-chart';
+import ReactChartkick,{ PieChart } from "react-chartkick";
 import { Chart } from "chart.js";
 
 // to get the pin styles
@@ -19,6 +19,7 @@ class Location extends Component {
     this.state = {
       data: this.props.location.state.data || {},
       barChartData: [],
+      pieOptions:{animation:{animateRotate:true}}
     }
 
     this.changeBarGraph = this.changeBarGraph.bind(this);
@@ -34,10 +35,12 @@ class Location extends Component {
     this.setState({ barChartData });
   }
 
-  componentDidMount() {
-    let barChartData = sumTotals(this.state.data.entries, true);
-    this.setState({ barChartData });
-  }
+  // componentDidMount() {
+  //   let barChartData = sumTotals(this.state.data.entries, true);
+  //   this.setState({ barChartData });
+  // }
+
+  compon
 
   render() {
     // for every entry, returns a link to the entry page
@@ -62,7 +65,8 @@ class Location extends Component {
      else if (!isLat && num < 181 && num > -181) isInRange = true;
      return isInRange;
    }
-
+   console.log(document.getElementById('pieChart'));
+   
     // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
     return(
@@ -120,18 +124,15 @@ class Location extends Component {
               </div>) : null
             }
           </div>
-          <div className="uk-grid-margin uk-width-2-3">
+          <div className="uk-grid-margin uk-width-1-1">
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Types of Debris Found</h3>
-              <div className="uk-grid">
-                <PieChart data={ pieChartData } />
-                <Legend data={ pieChartData } dataId={ 'key' } />
-              </div>
+                <PieChart id="pieChart" data={ pieChartData } library={this.state.pieOptions} height="500px" width="500px" />
             </div>
           </div>
         </div>
       </div> 
-    );
+    );    
   }
 }
 
