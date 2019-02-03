@@ -1,8 +1,8 @@
 export function sumDebrisTypes(data) {
   let res = [];
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].SRSData.length; j++) {
-      let currEntrySRS = data[i].SRSData;
+    let currEntrySRS = data[i].SRSData;
+    for (let j = 0; j < currEntrySRS.length; j++) {
       let foundIndex = sumHelper(currEntrySRS[j].name, res, 'key');
       if (foundIndex > -1) {
         res[foundIndex].value += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
@@ -25,7 +25,7 @@ export function sumTotals(data, isSRS) {
   let attr = isSRS ? 'SRSTotal' : 'ASTotal';
   for (let i = 0; i < data.length; i++) {
     let date = data[i].date;
-    let total = data[i][attr];
+    let total = data[i][attr] || 0; 
     let foundIndex = sumHelper(date, res, 'x');
     if (foundIndex > -1) {
       res[foundIndex].y += total;

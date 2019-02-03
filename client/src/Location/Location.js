@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { PieChart, Legend, BarChart } from 'react-easy-chart';
+import ReactChartkick,{ PieChart as rPieChart } from "react-chartkick";
+import { Chart } from "chart.js";
 
 // to get the pin styles
 import '../Map/Map.css';
@@ -11,6 +13,7 @@ import { sumDebrisTypes, sumTotals } from '../_helpers/ChartHelpers';
 class Location extends Component {
   constructor(props) {
     super(props);
+    ReactChartkick.addAdapter(Chart);
     // the data is passed from ../Home/Home.js from the Link
     // this.props.location.state is where the Link passes the state to
     this.state = {
@@ -49,9 +52,9 @@ class Location extends Component {
       );
     });
 
-    console.log(this.state.data);
-
+    
     let pieChartData = sumDebrisTypes(this.state.data.entries);
+    console.log(pieChartData);
 
     let checkRange = (num, isLat) => {
      let isInRange = false;
