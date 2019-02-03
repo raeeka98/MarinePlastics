@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
-import {  } from 'react-easy-chart';
 import { ColumnChart,PieChart } from "./Charts";
 // to get the pin styles
 import '../Map/Map.css';
