@@ -2,12 +2,11 @@ import auth0 from 'auth0-js';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/', for prod
 redirectUri: 'http://localhost:3000', for dev*/
-
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: process.env.REACT_APP_AUTH_DOMAIN,
-    clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
-    redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
+    domain: 'marine-plastics.auth0.com',
+    clientID: 'MeGxwCE1JVNy9jsRYPWzqebekosCVRDN',
+    redirectUri: 'https://marineplastics.herokuapp.com/',
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid email profile'
@@ -85,7 +84,7 @@ export default class Auth {
   }
 
   isAuthenticated() {
-    // Check whether the current time is past the
+    // Check whether the current time is past the 
     // Access Token's expiry time
     // Added check to make sure localstorage is defined
     if (typeof localStorage === 'undefined') {

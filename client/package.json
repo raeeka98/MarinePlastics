@@ -30,8 +30,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:3001",
-  "devDependencies": {
-    "eslint": "^5.12.1"
-  }
+  "proxy": "http://localhost:3001"
 }
