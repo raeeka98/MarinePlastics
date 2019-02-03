@@ -26,14 +26,14 @@ export function sumTotals(data, isSRS) {
   for (let i = 0; i < data.length; i++) {
     let date = data[i].date;
     let total = data[i][attr] || 0; 
-    let foundIndex = sumHelper(date, res, 'x');
+    let foundIndex = nSumHelper(date, res, 'x');
     if (foundIndex > -1) {
       res[foundIndex].y += total;
     } else {
-      res.push({
-        x: date,
-        y: total
-      });
+      res.push([
+        date,
+        total
+      ]);
     }
   }
   return res;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
-import {  BarChart } from 'react-easy-chart';
-import ReactChartkick,{ PieChart } from "react-chartkick";
+import {  } from 'react-easy-chart';
+import ReactChartkick,{ PieChart,ColumnChart } from "react-chartkick";
 import { Chart } from "chart.js";
 
 // to get the pin styles
@@ -19,7 +19,7 @@ class Location extends Component {
     this.state = {
       data: this.props.location.state.data || {},
       barChartData: [],
-      pieOptions:{animation:{animateRotate:true}}
+      pieOptions:{animation:{animateRotate:true},responsive:true}
     }
 
     this.changeBarGraph = this.changeBarGraph.bind(this);
@@ -35,12 +35,11 @@ class Location extends Component {
     this.setState({ barChartData });
   }
 
-  // componentDidMount() {
-  //   let barChartData = sumTotals(this.state.data.entries, true);
-  //   this.setState({ barChartData });
-  // }
+  componentDidMount() {
+    let barChartData = sumTotals(this.state.data.entries, true);
+    this.setState({ barChartData });
+  }
 
-  compon
 
   render() {
     // for every entry, returns a link to the entry page
@@ -81,15 +80,7 @@ class Location extends Component {
                 <option value="as">in Accumulation Sweep Surveys</option>
               </select>
               <div className="uk-align-center" style={{width: '650px'}}>
-                <BarChart
-                  axes
-                  colorBars
-                  data={ this.state.barChartData }
-                  // datePattern="%Y-%m-%e"
-                  // xType={'time'}
-                  height={250}
-                  width={650}
-                />
+                <ColumnChart data={ this.state.barChartData } library={{animation:{animateScale:true}}} />
               </div>
             </div>
           </div>
