@@ -2,6 +2,7 @@
 //import dependency
 var mongoose = require('mongoose');
 const mongoDB = process.env.DB_URL;
+
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
