@@ -1,19 +1,19 @@
 export function sumDebrisTypes(data) {
   let res = [];
   for (let i = 0; i < data.length; i++) {
-    for (let j = 0; j < data[i].SRSData.length; j++) {
-      let currEntrySRS = data[i].SRSData;
-      let foundIndex = sumHelper(currEntrySRS[j].name, res, 'key');
+    let currEntrySRS = data[i].SRSData;
+    for (let j = 0; j < currEntrySRS.length; j++) {
+      let foundIndex = nSumHelper(currEntrySRS[j].name, res, 'key');
       if (foundIndex > -1) {
-        res[foundIndex].value += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
+        res[foundIndex][1] += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
       }
       else {
         let name = currEntrySRS[j].name;
         let total = currEntrySRS[j].fresh + currEntrySRS[j].weathered;
-        res.push({
-          key: name,
-          value: total,
-        });
+        res.push([
+           name,
+           total,
+        ]);
       }
     }
   }
@@ -25,15 +25,15 @@ export function sumTotals(data, isSRS) {
   let attr = isSRS ? 'SRSTotal' : 'ASTotal';
   for (let i = 0; i < data.length; i++) {
     let date = data[i].date;
-    let total = data[i][attr];
-    let foundIndex = sumHelper(date, res, 'x');
+    let total = data[i][attr] || 0; 
+    let foundIndex = nSumHelper(date, res, 'x');
     if (foundIndex > -1) {
       res[foundIndex].y += total;
     } else {
-      res.push({
-        x: date,
-        y: total
-      });
+      res.push([
+        date,
+        total
+      ]);
     }
   }
   return res;
@@ -47,10 +47,10 @@ export function getTotalPounds(data) {
   return res;
 }
 
-function sumHelper (value, arr, key) {
+function nSumHelper (value, arr, key) {
   let found = -1;
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i][key] === value) found = i;
+    if (arr[i][0] === value) found = i;
   }
   return found;
 }

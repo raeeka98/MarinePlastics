@@ -4,10 +4,10 @@
 node_modules
 
 .vscode/
-.env
 
 # testing
 coverage
+.env
 
 # production
 build
