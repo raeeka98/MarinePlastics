@@ -21,11 +21,7 @@ import Footer from './Footer/Footer';
 
 class App extends Component {
   constructor() {
-<<<<<<< HEAD
     require('dotenv').config()
-    
-=======
->>>>>>> 63843ce30e77b44856e405f75b6428c173767beb
     super();
     // creates a new authentication object, which can be passed to other components
     this.auth = new Auth();

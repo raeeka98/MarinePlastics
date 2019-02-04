@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 const path = require('path');
 const app = express();
 const { router: dataEntryRouter } = require('./routes/dataEntry');
