@@ -8,6 +8,7 @@ export default class Auth {
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
     redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
+    
     audience: 'https://marine-plastics.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid email profile'
