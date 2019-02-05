@@ -1,7 +1,7 @@
 'use strict';
 //import dependency
 var mongoose = require('mongoose');
-const mongoDB = 'mongodb://db:db@ds143221.mlab.com:43221/heroku_h3hh7swq';
+const mongoDB = process.env.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
@@ -11,13 +11,13 @@ var dataSchema = new Schema({
     name: String,
     fresh: Number,
     weathered: Number,
-});
+}, { versionKey: false });
 
 var tideSchema = new Schema({
     type: String,
     time: String,
     height: Number,
-});
+}, { versionKey: false });
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
@@ -53,7 +53,7 @@ var CommentsSchema = new Schema({
     SRSTotal: Number,
     ASData: [dataSchema],
     ASTotal: Number,
-});
+}, { versionKey: false });
 
 const commentModel = mongoose.model('Comment', CommentsSchema);
 

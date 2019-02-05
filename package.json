@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "concurrently --kill-others \"npm run client\" \"npm run server\"",
         "client": "npm start --prefix client",
-        "server": "node server.js "
+        "server": "node server.js ",
+        "postinstall": "npm install --prefix client"
     },
     "repository": {
         "type": "git",
