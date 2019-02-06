@@ -118,10 +118,12 @@ let beachSchema = new Schema({
     entryDates: [entryDate]
 
 }, { versionKey: false });
-const beachModel = mongoose.model('Beaches',beachSchema);
-const entryModel = mongoose.model('Entries',entrySchema);
+
+
+const beachModel = mongoose.model('Beaches', beachSchema);
+const entryModel = mongoose.model('Entries', entrySchema);
 
 const commentModel = mongoose.model('Comment', CommentsSchema);
 
 //export our module to use in server.js
-module.exports = { commentModel, db };
+module.exports = { beachModel, entryModel, db };
