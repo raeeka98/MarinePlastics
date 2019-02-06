@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import LocationBar from './locationBar';
+import LocationBar from './LocationBar';
 
 import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
+import './home.css';
 
 class Home extends Component {
   constructor(props) {
@@ -14,12 +15,12 @@ class Home extends Component {
       rawData: [],
       searchResult: [],
       filter: 'beach',
+      loaded: false
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
-    this.pollInterval = null;
     this.url = '/surveys';
   }
 
@@ -28,7 +29,7 @@ class Home extends Component {
     axios.get(this.url)
       .then(res => {
         console.log(res.data);
-        
+
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
@@ -38,11 +39,12 @@ class Home extends Component {
           data: sorted,
           rawData: res.data,
           searchResult: sorted,
+          loaded: true
         });
       });
   }
 
-  handleSearchTypeChange(e){
+  handleSearchTypeChange(e) {
     this.setState({ filter: e.target.value });
     this.handleSearch(document.getElementById("searchBar").value, e.target.value);
   }
@@ -69,7 +71,7 @@ class Home extends Component {
       } else {
         const allLocations = this.state.data;
         this.setState({ searchResult: allLocations });
-      } 
+      }
     } else {
       const allLocations = this.state.data;
       this.setState({ searchResult: allLocations });
@@ -92,29 +94,42 @@ class Home extends Component {
     }
   }
 
+  showEntries = (locationNodes) => {
+    if (this.state.loaded) {
+      return locationNodes.length < 1 ? <div>No Entries</div> : locationNodes
+    }
+    return <span className="loader"><span></span><span></span><span></span></span>;
+  }
+
   // once the component is on the page, checks the server for comments
   componentDidMount() {
     this.loadCommentsFromServer();
   }
 
   render() {
+
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.searchResult.map((location, i) => {
-
+      let path = location.name ? location.name.replace(/\s/g, '') : 'ERR';
+      let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
       let entryNodes = location.entries.map((entry, i) => {
         // console.log(entry);
         return (
           <li key={`entry-${i}`}>
             <Link className="uk-link-muted" to={{ pathname: `/entry/${entry._id}` }}>
-              { entry.date }
+              {entry.date}
             </Link>
           </li>
         );
       });
-
-      
-
-      return <LocationBar key={i} handleAccordionClick={this.handleAccordionClick} num={i} location={location} entryNodes={entryNodes}/>
+      return <LocationBar
+        key={i}
+        handleAccordionClick={this.handleAccordionClick}
+        location={location}
+        entryNodes={entryNodes}
+        path={path}
+        entryString={entryString}
+      />
     });
 
     let totalWeight = getTotalPounds(this.state.rawData);
@@ -128,12 +143,12 @@ class Home extends Component {
                 className="uk-input uk-form-large"
                 id="searchBar"
                 type="search"
-                onChange={ this.handleSearchChange } 
+                onChange={this.handleSearchChange}
                 placeholder="Search..."
               />
             </div>
             <div className="uk-width-1-3">
-              <select className="uk-select uk-form-large" id='type' onChange={ this.handleSearchTypeChange }>
+              <select className="uk-select uk-form-large" id='type' onChange={this.handleSearchTypeChange}>
                 <option value="beach">By Beach</option>
                 <option value="debris">By Debris</option>
                 <option value="user">By Team Leader</option>
@@ -141,11 +156,8 @@ class Home extends Component {
               </select>
             </div>
           </form>
-          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={{ overflowY: 'scroll' }}>
-            { locationNodes }
-            { this.state.data.length < 1
-              ? <div>No Entries</div> : null
-            }
+          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={ locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+            {this.showEntries(locationNodes)}
           </div>
           <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
