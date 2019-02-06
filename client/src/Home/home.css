@@ -6,7 +6,7 @@
 }
 .loader{
     top: calc(50% - 10px);
-    left: calc(50% - 50px);
+    left: calc(50% - 42px);
     height: 20px;
     width: max-content;
     display: block;
@@ -21,8 +21,8 @@
     background: #0f7ae5;
     margin-right: 10px;
     box-sizing: content-box;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     border-radius: 50%;
     animation: wave 1s linear infinite
 }
