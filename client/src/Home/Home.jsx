@@ -15,7 +15,8 @@ class Home extends Component {
       rawData: [],
       searchResult: [],
       filter: 'beach',
-      loaded: false
+      loaded: false,
+      error: false
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -29,7 +30,6 @@ class Home extends Component {
     axios.get(this.url)
       .then(res => {
         console.log(res.data);
-
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
@@ -41,7 +41,14 @@ class Home extends Component {
           searchResult: sorted,
           loaded: true
         });
-      });
+      })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({
+          loaded: true,
+          error: true
+        });
+      })
   }
 
   handleSearchTypeChange(e) {
@@ -53,30 +60,24 @@ class Home extends Component {
     this.handleSearch(e.target.value, this.state.filter);
   }
 
-  handleSearch(value, filter) {
-    if (value.length > 0) {
-      if (filter === 'beach') {
-        const result = locationFind(this.state.data, value);
-        this.setState({ searchResult: result });
-      } else if (filter === 'debris') {
-        const result = debrisFind(this.state.rawData, value);
-        this.setState({ searchResult: result });
-      } else if (filter === 'user') {
-        const result = userFind(this.state.rawData, value);
-        this.setState({ searchResult: result });
-      } else if (filter === 'org') {
-        console.log('org');
-        const result = orgFind(this.state.rawData, value);
-        this.setState({ searchResult: result });
-      } else {
-        const allLocations = this.state.data;
-        this.setState({ searchResult: allLocations });
-      }
-    } else {
-      const allLocations = this.state.data;
-      this.setState({ searchResult: allLocations });
-    }
+
+  filterFunctions = {
+    beach: locationFind,
+    debris: debrisFind,
+    user: userFind,
+    org: orgFind
   }
+
+  handleSearch(value, filter) {
+    let result = this.state.data;
+    if (value.length > 0) {
+      if (this.filterFunctions.hasOwnProperty(filter)) {
+        result = this.filterFunctions[filter](this.state.data, value);
+      }
+    } 
+    this.setState({ searchResult: result });
+  }
+  
   handleAccordionClick = (e) => {
     let accordionWrapper = e.target.parentElement;
     let accordionContent = e.target.nextSibling;
@@ -156,7 +157,7 @@ class Home extends Component {
               </select>
             </div>
           </form>
-          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={ locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
             {this.showEntries(locationNodes)}
           </div>
           <div className="uk-section uk-section-primary uk-margin-top">
