@@ -74,10 +74,10 @@ class Home extends Component {
       if (this.filterFunctions.hasOwnProperty(filter)) {
         result = this.filterFunctions[filter](this.state.data, value);
       }
-    } 
+    }
     this.setState({ searchResult: result });
   }
-  
+
   handleAccordionClick = (e) => {
     let accordionWrapper = e.target.parentElement;
     let accordionContent = e.target.nextSibling;
@@ -96,10 +96,17 @@ class Home extends Component {
   }
 
   showEntries = (locationNodes) => {
-    if (this.state.loaded) {
+    let errStr = "Something went wrong!"
+    let { loaded, error } = this.state;
+    if (loaded && !error) {
       return locationNodes.length < 1 ? <div>No Entries</div> : locationNodes
     }
-    return <span className="loader"><span></span><span></span><span></span></span>;
+    return (
+      <span className={error ? "err" : "loader"}>
+        <span>{error ? errStr : ""}</span>
+        <span></span><span></span>
+      </span>
+    );
   }
 
   // once the component is on the page, checks the server for comments
