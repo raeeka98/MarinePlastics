@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LocationBar from './locationBar';
 
 import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
@@ -26,6 +27,8 @@ class Home extends Component {
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
+        console.log(res.data);
+        
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
@@ -72,6 +75,22 @@ class Home extends Component {
       this.setState({ searchResult: allLocations });
     }
   }
+  handleAccordionClick = (e) => {
+    let accordionWrapper = e.target.parentElement;
+    let accordionContent = e.target.nextSibling;
+    if (e.target.classList.contains('uk-text-muted')) {
+      accordionWrapper = e.target.parentElement.parentElement;
+      accordionContent = e.target.parentElement.nextSibling;
+    }
+
+    if (accordionWrapper.classList.contains('uk-open')) {
+      accordionWrapper.classList.remove('uk-open');
+      accordionContent.style.display = 'none';
+    } else {
+      accordionWrapper.classList.add('uk-open');
+      accordionContent.style.display = 'block';
+    }
+  }
 
   // once the component is on the page, checks the server for comments
   componentDidMount() {
@@ -81,8 +100,6 @@ class Home extends Component {
   render() {
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.searchResult.map((location, i) => {
-      let path = location.name ? location.name.replace(/\s/g, '') : 'HELPPPPPPPPP';
-      let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
 
       let entryNodes = location.entries.map((entry, i) => {
         // console.log(entry);
@@ -95,49 +112,9 @@ class Home extends Component {
         );
       });
 
-      let handleAccordionClick = (e) => {
-        let accordionWrapper = e.target.parentElement;
-        let accordionContent = e.target.nextSibling;
-        if (e.target.classList.contains('uk-text-muted')) {
-          accordionWrapper = e.target.parentElement.parentElement;
-          accordionContent = e.target.parentElement.nextSibling;
-        }
+      
 
-        if (accordionWrapper.classList.contains('uk-open')) {
-          accordionWrapper.classList.remove('uk-open');
-          accordionContent.style.display = 'none';
-        } else {
-          accordionWrapper.classList.add('uk-open');
-          accordionContent.style.display = 'block';
-        }
-      }
-
-      return (
-        <div className="uk-card uk-card-default uk-card-body uk-margin" key={i}>
-          <div>
-            <ul className="uk-list uk-margin-remove-bottom">
-              <li id={`accordion${i}`}>
-                <a className="uk-accordion-title" onClick={ handleAccordionClick }>
-                  { location.name }
-                  <span className="uk-text-muted uk-text-small uk-margin-left">
-                    { location.entries.length } { entryString }
-                  </span>
-                </a>
-                <div className="uk-accordion-content" style={{ display: 'none' }}>
-                  <ul className="uk-list uk-list-bullet uk-padding-remove-left">
-                    { entryNodes } 
-                  </ul>
-                  <p>
-                    <Link to={{ pathname: `/location/${path}`, state: { data: location } }}>
-                      View location page
-                    </Link>
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      );
+      return <LocationBar key={i} handleAccordionClick={this.handleAccordionClick} num={i} location={location} entryNodes={entryNodes}/>
     });
 
     let totalWeight = getTotalPounds(this.state.rawData);
