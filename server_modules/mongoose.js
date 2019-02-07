@@ -13,6 +13,12 @@ var dataSchema = new Schema({
     weathered: Number,
 }, { versionKey: false, _id: false });
 
+let newDataSchema = new Schema({
+    fresh: { type: Number, default: 0, min: 0 },
+    weathered: { type: Number, default: 0, min: 0 }
+}, { versionKey: false, _id: false });
+
+
 var tideSchema = new Schema({
     type: String,
     time: String,
@@ -79,27 +85,25 @@ let entrySchema = new Schema({
     st: String,
     slope: String,
     nroName: String,
-    nroDist: Number,
+    nroDist: { type: Number, min: 0 },
     aspect: String,
     lastTide: tideSchema,
     nextTide: tideSchema,
     windDir: String,
-    windSpeed: Number,
+    windSpeed: { type: Number, min: 0 },
     majorUse: String,
-    weight: Number,
-    NumberOfPeople: Number,
-    SRSData: [dataSchema],
-    ASData: [dataSchema]
+    weight: { type: Number, min: 0 },
+    NumberOfPeople: { type: Number, min: 0 },
+    SRSData: {
+        type: Map,
+        of: newDataSchema
+    },
+    ASData: {
+        type: Map,
+        of: newDataSchema
+    }
 }, { versionKey: false })
 
-let entryDate = new Schema({
-    date: {
-        type: Date,
-        required: true,
-        unique: true
-    },
-    entries: [{ type: Schema.Types.ObjectId, ref: 'Entries' }]
-})
 
 let beachSchema = new Schema({
     name: {
@@ -115,8 +119,18 @@ let beachSchema = new Schema({
         type: Number,
         required: true
     },
-    entryDates: [entryDate]
-
+    entryDates: [{
+        _id: false,
+        date: {
+            type: Date,
+            required: true,
+            unique: true
+        },
+        entries: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Entries'
+        }]
+    }]
 }, { versionKey: false });
 
 
@@ -124,6 +138,48 @@ const beachModel = mongoose.model('Beaches', beachSchema);
 const entryModel = mongoose.model('Entries', entrySchema);
 
 const commentModel = mongoose.model('Comment', CommentsSchema);
+
+let entry = new entryModel({
+    user: 'Noll',
+    email: 'Test@mail.com',
+    org: 'UCSC',
+    reason: 'To test',
+    SRSData: {
+        dirt: {}
+    }
+});
+let beach = new beachModel({
+    name: 'test beach',
+    lat: 123,
+    lon: 456,
+    entryDates: [{
+        date: new Date(),
+        entries: [entry._id]
+    }]
+})
+
+// entry.save()
+//     .then(entry => {
+//         console.log(entry);
+//         return beach.save()
+//             .then(beach => {
+//                 console.log(beach);
+//                 console.log(beach.entryDates);
+//             })
+//     });
+
+beachModel.findById("5c5be6645b790130b48ff889")
+    .populate('entryDates.entries')
+    .exec()
+    .then(beach => {
+        console.log(beach);
+        console.log(beach.entryDates[0]);
+
+        console.log(beach.entryDates[0].entries[0]);
+
+    })
+
+
 
 //export our module to use in server.js
 module.exports = { beachModel, entryModel, db };

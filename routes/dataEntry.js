@@ -1,59 +1,56 @@
-const { commentModel: Comment } = require('../server_modules/mongoose');
+let { beachModel: beach, entryModel: entries } = require('../server_modules/mongoose');
 let router = require('express').Router();
 
 router.route('/')
+    //get all beaches
     .get((req, res) => {
-        Comment.find(function(err, comments) {
+        beach.find(function(err, beaches) {
             if (err) res.send(err);
+            console.log(beaches);
+
             //responds with a json object of our database comments.
-            res.json(comments)
+            res.json(beaches)
         });
     })
-    .post((req, res) => {
-        let newDataSheet = req.body;
-        var dataSheet = new Comment();
-        for (const entry in newDataSheet) {
-            const data = newDataSheet[entry];
-            comment[entry] = data;
-        }
-        dataSheet.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Comment successfully added!' });
-        });
+    //delete a beach
+    .delete((req, res) => {
+        let { beachID } = req.body;
     });
 
-router.route('/:id')
+router.route('/:entryid')
+    //get a specific entry
     .get((req, res) => {
-        Comment.findById(req.params.id, function(err, comment) {
-            res.json({ comment });
+        entries.findById(req.params.entryid, function(err, entry) {
+            res.json({ entry });
         });
     })
+    //find a specific entry and edit it
     .put((req, res) => {
-        Comment.findById(req.params.id, function(err, dataSheet) {
+        entries.findById(req.params.entryid, function(err, entryData) {
             if (err) res.send(err);
             //setting the new beach and reason to whatever was changed. If nothing was changed
             // we will not alter the field.
-            let newDataSheet = res.body;
-            for (const entry in newDataSheet) {
-                const data = newDataSheet[entry];
-                comment[entry] = data;
+            let newEntryData = res.body;
+            for (const entry in newEntryData) {
+                const data = newEntryData[entry];
+                entryData[entry] = data;
             }
 
             //save comment
-            comment.save(function(err) {
+            entryData.save(function(err) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Comment has been updated' });
+                res.json({ message: 'Entry has been updated' });
             });
         });
     })
+    //delete an entry
     .delete((req, res) => {
-        Comment.remove({ _id: req.params.comment_id }, function(err, comment) {
+        entries.remove({ _id: req.params.entryid }, function(err, entry) {
             if (err)
                 res.send(err);
             res.json({ message: 'Comment has been deleted' })
         })
-    })
+    });
 
 module.exports = { router };
