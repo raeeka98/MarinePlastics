@@ -64,7 +64,7 @@ class Home extends Component {
     debris: debrisFind,
     user: userFind,
     org: orgFind
-  }
+  };
 
   handleSearch(value, filter) {
     let result = this.state.data;
@@ -117,28 +117,32 @@ class Home extends Component {
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.data.map((location, i) => {
       console.log(location);
-      
+
       let path = location._id;
-      let entryString = location.entries.size > 1 ? 'Entries' : 'Entry';
+      let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
       let entryNodes = [];
-      for (const date in location.entries) {
-          const entryID = location.entries[date];
-          entryNodes.push(
-            <li key={`entry-${entryID}`}>
-              <Link className="uk-link-muted" to={{ pathname: `/entry/${entryID}` }}>
-                {date}
-              </Link>
-            </li>
-          );
+      let subDate = new Date(0);
+      
+      for (const date in location.surveys) {
+        const entryID = location.surveys[date];
+        console.log(date);
+        subDate.setUTCMilliseconds(date);
+        entryNodes.push(
+          <li key={`entry-${entryID}`}>
+            <Link className="uk-link-muted" to={{ pathname: `/${location.name.replace(' ','-')}/${entryID}` }}>
+              {subDate.toLocaleDateString()}
+            </Link>
+          </li>
+        );
       }
       return <LocationBar
-            key={i}
-            handleAccordionClick={this.handleAccordionClick}
-            location={location}
-            entryNodes={entryNodes}
-            path={path}
-            entryString={entryString}
-          />
+        key={i}
+        handleAccordionClick={this.handleAccordionClick}
+        location={location}
+        entryNodes={entryNodes}
+        path={path}
+        entryString={entryString}
+      />
     });
 
     let totalWeight = getTotalPounds(this.state.rawData);
