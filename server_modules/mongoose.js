@@ -229,6 +229,10 @@ async function deleteBeach (beachID) {
 async function getAllBeaches () {
     return await beachModel.find().exec();
 }
+
+async function getSurvey(surveyID) {
+    return await surveyModel.findById(surveyID).exec();
+}
 // createBeach({ name: "test beach", lat: 123, lon: 456 })
 //     .then((beachID) =>
 //         addSurveyToBeach({
@@ -239,4 +243,4 @@ async function getAllBeaches () {
 //         }, beachID, (new Date()).getTime()));
 
 //export our module to use in server.js
-module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach } };
+module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach,getSurvey } };

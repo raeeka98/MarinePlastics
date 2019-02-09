@@ -15,12 +15,11 @@ router.route('/')
         let { beachID } = req.body;
     });
 
-router.route('/:beachID/:surveyID')
+router.route('/:surveyID')
     //get a specific entry
     .get((req, res) => {
-        entries.findById(req.params.entryid, function(err, entry) {
-            res.json({ entry });
-        });
+        surveys.getSurvey(req.params.surveyID)
+        .then(survey=>res.json(survey));
     })
     //find a specific entry and edit it
     .put((req, res) => {
