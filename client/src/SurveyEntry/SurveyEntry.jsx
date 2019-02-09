@@ -8,22 +8,18 @@ class SurveyEntry extends Component {
   constructor(props) {
     super(props);
     let { beachName, surveyID } = props.match.params;
-    console.log(props.match);
-    
-
     this.state = {
       beachName,
       surveyID,
-      surveyData:{}
+      surveyData: {}
     };
-    this.getsurveyData = this.getSurvey.bind(this);
     this.auth = new Auth();
   }
 
-  getSurvey() {
+  getSurvey = () => {
     axios.get(`/beaches/${this.state.surveyID}`)
       .then(res => {
-        this.setState({ surveyData: res.data});
+        this.setState({ surveyData: res.data });
       })
       .catch(err => {
         console.log(err);
@@ -37,36 +33,38 @@ class SurveyEntry extends Component {
 
   render() {
     // initializes to null because when component mounts, there is no data yet
-    let SRSRows = null;
-    let ASRows = null;
+    let SRSRows = [];
+    let ASRows = [];
 
     // if there is data (which is once the component mounts)
     if (this.state.surveyData.SRSData) {
+      let { SRSData, ASData } = this.state.surveyData;
       // for every type of trash, return a surveyTableRow component with the data
-      SRSRows = this.state.surveyData.SRSData.map((type, i) => {
-        return (
+      for (const trash in SRSData) {
+        const trashData = SRSData[trash];
+        SRSRows.push(
           <SurveyTableRow
-            key={type._id}
-            name={type.name}
-            fresh={type.fresh}
-            weathered={type.weathered}
+            key={trash}
+            name={trash}
+            fresh={trashData.fresh}
+            weathered={trashData.weathered}
           />
         );
-      });
-
-      ASRows = this.state.surveyData.ASData.map((type, i) => {
-        return (
+      }
+      for (const trash in ASData) {
+        const trashData = ASData[trash];
+        ASRows.push(
           <SurveyTableRow
-            key={type._id}
-            name={type.name}
-            fresh={type.fresh}
-            weathered={type.weathered}
+            key={trash}
+            name={trash}
+            fresh={trashData.fresh}
+            weathered={trashData.weathered}
           />
         );
-      });
+      }
 
-      document.getElementById('SRS-section').style.display = this.state.surveyData.SRSData.length > 0 ? 'block' : 'none';
-      document.getElementById('AS-section').style.display = this.state.surveyData.ASData.length > 0 ? 'block' : 'none';
+      document.getElementById('SRS-section').style.display = this.state.surveyData.srsDataLength > 0 ? 'block' : 'none';
+      document.getElementById('AS-section').style.display = this.state.surveyData.asDataLength > 0 ? 'block' : 'none';
     }
 
     if (this.state.surveyData.weight || this.state.surveyData.NumberOfPeople) {
