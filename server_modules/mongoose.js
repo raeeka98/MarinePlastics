@@ -252,4 +252,7 @@ async function getSurvey (surveyID) {
 }
 
 //export our module to use in server.js
-module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey } };
+module.exports = {
+    beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData },
+    surveys: { deleteEntry, deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
+};
