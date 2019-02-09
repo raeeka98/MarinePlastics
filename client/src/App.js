@@ -46,7 +46,7 @@ class App extends Component {
               <Route exact path='/' render={ () => (<Landing auth={ this.auth } />) } />
               <Route exact path='/home' component={ Home } />
               <Route path='/survey' component={ Steps } />
-              <Route path='/entry/:entryKey' component={ SurveyEntry } />
+              <Route path='/:beachName/:surveyID' component={ SurveyEntry } />
               <Route path='/location/:id' component={ LocationPage } />
               {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
               <Route
