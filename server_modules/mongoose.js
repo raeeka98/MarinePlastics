@@ -145,77 +145,6 @@ Date.prototype.toUTCDateString = function() {
     return `${this.getUTCFullYear()}-${this.getUTCMonth()+1}-${this.getUTCDate()} `;
 };
 
-// beach.entries.set(`${new Date().toUTCDateString()}`, entry._id);
-
-// entry.save()
-//     .then(entry => {
-//         console.log(entry);
-//         return beach.save()
-//             .then(beach => {
-//                 console.log(beach);
-//             })
-//     })
-//     .then(() => {
-//         beachModel.findById(beach._id)
-//             .populate('entries')
-//             .exec()
-//             .then(beach => {
-//                 console.log(beach);
-//                 console.log(beach.entries);
-
-//             });
-//     })
-let beach = {
-    name: 'test beach',
-    lat: 123,
-    lon: 456,
-    entries: {}
-}
-
-let entry = {
-    user: 'Noll',
-    email: 'Test@mail.com',
-    org: 'UCSC',
-    reason: 'To test',
-    SRSData: {
-        dirt: {}
-    }
-}
-
-async function test (beach, entry) {
-    let beachID, entryID;
-    try {
-        beachID = await createBeach(beach);
-        entryID = await createEntry(entry);
-        let date = new Date().setHours(0, 0, 0, 0);
-        let newBeach = await AddEntryToBeach(beachID, date, entryID);
-        console.log(newBeach);
-
-        console.log(`${beachID} ${entryID}`);
-    } catch (err) {
-        console.log(err);
-    }
-}
-async function test1 (entry) {
-    let entryID;
-    try {
-        entryID = await createEntry(entry);
-        let date = new Date().getTime();
-        let newBeach = await AddEntryToBeach("5c5e5a298670b02e1ba700eb", date, entryID);
-        console.log(newBeach);
-    } catch (err) {
-        console.log(err);
-    }
-}
-// test(beach, entry)
-// test1(entry)
-// deleteEntry("5c5e5a298670b02e1ba700eb", 1549689034671, "5c5e60b5cd674a2e8d69a697");
-
-// createBeach(beach).then(() => createEntry(entry)).then(beachid => {
-//     console.log(beachid);
-//     return AddEntry(beachid, new Date().getTime(), );
-// })
-
 async function AddEntryToBeach (beachID, epochdate, newEntryID) {
     let key = `entries.${epochdate}`;
     let update = {
@@ -285,7 +214,6 @@ async function createBeach (beachData) {
     }
 }
 
-// deleteBeach("5c5e5a298670b02e1ba700eb");
 
 async function deleteBeach (beachID) {
     try {
@@ -304,4 +232,4 @@ async function deleteBeach (beachID) {
 
 
 //export our module to use in server.js
-module.exports = { beachModel, entryModel, db };
+module.exports = { deleteBeach, createBeach, createEntry, deleteEntry, AddEntryToBeach };
