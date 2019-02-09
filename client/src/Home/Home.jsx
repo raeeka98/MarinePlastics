@@ -22,23 +22,21 @@ class Home extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
-    this.url = '/surveys';
+    this.url = '/beaches';
   }
 
   // gets the entries from the server, saves them in the state
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
-        console.log(res.data);
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
         // sorts data into locations 
-        const sorted = locationSort(res.data);
+        // const sorted = locationSort(res.data);
         this.setState({
-          data: sorted,
+          data: res.data,
           rawData: res.data,
-          searchResult: sorted,
           loaded: true
         });
       })
@@ -117,27 +115,30 @@ class Home extends Component {
   render() {
 
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = this.state.searchResult.map((location, i) => {
-      let path = location.name ? location.name.replace(/\s/g, '') : 'ERR';
-      let entryString = location.entries.length > 1 ? 'Entries' : 'Entry';
-      let entryNodes = location.entries.map((entry, i) => {
-        // console.log(entry);
-        return (
-          <li key={`entry-${i}`}>
-            <Link className="uk-link-muted" to={{ pathname: `/entry/${entry._id}` }}>
-              {entry.date}
-            </Link>
-          </li>
-        );
-      });
+    let locationNodes = this.state.data.map((location, i) => {
+      console.log(location);
+      
+      let path = location._id;
+      let entryString = location.entries.size > 1 ? 'Entries' : 'Entry';
+      let entryNodes = [];
+      for (const date in location.entries) {
+          const entryID = location.entries[date];
+          entryNodes.push(
+            <li key={`entry-${entryID}`}>
+              <Link className="uk-link-muted" to={{ pathname: `/entry/${entryID}` }}>
+                {date}
+              </Link>
+            </li>
+          );
+      }
       return <LocationBar
-        key={i}
-        handleAccordionClick={this.handleAccordionClick}
-        location={location}
-        entryNodes={entryNodes}
-        path={path}
-        entryString={entryString}
-      />
+            key={i}
+            handleAccordionClick={this.handleAccordionClick}
+            location={location}
+            entryNodes={entryNodes}
+            path={path}
+            entryString={entryString}
+          />
     });
 
     let totalWeight = getTotalPounds(this.state.rawData);

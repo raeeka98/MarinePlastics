@@ -285,7 +285,7 @@ async function createBeach (beachData) {
     }
 }
 
-deleteBeach("5c5e5a298670b02e1ba700eb");
+// deleteBeach("5c5e5a298670b02e1ba700eb");
 
 async function deleteBeach (beachID) {
     try {

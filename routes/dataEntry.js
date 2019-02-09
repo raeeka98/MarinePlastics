@@ -7,6 +7,7 @@ router.route('/')
         beach.find(function(err, beaches) {
             if (err) res.send(err);
             console.log(beaches);
+            console.log(beaches[0].entries.size);
 
             //responds with a json object of our database comments.
             res.json(beaches)

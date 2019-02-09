@@ -11,7 +11,7 @@ function LocationBar({ handleAccordionClick, location, entryNodes,path,entryStri
                         <span className="survey-bar uk-accordion-title" onClick={handleAccordionClick}>
                             {location.name}
                             <span className="uk-text-muted uk-text-small uk-margin-left">
-                                {location.entries.length} {entryString}
+                                {location.entries.size} {entryString}
                             </span>
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
