@@ -15,11 +15,19 @@ router.route('/')
         let { beachID } = req.body;
     });
 
-router.route('/:surveyID')
+router.route('/:beachID')
+    .get((req, res) => {
+        beaches.getBeachData(req.params.beachID)
+            .then(surveys => {
+                res.json(surveys);
+            })
+    })
+
+router.route('/surveys/:surveyID')
     //get a specific entry
     .get((req, res) => {
         surveys.getSurvey(req.params.surveyID)
-        .then(survey=>res.json(survey));
+            .then(survey => res.json(survey));
     })
     //find a specific entry and edit it
     .put((req, res) => {

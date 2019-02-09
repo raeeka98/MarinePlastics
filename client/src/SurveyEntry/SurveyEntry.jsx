@@ -17,7 +17,7 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    axios.get(`/beaches/${this.state.surveyID}`)
+    axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
         this.setState({ surveyData: res.data });
       })

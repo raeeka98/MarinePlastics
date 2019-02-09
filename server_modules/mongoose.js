@@ -244,7 +244,7 @@ async function getAllBeaches () {
 }
 
 async function getBeachData (beachID) {
-    return await beachModel.findById(beachID).populate('surveys').exec();
+    return await beachModel.findById(beachID,'surveys').populate('surveys').exec();
 }
 
 async function getSurvey (surveyID) {
@@ -254,5 +254,5 @@ async function getSurvey (surveyID) {
 //export our module to use in server.js
 module.exports = {
     beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData },
-    surveys: { deleteEntry, deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
+    surveys: {  deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
 };
