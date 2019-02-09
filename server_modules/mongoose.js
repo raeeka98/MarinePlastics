@@ -65,7 +65,7 @@ var CommentsSchema = new Schema({
     ASTotal: Number,
 }, { versionKey: false });
 
-let entrySchema = new Schema({
+let surveySchema = new Schema({
     user: {
         type: String,
         required: true
@@ -120,14 +120,14 @@ let beachSchema = new Schema({
         type: Number,
         required: true
     },
-    entries: {
+    surveys: {
         type: Map,
         of: {
             type: Schema.Types.ObjectId,
-            ref: 'Entries'
+            ref: 'Surveys'
         }
     },
-    numOfEntries: {
+    numOfSurveys: {
         type: Number,
         default: 0,
         min: 0
@@ -136,7 +136,7 @@ let beachSchema = new Schema({
 
 
 const beachModel = mongoose.model('Beaches', beachSchema);
-const entryModel = mongoose.model('Entries', entrySchema);
+const surveyModel = mongoose.model('Surveys', surveySchema);
 
 const commentModel = mongoose.model('Comment', CommentsSchema);
 
@@ -145,56 +145,55 @@ Date.prototype.toUTCDateString = function() {
     return `${this.getUTCFullYear()}-${this.getUTCMonth()+1}-${this.getUTCDate()} `;
 };
 
-async function AddEntryToBeach (beachID, epochdate, newEntryID) {
-    let key = `entries.${epochdate}`;
+
+async function deleteSurvey (beachID, epochDateOfSubmit, surveyID) {
+    let key = `surveys.${epochDateOfSubmit}`
+    let update = {
+        $unset: {
+            [key]: 1
+        },
+        $inc: { numOfSurveys: -1 }
+    };
+    try {
+        let removeFromBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
+        console.log(removeFromBeach);
+
+        let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
+        const res = await Promise.all([removeFromBeach, removedSurvey]);
+        return res;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error while deleting surveys');
+    }
+}
+
+async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
+    let survey = new surveyModel();
+    let key = `surveys.${epochDateOfSubmit}`;
     let update = {
         $set: {
-            [key]: newEntryID
+            [key]: survey._id
         },
-        $inc: { numOfEntries: 1 }
+        $inc: { numOfSurveys: 1 }
     };
+
+    for (const entryName in surveyData) {
+        const data = surveyData[entryName];
+        survey[entryName] = data;
+    }
+    try {
+        await survey.save();
+    } catch (err) {
+        console.log(err);
+        throw new Error('Error while saving');
+    }
+
     try {
         let newBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true, }).exec();
         return newBeach;
     } catch (err) {
         console.log(err);
         throw new Error('Error while saving to beach');
-    }
-}
-
-async function deleteEntry (beachID, epochdate, entryID) {
-    let key = `entries.${epochdate}`
-    let update = {
-        $unset: {
-            [key]: 1
-        },
-        $inc: { numOfEntries: -1 }
-    };
-    try {
-        let removeFromBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
-        console.log(removeFromBeach);
-
-        let removeEntry = entryModel.findByIdAndDelete(entryID).exec();
-        const res = await Promise.all([removeFromBeach, removeEntry]);
-        return res;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error while deleting entry');
-    }
-}
-
-async function createEntry (survey) {
-    let entry = new entryModel();
-    for (const entryName in survey) {
-        const data = survey[entryName];
-        entry[entryName] = data;
-    }
-    try {
-        let entryRt = await entry.save();
-        return entryRt._id;
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error while saving');
     }
 }
 
@@ -219,7 +218,7 @@ async function deleteBeach (beachID) {
     try {
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
         let entries = [...removedBeach.entries.values()];
-        await entryModel.deleteMany({ _id: { $in: entries } });
+        await surveyModel.deleteMany({ _id: { $in: entries } });
 
     } catch (err) {
         console.log(err);
@@ -227,9 +226,17 @@ async function deleteBeach (beachID) {
     }
 }
 
-
-
-
+async function getAllBeaches () {
+    return await beachModel.find().exec();
+}
+// createBeach({ name: "test beach", lat: 123, lon: 456 })
+//     .then((beachID) =>
+//         addSurveyToBeach({
+//             user: "bob",
+//             email: "test@tester.com",
+//             org: "testOrg",
+//             reason: "test reason"
+//         }, beachID, (new Date()).getTime()));
 
 //export our module to use in server.js
-module.exports = { deleteBeach, createBeach, createEntry, deleteEntry, AddEntryToBeach };
+module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach } };

@@ -1,24 +1,21 @@
-let { beachModel: beach, entryModel: entries } = require('../server_modules/mongoose');
+let { beaches, surveys } = require('../server_modules/mongoose');
 let router = require('express').Router();
 
 router.route('/')
     //get all beaches
     .get((req, res) => {
-        beach.find(function(err, beaches) {
-            if (err) res.send(err);
-            console.log(beaches);
-            console.log(beaches[0].entries.size);
-
-            //responds with a json object of our database comments.
-            res.json(beaches)
-        });
+        beaches.getAllBeaches()
+            .then(beaches => {
+                res.json(beaches);
+            })
+            .catch(err => { throw new Error(err) });
     })
     //delete a beach
     .delete((req, res) => {
         let { beachID } = req.body;
     });
 
-router.route('/:entryid')
+router.route('/:beachID/:surveyID')
     //get a specific entry
     .get((req, res) => {
         entries.findById(req.params.entryid, function(err, entry) {
