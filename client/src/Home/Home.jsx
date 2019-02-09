@@ -122,14 +122,16 @@ class Home extends Component {
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
       let entryNodes = [];
       let subDate = new Date(0);
-      
+
       for (const date in location.surveys) {
         const entryID = location.surveys[date];
         console.log(date);
         subDate.setUTCMilliseconds(date);
         entryNodes.push(
           <li key={`entry-${entryID}`}>
-            <Link className="uk-link-muted" to={{ pathname: `/${location.name.replace(' ','-')}/${entryID}` }}>
+            <Link className="uk-link-muted"
+              to={{ pathname: `/${location.name.replace(' ', '-')}/${entryID}` }}
+              >
               {subDate.toLocaleDateString()}
             </Link>
           </li>
