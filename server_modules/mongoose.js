@@ -82,6 +82,7 @@ let surveySchema = new Schema({
         type: String,
         required: true
     },
+    subDate: { type: String, required: true },
     st: String,
     slope: String,
     nroName: String,
@@ -101,7 +102,9 @@ let surveySchema = new Schema({
     ASData: {
         type: Map,
         of: newDataSchema
-    }
+    },
+    srsDataLength: { type: Number, required: true, min: 0 },
+    asDataLength: { type: Number, required: true, min: 0 }
 }, { versionKey: false })
 
 
@@ -146,6 +149,9 @@ Date.prototype.toUTCDateString = function() {
 };
 
 
+// --------------database helpers-------------------
+
+
 async function deleteSurvey (beachID, epochDateOfSubmit, surveyID) {
     let key = `surveys.${epochDateOfSubmit}`
     let update = {
@@ -165,6 +171,13 @@ async function deleteSurvey (beachID, epochDateOfSubmit, surveyID) {
         console.log(error);
         throw new Error('Error while deleting surveys');
     }
+}
+
+async function updateSurvey (surveyID, updatedSurvey) {
+    let update = {
+        $set: { updatedSurvey }
+    }
+    return await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
 }
 
 async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
@@ -230,17 +243,13 @@ async function getAllBeaches () {
     return await beachModel.find().exec();
 }
 
-async function getSurvey(surveyID) {
+async function getBeachData (beachID) {
+    return await beachModel.findById(beachID).populate('surveys').exec();
+}
+
+async function getSurvey (surveyID) {
     return await surveyModel.findById(surveyID).exec();
 }
-// createBeach({ name: "test beach", lat: 123, lon: 456 })
-//     .then((beachID) =>
-//         addSurveyToBeach({
-//             user: "bob",
-//             email: "test@tester.com",
-//             org: "testOrg",
-//             reason: "test reason"
-//         }, beachID, (new Date()).getTime()));
 
 //export our module to use in server.js
-module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach,getSurvey } };
+module.exports = { beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData }, surveys: { deleteEntry: deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey } };
