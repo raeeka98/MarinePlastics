@@ -2,7 +2,7 @@
 // All of the routing/handling of different pages happens here
 
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Auth from './Auth';
 
@@ -43,23 +43,25 @@ class App extends Component {
             <div>
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
-              <Route exact path='/' render={ () => (<Landing auth={ this.auth } />) } />
-              <Route exact path='/home' component={ Home } />
-              <Route path='/survey' component={ Steps } />
-              <Route path='/:beachName/:surveyID' component={ SurveyEntry } />
-              <Route path='/location/:id' component={ LocationPage } />
-              {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
-              <Route
-                path='/profile'
-                render={() => (
-                  !this.auth.isAuthenticated()
-                  ? <Redirect to='/' />
-                  : <UserProfile auth={ this.auth } />
-                )}
-              />
-              <Route exact path='/protocol' component={ Protocol } />
-              <Route path='/map' component={ Map } />
-              <Route path='/chooseform' component={ ChooseForm } />
+              <Switch>
+                <Route exact path='/' render={() => (<Landing auth={this.auth} />)} />
+                <Route exact path='/home' component={Home} />
+                <Route path='/survey' component={Steps} />
+                <Route path='/location/:beachID' component={LocationPage} />
+                <Route path='/:beachName/:surveyID' component={SurveyEntry} />
+                {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
+                <Route
+                  path='/profile'
+                  render={() => (
+                    !this.auth.isAuthenticated()
+                      ? <Redirect to='/' />
+                      : <UserProfile auth={this.auth} />
+                  )}
+                />
+                <Route exact path='/protocol' component={Protocol} />
+                <Route path='/map' component={Map} />
+                <Route path='/chooseform' component={ChooseForm} />
+              </Switch>
             </div>
             <Footer />
           </div>
