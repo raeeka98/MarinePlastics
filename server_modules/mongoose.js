@@ -85,8 +85,6 @@ let surveySchema = new Schema({
     subDate: { type: String, required: true },
     st: String,
     slope: String,
-    nroName: String,
-    nroDist: { type: Number, min: 0 },
     aspect: String,
     lastTide: tideSchema,
     nextTide: tideSchema,
@@ -123,6 +121,8 @@ let beachSchema = new Schema({
         type: Number,
         required: true
     },
+    nroName: String,
+    nroDist: { type: Number, min: 0 },
     surveys: {
         type: Map,
         of: {
@@ -134,6 +134,20 @@ let beachSchema = new Schema({
         type: Number,
         default: 0,
         min: 0
+    },
+    statistics: {
+        ASDateTotals: {
+            type: Map,
+            of: Number
+        },
+        SRSDateTotals: {
+            type: Map,
+            of: Number
+        },
+        typesOfDebrisFound: {
+            type: Map,
+            of: Number
+        }
     }
 }, { versionKey: false });
 
@@ -244,7 +258,7 @@ async function getAllBeaches () {
 }
 
 async function getBeachData (beachID) {
-    return await beachModel.findById(beachID,'surveys').populate('surveys').exec();
+    return await beachModel.findById(beachID, 'surveys').populate('surveys').exec();
 }
 
 async function getSurvey (surveyID) {
@@ -254,5 +268,5 @@ async function getSurvey (surveyID) {
 //export our module to use in server.js
 module.exports = {
     beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData },
-    surveys: {  deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
+    surveys: { deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
 };
