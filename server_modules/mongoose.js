@@ -177,137 +177,145 @@ Date.prototype.toUTCDateString = function() {
 
 /*--------------database helpers-------------------*/
 
+let surveys = {
+    remove: async function(beachID, surveyID, epochDateOfSubmit) {
+        let key = `surveys.${epochDateOfSubmit}`
+        let update = {
+            $unset: {
+                [key]: 1
+            },
+            $inc: { numOfSurveys: -1 }
+        };
+        try {
+            let removeFromBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
+            console.log(removeFromBeach);
 
-async function deleteSurvey (beachID, surveyID, epochDateOfSubmit) {
-    let key = `surveys.${epochDateOfSubmit}`
-    let update = {
-        $unset: {
-            [key]: 1
-        },
-        $inc: { numOfSurveys: -1 }
-    };
-    try {
-        let removeFromBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
-        console.log(removeFromBeach);
+            let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
+            const res = await Promise.all([removeFromBeach, removedSurvey]);
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Error while deleting surveys: ' + err.message);
+        }
+    },
 
-        let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
-        const res = await Promise.all([removeFromBeach, removedSurvey]);
-        return res;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error while deleting surveys: ' + err.message);
+    update: async function(surveyID, beachID, updatedSurvey) {
+        let update = {
+            $set: { updatedSurvey }
+        };
+        let newSurvey;
+        try {
+            newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
+
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error while updating survey: ' + err.message);
+        }
+
+    },
+    addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
+        let survey = new surveyModel();
+        let key = `surveys.${epochDateOfSubmit}`;
+        let update = {
+            $set: {
+                [key]: survey._id
+            },
+            $inc: { numOfSurveys: 1 }
+        };
+
+        for (const entryName in surveyData) {
+            const data = surveyData[entryName];
+            survey[entryName] = data;
+        }
+        try {
+            await survey.save();
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error while saving survey: ' + err.message);
+        }
+
+        try {
+            let newBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true, }).exec();
+            return newBeach;
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error while saving to beach: ' + err.message);
+        }
+    },
+    get: async function(surveyID) {
+        return await surveyModel.findById(surveyID).exec();
     }
+
 }
 
-async function updateSurvey (surveyID, beachID, updatedSurvey) {
-    let update = {
-        $set: { updatedSurvey }
-    };
-    let newSurvey;
-    try {
-        newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
-
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error while updating survey: ' + err.message);
-    }
-
-}
-
-async function updateBeachStats (beachID, diffPayload) {
-    let update = {};
-    update.$inc = {
-        stats: {
-            [`ASTotals.${diffPayload.date}`]: diffPayload.ASDiff,
-            [`SRSTotals.${diffPayload.date}`]: diffPayload.SRSDiff,
-            typesOfDebrisFound: {
-                ...diffPayload.newDebris
+let beaches = {
+    updateStats: async function(beachID, diffPayload) {
+        let update = {};
+        update.$inc = {
+            stats: {
+                [`ASTotals.${diffPayload.date}`]: diffPayload.ASDiff,
+                [`SRSTotals.${diffPayload.date}`]: diffPayload.SRSDiff,
+                typesOfDebrisFound: {
+                    ...diffPayload.newDebris
+                }
             }
         }
-    }
-    try {
-        let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { upsert: true, new: true }).exect();
-        return updatedStats;
-    } catch (err) {
-        console.log(err);
-        throw new Error(`Error while updating Stats of beachID ${beachID}: ${err.message}`);
-    }
+        try {
+            let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { upsert: true, new: true }).exect();
+            return updatedStats;
+        } catch (err) {
+            console.log(err);
+            throw new Error(`Error while updating Stats of beachID ${beachID}: ${err.message}`);
+        }
 
-}
+    },
 
-async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
-    let survey = new surveyModel();
-    let key = `surveys.${epochDateOfSubmit}`;
-    let update = {
-        $set: {
-            [key]: survey._id
-        },
-        $inc: { numOfSurveys: 1 }
-    };
 
-    for (const entryName in surveyData) {
-        const data = surveyData[entryName];
-        survey[entryName] = data;
-    }
-    try {
-        await survey.save();
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error while saving survey: ' + err.message);
-    }
 
-    try {
-        let newBeach = await beachModel.findByIdAndUpdate(beachID, update, { new: true, }).exec();
-        return newBeach;
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error while saving to beach: ' + err.message);
-    }
-}
+    create: async function(beachData) {
+        let location = new beachModel();
+        for (const key in beachData) {
+            const data = beachData[key];
+            location[key] = data;
+        }
+        try {
+            let beachRt = await location.save();
+            return beachRt._id;
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error in saving beach: ' + err.message);
 
-async function createBeach (beachData) {
-    let location = new beachModel();
-    for (const key in beachData) {
-        const data = beachData[key];
-        location[key] = data;
-    }
-    try {
-        let beachRt = await location.save();
-        return beachRt._id;
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error in saving beach: ' + err.message);
+        }
+    },
 
+
+    delete: async function(beachID) {
+        try {
+            let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
+            let entries = [...removedBeach.entries.values()];
+            await surveyModel.deleteMany({ _id: { $in: entries } });
+
+        } catch (err) {
+            console.log(err);
+            throw new Error('Error in deleting beach: ' + err.message);
+        }
+    },
+
+    getAll: async function() {
+        return await beachModel.find().exec();
+    },
+
+    getSurveys: async function(beachID) {
+        return await beachModel.findById(beachID, 'surveys').populate('surveys').exec();
     }
 }
 
 
-async function deleteBeach (beachID) {
-    try {
-        let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
-        let entries = [...removedBeach.entries.values()];
-        await surveyModel.deleteMany({ _id: { $in: entries } });
 
-    } catch (err) {
-        console.log(err);
-        throw new Error('Error in deleting beach: ' + err.message);
-    }
-}
 
-async function getAllBeaches () {
-    return await beachModel.find().exec();
-}
-
-async function getBeachData (beachID) {
-    return await beachModel.findById(beachID, 'surveys').populate('surveys').exec();
-}
-
-async function getSurvey (surveyID) {
-    return await surveyModel.findById(surveyID).exec();
-}
 
 //export our module to use in server.js
 module.exports = {
-    beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData, updateBeachStats },
-    surveys: { deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
+    beaches,
+    surveys
 };
