@@ -36,8 +36,8 @@ export default class Auth {
         this.setSession(authResult);
         window.location.replace('/');
       } else if (err) {
-        window.location.replace('/');
         console.log(err);
+        alert(err.errorDescription);
       }
     });
   }
@@ -80,6 +80,7 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
+    // window.location.replace('https://marine-plastics-coi.auth0.com/v2/logout'); /* Logout of auth0 */
     window.location.replace('/');
   }
 
