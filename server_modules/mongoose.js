@@ -105,6 +105,25 @@ let surveySchema = new Schema({
     asDataLength: { type: Number, required: true, min: 0 }
 }, { versionKey: false })
 
+let statisticsSchema = new Schema({
+    ASTotals: {
+        type: Map,
+        of: Number
+    },
+    SRSTotals: {
+        type: Map,
+        of: Number
+    },
+    typesOfDebrisFound: {
+        type: Map,
+        of: Number
+    },
+    lastUpdated: {
+        type: Number,
+        default: null
+    }
+}, { versionKey: false, _id: false });
+
 
 let beachSchema = new Schema({
     name: {
@@ -144,26 +163,9 @@ let beachSchema = new Schema({
     stats: statisticsSchema
 }, { versionKey: false });
 
-let statisticsSchema = new Schema({
-    ASTotals: {
-        type: Map,
-        of: Number
-    },
-    SRSTotals: {
-        type: Map,
-        of: Number
-    },
-    typesOfDebrisFound: {
-        type: Map,
-        of: Number
-    },
-    lastUpdated: {
-        type: Number,
-        default: null
-    }
-}, { versionKey: false, _id: false });
 
-const beachStats = mongoose.model('BeachStats', statisticsSchema)
+
+
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 
