@@ -115,11 +115,15 @@ let beachSchema = new Schema({
     },
     lat: {
         type: Number,
-        required: true
+        required: true,
+        min: -85,
+        max: 85
     },
     lon: {
         type: Number,
-        required: true
+        required: true,
+        min: -180,
+        max: 180
     },
     nroName: String,
     nroDist: { type: Number, min: 0 },
@@ -132,26 +136,34 @@ let beachSchema = new Schema({
     },
     numOfSurveys: {
         type: Number,
-        default: 0,
+        default: function() {
+            return this.surveys.size();
+        },
         min: 0
     },
-    statistics: {
-        ASDateTotals: {
-            type: Map,
-            of: Number
-        },
-        SRSDateTotals: {
-            type: Map,
-            of: Number
-        },
-        typesOfDebrisFound: {
-            type: Map,
-            of: Number
-        }
-    }
+    stats: statisticsSchema
 }, { versionKey: false });
 
+let statisticsSchema = new Schema({
+    ASTotals: {
+        type: Map,
+        of: Number
+    },
+    SRSTotals: {
+        type: Map,
+        of: Number
+    },
+    typesOfDebrisFound: {
+        type: Map,
+        of: Number
+    },
+    lastUpdated: {
+        type: Number,
+        default: null
+    }
+}, { versionKey: false, _id: false });
 
+const beachStats = mongoose.model('BeachStats', statisticsSchema)
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 
@@ -163,10 +175,10 @@ Date.prototype.toUTCDateString = function() {
 };
 
 
-// --------------database helpers-------------------
+/*--------------database helpers-------------------*/
 
 
-async function deleteSurvey (beachID, epochDateOfSubmit, surveyID) {
+async function deleteSurvey (beachID, surveyID, epochDateOfSubmit) {
     let key = `surveys.${epochDateOfSubmit}`
     let update = {
         $unset: {
@@ -183,15 +195,44 @@ async function deleteSurvey (beachID, epochDateOfSubmit, surveyID) {
         return res;
     } catch (error) {
         console.log(error);
-        throw new Error('Error while deleting surveys');
+        throw new Error('Error while deleting surveys: ' + err.message);
     }
 }
 
-async function updateSurvey (surveyID, updatedSurvey) {
+async function updateSurvey (surveyID, beachID, updatedSurvey) {
     let update = {
         $set: { updatedSurvey }
+    };
+    let newSurvey;
+    try {
+        newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
+
+    } catch (err) {
+        console.log(err);
+        throw new Error('Error while updating survey: ' + err.message);
     }
-    return await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
+
+}
+
+async function updateBeachStats (beachID, diffPayload) {
+    let update = {};
+    update.$inc = {
+        stats: {
+            [`ASTotals.${diffPayload.date}`]: diffPayload.ASDiff,
+            [`SRSTotals.${diffPayload.date}`]: diffPayload.SRSDiff,
+            typesOfDebrisFound: {
+                ...diffPayload.newDebris
+            }
+        }
+    }
+    try {
+        let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { upsert: true, new: true }).exect();
+        return updatedStats;
+    } catch (err) {
+        console.log(err);
+        throw new Error(`Error while updating Stats of beachID ${beachID}: ${err.message}`);
+    }
+
 }
 
 async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
@@ -212,7 +253,7 @@ async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
         await survey.save();
     } catch (err) {
         console.log(err);
-        throw new Error('Error while saving');
+        throw new Error('Error while saving survey: ' + err.message);
     }
 
     try {
@@ -220,7 +261,7 @@ async function addSurveyToBeach (surveyData, beachID, epochDateOfSubmit) {
         return newBeach;
     } catch (err) {
         console.log(err);
-        throw new Error('Error while saving to beach');
+        throw new Error('Error while saving to beach: ' + err.message);
     }
 }
 
@@ -235,7 +276,7 @@ async function createBeach (beachData) {
         return beachRt._id;
     } catch (err) {
         console.log(err);
-        throw new Error('Error in saving beach');
+        throw new Error('Error in saving beach: ' + err.message);
 
     }
 }
@@ -249,7 +290,7 @@ async function deleteBeach (beachID) {
 
     } catch (err) {
         console.log(err);
-        throw new Error('Error in deleting beach');
+        throw new Error('Error in deleting beach: ' + err.message);
     }
 }
 
@@ -267,6 +308,6 @@ async function getSurvey (surveyID) {
 
 //export our module to use in server.js
 module.exports = {
-    beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData },
+    beaches: { deleteBeach, createBeach, getAllBeaches, getBeachData, updateBeachStats },
     surveys: { deleteSurvey, addSurveyToBeach, getSurvey, updateSurvey }
 };
