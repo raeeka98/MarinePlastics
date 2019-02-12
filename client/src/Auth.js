@@ -36,7 +36,7 @@ export default class Auth {
         this.setSession(authResult);
         window.location.replace('/');
       } else if (err) {
-        fn(err.errorDescription)
+        fn(err.errorDescription);
       }
     });
   }
