@@ -17,6 +17,7 @@ class Map extends Component {
     axios.get(this.url)
       .then(res => {
         this.setState({ data: res.data });
+        console.log(res.data);
       })
   }
 
@@ -42,13 +43,14 @@ class Map extends Component {
 
 
    render(){
-    const GoogleMapsMarkers = this.state.data.map(comment => (
-      <CustomMarker
-        key={comment.id}
-        lat={comment.lat}
-        lng={comment.lon}
-        text={comment.beach}
-      />
+    const GoogleMapsMarkers = this.state.data.map((comment) => (
+      (comment.lat && comment.lon)? 
+        <CustomMarker
+          key={comment.id}
+          lat={comment.lat}
+          lng={comment.lon}
+          text={comment.beach}
+        /> : <p></p>
     ));
     return (
       <div style={{height: '500px', width: '100%'}}>
