@@ -185,6 +185,16 @@ Date.prototype.toUTCDateString = function() {
 /*--------------database helpers-------------------*/
 
 let surveys = {
+    find: async function(surveyID) {
+        let survey;
+        try {
+            survey = await surveys.findById(surveyID).exec();
+        } catch (err) {
+            console.error(err);
+            throw new Error(`Error while finding survey ${surveyID} :  ${err.message}`);
+        }
+
+    },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let key = `surveys.${epochDateOfSubmit}`
         let update = {
@@ -206,14 +216,14 @@ let surveys = {
         }
     },
 
-    update: async function(surveyID, beachID, updatedSurvey) {
+    update: async function(surveyID, updatedSurvey, oldSurvey) {
         let update = {
             $set: { updatedSurvey }
         };
         let newSurvey;
         try {
             newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
-
+            return newSurvey;
         } catch (err) {
             console.log(err);
             throw new Error('Error while updating survey: ' + err.message);
@@ -277,8 +287,6 @@ let beaches = {
 
     },
 
-
-
     create: async function(beachData) {
         let location = new beachModel();
         for (const key in beachData) {
@@ -295,8 +303,16 @@ let beaches = {
         }
     },
 
-
-    delete: async function(beachID) {
+    getStats: async function(beachID) {
+        let stats;
+        try {
+            stats = await beachModel.findById(beachID, "stats").exec();
+        } catch (error) {
+            console.error(error);
+            throw new Error(`Error in obtaining stats beachID ${beachID}: ${error.message}`);
+        }
+    },
+    remove: async function(beachID) {
         try {
             let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
             let entries = [...removedBeach.entries.values()];
@@ -309,10 +325,13 @@ let beaches = {
     },
 
     getAll: async function() {
-        return await beachModel.find().exec();
+        return await beachModel.find({}, "-stats").exec();
     },
 
     getSurveys: async function(beachID) {
+        return await beachModel.findById(beachID, 'surveys').populate('surveys').exec();
+    },
+    getSurveysInRange: async function(beachID, rangeS, rangeE) {
         return await beachModel.findById(beachID, 'surveys').populate('surveys').exec();
     }
 }
