@@ -110,18 +110,9 @@ let surveySchema = new Schema({
 }, { versionKey: false })
 
 let statisticsSchema = new Schema({
-    ASTotals: {
-        type: Map,
-        of: Number
-    },
-    SRSTotals: {
-        type: Map,
-        of: Number
-    },
-    typesOfDebrisFound: {
-        type: Map,
-        of: Number
-    },
+    ASTotals: [],
+    SRSTotals:[],
+    typesOfDebrisFound:[],
     lastUpdated: {
         type: Number,
         default: null
@@ -273,7 +264,6 @@ let surveys = {
                 updatePayload.newDebris[trash] = trashTotal;
             }
         }
-        console.log(updatePayload);
 
         try {
             await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
@@ -294,18 +284,24 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
-        let update = {};
-        update.$inc = {
-            stats: {
+        console.log(updatePayload);
+
+        let update = {
+            $inc: {
                 //epoch date
-                [`ASTotals.${updatePayload.date}`]: updatePayload.ASDiff,
-                [`SRSTotals.${updatePayload.date}`]: updatePayload.SRSDiff,
-                typesOfDebrisFound: {
+                [`stats.ASTotals.${updatePayload.date}`]: updatePayload.ASDiff,
+                [`stats.SRSTotals.${updatePayload.date}`]: updatePayload.SRSDiff,
+                "stats.typesOfDebrisFound": {
                     ...updatePayload.newDebris
                 }
+            },
+            $set: {
+                lastUpdated: new Date().getTime()
             }
-        }
+        };
         console.log(update);
+        console.log(update.$inc);
+
 
         try {
             let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { upsert: true, new: true }).exec();
