@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
+//We're gonna have to add an on click event for the custom marker, and have a route that will take 
+//the user to the page
 const CustomMarker = ({ text }) => <div className="custom-marker"><p>{ text }</p></div>;
 
 class Map extends Component {
