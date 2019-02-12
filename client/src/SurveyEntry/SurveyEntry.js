@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Home from '../Home/Home'
 import Auth from '../Auth';
 import axios from 'axios';
@@ -14,6 +14,7 @@ class SurveyEntry extends Component {
       entryID: ""
     };
     this.getComment = this.getComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
     this.auth = new Auth();
     this.url = '/surveys';
   }
@@ -37,8 +38,10 @@ class SurveyEntry extends Component {
   }
 
   deleteComment() {
-      axios.delete(`${this.url}/${this.state.entryID}`)
-      .then(res => <Route exact path='/home' component={ Home } /> )
+      axios.delete(`${this.url}/${this.state.entryID}`, {})
+      .then(res => {
+        console.log(this.state.entryID)
+      })
       .catch(err => {
         console.log(err);
       })
@@ -231,6 +234,7 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
+          <button className="uk-button uk-button-danger" onClick={this.deleteComment}>Delete Entry</button>
       </div>
     );
   }
