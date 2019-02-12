@@ -32,6 +32,7 @@ class App extends Component {
     // checks if the user is logged in or not (see Auth.js for the function)
     this.auth.handleAuthentication(error=>{
       this.setState({error});
+    });
     
   }
 
