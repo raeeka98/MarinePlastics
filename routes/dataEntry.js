@@ -14,7 +14,7 @@ router.route('/')
         var dataSheet = new Comment();
         for (const entry in newDataSheet) {
             const data = newDataSheet[entry];
-            comment[entry] = data;
+            dataSheet[entry] = data;
         }
         dataSheet.save(function(err) {
             if (err)

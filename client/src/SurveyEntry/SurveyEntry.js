@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Home from '../Home/Home'
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -7,7 +9,10 @@ import SurveyTableRow from './SurveyTableRow';
 class SurveyEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = { comment: {} };
+    this.state = {
+      comment: {},
+      entryID: ""
+    };
     this.getComment = this.getComment.bind(this);
     this.auth = new Auth();
     this.url = '/surveys';
@@ -21,11 +26,22 @@ class SurveyEntry extends Component {
     // call DB to get entry with the same id
     axios.get(`${this.url}/${entryID}`)
     .then(res => {
-      this.setState({ comment: res.data.comment });
+      this.setState({
+        comment: res.data.comment,
+        entryID: entryID
+      });
     })
     .catch(err => {
       console.log(err);
     });
+  }
+
+  deleteComment() {
+      axios.delete(`${this.url}/${this.state.entryID}`)
+      .then(res => <Route exact path='/home' component={ Home } /> )
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   // once the component is on the page, gets the comment from the server
@@ -165,7 +181,7 @@ class SurveyEntry extends Component {
                 {
                   this.state.comment.lastTide ?
                   (<div>
-                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p> 
+                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p>
                     <p><strong>Time:</strong> { this.state.comment.lastTide.time }</p>
                     <p><strong>Height:</strong> { this.state.comment.lastTide.height }</p>
                   </div>): null
@@ -176,7 +192,7 @@ class SurveyEntry extends Component {
                 {
                   this.state.comment.nextTide ?
                   (<div>
-                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p> 
+                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p>
                     <p><strong>Time:</strong> { this.state.comment.nextTide.time }</p>
                     <p><strong>Height:</strong> { this.state.comment.nextTide.height }</p>
                   </div>): null
