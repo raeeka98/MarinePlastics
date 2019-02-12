@@ -43,7 +43,7 @@ router.route('/surveys/:surveyID')
     //delete an entry
     .delete(asyncHandler(async (req, res) => {
         let { bID, dateOfSub } = req.body;
-        let res = await surveys.remove(bID, req.params.surveyID, dateOfSub);
+        let result = await surveys.remove(bID, req.params.surveyID, dateOfSub);
         res.json({ message: 'Comment has been deleted' })
     }));
 
