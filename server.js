@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //Use our router configuration when we call /api
 app.use('/surveys', dataEntryRouter);
 
-app.get('/', (req, res) => res.render('pages/index'));
+app.get('/', (req, res) => res.render('pages/index')); 
 //starts the server and listens for requests
 app.listen(port, function() {
     console.log(`api running on port ${port}`);

@@ -55,6 +55,7 @@ var CommentsSchema = new Schema({
     ASTotal: Number,
 }, { versionKey: false });
 
+
 const commentModel = mongoose.model('Comment', CommentsSchema);
 
 //export our module to use in server.js

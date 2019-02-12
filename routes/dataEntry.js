@@ -1,6 +1,6 @@
 const { commentModel: Comment } = require('../server_modules/mongoose');
 let router = require('express').Router();
-
+//route
 router.route('/')
     .get((req, res) => {
         Comment.find(function(err, comments) {
