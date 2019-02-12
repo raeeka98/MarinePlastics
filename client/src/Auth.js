@@ -30,14 +30,13 @@ export default class Auth {
     // window.location.replace('/home');
   }
 
-  handleAuthentication() {
+  handleAuthentication(fn) {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         window.location.replace('/');
       } else if (err) {
-        console.log(err);
-        alert(err.errorDescription);
+        fn(err.errorDescription)
       }
     });
   }
@@ -80,8 +79,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    // window.location.replace('https://marine-plastics-coi.auth0.com/v2/logout'); /* Logout of auth0 */
-    window.location.replace('/');
+    let base = encodeURIComponent(process.env.REACT_APP_AUTH_REDIRECT_URI);
+    window.location.replace('https://' + process.env.REACT_APP_AUTH_DOMAIN + '/v2/logout?returnTo=' + 
+      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logo ut of auth0 */
   }
 
   isAuthenticated() {
