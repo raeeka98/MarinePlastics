@@ -2,7 +2,12 @@
 //import dependency
 var mongoose = require('mongoose');
 const mongoDB = process.env.DB_URL;
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, {
+    useNewUrlParser: true,
+    autoReconnect: true,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 5000
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 let Schema = mongoose.Schema;
