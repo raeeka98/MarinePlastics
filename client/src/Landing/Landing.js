@@ -38,6 +38,10 @@ export function LandingPage(props) {
           </button>
         </div>
       </div>
+      { props.isAuth ? <div className="uk-alert-primary" style={{borderRadius:"10px",padding:"5px",display:"inline-block", height:"content",width:"content",position:"absolute",top:"20%",left:"50%",transform:"translateX(-50%)"}}>
+          {props.isAuth}
+          <button style={{margin:"5px"}} onClick={e=>{props.disableError()}}>OK</button>
+      </div> : null } 
     </div>
   );
 }
