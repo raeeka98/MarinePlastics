@@ -46,29 +46,10 @@ class App extends Component {
             {/* every page has header/footer, only content within div changes*/}
             <Header auth={this.auth} />
             <div>
-              {/* routes: when the user goes to a specified url, loads corresponding component */}
-              {/* if passing information (i.e. authentication) to the component, need to use render argument */}
-              <Route exact path='/' render={ () => (<Landing auth={ this.auth } isAuth={this.state.error} disableError={()=>{this.setState({error: null})}} />) } />
-              <Route exact path='/home' component={ Home } />
-              <Route path='/survey' component={ Steps } />
-              <Route path='/entry/:entryKey' component={ SurveyEntry } />
-              <Route path='/location/:id' component={ LocationPage } />
-              {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
-              <Route
-                path='/profile'
-                render={() => (
-                  !this.auth.isAuthenticated()
-                  ? <Redirect to='/' />
-                  : <UserProfile auth={ this.auth } />
-                )}
-              />
-              <Route exact path='/protocol' component={ Protocol } />
-              <Route path='/map' component={ Map } />
-              <Route path='/chooseform' component={ ChooseForm } />
               <Switch>
                 {/* routes: when the user goes to a specified url, loads corresponding component */}
                 {/* if passing information (i.e. authentication) to the component, need to use render argument */}
-                <Route exact path='/' render={ () => (<Landing auth={ this.auth } />) } />
+                <Route exact path='/' render={ () => (<Landing auth={ this.auth } isAuth={this.state.error} disableError={()=>{this.setState({error: null})}} />) } />
                 <Route exact path='/home' component={ Home } />
                 <Route path='/survey' component={ Steps } />
                 <Route path='/entry/:entryKey' component={ SurveyEntry } />
