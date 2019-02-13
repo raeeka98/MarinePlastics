@@ -24,10 +24,7 @@ export function ProtocolPage() {
       <p>
         Download and read the Training Field Guide and the field form linked below to get started.
       </p>
-      <button onClick={()=>{Axios.get('/pdfs/1.1.pdf')}}>
-        View Our Training Field Guide </button>
-      <br/>
-      <a href="https://www.scribd.com/document/390707217/COIDataSheet-June18" target="_blank">View Our Data Sheet </a>
+      <a href="pdfs/1.1.pdf" download>View Our Data Sheet </a>
     </div>
   );
 }
