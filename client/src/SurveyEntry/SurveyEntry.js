@@ -40,8 +40,9 @@ class SurveyEntry extends Component {
   deleteComment() {
       axios.delete(`${this.url}/${this.state.entryID}`, {})
       .then(res => {
-        console.log(this.state.entryID)
-        
+        console.log(res)
+        window.location.replace('/');
+
       })
       .catch(err => {
         console.log(err);
