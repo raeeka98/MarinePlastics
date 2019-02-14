@@ -11,10 +11,12 @@ class SurveyEntry extends Component {
     this.state = {
       comment: {},
       entryID: "",
-      deletedComment: false
+      deletedComment: false,
+      editingComment: false
     };
     this.getComment = this.getComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
+    this.editComment = this.editComment.bind(this);
     this.auth = new Auth();
     this.url = '/surveys';
   }
@@ -35,6 +37,12 @@ class SurveyEntry extends Component {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  editComment() {
+      this.setState({
+          editingComment : true
+      })
   }
 
   deleteComment() {
@@ -63,6 +71,8 @@ class SurveyEntry extends Component {
     if(this.state.deletedComment){
         return <Redirect to="/home" />
     }
+
+    if(this.state.editingComment) return <Redirect to="/survey" />
 
     // if there is data (which is once the component mounts)
     if (this.state.comment.SRSData) {
@@ -114,12 +124,23 @@ class SurveyEntry extends Component {
 
     return (
       <div>
-        <h2 className="uk-text-primary uk-heading-primary">
-          { this.state.comment.beach }
-          <span className="uk-text-muted uk-text-large uk-margin-left">
-            { this.state.comment.date }
-          </span>
-        </h2>
+
+        <div class="uk-grid uk-grid-match">
+          <div>
+            <h2 className="uk-text-primary uk-heading-primary">
+              { this.state.comment.beach }
+            </h2>
+          </div>
+          <div>
+            <span className="uk-text-muted uk-text-large uk-margin-left">
+              { this.state.comment.date }
+            </span>
+          </div>
+          <div>
+            <button className="uk-button uk-button-default" onClick={this.editComment}>Edit Entry</button>
+          </div>
+        </div>
+
         <div className="uk-grid uk-grid-large uk-grid-match uk-child-width-1-2">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
