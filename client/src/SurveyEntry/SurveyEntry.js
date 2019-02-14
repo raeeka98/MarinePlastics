@@ -54,7 +54,7 @@ class SurveyEntry extends Component {
 
       axios.delete(`${this.url}/${entryID}`)
       .then(res => {
-        console.log(res.data)
+        console.log(res)
         this.setState({
             deletedComment : true
         })
