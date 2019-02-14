@@ -61,11 +61,11 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { profile, data } = this.state;
+    const { profile } = this.state;
     return (
       <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
         <div className="uk-card-header uk-align-center">
-          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } role="presentation" />
+          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } alt="" />
           <h3 className="uk-card-title uk-margin-remove-bottom uk-text-center">{ profile.name }</h3>
         </div>
         <div className="uk-card-body">
