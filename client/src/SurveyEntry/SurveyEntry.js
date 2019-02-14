@@ -46,9 +46,15 @@ class SurveyEntry extends Component {
   }
 
   deleteComment() {
-      axios.delete(`${this.url}/${this.state.entryID}`, {})
+
+    // get the id of the comment by splitting the current path (which is stored in the props) by '/'
+    let splitURL = (this.props.location.pathname).split('/');
+    // the id is the last part of the path, so pop the last element of the splitURL array
+    let entryID = splitURL.pop();
+
+      axios.delete(`${this.url}/${entryID}`)
       .then(res => {
-        console.log(res)
+        console.log(res.data)
         this.setState({
             deletedComment : true
         })
@@ -123,7 +129,7 @@ class SurveyEntry extends Component {
     return (
       <div>
 
-        <div class="uk-grid uk-grid-match">
+        <div className="uk-grid uk-grid-match">
           <div>
             <h2 className="uk-text-primary uk-heading-primary">
               { this.state.comment.beach }
