@@ -1,4 +1,4 @@
-const { commentModel: Comment } = require('../server_modules/mongoose');
+const { commentModel: Comment, db: db } = require('../server_modules/mongoose');
 let router = require('express').Router();
 //route
 router.route('/')
@@ -14,7 +14,7 @@ router.route('/')
         var dataSheet = new Comment();
         for (const entry in newDataSheet) {
             const data = newDataSheet[entry];
-            comment[entry] = data;
+            dataSheet[entry] = data;
         }
         dataSheet.save(function(err) {
             if (err)
@@ -49,7 +49,7 @@ router.route('/:id')
         });
     })
     .delete((req, res) => {
-        Comment.remove({ _id: req.params.comment_id }, function(err, comment) {
+        Comment.deleteOne({ _id: req.params.comment_id }, function(err, comment) {
             if (err)
                 res.send(err);
             res.json({ message: 'Comment has been deleted' })

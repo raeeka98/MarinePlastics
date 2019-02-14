@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -7,8 +8,15 @@ import SurveyTableRow from './SurveyTableRow';
 class SurveyEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = { comment: {} };
+    this.state = {
+      comment: {},
+      entryID: "",
+      deletedComment: false,
+      editingComment: false
+    };
     this.getComment = this.getComment.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
+    this.editComment = this.editComment.bind(this);
     this.auth = new Auth();
     this.url = '/surveys';
   }
@@ -21,11 +29,39 @@ class SurveyEntry extends Component {
     // call DB to get entry with the same id
     axios.get(`${this.url}/${entryID}`)
     .then(res => {
-      this.setState({ comment: res.data.comment });
+      this.setState({
+        comment: res.data.comment,
+        entryID: entryID
+      });
     })
     .catch(err => {
       console.log(err);
     });
+  }
+
+  editComment() {
+      this.setState({
+          editingComment : true
+      })
+  }
+
+  deleteComment() {
+
+    // get the id of the comment by splitting the current path (which is stored in the props) by '/'
+    let splitURL = (this.props.location.pathname).split('/');
+    // the id is the last part of the path, so pop the last element of the splitURL array
+    let entryID = splitURL.pop();
+
+      axios.delete(`${this.url}/${entryID}`)
+      .then(res => {
+        console.log(res)
+        this.setState({
+            deletedComment : true
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   // once the component is on the page, gets the comment from the server
@@ -37,6 +73,10 @@ class SurveyEntry extends Component {
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = null;
     let ASRows = null;
+
+    // redirect if data change actions are being taken
+    if(this.state.deletedComment) return <Redirect to="/home" />
+    if(this.state.editingComment) return <Redirect to="/survey" />
 
     // if there is data (which is once the component mounts)
     if (this.state.comment.SRSData) {
@@ -88,12 +128,23 @@ class SurveyEntry extends Component {
 
     return (
       <div>
-        <h2 className="uk-text-primary uk-heading-primary">
-          { this.state.comment.beach }
-          <span className="uk-text-muted uk-text-large uk-margin-left">
-            { this.state.comment.date }
-          </span>
-        </h2>
+
+        <div className="uk-grid uk-grid-match">
+          <div>
+            <h2 className="uk-text-primary uk-heading-primary">
+              { this.state.comment.beach }
+            </h2>
+          </div>
+          <div>
+            <span className="uk-text-muted uk-text-large uk-margin-left">
+              { this.state.comment.date }
+            </span>
+          </div>
+          <div>
+            <button className="uk-button uk-button-default" onClick={this.editComment}>Edit Entry</button>
+          </div>
+        </div>
+
         <div className="uk-grid uk-grid-large uk-grid-match uk-child-width-1-2">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
@@ -165,7 +216,7 @@ class SurveyEntry extends Component {
                 {
                   this.state.comment.lastTide ?
                   (<div>
-                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p> 
+                    <p><strong>Type:</strong> { this.state.comment.lastTide.type }</p>
                     <p><strong>Time:</strong> { this.state.comment.lastTide.time }</p>
                     <p><strong>Height:</strong> { this.state.comment.lastTide.height }</p>
                   </div>): null
@@ -176,7 +227,7 @@ class SurveyEntry extends Component {
                 {
                   this.state.comment.nextTide ?
                   (<div>
-                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p> 
+                    <p><strong>Type:</strong> { this.state.comment.nextTide.type }</p>
                     <p><strong>Time:</strong> { this.state.comment.nextTide.time }</p>
                     <p><strong>Height:</strong> { this.state.comment.nextTide.height }</p>
                   </div>): null
@@ -215,6 +266,7 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
+          <button className="uk-button uk-button-danger" onClick={this.deleteComment}>Delete Entry</button>
       </div>
     );
   }
