@@ -41,6 +41,7 @@ class SurveyEntry extends Component {
       axios.delete(`${this.url}/${this.state.entryID}`, {})
       .then(res => {
         console.log(this.state.entryID)
+        
       })
       .catch(err => {
         console.log(err);
