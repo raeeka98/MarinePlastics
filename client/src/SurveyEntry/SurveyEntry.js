@@ -68,10 +68,8 @@ class SurveyEntry extends Component {
     let SRSRows = null;
     let ASRows = null;
 
-    if(this.state.deletedComment){
-        return <Redirect to="/home" />
-    }
-
+    // redirect if data change actions are being taken
+    if(this.state.deletedComment) return <Redirect to="/home" />
     if(this.state.editingComment) return <Redirect to="/survey" />
 
     // if there is data (which is once the component mounts)
