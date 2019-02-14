@@ -4,7 +4,19 @@ import axios from 'axios';
 
 //We're gonna have to add an on click event for the custom marker, and have a route that will take 
 //the user to the page
-const CustomMarker = ({ text }) => <div className="custom-marker"><p>{ text }</p></div>;
+
+class CustomMarker extends Component {
+
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return(
+      <div className = "custom-marker"><p>{this.props.text}</p></div>
+    );
+  }
+}
 
 class Map extends Component {
   constructor(props) {
@@ -52,6 +64,7 @@ class Map extends Component {
           lat={comment.lat}
           lng={comment.lon}
           text={comment.beach}
+          $hover={true}
         /> : <p></p>
     ));
     return (
