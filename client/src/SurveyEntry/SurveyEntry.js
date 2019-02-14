@@ -11,7 +11,8 @@ class SurveyEntry extends Component {
     super(props);
     this.state = {
       comment: {},
-      entryID: ""
+      entryID: "",
+      deletedComment: false
     };
     this.getComment = this.getComment.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
@@ -41,8 +42,9 @@ class SurveyEntry extends Component {
       axios.delete(`${this.url}/${this.state.entryID}`, {})
       .then(res => {
         console.log(res)
-        window.location.replace('/');
-
+        this.setState({
+            deletedComment : true
+        })
       })
       .catch(err => {
         console.log(err);
@@ -58,6 +60,10 @@ class SurveyEntry extends Component {
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = null;
     let ASRows = null;
+
+    if(this.state.deletedComment){
+        return <Redirect to="/home" />
+    }
 
     // if there is data (which is once the component mounts)
     if (this.state.comment.SRSData) {
