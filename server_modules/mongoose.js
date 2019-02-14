@@ -329,8 +329,10 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
-        let update = { $set: {}, $push: {} };
+        let update = {};
         if (updatePayload.reason === 'new') {
+            update.$set = {};
+            update.$push = {};
             let { newDebris, ASTotal, SRSTotal, date, oldStats } = updatePayload;
             console.log(oldStats);
             //new survey
@@ -368,7 +370,21 @@ let beaches = {
             }).exec();
             await Promise.all([ASUpProm, SRSUpProm]);
         } else {
-            //removed
+            //removed survey
+            let { remDebris, remASTotal, remSRSTotal, date } = updatePayload;
+            let trash = Object.keys(remDebris);
+            if (trash.length > 0) {
+                update.$inc = {};
+                for (let i = 0; i < trash.length; i++) {
+                    const trashAmount = remDebris[trash[i]];
+                    update.$inc[`stats.typesOfDebrisFound.${trash[i]}`] = trashAmount;                    
+                }
+            }
+            if (remASTotal || remSRSTotal) {
+                update.$unset = {};
+                if (remASTotal) update.$unset[`stats.ASTotals.${date}`] = 1;
+                if (remSRSTotal) update.$unset[`stats.SRSTotals.${date}`] = 1;
+            }
         }
         update.$set['stats.lastUp'] = new Date();
         console.log(update);
