@@ -7,6 +7,15 @@
   border-color: #ffffff;
   display: inline-block;
 }
+.custom-marker-hover {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(255, 136, 0);
+  border-style: solid;
+  border-radius: 50%;
+  border-color: #ffffff;
+  display: inline-block;
+}
 .pin {
   width: 30px;
   height: 30px;

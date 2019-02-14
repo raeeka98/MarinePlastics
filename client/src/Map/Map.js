@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
+
+const NORMAL_SCALE = 1;
+const HOVER_SCALE = 1.5;
+
 
 //We're gonna have to add an on click event for the custom marker, and have a route that will take 
 //the user to the page
 
 class CustomMarker extends Component {
 
+  static propTypes = {
+    $hover: PropTypes.bool,
+
+    scale: PropTypes.number,
+    showBalloon: PropTypes.bool
+    };
+
+  static defaultProps = {
+
+  };
+
   constructor(props){
     super(props);
   }
 
   render(){
+
     return(
-      <div className = "custom-marker"><p>{}</p></div>
+      this.props.$hover ? <div className = "custom-marker-hover"><p>{}</p></div> : <div className = "custom-marker"><p>{}</p></div>
     );
   }
 }
