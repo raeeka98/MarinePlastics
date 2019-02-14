@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import Home from '../Home/Home'
+import { Redirect } from 'react-router-dom';
 import Auth from '../Auth';
 import axios from 'axios';
 
