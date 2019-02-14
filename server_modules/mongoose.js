@@ -87,6 +87,17 @@ let surveySchema = new Schema({
         type: String,
         required: true
     },
+    survDate: {
+        type: Date,
+        required: true,
+        index: true,
+        validate: {
+            validator: function(date) {
+                return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
+            },
+            msg: "Invalid Date"
+        }
+    },
     st: String,
     slope: String,
     aspect: String,
@@ -109,12 +120,34 @@ let surveySchema = new Schema({
     asDataLength: { type: Number, required: true, min: 0 }
 }, { versionKey: false })
 
+
+let totalsSchema = new Schema({
+    date: {
+        type: Date,
+        required: true,
+        unique: true,
+        index: true,
+        validate: {
+            validator: function(date) {
+                return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
+            },
+            msg: "Invalid Date"
+        }
+    },
+    total: { type: Number, required: true, default: 0, min: 0 }
+}, { versionKey: false, _id: false });
+
+
 let statisticsSchema = new Schema({
-    ASTotals: [],
-    SRSTotals:[],
-    typesOfDebrisFound:[],
-    lastUpdated: {
-        type: Number,
+    ASTotals: { type: [totalsSchema], default: [] },
+    SRSTotals: { type: [totalsSchema], default: [] },
+    typesOfDebrisFound: {
+        type: Map,
+        of: { type: Number, required: true, min: 0 },
+        default: {}
+    },
+    lastUp: {
+        type: Date,
         default: null
     }
 }, { versionKey: false, _id: false });
@@ -147,7 +180,13 @@ let beachSchema = new Schema({
             type: Date,
             required: true,
             index: true,
-            unique: true
+            unique: true,
+            validate: {
+                validator: function(date) {
+                    return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
+                },
+                msg: "Invalid Date"
+            }
         },
         survey: {
             type: Schema.Types.ObjectId,
@@ -210,10 +249,10 @@ let surveys = {
         };
         console.log(update);
 
-        let newSurvey;
+        let oldSurvey;
         try {
-            newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
-            return newSurvey;
+            oldSurvey = await surveyModel.findByIdAndUpdate(surveyID, update).exec();
+            return oldSurvey;
         } catch (err) {
             console.log(err);
             throw new Error('Error while updating survey: ' + err.message);
@@ -239,36 +278,42 @@ let surveys = {
         }
         let { SRSData, ASData } = surveyData;
         let updatePayload = {
+            reason: 'new',
             date: epochDateOfSubmit,
-            ASDiff: 0,
-            SRSDiff: 0,
+            oldStats: null,
+            ASTotal: 0,
+            SRSTotal: 0,
             newDebris: {}
         };
+
         for (const trash in SRSData) {
             const trashAmount = SRSData[trash];
-            let trashTotal = trashAmount.fresh + trashAmount.weathered;
-            updatePayload.SRSDiff += trashTotal;
-            if (updatePayload.hasOwnProperty(trash)) {
-                updatePayload.newDebris[trash] += trashTotal;
+            let totalAmnt = trashAmount.fresh + trashAmount.weathered;
+            updatePayload.SRSTotal = totalAmnt;
+            if (updatePayload.newDebris.hasOwnProperty(trash)) {
+                updatePayload.newDebris[trash] += totalAmnt;
             } else {
-                updatePayload.newDebris[trash] = trashTotal;
+                updatePayload.newDebris[trash] = totalAmnt;
             }
         }
         for (const trash in ASData) {
             const trashAmount = ASData[trash];
-            let trashTotal = trashAmount.fresh + trashAmount.weathered;
-            updatePayload.SRSDiff += trashTotal;
-            if (updatePayload.hasOwnProperty(trash)) {
-                updatePayload.newDebris[trash] += trashTotal;
+            let totalAmnt = trashAmount.fresh + trashAmount.weathered;
+            updatePayload.ASTotal = totalAmnt;
+            if (updatePayload.newDebris.hasOwnProperty(trash)) {
+                updatePayload.newDebris[trash] += totalAmnt;
             } else {
-                updatePayload.newDebris[trash] = trashTotal;
+                updatePayload.newDebris[trash] = totalAmnt;
             }
         }
 
+
         try {
-            await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
+            let doc = await beachModel.findByIdAndUpdate(beachID, update, { select: 'stats', new: true }).exec();
+            console.log(doc);
+            updatePayload.oldStats = doc.stats;
+
             let survey = await beaches.updateStats(beachID, updatePayload);
-            console.log(survey);
 
             return survey._id;
         } catch (err) {
@@ -284,27 +329,53 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
-        console.log(updatePayload);
-
-        let update = {
-            $inc: {
-                //epoch date
-                [`stats.ASTotals.${updatePayload.date}`]: updatePayload.ASDiff,
-                [`stats.SRSTotals.${updatePayload.date}`]: updatePayload.SRSDiff,
-                "stats.typesOfDebrisFound": {
-                    ...updatePayload.newDebris
+        let update = { $set: {}, $push: {} };
+        if (updatePayload.reason === 'new') {
+            let { newDebris, ASTotal, SRSTotal, date, oldStats } = updatePayload;
+            console.log(oldStats);
+            //new survey
+            let res = [];
+            for (const trash in newDebris) {
+                const trashAmount = newDebris[trash];
+                if (oldStats.typesOfDebrisFound.has(trash)) {
+                    let origAmnt = oldStats.typesOfDebrisFound.get(trash);
+                    res.push([trash, trashAmount + origAmnt]);
+                } else {
+                    res.push([trash, trashAmount]);
                 }
-            },
-            $set: {
-                lastUpdated: new Date().getTime()
             }
-        };
+            update.$set['stats.typesOfDebrisFound'] = res;
+            update.$push[`stats.ASTotals`] = { $sort: { date: -1 }, $each: [{ date: date, total: ASTotal }] };
+            update.$push[`stats.SRSTotals`] = { $sort: { date: -1 }, $each: [{ date: date, total: SRSTotal }] };
+        } else if (updatePayload.reason === 'edit') {
+            //edited survey
+            let { newDebris, changedDebris, newASTotal, newSRSTotal, date } = updatePayload;
+            let res = [];
+            for (const trash in newDebris) {
+                const trashAmount = newDebris[trash];
+                if (oldStats.typesOfDebrisFound.has(trash)) {
+                    let origAmnt = oldStats.typesOfDebrisFound.get(trash);
+                    res.push([trash, trashAmount + origAmnt]);
+                } else {
+                    res.push([trash, trashAmount]);
+                }
+            }
+            let ASUpProm = beachModel.findOneAndUpdate({ "_id": beachID, "stats.ASTotals.date": date }, {
+                $set: { "stats.ASTotals.$.total": newASTotal }
+            }).exec();
+            let SRSUpProm = beachModel.findOneAndUpdate({ "_id": beachID, "stats.SRSTotals.date": date }, {
+                $set: { "stats.SRSTotals.$.total": newSRSTotal }
+            }).exec();
+            await Promise.all([ASUpProm, SRSUpProm]);
+        } else {
+            //removed
+        }
+        update.$set['stats.lastUp'] = new Date();
         console.log(update);
-        console.log(update.$inc);
 
 
         try {
-            let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { upsert: true, new: true }).exec();
+            let updatedStats = await beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
             return updatedStats;
         } catch (err) {
             console.log(err);
@@ -415,7 +486,8 @@ async function test1 () {
         srsDataLength: 2,
         asDataLength: 2
     };
-    let subDate = new Date().getTime();
+    let subDate = new Date().setUTCHours(0, 0, 0, 0);
+    sur.survDate = subDate;
     let sID = await surveys.addToBeach(sur, "5c629dd66f082667ddd57a02", subDate);
     // let b = await beaches.getAll();
     // console.log(b[0]._id);
@@ -426,7 +498,6 @@ async function test1 () {
 }
 
 test1();
-
 
 
 //export our module to use in server.js
