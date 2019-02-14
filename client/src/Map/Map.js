@@ -13,7 +13,7 @@ class CustomMarker extends Component {
 
   render(){
     return(
-      <div className = "custom-marker"><p>{this.props.text}</p></div>
+      <div className = "custom-marker"><p>{}</p></div>
     );
   }
 }

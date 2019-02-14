@@ -1,7 +1,7 @@
 .custom-marker {
   height: 25px;
   width: 25px;
-  background-color: #fff;
+  background-color: rgb(69, 179, 6);
   border-radius: 50%;
   display: inline-block;
 }
