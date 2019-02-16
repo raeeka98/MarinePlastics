@@ -223,10 +223,9 @@ let beachSchema = new Schema({
     },
     nroName: String,
     nroDist: { type: Number, min: 0 },
-    s: {
+    surveys: {
         type: Map,
-        of: yearSurveySchema,
-        alias: "surveys"
+        of: yearSurveySchema
     },
     stats: statisticsSchema
 }, { versionKey: false });
