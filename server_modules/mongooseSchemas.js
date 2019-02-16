@@ -130,12 +130,6 @@ let dayTotalsSchema = new Schema({
 
 let yearTotalsSchema = new Schema({
     _id: false,
-    year: {
-        type: Number,
-        required: true,
-        unique: true,
-        index: true
-    },
     months: {
         "0": [dayTotalsSchema],
         "1": [dayTotalsSchema],
@@ -154,8 +148,14 @@ let yearTotalsSchema = new Schema({
 
 
 let statisticsSchema = new Schema({
-    ASTotals: { type: [yearTotalsSchema], default: [] },
-    SRSTotals: { type: [yearTotalsSchema], default: [] },
+    ASTotals: {
+        type: Map,
+        of: yearTotalsSchema
+    },
+    SRSTotals: {
+        type: Map,
+        of: yearTotalsSchema
+    },
     typesOfDebrisFound: {
         type: Map,
         of: { type: Number, required: true, min: 0 },
@@ -179,12 +179,6 @@ let daySurveySchema = new Schema({
 
 let yearSurveySchema = new Schema({
     _id: false,
-    year: {
-        type: Number,
-        required: true,
-        unique: true,
-        index: true
-    },
     months: {
         "0": [daySurveySchema],
         "1": [daySurveySchema],
@@ -223,7 +217,10 @@ let beachSchema = new Schema({
     },
     nroName: String,
     nroDist: { type: Number, min: 0 },
-    surveys: [yearSurveySchema],
+    surveys: {
+        type: Map,
+        of: yearSurveySchema
+    },
     stats: statisticsSchema
 }, { versionKey: false });
 

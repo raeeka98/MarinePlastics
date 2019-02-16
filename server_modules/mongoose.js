@@ -1,213 +1,4 @@
-'use strict';
-//import dependency
-var mongoose = require('mongoose');
-const mongoDB = process.env.DB_URL;
-mongoose.connect(mongoDB, {
-    useNewUrlParser: true,
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 5000
-});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error: '));
-let Schema = mongoose.Schema;
-
-var dataSchema = new Schema({
-    name: { type: String, required: true },
-    fresh: Number,
-    weathered: Number,
-}, { versionKey: false, _id: false });
-
-let newDataSchema = new Schema({
-    fresh: { type: Number, default: 0, min: 0 },
-    weathered: { type: Number, default: 0, min: 0 }
-}, { versionKey: false, _id: false });
-
-
-var tideSchema = new Schema({
-    type: String,
-    time: String,
-    height: Number,
-}, { versionKey: false, _id: false });
-
-//create new instance of the mongoose.schema. the schema takes an object that shows
-//the shape of your database entries.
-var CommentsSchema = new Schema({
-    user: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    org: String,
-    input_date: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    date: String,
-    beach: String,
-    reason: String,
-    st: String,
-    lat: Number,
-    lon: Number,
-    slope: String,
-    nroName: String,
-    nroDist: Number,
-    aspect: String,
-    lastTide: tideSchema,
-    nextTide: tideSchema,
-    windDir: String,
-    windSpeed: Number,
-    majorUse: String,
-    weight: Number,
-    NumberOfPeople: Number,
-    SRSData: [dataSchema],
-    SRSTotal: Number,
-    ASData: [dataSchema],
-    ASTotal: Number,
-}, { versionKey: false });
-
-let surveySchema = new Schema({
-    user: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    org: {
-        type: String,
-        required: true
-    },
-    reason: {
-        type: String,
-        required: true
-    },
-    survDate: {
-        type: Date,
-        required: true,
-        index: true,
-        validate: {
-            validator: function(date) {
-                return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
-            },
-            msg: "Invalid Date"
-        }
-    },
-    st: String,
-    slope: String,
-    aspect: String,
-    lastTide: tideSchema,
-    nextTide: tideSchema,
-    windDir: String,
-    windSpeed: { type: Number, min: 0 },
-    majorUse: String,
-    weight: { type: Number, min: 0 },
-    NumberOfPeople: { type: Number, min: 0 },
-    SRSData: {
-        type: Map,
-        of: newDataSchema
-    },
-    ASData: {
-        type: Map,
-        of: newDataSchema
-    },
-    srsDataLength: { type: Number, required: true, min: 0 },
-    asDataLength: { type: Number, required: true, min: 0 }
-}, { versionKey: false })
-
-
-let totalsSchema = new Schema({
-    date: {
-        type: Date,
-        required: true,
-        unique: true,
-        index: true,
-        validate: {
-            validator: function(date) {
-                return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
-            },
-            msg: "Invalid Date"
-        }
-    },
-    total: { type: Number, required: true, default: 0, min: 0 }
-}, { versionKey: false, _id: false });
-
-
-let statisticsSchema = new Schema({
-    ASTotals: { type: [totalsSchema], default: [] },
-    SRSTotals: { type: [totalsSchema], default: [] },
-    typesOfDebrisFound: {
-        type: Map,
-        of: { type: Number, required: true, min: 0 },
-        default: {}
-    },
-    lastUp: {
-        type: Date,
-        default: null
-    }
-}, { versionKey: false, _id: false });
-
-
-let beachSchema = new Schema({
-    name: {
-        type: String,
-        unique: true,
-        required: true,
-        index: true
-    },
-    lat: {
-        type: Number,
-        required: true,
-        min: -85,
-        max: 85
-    },
-    lon: {
-        type: Number,
-        required: true,
-        min: -180,
-        max: 180
-    },
-    nroName: String,
-    nroDist: { type: Number, min: 0 },
-    surveys: [{
-        _id: false,
-        subDate: {
-            type: Date,
-            required: true,
-            index: true,
-            unique: true,
-            validate: {
-                validator: function(date) {
-                    return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0 && date.getUTCMilliseconds() === 0;
-                },
-                msg: "Invalid Date"
-            }
-        },
-        survey: {
-            type: Schema.Types.ObjectId,
-            ref: 'Surveys'
-        }
-    }],
-    stats: statisticsSchema
-}, { versionKey: false });
-
-
-
-
-const beachModel = mongoose.model('Beaches', beachSchema);
-const surveyModel = mongoose.model('Surveys', surveySchema);
-
-const commentModel = mongoose.model('Comment', CommentsSchema);
-
-Date.prototype.toUTCDateString = function() {
-    this.setUTCHours(0, 0, 0, 0);
-    return `${this.getUTCFullYear()}-${this.getUTCMonth()+1}-${this.getUTCDate()} `;
-};
+let { beachModel, surveyModel } = require('./mongooseSchemas');
 
 
 /*--------------database helpers-------------------*/
@@ -224,15 +15,17 @@ let surveys = {
 
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
+        let dateOfSub = new Date(epochDateOfSubmit);
         let update = {
             $pull: {
-                surveys: {
-                    subDate: new Date(epochDateOfSubmit)
+                [`surveys.${dateOfSub.getUTCFullYear()}.months.${dateOfSub.getUTCMonth()}`]: {
+                    day: dateOfSub.getUTCDate()
                 }
             }
         };
         try {
-            let removeFromBeach = beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
+            let removeFromBeach = beachModel.findById(beachID, update, { new: true }).exec();
+
             let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
             const res = await Promise.all([removeFromBeach, removedSurvey]);
             return res;
@@ -260,14 +53,15 @@ let surveys = {
 
     },
     addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
+        let subDate = new Date(epochDateOfSubmit);
         let survey = new surveyModel(surveyData);
         let surveyEntryData = {
-            subDate: new Date(epochDateOfSubmit),
+            subDate: subDate.getUTCDate(),
             survey: survey._id
         }
         let update = {
             $push: {
-                surveys: surveyEntryData
+                [`surveys.$.months.${subDate.getUTCMonth()}`]: surveyEntryData
             }
         };
         try {
@@ -309,11 +103,14 @@ let surveys = {
 
 
         try {
-            let doc = await beachModel.findByIdAndUpdate(beachID, update, { select: 'stats', new: true }).exec();
+            let doc = await beachModel.findOneAndUpdate({
+                _id: beachID,
+                "surveys.year": subDate.getUTCMonth()
+            }, update, { select: 'stats', new: true }).exec();
             console.log(doc);
-            updatePayload.oldStats = doc.stats;
+            // updatePayload.oldStats = doc.stats;
 
-            let survey = await beaches.updateStats(beachID, updatePayload);
+            // let survey = await beaches.updateStats(beachID, updatePayload);
 
             return survey._id;
         } catch (err) {
@@ -329,16 +126,20 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
-        let update = {};
+        let update = { $set: {} };
+        if (!updatePayload.oldStats) {
+            updatePayload.oldStats = await this.getStats(beachID);
+
+        }
         if (updatePayload.reason === 'new') {
-            update.$set = {};
             update.$push = {};
             let { newDebris, ASTotal, SRSTotal, date, oldStats } = updatePayload;
             console.log(oldStats);
             //new survey
             let res = [];
-            for (const trash in newDebris) {
-                const trashAmount = newDebris[trash];
+            let trash = Object.keys(newDebris);
+            if (trash.length > 0) {
+                update.$set = {};
                 if (oldStats.typesOfDebrisFound.has(trash)) {
                     let origAmnt = oldStats.typesOfDebrisFound.get(trash);
                     res.push([trash, trashAmount + origAmnt]);
@@ -351,17 +152,21 @@ let beaches = {
             update.$push[`stats.SRSTotals`] = { $sort: { date: -1 }, $each: [{ date: date, total: SRSTotal }] };
         } else if (updatePayload.reason === 'edit') {
             //edited survey
-            let { newDebris, changedDebris, newASTotal, newSRSTotal, date } = updatePayload;
+            let { changedDebrisValues, newDebrisValues, newASTotal, newSRSTotal, date, oldStats } = updatePayload;
             let res = [];
-            for (const trash in newDebris) {
-                const trashAmount = newDebris[trash];
-                if (oldStats.typesOfDebrisFound.has(trash)) {
-                    let origAmnt = oldStats.typesOfDebrisFound.get(trash);
-                    res.push([trash, trashAmount + origAmnt]);
-                } else {
-                    res.push([trash, trashAmount]);
+            let trash = Object.keys(newDebrisValues);
+            if (trash.length > 0) {
+                for (let i = 0; i < trash.length; i++) {
+                    const trashAmount = newDebrisValues[trash[i]];
+                    if (oldStats.typesOfDebrisFound.has(trash[i])) {
+                        let origAmnt = oldStats.typesOfDebrisFound.get(trash[i]);
+                        res.push([trash[i], trashAmount + origAmnt]);
+                    } else {
+                        res.push([trash[i], trashAmount]);
+                    }
                 }
             }
+            update.$set['stats.typesOfDebrisFound'] = res;
             let ASUpProm = beachModel.findOneAndUpdate({ "_id": beachID, "stats.ASTotals.date": date }, {
                 $set: { "stats.ASTotals.$.total": newASTotal }
             }).exec();
@@ -371,13 +176,14 @@ let beaches = {
             await Promise.all([ASUpProm, SRSUpProm]);
         } else {
             //removed survey
-            let { remDebris, remASTotal, remSRSTotal, date } = updatePayload;
+            let { remDebris, remASTotal, remSRSTotal, date, oldStats } = updatePayload;
+
             let trash = Object.keys(remDebris);
             if (trash.length > 0) {
                 update.$inc = {};
                 for (let i = 0; i < trash.length; i++) {
                     const trashAmount = remDebris[trash[i]];
-                    update.$inc[`stats.typesOfDebrisFound.${trash[i]}`] = trashAmount;                    
+                    update.$inc[`stats.typesOfDebrisFound.${trash[i]}`] = trashAmount;
                 }
             }
             if (remASTotal || remSRSTotal) {
@@ -412,10 +218,16 @@ let beaches = {
         }
     },
 
-    getStats: async function(beachID) {
+    getStats: async function(beachID, query) {
         let stats;
+        let projection;
+        if (query.getYear) {
+            projection = `stats.ASTotals.${query.year} stats.SRSTotals.${query.year}`;
+        } else {
+            projection = `stats.ASTotals.${query.year}.months.${query.month} stats.SRSTotals.${query.year}.months.${query.month}`
+        }
         try {
-            stats = await beachModel.findById(beachID, "stats").exec();
+            stats = await beachModel.findById(beachID, projection).exec();
             return stats;
         } catch (error) {
             console.error(error);
@@ -441,8 +253,6 @@ let beaches = {
 
     getAllSurveys: async function(beachID) {
         try {
-            console.log(beachID);
-
             let surveys = await beachModel.findById(beachID, 'surveys').populate('surveys.survey').exec();
             return surveys;
         } catch (err) {
