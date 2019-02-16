@@ -203,10 +203,10 @@ let beaches = {
             }
         } else {
             //removed survey
-            let { remDebris, remASTotal, remSRSTotal, date, oldStats } = updatePayload;
+            let { remDebris, oldStats } = updatePayload;
 
             let res = [];
-            let trash = Object.keys(newDebrisValues);
+            let trash = Object.keys(remDebris);
             if (trash.length > 0) {
                 for (let i = 0; i < trash.length; i++) {
                     const trashAmount = newDebrisValues[trash[i]];
