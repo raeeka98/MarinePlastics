@@ -3,11 +3,11 @@ let { beachModel, surveyModel } = require('./mongooseSchemas');
 
 /*--------------database helpers-------------------*/
 
-let surveys = {
+let years = {
     find: async function(surveyID) {
         let survey;
         try {
-            survey = await surveys.findById(surveyID).exec();
+            survey = await years.findById(surveyID).exec();
         } catch (err) {
             console.error(err);
             throw new Error(`Error while finding survey ${surveyID} :  ${err.message}`);
@@ -56,12 +56,12 @@ let surveys = {
         let subDate = new Date(epochDateOfSubmit);
         let survey = new surveyModel(surveyData);
         let surveyEntryData = {
-            subDate: subDate.getUTCDate(),
+            day: subDate.getUTCDate(),
             survey: survey._id
         }
         let update = {
             $push: {
-                [`surveys.$.months.${subDate.getUTCMonth()}`]: surveyEntryData
+                [`surveys.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}`]: surveyEntryData
             }
         };
         try {
@@ -79,34 +79,11 @@ let surveys = {
             SRSTotal: 0,
             newDebris: {}
         };
-
-        for (const trash in SRSData) {
-            const trashAmount = SRSData[trash];
-            let totalAmnt = trashAmount.fresh + trashAmount.weathered;
-            updatePayload.SRSTotal = totalAmnt;
-            if (updatePayload.newDebris.hasOwnProperty(trash)) {
-                updatePayload.newDebris[trash] += totalAmnt;
-            } else {
-                updatePayload.newDebris[trash] = totalAmnt;
-            }
-        }
-        for (const trash in ASData) {
-            const trashAmount = ASData[trash];
-            let totalAmnt = trashAmount.fresh + trashAmount.weathered;
-            updatePayload.ASTotal = totalAmnt;
-            if (updatePayload.newDebris.hasOwnProperty(trash)) {
-                updatePayload.newDebris[trash] += totalAmnt;
-            } else {
-                updatePayload.newDebris[trash] = totalAmnt;
-            }
-        }
-
+        updatePayload.ASTotal = AddUpData(ASData, updatePayload.newDebris);
+        updatePayload.SRSTotal = AddUpData(SRSData, updatePayload.newDebris);
 
         try {
-            let doc = await beachModel.findOneAndUpdate({
-                _id: beachID,
-                "surveys.year": subDate.getUTCMonth()
-            }, update, { select: 'stats', new: true }).exec();
+            let doc = await beachModel.findOneAndUpdate({ _id: beachID }, update, { select: 'stats', new: true }).exec();
             console.log(doc);
             // updatePayload.oldStats = doc.stats;
 
@@ -124,16 +101,32 @@ let surveys = {
 
 }
 
+function AddUpData (data, newDebris) {
+    let total = 0;
+    for (const trash in data) {
+        const trashAmount = data[trash];
+        let totalAmnt = trashAmount.fresh + trashAmount.weathered;
+        total += totalAmnt;
+        if (newDebris.hasOwnProperty(trash)) {
+            newDebris[trash] += totalAmnt;
+        } else {
+            newDebris[trash] = totalAmnt;
+        }
+    }
+    return total;
+}
+
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
         let update = { $set: {} };
+        let subDate = new Date(updatePayload.date);
         if (!updatePayload.oldStats) {
-            updatePayload.oldStats = await this.getStats(beachID);
-
+            let doc = await beachModel.findById(beachID, 'stats.typesOfDebrisFound').exec();
+            updatePayload.oldStats = doc.stats;
         }
         if (updatePayload.reason === 'new') {
             update.$push = {};
-            let { newDebris, ASTotal, SRSTotal, date, oldStats } = updatePayload;
+            let { newDebris, ASTotal, SRSTotal, oldStats } = updatePayload;
             console.log(oldStats);
             //new survey
             let res = [];
@@ -152,7 +145,7 @@ let beaches = {
             update.$push[`stats.SRSTotals`] = { $sort: { date: -1 }, $each: [{ date: date, total: SRSTotal }] };
         } else if (updatePayload.reason === 'edit') {
             //edited survey
-            let { changedDebrisValues, newDebrisValues, newASTotal, newSRSTotal, date, oldStats } = updatePayload;
+            let { changedDebrisValues, newDebrisValues, newASTotal, newSRSTotal, oldStats } = updatePayload;
             let res = [];
             let trash = Object.keys(newDebrisValues);
             if (trash.length > 0) {
@@ -217,14 +210,13 @@ let beaches = {
 
         }
     },
-
     getStats: async function(beachID, query) {
         let stats;
         let projection;
         if (query.getYear) {
-            projection = `stats.ASTotals.${query.year} stats.SRSTotals.${query.year}`;
+            projection = `stats.ASTotals.${query.year} stats.SRSTotals.${query.year} stats.typesOfDebrisFound stats.lastUp`;
         } else {
-            projection = `stats.ASTotals.${query.year}.months.${query.month} stats.SRSTotals.${query.year}.months.${query.month}`
+            projection = `stats.ASTotals.${query.year}.months.${query.month} stats.SRSTotals.${query.year}.months.${query.month} stats.typesOfDebrisFound stats.lastUp`
         }
         try {
             stats = await beachModel.findById(beachID, projection).exec();
@@ -236,33 +228,33 @@ let beaches = {
     },
     remove: async function(beachID) {
         try {
-            let removedBeach = await beachModel.findByIdAndDelete(beachID, { select: "surveys.survey" }).exec();
+            let removedBeach = await beachModel.findByIdAndDelete(beachID, { select: "surveys" }).exec();
             console.log(`removal beach ${removedBeach}`);
-            let removedSurveys = removedBeach.surveys.map(obj => obj.survey);
-            await surveyModel.deleteMany({ _id: { $in: removedSurveys } });
-
+            await surveyModel.deleteMany({ bID: removedBeach._id }).exec();
         } catch (err) {
             console.log(err);
             throw new Error('Error in deleting beach: ' + err.message);
         }
     },
-
-    getAll: async function() {
-        return await beachModel.find({}, "-stats").exec();
+    get: async function(beachID, surveyYear, surveyMonth, surveysSkip, numOfSurveys) {
+        let projection = `name surveys.${surveyYear}.months.${surveyMonth}`;
+        return await beachModel.findById(beachID)
+            .select(projection)
+            .slice(`surveys.${surveyYear}.months.${surveyMonth}`, [surveysSkip, numOfSurveys])
+            .exec();
     },
-
-    getAllSurveys: async function(beachID) {
-        try {
-            let surveys = await beachModel.findById(beachID, 'surveys').populate('surveys.survey').exec();
-            return surveys;
-        } catch (err) {
-            console.error(err);
-            throw new Error(`Failed to obtain all surveys for beach ${beachID}: ` + err.message);
-        }
+    getMany: async function(skip, limit) {
+        let projection = `name surveys.${surveyYear}.months.${surveyMonth}`;
+        return await beachModel.find()
+            .skip(skip)
+            .limit(limit)
+            .select(projection)
+            .slice(`surveys.${surveyYear}.months.${surveyMonth}`, 10)
+            .exec();
     },
-    getSurveysInRange: async function(beachID, skip, limit) {
-        return await beachModel.findById(beachID, 'surveys', { surveys: { $slice: [skip, limit] } }).populate('surveys.survey').exec();
-    }
+    getManyNames: async function() {
+        return await beachModel.find({}, `name`).exec();
+    },
 }
 
 async function test1 () {
@@ -314,7 +306,7 @@ async function test1 () {
     };
     let subDate = new Date().setUTCHours(0, 0, 0, 0);
     sur.survDate = subDate;
-    let sID = await surveys.addToBeach(sur, "5c629dd66f082667ddd57a02", subDate);
+    let sID = await years.addToBeach(sur, "5c629dd66f082667ddd57a02", subDate);
     // let b = await beaches.getAll();
     // console.log(b[0]._id);
     // let s = await beaches.getAllSurveys(b[0]._id);
@@ -329,5 +321,5 @@ test1();
 //export our module to use in server.js
 module.exports = {
     beaches,
-    surveys
+    surveys: years
 };

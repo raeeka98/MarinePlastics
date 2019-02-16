@@ -71,6 +71,7 @@ var CommentsSchema = new Schema({
 }, { versionKey: false });
 
 let surveySchema = new Schema({
+    bID: { type: mongoose.Types.ObjectId, ref: 'Beaches' },
     user: {
         type: String,
         required: true
@@ -148,22 +149,26 @@ let yearTotalsSchema = new Schema({
 
 
 let statisticsSchema = new Schema({
-    ASTotals: {
+    AST: {
         type: Map,
-        of: yearTotalsSchema
+        of: yearTotalsSchema,
+        alias: "ASTotals"
     },
-    SRSTotals: {
+    SRST: {
         type: Map,
-        of: yearTotalsSchema
+        of: yearTotalsSchema,
+        alias: "SRSTotals"
     },
-    typesOfDebrisFound: {
+    TODF: {
         type: Map,
         of: { type: Number, required: true, min: 0 },
-        default: {}
+        default: {},
+        alias: "typesOfDebrisFound"
     },
     lastUp: {
         type: Date,
-        default: null
+        default: null,
+        alias: "lastUpdated"
     }
 }, { versionKey: false, _id: false });
 
@@ -197,11 +202,12 @@ let yearSurveySchema = new Schema({
 
 
 let beachSchema = new Schema({
-    name: {
+    n: {
         type: String,
         unique: true,
         required: true,
-        index: true
+        index: true,
+        alias: "name"
     },
     lat: {
         type: Number,
@@ -217,9 +223,10 @@ let beachSchema = new Schema({
     },
     nroName: String,
     nroDist: { type: Number, min: 0 },
-    surveys: {
+    s: {
         type: Map,
-        of: yearSurveySchema
+        of: yearSurveySchema,
+        alias: "surveys"
     },
     stats: statisticsSchema
 }, { versionKey: false });
