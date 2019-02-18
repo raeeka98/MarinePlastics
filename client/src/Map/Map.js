@@ -1,19 +1,48 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+import {locationSort} from '../_helpers/SortHelper';
 
 //We're gonna have to add an on click event for the custom marker, and have a route that will take 
 //the user to the page
+
 
 class CustomMarker extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      displayText : ""
+    };
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+  }
+
+  onMouseOut() {
+    this.setState( {displayText : ""} );
+  }
+
+  onMouseOver(){
+    this.setState( {displayText : this.props.text} );
   }
 
   render(){
+    let path = this.props.text.replace(/\s/g, '');
+    /*let extractedData = {
+      name: this.props.text,
+      lat: this.props.location.lat,
+      lon: this.props.location.lon,
+      entries: [this.props.location]
+    };*/
+    //console.log(extractedData)
     return(
-      <div className = "custom-marker"><p>{}</p></div>
+      <div>
+        <div className="custom-marker" onMouseOver={this.onMouseOver}></div>
+        <Link to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
+          {this.state.displayText}
+        </Link>
+      </div>
     );
   }
 }
@@ -57,21 +86,26 @@ class Map extends Component {
 
 
    render(){
-    const GoogleMapsMarkers = this.state.data.map((comment) => (
-      (comment.lat && comment.lon)? 
-        <CustomMarker
-          key={comment.id}
+     console.log(this.state.data);
+    const sortedData = locationSort(this.state.data);
+    const GoogleMapsMarkers = sortedData.map((comment) => (
+      (comment.lat && comment.lon)
+      ? <CustomMarker
+          key={comment.entries[0]._id}
           lat={comment.lat}
           lng={comment.lon}
-          text={comment.beach}
+          text={comment.name}
+          location={comment}
           $hover={true}
-        /> : <p></p>
+        /> 
+      : null
     ));
     return (
       <div style={{height: '500px', width: '100%'}}>
         <GoogleMapReact
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          
 
           bootstrapURLKeys={{
           key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
