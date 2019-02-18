@@ -32,43 +32,43 @@ var tideSchema = new Schema({
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
-var CommentsSchema = new Schema({
-    user: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    org: String,
-    input_date: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    date: String,
-    beach: String,
-    reason: String,
-    st: String,
-    lat: Number,
-    lon: Number,
-    slope: String,
-    nroName: String,
-    nroDist: Number,
-    aspect: String,
-    lastTide: tideSchema,
-    nextTide: tideSchema,
-    windDir: String,
-    windSpeed: Number,
-    majorUse: String,
-    weight: Number,
-    NumberOfPeople: Number,
-    SRSData: [dataSchema],
-    SRSTotal: Number,
-    ASData: [dataSchema],
-    ASTotal: Number,
-}, { versionKey: false });
+// var CommentsSchema = new Schema({
+//     user: {
+//         type: String,
+//         required: true
+//     },
+//     email: {
+//         type: String,
+//         required: true
+//     },
+//     org: String,
+//     input_date: {
+//         type: String,
+//         required: true,
+//         unique: true
+//     },
+//     date: String,
+//     beach: String,
+//     reason: String,
+//     st: String,
+//     lat: Number,
+//     lon: Number,
+//     slope: String,
+//     nroName: String,
+//     nroDist: Number,
+//     aspect: String,
+//     lastTide: tideSchema,
+//     nextTide: tideSchema,
+//     windDir: String,
+//     windSpeed: Number,
+//     majorUse: String,
+//     weight: Number,
+//     NumberOfPeople: Number,
+//     SRSData: [dataSchema],
+//     SRSTotal: Number,
+//     ASData: [dataSchema],
+//     ASTotal: Number,
+// }, { versionKey: false });
 
 let surveySchema = new Schema({
     bID: { type: mongoose.Types.ObjectId, ref: 'Beaches' },
@@ -102,32 +102,49 @@ let surveySchema = new Schema({
     majorUse: String,
     weight: { type: Number, min: 0 },
     NumberOfPeople: { type: Number, min: 0 },
-    SRSData: {
+    SRSDebris: {
         type: Map,
         of: newDataSchema
     },
-    ASData: {
+    ASDebris: {
         type: Map,
         of: newDataSchema
     },
-    srsDataLength: { type: Number, required: true, min: 0 },
-    asDataLength: { type: Number, required: true, min: 0 }
-}, { versionKey: false })
+    srsDebrisLength: { type: Number, required: true, min: 0 },
+    asDebrisLength: { type: Number, required: true, min: 0 }
+}, { versionKey: false });
 
-
-let totalsSchema = new Schema({
-    date: {
-        type: Date,
-        required: true,
-    },
-    total: { type: Number, required: true, default: 0, min: 0 }
-}, { versionKey: false, _id: false });
+surveySchema.methods.getSRSTotal = function(newDebris) {
+    let total = 0;
+    this.SRSDebris.forEach((trashData, trash, map) => {
+        const trashAmount = trashData.fresh + trashData.weathered;
+        total += trashAmount;
+        if (newDebris.hasOwnProperty(trash)) {
+            newDebris[trash] += trashAmount;
+        } else {
+            newDebris[trash] = trashAmount;
+        }
+    });
+    return total;
+}
+surveySchema.methods.getASTotal = function(newDebris) {
+    let total = 0;
+    this.ASDebris.forEach((trashData, trash, map) => {
+        const trashAmount = trashData.fresh + trashData.weathered;
+        total += trashAmount;
+        if (newDebris.hasOwnProperty(trash)) {
+            newDebris[trash] += trashAmount;
+        } else {
+            newDebris[trash] = trashAmount;
+        }
+    });
+    return total;
+}
 
 let dayTotalsSchema = new Schema({
-    _id: false,
-    day: { type: Number, index: true, unique: true },
-    total: totalsSchema
-})
+    day: { type: Number, index: true },
+    total: { type: Number, required: true, default: 0, min: 0 }
+}, { versionKey: false, _id: false })
 
 let yearTotalsSchema = new Schema({
     _id: false,
@@ -152,12 +169,10 @@ let statisticsSchema = new Schema({
     AST: {
         type: Map,
         of: yearTotalsSchema,
-        alias: "ASTotals"
     },
     SRST: {
         type: Map,
         of: yearTotalsSchema,
-        alias: "SRSTotals"
     },
     TODF: {
         type: Map,
@@ -174,16 +189,14 @@ let statisticsSchema = new Schema({
 
 
 let daySurveySchema = new Schema({
-    _id: false,
     day: { type: Number, index: true, unique: true },
     survey: {
         type: Schema.Types.ObjectId,
         ref: 'Surveys'
     }
-})
+}, { versionKey: false, _id: false })
 
 let yearSurveySchema = new Schema({
-    _id: false,
     months: {
         "0": [daySurveySchema],
         "1": [daySurveySchema],
@@ -198,7 +211,7 @@ let yearSurveySchema = new Schema({
         "10": [daySurveySchema],
         "11": [daySurveySchema],
     }
-});
+}, { versionKey: false, _id: false });
 
 
 let beachSchema = new Schema({
@@ -225,7 +238,8 @@ let beachSchema = new Schema({
     nroDist: { type: Number, min: 0 },
     surveys: {
         type: Map,
-        of: yearSurveySchema
+        of: yearSurveySchema,
+        default: {}
     },
     stats: statisticsSchema
 }, { versionKey: false });
@@ -236,6 +250,6 @@ let beachSchema = new Schema({
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 
-const commentModel = mongoose.model('Comment', CommentsSchema);
+// const commentModel = mongoose.model('Comment', CommentsSchema);
 
 module.exports = { beachModel, surveyModel };
