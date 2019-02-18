@@ -4,10 +4,10 @@ import auth0 from 'auth0-js';
 redirectUri: 'http://localhost:3000', for dev*/
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: process.env.REACT_APP_AUTH_DOMAIN,
-    clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
-    redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
-    audience: process.env.REACT_APP_AUTH_AUDIENCE,
+    domain: "marine-plastics.auth0.com",
+    clientID: "MeGxwCE1JVNy9jsRYPWzqebekosCVRDN",
+    redirectUri: 'https://marineplastics.herokuapp.com/',
+    audience: "https://marine-plastics.auth0.com/api/v2/",
     responseType: 'token id_token',
     scope: 'openid email profile'
   });
