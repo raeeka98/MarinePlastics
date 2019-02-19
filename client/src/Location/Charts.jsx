@@ -7,12 +7,19 @@ ReactChartkick.addAdapter(Chart);
 class ColumnChart extends Component {
     constructor(props) {
         super(props);
-        let entryData = this.props.chartData;
         this.state = {
             showSRSData: true,
-            srsBarData: sumTotals(entryData.entries, true),
-            asBarData: sumTotals(entryData.entries, false),
+            srsBarData: sumTotals(this.props.chartData, true),
+            asBarData: sumTotals(this.props.chartData, false)
         }
+    }
+
+    componentWillReceiveProps({ chartData }) {
+        this.setState({
+            srsBarData: sumTotals(chartData, true),
+            asBarData: sumTotals(chartData, false)
+        });
+
     }
 
     changeBarGraph = (e) => {

@@ -1,59 +1,53 @@
-const { commentModel: Comment } = require('../server_modules/mongoose');
+let { beaches, surveys } = require('../server_modules/mongoose');
 let router = require('express').Router();
-//route
+
+/**
+ * 
+ * @param {Promise} fn 
+ */
+let asyncHandler = fn =>
+    (req, res, next) => {
+        Promise.resolve(fn(req, res, next)).catch(next);
+    }
 router.route('/')
-    .get((req, res) => {
-        Comment.find(function(err, comments) {
-            if (err) res.send(err);
-            //responds with a json object of our database comments.
-            res.json(comments)
-        });
-    })
-    .post((req, res) => {
-        let newDataSheet = req.body;
-        var dataSheet = new Comment();
-        for (const entry in newDataSheet) {
-            const data = newDataSheet[entry];
-            comment[entry] = data;
-        }
-        dataSheet.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Comment successfully added!' });
-        });
-    });
+    //get all beaches
+    .get(asyncHandler(async (req, res) => {
+        let { skip, limit } = req.body;
+        let beaches = await beaches.getMany(skip, limit);
+        res.json(beaches);
+    }))
+    //delete a beach
+    .delete(asyncHandler(async (req, res) => {
+        let { bID } = req.body;
+        await beaches.remove(bID);
+        res.json({ res: "Successfully deleted beach" });
+    }));
 
-router.route('/:id')
-    .get((req, res) => {
-        Comment.findById(req.params.id, function(err, comment) {
-            res.json({ comment });
-        });
-    })
-    .put((req, res) => {
-        Comment.findById(req.params.id, function(err, dataSheet) {
-            if (err) res.send(err);
-            //setting the new beach and reason to whatever was changed. If nothing was changed
-            // we will not alter the field.
-            let newDataSheet = res.body;
-            for (const entry in newDataSheet) {
-                const data = newDataSheet[entry];
-                comment[entry] = data;
-            }
+router.route('/:beachID')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let {surveyYear,surveyMonth,surveySkip,numOfSurveys} = req.body;
+        let surveys = beaches.getSurveys(bID,surveyYear,surveyMonth,surveySkip,numOfSurveys);
+        res.json(surveys)
+    }));
 
-            //save comment
-            comment.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: 'Comment has been updated' });
-            });
-        });
-    })
-    .delete((req, res) => {
-        Comment.remove({ _id: req.params.comment_id }, function(err, comment) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Comment has been deleted' })
-        })
-    })
+router.route('/surveys/:surveyID')
+    //get a specific entry
+    .get(asyncHandler(async (req, res) => {
+        let survey = await surveys.get(req.params.surveyID);
+        res.json(survey);
+    }))
+    //find a specific entry and edit it
+    .put(asyncHandler(async (req, res) => {
+        let { oldSurvey, newSurvey } = req.body;
+        let updatedSurvey = await surveys.update(req.params.surveyID, newSurvey, oldSurvey);
+        res.json(updatedSurvey);
+    }))
+    //delete an entry
+    .delete(asyncHandler(async (req, res) => {
+        let { bID, dateOfSub } = req.body;
+        let result = await surveys.remove(bID, req.params.surveyID, dateOfSub);
+        res.json({ message: 'Comment has been deleted' })
+    }));
 
 module.exports = { router };

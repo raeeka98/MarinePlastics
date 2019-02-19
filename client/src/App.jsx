@@ -46,14 +46,14 @@ class App extends Component {
             {/* every page has header/footer, only content within div changes*/}
             <Header auth={this.auth} />
             <div>
+              {/* routes: when the user goes to a specified url, loads corresponding component */}
+              {/* if passing information (i.e. authentication) to the component, need to use render argument */}
               <Switch>
-                {/* routes: when the user goes to a specified url, loads corresponding component */}
-                {/* if passing information (i.e. authentication) to the component, need to use render argument */}
-                <Route exact path='/' render={ () => (<Landing auth={ this.auth } isAuth={this.state.error} disableError={()=>{this.setState({error: null})}} />) } />
-                <Route exact path='/home' component={ Home } />
-                <Route path='/survey' component={ Steps } />
-                <Route path='/entry/:entryKey' component={ SurveyEntry } />
-                <Route path='/location/:id' component={ LocationPage } />
+                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
+                <Route exact path='/home' component={Home} />
+                <Route path='/survey' component={Steps} />
+                <Route path='/location/:beachID' component={LocationPage} />
+                <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
                 <Route
                   path='/profile'

@@ -60,7 +60,7 @@ class Map extends Component {
     this.state = { data: [] };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.pollInterval = null;
-    this.url = '/surveys';
+    this.url = '/beaches';
   }
 
   loadCommentsFromServer() {
