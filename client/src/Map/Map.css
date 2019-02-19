@@ -1,4 +1,5 @@
-.custom-marker {
+.custom-marker{
+  position: absolute;
   height: 13px;
   width: 13px;
   background-color: rgb(255, 136, 0);
@@ -7,7 +8,8 @@
   border-color: #ffffff;
   display: inline-block;
 }
-.custom-marker-hover {
+.custom-marker-hover{
+  position:absolute;
   height: 13px;
   width: 13px;
   background-color: rgb(166, 82, 0);
@@ -15,6 +17,37 @@
   border-radius: 50%;
   border-color: #ffffff;
   display: inline-block;
+}
+.tooltiptext {
+  visibility: visible;
+  width: 120px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -52px;
+  margin-bottom: 3px;
+}
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 90%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: gray transparent transparent transparent;
+}
+.custom-marker:hover .tooltiptext {
+  visibility: visible;
+}
+.custom-marker-hover:hover .tooltiptext {
+  visibility: visible;
 }
 .pin {
   width: 30px;
