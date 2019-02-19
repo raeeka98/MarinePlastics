@@ -30,9 +30,9 @@
   z-index: 1;
   bottom: 150%;
   left: 50%;
-  margin-left: -52px;
+  margin-left: -57px;
   margin-bottom: 3px;
-  font-size: 9pt;
+  font-size: 11pt;
 }
 .tooltiptext::after {
   content: "";

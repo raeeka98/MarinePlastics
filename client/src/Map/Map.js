@@ -12,17 +12,6 @@ import {locationSort} from '../_helpers/SortHelper';
 
 class CustomMarker extends Component {
 
-  static propTypes = {
-    $hover: PropTypes.bool,
-
-    scale: PropTypes.number,
-    showBalloon: PropTypes.bool
-    };
-
-  static defaultProps = {
-
-  };
-
   constructor(props){
     super(props);
     this.state = {
@@ -124,7 +113,7 @@ class Map extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           
-
+          
           bootstrapURLKeys={{
           key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
           }}
