@@ -44,10 +44,10 @@ class CustomMarker extends Component {
     return(
       <div>
         <Link className={style} to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
+          <span className = {beachBubble}>
+            {beachName}
+          </span>
         </Link>
-        <span className = {beachBubble}>{beachName}
-        </span>
-        
       </div>
     );
   }
