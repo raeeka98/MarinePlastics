@@ -5,9 +5,6 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {locationSort} from '../_helpers/SortHelper';
 
-const NORMAL_SCALE = 1;
-const HOVER_SCALE = 1.5;
-
 
 //We're gonna have to add an on click event for the custom marker, and have a route that will take 
 //the user to the page

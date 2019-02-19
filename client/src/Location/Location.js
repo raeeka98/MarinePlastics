@@ -45,7 +45,7 @@ class Location extends Component {
    console.log(document.getElementById('pieChart'));
    
     // the marker for the location on the map
-    const CustomMarker = ({ name }) => <div className="custom-marker"><p>{ name }</p></div>;
+    const CustomMarker = () => <div className="custom-marker"><p>{}</p></div>;
     return(
       <div>
         <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.name }</h1>
