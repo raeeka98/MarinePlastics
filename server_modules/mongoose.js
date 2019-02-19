@@ -376,8 +376,8 @@ async function test1 () {
     // await beaches.remove(b._id);
 
 
-    let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
-    console.log(b);
+    // let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
+    // console.log(b);
 
 
 
