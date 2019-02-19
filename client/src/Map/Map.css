@@ -8,9 +8,9 @@
   display: inline-block;
 }
 .custom-marker-hover {
-  height: 15px;
-  width: 15px;
-  background-color: rgb(255, 136, 0);
+  height: 13px;
+  width: 13px;
+  background-color: rgb(166, 82, 0);
   border-style: solid;
   border-radius: 50%;
   border-color: #ffffff;

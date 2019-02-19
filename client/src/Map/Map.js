@@ -44,6 +44,8 @@ class CustomMarker extends Component {
   }
 
   render(){
+    const style = this.props.$hover ? "custom-marker-hover" : "custom-marker";
+    const bName = this.props.$hover ? this.props.text : "";
     let path = this.props.text.replace(/\s/g, '');
     /*let extractedData = {
       name: this.props.text,
@@ -54,14 +56,14 @@ class CustomMarker extends Component {
     //console.log(extractedData)
     return(
       <div>
-        <div className="custom-marker" onMouseOver={this.onMouseOver}></div>
-        <Link to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
-          {this.state.displayText}
+        <Link className={style} to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
         </Link>
+        <div>{bName}</div>
       </div>
     );
   }
 }
+
 
 class Map extends Component {
   constructor(props) {
