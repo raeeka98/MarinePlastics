@@ -233,7 +233,7 @@ let beaches = {
      * @param {Number} skip 
      */
     getMany: async function(skip) {
-        let projection = `n`;
+        let projection = `n lat lon`;
         return await beachModel
             .find()
             .skip(skip)

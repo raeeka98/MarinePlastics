@@ -15,7 +15,6 @@ class Location extends Component {
     // the data is passed from ../Home/Home.js from the Link
     // this.props.location.state is where the Link passes the state to
     let beachData = this.props.location.state.data;
-    console.log(beachData);
 
     this.state = {
       beachData,
@@ -25,12 +24,23 @@ class Location extends Component {
   }
 
   getStats = () => {
+    console.log(this.state.beachData._id)
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
-        console.log(res.data);
-
-        this.setState({ surveys: res.data.surveys, pieChartData: sumDebrisTypes(res.data.surveys) });
+        
+        this.setState({ surveyIDs: res.data, pieChartData: sumDebrisTypes(res.data) });
       })
+      .then( () => {
+        let trueSurveys = [];
+        for(var i = 0; i < this.state.surveyIDs.length; i++){
+          console.log(this.state.surveyIDs[i].survey);
+          axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`)
+            .then(res => {
+              trueSurveys.push(res.data);
+              this.setState({surveys: trueSurveys, pieChartData: sumDebrisTypes(trueSurveys)})
+            });
+        }
+      });
   }
 
   componentDidMount() {
@@ -44,13 +54,13 @@ class Location extends Component {
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
-    let subDate = new Date(0);
-    for (const submitDate in this.state.beachData.surveys) {
-      const entry = this.state.beachData.surveys[submitDate];
-      subDate.setMilliseconds(submitDate);
+    let subDate;
+    for (const submitDate in this.state.surveys) {
+      const entry = this.state.surveys[submitDate];
+      subDate = new Date(entry.survDate);
       surveys.push(
-        <li key={entry}>
-          <Link to={{ pathname: `/entry/${entry}` }}>
+        <li key={entry._id}>
+          <Link to={{ pathname: `/entry/${entry._id}` }}>
             {subDate.toLocaleDateString()}
           </Link>
         </li>
