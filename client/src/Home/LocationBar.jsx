@@ -9,7 +9,7 @@ function LocationBar({ handleAccordionClick, location, entryNodes,path,entryStri
                 <ul className="uk-list uk-margin-remove-bottom">
                     <li>
                         <span className="survey-bar uk-accordion-title" onClick={handleAccordionClick}>
-                            {location.name}
+                            {location.n}
                             <span className="uk-text-muted uk-text-small uk-margin-left">
                                 {location.numOfSurveys} {entryString}
                             </span>
