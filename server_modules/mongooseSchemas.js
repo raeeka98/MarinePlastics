@@ -148,20 +148,18 @@ let dayTotalsSchema = new Schema({
 
 let yearTotalsSchema = new Schema({
     _id: false,
-    months: {
-        "0": [dayTotalsSchema],
-        "1": [dayTotalsSchema],
-        "2": [dayTotalsSchema],
-        "3": [dayTotalsSchema],
-        "4": [dayTotalsSchema],
-        "5": [dayTotalsSchema],
-        "6": [dayTotalsSchema],
-        "7": [dayTotalsSchema],
-        "8": [dayTotalsSchema],
-        "9": [dayTotalsSchema],
-        "10": [dayTotalsSchema],
-        "11": [dayTotalsSchema],
-    }
+    "0": [dayTotalsSchema],
+    "1": [dayTotalsSchema],
+    "2": [dayTotalsSchema],
+    "3": [dayTotalsSchema],
+    "4": [dayTotalsSchema],
+    "5": [dayTotalsSchema],
+    "6": [dayTotalsSchema],
+    "7": [dayTotalsSchema],
+    "8": [dayTotalsSchema],
+    "9": [dayTotalsSchema],
+    "10": [dayTotalsSchema],
+    "11": [dayTotalsSchema],
 });
 
 
@@ -197,20 +195,18 @@ let daySurveySchema = new Schema({
 }, { versionKey: false, _id: false })
 
 let yearSurveySchema = new Schema({
-    months: {
-        "0": [daySurveySchema],
-        "1": [daySurveySchema],
-        "2": [daySurveySchema],
-        "3": [daySurveySchema],
-        "4": [daySurveySchema],
-        "5": [daySurveySchema],
-        "6": [daySurveySchema],
-        "7": [daySurveySchema],
-        "8": [daySurveySchema],
-        "9": [daySurveySchema],
-        "10": [daySurveySchema],
-        "11": [daySurveySchema],
-    }
+    "0": [daySurveySchema],
+    "1": [daySurveySchema],
+    "2": [daySurveySchema],
+    "3": [daySurveySchema],
+    "4": [daySurveySchema],
+    "5": [daySurveySchema],
+    "6": [daySurveySchema],
+    "7": [daySurveySchema],
+    "8": [daySurveySchema],
+    "9": [daySurveySchema],
+    "10": [daySurveySchema],
+    "11": [daySurveySchema],
 }, { versionKey: false, _id: false });
 
 
