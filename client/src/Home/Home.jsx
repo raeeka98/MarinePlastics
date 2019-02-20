@@ -32,7 +32,7 @@ class Home extends Component {
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
-        // sorts data into locations 
+        // sorts data into locations
         // const sorted = locationSort(res.data);
         this.setState({
           data: res.data,
