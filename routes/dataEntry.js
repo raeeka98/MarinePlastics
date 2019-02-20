@@ -23,9 +23,20 @@ router.route('/')
         */
         let { s: skip } = req.query;
         let b = await beaches.getMany(skip);
+        //returns array of beach names and their ids
+        //[{_id:1234,n:"testb"}]
         res.json(b);
     }))
     //beach Creation
+    /**postBody
+     * {
+        name: "testB",
+        lat: 0,
+        lon: 0,
+        nroName: "River t",
+        nroDist: 3
+        }
+     */
     .post(asyncHandler(async (req, res) => {
         let beachData = req.body;
         let beach = await beaches.create(beachData);
@@ -41,6 +52,8 @@ router.route('/:beachID')
         let bID = req.params.beachID;
         let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
         let survs = beaches.getSurveys(bID, 0, 0, 0, 0);
+        //returns array of survey ids and date of submission NOT MONTH OR YEAR
+        //[{date:4,_id:1234}]
         res.json(survs)
     }))
     //delete a beach with all surveys under it
@@ -52,6 +65,15 @@ router.route('/:beachID')
 
 router.route('/surveys')
     //adds survey to beach
+    /**post body
+     * {
+     * dos:324252342,
+     * bID: (beachID),
+     * survData:{
+     *      (All requred survey data)
+     *      }
+     * }
+     */
     .post(asyncHandler(async (req, res) => {
         let { dos: dateOfSub, bID: beachID, survData } = req.body;
         await surveys.addToBeach(survData, beachID, dateOfSub);
