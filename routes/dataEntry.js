@@ -13,7 +13,11 @@ router.route('/')
     //get all beaches
     .get(asyncHandler(async (req, res) => {
         let { skip, limit } = req.body;
+<<<<<<< HEAD
         let allBeaches = await beaches.getMany(skip,limit);
+=======
+        let allBeaches = await beaches.getMany(skip, limit);
+>>>>>>> database-overhaul
         res.json(allBeaches);
     }))
     //delete a beach
