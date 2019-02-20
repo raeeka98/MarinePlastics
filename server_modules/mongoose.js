@@ -306,6 +306,9 @@ let beaches = {
     },
     getAllLonLat: async function() {
         return await beachModel.find({}, "n lat lon").exec();
+    },
+    getAllVerb: async function() {
+        return await beachModel.find().exec();
     }
 }
 
@@ -358,8 +361,8 @@ async function test1 () {
     };
     let beach = {
         name: "testB",
-        lat: 0,
-        lon: 0,
+        lat: 36.9786,
+        lon: -121.9385,
         nroName: "River t",
         nroDist: 3,
     }

@@ -64,9 +64,10 @@ class Map extends Component {
   }
 
   loadCommentsFromServer() {
-    axios.get(this.url)
+    axios.get(this.url + "/verbose")
       .then(res => {
         this.setState({ data: res.data });
+        console.log("Beaches");
         console.log(res.data);
       })
   }
@@ -93,15 +94,15 @@ class Map extends Component {
 
 
    render(){
-     console.log(this.state.data);
-    const sortedData = locationSort(this.state.data);
-    const GoogleMapsMarkers = sortedData.map((comment) => (
+     
+    //const sortedData = locationSort(this.state.data);
+    const GoogleMapsMarkers = this.state.data.map((comment) => (
       (comment.lat && comment.lon)
       ? <CustomMarker
-          key={comment.entries[0]._id}
+          key={comment._id}
           lat={comment.lat}
           lng={comment.lon}
-          text={comment.name}
+          text={comment.n}
           location={comment}
           $hover={true}
         /> 
