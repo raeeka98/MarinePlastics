@@ -360,26 +360,26 @@ async function test1 () {
         asDebrisLength: 2
     };
     let beach = {
-        name: "testB",
+        name: "testB2",
         lat: 36.9786,
         lon: -121.9385,
         nroName: "River t",
         nroDist: 3,
     }
 
-    // let b = await beaches.create(beach);
-    // console.log(b);
-    // let subDate = new Date().setUTCHours(0, 0, 0, 0);
-    // sur.survDate = subDate;
-    // let { survey, added } = await surveys.addToBeach(sur, b._id, subDate);
-    // let res = await surveys.remove(b._id, survey._id, survey.survDate);
+     //let b = await beaches.create(beach);
+     //console.log(b);
+     //let subDate = new Date().setUTCHours(0, 0, 0, 0);
+     //sur.survDate = subDate;
+     //let { survey, added } = await surveys.addToBeach(sur, b._id, subDate);
+     //let res = await surveys.remove(b._id, survey._id, survey.survDate);
     // console.log(res);
 
     // console.log("added survey" + added);
-    // await beaches.remove(b._id);
+     //await beaches.remove(b._id);
 
 
-    // let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
+     //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
     // console.log(b);
 
 

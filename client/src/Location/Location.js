@@ -5,6 +5,7 @@ import { ColumnChart,PieChart } from "./Charts";
 // to get the pin styles
 import '../Map/Map.css';
 import { sumDebrisTypes } from '../_helpers/ChartHelpers';
+import axios from 'axios'
 
 
 
@@ -16,7 +17,7 @@ class Location extends Component {
     let entryData = this.props.location.state.data; 
     this.state = {
       data: entryData,
-      pieChartData:sumDebrisTypes(entryData.entries),
+      pieChartData:sumDebrisTypes(entryData.surveys),
     }
   }
 
@@ -24,7 +25,23 @@ class Location extends Component {
   render() {
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
-    let entries = this.state.data.entries.map((entry) => {
+    console.log("Surveys:");
+    console.log(this.state.data.surveys);
+    var beachSurveys;
+    for(var year in this.state.data.surveys){
+      var month = year.months;
+      for(var i = 0 ; i < month.length; i++){
+        var days = month[i];
+        for(var j = 0; j < days.length; days++){
+          var surveyID = days[i]._id;
+          axios.get(`/surveys/${surveyID}`)
+            .then(res => {
+              beachSurveys.push(res);
+            }); //axios call to get survey based on given id?
+        }
+      }
+    }
+    let surveys = beachSurveys.map((entry) => {
       return(
         <li key={entry._id}>
           <Link to={{ pathname: `/entry/${entry._id}` }}>
@@ -48,14 +65,14 @@ class Location extends Component {
     const CustomMarker = () => <div className="custom-marker"><p>{}</p></div>;
     return(
       <div>
-        <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.name }</h1>
+        <h1 className="uk-text-primary uk-heading-primary">{ this.state.data.n }</h1>
         <div className="uk-grid uk-grid-match">
           <ColumnChart chartData={this.state.data}/>
           <div className="uk-width-1-4">
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Entries</h3>
               <ul>
-                { entries }
+                { surveys }
               </ul>
             </div>
           </div>
@@ -76,7 +93,7 @@ class Location extends Component {
                   <CustomMarker
                     lat={ this.state.data.lat }
                     lng={ this.state.data.lon }
-                    name={ this.state.data.name }
+                    name={ this.state.data.n }
                   />
                 </GoogleMapReact>
               </div>) : null
