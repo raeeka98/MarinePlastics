@@ -12,9 +12,9 @@ let asyncHandler = fn =>
 router.route('/')
     //get all beaches
     .get(asyncHandler(async (req, res) => {
-        let { skip, limit } = req.body;
-        let beaches = await beaches.getMany(skip, limit);
-        res.json(beaches);
+        let { skip } = req.body;
+        let b = await beaches.getMany(skip);
+        res.json(b);
     }))
     //delete a beach
     .delete(asyncHandler(async (req, res) => {
@@ -26,8 +26,8 @@ router.route('/')
 router.route('/:beachID')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
-        let {surveyYear,surveyMonth,surveySkip,numOfSurveys} = req.body;
-        let surveys = beaches.getSurveys(bID,surveyYear,surveyMonth,surveySkip,numOfSurveys);
+        let { surveyYear, surveyMonth, surveySkip, numOfSurveys } = req.body;
+        let surveys = beaches.getSurveys(bID, surveyYear, surveyMonth, surveySkip, numOfSurveys);
         res.json(surveys)
     }));
 
