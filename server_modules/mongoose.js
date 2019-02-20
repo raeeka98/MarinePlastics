@@ -19,7 +19,7 @@ let surveys = {
         let dateOfSub = new Date(epochDateOfSubmit);
         let update = {
             $pull: {
-                [`surveys.${dateOfSub.getUTCFullYear()}.months.${dateOfSub.getUTCMonth()}`]: {
+                [`surveys.${dateOfSub.getUTCFullYear()}.${dateOfSub.getUTCMonth()}`]: {
                     day: dateOfSub.getUTCDate()
                 }
             }
@@ -29,7 +29,9 @@ let surveys = {
 
             let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
 
-            return await Promise.all([await removeFromBeach, await removedSurvey]);
+            //update stats
+
+            return await Promise.all([removeFromBeach, removedSurvey]);
         } catch (error) {
             console.log(error);
             throw new Error('Error while deleting surveys: ' + err.message);
@@ -56,7 +58,7 @@ let surveys = {
     addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
         let subDate = new Date(epochDateOfSubmit);
         let survey = new surveyModel(surveyData);
-        let path = `surveys.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}`;
+        let path = `surveys.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
         survey.bID = beachID;
         let surveyEntryData = {
             day: subDate.getUTCDate(),
@@ -65,7 +67,7 @@ let surveys = {
 
         let updatePayload = {
             reason: 'new',
-            date: epochDateOfSubmit,
+            date: new Date(epochDateOfSubmit),
             ASTotal: 0,
             SRSTotal: 0,
             newDebris: {},
@@ -76,34 +78,31 @@ let surveys = {
 
         console.log(updatePayload);
 
-        try {
-            let update = {};
-            update.$push = {
-                [path]: surveyEntryData
-            }
-            console.log(update);
-            let find = {
-                _id: beachID,
-                [`${path}.day`]: { $ne: subDate.getUTCDate() }
-            }
-            let newDoc = await beachModel.findOneAndUpdate(find, update).exec();
-            if (newDoc) {
-                //if a date doesnt already exist
-                try {
-                    let surv = await survey.save();
-                    return { survey: surv, added: true };
-                } catch (err) {
-                    console.log(err);
-                    throw new Error('Error while saving survey: ' + err.message);
-                }
-            }
-            console.log(newDoc);
-            return { survey: null, added: false }
-        } catch (err) {
-            console.log(err);
-            throw new Error('Error while saving to beach: ' + err.message);
+        let update = {};
+        update.$push = {
+            [path]: surveyEntryData
         }
+        console.log(update);
+        let find = {
+            _id: beachID,
+            [`${path}.day`]: { $ne: subDate.getUTCDate() }
+        }
+        let newDoc = await beachModel.findOneAndUpdate(find, update).exec();
+        if (newDoc) {
+            //if a date doesnt already exist
+            try {
+                let surv = await survey.save();
+                //update stats
+                return { survey: surv, added: true };
+            } catch (err) {
+                console.log(err);
+                throw new Error('Error while saving survey: ' + err.message);
+            }
+        }
+        console.log(newDoc);
+        return { survey: null, added: false }
     },
+
     get: async function(surveyID) {
         return await surveyModel.findById(surveyID).exec();
     }
@@ -113,94 +112,23 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
-        let update = { $set: {} };
-        let subDate = new Date(updatePayload.date);
+        let update = {};
+        let { date } = updatePayload;
+        let paths = {
+            ASTPath: `stats.AST.${date.getUTCFullYear()}.${date.getUTCMonth()}`,
+            SRSTPath: `stats.SRST.${date.getUTCFullYear()}.${date.getUTCMonth()}`
+        };
 
-        let projection = `stats.TODF stats.AST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}`;
+        let projection = `stats.lastUp stats.TODF stats.AST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
         let { stats: oldStats } = await beachModel.findById(beachID, projection).exec();
+        console.log(oldStats);
+
         if (updatePayload.reason === 'new') {
-            let { newDebris, ASTotal, SRSTotal } = updatePayload;
-            console.log(oldStats);
-            //new survey
-            let res = [];
-            let trash = Object.keys(newDebris);
-            if (trash.length > 0) {
-                update.$set = {};
-                if (oldStats.typesOfDebrisFound.has(trash)) {
-                    let origAmnt = oldStats.typesOfDebrisFound.get(trash);
-                    res.push([trash, trashAmount + origAmnt]);
-                } else {
-                    res.push([trash, trashAmount]);
-                }
-            }
-            update.$push = {
-                [`stats.AST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}`]: { date: subDate.getUTCDate(), total: ASTotal },
-                [`stats.SRST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}`]: { date: subDate.getUTCDate(), total: SRSTotal }
-            };
-            update.$set['stats.typesOfDebrisFound'] = res;
+            createdSurvey(update, updatePayload, paths);
         } else if (updatePayload.reason === 'edit') {
-            //edited survey
-            let { newDebrisValues, newASTotal, newSRSTotal } = updatePayload;
-            let res = [];
-            let trash = Object.keys(newDebrisValues);
-            if (trash.length > 0) {
-                for (let i = 0; i < trash.length; i++) {
-                    const trashAmount = newDebrisValues[trash[i]];
-                    if (oldStats.typesOfDebrisFound.has(trash[i])) {
-                        let origAmnt = oldStats.typesOfDebrisFound.get(trash[i]);
-                        let newTotal = trashAmount + origAmnt;
-                        if (newTotal != 0)
-                            res.push([trash[i], newTotal]);
-                    } else {
-                        res.push([trash[i], trashAmount]);
-                    }
-                }
-            }
-            let oldSRSMonth = oldStats.SRST[subDate.getUTCFullYear()].months[subdate.getUTCMonth()];
-            let oldASMonth = oldStats.AST[subDate.getUTCFullYear()].months[subdate.getUTCMonth()];
-            console.log(oldSRSMonth);
-            console.log(oldASMonth);
-            let srsIndex, asIndex;
-            for (let i = 0; i < oldSRSMonth.length; i++) {
-                const SRSday = oldSRSMonth[i];
-                const ASday = oldASMonth[i];
-                if (SRSday.day === subDate.getUTCDate()) {
-                    srsIndex = i;
-                }
-                if (ASday.day === subDate.getUTCDate()) {
-                    asIndex = i;
-                }
-            }
-            update.$set = {
-                ['stats.typesOfDebrisFound']: res,
-                [`stats.AST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}.${asIndex}`]: newASTotal,
-                [`stats.SRST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}.${srsIndex}`]: newSRSTotal,
-            }
+            editedSurvey(update, updatePayload, oldStats, paths);
         } else {
-            //removed survey
-            let { remDebris } = updatePayload;
-            let res = [];
-            let trash = Object.keys(remDebris);
-            if (trash.length > 0) {
-                for (let i = 0; i < trash.length; i++) {
-                    const trashAmount = newDebrisValues[trash[i]];
-                    if (oldStats.typesOfDebrisFound.has(trash[i])) {
-                        let origAmnt = oldStats.typesOfDebrisFound.get(trash[i]);
-                        let newTotal = trashAmount + origAmnt;
-                        if (newTotal != 0)
-                            res.push([trash[i], newTotal]);
-                    } else {
-                        res.push([trash[i], trashAmount]);
-                    }
-                }
-            }
-            update.$pull = {
-                [`stats.AST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}.date`]: subDate.getUTCDate(),
-                [`stats.SRST.${subDate.getUTCFullYear()}.months.${subDate.getUTCMonth()}.date`]: subDate.getUTCDate()
-            };
-            update.$set = {
-                ['stats.typesOfDebrisFound']: res
-            }
+            removedSurvey(update, updatePayload, oldStats, paths);
         }
         update.$set['stats.lastUp'] = new Date();
         console.log(update);
@@ -233,7 +161,7 @@ let beaches = {
         if (query.getYear) {
             projection = `stats.AST.${query.year} stats.SRST.${query.year} stats.TODF stats.lastUp`;
         } else {
-            projection = `stats.AST.${query.year}.months.${query.month} stats.SRST.${query.year}.months.${query.month} stats.TODF stats.lastUp`
+            projection = `stats.AST.${query.year}.${query.month} stats.SRST.${query.year}.${query.month} stats.TODF stats.lastUp`
         }
         try {
             stats = await beachModel.findById(beachID, projection).exec();
@@ -255,11 +183,24 @@ let beaches = {
         }
     },
     getSurveys: async function(beachID, surveyYear, surveyMonth, surveysSkip, numOfSurveys) {
-        let projection = `n surveys.${surveyYear}.months.${surveyMonth}`;
-        return await beachModel.findById(beachID)
-            .select(projection)
-            .slice(`surveys.${surveyYear}.months.${surveyMonth}`, [surveysSkip, numOfSurveys])
-            .exec();
+        let projection = `surveys`;
+        // return await beachModel.findById(beachID)
+        //     .select(projection)
+        //     .slice(`surveys.${surveyYear}.${surveyMonth}`, [surveysSkip, numOfSurveys])
+        //     .exec();
+        let { surveys } = await beachModel.findById(beachID)
+            .select(projection).lean().exec();
+        let res = [];
+        console.log(surveys);
+
+        for (const year in surveys) {
+            let months = surveys[year];
+            for (const month in months) {
+                const surv = months[month];
+                res = [...res,...surv];
+            }
+        }
+        return res;
     },
     getSubmitYears: async function(beachID) {
         let doc = await beachModel.findById(beachID)
@@ -270,21 +211,21 @@ let beaches = {
         let doc = await beachModel.findById(beachID)
             .select(`surveys.${year}`).lean();
 
-        let { months } = doc.surveys[year];
+        let months = doc.surveys[year];
         let res = [];
         for (const month in months) {
             const days = months[month];
             if (days.length > 0) {
-                res.push(month);
+                res.push(months);
             }
         }
         return res;
     },
     getSurveysUnderMonth: async function(beachID, year, month) {
         let doc = await beachModel.findById(beachID)
-            .select(`surveys.${year}.months.${month}`).lean();
+            .select(`surveys.${year}.${month}`).lean();
         let res;
-        doc.surveys[year].months[month] ? res = doc.surveys[year].months[month] : res = [];
+        doc.surveys[year][month] ? res = doc.surveys[year][month] : res = [];
         return res;
     },
     /**
@@ -311,6 +252,90 @@ let beaches = {
         return await beachModel.find().exec();
     }
 }
+
+function removedSurvey (update, updatePayload, oldStats, paths) {
+    let { ASTPath, SRSTPath } = paths;
+    let { TODF: prevDebrisData } = oldStats;
+    let { newDebrisData, date } = updatePayload;
+    let result = [];
+    if (compareTrash(newDebrisData, prevDebrisData, result)) {
+        update.$set = {
+            ['stats.typesOfDebrisFound']: result
+        }
+    }
+    update.$pull = {
+        [`${ASTPath}.date`]: date.getUTCDate(),
+        [`${SRSTPath}.date`]: date.getUTCDate()
+    };
+}
+
+function editedSurvey (update, updatePayload, oldStats, paths) {
+    //edited survey
+    let { ASTPath, SRSTPath } = paths;
+    let { TODF: prevDebrisData, SRST, AST } = oldStats;
+    let { newDebrisData, newASTotal, newSRSTotal, date } = updatePayload;
+    let result = [];
+    update.$set = {}
+
+    if (compareTrash(newDebrisData, prevDebrisData, result)) {
+        update.$set['stats.typesOfDebrisFound'] = result;
+    }
+    let oldSRSMonth = SRST[date.getUTCFullYear()][date.getUTCMonth()];
+    let oldASMonth = AST[date.getUTCFullYear()][date.getUTCMonth()];
+    console.log(oldSRSMonth);
+    console.log(oldASMonth);
+    let srsIndex = -1,
+        asIndex = -1;
+    for (let i = 0; i < oldSRSMonth.length; i++) {
+        const SRSday = oldSRSMonth[i];
+        const ASday = oldASMonth[i];
+        if (SRSday.day === date.getUTCDate()) {
+            srsIndex = i;
+        }
+        if (ASday.day === date.getUTCDate()) {
+            asIndex = i;
+        }
+    }
+    update.$set[`${ASTPath}.${asIndex}`] = newASTotal;
+    update.$set[`${SRSTPath}.${srsIndex}`] = newSRSTotal;
+}
+
+function createdSurvey (update, updatePayload, paths) {
+    //new survey
+    let { ASTPath, SRSTPath } = paths;
+    let { TODF: prevDebrisData } = oldStats;
+    let { newDebris: newDebrisData, ASTotal, SRSTotal } = updatePayload;
+    let result = [];
+    if (compareTrash(newDebrisData, prevDebrisData, result)) {
+        update.$set = {
+            ['stats.typesOfDebrisFound']: result
+        };
+    }
+    update.$push = {
+        [ASTPath]: { date: date.getUTCDate(), total: ASTotal },
+        [SRSTPath]: { date: date.getUTCDate(), total: SRSTotal }
+    };
+}
+
+function compareTrash (newDebrisData, prevDebrisData, result) {
+    let trash = Object.keys(newDebrisData);
+    if (trash.length > 0) {
+        if (prevDebrisData.has(trash)) {
+            let origAmnt = prevDebrisData.get(trash);
+            let newTotal = trashAmount + origAmnt;
+            if (newTotal != 0) {
+                result.push([trash, newTotal]);
+            }
+        } else {
+            result.push([trash, trashAmount]);
+        }
+    } else {
+        return false;
+    }
+    return true;
+
+}
+
 
 async function test1 () {
     let sur = {
@@ -367,26 +392,30 @@ async function test1 () {
         nroDist: 3,
     }
 
-     //let b = await beaches.create(beach);
-     //console.log(b);
-     //let subDate = new Date().setUTCHours(0, 0, 0, 0);
-     //sur.survDate = subDate;
-     //let { survey, added } = await surveys.addToBeach(sur, b._id, subDate);
-     //let res = await surveys.remove(b._id, survey._id, survey.survDate);
+    // let b = await beaches.create(beach);
+    // console.log(b);
+    // let subDate = new Date().setUTCHours(0, 0, 0, 0);
+    // sur.survDate = subDate;
+    // let { survey, added } = await surveys.addToBeach(sur, b._id, subDate);
+    // console.log(`${survey}  ${added}`);
+
+    // let res = await surveys.remove("5c6c978204de315b0e7cfbc7", "5c6c979d04de315b0e7cfbc8", subDate);
     // console.log(res);
 
     // console.log("added survey" + added);
      //await beaches.remove(b._id);
 
+    // let d = await beaches.getMany(0);
+    // console.log(d);
+    // let d = await beaches.getSurveys("5c6cbb73dea528734c341ebf", 0, 0, 0, 0);
+    // console.log(d);
 
      //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
     // console.log(b);
-
+    // console.log(await beaches.getAllLonLat());
 
 
 }
-
-test1();
 
 
 //export our module to use in server.js
