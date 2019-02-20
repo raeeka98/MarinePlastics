@@ -7,7 +7,7 @@ export default class Auth {
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
     redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
-    audience: 'https://marine-plastics.auth0.com/userinfo',
+    audience: process.env.REACT_APP_AUTH_AUDIENCE,
     responseType: 'token id_token',
     scope: 'openid email profile'
   });
@@ -30,14 +30,13 @@ export default class Auth {
     // window.location.replace('/home');
   }
 
-  handleAuthentication() {
+  handleAuthentication(fn) {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         window.location.replace('/');
       } else if (err) {
-        window.location.replace('/');
-        console.log(err);
+        fn(err.errorDescription);
       }
     });
   }
@@ -80,7 +79,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    window.location.replace('/');
+    let base = encodeURIComponent(process.env.REACT_APP_AUTH_REDIRECT_URI);
+    window.location.replace('https://' + process.env.REACT_APP_AUTH_DOMAIN + '/v2/logout?returnTo=' + 
+      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logo ut of auth0 */
   }
 
   isAuthenticated() {

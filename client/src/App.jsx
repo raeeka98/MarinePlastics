@@ -15,6 +15,7 @@ import Protocol from './Protocol/Protocol';
 import Map from './Map/Map.js';
 import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
+import PageNotFound from './PageNotFound/PageNotFound';
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -25,11 +26,15 @@ class App extends Component {
     super();
     // creates a new authentication object, which can be passed to other components
     this.auth = new Auth();
+    this.state = {error: ""};
   }
 
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
-    this.auth.handleAuthentication();
+    this.auth.handleAuthentication(error=>{
+      this.setState({error});
+    });
+    
   }
 
   render() {
@@ -54,13 +59,15 @@ class App extends Component {
                   path='/profile'
                   render={() => (
                     !this.auth.isAuthenticated()
-                      ? <Redirect to='/' />
-                      : <UserProfile auth={this.auth} />
+                    ? <Redirect to='/' />
+                    : <UserProfile auth={ this.auth } />
                   )}
                 />
-                <Route exact path='/protocol' component={Protocol} />
-                <Route path='/map' component={Map} />
-                <Route path='/chooseform' component={ChooseForm} />
+                <Route exact path='/protocol' component={ Protocol } />
+                <Route path='/map' component={ Map } />
+                <Route path='/chooseform' component={ ChooseForm } />
+
+                <Route component={ PageNotFound } />
               </Switch>
             </div>
             <Footer />

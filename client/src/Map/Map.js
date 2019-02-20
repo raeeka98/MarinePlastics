@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios';
 
+//We're gonna have to add an on click event for the custom marker, and have a route that will take 
+//the user to the page
 const CustomMarker = ({ text }) => <div className="custom-marker"><p>{ text }</p></div>;
 
 class Map extends Component {
@@ -17,6 +19,7 @@ class Map extends Component {
     axios.get(this.url)
       .then(res => {
         this.setState({ data: res.data });
+        console.log(res.data);
       })
   }
 
@@ -42,13 +45,14 @@ class Map extends Component {
 
 
    render(){
-    const GoogleMapsMarkers = this.state.data.map(comment => (
-      <CustomMarker
-        key={comment.id}
-        lat={comment.lat}
-        lng={comment.lon}
-        text={comment.beach}
-      />
+    const GoogleMapsMarkers = this.state.data.map((comment) => (
+      (comment.lat && comment.lon)? 
+        <CustomMarker
+          key={comment.id}
+          lat={comment.lat}
+          lng={comment.lon}
+          text={comment.beach}
+        /> : <p></p>
     ));
     return (
       <div style={{height: '500px', width: '100%'}}>
