@@ -117,6 +117,18 @@ class Home extends Component {
     }
   }
 
+  getSurveysFromBeach(beachID) {
+    let surveyEntries = [];
+    axios.get(this.url + '/' + beachID)
+      .then(res => {
+        surveyEntries = res.data;
+        console.log(surveyEntries);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   showEntries = (locationNodes) => {
     let errStr = "Something went wrong!"
     let { loaded, error } = this.state;
@@ -147,6 +159,8 @@ class Home extends Component {
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
       let entryNodes = [];
       let subDate = new Date(0);
+
+
 
       for (const date in location.surveys) {
         const entryID = location.surveys[date];
