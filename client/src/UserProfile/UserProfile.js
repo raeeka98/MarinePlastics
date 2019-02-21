@@ -14,15 +14,12 @@ class UserProfile extends Component {
 
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.addUserEntries = this.addUserEntries.bind(this);
-    this.url = '/surveys';
+    this.url = '/beaches';
   }
 
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
-        res.data.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
         this.setState({ data: res.data });
       });
   }
@@ -52,12 +49,6 @@ class UserProfile extends Component {
 
   componentDidMount() {
     this.loadCommentsFromServer();
-  }
-
-  componentDidUpdate() {
-    let userEntries = [];
-    if (this.state.profile.name) userEntries = userFind(this.state.data, this.state.profile.name);
-    this.addUserEntries(userEntries);
   }
 
   render() {
