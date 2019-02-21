@@ -16,9 +16,12 @@ class Home extends Component {
       searchResult: [],
       filter: 'beach',
       loaded: false,
-      error: false
+      error: false,
+
+      beaches: []
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
@@ -39,6 +42,25 @@ class Home extends Component {
           rawData: res.data,
           loaded: true
         });
+      })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({
+          loaded: true,
+          error: true
+        });
+      })
+  }
+
+  // Load the beach names
+  loadBeaches() {
+    axios.get(this.url) 
+      .then(res => {
+        this.setState({
+          beaches: res.data,
+          loaded: true
+        });
+        console.log(this.state.beaches);
       })
       .catch(err => {
         console.log(err.message);
@@ -77,6 +99,8 @@ class Home extends Component {
   }
 
   handleAccordionClick = (e) => {
+
+    
     let accordionWrapper = e.target.parentElement;
     let accordionContent = e.target.nextSibling;
     if (e.target.classList.contains('uk-text-muted')) {
@@ -109,13 +133,14 @@ class Home extends Component {
 
   // once the component is on the page, checks the server for comments
   componentDidMount() {
-    this.loadCommentsFromServer();
+    this.loadBeaches();
+    //this.loadCommentsFromServer();
   }
 
   render() {
 
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = this.state.data.map((location, i) => {
+    let locationNodes = this.state.beaches.map((location, i) => {
       console.log(location);
 
       let path = location._id;
