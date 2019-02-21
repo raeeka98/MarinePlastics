@@ -23,17 +23,28 @@ class Location extends Component {
     }
   }
 
+  /* 
+   * getStats(): 
+   *  This function gets all the survey IDs using the given location's ID.
+   *  Once it gets the survey IDs, it will then loop through each ID to obtain the actual
+   *  survey contents that are stored in the database. These will be used for displaying the
+   *  chart data as well as provide the data when the use clicks the links on the side of
+   *  the page.
+   * 
+   *  Arguments: none (retrieves beach IDs stored in state)
+   *  
+   *  Returns: No return values, but it will store an array of survey information in this.state.surveys
+   * 
+   *  Raises: none
+  */
   getStats = () => {
-    console.log(this.state.beachData._id)
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
-        
         this.setState({ surveyIDs: res.data, pieChartData: sumDebrisTypes(res.data) });
       })
       .then( () => {
         let trueSurveys = [];
         for(var i = 0; i < this.state.surveyIDs.length; i++){
-          console.log(this.state.surveyIDs[i].survey);
           axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`)
             .then(res => {
               trueSurveys.push(res.data);

@@ -21,26 +21,27 @@ class CustomMarker extends Component {
     this.onMouseOver = this.onMouseOver.bind(this);
   }
 
-  onMouseOut() {
-    this.setState( {displayText : ""} );
-  }
-
-  onMouseOver(){
-    this.setState( {displayText : this.props.text} );
-  }
+  /*
+   * render():
+   *  This function renders the marker using the data passed by Map's render function.
+   *  There are checks to see if the marker is being hovered over and if so, we can create
+   *  a bubble that will display the beach's name rather than rendering the beach name directly
+   *  on the marker. A link to the beach is also created with a pathname that removes the
+   *  spaces in the beach's name.
+   * 
+   *  Arguments: None
+   *  
+   *  Returns: A rendered react component that changes behavior based on a mouse hover
+   * 
+   *  Raises: None
+  */
 
   render(){
     const style = this.props.$hover ? "custom-marker-hover" : "custom-marker";
     const beachName = this.props.$hover ? this.props.text : "";
     const beachBubble = this.props.$hover ? "tooltiptext" : "";
     let path = this.props.text.replace(/\s/g, '');
-    /*let extractedData = {
-      name: this.props.text,
-      lat: this.props.location.lat,
-      lon: this.props.location.lon,
-      entries: [this.props.location]
-    };*/
-    //console.log(extractedData)
+ 
     return(
       <div>
         <Link className={style} to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
@@ -63,12 +64,25 @@ class Map extends Component {
     this.url = '/beaches';
   }
 
+
+  /*
+   *  loadCommentsFromServer()
+   *    This function has been refactored to work with the new database structure that Noel 
+   *    developed. Rather than obtaining the survey data of each beach, it now just obtains
+   *    the beach name, ID, latitude, and longitude, which are the minimun parameters needed
+   *    for the locations to be displayed on the maps
+   * 
+   *    Arguments: None
+   * 
+   *    Returns: None (Stores object containing beach information in this.state.data)
+   * 
+   *    Raises: None
+   * 
+  */
   loadCommentsFromServer() {
     axios.get(this.url + '/map')
       .then(res => {
         this.setState({ data: res.data });
-        console.log("Beaches");
-        console.log(res.data);
       })
   }
 
@@ -94,8 +108,7 @@ class Map extends Component {
 
 
    render(){
-     
-    //const sortedData = locationSort(this.state.data);
+     // For each beach, create a marker that contains its id, lat, lon, and name
     const GoogleMapsMarkers = this.state.data.map((comment) => (
       (comment.lat && comment.lon)
       ? <CustomMarker

@@ -44,32 +44,11 @@ router.route('/')
         res.json({ res: "Created beach" });
     }));
 
-    router.route('/map')
+router.route('/map')
     //get all beaches with lon and lat
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
         res.json(points);
-    }));
-
-router.route('/:beachID')
-    /*get all surveys submited in the year then month.
-    How many to skip and how many to obtain
-    Must send a query with get
-    for now it obtains all surveys under beach until next meeting*/
-    .get(asyncHandler(async (req, res) => {
-        let bID = req.params.beachID;
-        let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
-        let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
-        console.log(survs);
-        //returns array of survey ids and date of submission NOT MONTH OR YEAR
-        //[{date:4,_id:1234}]
-        res.json(survs)
-    }))
-    //delete a beach with all surveys under it
-    .delete(asyncHandler(async (req, res) => {
-        let bID = req.params.beachID;
-        await beaches.remove(bID);
-        res.json({ res: "Successfully deleted beach" });
     }));
 
 router.route('/surveys')
@@ -112,6 +91,28 @@ router.route('/surveys/:surveyID')
         await surveys.remove(bID, surveyID, dateOfSub);
         res.json({ message: 'survey has been deleted' })
     }));
+
+
+router.route('/:beachID')
+    /*get all surveys submited in the year then month.
+    How many to skip and how many to obtain
+    Must send a query with get
+    for now it obtains all surveys under beach until next meeting*/
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
+        let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
+        //returns array of survey ids and date of submission NOT MONTH OR YEAR
+        //[{date:4,_id:1234}]
+        res.json(survs)
+    }))
+    //delete a beach with all surveys under it
+    .delete(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        await beaches.remove(bID);
+        res.json({ res: "Successfully deleted beach" });
+    }));
+
 
 
 
