@@ -8,6 +8,10 @@ class TeamInformation extends Component {
   render() {
     return(
       <div>
+        <ul className="uk-accordion">
+            <li>yes</li>
+            <li>yes</li>
+        </ul>
       </div>
     )
   }

@@ -9,7 +9,11 @@ import Auth from './Auth';
 import Landing from './Landing/Landing';
 import Home from './Home/Home';
 import SurveyEntry from './SurveyEntry/SurveyEntry';
-import Steps from './SurveyForm/SurveyForm';
+
+// for testing new survey form
+// import Steps from './SurveyForm/SurveyForm';
+import SurveyForm from './NewSurveyForm/SurveyForm'
+
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
 import Map from './Map/Map.js';
@@ -34,7 +38,7 @@ class App extends Component {
     this.auth.handleAuthentication(error=>{
       this.setState({error});
     });
-    
+
   }
 
   render() {
@@ -51,7 +55,11 @@ class App extends Component {
               <Switch>
                 <Route exact path='/' render={() => (<Landing auth={this.auth} />)} />
                 <Route exact path='/home' component={Home} />
-                <Route path='/survey' component={Steps} />
+
+                {/* for testing new component: */}
+                {/* <Route path='/survey' component={Steps} /> */}
+                <Route path='/survey' component={SurveyForm} />
+
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
