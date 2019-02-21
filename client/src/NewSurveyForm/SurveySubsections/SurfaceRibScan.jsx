@@ -7,8 +7,12 @@ class SurfaceRibScan extends Component {
 
   render() {
     return(
-      <div>
-      </div>
+      <li>
+          <a className="uk-accordion-title" href="">Surface Rib Scan</a>
+          <div class="uk-accordion-content">
+              <p>Team Info test</p>
+          </div>
+      </li>
     )
   }
 

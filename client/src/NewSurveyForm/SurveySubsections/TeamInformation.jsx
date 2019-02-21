@@ -7,12 +7,12 @@ class TeamInformation extends Component {
 
   render() {
     return(
-      <div>
-        <ul className="uk-accordion">
-            <li>yes</li>
-            <li>yes</li>
-        </ul>
-      </div>
+      <li>
+          <a className="uk-accordion-title" href="#teaminfo">Team Information</a>
+          <div class="uk-accordion-content">
+              <p>Team Info test</p>
+          </div>
+      </li>
     )
   }
 

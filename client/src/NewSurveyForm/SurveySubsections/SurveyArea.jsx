@@ -7,8 +7,12 @@ class SurveyArea extends Component {
 
   render() {
     return(
-      <div>
-      </div>
+      <li>
+          <a className="uk-accordion-title" href="#surveyarea">Survey Area</a>
+          <div class="uk-accordion-content">
+              <p>Survey Area test</p>
+          </div>
+      </li>
     )
   }
 

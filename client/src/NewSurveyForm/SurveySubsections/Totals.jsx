@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
+
 class Totals extends Component {
   constructor(props){
     super(props)
@@ -7,8 +14,13 @@ class Totals extends Component {
 
   render() {
     return(
-      <div>
-      </div>
+      <li>
+          <AccordionItemTitle>
+          </AccordionItemTitle>
+          <div class="uk-accordion-content">
+              <p>Totals</p>
+          </div>
+      </li>
     )
   }
 

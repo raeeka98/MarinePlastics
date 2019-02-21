@@ -8,13 +8,54 @@ import MicroDebrisSurvey from './SurveySubsections/MicroDebrisSurvey';
 import SurfaceRibScan from './SurveySubsections/SurfaceRibScan';
 import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
-import Totals from './FormSteps/Totals';
+import Totals from './SurveySubsections/Totals';
+
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
 
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
     this.auth = new Auth();
     this.url = '/surveys'
+    this.state =
+    {
+      entry: {
+        user: '',
+        email: '',
+        input_date: '',
+        org: '',
+        date: '',
+        beach: '',
+        reason: 'proximity',
+        st: 'sand',
+        lat: '',
+        lon: '' ,
+        slope: 'steep',
+        nroName: '',
+        nroDist: '',
+        nroFlow: '',
+        nroOut: '',
+        aspect: '',
+        weather: '',
+        lastTide: { type: 'low' },
+        nextTide: { type: 'low' },
+        windDir: '',
+        windSpeed: '',
+        majorUse: 'recreation',
+        weight: '',
+        NumberOfPeople: '',
+        SRSTotal: '',
+        SRSData: [],
+        ASTotal: '',
+        ASData: [],
+        surveyArea: '',
+      },
+    }
   }
 
   componentDidMount() {
@@ -36,12 +77,14 @@ class SurveyForm extends Component {
   render() {
       return(
         <div>
-            <TeamInformation/>
-            <SurveyArea/>
-            <SurfaceRibScan/>
-            <AccumulationSurvey/>
-            <MicroDebrisSurvey/>
-            <Totals/>
+            <Accordion>
+                <TeamInformation/>
+                <SurveyArea/>
+                <SurfaceRibScan/>
+                <AccumulationSurvey/>
+                <MicroDebrisSurvey/>
+                <Totals/>
+            </Accordion>
         </div>
       );
   }
