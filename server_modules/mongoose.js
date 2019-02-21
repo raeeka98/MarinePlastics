@@ -80,7 +80,10 @@ let surveys = {
 
         let update = {};
         update.$push = {
-            [path]: surveyEntryData
+            [path]: surveyEntryData,
+            $sort: {
+                [`${path}.day`]: 1
+            }
         }
         console.log(update);
         let find = {
@@ -197,7 +200,7 @@ let beaches = {
             let months = surveys[year];
             for (const month in months) {
                 const surv = months[month];
-                res = [...res,...surv];
+                res = [...res, ...surv];
             }
         }
         return res;
