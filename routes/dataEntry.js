@@ -44,11 +44,11 @@ router.route('/')
         res.json({ res: "Created beach" });
     }));
 
-router.route('/verbose')
-    //get all beaches with all of its elements
-    .get(asyncHandler(async (req,res) => {
-        let allBeaches = await beaches.getAllVerb();
-        res.json(allBeaches);
+    router.route('/map')
+    //get all beaches with lon and lat
+    .get(asyncHandler(async (req, res) => {
+        let points = await beaches.getAllLonLat();
+        res.json(points);
     }));
 
 router.route('/:beachID')
@@ -113,11 +113,6 @@ router.route('/surveys/:surveyID')
         res.json({ message: 'survey has been deleted' })
     }));
 
-router.route('/map')
-    //get all beaches with lon and lat
-    .get(asyncHandler(async (req, res) => {
-        let points = await beaches.getAllNames();
-        res.json(points);
-    }));
+
 
 module.exports = { router };

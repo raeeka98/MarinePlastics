@@ -64,7 +64,7 @@ class Map extends Component {
   }
 
   loadCommentsFromServer() {
-    axios.get(this.url)
+    axios.get(this.url + '/map')
       .then(res => {
         this.setState({ data: res.data });
         console.log("Beaches");
