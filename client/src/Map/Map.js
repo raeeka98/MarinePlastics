@@ -17,8 +17,6 @@ class CustomMarker extends Component {
     this.state = {
       displayText : ""
     };
-    this.onMouseOut = this.onMouseOut.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
   }
 
   /*

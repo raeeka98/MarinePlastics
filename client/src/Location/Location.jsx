@@ -99,6 +99,7 @@ class Location extends Component {
               </ul>
             </div>
           </div>
+          <div className='uk-grid-margin uk-width-1-3'>
           {
             lat && lon && checkRange(lat, true) && checkRange(lon, false) ?
               (<div style={{ height: '500px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
@@ -120,7 +121,10 @@ class Location extends Component {
                 </GoogleMapReact>
               </div>) : null
           }
-          <PieChart chartData={this.state.pieChartData} />
+          </div>
+          <div className="uk-grid-margin uk-width-2-3">
+            <PieChart chartData={this.state.pieChartData} />
+          </div>
         </div>
       </div>
     );
