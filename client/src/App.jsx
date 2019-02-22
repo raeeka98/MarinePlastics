@@ -49,7 +49,7 @@ class App extends Component {
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
               <Switch>
-                <Route exact path='/' render={() => (<Landing auth={this.auth} />)} />
+                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
                 <Route exact path='/home' component={Home} />
                 <Route path='/survey' component={Steps} />
                 <Route path='/location/:beachID' component={LocationPage} />

@@ -1,9 +1,48 @@
-.custom-marker {
-  height: 25px;
-  width: 25px;
-  background-color: #fff;
+.custom-marker{
+  position: absolute;
+  height: 13px;
+  width: 13px;
+  background-color: rgb(255, 136, 0);
+  border-style: solid;
   border-radius: 50%;
+  border-color: #ffffff;
   display: inline-block;
+}
+.custom-marker-hover{
+  position:absolute;
+  height: 13px;
+  width: 13px;
+  background-color: rgb(166, 82, 0);
+  border-style: solid;
+  border-radius: 50%;
+  border-color: #ffffff;
+  display: inline-block;
+}
+.tooltiptext {
+  visibility: visible;
+  width: 120px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 7px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -67px;
+  margin-bottom: -2px;
+  font-size: 11pt;
+}
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 90%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: gray transparent transparent transparent;
 }
 .pin {
   width: 30px;

@@ -16,6 +16,7 @@ router.route('/')
     then when select a month it will display all surveys under that month
     go through route /beaches/:beachID to get all surveys under a beach*/
     .get(asyncHandler(async (req, res) => {
+
         /*skip is how many beaches to skip and get the next 10
         should first start a 0 for client to get first 10
         then next 10 should set skip to 10
@@ -70,8 +71,11 @@ router.route('/surveys')
 router.route('/surveys/:surveyID')
     //get a specific survey
     .get(asyncHandler(async (req, res) => {
+        console.log("Obtaining survey...");
         let surveyID = req.params.surveyID;
         let survey = await surveys.get(surveyID);
+        console.log("returning survey...");
+        console.log(survey);
         res.json(survey);
     }))
     //find a specific survey and edit it
@@ -97,7 +101,7 @@ router.route('/:beachID')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
-        let survs = beaches.getSurveys(bID, 0, 0, 0, 0);
+        let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
         //returns array of survey ids and date of submission NOT MONTH OR YEAR
         //[{date:4,_id:1234}]
         res.json(survs)

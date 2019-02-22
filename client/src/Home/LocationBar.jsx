@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 function LocationBar({ handleAccordionClick, location, entryNodes,path,entryString }) {
+    //console.log(location);
     return (
         <div className="uk-card uk-card-default uk-card-body uk-margin">
             <div>
