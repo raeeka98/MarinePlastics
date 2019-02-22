@@ -142,8 +142,9 @@ surveySchema.methods.getASTotal = function(newDebris) {
 }
 
 let dayTotalsSchema = new Schema({
-    day: { type: Number, index: true },
-    total: { type: Number, required: true, default: 0, min: 0 }
+    date: { type: Number, index: true },
+    AST: { type: Number, required: true, default: 0, min: 0 },
+    SRST: { type: Number, required: true, default: 0, min: 0 }
 }, { versionKey: false, _id: false })
 
 let yearTotalsSchema = new Schema({
@@ -163,15 +164,11 @@ let yearTotalsSchema = new Schema({
 
 
 let statisticsSchema = new Schema({
-    AST: {
+    ttls: {
         type: Map,
         of: { type: mongoose.Types.ObjectId, ref: "YearTotals" },
-        default: {}
-    },
-    SRST: {
-        type: Map,
-        of: { type: mongoose.Types.ObjectId, ref: "YearTotals" },
-        default: {}
+        default: {},
+        alias: "totals"
     },
     TODF: {
         type: Map,
@@ -188,7 +185,7 @@ let statisticsSchema = new Schema({
 
 
 let daySurveySchema = new Schema({
-    day: { type: Number, index: true, unique: true },
+    date: { type: Number, index: true, unique: true },
     survey: { type: String }
 }, { versionKey: false, _id: false })
 
