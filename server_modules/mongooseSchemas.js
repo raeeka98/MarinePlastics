@@ -183,7 +183,7 @@ let statisticsSchema = new Schema({
         default: null,
         alias: "lastUpdated"
     }
-}, { versionKey: false, _id: false });
+}, { versionKey: false });
 
 
 let daySurveySchema = new Schema({
@@ -207,7 +207,7 @@ let yearSurveySchema = new Schema({
     "9": [daySurveySchema],
     "10": [daySurveySchema],
     "11": [daySurveySchema],
-}, { versionKey: false, _id: false });
+}, { versionKey: false });
 
 
 let beachSchema = new Schema({
@@ -230,14 +230,15 @@ let beachSchema = new Schema({
         min: -180,
         max: 180
     },
+    lastModified: { type: Date, default: Date.now },
     nroName: String,
     nroDist: { type: Number, min: 0 },
     surveys: {
         type: Map,
-        of: yearSurveySchema,
+        of: { type: mongoose.Types.ObjectId, ref: "YearSurveys" },
         default: {}
     },
-    stats: statisticsSchema
+    stats: { type: mongoose.Types.ObjectId, ref: "BeachStats" }
 }, { versionKey: false });
 
 
@@ -245,7 +246,10 @@ let beachSchema = new Schema({
 
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
+const yearModel = mongoose.model("YearSurveys", yearSurveySchema);
+const statsModel = mongoose.model("BeachStats", statisticsSchema);
+
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
 
-module.exports = { beachModel, surveyModel };
+module.exports = { beachModel, surveyModel, yearModel, statsModel };

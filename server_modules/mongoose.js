@@ -114,7 +114,7 @@ let surveys = {
 
 
 let beaches = {
-    updateStats: async function(beachID, updatePayload) {
+    updateStats: async function(beachStatsID, updatePayload) {
         let update = {};
         let { date } = updatePayload;
         let paths = {
@@ -123,7 +123,7 @@ let beaches = {
         };
 
         let projection = `stats.lastUp stats.TODF stats.AST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
-        let { stats: oldStats } = await beachModel.findById(beachID, projection).exec();
+        let { stats: oldStats } = await beachModel.findById(beachStatsID, projection).exec();
         console.log(oldStats);
 
         if (updatePayload.reason === 'new') {
@@ -194,7 +194,6 @@ let beaches = {
         let { surveys } = await beachModel.findById(beachID)
             .select(projection).lean().exec();
         let res = [];
-        console.log(surveys);
 
         for (const year in surveys) {
             let months = surveys[year];
@@ -231,10 +230,6 @@ let beaches = {
         doc.surveys[year][month] ? res = doc.surveys[year][month] : res = [];
         return res;
     },
-    /**
-     * 
-     * @param {Number} skip 
-     */
     getMany: async function(skip) {
         let projection = `n`;
         return await beachModel
