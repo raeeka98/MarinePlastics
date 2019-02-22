@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
+
+import '../accordion-styles.css';
+
 class MicroDebrisSurvey extends Component {
   constructor(props){
     super(props)
@@ -7,12 +16,14 @@ class MicroDebrisSurvey extends Component {
 
   render() {
     return(
-      <li>
-          <a className="uk-accordion-title" href="">Micro Debris Survey</a>
-          <div class="uk-accordion-content">
-              <p>Team Info test</p>
-          </div>
-      </li>
+      <AccordionItem>
+          <AccordionItemTitle>
+              <h2>Micro Debris Survey</h2>
+          </AccordionItemTitle>
+          <AccordionItemBody>
+
+          </AccordionItemBody>
+      </AccordionItem>
     )
   }
 

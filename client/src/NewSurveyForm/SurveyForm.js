@@ -10,11 +10,10 @@ import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
 import Totals from './SurveySubsections/Totals';
 
+import './accordion-styles.css';
+
 import {
     Accordion,
-    AccordionItem,
-    AccordionItemTitle,
-    AccordionItemBody,
 } from 'react-accessible-accordion';
 
 class SurveyForm extends Component {
@@ -82,7 +81,6 @@ class SurveyForm extends Component {
                 <SurveyArea/>
                 <SurfaceRibScan/>
                 <AccumulationSurvey/>
-                <MicroDebrisSurvey/>
                 <Totals/>
             </Accordion>
         </div>
