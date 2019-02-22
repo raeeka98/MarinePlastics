@@ -147,7 +147,6 @@ let dayTotalsSchema = new Schema({
 }, { versionKey: false, _id: false })
 
 let yearTotalsSchema = new Schema({
-    _id: false,
     "0": [dayTotalsSchema],
     "1": [dayTotalsSchema],
     "2": [dayTotalsSchema],
@@ -166,11 +165,13 @@ let yearTotalsSchema = new Schema({
 let statisticsSchema = new Schema({
     AST: {
         type: Map,
-        of: yearTotalsSchema,
+        of: { type: mongoose.Types.ObjectId, ref: "YearTotals" },
+        default: {}
     },
     SRST: {
         type: Map,
-        of: yearTotalsSchema,
+        of: { type: mongoose.Types.ObjectId, ref: "YearTotals" },
+        default: {}
     },
     TODF: {
         type: Map,
@@ -188,10 +189,7 @@ let statisticsSchema = new Schema({
 
 let daySurveySchema = new Schema({
     day: { type: Number, index: true, unique: true },
-    survey: {
-        type: Schema.Types.ObjectId,
-        ref: 'Surveys'
-    }
+    survey: { type: String }
 }, { versionKey: false, _id: false })
 
 let yearSurveySchema = new Schema({
@@ -230,7 +228,7 @@ let beachSchema = new Schema({
         min: -180,
         max: 180
     },
-    lastModified: { type: Date, default: Date.now },
+    lastMod: { type: Date, default: Date.now },
     nroName: String,
     nroDist: { type: Number, min: 0 },
     surveys: {
@@ -238,7 +236,7 @@ let beachSchema = new Schema({
         of: { type: mongoose.Types.ObjectId, ref: "YearSurveys" },
         default: {}
     },
-    stats: { type: mongoose.Types.ObjectId, ref: "BeachStats" }
+    stats: statisticsSchema
 }, { versionKey: false });
 
 
@@ -246,10 +244,10 @@ let beachSchema = new Schema({
 
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
-const yearModel = mongoose.model("YearSurveys", yearSurveySchema);
-const statsModel = mongoose.model("BeachStats", statisticsSchema);
+const yearSurveyModel = mongoose.model("YearSurveys", yearSurveySchema);
+const yearTotalsModel = mongoose.model("YearTotals", yearTotalsSchema);
 
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
 
-module.exports = { beachModel, surveyModel, yearModel, statsModel };
+module.exports = { beachModel, surveyModel, yearSurveyModel, yearTotalsModel };

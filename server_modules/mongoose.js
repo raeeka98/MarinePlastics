@@ -1,4 +1,4 @@
-let { beachModel, surveyModel } = require('./mongooseSchemas');
+let { beachModel, surveyModel, yearStatsModel, yearTotalsModel } = require('./mongooseSchemas');
 
 
 /*--------------database helpers-------------------*/
@@ -58,13 +58,49 @@ let surveys = {
     addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
         let subDate = new Date(epochDateOfSubmit);
         let survey = new surveyModel(surveyData);
-        let path = `surveys.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
+        let update = {};
         survey.bID = beachID;
+        let { surveys, stats: beachStatsID } = await beachModel.findById(beachId).select("surveys stats").exec();
         let surveyEntryData = {
             day: subDate.getUTCDate(),
             survey: survey._id
         };
+        if (!surveys.has(`${subDate.getUTCFullYear()}`)) {
+            let ym = new yearStatsModel({
+                [subDate.getUTCMonth()]: [surveyEntryData]
+            });
+            update.$set = {
+                [`surveys.${subDate.getUTCFullYear()}`]: ym._id,
+                lastMod: Date.now()
+            };
+            await Promise.all([ym.save(), survey.save()]);
+        } else {
+            let yearSurveyID = surveys.get(`${subDate.getUTCFullYear()}`);
+            let path = `${subDate.getUTCMonth()}`;
+            let yearSurveyUpdate = {
+                $push: {
+                    [path]: surveyEntryData,
+                    $sort: {
+                        [`${path}.day`]: 1
+                    }
+                }
+            }
+            let find = {
+                _id: yearSurveyID,
+                [`${path}.day`]: { $ne: subDate.getUTCDate() }
+            }
+            let doc = await yearStatsModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
+            if (doc) {
+                await survey.save();
+                update.$set = {
+                    lastMod: Date.now()
+                }
+            } else {
+                return { survey: null, added: false };
+            }
+        }
 
+        await beachModel.findByIdAndUpdate(beachID, update).exec();
         let updatePayload = {
             reason: 'new',
             date: new Date(epochDateOfSubmit),
@@ -75,35 +111,8 @@ let surveys = {
 
         updatePayload.ASTotal = survey.getASTotal(updatePayload.newDebris);
         updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebris);
-
         console.log(updatePayload);
-
-        let update = {};
-        update.$push = {
-            [path]: surveyEntryData,
-            $sort: {
-                [`${path}.day`]: 1
-            }
-        }
-        console.log(update);
-        let find = {
-            _id: beachID,
-            [`${path}.day`]: { $ne: subDate.getUTCDate() }
-        }
-        let newDoc = await beachModel.findOneAndUpdate(find, update).exec();
-        if (newDoc) {
-            //if a date doesnt already exist
-            try {
-                let surv = await survey.save();
-                //update stats
-                return { survey: surv, added: true };
-            } catch (err) {
-                console.log(err);
-                throw new Error('Error while saving survey: ' + err.message);
-            }
-        }
-        console.log(newDoc);
-        return { survey: null, added: false }
+        await beaches.updateStats(beachID, updatePayload);
     },
 
     get: async function(surveyID) {
@@ -114,16 +123,12 @@ let surveys = {
 
 
 let beaches = {
-    updateStats: async function(beachStatsID, updatePayload) {
+    updateStats: async function(beachID, updatePayload) {
         let update = {};
-        let { date } = updatePayload;
-        let paths = {
-            ASTPath: `stats.AST.${date.getUTCFullYear()}.${date.getUTCMonth()}`,
-            SRSTPath: `stats.SRST.${date.getUTCFullYear()}.${date.getUTCMonth()}`
-        };
+        let { date: subDate } = updatePayload;
 
-        let projection = `lastUp TODF AST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
-        let { stats: oldStats } = await beachModel.findById(beachStatsID, projection).exec();
+        let projection = `lastUp TODF stats.AST.${subDate.getUTCFullYear()} stats.SRST.${subDate.getUTCFullYear()}`;
+        let { stats: oldStats } = await beachModel.findById(beachID, projection).exec();
         console.log(oldStats);
 
         if (updatePayload.reason === 'new') {
@@ -398,14 +403,14 @@ async function test1 () {
     // console.log(res);
 
     // console.log("added survey" + added);
-     //await beaches.remove(b._id);
+    //await beaches.remove(b._id);
 
     // let d = await beaches.getMany(0);
     // console.log(d);
     // let d = await beaches.getSurveys("5c6cbb73dea528734c341ebf", 0, 0, 0, 0);
     // console.log(d);
 
-     //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
+    //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
     // console.log(b);
     // console.log(await beaches.getAllLonLat());
 
