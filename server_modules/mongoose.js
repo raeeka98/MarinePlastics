@@ -122,7 +122,7 @@ let beaches = {
             SRSTPath: `stats.SRST.${date.getUTCFullYear()}.${date.getUTCMonth()}`
         };
 
-        let projection = `stats.lastUp stats.TODF stats.AST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
+        let projection = `lastUp TODF AST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()} stats.SRST.${subDate.getUTCFullYear()}.${subDate.getUTCMonth()}`;
         let { stats: oldStats } = await beachModel.findById(beachStatsID, projection).exec();
         console.log(oldStats);
 
