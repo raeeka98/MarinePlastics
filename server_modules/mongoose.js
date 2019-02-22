@@ -261,7 +261,6 @@ function removedSurvey (update, updatePayload, oldStats) {
     let result = [];
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
         update.beachUpdate.$set['stats.typesOfDebrisFound'] = result;
-
     }
     update = {
         ASUpdate: {
