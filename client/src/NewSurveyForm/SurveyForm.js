@@ -72,7 +72,7 @@ class SurveyForm extends Component {
       this.setState({ entry });
     });
 
-    axios.get("/beaches/")
+    axios.get("/beaches/trash")
       .then(res => {
         console.log(res);
       })
