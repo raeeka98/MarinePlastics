@@ -16,12 +16,14 @@ class MicroDebrisSurvey extends Component {
 
   render() {
     return(
-      <AccordionItem>
-          <AccordionItemTitle>
-              <h2>Micro Debris Survey</h2>
+      <AccordionItem className="accordion__item">
+          <AccordionItemTitle className="accordion__title accordion__title--animated">
+              <h2>Accumulation Survey</h2>
+              <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
-          <AccordionItemBody>
-
+          <AccordionItemBody className="accordion__body">
+              <form>
+              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

@@ -22,7 +22,18 @@ class AccumulationSurvey extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <p> this is the big body for the big accordion item body</p>
+              <form>
+
+                  <div className="uk-grid uk-child-width-1-6">
+                    <div></div>
+                    <div><h4>Rib #1</h4></div>
+                    <div><h4>Rib #2</h4></div>
+                    <div><h4>Rib #3</h4></div>
+                    <div><h4>Rib #4</h4></div>
+                    <div></div>
+                  </div>
+
+              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

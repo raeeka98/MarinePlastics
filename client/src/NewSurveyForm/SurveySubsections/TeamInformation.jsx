@@ -49,7 +49,7 @@ class TeamInformation extends Component {
 
                 <div className="uk-child-width-1-2 uk-grid">
                   <div>
-                    <label>Organization Name<span className="uk-text-danger">*</span></label>
+                    <label>Organization Name</label>
                     <input
                       type='string'
                       placeholder='Organization Name'
@@ -59,7 +59,7 @@ class TeamInformation extends Component {
                       />
                   </div>
                   <div>
-                    <label>Organization Location<span className="uk-text-danger">*</span></label>
+                    <label>Organization Location (City, Country)<span className="uk-text-danger">*</span></label>
                     <input
                       type='string'
                       placeholder='Organization Name'
