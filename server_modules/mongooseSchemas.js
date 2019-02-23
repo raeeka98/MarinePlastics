@@ -71,7 +71,7 @@ var tideSchema = new Schema({
 // }, { versionKey: false });
 
 let surveySchema = new Schema({
-    bID: { type: mongoose.Types.ObjectId, ref: 'Beaches' },
+    bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
     user: {
         type: String,
         required: true
@@ -225,7 +225,7 @@ let beachSchema = new Schema({
         min: -180,
         max: 180
     },
-    lastMod: { type: Date, default: Date.now },
+    lastMod: { type: Date, default: Date.now, index: true },
     nroName: String,
     nroDist: { type: Number, min: 0 },
     surveys: {
