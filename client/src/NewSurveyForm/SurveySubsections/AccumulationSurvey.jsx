@@ -7,6 +7,8 @@ import {
     AccordionItemBody,
 } from 'react-accessible-accordion';
 
+import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
+
 import '../accordion-styles.css';
 
 class AccumulationSurvey extends Component {
@@ -15,6 +17,17 @@ class AccumulationSurvey extends Component {
   }
 
   render() {
+    let testCategories = [
+        {name: 'Cigarette Butts', id: 'cigaretteButts'},
+        {name: 'Fishing Line / Polypropylene Rope', id: 'fishingLineRope'},
+        {name: 'Plastic Cups', id: 'plasticCups'}
+    ];
+
+    let tableRows = testCategories.map(category => {
+        return(
+            <AccumulationSurveyRow key={category.id }id={category.id} name={category.name}/>
+        );
+    });
     return(
       <AccordionItem className="accordion__item">
           <AccordionItemTitle className="accordion__title accordion__title--animated">
@@ -23,16 +36,13 @@ class AccumulationSurvey extends Component {
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
               <form>
-
-                  <div className="uk-grid uk-child-width-1-6">
+                <div className="uk-grid uk-child-width-1-4">
                     <div></div>
-                    <div><h4>Rib #1</h4></div>
-                    <div><h4>Rib #2</h4></div>
-                    <div><h4>Rib #3</h4></div>
-                    <div><h4>Rib #4</h4></div>
-                    <div></div>
-                  </div>
-
+                    <div><h4>Fresh</h4></div>
+                    <div><h4>Weathered</h4></div>
+                    <div><h4>Total</h4></div>
+                </div>
+                {tableRows}
               </form>
           </AccordionItemBody>
       </AccordionItem>

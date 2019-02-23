@@ -71,6 +71,14 @@ class SurveyForm extends Component {
       entry.email = profile.email;
       this.setState({ entry });
     });
+
+    axios.get("/beaches/")
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log("catch err");
+      });
   }
 
   render() {

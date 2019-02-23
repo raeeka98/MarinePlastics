@@ -1,7 +1,14 @@
-let { beachModel, surveyModel } = require('./mongooseSchemas');
+let { beachModel, surveyModel, trashModel } = require('./mongooseSchemas');
 
 
 /*--------------database helpers-------------------*/
+
+let trash = {
+    findAll: async function() {
+        console.log("made it in trash")
+        return await trashModel.find({}, "trash_id name").exec();
+    }
+}
 
 let surveys = {
     find: async function(surveyID) {
@@ -229,8 +236,8 @@ let beaches = {
         return res;
     },
     /**
-     * 
-     * @param {Number} skip 
+     *
+     * @param {Number} skip
      */
     getMany: async function(skip) {
         let projection = `n`;
@@ -418,5 +425,6 @@ async function test1 () {
 //export our module to use in server.js
 module.exports = {
     beaches,
-    surveys
+    surveys,
+    trash
 };

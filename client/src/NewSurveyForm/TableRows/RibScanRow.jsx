@@ -31,13 +31,6 @@ class RibScanRow extends Component {
     }
 
     render() {
-
-      let numberBoxes = [];
-      for(let i=1; i<=4; i++){
-          numberBoxes.push(
-
-          );
-      }
       return(
         <div className="uk-grid uk-child-width-1-5">
             <div>

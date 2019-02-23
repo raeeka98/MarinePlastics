@@ -8,7 +8,7 @@ import {
 } from 'react-accessible-accordion';
 
 import RibScanRow from '../TableRows/RibScanRow';
-import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
+
 
 import '../accordion-styles.css';
 
@@ -19,15 +19,15 @@ class SurfaceRibScan extends Component {
   }
 
   render() {
-    let categories = [
+    let testCategories = [
         {name: 'Cigarette Butts', id: 'cigaretteButts'},
         {name: 'Fishing Line / Polypropylene Rope', id: 'fishingLineRope'},
         {name: 'Plastic Cups', id: 'plasticCups'}
     ];
 
-    let tableRows = categories.map(category => {
+    let tableRows = testCategories.map(category => {
         return(
-            <RibScanRow id={category.id} name={category.name}/>
+            <RibScanRow key={category.id} id={category.id} name={category.name}/>
         );
     });
 
@@ -130,7 +130,7 @@ class SurfaceRibScan extends Component {
 
                   <hr></hr>
 
-                  <div className="uk-grid">
+                  <div className="uk-grid data-uk-sticky">
                       <div className="uk-width-1-5"></div>
                       <div className="uk-width-1-5">
                           <div className="uk-grid">

@@ -1,9 +1,9 @@
-let { beaches, surveys } = require('../server_modules/mongoose');
+let { beaches, surveys, trash } = require('../server_modules/mongoose');
 let router = require('express').Router();
 
 /**
- * 
- * @param {Promise} fn 
+ *
+ * @param {Promise} fn
  */
 let asyncHandler = fn =>
     (req, res, next) => {
@@ -106,6 +106,13 @@ router.route('/map')
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
         res.json(points);
+    }));
+
+router.route('/trash')
+    .get(asyncHandler(async (req, res) => {
+        let allTrash = await trash.getAllTrash();
+
+        res.json({data :allTrash, message: "received trash"});
     }));
 
 module.exports = { router };
