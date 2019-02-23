@@ -10,11 +10,11 @@ import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
 import Totals from './SurveySubsections/Totals';
 
-import './accordion-styles.css';
-
 import {
     Accordion,
 } from 'react-accessible-accordion';
+
+import './accordion-styles.css';
 
 class SurveyForm extends Component {
   constructor(props) {
