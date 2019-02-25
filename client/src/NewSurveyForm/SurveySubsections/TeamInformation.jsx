@@ -23,15 +23,16 @@ class TeamInformation extends Component {
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
               <form>
-
                   <div className="uk-child-width-1-2 uk-grid">
                     <div>
                       <label>First Name<span className="uk-text-danger">*</span></label>
                       <input
                         type='string'
                         placeholder='First Name'
-                        id='first-name'
+                        id='firstName'
                         className='uk-input uk-margin'
+                        defaultValue={this.props.data.firstName}
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -40,7 +41,9 @@ class TeamInformation extends Component {
                       <input
                         type='string'
                         placeholder='Last Name'
-                        id='last-name'
+                        id='lastName'
+                        defaultValue={this.props.data.lastName}
+                        onChange={this.props.updateSurveyState}
                         className='uk-input uk-margin'
                         required
                         />
@@ -53,7 +56,9 @@ class TeamInformation extends Component {
                     <input
                       type='string'
                       placeholder='Organization Name'
-                      id='organization'
+                      defaultValue={this.props.data.orgName}
+                      onChange={this.props.updateSurveyState}
+                      id='orgName'
                       className='uk-input uk-margin'
                       required
                       />
@@ -62,8 +67,10 @@ class TeamInformation extends Component {
                     <label>Organization Location (City, Country)<span className="uk-text-danger">*</span></label>
                     <input
                       type='string'
-                      placeholder='Organization Name'
-                      id='organization'
+                      placeholder='Organization Location'
+                      defaultValue={this.props.data.orgLoc}
+                      onChange={this.props.updateSurveyState}
+                      id='orgLoc'
                       className='uk-input uk-margin'
                       required
                       />
@@ -75,8 +82,10 @@ class TeamInformation extends Component {
                       <label>Email Address<span className="uk-text-danger">*</span></label>
                       <input
                         type='string'
-                        placeholder='Organization Name'
-                        id='organization'
+                        placeholder='Email Address'
+                        defaultValue={this.props.data.email}
+                        onChange={this.props.updateSurveyState}
+                        id='email'
                         className='uk-input uk-margin'
                         required
                         />
@@ -85,7 +94,9 @@ class TeamInformation extends Component {
                       <label>Clean Up Date<span className="uk-text-danger">*</span></label>
                       <input
                         type='date'
-                        id='clean-up-date'
+                        defaultValue={this.props.data.date}
+                        onChange={this.props.updateSurveyState}
+                        id='cleanUpDate'
                         className='uk-input uk-margin'
                         required
                         />
@@ -94,13 +105,14 @@ class TeamInformation extends Component {
                       <label>Clean Up Start Time<span className="uk-text-danger">*</span></label>
                       <input
                         type='time'
-                        id='clean-up-time'
+                        defaultValue={this.props.data.cleanUpTime}
+                        onChange={this.props.updateSurveyState}
+                        id='cleanUpTime'
                         className='uk-input uk-margin'
                         required
                         />
                     </div>
                 </div>
-
               </form>
           </AccordionItemBody>
       </AccordionItem>

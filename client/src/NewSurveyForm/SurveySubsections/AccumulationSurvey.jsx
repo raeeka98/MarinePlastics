@@ -21,7 +21,12 @@ class AccumulationSurvey extends Component {
 
     let tableRows = testCategories.map(category => {
         return(
-            <AccumulationSurveyRow key={category.trash_id }id={category.trash_id} name={category.name}/>
+            <AccumulationSurveyRow
+              key={category.trash_id}
+              id={category.trash_id}
+              name={category.name}
+              updateSurveyState={this.props.updateSurveyState}
+            />
         );
     });
     return(

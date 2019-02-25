@@ -23,42 +23,19 @@ class SurveyForm extends Component {
     this.url = '/surveys'
     this.state =
     {
-      entry: {
-        user: '',
-        email: '',
-        input_date: '',
-        org: '',
-        date: '',
-        beach: '',
-        reason: 'proximity',
-        st: 'sand',
-        lat: '',
-        lon: '' ,
-        slope: 'steep',
-        nroName: '',
-        nroDist: '',
-        nroFlow: '',
-        nroOut: '',
-        aspect: '',
-        weather: '',
-        lastTide: { type: 'low' },
-        nextTide: { type: 'low' },
-        windDir: '',
-        windSpeed: '',
-        majorUse: 'recreation',
-        weight: '',
-        NumberOfPeople: '',
-        SRSTotal: '',
-        SRSData: [],
-        ASTotal: '',
-        ASData: [],
-        surveyArea: '',
-      },
-      isReview: false,
-      trash: []
+      surveyData : {},
+      isInputting: true,
+      isReviewing: false,
+      isSubmitted: false,
+      trash: [],
+      user: "",
+      email: ""
     }
     this.moveToReview = this.moveToReview.bind(this);
     this.moveToInput = this.moveToInput.bind(this);
+    this.moveToSubmit = this.moveToSubmit.bind(this);
+    this.updateSurveyState = this.updateSurveyState.bind(this);
+    this.prepareForm = this.prepareForm.bind(this);
   }
 
   componentDidMount() {
@@ -70,10 +47,10 @@ class SurveyForm extends Component {
 
     // set entry user/email from auth0
     this.auth.getLoggedInProfile((err, profile) => {
-      let entry =  this.state.entry;
-      entry.user = profile.name;
-      entry.email = profile.email;
-      this.setState({ entry });
+      this.setState({
+         user: profile.name,
+         email: profile.email
+       });
     });
 
     axios.get("/beaches/trash")
@@ -87,35 +64,82 @@ class SurveyForm extends Component {
 
   moveToReview() {
       this.setState({
-          isReview: true
+          isInputting: false,
+          isReviewing: true,
+          isSubmitted: false
       })
   }
 
   moveToInput() {
       this.setState({
-          isReview: false
+          isInputting: true,
+          isReviewing: false,
+          isSubmitted: false
       })
+  }
+
+  moveToSubmit() {
+      let form = this.prepareForm();
+      axios.post("/beaches/surveys", form)
+          .then(res => {
+              this.setState({
+                  isInputting: false,
+                  isReviewing: false,
+                  isSubmitted: true
+                })
+          })
+          .catch(err => {
+              console.log(err)
+          })
+  }
+
+  prepareForm() {
+    console.log(this.state.surveyData.firstName + this.state.surveyData.lastName)
+      let form = {
+
+      }
+  }
+
+  updateSurveyState(e) {
+    const key = e.target.id;
+    const val = e.target.value;
+    this.setState(prevState => {
+        prevState.surveyData[key] = val
+        return prevState;
+    })
   }
 
   render() {
       return(
         <div>
-          {this.state.isReview ? (
-            <div>
-              <button className="uk-button uk-button-secondary" onClick={this.moveToInput}>Back</button>
-            </div>
-          ) : (
+          {console.log(this.state)}
+            {this.state.isInputting && (
             <div>
               <Accordion>
-                  <TeamInformation/>
-                  <SurveyArea/>
-                  <SurfaceRibScan trash={this.state.trash}/>
-                  <AccumulationSurvey trash={this.state.trash}/>
+                  <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
+                  <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
+                  <SurfaceRibScan data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
+                  <AccumulationSurvey data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
+                  <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
                   <Totals/>
               </Accordion>
               <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
             </div>
           )}
+          {this.state.isReviewing && (
+            <div>
+              <button className="uk-button uk-button-secondary" onClick={this.moveToInput}>Back to Input</button>
+              <button className="uk-button uk-button-secondary" onClick={this.moveToSubmit}>Submit</button>
+            </div>
+          )}
+          {this.state.isSubmitted && (
+            <div>
+              <h1>submitted!! </h1>
+                <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Back to Review</button>
+            </div>
+          )}
+
+
         </div>
       );
   }
