@@ -51,10 +51,11 @@ router.route('/:beachID')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
-        let survs = beaches.getSurveys(bID, 0, 0, 0, 0);
+        let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
         //returns array of survey ids and date of submission NOT MONTH OR YEAR
         //[{date:4,_id:1234}]
-        res.json(survs)
+        res.json(survs);
+        
     }))
     //delete a beach with all surveys under it
     .delete(asyncHandler(async (req, res) => {
