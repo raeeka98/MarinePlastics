@@ -1,9 +1,9 @@
 export function sumDebrisTypes (surveys) {
     let res = {};
     for (const survey in surveys) {
-        const srsData = surveys[survey].SRSData;
-        for (const trash in srsData) {
-            const trashData = srsData[trash];
+        const srsDebris = surveys[survey].SRSDebris;
+        for (const trash in srsDebris) {
+            const trashData = srsDebris[trash];
             if (!res.hasOwnProperty(trash))
                 res[trash] = trashData.weathered + trashData.fresh;
             else
@@ -16,10 +16,11 @@ export function sumDebrisTypes (surveys) {
 export function sumTotals (surveys, isSRS) {
     let res = {};
     let date = new Date(0);
-    let attr = isSRS ? 'SRSData' : 'ASData';
+    let attr = isSRS ? 'SRSDebris' : 'ASDebris';
     for (const surveyDate in surveys) {
         const data = surveys[surveyDate][attr];
-        date.setMilliseconds(surveyDate);
+        console.log(data);
+        date = new Date(surveys[surveyDate].survDate);
         let localDate = date.toLocaleDateString();
         for (const trash in data) {
             const trashData = data[trash];

@@ -80,7 +80,10 @@ let surveys = {
 
         let update = {};
         update.$push = {
-            [path]: surveyEntryData
+            [path]: surveyEntryData,
+            $sort: {
+                [`${path}.day`]: 1
+            }
         }
         console.log(update);
         let find = {
@@ -197,7 +200,7 @@ let beaches = {
             let months = surveys[year];
             for (const month in months) {
                 const surv = months[month];
-                res = [...res,...surv];
+                res = [...res, ...surv];
             }
         }
         return res;
@@ -382,9 +385,9 @@ async function test1 () {
         asDebrisLength: 2
     };
     let beach = {
-        name: "testB",
-        lat: 0,
-        lon: 0,
+        name: "testB2",
+        lat: 36.9786,
+        lon: -121.9385,
         nroName: "River t",
         nroDist: 3,
     }
@@ -400,14 +403,14 @@ async function test1 () {
     // console.log(res);
 
     // console.log("added survey" + added);
-    // await beaches.remove(b._id);
+     //await beaches.remove(b._id);
 
     // let d = await beaches.getMany(0);
     // console.log(d);
     // let d = await beaches.getSurveys("5c6cbb73dea528734c341ebf", 0, 0, 0, 0);
     // console.log(d);
 
-    // let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
+     //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
     // console.log(b);
     // console.log(await beaches.getAllLonLat());
 
