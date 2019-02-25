@@ -2,36 +2,6 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
-// function LocationBar({ handleAccordionClick, location, entryNodes,path,entryString }) {
-//     return (
-//         <div className="uk-card uk-card-default uk-card-body uk-margin">
-//             <div>
-//                 <ul className="uk-list uk-margin-remove-bottom">
-//                     <li>
-//                         <span className="survey-bar uk-accordion-title" onClick={handleAccordionClick}>
-//                             {location.n}
-//                             <span className="uk-text-muted uk-text-small uk-margin-left">
-//                                 {location.numOfSurveys} {entryString}
-//                             </span>
-//                         </span>
-//                         <div className="uk-accordion-content" style={{ display: 'none' }}>
-//                             <ul className="uk-list uk-list-bullet uk-padding-remove-left">
-//                                 {/*entryNodes*/}
-//                             </ul>
-//                             <p>
-//                         <Link to={{ pathname: `/location/${path}`, state: { data: location } }}>
-//                                     View location page
-//                         </Link>
-//                             </p>
-//                         </div>
-//                     </li>
-//                 </ul>
-//             </div>
-//         </div>
-//     );
-// }
-
 class LocationBar extends Component {
 
     constructor(props) {
@@ -43,18 +13,21 @@ class LocationBar extends Component {
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
     };
 
+    // Called when a user expands the accordion
+    // Fetches surveys listed under the beach that is clicked
     getSurveysFromBeach() {
-
+    
         let beachID = this.props.location._id;
-        console.log("entered getsurveys");
-        console.log(beachID);
         let surveysHTML = [];
+        
         axios.get('/beaches/' + beachID)
           .then(res => {
-            console.log(res.data);
+
+            // For every month returned by the get request, render html that links to survey page
+            // Then append that html to the surveysHTML array, which is then updated to the state
             for (let month of Object.keys(res.data)) {
                 let survey = res.data[month]
-                let surveyHTML = this.createHTMLForEntries(survey);
+                let surveyHTML = this.createHTMLForEntries(month, survey);
                 surveysHTML.push(surveyHTML);
                
             }
@@ -70,14 +43,17 @@ class LocationBar extends Component {
 
     // returns HTML for every entry in the sorted array of locations
     // should display date and contain a link to specific survey page
-    createHTMLForEntries(survey) {
+    createHTMLForEntries(month, survey) {
         let surveyID = survey.survey;
         let surveyDay = survey.day;
+        console.log(this.props.location.n);
         return (
             <li key={`entry-${surveyID}`}>
                 <Link className="uk-link-muted"
-                to={{ pathname: `/surveys/${surveyID.replace(' ', '-')}`}}>
-                    {surveyDay}
+                to={{ pathname: `/surveys/${surveyID.replace(' ', '-')}`,
+                        state: {beachName: this.props.location.n, surveyID: surveyID} }}>
+                    
+                    {parseInt(month)+1}/{surveyDay}
                 </Link>
             </li>
         );
