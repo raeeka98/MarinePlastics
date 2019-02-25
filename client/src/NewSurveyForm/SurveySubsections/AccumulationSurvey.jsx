@@ -17,15 +17,11 @@ class AccumulationSurvey extends Component {
   }
 
   render() {
-    let testCategories = [
-        {name: 'Cigarette Butts', id: 'cigaretteButts'},
-        {name: 'Fishing Line / Polypropylene Rope', id: 'fishingLineRope'},
-        {name: 'Plastic Cups', id: 'plasticCups'}
-    ];
+    let testCategories = this.props.trash;
 
     let tableRows = testCategories.map(category => {
         return(
-            <AccumulationSurveyRow key={category.id }id={category.id} name={category.name}/>
+            <AccumulationSurveyRow key={category.trash_id }id={category.trash_id} name={category.name}/>
         );
     });
     return(

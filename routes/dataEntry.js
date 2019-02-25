@@ -43,6 +43,13 @@ router.route('/')
         res.json({ res: "Created beach" });
     }));
 
+router.route('/trash')
+    .get(asyncHandler(async (req, res) => {
+        let allTrash = await trash.getMany();
+        console.log(allTrash);
+        res.json(allTrash);
+    }));
+
 router.route('/:beachID')
     /*get all surveys submited in the year then month.
     How many to skip and how many to obtain
@@ -108,11 +115,6 @@ router.route('/map')
         res.json(points);
     }));
 
-router.route('/trash')
-    .get(asyncHandler(async (req, res) => {
-        let allTrash = await trash.getAllTrash();
 
-        res.json({data :allTrash, message: "received trash"});
-    }));
 
 module.exports = { router };

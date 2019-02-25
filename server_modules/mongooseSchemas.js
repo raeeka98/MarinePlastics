@@ -243,13 +243,19 @@ let beachSchema = new Schema({
 let trashSchema = new Schema({
   trash_id: {
       type: String,
-      unique: true
+      unique: true,
+      required: true
+  },
+  name : {
+     type: String,
+     unique: true,
+     required: true
   }
-})
+}, { versionKey: false });
 
 
 
-const trashModel = mongoose.model('Trash', trashSchema);
+const trashModel = mongoose.model('Trashes', trashSchema);
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 

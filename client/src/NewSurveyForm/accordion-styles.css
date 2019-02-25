@@ -31,8 +31,8 @@
 }
 
 .accordion__title {
-    background-color: #f4f4f4;
-    color: #444;
+    background-color: #1E87F0;
+    color: #FCFEFF;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -40,8 +40,13 @@
     border: none;
 }
 
+.accordion__title h2 {
+    color: #FCFEFF;
+}
+
+
 .accordion__title:hover {
-    background-color: #ddd;
+    background-color: #0c66c0;
 }
 
 .accordion__body {

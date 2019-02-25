@@ -54,7 +54,11 @@ class SurveyForm extends Component {
         ASData: [],
         surveyArea: '',
       },
+      isReview: false,
+      trash: []
     }
+    this.moveToReview = this.moveToReview.bind(this);
+    this.moveToInput = this.moveToInput.bind(this);
   }
 
   componentDidMount() {
@@ -74,23 +78,44 @@ class SurveyForm extends Component {
 
     axios.get("/beaches/trash")
       .then(res => {
-        console.log(res);
+        this.setState({trash: res.data});
       })
       .catch(err => {
-        console.log("catch err");
+        console.log(err);
       });
+  }
+
+  moveToReview() {
+      this.setState({
+          isReview: true
+      })
+  }
+
+  moveToInput() {
+      this.setState({
+          isReview: false
+      })
   }
 
   render() {
       return(
         <div>
-            <Accordion>
-                <TeamInformation/>
-                <SurveyArea/>
-                <SurfaceRibScan/>
-                <AccumulationSurvey/>
-                <Totals/>
-            </Accordion>
+          {this.state.isReview ? (
+            <div>
+              <button className="uk-button uk-button-secondary" onClick={this.moveToInput}>Back</button>
+            </div>
+          ) : (
+            <div>
+              <Accordion>
+                  <TeamInformation/>
+                  <SurveyArea/>
+                  <SurfaceRibScan trash={this.state.trash}/>
+                  <AccumulationSurvey trash={this.state.trash}/>
+                  <Totals/>
+              </Accordion>
+              <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
+            </div>
+          )}
         </div>
       );
   }

@@ -4,10 +4,9 @@ let { beachModel, surveyModel, trashModel } = require('./mongooseSchemas');
 /*--------------database helpers-------------------*/
 
 let trash = {
-    findAll: async function() {
-        console.log("made it in trash")
-        return await trashModel.find({}, "trash_id name").exec();
-    }
+  getMany: async function() {
+      return await trashModel.find({}).exec();
+  }
 }
 
 let surveys = {
