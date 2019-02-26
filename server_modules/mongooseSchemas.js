@@ -204,7 +204,7 @@ let yearTotalsSchema = new Schema({
 
 
 let daySurveySchema = new Schema({
-    date: { type: Number, index: true, unique: true, required: true },
+    date: { type: Number, index: true, required: true },
     survey: { type: String }
 }, { versionKey: false, _id: false })
 
@@ -230,7 +230,8 @@ let beachSchema = new Schema({
         unique: true,
         required: true,
         index: true,
-        alias: "name"
+        alias: "name",
+        text: true
     },
     lat: {
         type: Number,

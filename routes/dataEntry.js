@@ -23,7 +23,7 @@ router.route('/')
         skip = s variable is query
         */
         let { s: skip } = req.query;
-        let b = await beaches.getMany(skip);
+        let b = await beaches.getBeachNames(skip);
         //returns array of beach names and their ids
         //[{_id:1234,n:"testb"}]
         res.json(b);

@@ -5,15 +5,7 @@ let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./m
 
 let surveys = {
     get: async function(surveyID) {
-        let survey;
-        try {
-            survey = await surveys.findById(surveyID).exec();
-            return survey;
-        } catch (err) {
-            console.error(err);
-            throw new Error(`Error while finding survey ${surveyID} :  ${err.message}`);
-        }
-
+        return await surveyModel.findById(surveyID).lean().exec();
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let dateOfSub = new Date(epochDateOfSubmit);
@@ -139,10 +131,6 @@ let surveys = {
         updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebrisData);
         await beaches.updateStats(beachID, updatePayload);
         return rtnMsg;
-    },
-
-    get: async function(surveyID) {
-        return await surveyModel.findById(surveyID).exec();
     }
 
 }
@@ -223,7 +211,7 @@ let beaches = {
             for (const month in ysm) {
                 if (month != '_id') {
                     const survs = ysm[month];
-                    res = [...res,...survs];
+                    res = [...res, ...survs];
                 }
             }
 
@@ -261,7 +249,7 @@ let beaches = {
         doc.surveys[year][month] ? res = doc.surveys[year][month] : res = [];
         return res;
     },
-    getMany: async function(skip) {
+    getBeachNames: async function(skip) {
         let projection = `n`;
         return await beachModel
             .find()
@@ -276,6 +264,9 @@ let beaches = {
     },
     getAllLonLat: async function() {
         return await beachModel.find({}, "n lat lon").exec();
+    },
+    queryBeachNames: async function(query) {
+        return await beachModel.find({ $text: { $search: query } }).exec();
     }
 }
 
@@ -414,7 +405,7 @@ async function test1 () {
         asDebrisLength: 2
     };
     let beach = {
-        name: "testB2",
+        name: "testB4",
         lat: 36.9786,
         lon: -121.9385,
         nroName: "River t",
@@ -432,26 +423,30 @@ async function test1 () {
 
     // let res = await surveys.remove(b._id, survey._id, subDate);
     // console.log(res);
-
-    // survey = await surveys.addToBeach(sur, "5c7469adff2b6630fa253e85", subDate);
+    // sur.survDate = new Date().setUTCHours(25, 0, 0, 0);
+    // survey = await surveys.addToBeach(sur, b._id, new Date().setUTCHours(25, 0, 0, 0));
     // console.log(survey);
 
     // console.log("added survey" + added);
     //await beaches.remove(b._id);
 
-    // let d = await beaches.getMany(0);
+    // let b = await beaches.getBeachNames(0);
+    // console.log(b);
+    // let d = await beaches.getSurveys("5c74f288871a77575341f892", 0, 0, 0, 0);
     // console.log(d);
-    // let d = await beaches.getSurveys("5c7469adff2b6630fa253e85", 0, 0, 0, 0);
-    // console.log(d);
+    // let survey = await surveys.get(d[0].survey);
+    // console.log(survey);
+
 
     //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
     // console.log(b);
     // console.log(await beaches.getAllLonLat());
 
+    // let s = await beaches.queryBeachNames("t");
+    // console.log(s);
 
 }
 
-// test1();
 
 //export our module to use in server.js
 module.exports = {
