@@ -16,7 +16,7 @@ class AccumulationSurveyRow extends Component {
               <input
                 type="number"
                 min="0"
-                id={this.props.id + "-accumulation-fresh"}
+                id={this.props.id + "accumulationFresh"}
                 className="uk-input"
                 onBlur={this.props.updateSurveyState}
               />
@@ -25,7 +25,7 @@ class AccumulationSurveyRow extends Component {
                 <input
                   type="number"
                   min="0"
-                  id={this.props.id + "-accumulation-weathered"}
+                  id={this.props.id + "accumulationWeathered"}
                   className="uk-input"
                   onBlur={this.props.updateSurveyState}
                 />
@@ -34,7 +34,7 @@ class AccumulationSurveyRow extends Component {
                 <input
                   type="number"
                   min="0"
-                  id={this.props.id + "-accumulation-total"}
+                  id={this.props.id + "accumulationTotal"}
                   className="uk-input"
                   onBlur={this.props.updateSurveyState}
                 />

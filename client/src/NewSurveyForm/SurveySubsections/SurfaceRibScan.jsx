@@ -50,7 +50,8 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #1 Start'
-                        id='rib-1-start'
+                        defaultValue={this.props.data.rib}
+                        id='rib1Start'
                         className='uk-input uk-margin'
                         required
                         />
@@ -59,7 +60,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #2 Start'
-                        id='rib-2-start'
+                        id='rib2Start'
                         className='uk-input uk-margin'
                         required
                         />
@@ -68,7 +69,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #3 Start'
-                        id='rib-3-start'
+                        id='rib3Start'
                         className='uk-input uk-margin'
                         required
                         />
@@ -77,7 +78,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #4 Start'
-                        id='rib-4-start'
+                        id='rib4Start'
                         className='uk-input uk-margin'
                         required
                         />
@@ -90,7 +91,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #1 End'
-                        id='rib-1-end'
+                        id='rib1End'
                         className='uk-input uk-margin'
                         required
                         />
@@ -99,7 +100,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #2 End'
-                        id='rib-2-end'
+                        id='rib2End'
                         className='uk-input uk-margin'
                         required
                         />
@@ -108,7 +109,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #3 End'
-                        id='rib-3-end'
+                        id='rib3End'
                         className='uk-input uk-margin'
                         required
                         />
@@ -117,7 +118,7 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #4 End'
-                        id='rib-4-end'
+                        id='rib4End'
                         className='uk-input uk-margin'
                         required
                         />

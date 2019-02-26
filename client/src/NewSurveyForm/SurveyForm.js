@@ -9,6 +9,7 @@ import SurfaceRibScan from './SurveySubsections/SurfaceRibScan';
 import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
 import Totals from './SurveySubsections/Totals';
+import Review from './SurveySubsections/Review';
 
 import {
     Accordion,
@@ -128,8 +129,9 @@ class SurveyForm extends Component {
           )}
           {this.state.isReviewing && (
             <div>
+              <Review data={this.state.surveyData}/>
               <button className="uk-button uk-button-secondary" onClick={this.moveToInput}>Back to Input</button>
-              <button className="uk-button uk-button-secondary" onClick={this.moveToSubmit}>Submit</button>
+              <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit</button>
             </div>
           )}
           {this.state.isSubmitted && (

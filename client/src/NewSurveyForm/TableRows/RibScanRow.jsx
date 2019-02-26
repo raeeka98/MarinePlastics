@@ -7,7 +7,7 @@ const RibScanCell = (props) => {
           <input
             type="number"
             min="0"
-            id={props.id + "-fresh-rib-" + props.ribNumber}
+            id={props.id + "freshRib" + props.ribNumber}
             className="uk-input"
           />
       </div>
@@ -15,7 +15,7 @@ const RibScanCell = (props) => {
           <input
             type="number"
             min="0"
-            id={props.id + "-weathered-rib-" + props.ribNumber}
+            id={props.id + "weatheredRib" + props.ribNumber}
             className="uk-input"
             />
       </div>
