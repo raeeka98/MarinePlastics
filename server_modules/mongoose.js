@@ -66,7 +66,7 @@ let surveys = {
         return oldSurvey;
     },
     addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
-        let subDate = new Date(epochDateOfSubmit);
+        let subDate = new Date(epochDateOfSubmit).setHours(0, 0, 0, 0);
         let survey = new surveyModel(surveyData);
         let update = {};
         let rtnMsg = null;
@@ -425,25 +425,6 @@ async function test1 () {
     // console.log(res);
     // sur.survDate = new Date().setUTCHours(25, 0, 0, 0);
     // survey = await surveys.addToBeach(sur, b._id, new Date().setUTCHours(25, 0, 0, 0));
-    // console.log(survey);
-
-    // console.log("added survey" + added);
-    //await beaches.remove(b._id);
-
-    // let b = await beaches.getBeachNames(0);
-    // console.log(b);
-    // let d = await beaches.getSurveys("5c74f288871a77575341f892", 0, 0, 0, 0);
-    // console.log(d);
-    // let survey = await surveys.get(d[0].survey);
-    // console.log(survey);
-
-
-    //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
-    // console.log(b);
-    // console.log(await beaches.getAllLonLat());
-
-    // let s = await beaches.queryBeachNames("t");
-    // console.log(s);
 
 }
 
