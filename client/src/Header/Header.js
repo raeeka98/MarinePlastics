@@ -87,8 +87,8 @@ render() {
             </div>
             <div className="uk-navbar-right uk-visible@m">
                 { this.props.auth.isAuthenticated()
-                  ? <a onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</a>
-                  : <a onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</a>
+                  ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</button>
+                  : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button>
                 }
               </div>
            <div className="uk-hidden@m">
@@ -102,7 +102,7 @@ render() {
                 </Link>
               </li>
                <li className="nav__menu-item uk-margin-remove-bottom" onMouseLeave={this.handleLeave} >
-                   <a onMouseEnter={this.handleHover}>Menu</a>
+                   <div className="uk-navbar-item" style={{textTransform:'uppercase',color:'#999'}} onMouseEnter={this.handleHover}>Menu</div>
                       { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
                 </li>
 
@@ -114,8 +114,8 @@ render() {
             <ul className="uk-navbar-nav">
             <li>
             { this.props.auth.isAuthenticated()
-              ? <a onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</a>
-              : <a onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</a>
+              ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log Out</button>
+              : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log In</button>
             }
           </li>
           </ul>

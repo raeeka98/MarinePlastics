@@ -35,7 +35,7 @@ class ColumnChart extends Component {
                         <option value="srs">in Surface Rib Scan Surveys</option>
                         <option value="as">in Accumulation Sweep Surveys</option>
                     </select>
-                    <div className="uk-align-center" style={{ width: '650px' }}>
+                    <div className="uk-align-center" style={{ width: '45vw' }}>
                         <BarChart data={this.state.showSRSData ? this.state.srsBarData : this.state.asBarData} library={{ animation: { animateScale: true } }} />
                     </div>
                 </div>
@@ -48,7 +48,7 @@ let PieChart = ({ chartData }) =>
     <div className="uk-grid-margin uk-width-1-1">
         <div className="uk-card uk-card-default uk-card-body">
             <h3 className="uk-card-title">Types of Debris Found</h3>
-            <PChart id="pieChart" data={chartData} library={{ animation: { animateRotate: true }, responsive: true }} height="500px" width="500px" />
+            <PChart id="pieChart" data={chartData} library={{ animation: { animateRotate: true }, responsive: true }} height="370px" width="370px" />
         </div>
     </div>;
 
