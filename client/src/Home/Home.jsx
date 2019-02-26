@@ -16,12 +16,17 @@ class Home extends Component {
       searchResult: [],
       filter: 'beach',
       loaded: false,
-      error: false
+      error: false,
+
+      beaches: [],
+      surveys: []
     };
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
+    //this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this, );
     this.url = '/beaches';
   }
 
@@ -32,13 +37,32 @@ class Home extends Component {
         res.data.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
-        // sorts data into locations 
+        // sorts data into locations
         // const sorted = locationSort(res.data);
         this.setState({
           data: res.data,
           rawData: res.data,
           loaded: true
         });
+      })
+      .catch(err => {
+        console.log(err.message);
+        this.setState({
+          loaded: true,
+          error: true
+        });
+      })
+  }
+
+  // Load the beach names
+  loadBeaches() {
+    axios.get(this.url) 
+      .then(res => {
+        this.setState({
+          beaches: res.data,
+          loaded: true
+        });
+        //console.log(this.state.beaches);
       })
       .catch(err => {
         console.log(err.message);
@@ -77,6 +101,8 @@ class Home extends Component {
   }
 
   handleAccordionClick = (e) => {
+
+    
     let accordionWrapper = e.target.parentElement;
     let accordionContent = e.target.nextSibling;
     if (e.target.classList.contains('uk-text-muted')) {
@@ -92,6 +118,8 @@ class Home extends Component {
       accordionContent.style.display = 'block';
     }
   }
+
+  
 
   showEntries = (locationNodes) => {
     let errStr = "Something went wrong!"
@@ -109,19 +137,23 @@ class Home extends Component {
 
   // once the component is on the page, checks the server for comments
   componentDidMount() {
-    this.loadCommentsFromServer();
+    this.loadBeaches();
+    //this.loadCommentsFromServer();
   }
 
   render() {
 
     // returns HTML for every entry in the sorted array of locations
-    let locationNodes = this.state.data.map((location, i) => {
+    let locationNodes = this.state.beaches.map((location, i) => {
       console.log(location);
 
       let path = location._id;
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
+      // an array of HTML elements with paths to each survey page
       let entryNodes = [];
       let subDate = new Date(0);
+
+
 
       for (const date in location.surveys) {
         const entryID = location.surveys[date];
@@ -139,9 +171,9 @@ class Home extends Component {
       }
       return <LocationBar
         key={i}
-        handleAccordionClick={this.handleAccordionClick}
+        getSurveysFromBeach={this.getSurveysFromBeach}
         location={location}
-        entryNodes={entryNodes}
+        //entryNodes={entryNodes}
         path={path}
         entryString={entryString}
       />
@@ -183,6 +215,7 @@ class Home extends Component {
       </div>
     );
   }
+
 }
 
 export default Home;

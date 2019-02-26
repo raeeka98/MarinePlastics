@@ -3,6 +3,12 @@ let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./m
 
 /*--------------database helpers-------------------*/
 
+let trash = {
+  getMany: async function() {
+      return await trashModel.find({}).exec();
+  }
+}
+
 let surveys = {
     get: async function(surveyID) {
         return await surveyModel.findById(surveyID).lean().exec();
@@ -432,5 +438,6 @@ async function test1 () {
 //export our module to use in server.js
 module.exports = {
     beaches,
-    surveys
+    surveys,
+    trash
 };

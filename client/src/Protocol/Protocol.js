@@ -23,10 +23,7 @@ export function ProtocolPage() {
       <p>
         Download and read the Training Field Guide and the field form linked below to get started.
       </p>
-      <a href="https://www.scribd.com/document/391395754/Marine-Debris-Monitoring-and-Training-Field-Guide" target="_blank">
-        View Our Training Field Guide </a>
-      <br/>
-      <a href="https://www.scribd.com/document/390707217/COIDataSheet-June18" target="_blank">View Our Data Sheet </a>
+      <a href="http://localhost:3001/pdfs/COIDataSheet_Oct_24.pdf" download>View Our Data Sheet </a>
     </div>
   );
 }

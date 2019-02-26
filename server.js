@@ -19,9 +19,10 @@ app.use('/beaches', dataEntryRouter);
 
 app.get('/', (req, res) => res.render('pages/index')); 
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
+app.get('/pdfs/COIDataSheet_Oct_24.pdf', (req, res) => res.sendFile(path.join(__dirname,'/pdfs/COIDataSheet_Oct_24.pdf')));
+
+app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/client/build/index.html')))
+
 //starts the server and listens for requests
 app.listen(port, function() {
     console.log(`api running on port ${port}`);
