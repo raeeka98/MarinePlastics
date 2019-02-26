@@ -19,7 +19,7 @@ app.use('/surveys', dataEntryRouter);
 
 app.get('/', (req, res) => res.render('pages/index')); 
 
-app.get('/pdfs/1.1.pdf', (req, res) => res.sendFile(path.join(__dirname,'/pdfs/1.1.pdf')));
+app.get('/pdfs/COIDataSheet_Oct_24.pdf', (req, res) => res.sendFile(path.join(__dirname,'/pdfs/COIDataSheet_Oct_24.pdf')));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/client/build/index.html')))
 
