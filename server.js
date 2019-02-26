@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Use our router configuration when we call /api
-app.use('/surveys', dataEntryRouter);
+app.use('/beaches', dataEntryRouter);
 
 app.get('/', (req, res) => res.render('pages/index')); 
 

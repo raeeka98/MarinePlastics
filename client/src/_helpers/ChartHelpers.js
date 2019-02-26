@@ -1,56 +1,43 @@
-export function sumDebrisTypes(data) {
-  let res = [];
-  for (let i = 0; i < data.length; i++) {
-    let currEntrySRS = data[i].SRSData;
-    for (let j = 0; j < currEntrySRS.length; j++) {
-      let foundIndex = nSumHelper(currEntrySRS[j].name, res, 'key');
-      if (foundIndex > -1) {
-        res[foundIndex][1] += (currEntrySRS[j].weathered + currEntrySRS[j].fresh);
-      }
-      else {
-        let name = currEntrySRS[j].name;
-        let total = currEntrySRS[j].fresh + currEntrySRS[j].weathered;
-        res.push([
-           name,
-           total,
-        ]);
-      }
+export function sumDebrisTypes (surveys) {
+    let res = {};
+    for (const survey in surveys) {
+        const srsDebris = surveys[survey].SRSDebris;
+        for (const trash in srsDebris) {
+            const trashData = srsDebris[trash];
+            if (!res.hasOwnProperty(trash))
+                res[trash] = trashData.weathered + trashData.fresh;
+            else
+                res[trash] += trashData.weathered + trashData.fresh;
+        }
     }
-  }
-  return res;
+    return res;
 }
 
-export function sumTotals(data, isSRS) {
-  let res = [];
-  let attr = isSRS ? 'SRSTotal' : 'ASTotal';
-  for (let i = 0; i < data.length; i++) {
-    let date = data[i].date;
-    let total = data[i][attr] || 0; 
-    let foundIndex = nSumHelper(date, res, 'x');
-    if (foundIndex > -1) {
-      res[foundIndex].y += total;
-    } else {
-      res.push([
-        date,
-        total
-      ]);
+export function sumTotals (surveys, isSRS) {
+    let res = {};
+    let date = new Date(0);
+    let attr = isSRS ? 'SRSDebris' : 'ASDebris';
+    for (const surveyDate in surveys) {
+        const data = surveys[surveyDate][attr];
+        console.log(data);
+        date = new Date(surveys[surveyDate].survDate);
+        let localDate = date.toLocaleDateString();
+        for (const trash in data) {
+            const trashData = data[trash];
+            if (!res.hasOwnProperty(localDate))
+                res[localDate] = trashData.weathered + trashData.fresh;
+            else
+                res[localDate] += trashData.weathered + trashData.fresh;
+        }
     }
-  }
-  return res;
+    return res;
+
 }
 
-export function getTotalPounds(data) {
-  let res = 0;
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].weight) res += data[i].weight;
-  }
-  return res;
-}
-
-function nSumHelper (value, arr, key) {
-  let found = -1;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i][0] === value) found = i;
-  }
-  return found;
+export function getTotalPounds (data) {
+    let res = 0;
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].weight) res += data[i].weight;
+    }
+    return res;
 }

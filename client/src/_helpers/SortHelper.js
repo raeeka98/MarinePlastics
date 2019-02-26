@@ -7,6 +7,7 @@ export function locationSort(data) {
   let sorted = [];
   for (let i = 0; i < data.length; i++) {
     // if data[i] matches anything in sorted, returns the index of the match in sorted
+    console.log(data[i])
     const findIndex = sorted.findIndex((a) => {
       let distance;
       // if the lat and lon of elements in sorted and data[i] are present
@@ -28,7 +29,8 @@ export function locationSort(data) {
     // if there is a match for data[i] in sorted (the index is not -1)
     if (findIndex > -1){
       // push data[i] to the entries of the match object
-      sorted[findIndex].entries.push(data[i]);
+      sorted[findIndex].entries.push(data[i]); 
+      /* There may need to be a change here if the long & lats will remain different for each beach*/
     } else {
       // if no match, push a new object to sorted
       sorted.push(
@@ -41,6 +43,7 @@ export function locationSort(data) {
       );
     }
   }
+  console.log(sorted)
   return sorted;
 }
 

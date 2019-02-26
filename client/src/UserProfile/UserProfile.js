@@ -14,15 +14,12 @@ class UserProfile extends Component {
 
     this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.addUserEntries = this.addUserEntries.bind(this);
-    this.url = '/surveys';
+    this.url = '/beaches';
   }
 
   loadCommentsFromServer() {
     axios.get(this.url)
       .then(res => {
-        res.data.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
         this.setState({ data: res.data });
       });
   }
@@ -54,18 +51,12 @@ class UserProfile extends Component {
     this.loadCommentsFromServer();
   }
 
-  componentDidUpdate() {
-    let userEntries = [];
-    if (this.state.profile.name) userEntries = userFind(this.state.data, this.state.profile.name);
-    this.addUserEntries(userEntries);
-  }
-
   render() {
-    const { profile, data } = this.state;
+    const { profile } = this.state;
     return (
       <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
         <div className="uk-card-header uk-align-center">
-          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } role="presentation" />
+          <img className="uk-border-circle uk-align-center" width="100" height="100" src={ profile.picture } alt="" />
           <h3 className="uk-card-title uk-margin-remove-bottom uk-text-center">{ profile.name }</h3>
         </div>
         <div className="uk-card-body">
