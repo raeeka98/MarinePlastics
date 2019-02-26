@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -11,7 +12,9 @@ class SurveyEntry extends Component {
     this.state = {
       beachName: this.props.location.state.beachName,
       surveyID,
-      surveyData: {}
+      surveyData: {},
+
+      deletedComment: false
     };
     this.auth = new Auth();
   }
@@ -28,12 +31,29 @@ class SurveyEntry extends Component {
       });
   }
 
+  deleteSurvey = () => {
+    axios.delete(`/surveys/${this.state.surveyID}`)
+      .then(res => {
+        console.log("Survey deleted!")
+        this.setState({
+          deletedComment: true
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
   }
 
   render() {
+
+    // redirect if data change actions are being taken
+    if (this.state.deletedComment) return <Redirect to="/home" />
+
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
@@ -217,7 +237,7 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
-        <button className="uk-button uk-button-danger">Delete Survey</button>
+        <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
       
     );
