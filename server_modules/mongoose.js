@@ -4,7 +4,7 @@ let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./m
 /*--------------database helpers-------------------*/
 
 let surveys = {
-    find: async function(surveyID) {
+    get: async function(surveyID) {
         let survey;
         try {
             survey = await surveys.findById(surveyID).exec();
@@ -17,52 +17,71 @@ let surveys = {
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let dateOfSub = new Date(epochDateOfSubmit);
-        let update = {
+        let { stats, surveys } = await beachModel.findById(beachID, `stats.ttls.${dateOfSub.getUTCFullYear()} surveys.${dateOfSub.getUTCFullYear()}`).lean().exec();
+        console.log(stats);
+        console.log(surveys);
+
+
+        let surveyUpdate = {
             $pull: {
-                [`surveys.${dateOfSub.getUTCFullYear()}.${dateOfSub.getUTCMonth()}`]: {
-                    day: dateOfSub.getUTCDate()
-                }
+                [`${dateOfSub.getUTCMonth()}`]: { date: dateOfSub.getUTCDate() }
             }
         };
-        try {
-            let removeFromBeach = beachModel.findByIdAndUpdate(beachID, update, { new: true }).exec();
-
-            let removedSurvey = surveyModel.findByIdAndDelete(surveyID).exec();
-
-            //update stats
-
-            return await Promise.all([removeFromBeach, removedSurvey]);
-        } catch (error) {
-            console.log(error);
-            throw new Error('Error while deleting surveys: ' + err.message);
-        }
-    },
+        let removeFromSurveys = yearSurveyModel.findByIdAndUpdate(surveys[dateOfSub.getUTCFullYear()], surveyUpdate, { new: true }).exec();
+        let removedSurvey = await surveyModel.findByIdAndRemove(surveyID).exec();
 
 
-    update: async function(surveyID, updatedFields) {
-        let update = {
-            $set: { ...updatedFields }
+        let updatePayload = {
+            reason: "remove",
+            newDebrisData: {},
+            date: dateOfSub
         };
-        console.log(update);
-        let oldSurvey;
-        try {
-            oldSurvey = await surveyModel.findByIdAndUpdate(surveyID, update).exec();
-            //update stats
-            return oldSurvey;
-        } catch (err) {
-            console.log(err);
-            throw new Error('Error while updating survey: ' + err.message);
-        }
+        updatePayload.newDebrisData = removedSurvey.getAllDebrisNeg();
+        let statsUpdate = beaches.updateStats(beachID, updatePayload);
 
+        return await Promise.all([removeFromSurveys, statsUpdate]);
+    },
+    /**
+     * {
+     *  changedDebris:{
+     *      deleted:[plastic,umbrella], <- all deleted materials or when the
+     *                                     difference between old and new cancel out.
+     *                                      eg oldData = 4, changedVal = -4 
+     *      added:{
+     *          metal:4, <- new material added to survey with value
+     *          paper:123
+     *      },
+     *      changedVal:{
+     *          miscplastic:-4, <- the difference between new and old data
+     *          cloth:10
+     *      }
+     *  },
+     *  changedInfo:{
+     *      teamleader,email,slope,lastTide,nextTide,etc...
+     *  }
+     *  
+     * }
+     */
+    update: async function(surveyID, updatedFields) {
+
+        console.log(update);
+        let oldSurvey = await surveyModel.findByIdAndUpdate(surveyID, update).exec();
+        //update stats
+        let updatePayload = {
+            reason: "edit",
+        };
+
+        return oldSurvey;
     },
     addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
         let subDate = new Date(epochDateOfSubmit);
         let survey = new surveyModel(surveyData);
         let update = {};
+        let rtnMsg = null;
         survey.bID = beachID;
-        let { surveys } = await beachModel.findById(beachId).select("surveys stats").exec();
+        let { surveys } = await beachModel.findById(beachID).select("surveys stats").exec();
         let surveyEntryData = {
-            day: subDate.getUTCDate(),
+            date: subDate.getUTCDate(),
             survey: survey._id
         };
         if (!surveys.has(`${subDate.getUTCFullYear()}`)) {
@@ -74,7 +93,8 @@ let surveys = {
                 [`surveys.${subDate.getUTCFullYear()}`]: ym._id,
                 lastMod: Date.now()
             };
-            await Promise.all([ym.save(), survey.save()]);
+            let [, surv] = await Promise.all([ym.save(), survey.save()]);
+            rtnMsg = surv;
         } else {
             //year already exists
             let yearSurveyID = surveys.get(`${subDate.getUTCFullYear()}`);
@@ -83,22 +103,26 @@ let surveys = {
                 $push: {
                     [path]: surveyEntryData,
                     $sort: {
-                        [`${path}.day`]: 1
+                        [`${path}.date`]: 1
                     }
                 }
             }
             let find = {
                 _id: yearSurveyID,
-                [`${path}.day`]: { $ne: subDate.getUTCDate() }
+                [`${path}.date`]: { $ne: subDate.getUTCDate() }
             }
-            let doc = await yearStatsModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
+            let doc = await yearSurveyModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
+            console.log(doc);
+
             if (doc) {
                 await survey.save();
                 update.$set = {
                     lastMod: Date.now()
                 }
+                rtnMsg = survey;
+
             } else {
-                return { survey: null, added: false };
+                throw new Error(`A survey already exists on that date`);
             }
         }
 
@@ -108,13 +132,13 @@ let surveys = {
             date: new Date(epochDateOfSubmit),
             ASTotal: 0,
             SRSTotal: 0,
-            newDebris: {},
+            newDebrisData: {},
         };
 
-        updatePayload.ASTotal = survey.getASTotal(updatePayload.newDebris);
-        updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebris);
-        console.log(updatePayload);
+        updatePayload.ASTotal = survey.getASTotal(updatePayload.newDebrisData);
+        updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebrisData);
         await beaches.updateStats(beachID, updatePayload);
+        return rtnMsg;
     },
 
     get: async function(surveyID) {
@@ -127,95 +151,97 @@ let surveys = {
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
         let update = { beachUpdate: { $set: {} }, totalsUpdate: {} };
-        let { date } = updatePayload;
-        let totalsQuery = null;
+        let { date, reason: updateReason } = updatePayload;
+        let totalsQuery = {};
         let projection = `stats.lastUp stats.TODF stats.ttls.${date.getUTCFullYear()}`;
-        let { stats: oldStats } = await beachModel.findById(beachID, projection).exec();
-
-        console.log(oldStats);
-
-        if (updatePayload.reason === 'new') {
-            createdSurvey(update, totalsQuery, updatePayload);
-        } else if (updatePayload.reason === 'edit') {
-            editedSurvey(update, totalsQuery, updatePayload, oldStats);
-        } else {
-            removedSurvey(update, totalsQuery, updatePayload, oldStats);
+        let { stats: oldStats } = await beachModel.findById(beachID).select(projection).exec();
+        console.log(updatePayload);
+        switch (updateReason) {
+            case 'new':
+                createdSurvey(update, totalsQuery, updatePayload, oldStats);
+                break;
+            case 'edit':
+                editedSurvey(update, totalsQuery, updatePayload, oldStats);
+                break;
+            case 'remove':
+                removedSurvey(update, totalsQuery, updatePayload, oldStats);
+                break;
         }
+
         update.beachUpdate.$set['stats.lastUp'] = Date.now();
         console.log(update);
+
         let beachProm = beachModel.findByIdAndUpdate(beachID, update.beachUpdate, { new: true }).exec();
         let promises = [beachProm];
-        if (totalsQuery) {
-            promises.push(yearTotalsModel.findOneAndUpdate(totalsQuery, update.totalsUpdate, { new: true })).exec();
+        console.log(totalsQuery);
+
+        if (totalsQuery._id) {
+            promises.push(yearTotalsModel.findOneAndUpdate(totalsQuery, update.totalsUpdate, { new: true }).exec());
         }
         return await Promise.all(promises);
     },
 
     create: async function(beachData) {
         let location = new beachModel(beachData);
-        try {
-            let beachRt = await location.save();
-            return beachRt;
-        } catch (err) {
-            console.log(err);
-            throw new Error('Error in saving beach: ' + err.message);
-
-        }
+        let beachRt = await location.save();
+        return beachRt;
     },
-    getStats: async function(beachID, query) {
-        let stats;
-        let projection;
-        if (query.getYear) {
-            projection = `stats.AST.${query.year} stats.SRST.${query.year} stats.TODF stats.lastUp`;
-        } else {
-            projection = `stats.AST.${query.year}.${query.month} stats.SRST.${query.year}.${query.month} stats.TODF stats.lastUp`
-        }
-        try {
-            stats = await beachModel.findById(beachID, projection).exec();
-            return stats;
-        } catch (error) {
-            console.error(error);
-            throw new Error(`Error in obtaining stats beachID ${beachID}: ${error.message}`);
-        }
+    getStats: async function(beachID, year) {
+        let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
+        let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
+        return { totals: stats.ttls[year], typesOfDebrisFound: stats.TODF, lastUp: stats.lastUp };
     },
     remove: async function(beachID) {
-        try {
-            let removedBeach = await beachModel.findByIdAndDelete(beachID, { select: "surveys" }).exec();
-            console.log(`removal beach ${removedBeach}`);
+        let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
+        let surveyYearIterator = removedBeach.surveys.values();
+        let totalYearIterator = removedBeach.stats.ttls.values();
+        let promises = [surveyModel.deleteMany({ bID: removedBeach._id }).exec()];
 
-            await surveyModel.deleteMany({ bID: removedBeach._id }).exec();
-        } catch (err) {
-            console.log(err);
-            throw new Error('Error in deleting beach: ' + err.message);
+        for (const surveyYearID of surveyYearIterator) {
+            promises.push(yearSurveyModel.findByIdAndRemove(surveyYearID).exec());
         }
+        for (const yearTotalID of totalYearIterator) {
+            promises.push(yearTotalsModel.findByIdAndRemove(yearTotalID).exec());
+        }
+        console.log(`removal beach ${removedBeach}`);
+
+        await Promise.all(promises);
+
     },
     getSurveys: async function(beachID, surveyYear, surveyMonth, surveysSkip, numOfSurveys) {
-        let projection = `surveys`;
+        let projection = "surveys";
         // return await beachModel.findById(beachID)
         //     .select(projection)
         //     .slice(`surveys.${surveyYear}.${surveyMonth}`, [surveysSkip, numOfSurveys])
         //     .exec();
         let { surveys } = await beachModel.findById(beachID)
-            .select(projection).lean().exec();
+            .populate(`surveys`)
+            .select(projection)
+            .lean().exec();
         let res = [];
-
-        for (const year in surveys) {
-            let months = surveys[year];
-            for (const month in months) {
-                const surv = months[month];
-                res = [...res, ...surv];
+        surveys.forEach((ysm, key) => {
+            for (const month in ysm) {
+                if (month != '_id') {
+                    const survs = ysm[month];
+                    res = [...res,...survs];
+                }
             }
-        }
+
+        });
         return res;
     },
     getSubmitYears: async function(beachID) {
         let doc = await beachModel.findById(beachID)
-            .select("surveys");
+            .select("surveys")
+            .populate('surveys')
+            .exec();
         return [...doc.surveys.keys()];
     },
     getSubmitMonths: async function(beachID, year) {
         let doc = await beachModel.findById(beachID)
-            .select(`surveys.${year}`).lean();
+            .select(`surveys.${year}`)
+            .populate("surveys")
+            .lean().exec();
 
         let months = doc.surveys[year];
         let res = [];
@@ -229,7 +255,8 @@ let beaches = {
     },
     getSurveysUnderMonth: async function(beachID, year, month) {
         let doc = await beachModel.findById(beachID)
-            .select(`surveys.${year}.${month}`).lean();
+            .select(`surveys.${year}.${month}`)
+            .populate("surveys").lean().exec();
         let res;
         doc.surveys[year][month] ? res = doc.surveys[year][month] : res = [];
         return res;
@@ -239,7 +266,7 @@ let beaches = {
         return await beachModel
             .find()
             .skip(skip)
-            .limit(10)
+            .limit(20)
             .select(projection)
             .exec();
 
@@ -256,14 +283,15 @@ function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, date } = updatePayload;
     let result = [];
+
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
-        update.beachUpdate.$set['stats.typesOfDebrisFound'] = result;
+        update.beachUpdate.$set['stats.TODF'] = result;
     }
-    let totalsID = oldStats.totals.get(`${date.getUTCFullYear()}`);
+    let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$pull = {
-        [`${path}`]: { date: date.getUTCDate() },
+        [`${date.getUTCMonth()}`]: { date: date.getUTCDate() },
     };
-    totalsQuery = { _id: totalsID };
+    totalsQuery._id = totalsID;
 }
 
 function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
@@ -273,26 +301,28 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     let result = [];
     let path = `${date.getUTCMonth()}`
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
-        update.beachUpdate.$set['stats.typesOfDebrisFound'] = result;
+        update.beachUpdate.$set['stats.TODF'] = result;
     }
-    let totalsID = oldStats.totals.get(`${date.getUTCFullYear()}`);
+    let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$set = {
         [`${path}.$.AST`]: newASTotal,
         [`${path}.$.SRST`]: newSRSTotal,
     };
-    let totalsQuery = { _id: totalsID, [`${path}.date`]: date.getUTCDate() };
+    totalsQuery._id = totalsID;
+    totalsQuery[`${path}.date`] = date.getUTCDate();
 }
 
 function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     //new survey
+
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
     let result = [];
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
-        update.beachUpdate.$set['stats.typesOfDebrisFound'] = result;
+        update.beachUpdate.$set['stats.TODF'] = result;
     }
 
-    if (oldStats.totals.size <= 0) {
+    if (oldStats.ttls.size <= 0) {
         //create new year
         let totals = new yearTotalsModel({
             [`${date.getUTCMonth()}`]: [{ date: date.getUTCDate(), AST: ASTotal, SRST: SRSTotal }]
@@ -301,7 +331,7 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
         totals.save();
         return;
     }
-    let totalsID = oldStats.totals.get(`${date.getUTCFullYear()}`);
+    let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$push = {
         [`${date.getUTCMonth()}`]: {
             $each: [{ date: date.getUTCDate(), AST: ASTotal, SRST: SRSTotal }],
@@ -310,21 +340,24 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
             }
         }
     };
-    totalsQuery = { _id: totalsID };
+    totalsQuery._id = totalsID;
 }
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
     let trash = Object.keys(newDebrisData);
     if (trash.length > 0) {
-        if (prevDebrisData.has(trash)) {
-            let origAmnt = prevDebrisData.get(trash);
-            let newTotal = trashAmount + origAmnt;
-            if (newTotal != 0) {
-                result.push([trash, newTotal]);
+        trash.forEach(trashName => {
+            let newTrashAmnt = newDebrisData[trashName];
+            if (prevDebrisData.has(trashName)) {
+                let origAmnt = prevDebrisData.get(trashName);
+                let newTotal = newTrashAmnt + origAmnt;
+                if (newTotal != 0) {
+                    result.push([trashName, newTotal]);
+                }
+            } else {
+                result.push([trashName, newTrashAmnt]);
             }
-        } else {
-            result.push([trash, trashAmount]);
-        }
+        });
     } else {
         return false;
     }
@@ -392,18 +425,23 @@ async function test1 () {
     // console.log(b);
     // let subDate = new Date().setUTCHours(0, 0, 0, 0);
     // sur.survDate = subDate;
-    // let { survey, added } = await surveys.addToBeach(sur, b._id, subDate);
-    // console.log(`${survey}  ${added}`);
+    // let survey = await surveys.addToBeach(sur, b._id, subDate);
+    // console.log(`${survey}`);
 
-    // let res = await surveys.remove("5c6c978204de315b0e7cfbc7", "5c6c979d04de315b0e7cfbc8", subDate);
+    // console.log('REMOVE SURVEY');
+
+    // let res = await surveys.remove(b._id, survey._id, subDate);
     // console.log(res);
+
+    // survey = await surveys.addToBeach(sur, "5c7469adff2b6630fa253e85", subDate);
+    // console.log(survey);
 
     // console.log("added survey" + added);
     //await beaches.remove(b._id);
 
     // let d = await beaches.getMany(0);
     // console.log(d);
-    // let d = await beaches.getSurveys("5c6cbb73dea528734c341ebf", 0, 0, 0, 0);
+    // let d = await beaches.getSurveys("5c7469adff2b6630fa253e85", 0, 0, 0, 0);
     // console.log(d);
 
     //let b = await beaches.getSurveysUnderMonth("5c6c48f23c4a6d39b6853c6c", "2019", "0");
@@ -412,6 +450,8 @@ async function test1 () {
 
 
 }
+
+// test1();
 
 //export our module to use in server.js
 module.exports = {
