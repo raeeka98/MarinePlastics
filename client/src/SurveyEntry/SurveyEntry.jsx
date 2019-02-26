@@ -7,9 +7,9 @@ import SurveyTableRow from './SurveyTableRow';
 class SurveyEntry extends Component {
   constructor(props) {
     super(props);
-    let { beachName, surveyID } = props.match.params;
+    let { surveyID } = props.match.params;
     this.state = {
-      beachName,
+      beachName: this.props.location.state.beachName,
       surveyID,
       surveyData: {}
     };
@@ -89,7 +89,7 @@ class SurveyEntry extends Component {
     return (
       <div>
         <h2 className="uk-text-primary uk-heading-primary">
-          {this.state.surveyData.beach}
+          {this.state.beachName}
           <span className="uk-text-muted uk-text-large uk-margin-left">
             {this.state.surveyData.date}
           </span>

@@ -15,7 +15,6 @@ class Location extends Component {
     // the data is passed from ../Home/Home.js from the Link
     // this.props.location.state is where the Link passes the state to
     let beachData = this.props.location.state.data;
-    console.log(beachData);
 
     this.state = {
       beachData,
@@ -24,13 +23,35 @@ class Location extends Component {
     }
   }
 
+  /* 
+   * getStats(): 
+   *  This function gets all the survey IDs using the given location's ID.
+   *  Once it gets the survey IDs, it will then loop through each ID to obtain the actual
+   *  survey contents that are stored in the database. These will be used for displaying the
+   *  chart data as well as provide the data when the use clicks the links on the side of
+   *  the page.
+   * 
+   *  Arguments: none (retrieves beach IDs stored in state)
+   *  
+   *  Returns: No return values, but it will store an array of survey information in this.state.surveys
+   * 
+   *  Raises: none
+  */
   getStats = () => {
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
-        console.log(res.data);
-
-        this.setState({ surveys: res.data.surveys, pieChartData: sumDebrisTypes(res.data.surveys) });
+        this.setState({ surveyIDs: res.data, pieChartData: sumDebrisTypes(res.data) });
       })
+      .then( () => {
+        let trueSurveys = [];
+        for(var i = 0; i < this.state.surveyIDs.length; i++){
+          axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`)
+            .then(res => {
+              trueSurveys.push(res.data);
+              this.setState({surveys: trueSurveys, pieChartData: sumDebrisTypes(trueSurveys)})
+            });
+        }
+      });
   }
 
   componentDidMount() {
@@ -44,13 +65,13 @@ class Location extends Component {
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
-    let subDate = new Date(0);
-    for (const submitDate in this.state.beachData.surveys) {
-      const entry = this.state.beachData.surveys[submitDate];
-      subDate.setMilliseconds(submitDate);
+    let subDate;
+    for (const submitDate in this.state.surveys) {
+      const entry = this.state.surveys[submitDate];
+      subDate = new Date(entry.survDate);
       surveys.push(
-        <li key={entry}>
-          <Link to={{ pathname: `/entry/${entry}` }}>
+        <li key={entry._id}>
+          <Link to={{ pathname: `/entry/${entry._id}` }}>
             {subDate.toLocaleDateString()}
           </Link>
         </li>
@@ -78,6 +99,7 @@ class Location extends Component {
               </ul>
             </div>
           </div>
+          <div className='uk-grid-margin uk-width-1-3'>
           {
             lat && lon && checkRange(lat, true) && checkRange(lon, false) ?
               (<div style={{ height: '500px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
@@ -99,7 +121,10 @@ class Location extends Component {
                 </GoogleMapReact>
               </div>) : null
           }
-          <PieChart chartData={this.state.pieChartData} />
+          </div>
+          <div className="uk-grid-margin uk-width-2-3">
+            <PieChart chartData={this.state.pieChartData} />
+          </div>
         </div>
       </div>
     );
