@@ -120,6 +120,15 @@ router.route('/:beachID')
         res.json({ res: "Successfully deleted beach" });
     }));
 
+router.route('/:beachID/stats')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let { yr: year } = req.query;
+        let stats = beaches.getStats(bID, year);
+        console.log(stats);
+        res.json(stats);
+    }));
+
 
 
 module.exports = { router };
