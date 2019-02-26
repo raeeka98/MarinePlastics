@@ -1,50 +1,31 @@
-# Marine Plastics Monitor
-### Sponsored by [Clean Oceans International](https://cleanoceansinternational.org/)
-### Live site: https://marineplastics.herokuapp.com/
+  # Marine Plastics Monitor
+  ### Sponsored by [Clean Oceans International](https://cleanoceansinternational.org/)
+  ### Live site: https://marineplastics.herokuapp.com/
 
-A web application for people to view and input data collected at beach clean-ups around the world. 
+  A web application for people to view and input data collected at beach clean-ups around the world. 
 
-## Getting Started
+  ## Getting Started
 
-### Prerequesites
-Need access to our accounts on (need to contact one of the developers)
-  * Heroku
+  ### Prerequesites
+  Need access to our accounts on (need to contact one of the developers)
+    * Heroku
   * MLab
   * Auth0
 
 If want to update the data sheet, need to contact a developer or COI for a Word doc version.
 
-Code for the API is here: https://github.com/vincentwu96/MarinePlasticsDB
-
 ### Installing
-1. Clone the repo: `git clone https://github.com/vincentwu96/MarinePlastics.git`
-2. Install the dependencies: `npm install`
-3. Run the development environment: `npm run start`
+1. Clone the repo: `git clone https://github.com/noll115/MarinePlastics.git`
+2. Install the dependencies: `npm install` then `cd client && npm install`
+3. Run the development environment in marineplastics folder: `npm run start`
 
 ### Deploying
 To deploy to the live site: https://devcenter.heroku.com/articles/git
   1. Sign into Heroku in terminal
   2. Add a remote to the existing Heroku site
-  3. Switch the redirectUri in `./src/Auth.js` from `http://localhost:3000` to `https://marineplastics.herokuapp.com/`
   4. Deploy with `git push heroku master`
 If the site breaks, view the logs on Heroku for an error
 
-### Quirks 
-In `package.json` there is a postinstall script:
-```
-  "postinstall": "cp ./scripts/package.json node_modules/xmlhttprequest/ && echo 'successfully replaced xmlhttprequest package.json'"
-```
-This is because in `./node_modules/xmlhttprequest` node commands are interpreted as packages. The best solution we could come up with was to have a copy of `./node_modules/xmlhttprequest/package.json` in `./scripts` that worked and copy it over every time `npm install` is run.
-
-Here is the snippet that fixes the problem: 
-```
-  "browser": {
-    "fs": false,
-    "child_process": false
-  },
-```
-
-***
 
 In `./src/Protocol/Protocol.js` there is a link to our data sheet. Instead of hosting the pdf on our site, we host it [on scribd](https://www.scribd.com/document/380752641/COIDataSheet). This was because we use `React Router`, when we tried to add a link that to download like this:
 ```
@@ -65,8 +46,6 @@ In `./src/Auth.js`, authentication is set up with:
     scope: 'openid email profile'
   });
 ```
-
-Which works in the development environment. However, when in production it breaks because the `redirectUri` redirects the live site to `localhost:3000`. To work in production, need to switch it to `redirectUri: 'https://marineplastics.herokuapp.com/'`.
 
 ## Built With
 * [ReactJS](https://reactjs.org/)
@@ -100,8 +79,16 @@ There is a lot that we would still love to see happen:
       * Might be helpful: https://github.com/axios/axios/issues/448
       * Might be helpful: https://www.npmjs.com/package/mongoose-to-csv
     * Potential - accept CSV file of clean-up data (so could import multiple at once)
-
 ## Developers:
+* Cassia Artanegara: cartaneg@ucsc.edu
+* Frank Kohn: fkohn@ucsc.edu
+* Justin Law: jllaw@ucsc.edu
+* Nelson Perez: neeperez@ucsc.edu
+* Noel Gomez: nogomez@ucsc.edu
+* William Koch: wckoch@ucsc.edu
+
+
+## Previous Developers:
 * Guita Vahdatinia - gvahdati@ucsc.edu
 * Kianna Mark - kjmark@ucsc.edu
 * Michael Pluguez - mpluguez@ucsc.edu
