@@ -21,7 +21,7 @@ class SurveyEntry extends Component {
 
   getSurvey = () => {
     console.log(this.state.surveyID);
-    axios.get(`/surveys/${this.state.surveyID}`)
+    axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
         console.log(res.data);
         this.setState({ surveyData: res.data });
@@ -33,7 +33,13 @@ class SurveyEntry extends Component {
 
   deleteSurvey = () => {
 
-    axios.delete(`/surveys/${this.state.surveyID}`)
+    axios.delete(`/beaches/surveys/${this.state.surveyID}`, 
+    { params:
+      {
+        bID: this.state.surveyData.bID,
+        dos: this.state.surveyData.survDate
+      }
+    })
       .then(res => {
         console.log("Survey deleted!")
         this.setState({
@@ -250,7 +256,7 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
-        <button className="uk-button uk-button-danger" onClick={this.showConfirmationModal}>Delete Survey</button>
+        <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
       
     );
