@@ -32,6 +32,7 @@ class SurveyEntry extends Component {
   }
 
   deleteSurvey = () => {
+
     axios.delete(`/surveys/${this.state.surveyID}`)
       .then(res => {
         console.log("Survey deleted!")
@@ -42,6 +43,18 @@ class SurveyEntry extends Component {
       .catch(err => {
         console.log(err)
       })
+  }
+
+  showConfirmationModal = () => {
+    return (
+      <div id="confirmationModal" className="uk-modal">
+        <div className="uk-modal-dialog">
+          <h1>Are you sure you want to delete this survey?</h1>
+          <button className="uk-button uk-button-default">Cancel</button>
+          <button className="uk-button uk-button-danger">Delete</button>
+        </div>
+      </div>
+    )
   }
 
   // once the component is on the page, gets the surveyData from the server
@@ -237,7 +250,7 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
-        <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
+        <button className="uk-button uk-button-danger" onClick={this.showConfirmationModal}>Delete Survey</button>
       </div>
       
     );
