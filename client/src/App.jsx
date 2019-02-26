@@ -11,7 +11,7 @@ import Home from './Home/Home';
 import SurveyEntry from './SurveyEntry/SurveyEntry';
 
 // for testing new survey form
-// import Steps from './SurveyForm/SurveyForm';
+import Steps from './SurveyForm/SurveyForm';
 import SurveyForm from './NewSurveyForm/SurveyForm'
 
 import UserProfile from './UserProfile/UserProfile';
@@ -57,8 +57,8 @@ class App extends Component {
                 <Route exact path='/home' component={Home} />
 
                 {/* for testing new component: */}
-                {/* <Route path='/survey' component={Steps} /> */}
-                <Route path='/survey' component={SurveyForm} />
+                <Route path='/survey' component={Steps} />
+                <Route path='/newsurvey' component={SurveyForm} />
 
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
