@@ -240,12 +240,25 @@ let beachSchema = new Schema({
     stats: statisticsSchema
 }, { versionKey: false });
 
+let trashSchema = new Schema({
+  trash_id: {
+      type: String,
+      unique: true,
+      required: true
+  },
+  name : {
+     type: String,
+     unique: true,
+     required: true
+  }
+}, { versionKey: false });
 
 
 
+const trashModel = mongoose.model('Trashes', trashSchema);
 const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
 
-module.exports = { beachModel, surveyModel };
+module.exports = { beachModel, surveyModel, trashModel };
