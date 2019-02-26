@@ -107,7 +107,7 @@ router.route('/:beachID')
     for now it obtains all surveys under beach until next meeting*/
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
-        let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
+        let { yr: surveyYear, m: surveyMonth, s: surveySkip, nos: numOfSurveys } = req.query;
         let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
         //returns array of survey ids and date of submission NOT MONTH OR YEAR
         //[{date:4,_id:1234}]
