@@ -17,8 +17,10 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    axios.get(`/beaches/surveys/${this.state.surveyID}`)
+    console.log(this.state.surveyID);
+    axios.get(`/surveys/${this.state.surveyID}`)
       .then(res => {
+        console.log(res.data);
         this.setState({ surveyData: res.data });
       })
       .catch(err => {
@@ -215,7 +217,9 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
+        <button className="uk-button uk-button-danger">Delete Survey</button>
       </div>
+      
     );
   }
 }
