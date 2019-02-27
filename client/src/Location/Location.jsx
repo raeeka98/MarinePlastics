@@ -21,6 +21,7 @@ class Location extends Component {
       pieChartData: {},
       surveys: null
     }
+    this.getLatLon = this.getLatLon.bind(this);
   }
 
   /* 
@@ -72,14 +73,34 @@ class Location extends Component {
    
   }
 
+  getLatLon() {
+    axios.get(`/beaches/${this.state.beachData._id}/coords`)
+      .then( res => {
+        var bData = this.state.beachData;
+        bData.lon = res.data.lon;
+        bData.lat = res.data.lat;
+        console.log(res.data);
+        this.setState({beachData: bData});
+      })
+      .then(() => { 
+        console.log(this.state.beachData);
+      });
+
+  }
+
   componentDidMount() {
     this.getStats();
+    if(!this.state.beachData.lat && !this.state.beachData.lon){
+      console.log("Null lat lon");
+      this.getLatLon();
+    }
+    
   }
 
 
   render() {
     let { lat, lon, name: beachName } = this.state.beachData;
-
+    
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened

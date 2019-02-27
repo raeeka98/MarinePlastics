@@ -13,6 +13,12 @@ let surveys = {
     get: async function(surveyID) {
         return await surveyModel.findById(surveyID).lean().exec();
     },
+    getDateCreated: async function(surveyID) {
+        let projection = `survDate`;
+        let dateObj = await surveyModel.findById(surveyID).select(projection).exec();
+        let date = dateObj.survDate;
+        return date;
+    },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let dateOfSub = new Date(epochDateOfSubmit);
         let { stats, surveys } = await beachModel.findById(beachID, `stats.ttls.${dateOfSub.getUTCFullYear()} surveys.${dateOfSub.getUTCFullYear()}`).lean().exec();
@@ -280,6 +286,13 @@ let beaches = {
     },
     queryBeachNames: async function(query) {
         return await beachModel.find({ $text: { $search: query } }).exec();
+    },
+    getOneLonLat: async function(beachID){
+        let projection = `lat lon` 
+        return await beachModel
+            .findById(beachID)
+            .select(projection)
+            .exec();
     }
 }
 
