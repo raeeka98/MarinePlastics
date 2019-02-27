@@ -183,7 +183,14 @@ let beaches = {
     getStats: async function(beachID, year) {
         let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
-        return { totals: stats.ttls[year], typesOfDebrisFound: stats.TODF, lastUp: stats.lastUp };
+        let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
+        keysToSort.sort((a,b)=>{return stats.TODF[a]-stats.TODF[b]});
+        let sortedKeys = {};
+        // Construct a new object that will contain the object in sorted order
+        for(let i = 0; i < keysToSort.length; i++){
+            sortedKeys[keysToSort[i]] = stats.TODF[keysToSort[i]];
+        }
+        return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
     remove: async function(beachID) {
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();

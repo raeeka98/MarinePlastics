@@ -124,7 +124,7 @@ router.route('/:beachID/stats')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let { yr: year } = req.query;
-        let stats = beaches.getStats(bID, year);
+        let stats = await beaches.getStats(bID, year);
         console.log(stats);
         res.json(stats);
     }));

@@ -19,7 +19,7 @@ class Location extends Component {
     this.state = {
       beachData,
       pieChartData: {},
-      surveys: {}
+      surveys: null
     }
   }
 
@@ -40,18 +40,36 @@ class Location extends Component {
   getStats = () => {
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
-        this.setState({ surveyIDs: res.data, pieChartData: sumDebrisTypes(res.data) });
+        this.setState({ surveyIDs: res.data });
+        console.log(this.state.surveyIDs);
       })
       .then( () => {
+        //Here, we're gonna need to make a promise so that we'll get the surveys in order
+        let promise = [];
         let trueSurveys = [];
         for(var i = 0; i < this.state.surveyIDs.length; i++){
-          axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`)
-            .then(res => {
-              trueSurveys.push(res.data);
-              this.setState({surveys: trueSurveys, pieChartData: sumDebrisTypes(trueSurveys)})
-            });
+          //while(i !== 0 && !this.state.surveys);
+          promise.push(axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
+            
         }
+        // Then, take that promise and fill the surveys field in the correct order 
+        axios.all(promise)
+          .then((response) => {
+            response.map(res => {
+              trueSurveys.push(res.data);
+            })
+          })
+          .then(() => this.setState({surveys: trueSurveys}));
       });
+        // Then, grab the stats for the beach
+      axios.get(`/beaches/${this.state.beachData._id}/stats`)
+      .then( res => {
+        console.log(res.data);
+        var categories = res.data.typesOfDebrisFound;
+        
+        this.setState({beachStats: categories});
+      });
+   
   }
 
   componentDidMount() {
@@ -126,7 +144,7 @@ class Location extends Component {
           }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
-            <PieChart chartData={this.state.pieChartData} />
+            <PieChart chartData={this.state.beachStats} />
           </div>
         </div>
       </div>
