@@ -107,7 +107,7 @@ class LocationBar extends Component {
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
                             <ul className="uk-list uk-list-bullet uk-padding-remove-left">
-                                {this.state.surveys}
+                                {this.state.surveys.length > 0 ? this.state.surveys : "Loading surveys..."}
                             </ul>
                             <p>
                         <Link to={{ pathname: `/location/${this.props.path.replace(/\s/g, '')}`, state: { data: this.props.location } }}>

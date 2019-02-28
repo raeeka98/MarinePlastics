@@ -67,7 +67,14 @@ class Location extends Component {
       .then( res => {
         console.log(res.data);
         var categories = res.data.typesOfDebrisFound;
-        
+        var total = 0;
+        for(const trash in categories){
+          total+=categories[trash];
+        }
+        for(const trash in categories){
+          categories[trash] /= total;
+          categories[trash] = Math.floor(categories[trash]*100); 
+        }
         this.setState({beachStats: categories});
       });
    
@@ -144,7 +151,7 @@ class Location extends Component {
           <div className='uk-grid-margin uk-width-1-3'>
           {
             lat && lon && checkRange(lat, true) && checkRange(lon, false) ?
-              (<div style={{ height: '500px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
+              (<div style={{ height: '550px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
                 <GoogleMapReact
                   defaultCenter={{
                     lat: lat,

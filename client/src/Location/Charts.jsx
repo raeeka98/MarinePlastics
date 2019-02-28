@@ -47,8 +47,8 @@ class ColumnChart extends Component {
 let PieChart = ({ chartData }) =>
     <div className="uk-grid-margin uk-width-1-1">
         <div className="uk-card uk-card-default uk-card-body">
-            <h3 className="uk-card-title">Debris Totals By Number of Pieces</h3>
-            <p>Hover over segments to see quantities</p>
+            <h3 className="uk-card-title">Debris Totals By Percent</h3>
+            <p>Hover over segments to see percentages</p>
             <PChart id="pieChart" data={chartData} legend = "right" library={{ animation: { animateRotate: true }, responsive: true }} height="370px" width="450px" />
         </div>
     </div>;
