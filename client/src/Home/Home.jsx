@@ -26,6 +26,7 @@ class Home extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
+    this.getTotalDebris = this.getTotalDebris.bind(this);
     //this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this, );
     this.url = '/beaches';
   }
@@ -100,6 +101,21 @@ class Home extends Component {
     this.setState({ searchResult: result });
   }
 
+  getTotalDebris(){
+    axios.get(this.url + "/allstats")
+      .then((res) => {
+        let dataArray = res.data;
+        var dataTotals = 0;
+        for(let i = 0; i < dataArray.length; i++){
+          let rawStats = dataArray[i].stats.TODF;
+          for(const trash in rawStats){
+            dataTotals += rawStats[trash];
+          }
+        }
+        this.setState({totalWeight : dataTotals});
+      })
+  }
+
   handleAccordionClick = (e) => {
 
     
@@ -138,6 +154,7 @@ class Home extends Component {
   // once the component is on the page, checks the server for comments
   componentDidMount() {
     this.loadBeaches();
+    this.getTotalDebris();
     //this.loadCommentsFromServer();
   }
 
@@ -179,7 +196,8 @@ class Home extends Component {
       />
     });
 
-    let totalWeight = getTotalPounds(this.state.rawData);
+    console.log(this.state.rawData);
+    let totalWeight = this.state.totalWeight;
 
     return (
       <div>
@@ -208,7 +226,7 @@ class Home extends Component {
           </div>
           <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
-              <h2 className="uk-text-center uk-heading">{totalWeight} pounds of marine debris picked up so far!</h2>
+              <h2 className="uk-text-center uk-heading">{totalWeight} pieces of marine debris picked up so far!</h2>
             </div>
           </div>
         </div>
