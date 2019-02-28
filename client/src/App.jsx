@@ -15,7 +15,7 @@ import Steps from './SurveyForm/SurveyForm';
 import SurveyForm from './NewSurveyForm/SurveyForm'
 
 import UserProfile from './UserProfile/UserProfile';
-import Protocol from './Protocol/Protocol';
+import About from './About/About';
 import Map from './Map/Map.js';
 import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
@@ -71,7 +71,7 @@ class App extends Component {
                     : <UserProfile auth={ this.auth } />
                   )}
                 />
-                <Route exact path='/protocol' component={ Protocol } />
+                <Route exact path='/about' component={ About } />
                 <Route path='/map' component={ Map } />
                 <Route path='/chooseform' component={ ChooseForm } />
 

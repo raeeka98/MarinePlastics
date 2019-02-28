@@ -6,8 +6,6 @@ import {Link} from 'react-router-dom';
 import {locationSort} from '../_helpers/SortHelper';
 
 
-//We're gonna have to add an on click event for the custom marker, and have a route that will take 
-//the user to the page
 
 
 class CustomMarker extends Component {
