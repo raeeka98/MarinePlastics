@@ -4,9 +4,9 @@ let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./m
 /*--------------database helpers-------------------*/
 
 let trash = {
-  getMany: async function() {
-      return await trashModel.find({}).exec();
-  }
+    getMany: async function() {
+        return await trashModel.find({}).exec();
+    }
 }
 
 let surveys = {
@@ -272,7 +272,7 @@ let beaches = {
         return await beachModel.find({}, "n lat lon").exec();
     },
     queryBeachNames: async function(query) {
-        return await beachModel.find({ $text: { $search: query } }).exec();
+        return await beachModel.find({ n: { $regex: `${query}` } }).select("n").exec();
     }
 }
 
@@ -431,9 +431,7 @@ async function test1 () {
     // console.log(res);
     // sur.survDate = new Date().setUTCHours(25, 0, 0, 0);
     // survey = await surveys.addToBeach(sur, b._id, new Date().setUTCHours(25, 0, 0, 0));
-
 }
-
 
 //export our module to use in server.js
 module.exports = {
