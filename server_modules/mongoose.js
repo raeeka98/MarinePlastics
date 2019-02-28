@@ -1,5 +1,5 @@
-let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
 
+let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
 
 /*--------------database helpers-------------------*/
 
@@ -50,7 +50,7 @@ let surveys = {
      *  changedDebris:{
      *      deleted:[plastic,umbrella], <- all deleted materials or when the
      *                                     difference between old and new cancel out.
-     *                                      eg oldData = 4, changedVal = -4 
+     *                                      eg oldData = 4, changedVal = -4
      *      added:{
      *          metal:4, <- new material added to survey with value
      *          paper:123
@@ -63,7 +63,7 @@ let surveys = {
      *  changedInfo:{
      *      teamleader,email,slope,lastTide,nextTide,etc...
      *  }
-     *  
+     *
      * }
      */
     update: async function(surveyID, updatedFields) {
@@ -198,7 +198,7 @@ let beaches = {
         }
         return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
-   
+
     remove: async function(beachID) {
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
         let surveyYearIterator = removedBeach.surveys.values();
@@ -289,7 +289,7 @@ let beaches = {
         return await beachModel.find({ $text: { $search: query } }).exec();
     },
     getOneLonLat: async function(beachID){
-        let projection = `lat lon` 
+        let projection = `lat lon`
         return await beachModel
             .findById(beachID)
             .select(projection)

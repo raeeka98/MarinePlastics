@@ -280,6 +280,7 @@ class SurveyArea extends Component {
                           type="string"
                           placeholder="Height"
                           id='windSpeed'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
@@ -289,6 +290,7 @@ class SurveyArea extends Component {
                           type="string"
                           placeholder="Height"
                           id='windDir'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
@@ -298,6 +300,7 @@ class SurveyArea extends Component {
                         <select
                           id='slope'
                           className='uk-select uk-margin'
+                          onChange={this.props.updateSurveyState}
                           required
                           >
                           <option>Winter Profile</option>

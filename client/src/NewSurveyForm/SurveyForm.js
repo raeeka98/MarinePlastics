@@ -100,7 +100,7 @@ class SurveyForm extends Component {
   moveToSubmit() {
       const form = this.prepareForm();
       console.log(form);
-    /*  axios.post("/beaches/surveys", form)
+      axios.post("beaches/surveys", form)
           .then(res => {
               this.setState({
                   isInputting: false,
@@ -110,7 +110,7 @@ class SurveyForm extends Component {
           })
           .catch(err => {
               console.log(err)
-          })*/
+          })
   }
 
   toTitleCase(word) {
@@ -124,13 +124,45 @@ class SurveyForm extends Component {
                     (data.usageCommercial ? "Commercial, " : "") +
                     (data.usageOther ? data.usageOther : "");
 
+      const locChoice = (data.locationChoiceDebris ? "Debris, " : "") +
+                        (data.locationChoiceProximity ? "Proximity, " : "") +
+                        (data.locationChoiceOther ? data.locationChoiceOther : "");
 
+      const subType =   (data.substrateTypeSand ? "Sand, " : "") +
+                        (data.substrateTypeRipRap ? "Sand, " : "") +
+                        (data.substrateTypePebble ? "Pebble, " : "") +
+                        (data.substrateTypeSeaweed ? "Pebble, " : "") +
+                        (data.substrateTypeOther ? data.substrateTypeOther : "");
 
-      const form = {
+      const dateTime = (data.cleanUpDate ? data.cleanUpDate : "") +
+                       (data.cleanUpTime ? data.cleanUpTime : "");
+
+      return {
           user : (data.name ? data.name : ""),
           email : (data.email ? data.email : ""),
-          reason : usage
-
+          org : (data.orgName ? data.orgName : ""),
+          reason : (locChoice ? locChoice : ""),
+          st : (subType ? subType : ""),
+          slope : (data.slope ? data.slope : ""),
+          lastTide : {
+              type : (data.tideTypeB ? data.tideTypeB : ""),
+              time : (data.tideTimeB ? data.tideTimeB : ""),
+              height : (data.tideHeightB ? data.tideHeightB : "")
+          },
+          nextTide : {
+              type : (data.tideTypeA ? data.tideTypeA : ""),
+              time : (data.tideTimeA ? data.tideTimeA : ""),
+              height : (data.tideHeightA ? data.tideHeightA : "")
+          },
+          windDir: (data.windDir ? data.windDir : ""),
+          windSpeed: (data.windSpeed ? data.windSpeed : ""),
+          majorUse: (usage ? usage : ""),
+          weight: (data.weight ? data.weight : ""),
+          SRSDebris : {},
+          ASDebris : {},
+          srsDebrisLength : 0,
+          asDebrisLength : 0,
+          survDate: Date.now()
       }
   }
 
@@ -155,7 +187,7 @@ class SurveyForm extends Component {
   render() {
       return(
         <div>
-          {console.log(this.state)}
+          {console.log(this.state.surveyData)}
             {this.state.isInputting && (
             <div>
               <Accordion>
