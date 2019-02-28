@@ -47,7 +47,6 @@ router.route('/')
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
-        console.log(allTrash);
         res.json(allTrash);
     }));
 

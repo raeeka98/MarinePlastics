@@ -23,31 +23,17 @@ class TeamInformation extends Component {
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
               <form>
-                  <div className="uk-child-width-1-2 uk-grid">
-                    <div>
-                      <label>First Name<span className="uk-text-danger">*</span></label>
-                      <input
-                        type='string'
-                        placeholder='First Name'
-                        id='firstName'
-                        className='uk-input uk-margin'
-                        defaultValue={this.props.data.firstName}
-                        onChange={this.props.updateSurveyState}
-                        required
-                        />
-                    </div>
-                    <div>
-                      <label>Last Name<span className="uk-text-danger">*</span></label>
-                      <input
-                        type='string'
-                        placeholder='Last Name'
-                        id='lastName'
-                        defaultValue={this.props.data.lastName}
-                        onChange={this.props.updateSurveyState}
-                        className='uk-input uk-margin'
-                        required
-                        />
-                    </div>
+                <div>
+                  <label>Name<span className="uk-text-danger">*</span></label>
+                  <input
+                    type='string'
+                    placeholder='First/Last Name'
+                    id='name'
+                    className='uk-input uk-margin'
+                    defaultValue={this.props.data.name}
+                    onChange={this.props.updateSurveyState}
+                    required
+                    />
                 </div>
 
                 <div className="uk-child-width-1-2 uk-grid">

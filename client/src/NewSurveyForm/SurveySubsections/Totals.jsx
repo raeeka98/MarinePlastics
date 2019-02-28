@@ -26,6 +26,7 @@ class Totals extends Component {
               type='string'
               placeholder='Total Weight'
               id='total-weight'
+              onChange={this.props.updateSurveyState}
               className='uk-input uk-margin'
               required
               />
