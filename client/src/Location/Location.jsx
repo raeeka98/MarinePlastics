@@ -19,8 +19,9 @@ class Location extends Component {
     this.state = {
       beachData,
       pieChartData: {},
-      surveys: {}
+      surveys: null
     }
+    this.getLatLon = this.getLatLon.bind(this);
   }
 
   /* 
@@ -40,28 +41,73 @@ class Location extends Component {
   getStats = () => {
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
-        this.setState({ surveyIDs: res.data, pieChartData: sumDebrisTypes(res.data) });
+        this.setState({ surveyIDs: res.data });
+        console.log(this.state.surveyIDs);
       })
       .then( () => {
+        //Here, we're gonna need to make a promise so that we'll get the surveys in order
+        let promise = [];
         let trueSurveys = [];
         for(var i = 0; i < this.state.surveyIDs.length; i++){
-          axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`)
-            .then(res => {
-              trueSurveys.push(res.data);
-              this.setState({surveys: trueSurveys, pieChartData: sumDebrisTypes(trueSurveys)})
-            });
+          //while(i !== 0 && !this.state.surveys);
+          promise.push(axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
+            
         }
+        // Then, take that promise and fill the surveys field in the correct order 
+        axios.all(promise)
+          .then((response) => {
+            response.map(res => {
+              trueSurveys.push(res.data);
+            })
+          })
+          .then(() => this.setState({surveys: trueSurveys}));
       });
+        // Then, grab the stats for the beach
+      axios.get(`/beaches/${this.state.beachData._id}/stats`)
+      .then( res => {
+        console.log(res.data);
+        var categories = res.data.typesOfDebrisFound;
+        var total = 0;
+        for(const trash in categories){
+          total+=categories[trash];
+        }
+        for(const trash in categories){
+          categories[trash] /= total;
+          categories[trash] = Math.round(categories[trash]*100); 
+        }
+        this.setState({beachStats: categories});
+      });
+   
+  }
+
+  getLatLon() {
+    axios.get(`/beaches/${this.state.beachData._id}/coords`)
+      .then( res => {
+        var bData = this.state.beachData;
+        bData.lon = res.data.lon;
+        bData.lat = res.data.lat;
+        console.log(res.data);
+        this.setState({beachData: bData});
+      })
+      .then(() => { 
+        console.log(this.state.beachData);
+      });
+
   }
 
   componentDidMount() {
     this.getStats();
+    if(!this.state.beachData.lat && !this.state.beachData.lon){
+      console.log("Null lat lon");
+      this.getLatLon();
+    }
+    
   }
 
 
   render() {
     let { lat, lon, name: beachName } = this.state.beachData;
-
+    
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
@@ -71,8 +117,11 @@ class Location extends Component {
       subDate = new Date(entry.survDate);
       surveys.push(
         <li key={entry._id}>
-          <Link to={{ pathname: `/entry/${entry._id}` }}>
-            {subDate.toLocaleDateString()}
+          <Link className="uk-link-muted"
+                to={{ pathname: `/surveys/${entry._id.replace(' ', '-')}`,
+                        state: {beachName: this.state.beachData.n, surveyID: entry._id} }}>
+                    
+                {subDate.toLocaleDateString()}            
           </Link>
         </li>
       );
@@ -87,7 +136,7 @@ class Location extends Component {
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{name}</p></div>;
     return (
       <div className="uk-container">
-        <h1 className="uk-text-primary uk-heading-primary">{beachName}</h1>
+        <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
         <div className="uk-grid uk-grid-match">
           {console.log(this.state.surveys)}
           <ColumnChart chartData={this.state.surveys} />
@@ -102,7 +151,7 @@ class Location extends Component {
           <div className='uk-grid-margin uk-width-1-3'>
           {
             lat && lon && checkRange(lat, true) && checkRange(lon, false) ?
-              (<div style={{ height: '500px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
+              (<div style={{ height: '550px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
                 <GoogleMapReact
                   defaultCenter={{
                     lat: lat,
@@ -123,7 +172,7 @@ class Location extends Component {
           }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
-            <PieChart chartData={this.state.pieChartData} />
+            <PieChart chartData={this.state.beachStats} />
           </div>
         </div>
       </div>

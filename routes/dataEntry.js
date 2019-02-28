@@ -47,7 +47,6 @@ router.route('/')
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
-        console.log(allTrash);
         res.json(allTrash);
     }));
 
@@ -56,6 +55,12 @@ router.route('/map')
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
         res.json(points);
+    }));
+
+router.route('/allstats')
+    .get(asyncHandler(async(req, res) => {
+        let beachWStats = await beaches.getAllStats();
+        res.json(beachWStats);
     }));
 
 router.route('/surveys')
@@ -75,14 +80,15 @@ router.route('/surveys')
         res.json({ res: "Survey Created" })
     }));
 
+
 router.route('/surveys/:surveyID')
     //get a specific survey
     .get(asyncHandler(async (req, res) => {
-        console.log("Obtaining survey...");
+        //console.log("Obtaining survey...");
         let surveyID = req.params.surveyID;
         let survey = await surveys.get(surveyID);
-        console.log("returning survey...");
-        console.log(survey);
+        //console.log("returning survey...");
+        //console.log(survey);
         res.json(survey);
     }))
     //find a specific survey and edit it
@@ -99,6 +105,12 @@ router.route('/surveys/:surveyID')
         res.json({ message: 'survey has been deleted' })
     }));
 
+router.route('/surveys/:surveyID/date')
+    .get(asyncHandler(async (req, res) => {
+        let sID = req.params.surveyID;
+        let date = await surveys.getDateCreated(sID);
+        res.json(date);
+    }));
 
 router.route('/:beachID')
     /*get all surveys submited in the year then month.
@@ -107,7 +119,7 @@ router.route('/:beachID')
     for now it obtains all surveys under beach until next meeting*/
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
-        let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
+        let { yr: surveyYear, m: surveyMonth, s: surveySkip, nos: numOfSurveys } = req.query;
         let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
         //returns array of survey ids and date of submission NOT MONTH OR YEAR
         //[{date:4,_id:1234}]
@@ -120,6 +132,23 @@ router.route('/:beachID')
         res.json({ res: "Successfully deleted beach" });
     }));
 
+router.route('/:beachID/stats')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let { yr: year } = req.query;
+        let stats = await beaches.getStats(bID, year);
+        //console.log(stats);
+        res.json(stats);
+    }));
+
+router.route('/:beachID/coords')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let coords = await beaches.getOneLonLat(bID);
+        console.log("Coords:")
+        console.log(coords);
+        res.json(coords);
+    }));
 
 
 module.exports = { router };

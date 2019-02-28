@@ -1,4 +1,4 @@
-let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./mongooseSchemas');
+let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
 
 
 /*--------------database helpers-------------------*/
@@ -12,6 +12,12 @@ let trash = {
 let surveys = {
     get: async function(surveyID) {
         return await surveyModel.findById(surveyID).lean().exec();
+    },
+    getDateCreated: async function(surveyID) {
+        let projection = `survDate`;
+        let dateObj = await surveyModel.findById(surveyID).select(projection).exec();
+        let date = dateObj.survDate;
+        return date;
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let dateOfSub = new Date(epochDateOfSubmit);
@@ -183,8 +189,16 @@ let beaches = {
     getStats: async function(beachID, year) {
         let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
-        return { totals: stats.ttls[year], typesOfDebrisFound: stats.TODF, lastUp: stats.lastUp };
+        let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
+        keysToSort.sort((a,b)=>{return stats.TODF[a]-stats.TODF[b]});
+        let sortedKeys = {};
+        // Construct a new object that will contain the object in sorted order
+        for(let i = 0; i < keysToSort.length; i++){
+            sortedKeys[keysToSort[i]] = stats.TODF[keysToSort[i]];
+        }
+        return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
+   
     remove: async function(beachID) {
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
         let surveyYearIterator = removedBeach.surveys.values();
@@ -273,6 +287,17 @@ let beaches = {
     },
     queryBeachNames: async function(query) {
         return await beachModel.find({ $text: { $search: query } }).exec();
+    },
+    getOneLonLat: async function(beachID){
+        let projection = `lat lon` 
+        return await beachModel
+            .findById(beachID)
+            .select(projection)
+            .exec();
+    },
+    getAllStats: async function() {
+        //let projection = `stats.TODF`;
+        return await beachModel.find({}, 'stats.TODF').exec();
     }
 }
 
