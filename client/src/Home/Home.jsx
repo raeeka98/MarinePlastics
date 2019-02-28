@@ -91,13 +91,12 @@ class Home extends Component {
   };
 
   handleSearch(value, filter) {
-    let result = this.state.data;
-    if (value.length > 0) {
-      if (this.filterFunctions.hasOwnProperty(filter)) {
-        result = this.filterFunctions[filter](this.state.data, value);
-      }
-    }
-    this.setState({ searchResult: result });
+    axios.get("/beaches/search", { params: { q: value } })
+      .then(res => {
+        this.setState({ beaches: res.data });
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   handleAccordionClick = (e) => {
@@ -145,7 +144,6 @@ class Home extends Component {
 
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
-      console.log(location);
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
