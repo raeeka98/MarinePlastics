@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import background from './nat_bridges.jpg';
+import background from './beach.jpg';
 
 // the authentication object is passed through props from App.js
 // which is used to check if the user is currently logged in
@@ -11,7 +11,7 @@ export function LandingPage(props) {
   // force the page to have these styles
   const background_image = {
     backgroundImage: `url(${background})`,
-    height: `80vh`,
+    height: `100vh`,
   };
   const textButtonStyles = {
     width: `fit-content`,
