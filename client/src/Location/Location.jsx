@@ -73,7 +73,7 @@ class Location extends Component {
         }
         for(const trash in categories){
           categories[trash] /= total;
-          categories[trash] = Math.floor(categories[trash]*100); 
+          categories[trash] = Math.round(categories[trash]*100); 
         }
         this.setState({beachStats: categories});
       });

@@ -198,6 +198,7 @@ let beaches = {
         }
         return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
+   
     remove: async function(beachID) {
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
         let surveyYearIterator = removedBeach.surveys.values();
@@ -293,6 +294,10 @@ let beaches = {
             .findById(beachID)
             .select(projection)
             .exec();
+    },
+    getAllStats: async function() {
+        //let projection = `stats.TODF`;
+        return await beachModel.find({}, 'stats.TODF').exec();
     }
 }
 

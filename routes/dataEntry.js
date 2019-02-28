@@ -58,6 +58,12 @@ router.route('/map')
         res.json(points);
     }));
 
+router.route('/allstats')
+    .get(asyncHandler(async(req, res) => {
+        let beachWStats = await beaches.getAllStats();
+        res.json(beachWStats);
+    }));
+
 router.route('/surveys')
     //adds survey to beach
     /**post body
