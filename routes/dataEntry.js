@@ -57,6 +57,12 @@ router.route('/map')
         let points = await beaches.getAllLonLat();
         res.json(points);
     }));
+router.route('/search')
+    .get(asyncHandler(async (req, res) => {
+        let { q: query } = req.query;
+        let matchedQuery = await beaches.queryBeachNames(query);
+        res.json(matchedQuery);
+    }))
 
 router.route('/surveys')
     //adds survey to beach
@@ -100,6 +106,8 @@ router.route('/surveys/:surveyID')
     }));
 
 
+
+
 router.route('/:beachID')
     /*get all surveys submited in the year then month.
     How many to skip and how many to obtain
@@ -129,12 +137,7 @@ router.route('/:beachID/stats')
         res.json(stats);
     }));
 
-router.route('/search')
-    .get(asyncHandler(async (req, res) => {
-        let { q: query } = req.query;
-        let matchedQuery = await beaches.queryBeachNames(query);
-        res.json(matchedQuery);
-    }))
+
 
 
 
