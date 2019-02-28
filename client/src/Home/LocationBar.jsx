@@ -74,8 +74,8 @@ class LocationBar extends Component {
 
     handleAccordionClick = (e) => {
         console.log("handleAccordionClick");
-
-        this.getSurveysFromBeach();
+        if(this.state.surveys.length === 0)
+            this.getSurveysFromBeach();
 
         let accordionWrapper = e.target.parentElement;
         let accordionContent = e.target.nextSibling;
