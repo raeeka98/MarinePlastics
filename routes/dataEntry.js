@@ -129,6 +129,13 @@ router.route('/:beachID/stats')
         res.json(stats);
     }));
 
+router.route('/search')
+    .get(asyncHandler(async (req, res) => {
+        let { q: query } = req.query;
+        let matchedQuery = await beaches.queryBeachNames(query);
+        res.json(matchedQuery);
+    }))
+
 
 
 module.exports = { router };
