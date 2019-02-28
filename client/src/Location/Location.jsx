@@ -71,8 +71,11 @@ class Location extends Component {
       subDate = new Date(entry.survDate);
       surveys.push(
         <li key={entry._id}>
-          <Link to={{ pathname: `/entry/${entry._id}` }}>
-            {subDate.toLocaleDateString()}
+          <Link className="uk-link-muted"
+                to={{ pathname: `/surveys/${entry._id.replace(' ', '-')}`,
+                        state: {beachName: this.state.beachData.n, surveyID: entry._id} }}>
+                    
+                {subDate.toLocaleDateString()}            
           </Link>
         </li>
       );
@@ -87,7 +90,7 @@ class Location extends Component {
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{name}</p></div>;
     return (
       <div>
-        <h1 className="uk-text-primary uk-heading-primary">{beachName}</h1>
+        <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
         <div className="uk-grid uk-grid-match">
           {console.log(this.state.surveys)}
           <ColumnChart chartData={this.state.surveys} />

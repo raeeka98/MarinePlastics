@@ -147,7 +147,7 @@ class Home extends Component {
     let locationNodes = this.state.beaches.map((location, i) => {
       console.log(location);
 
-      let path = location._id;
+      let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
       // an array of HTML elements with paths to each survey page
       let entryNodes = [];

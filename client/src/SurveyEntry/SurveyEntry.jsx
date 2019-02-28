@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -11,19 +12,55 @@ class SurveyEntry extends Component {
     this.state = {
       beachName: this.props.location.state.beachName,
       surveyID,
-      surveyData: {}
+      surveyData: {},
+
+      deletedComment: false
     };
     this.auth = new Auth();
   }
 
   getSurvey = () => {
+    console.log(this.state.surveyID);
     axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
+        console.log(res.data);
         this.setState({ surveyData: res.data });
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  deleteSurvey = () => {
+
+    axios.delete(`/beaches/surveys/${this.state.surveyID}`, 
+    { params:
+      {
+        bID: this.state.surveyData.bID,
+        dos: this.state.surveyData.survDate
+      }
+    })
+      .then(res => {
+        console.log("Survey deleted!")
+        this.setState({
+          deletedComment: true
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  showConfirmationModal = () => {
+    return (
+      <div id="confirmationModal" className="uk-modal">
+        <div className="uk-modal-dialog">
+          <h1>Are you sure you want to delete this survey?</h1>
+          <button className="uk-button uk-button-default">Cancel</button>
+          <button className="uk-button uk-button-danger">Delete</button>
+        </div>
+      </div>
+    )
   }
 
   // once the component is on the page, gets the surveyData from the server
@@ -32,6 +69,10 @@ class SurveyEntry extends Component {
   }
 
   render() {
+
+    // redirect if data change actions are being taken
+    if (this.state.deletedComment) return <Redirect to="/home" />
+
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
@@ -215,7 +256,9 @@ class SurveyEntry extends Component {
             </tbody>
           </table>
         </div>
+        <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
+      
     );
   }
 }

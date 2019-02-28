@@ -23,7 +23,7 @@ router.route('/')
         skip = s variable is query
         */
         let { s: skip } = req.query;
-        let b = await beaches.getMany(skip);
+        let b = await beaches.getBeachNames(skip);
         //returns array of beach names and their ids
         //[{_id:1234,n:"testb"}]
         res.json(b);
@@ -106,7 +106,7 @@ router.route('/:beachID')
     for now it obtains all surveys under beach until next meeting*/
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
-        let { sy: surveyYear, sm: surveyMonth, ss: surveySkip, nos: numOfSurveys } = req.query;
+        let { yr: surveyYear, m: surveyMonth, s: surveySkip, nos: numOfSurveys } = req.query;
         let survs = await beaches.getSurveys(bID, 0, 0, 0, 0);
         //returns array of survey ids and date of submission NOT MONTH OR YEAR
         //[{date:4,_id:1234}]
@@ -117,6 +117,15 @@ router.route('/:beachID')
         let bID = req.params.beachID;
         await beaches.remove(bID);
         res.json({ res: "Successfully deleted beach" });
+    }));
+
+router.route('/:beachID/stats')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let { yr: year } = req.query;
+        let stats = beaches.getStats(bID, year);
+        console.log(stats);
+        res.json(stats);
     }));
 
 
