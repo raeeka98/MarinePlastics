@@ -298,4 +298,4 @@ const yearTotalsModel = mongoose.model("YearTotals", yearTotalsSchema);
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
 
-module.exports = { beachModel, surveyModel, yearSurveyModel, yearTotalsModel };
+module.exports = { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel };

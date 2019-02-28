@@ -1,4 +1,4 @@
-let { beachModel, surveyModel, yearSurveyModel, yearTotalsModel } = require('./mongooseSchemas');
+let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
 
 
 /*--------------database helpers-------------------*/
