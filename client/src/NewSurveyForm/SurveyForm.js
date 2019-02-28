@@ -24,7 +24,24 @@ class SurveyForm extends Component {
     this.url = '/surveys'
     this.state =
     {
-      surveyData : {},
+      surveyData : {
+        // fields (id's) :
+        // TI: name, orgName, orgLoc, email, cleanUpTime, cleanUpDate
+        // SA: beachName, latitude, longitude,
+        //     {usageRecreation, usageCommercial, usageOther}
+        //     {locationChoiceProximity, locationChoiceDebris, locationChoiceOther}
+        //     compassCardinal, compassDegrees, riverName, riverDistance,
+        //     {tideTypeB, tideHeightB, tideTimeB},
+        //     {tideTypeA, tideHeightA, tideTimeA},
+        //     windSpeed, windDir,
+        //     {substrateTypeSand, substrateTypePebble, substrateTypeRipRap, substrateTypeSeaweed, substrateTypeOther},
+        //
+        // SRS: rib1Start, rib2Start, rib3Start, rib4Start, rib1End, rib2End, rib3End, rib4End
+        //      format for debris is: trash_id + ("FreshRib" | "WeatheredRib") + ribNumber
+        //
+        //
+        //
+      },
       isInputting: true,
       isReviewing: false,
       isSubmitted: false,
@@ -36,6 +53,7 @@ class SurveyForm extends Component {
     this.moveToInput = this.moveToInput.bind(this);
     this.moveToSubmit = this.moveToSubmit.bind(this);
     this.updateSurveyState = this.updateSurveyState.bind(this);
+    this.updateCheckedState = this.updateCheckedState.bind(this);
     this.prepareForm = this.prepareForm.bind(this);
   }
 
@@ -80,8 +98,9 @@ class SurveyForm extends Component {
   }
 
   moveToSubmit() {
-      let form = this.prepareForm();
-      axios.post("/beaches/surveys", form)
+      const form = this.prepareForm();
+      console.log(form);
+    /*  axios.post("/beaches/surveys", form)
           .then(res => {
               this.setState({
                   isInputting: false,
@@ -91,12 +110,26 @@ class SurveyForm extends Component {
           })
           .catch(err => {
               console.log(err)
-          })
+          })*/
   }
 
+  toTitleCase(word) {
+    return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  };
+
   prepareForm() {
-    console.log(this.state.surveyData.firstName + this.state.surveyData.lastName)
-      let form = {
+    const data = this.state.surveyData;
+
+      const usage = (data.usageRecreation ? "Recreation, " : "") +
+                    (data.usageCommercial ? "Commercial, " : "") +
+                    (data.usageOther ? data.usageOther : "");
+
+
+
+      const form = {
+          user : (data.name ? data.name : ""),
+          email : (data.email ? data.email : ""),
+          reason : usage
 
       }
   }
@@ -104,6 +137,15 @@ class SurveyForm extends Component {
   updateSurveyState(e) {
     const key = e.target.id;
     const val = e.target.value;
+    this.setState(prevState => {
+        prevState.surveyData[key] = val
+        return prevState;
+    })
+  }
+
+  updateCheckedState(e) {
+    const key = e.target.id;
+    const val = e.target.checked;
     this.setState(prevState => {
         prevState.surveyData[key] = val
         return prevState;
@@ -118,11 +160,11 @@ class SurveyForm extends Component {
             <div>
               <Accordion>
                   <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                  <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
+                  <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState}/>
                   <SurfaceRibScan data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
                   <AccumulationSurvey data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
                   <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                  <Totals/>
+                  <Totals updateSurveyState={this.updateSurveyState}/>
               </Accordion>
               <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
             </div>
