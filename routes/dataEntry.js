@@ -62,7 +62,7 @@ router.route('/search')
         let { q: query } = req.query;
         let matchedQuery = await beaches.queryBeachNames(query);
         res.json(matchedQuery);
-    }))
+    }));
 
 router.route('/surveys')
     //adds survey to beach

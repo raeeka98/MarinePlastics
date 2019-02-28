@@ -272,7 +272,7 @@ let beaches = {
         return await beachModel.find({}, "n lat lon").exec();
     },
     queryBeachNames: async function(query) {
-        return await beachModel.find({ n: { $regex: `${query}` } }).select("n").exec();
+        return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n").exec();
     }
 }
 
