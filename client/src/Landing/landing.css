@@ -1,0 +1,9 @@
+#header-text {
+    color: white;
+    font-family: 'Helvetica';
+    display: block
+}
+
+#info_container {
+    opacity: 70%;
+}
