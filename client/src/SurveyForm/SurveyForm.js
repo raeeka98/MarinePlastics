@@ -298,7 +298,7 @@ class SurveyForm extends Component {
     });
 
     return (
-      <div>
+      <div className="uk-container">
         <h2>Clean Up Survey</h2>
         <progress className="uk-progress" value="1" max={ this.state.formPages.length } id="progress" />
         <h3>{ this.state.formPages[this.state.currStep].name }</h3>

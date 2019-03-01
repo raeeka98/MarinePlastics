@@ -56,7 +56,7 @@ handleHover = () => {
 
 render() {
    return (
-     <div className="uk-padding uk-padding-remove-top uk-padding-remove-bottom">
+     <div className="uk-padding-small uk-padding-remove-top">
       <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
 
         <div className="uk-navbar-left uk-visible@m">

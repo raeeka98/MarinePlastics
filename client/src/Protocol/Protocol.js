@@ -3,7 +3,7 @@ import React from 'react';
 export function ProtocolPage() {
   
   return (
-    <div>
+    <div className="uk-container">
       <h2 className="uk-heading-primary">The COI Beach Cleanup Protocol</h2>
       <h3>Why Pick Up Beach Trash?</h3>
       <p>

@@ -20,7 +20,11 @@ export function LandingPage(props) {
 
   return (
     <div className="uk-width-1-1">
+      
       <div className="uk-flex uk-flex-middle uk-flex-center uk-background-cover" style={ background_image }>
+        <div className="uk-heading-hero" style={{color: '#ffffff'}}>
+          Welcome to the Marine Plastic Monitor.
+        </div>
         <div className="uk-background-default uk-flex uk-flex-column uk-padding">
           { props.auth.isAuthenticated()
             ? null

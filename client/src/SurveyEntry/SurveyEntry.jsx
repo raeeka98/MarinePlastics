@@ -128,7 +128,7 @@ class SurveyEntry extends Component {
     }
 
     return (
-      <div>
+      <div className="uk-container">
         <h2 className="uk-text-primary uk-heading-primary">
           {this.state.beachName}
           <span className="uk-text-muted uk-text-large uk-margin-left">
