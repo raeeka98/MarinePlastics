@@ -1,0 +1,19 @@
+.uk-section-primary, .uk-button-primary {
+    background-color: #00adad;
+}
+
+.uk-button-primary:hover {
+    background-color: #009b9b;
+}
+
+.uk-heading-primary {
+    color: #00adad !important;
+}
+
+.uk-text-primary {
+    color: #00adad;
+}
+
+a {
+    color: #00adad;
+}

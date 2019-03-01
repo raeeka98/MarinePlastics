@@ -24,6 +24,8 @@ import PageNotFound from './PageNotFound/PageNotFound';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
+import './App.css';
+
 class App extends Component {
   constructor() {
     require('dotenv').config()

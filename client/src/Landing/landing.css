@@ -1,9 +1,23 @@
 #header-text {
-    color: white;
-    font-family: 'Helvetica';
-    display: block
+    color: white;;
+    display: block;
+    font-size: 6em;
 }
 
-#info_container {
-    opacity: 70%;
+.info {
+    background-color: #3b5c5e !important;
 }
+
+.guest-button {
+    color: white;
+}
+
+.guest-button:hover {
+    color:white;
+} 
+
+.intro-text p {
+    color: white;
+    letter-spacing: 0.03em;
+}
+
