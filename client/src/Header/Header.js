@@ -77,10 +77,17 @@ render() {
             </ul>
             </div>
             <div className="uk-navbar-right uk-visible@m">
+              <ul className="uk-navbar-nav">
                 { this.props.auth.isAuthenticated()
-                  ? <Link to="/profile"> Profile</Link>
-                  : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button>
+                  ? <li><Link to="/profile">Profile</Link></li>
+                  : <li><a><button onClick={ this.props.auth.login } className="uk-button uk-button-text">Sign Up</button></a></li>
                 }
+                <li><a>-</a></li>
+                { this.props.auth.isAuthenticated()
+                  ? <li><a><button onClick={ this.props.auth.logout } className="uk-button uk-button-text">Log out</button></a></li>
+                  : <li><a><button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button></a></li>
+                }
+              </ul>
               </div>
            <div className="uk-hidden@m">
             <div className="uk-navbar-left">
