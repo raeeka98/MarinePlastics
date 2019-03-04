@@ -77,32 +77,32 @@ let surveys = {
 
         return oldSurvey;
     },
-    addToBeach: async function(surveyData, beachID, epochDateOfSubmit) {
-        let subDate = new Date(epochDateOfSubmit).setHours(0, 0, 0, 0);
+    addToBeach: async function(surveyData, beachID) {
+        let survDate = new Date(surveyData.survDate).setHours(0, 0, 0, 0);
         let survey = new surveyModel(surveyData);
         let update = {};
         let rtnMsg = null;
         survey.bID = beachID;
         let { surveys } = await beachModel.findById(beachID).select("surveys stats").exec();
         let surveyEntryData = {
-            date: subDate.getUTCDate(),
+            date: survDate.getUTCDate(),
             survey: survey._id
         };
-        if (!surveys.has(`${subDate.getUTCFullYear()}`)) {
+        if (!surveys.has(`${survDate.getUTCFullYear()}`)) {
             //new year
             let ym = new yearSurveyModel({
-                [subDate.getUTCMonth()]: [surveyEntryData]
+                [survDate.getUTCMonth()]: [surveyEntryData]
             });
             update.$set = {
-                [`surveys.${subDate.getUTCFullYear()}`]: ym._id,
+                [`surveys.${survDate.getUTCFullYear()}`]: ym._id,
                 lastMod: Date.now()
             };
             let [, surv] = await Promise.all([ym.save(), survey.save()]);
             rtnMsg = surv;
         } else {
             //year already exists
-            let yearSurveyID = surveys.get(`${subDate.getUTCFullYear()}`);
-            let path = `${subDate.getUTCMonth()}`;
+            let yearSurveyID = surveys.get(`${survDate.getUTCFullYear()}`);
+            let path = `${survDate.getUTCMonth()}`;
             let yearSurveyUpdate = {
                 $push: {
                     [path]: surveyEntryData,
@@ -113,7 +113,7 @@ let surveys = {
             }
             let find = {
                 _id: yearSurveyID,
-                [`${path}.date`]: { $ne: subDate.getUTCDate() }
+                [`${path}.date`]: { $ne: survDate.getUTCDate() }
             }
             let doc = await yearSurveyModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
             console.log(doc);
@@ -133,7 +133,7 @@ let surveys = {
         await beachModel.findByIdAndUpdate(beachID, update).exec();
         let updatePayload = {
             reason: 'new',
-            date: new Date(epochDateOfSubmit),
+            date: new Date(survDate.getTime()),
             ASTotal: 0,
             SRSTotal: 0,
             newDebrisData: {},
@@ -410,7 +410,6 @@ async function test1 () {
         windDir: "south",
         windSpeed: 4,
         majorUse: "test stuff",
-        weight: 10,
         NumberOfPeople: 4,
         SRSDebris: {
             "miscPlastic": {
