@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -10,9 +9,6 @@ import {
 import '../accordion-styles.css';
 
 class TeamInformation extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     return(

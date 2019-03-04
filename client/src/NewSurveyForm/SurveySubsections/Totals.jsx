@@ -9,9 +9,7 @@ import {
 import '../accordion-styles.css';
 
 class Totals extends Component {
-  constructor(props){
-    super(props)
-  }
+
 
   render() {
     return(

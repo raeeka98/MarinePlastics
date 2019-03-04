@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -14,9 +13,6 @@ import '../accordion-styles.css';
 
 
 class SurfaceRibScan extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     let testCategories = this.props.trash;

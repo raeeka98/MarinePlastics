@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -12,9 +11,6 @@ import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
 import '../accordion-styles.css';
 
 class AccumulationSurvey extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     let testCategories = this.props.trash;
