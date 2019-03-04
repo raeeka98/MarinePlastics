@@ -99,7 +99,6 @@ class SurveyForm extends Component {
 
   moveToSubmit() {
       const form = this.prepareForm();
-      console.log(form);
       axios.post("beaches/surveys", form)
           .then(res => {
               this.setState({
@@ -109,7 +108,7 @@ class SurveyForm extends Component {
                 })
           })
           .catch(err => {
-              console.log(err)
+              console.log(err.response)
           })
   }
 
@@ -137,7 +136,7 @@ class SurveyForm extends Component {
       const dateTime = (data.cleanUpDate ? data.cleanUpDate : "") +
                        (data.cleanUpTime ? data.cleanUpTime : "");
 
-      return {
+      const form = {
           user : (data.name ? data.name : ""),
           email : (data.email ? data.email : ""),
           org : (data.orgName ? data.orgName : ""),
@@ -162,8 +161,11 @@ class SurveyForm extends Component {
           ASDebris : {},
           srsDebrisLength : 0,
           asDebrisLength : 0,
-          survDate: Date.now()
+          survDate: Date.now(),
+          beachID: '5c74f1bc71992a56a570d485'
       }
+
+      return form;
   }
 
   updateSurveyState(e) {
@@ -179,7 +181,7 @@ class SurveyForm extends Component {
     const key = e.target.id;
     const val = e.target.checked;
     this.setState(prevState => {
-        prevState.surveyData[key] = val
+        prevState.surveyData[key] = val;
         return prevState;
     })
   }
@@ -190,14 +192,16 @@ class SurveyForm extends Component {
           {console.log(this.state.surveyData)}
             {this.state.isInputting && (
             <div>
-              <Accordion>
-                  <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                  <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState}/>
-                  <SurfaceRibScan data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
-                  <AccumulationSurvey data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
-                  <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                  <Totals updateSurveyState={this.updateSurveyState}/>
-              </Accordion>
+              <form id="surveyForm">
+                <Accordion>
+                    <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
+                    <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState}/>
+                    <SurfaceRibScan data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
+                    <AccumulationSurvey data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
+                    <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
+                    <Totals updateSurveyState={this.updateSurveyState}/>
+                  </Accordion>
+              </form>
               <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
             </div>
           )}

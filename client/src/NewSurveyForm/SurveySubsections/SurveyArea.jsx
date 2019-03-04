@@ -22,7 +22,6 @@ class SurveyArea extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-            <form>
               <div>
                 <h4>Beach Info:</h4>
               </div>
@@ -365,7 +364,6 @@ class SurveyArea extends Component {
                         </div>
                       </div>
                     </div>
-              </form>
 
           </AccordionItemBody>
       </AccordionItem>

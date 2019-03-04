@@ -22,8 +22,6 @@ class MicroDebrisSurvey extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
-
                   <div className="uk-grid uk-child-width-1-3">
                       <div></div>
                       <div><h4>Fresh Total</h4></div>
@@ -125,8 +123,6 @@ class MicroDebrisSurvey extends Component {
                       />
                     </div>
                   </div>
-
-              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

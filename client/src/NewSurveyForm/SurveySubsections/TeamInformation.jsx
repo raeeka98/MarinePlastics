@@ -22,7 +22,6 @@ class TeamInformation extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
                 <div>
                   <label>Name<span className="uk-text-danger">*</span></label>
                   <input
@@ -99,7 +98,6 @@ class TeamInformation extends Component {
                         />
                     </div>
                 </div>
-              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

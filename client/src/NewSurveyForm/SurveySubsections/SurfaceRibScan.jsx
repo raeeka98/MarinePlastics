@@ -34,8 +34,6 @@ class SurfaceRibScan extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
-
                   <div className="uk-grid uk-child-width-1-5">
                     <div></div>
                     <div><h4>Rib #1</h4></div>
@@ -173,7 +171,6 @@ class SurfaceRibScan extends Component {
 
                   {tableRows}
 
-              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

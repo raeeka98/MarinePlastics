@@ -36,15 +36,13 @@ class AccumulationSurvey extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
-                <div className="uk-grid uk-child-width-1-4">
-                    <div></div>
-                    <div><h4>Fresh</h4></div>
-                    <div><h4>Weathered</h4></div>
-                    <div><h4>Total</h4></div>
-                </div>
-                {tableRows}
-              </form>
+              <div className="uk-grid uk-child-width-1-4">
+                  <div></div>
+                  <div><h4>Fresh</h4></div>
+                  <div><h4>Weathered</h4></div>
+                  <div><h4>Total</h4></div>
+              </div>
+              {tableRows}
           </AccordionItemBody>
       </AccordionItem>
     )
