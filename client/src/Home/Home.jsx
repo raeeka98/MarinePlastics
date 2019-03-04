@@ -159,7 +159,7 @@ class Home extends Component {
   }
 
   render() {
-
+    //console.log(this.props.userProfile)
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
       console.log(location);
@@ -193,6 +193,9 @@ class Home extends Component {
         //entryNodes={entryNodes}
         path={path}
         entryString={entryString}
+        userProfile={this.props.userProfile}
+        //getUserProfile={this.props.getUserProfile}
+        //sisAuth={this.props.isAuth}
       />
     });
 

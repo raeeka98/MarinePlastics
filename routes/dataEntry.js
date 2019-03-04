@@ -150,5 +150,12 @@ router.route('/:beachID/coords')
         res.json(coords);
     }));
 
+/*router.route('/:beachID/info')
+    .get(asyncHandler(async (req, res) => {
+        let bID = req.params.beachID;
+        let info = await beaches.getOneInfo(bID);
+        return info;
+    }))*/
+
 
 module.exports = { router };

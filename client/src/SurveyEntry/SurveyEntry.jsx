@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -13,10 +13,13 @@ class SurveyEntry extends Component {
       beachName: this.props.location.state.beachName,
       surveyID,
       surveyData: {},
-
+      userProfile : this.props.location.state.userProfile,
+     // getUserProfile: this.props.location.state.getUserProfile,
+      //isAuth: this.props.location.state.isAuth,
       deletedComment: false
     };
-    this.auth = new Auth();
+    console.log(this.state.userProfile)
+    //this.auth = new Auth();
   }
 
   getSurvey = () => {
@@ -32,23 +35,31 @@ class SurveyEntry extends Component {
   }
 
   deleteSurvey = () => {
-
-    axios.delete(`/beaches/surveys/${this.state.surveyID}`, 
-    { params:
-      {
-        bID: this.state.surveyData.bID,
-        dos: this.state.surveyData.survDate
-      }
-    })
-      .then(res => {
-        console.log("Survey deleted!")
-        this.setState({
-          deletedComment: true
+    if(!this.state.userProfile){
+      alert("You must be logged in to delete a survey");
+    } else {
+      if(this.state.userProfile.name !== this.state.surveyData.email){
+        alert("You cannot delete this survey because you did not create it")
+      } else {
+        alert("deleted survey!");
+      }/*
+      axios.delete(`/beaches/surveys/${this.state.surveyID}`, 
+      { params:
+        {
+          bID: this.state.surveyData.bID,
+          dos: this.state.surveyData.survDate
+        }
+      })
+        .then(res => {
+          console.log("Survey deleted!")
+          this.setState({
+            deletedComment: true
+          })
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch(err => {
+          console.log(err)
+        })*/
+    }
   }
 
   showConfirmationModal = () => {
@@ -63,13 +74,19 @@ class SurveyEntry extends Component {
     )
   }
 
+  componentWillMount() {
+    if(this.state.userProfile){
+      console.log(this.state.userProfile)
+    }
+  }
+  
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
   }
 
   render() {
-
+    console.log(this.state.auth)
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
 
@@ -126,11 +143,13 @@ class SurveyEntry extends Component {
     if (this.state.surveyData.lastTide || this.state.surveyData.nextTide) {
       document.getElementById('tide-section').style.display = 'block';
     }
-
+    console.log(this.props.location.state.info);
     return (
       <div>
         <h2 className="uk-text-primary uk-heading-primary">
-          {this.state.beachName}
+          <Link to={{ pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: { data: this.props.location.state.info } }}>
+            {this.state.beachName}
+          </Link>
           <span className="uk-text-muted uk-text-large uk-margin-left">
             {this.state.surveyData.date}
           </span>

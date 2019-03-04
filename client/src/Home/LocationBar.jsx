@@ -60,7 +60,8 @@ class LocationBar extends Component {
                     <li key={`entry-${surveyID}`}>
                         <Link className="uk-link-muted"
                         to={{ pathname: `/surveys/${surveyID.replace(' ', '-')}`,
-                                state: {beachName: this.props.location.n, surveyID: surveyID} }}>
+                                state: {beachName: this.props.location.n, surveyID: surveyID, info: this.props.location, 
+                                userProfile: this.props.userProfile/*, getUserProfile: this.props.getUserProfile, isAuth: this.props.isAuth*/} }}>
                             {console.log(`returning ${surveyDay.toLocaleDateString()}`)}
                             {surveyDay.toLocaleDateString()}
                         </Link>
@@ -94,6 +95,7 @@ class LocationBar extends Component {
     }
 
     render() { 
+        console.log(this.props.userProfile)
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin">
             <div>
@@ -110,7 +112,8 @@ class LocationBar extends Component {
                                 {this.state.surveys.length > 0 ? this.state.surveys : "Loading surveys..."}
                             </ul>
                             <p>
-                        <Link to={{ pathname: `/location/${this.props.path.replace(/\s/g, '')}`, state: { data: this.props.location } }}>
+                        <Link to={{ pathname: `/location/${this.props.path.replace(/\s/g, '')}`, state: { data: this.props.location, 
+                                    userProfile: this.props.userProfile/*, getUserProfile: this.props.getUserProfile, isAuth: this.props.isAuth*/ } }}>
                                     View location page
                         </Link>
                             </p>
