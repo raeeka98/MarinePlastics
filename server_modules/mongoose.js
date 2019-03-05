@@ -78,7 +78,7 @@ let surveys = {
         return oldSurvey;
     },
     addToBeach: async function(surveyData, beachID) {
-        let survDate = new Date(surveyData.survDate).setHours(0, 0, 0, 0);
+        let survDate = new Date(surveyData.survDate);
         let survey = new surveyModel(surveyData);
         let update = {};
         let rtnMsg = null;
