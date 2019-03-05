@@ -1,0 +1,23 @@
+#header-text {
+    color: white;;
+    display: block;
+    font-size: 5em;
+}
+
+.info {
+    background-color: #3b5c5e !important;
+}
+
+.guest-button {
+    color: white;
+}
+
+.guest-button:hover {
+    color:white;
+} 
+
+.intro-text p {
+    color: white;
+    letter-spacing: 0.03em;
+}
+

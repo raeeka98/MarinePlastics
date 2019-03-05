@@ -13,7 +13,7 @@ class Submenu extends Component {
     return (
          <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small uk-dropdown-nav ">
             <div className="uk-navbar-left">
-          <ul className="nav__submenu uk-nav uk-dropdown-nav " >
+              <ul className="nav__submenu uk-nav uk-dropdown-nav " >
 
           <li className="nav__submenu-item " ><Link to="/map">Map</Link></li>
           <li className="nav__submenu-item "><Link to="/about">About</Link></li>
@@ -26,8 +26,8 @@ class Submenu extends Component {
             : null
           }
 
-      </ul>
-          </div>
+              </ul>
+            </div>
 
       </nav>
     )
@@ -52,7 +52,8 @@ handleHover = () => {
 
 render() {
    return (
-     <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
+     <div className="uk-padding-small uk-padding-remove-top">
+      <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
 
        <div className="uk-navbar-left uk-visible@m">
          <ul className="uk-navbar-nav">
@@ -84,25 +85,26 @@ render() {
                 }
               </ul>
               </div>
-           <div className="uk-hidden@m">
-            <div className="uk-navbar-left">
-              <ul className="uk-navbar-nav">
-              <li className="uk-logo">
-                <Link to="/home" >
-                  <h1 className="uk-text-small uk-margin-remove-bottom">
-                    Marine Plastics Monitor
-                  </h1>
-                </Link>
-              </li>
-               <li className="nav__menu-item uk-margin-remove-bottom" onMouseLeave={this.handleLeave} >
-                   <div className="uk-navbar-item" style={{textTransform:'uppercase',color:'#999'}} onMouseEnter={this.handleHover}>Menu</div>
-                      { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
+            <div className="uk-hidden@m">
+              <div className="uk-navbar-left">
+                <ul className="uk-navbar-nav">
+                <li className="uk-logo">
+                  <Link to="/home" >
+                    <h1 className="uk-text-small uk-margin-remove-bottom">
+                      Marine Plastics Monitor
+                    </h1>
+                  </Link>
                 </li>
+                <li className="nav__menu-item uk-margin-remove-bottom" onMouseLeave={this.handleLeave} >
+                    <div className="uk-navbar-item" style={{textTransform:'uppercase',color:'#999'}} onMouseEnter={this.handleHover}>Menu</div>
+                        { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
+                  </li>
 
-              </ul>
-            </div>
-         </div>
+                </ul>
+              </div>
+          </div>
      </nav>
+     </div>
    )
  }
 }

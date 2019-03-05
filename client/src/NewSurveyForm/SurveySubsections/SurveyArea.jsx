@@ -33,8 +33,9 @@ class SurveyArea extends Component {
                   <input
                     type='string'
                     placeholder='Name of Beach'
-                    id='name-of-beach'
+                    id='beachName'
                     className='uk-input uk-margin'
+                    onChange={this.props.updateSurveyState}
                     required
                     />
                 </div>
@@ -44,6 +45,7 @@ class SurveyArea extends Component {
                     type='string'
                     placeholder='Latitude of Beach'
                     id='latitude'
+                    onChange={this.props.updateSurveyState}
                     className='uk-input uk-margin'
                     required
                     />
@@ -54,6 +56,7 @@ class SurveyArea extends Component {
                       type='string'
                       placeholder='Longitude of Beach'
                       id='longitude'
+                      onChange={this.props.updateSurveyState}
                       className='uk-input uk-margin'
                       required
                       />
@@ -67,8 +70,9 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='usage-recreation'
+                          id='usageRecreation'
                           className='uk-checkbox'
+                          onChange={this.props.updateCheckedState}
                           required
                           />
                       </label> Recreational
@@ -77,21 +81,22 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='usage-commercial'
+                          id='usageCommercial'
                           className='uk-checkbox'
+                          onChange={this.props.updateCheckedState}
                           required
                           />
                       </label> Commercial
                     </div>
                     <div>
-                      <label>
+                      <label>Other</label>
                         <input
-                          type='checkbox'
-                          id='usage-other'
-                          className='uk-checkbox'
+                          type='string'
+                          id='usageOther'
+                          className='uk-input'
+                          onChange={this.props.updateSurveyState}
                           required
                           />
-                      </label> Other
                     </div>
                   </div>
 
@@ -101,7 +106,8 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='location-choice-proximity'
+                          id='locationChoiceProximity'
+                          onChange={this.props.updateCheckedState}
                           className='uk-checkbox'
                           required
                           />
@@ -111,21 +117,22 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='location-choice-debris'
+                          id='locationChoiceDebris'
+                          onClick={this.props.updateCheckedState}
                           className='uk-checkbox'
                           required
                           />
                       </label> Known for Debris
                     </div>
                     <div>
-                      <label>
+                      <label> Other</label>
                         <input
-                          type='checkbox'
-                          id='location-choice-other'
-                          className='uk-checkbox'
+                          type='string'
+                          id='locationChoiceOther'
+                          onChange={this.props.updateSurveyState}
+                          className='uk-input'
                           required
                           />
-                      </label> Other
                     </div>
                   </div>
                   <div>
@@ -135,7 +142,8 @@ class SurveyArea extends Component {
                         <input
                           type='string'
                           placeholder='Degrees'
-                          id='compass-direction-degrees'
+                          id='compassDegrees'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
@@ -146,8 +154,9 @@ class SurveyArea extends Component {
                           <div className="uk-width-1-2">
                             <input
                               type='string'
-                              placeholder='Direction'
-                              id='latitude'
+                              placeholder='Cardinal Direction'
+                              onChange={this.props.updateSurveyState}
+                              id='compassCardinal'
                               className='uk-input uk-margin'
                               required
                               />
@@ -168,7 +177,7 @@ class SurveyArea extends Component {
                         <input
                           type='string'
                           placeholder='Nearest River Output Name'
-                          id='river-name'
+                          id='riverName'
                           className='uk-input uk-margin'
                           required
                           />
@@ -178,7 +187,7 @@ class SurveyArea extends Component {
                         <input
                           type='string'
                           placeholder='Nearest River Output Distance'
-                          id='river-distance'
+                          id='riverDistance'
                           className='uk-input uk-margin'
                           required
                           />
@@ -196,7 +205,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Type:<span className="uk-text-danger"></span></label>
                         <select
-                          id='tide-type-before'
+                          id='tideTypeB'
                           className='uk-select uk-margin'
                           required
                           >
@@ -207,7 +216,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Type:<span className="uk-text-danger"></span></label>
                         <select
-                          id='tide-type-after'
+                          id='tideTypeA'
                           className='uk-select uk-margin'
                           required
                           >
@@ -223,7 +232,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='tide-height-before'
+                          id='tideHeightB'
                           className='uk-input uk-margin'
                           required
                           />
@@ -233,7 +242,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='tide-height-after'
+                          id='tideHeightA'
                           className='uk-input uk-margin'
                           required
                           />
@@ -245,7 +254,7 @@ class SurveyArea extends Component {
                         <label>Time:<span className="uk-text-danger"></span></label>
                         <input
                           type="time"
-                          id='tide-time-before'
+                          id='tideTimeB'
                           className='uk-input uk-margin'
                           required
                           />
@@ -254,7 +263,7 @@ class SurveyArea extends Component {
                         <label>Time:<span className="uk-text-danger"></span></label>
                         <input
                           type="time"
-                          id='tide-time-before'
+                          id='tideTimeA'
                           className='uk-input uk-margin'
                           required
                           />
@@ -270,7 +279,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='wind-speed'
+                          id='windSpeed'
                           className='uk-input uk-margin'
                           required
                           />
@@ -279,7 +288,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='wind-direction'
+                          id='windDir'
                           className='uk-input uk-margin'
                           required
                           />
@@ -301,7 +310,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-sand'
+                              id='substrateTypeSand'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -311,7 +321,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-pebble'
+                              id='substrateTypePebble'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -321,7 +332,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-rip-rap'
+                              id='substrateTypeRipRap'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -331,21 +343,22 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-seaweed'
+                              id='substrateTypeSeaweed'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
                           </label> Seaweed
                         </div>
                         <div className="uk-margin">
-                          <label>
+                          <label>Other</label>
                             <input
-                              type='checkbox'
-                              id='substrate-type-other'
-                              className='uk-checkbox'
+                              type='string'
+                              id='substrateTypeOther'
+                              onChange={this.props.updateSurveyState}
+                              className='uk-input'
                               required
                               />
-                          </label> Other
                         </div>
                       </div>
                     </div>

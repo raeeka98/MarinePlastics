@@ -98,3 +98,15 @@
     }
 }
 
+.list-view {
+    width: 80vw;
+}
+
+.map-view {
+    width: 100vw;
+}
+
+.split-view {
+    width: 100vw;
+}
+

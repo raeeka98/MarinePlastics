@@ -40,7 +40,9 @@ class CustomMarker extends Component {
  
     return(
       <div>
-        <Link className={style} to={{ pathname: `/location/${path}`, state:  {data: this.props.location }} }>
+        <Link className={style} to={{ pathname: `/location/${path}`, state:  {data: this.props.location, 
+                                      userProfile: this.props.userProfile/*, getUserProfile: this.props.getUserProfile, 
+        isAuth: this.props.isAuth*/ }} }>
           <span className = {beachBubble}>
             {beachName}
           </span>
@@ -113,12 +115,15 @@ class Map extends Component {
           lng={comment.lon}
           text={comment.n}
           location={comment}
+          userProfile={this.props.userProfile}
+          //getUserProfile={this.props.getUserProfile}
+          //isAuth={this.props.isAuth}
           $hover={true}
         /> 
       : null
     ));
     return (
-      <div style={{height: '500px', width: '100%'}}>
+      <div id="mapView">
         <GoogleMapReact
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
