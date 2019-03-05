@@ -23,6 +23,58 @@ let newDataSchema = new Schema({
     weathered: { type: Number, default: 0, min: 0 }
 }, { versionKey: false, _id: false });
 
+let substrateTypeSchema = new Schema({
+    s: {
+        type: Boolean,
+        alias: "sand",
+        default: undefined
+    },
+    p: {
+        type: Boolean,
+        alias: "pebble",
+        default: undefined
+    },
+    rr: {
+        type: Boolean,
+        alias: "rip_rap",
+        default: undefined
+    },
+    sea: {
+        type: Boolean,
+        alias: "seaweed",
+        default: undefined
+    },
+    other: String
+}, { versionKey: false, _id: false });
+
+
+let majorUsageSchema = new Schema({
+    rec: {
+        type: Boolean,
+        default: undefined,
+        alias: "recreational"
+    },
+    com: {
+        type: Boolean,
+        default: undefined,
+        alias: "commercial"
+    },
+    other: String
+}, { versionKey: false, _id: false });
+
+let locationReason = new Schema({
+    prox: {
+        type: Boolean,
+        default: undefined,
+        alias: "proximity"
+    },
+    debris: {
+        type: Boolean,
+        default: undefined,
+    },
+    other: String
+}, { versionKey: false, _id: false })
+
 
 var tideSchema = new Schema({
     type: String,
@@ -92,24 +144,21 @@ let surveySchema = new Schema({
         type: String,
         required: true
     },
-    reason: {
-        type: String,
-        required: true
-    },
+    reason: locationReason,
     survDate: {
         type: Date,
         required: true
     },
-    st: String,
+    st: substrateTypeSchema,
     slope: String,
-    aspect: String,
+    cmpsDir: { type: Number },
     lastTide: tideSchema,
     nextTide: tideSchema,
     wind: {
         dir: { type: String },
         spd: { type: Number, min: 0 }
     },
-    majorUse: String,
+    majorUse: majorUsageSchema,
     NumOfP: {
         type: Number,
         min: 0,
