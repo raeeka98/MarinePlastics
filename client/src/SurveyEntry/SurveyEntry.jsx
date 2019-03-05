@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import {PieChart} from '../Location/Charts'
 import Auth from '../Auth';
 import axios from 'axios';
 
@@ -108,6 +109,7 @@ class SurveyEntry extends Component {
           />
         );
       }
+     
       for (const trash in ASDebris) {
         const trashData = ASDebris[trash];
         ASRows.push(
@@ -146,11 +148,12 @@ class SurveyEntry extends Component {
     return (
       <div className="uk-container">
         <h2 className="uk-text-primary uk-heading-primary">
-          <Link to={{ pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: { data: this.props.location.state.info, userProfile: this.state.userProfile } }}>
+          <Link to={{ pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: { data: this.props.location.state.info, 
+                        userProfile: this.state.userProfile } }}>
             {this.state.beachName}
           </Link>
           <span className="uk-text-muted uk-text-large uk-margin-left">
-            {this.state.surveyData.date}
+            {new Date(this.state.surveyData.survDate).toLocaleDateString()}
           </span>
         </h2>
         <div className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
@@ -162,34 +165,21 @@ class SurveyEntry extends Component {
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
             </div>
           </div>
-          
-          <div id="tide-section" className=" uk-margin-bottom" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Tide Information</h3>
-              <h4>The Last Tide</h4>
-              <div>
-                {
-                  this.state.surveyData.lastTide ?
-                    (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.lastTide.type}</p>
-                      <p><strong>Time:</strong> {this.state.surveyData.lastTide.time}</p>
-                      <p><strong>Height:</strong> {this.state.surveyData.lastTide.height}</p>
-                    </div>) : null
-                }
-              </div>
-              <h4>The Next Tide</h4>
-              <div>
-                {
-                  this.state.surveyData.nextTide ?
-                    (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.nextTide.type}</p>
-                      <p><strong>Time:</strong> {this.state.surveyData.nextTide.time}</p>
-                      <p><strong>Height:</strong> {this.state.surveyData.nextTide.height}</p>
-                    </div>) : null
-                }
-              </div>
+
+          <div id="b-cleanup-section" className="uk-margin-buttom" >
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+              <h3 className="uk-card-title">Basic Clean Up</h3>
+              {
+                this.state.surveyData.NumberOfPeople ?
+                  <p><strong>Number of People:</strong> {this.state.surveyData.NumberOfPeople}</p> : null
+              }
+              {
+                this.state.surveyData.weight ?
+                  <p><strong>Total Weight:</strong> {this.state.surveyData.weight}</p> : null
+              }
             </div>
-          </div>
+          </div>  
+
           <div id="survey-area-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Survey Area</h3>
@@ -231,60 +221,72 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          
-          
-         
-          <div id="b-cleanup-section" className=" uk-margin-bottom" >
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Basic Clean Up</h3>
-              {
-                this.state.surveyData.NumberOfPeople ?
-                  <p><strong>Number of People:</strong> {this.state.surveyData.NumberOfPeople}</p> : null
-              }
-              {
-                this.state.surveyData.weight ?
-                  <p><strong>Total Weight:</strong> {this.state.surveyData.weight}</p> : null
-              }
-            </div>
-          </div>
+
           <div id="SRS-section" style={{ display: 'none' }}>
-          <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
-            <h3>Surface Rib Scan Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Debris Type</th>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {SRSRows}
-              </tbody>
-            </table>
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+              <h3>Surface Rib Scan Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Debris Type</th>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SRSRows}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div id="AS-section" style={{ display: 'none' }}>
-          <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
-            <h3>Accumulation Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Debris Type</th>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ASRows}
-              </tbody>
-            </table>
+
+          <div id="tide-section" className="uk-margin-bottom" style={{display : 'none'}}>
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+              <h3 className="uk-card-title">Tide Information</h3>
+              <h4>The Last Tide</h4>
+              <div>
+                {
+                  this.state.surveyData.lastTide ?
+                    (<div>
+                      <p><strong>Type:</strong> {this.state.surveyData.lastTide.type}</p>
+                      <p><strong>Time:</strong> {this.state.surveyData.lastTide.time}</p>
+                      <p><strong>Height:</strong> {this.state.surveyData.lastTide.height}</p>
+                    </div>) : null
+                }
+              </div>
+              <h4>The Next Tide</h4>
+              <div>
+                {
+                  this.state.surveyData.nextTide ?
+                    (<div>
+                      <p><strong>Type:</strong> {this.state.surveyData.nextTide.type}</p>
+                      <p><strong>Time:</strong> {this.state.surveyData.nextTide.time}</p>
+                      <p><strong>Height:</strong> {this.state.surveyData.nextTide.height}</p>
+                    </div>) : null
+                }
+              </div>
+            </div>
           </div>
+          
+          <div id="AS-section" style={{ display: 'none' }}>
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+              <h3>Accumulation Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Debris Type</th>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ASRows}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
           
-        
-        
         <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
       

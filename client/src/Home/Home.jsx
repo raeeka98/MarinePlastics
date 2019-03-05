@@ -220,7 +220,7 @@ class Home extends Component {
             }
 
             { this.state.view === 'map' 
-              ? <Map/>
+              ? <Map userProfile={this.props.userProfile}/>
               : null
             }
 
@@ -232,7 +232,7 @@ class Home extends Component {
                     </div>
                   </div>
                   <div className="uk-width-2-3">
-                    <Map/>
+                    <Map userProfile={this.props.userProfile}/>
                   </div>
                 </div>
               : null
