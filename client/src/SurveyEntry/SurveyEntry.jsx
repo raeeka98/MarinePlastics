@@ -154,17 +154,45 @@ class SurveyEntry extends Component {
             {this.state.surveyData.date}
           </span>
         </h2>
-        <div className="uk-grid uk-grid-large uk-grid-match uk-child-width-1-2">
+        <div className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
           <div>
-            <div className="uk-card uk-card-default uk-card-body">
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Team Information</h3>
               <p><strong>Team Leader:</strong> {this.state.surveyData.user}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
             </div>
           </div>
-          <div id="survey-area-section" style={{ display: 'none' }}>
+          
+          <div id="tide-section" className=" uk-margin-bottom" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
+              <h3 className="uk-card-title">Tide Information</h3>
+              <h4>The Last Tide</h4>
+              <div>
+                {
+                  this.state.surveyData.lastTide ?
+                    (<div>
+                      <p><strong>Type:</strong> {this.state.surveyData.lastTide.type}</p>
+                      <p><strong>Time:</strong> {this.state.surveyData.lastTide.time}</p>
+                      <p><strong>Height:</strong> {this.state.surveyData.lastTide.height}</p>
+                    </div>) : null
+                }
+              </div>
+              <h4>The Next Tide</h4>
+              <div>
+                {
+                  this.state.surveyData.nextTide ?
+                    (<div>
+                      <p><strong>Type:</strong> {this.state.surveyData.nextTide.type}</p>
+                      <p><strong>Time:</strong> {this.state.surveyData.nextTide.time}</p>
+                      <p><strong>Height:</strong> {this.state.surveyData.nextTide.height}</p>
+                    </div>) : null
+                }
+              </div>
+            </div>
+          </div>
+          <div id="survey-area-section" style={{ display: 'none' }}>
+            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Survey Area</h3>
               {
                 this.state.surveyData.lat && this.state.surveyData.lon ?
@@ -204,7 +232,10 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          <div id="b-cleanup-section" className="uk-grid-margin uk-margin-bottom" style={{ display: 'none' }}>
+          
+          
+         
+          <div id="b-cleanup-section" className=" uk-margin-bottom" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
@@ -217,34 +248,8 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          <div id="tide-section" className="uk-grid-margin uk-margin-bottom" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body">
-              <h3 className="uk-card-title">Tide Information</h3>
-              <h4>The Last Tide</h4>
-              <div>
-                {
-                  this.state.surveyData.lastTide ?
-                    (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.lastTide.type}</p>
-                      <p><strong>Time:</strong> {this.state.surveyData.lastTide.time}</p>
-                      <p><strong>Height:</strong> {this.state.surveyData.lastTide.height}</p>
-                    </div>) : null
-                }
-              </div>
-              <h4>The Next Tide</h4>
-              <div>
-                {
-                  this.state.surveyData.nextTide ?
-                    (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.nextTide.type}</p>
-                      <p><strong>Time:</strong> {this.state.surveyData.nextTide.time}</p>
-                      <p><strong>Height:</strong> {this.state.surveyData.nextTide.height}</p>
-                    </div>) : null
-                }
-              </div>
-            </div>
-          </div>
         </div>
+          
         <div id="SRS-section" style={{ display: 'none' }}>
           <h3>Surface Rib Scan Survey</h3>
           <table className="uk-table uk-table-striped">
