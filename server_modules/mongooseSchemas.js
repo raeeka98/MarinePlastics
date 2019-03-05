@@ -73,8 +73,16 @@ var tideSchema = new Schema({
 let surveySchema = new Schema({
     bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
     user: {
-        type: String,
-        required: true
+        f: {
+            type: String,
+            required: true,
+            alias: "first"
+        },
+        l: {
+            type: String,
+            required: true,
+            alias: "last"
+        },
     },
     email: {
         type: String,
@@ -97,11 +105,16 @@ let surveySchema = new Schema({
     aspect: String,
     lastTide: tideSchema,
     nextTide: tideSchema,
-    windDir: String,
-    windSpeed: { type: Number, min: 0 },
+    wind: {
+        dir: { type: String },
+        spd: { type: Number, min: 0 }
+    },
     majorUse: String,
-    weight: { type: Number, min: 0 },
-    NumberOfPeople: { type: Number, min: 0 },
+    NumOfP: {
+        type: Number,
+        min: 0,
+        alias: "NumberOfPeople"
+    },
     SRSDebris: {
         type: Map,
         of: newDataSchema
@@ -231,7 +244,6 @@ let beachSchema = new Schema({
         required: true,
         index: true,
         alias: "name",
-        text: true
     },
     lat: {
         type: Number,
@@ -275,16 +287,16 @@ let beachSchema = new Schema({
 }, { versionKey: false });
 
 let trashSchema = new Schema({
-  trash_id: {
-      type: String,
-      unique: true,
-      required: true
-  },
-  name : {
-     type: String,
-     unique: true,
-     required: true
-  }
+    trash_id: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        unique: true,
+        required: true
+    }
 }, { versionKey: false });
 
 
