@@ -13,25 +13,25 @@ class Submenu extends Component {
     return (
          <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small uk-dropdown-nav ">
             <div className="uk-navbar-left">
-          <ul className="nav__submenu uk-nav uk-dropdown-nav " >
+              <ul className="nav__submenu uk-nav uk-dropdown-nav " >
 
-          <li className="nav__submenu-item " ><Link to="/map">Map</Link></li>
-          <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
-          { this.props.auth.isAuthenticated()
-            ? <li className="nav__submenu-item "><Link to='/chooseform'>Survey</Link></li>
-            : null
-          }
-          { this.props.auth.isAuthenticated()
-            ? <li className="nav__submenu-item "><Link to='/newsurvey'>New Survey</Link></li>
-            : null
-          }
-          { this.props.auth.isAuthenticated()
-            ? <li className="nav__submenu-item "><Link to='/profile'>Profile</Link></li>
-            : null
-          }
+              <li className="nav__submenu-item " ><Link to="/map">Map</Link></li>
+              <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+              { this.props.auth.isAuthenticated()
+                ? <li className="nav__submenu-item "><Link to='/chooseform'>Survey</Link></li>
+                : null
+              }
+              { this.props.auth.isAuthenticated()
+                ? <li className="nav__submenu-item "><Link to='/newsurvey'>New Survey</Link></li>
+                : null
+              }
+              { this.props.auth.isAuthenticated()
+                ? <li className="nav__submenu-item "><Link to='/profile'>Profile</Link></li>
+                : null
+              }
 
-      </ul>
-          </div>
+              </ul>
+            </div>
 
       </nav>
     )
