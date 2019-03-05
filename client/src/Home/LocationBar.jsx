@@ -12,7 +12,7 @@ class LocationBar extends Component {
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
     };
-
+    
     // Called when a user expands the accordion
     // Fetches surveys listed under the beach that is clicked
     getSurveysFromBeach() {
@@ -82,25 +82,27 @@ class LocationBar extends Component {
 
     render() { 
         return (
-        <div className="uk-card uk-card-default uk-card-body uk-margin">
+        <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>
-                <ul className="uk-list uk-margin-remove-bottom">
+                <ul className="uk-accordion uk-margin-remove-bottom"  onClick={this.handleAccordionClick}>
                     <li>
-                        <span className="survey-bar uk-accordion-title" onClick={this.handleAccordionClick}>
+                        <span className="survey-bar uk-accordion-title uk-margin-remove-bottom">
+                        <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location } }} style={{ textDecoration: 'none', color: 'black'  }}>
                             {this.props.location.n}
-                            <span className="uk-text-muted uk-text-small uk-margin-left">
-                                {this.props.location.numOfSurveys} {this.props.entryString}
+                            </Link>
+                            <span className="uk-text-muted uk-text-small uk-margin-remove-bottom">
+                                {this.props.location._numOfSurveys} {this.props.entryString}
                             </span>
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
+                        <p>
+                        <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location } }}>
+                                    Go to location page
+                        </Link>
+                            </p>
                             <ul className="uk-list uk-list-bullet uk-padding-remove-left">
                                 {this.state.surveys}
                             </ul>
-                            <p>
-                        <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location } }}>
-                                    View location page
-                        </Link>
-                            </p>
                         </div>
                     </li>
                 </ul>
