@@ -23,40 +23,15 @@ class Home extends Component {
       surveys: [],
       view: 'list'
     };
-    //this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.styleMain = this.styleMain.bind(this);
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
     this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
-    //this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this, );
     this.url = '/beaches';
   }
-
-  // gets the entries from the server, saves them in the state
-  // loadCommentsFromServer() {
-  //   axios.get(this.url)
-  //     .then(res => {
-  //       res.data.sort((a, b) => {
-  //         return new Date(b.date).getTime() - new Date(a.date).getTime();
-  //       });
-  //       // sorts data into locations
-  //       // const sorted = locationSort(res.data);
-  //       this.setState({
-  //         data: res.data,
-  //         rawData: res.data,
-  //         loaded: true
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err.message);
-  //       this.setState({
-  //         loaded: true,
-  //         error: true
-  //       });
-  //     })
-  // }
 
   // Load the beach names
   loadBeaches() {
@@ -87,30 +62,10 @@ class Home extends Component {
   }
 
   async handleViewTypeChange(e) {
-    console.log("state before promise = " + this.state.view);
-
-    let changeState = await this.setState({ view: e.target.value });
-  
-    console.log("state after promise = " + this.state.view);
-  
+    await this.setState({ view: e.target.value });
     let container = document.getElementById("mainContainer");
-    //console.log(container.classList);
-
-    // if (container.classList.contains('listView')) {
-    //   container.classList.add("mapView");
-    //   container.classList.remove("listView");
-    //   console.log(container.classList);
-    // }
-
-    // else if (container.classList.contains('mapView')) {
-    //   container.classList.add("listView");
-    //   container.classList.remove("mapView");
-    //   console.log(container.classList);
-    // }
-
     
-
-    // Add/Remove styling classes as 
+    // Add/Remove styling classes when view is changed
     if (this.state.view === "list") {
       console.log("state = list");
       container.classList.add("list-view");
@@ -127,7 +82,7 @@ class Home extends Component {
 
     if (this.state.view === "split") {
       console.log("state = split");
-      container.classList.add("splitv-view");
+      container.classList.add("split-view");
       container.classList.remove("list-view");
       container.classList.remove("split-view");
     }
@@ -165,26 +120,6 @@ class Home extends Component {
         this.setState({totalWeight : dataTotals});
       })
   }
-
-  handleAccordionClick = (e) => {
-
-    
-    let accordionWrapper = e.target.parentElement;
-    let accordionContent = e.target.nextSibling;
-    if (e.target.classList.contains('uk-text-muted')) {
-      accordionWrapper = e.target.parentElement.parentElement;
-      accordionContent = e.target.parentElement.nextSibling;
-    }
-
-    if (accordionWrapper.classList.contains('uk-open')) {
-      accordionWrapper.classList.remove('uk-open');
-      accordionContent.style.display = 'none';
-    } else {
-      accordionWrapper.classList.add('uk-open');
-      accordionContent.style.display = 'block';
-    }
-  }
-
   
 
   showEntries = (locationNodes) => {
@@ -201,8 +136,18 @@ class Home extends Component {
     );
   }
 
+  styleMain () {
+    let main = document.getElementById("mainContainer");
+    let mainOffset = main.offsetTop;
+    console.log("mainOffset = " + mainOffset);
+    console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
+    let availSpace = document.documentElement.clientHeight - mainOffset;
+    main.style.height = availSpace + "px";
+  }
+
   // once the component is on the page, checks the server for comments
   componentDidMount() {
+    this.styleMain();
     this.loadBeaches();
     this.getTotalDebris();
     //this.loadCommentsFromServer();
@@ -212,35 +157,13 @@ class Home extends Component {
 
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
-      console.log(location);
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      // an array of HTML elements with paths to each survey page
-      let entryNodes = [];
-      let subDate = new Date(0);
-
-
-
-      for (const date in location.surveys) {
-        const entryID = location.surveys[date];
-        console.log(date);
-        subDate.setUTCMilliseconds(date);
-        entryNodes.push(
-          <li key={`entry-${entryID}`}>
-            <Link className="uk-link-muted"
-              to={{ pathname: `/${location.name.replace(' ', '-')}/${entryID}` }}
-              >
-              {subDate.toLocaleDateString()}
-            </Link>
-          </li>
-        );
-      }
+     
       return <LocationBar
         key={i}
-        getSurveysFromBeach={this.getSurveysFromBeach}
         location={location}
-        //entryNodes={entryNodes}
         path={path}
         entryString={entryString}
       />
@@ -254,7 +177,7 @@ class Home extends Component {
         <div className="uk-align-center">
           
           <div className="uk-align-center uk-width-4-5">
-            <form className="uk-grid uk-grid-small uk-margin-small-bottom">
+            <form className="uk-grid uk-grid-small">
               <div className="uk-width-3-5">
                 <input
                   className="uk-input uk-form"

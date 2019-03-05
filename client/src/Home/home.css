@@ -4,7 +4,6 @@
 
 #locations {
     position: relative;
-    max-height: 70vh;
 }
 
 .loader {
@@ -100,7 +99,7 @@
 }
 
 .list-view {
-    width: 70vw;
+    width: 80vw;
 }
 
 .map-view {
@@ -110,3 +109,4 @@
 .split-view {
     width: 100vw;
 }
+
