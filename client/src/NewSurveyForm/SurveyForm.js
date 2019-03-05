@@ -156,9 +156,26 @@ class SurveyForm extends Component {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };
 
-  calcTotalsSRS() {
+  /* SRSDebris: [
+      [cigaretteButts, {
+          fresh (total):
+          weathered (total):
+      }],
+      ...
+  ]
+  */
 
-      return [];
+  calcTotalsSRS() {
+      let totals = {};
+      let totalsArray = [];
+
+      const data = this.state.SRSData;
+
+      for(const id in data) {
+          totals[id] = "fun";
+      }
+
+      return totalsArray;
   }
 
   calcTotalsAS() {

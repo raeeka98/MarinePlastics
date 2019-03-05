@@ -147,14 +147,21 @@ class SurveyArea extends Component {
                           <span>&#176;</span>
                           </div>*/}
                           <div className="uk-width-1-2">
-                            <input
-                              type='string'
-                              placeholder='Cardinal Direction'
-                              onChange={this.props.updateSurveyState}
+                            <select
                               id='compassCardinal'
+                              onChange={this.props.updateSurveyState}
                               className='uk-input uk-margin'
                               required
-                              />
+                              >
+                            <option>North</option>
+                            <option>Northeast</option>
+                            <option>East</option>
+                            <option>Southeast</option>
+                            <option>South</option>
+                            <option>Southwest</option>
+                            <option>West</option>
+                            <option>Northwest</option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -281,14 +288,21 @@ class SurveyArea extends Component {
                           />
 
                         <label>Direction:<span className="uk-text-danger"></span></label>
-                        <input
-                          type="string"
-                          placeholder="Height"
+                        <select
                           id='windDir'
                           onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
-                          />
+                          >
+                        <option>North</option>
+                        <option>Northeast</option>
+                        <option>East</option>
+                        <option>Southeast</option>
+                        <option>South</option>
+                        <option>Southwest</option>
+                        <option>West</option>
+                        <option>Northwest</option>
+                        </select>
                       </div>
                       <div>
                         <h4>Slope</h4>

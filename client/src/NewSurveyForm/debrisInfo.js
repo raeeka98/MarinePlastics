@@ -16,7 +16,7 @@ const DebrisInfo = {
   aluminumCans       : "Aluminum Cans"                    ,
   hygieneItems       : "Hygiene Items"                    ,
   tileBrick          : "Tile / Brick"                     ,
-  misc               : "Misc. (general)"                  ,
+  misc               : "Misc. (general)"                  
 }
 
 function getDebrisNameById(id){
