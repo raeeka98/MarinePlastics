@@ -15,6 +15,8 @@ import {
     Accordion,
 } from 'react-accessible-accordion';
 
+import { DebrisInfo } from './debrisInfo';
+
 import './accordion-styles.css';
 
 class SurveyForm extends Component {
@@ -37,10 +39,16 @@ class SurveyForm extends Component {
         //     {substrateTypeSand, substrateTypePebble, substrateTypeRipRap, substrateTypeSeaweed, substrateTypeOther},
         //
         // SRS: rib1Start, rib2Start, rib3Start, rib4Start, rib1End, rib2End, rib3End, rib4End
-        //      format for debris is: trash_id + ("FreshRib" | "WeatheredRib") + ribNumber
         //
         //
         //
+        //
+      },
+      SRSData : {
+          // format for debris is: trash_id + ("FreshRib" | "WeatheredRib") + ribNumber
+      },
+      ASData : {
+          // format for debris is: trash_id + "accumulation" + ("Fresh | Weathered | Total")
       },
       isInputting: true,
       isReviewing: false,
@@ -61,6 +69,8 @@ class SurveyForm extends Component {
     this.updateSurveyState = this.updateSurveyState.bind(this);
     this.updateCheckedState = this.updateCheckedState.bind(this);
     this.prepareForm = this.prepareForm.bind(this);
+    this.updateSRS = this.updateSRS.bind(this);
+    this.updateAS = this.updateAS.bind(this);
   }
 
   componentDidMount() {
@@ -225,20 +235,59 @@ class SurveyForm extends Component {
     })
   }
 
+  updateSRS(e) {
+    const key = e.target.id;
+    const val = e.target.value;
+    this.setState(prevState => {
+        prevState.SRSData[key] = val;
+        return prevState;
+    })
+  }
+
+  updateAS(e) {
+    const key = e.target.id;
+    const val = e.target.value;
+    this.setState(prevState => {
+        prevState.ASData[key] = val;
+        return prevState;
+    })
+  }
+
   render() {
       return(
         <div>
-          {console.log(this.state.surveyData)}
+          {console.log(this.state.SRSData)}
             {this.state.isInputting && (
             <div>
               <form id="surveyForm">
                 <Accordion>
-                    <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                    <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState}/>
-                    <SurfaceRibScan data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
-                    <AccumulationSurvey data={this.state.surveyData} trash={this.state.trash} updateSurveyState={this.updateSurveyState}/>
-                    <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState}/>
-                    <Totals updateSurveyState={this.updateSurveyState}/>
+                    <TeamInformation
+                        data={this.state.surveyData}
+                        updateSurveyState={this.updateSurveyState}
+                    />
+                    <SurveyArea
+                        data={this.state.surveyData}
+                        updateSurveyState={this.updateSurveyState}
+                        updateCheckedState={this.updateCheckedState}
+                    />
+                    <SurfaceRibScan
+                        data={this.state.surveyData}
+                        trash={this.state.trash}
+                        updateSurveyState={this.updateSurveyState}
+                        updateSRS={this.updateSRS}
+                    />
+                    <AccumulationSurvey
+                        data={this.state.surveyData}
+                        trash={this.state.trash}
+                        updateAS={this.updateAS}
+                    />
+                    <MicroDebrisSurvey
+                        data={this.state.surveyData}
+                        updateSurveyState={this.updateSurveyState}
+                    />
+                    <Totals
+                        updateSurveyState={this.updateSurveyState}
+                    />
                   </Accordion>
               </form>
               <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>

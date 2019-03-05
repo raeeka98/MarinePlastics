@@ -15,6 +15,7 @@ const DebrisInfo = [
   { trash_id :"cottonCloth",        name : "Cotton / Cloth"                   },
   { trash_id :"aluminumCans",       name : "Aluminum Cans"                    },
   { trash_id :"hygieneItems",       name : "Hygiene Items"                    },
-  { trash_id :"tileBrick",          name : "Tile / Brick"                     }
+  { trash_id :"tileBrick",          name : "Tile / Brick"                     },
+  { trash_id :"misc",               name : "Misc. (general)"                  }
 ]
 export { DebrisInfo }

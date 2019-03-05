@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 
 
 class AccumulationSurveyRow extends Component {
-    constructor(props) {
-      super(props);
-    }
 
     render() {
       return(
@@ -18,7 +15,7 @@ class AccumulationSurveyRow extends Component {
                 min="0"
                 id={this.props.id + "accumulationFresh"}
                 className="uk-input"
-                onBlur={this.props.updateSurveyState}
+                onChange={this.props.updateAS}
               />
             </div>
             <div>
@@ -27,7 +24,7 @@ class AccumulationSurveyRow extends Component {
                   min="0"
                   id={this.props.id + "accumulationWeathered"}
                   className="uk-input"
-                  onBlur={this.props.updateSurveyState}
+                  onChange={this.props.updateAS}
                 />
             </div>
             <div>
@@ -36,7 +33,7 @@ class AccumulationSurveyRow extends Component {
                   min="0"
                   id={this.props.id + "accumulationTotal"}
                   className="uk-input"
-                  onBlur={this.props.updateSurveyState}
+                  onChange={this.props.updateAS}
                 />
             </div>
         </div>

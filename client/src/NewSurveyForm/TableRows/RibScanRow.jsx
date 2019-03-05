@@ -9,6 +9,7 @@ const RibScanCell = (props) => {
             min="0"
             id={props.id + "FreshRib" + props.ribNumber}
             className="uk-input"
+            onChange={props.updateSRS}
           />
       </div>
       <div>
@@ -17,6 +18,7 @@ const RibScanCell = (props) => {
             min="0"
             id={props.id + "WeatheredRib" + props.ribNumber}
             className="uk-input"
+            onChange={props.updateSRS}
             />
       </div>
     </div>
@@ -36,10 +38,10 @@ class RibScanRow extends Component {
             <div>
                 <h5>{this.props.name}</h5>
             </div>
-            <div><RibScanCell ribNumber='1' id={this.props.id}/></div>
-            <div><RibScanCell ribNumber='2' id={this.props.id}/></div>
-            <div><RibScanCell ribNumber='3' id={this.props.id}/></div>
-            <div><RibScanCell ribNumber='4' id={this.props.id}/></div>
+            <div><RibScanCell ribNumber='1' id={this.props.id} updateSRS={this.props.updateSRS}/></div>
+            <div><RibScanCell ribNumber='2' id={this.props.id} updateSRS={this.props.updateSRS}/></div>
+            <div><RibScanCell ribNumber='3' id={this.props.id} updateSRS={this.props.updateSRS}/></div>
+            <div><RibScanCell ribNumber='4' id={this.props.id} updateSRS={this.props.updateSRS}/></div>
         </div>
       );
     }

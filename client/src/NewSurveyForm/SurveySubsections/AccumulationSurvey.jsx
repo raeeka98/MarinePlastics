@@ -8,7 +8,7 @@ import {
 
 import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
 
-import { DebrisInfo } from './debrisInfo';
+import { DebrisInfo } from '../debrisInfo';
 
 import '../accordion-styles.css';
 
@@ -22,7 +22,7 @@ class AccumulationSurvey extends Component {
               key={category.trash_id}
               id={category.trash_id}
               name={category.name}
-              updateSurveyState={this.props.updateSurveyState}
+              updateAS={this.props.updateAS}
             />
         );
     });

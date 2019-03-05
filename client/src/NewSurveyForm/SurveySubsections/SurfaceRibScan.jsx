@@ -8,7 +8,7 @@ import {
 
 import RibScanRow from '../TableRows/RibScanRow';
 
-import { DebrisInfo } from './debrisInfo';
+import { DebrisInfo } from '../debrisInfo';
 
 
 import '../accordion-styles.css';
@@ -20,7 +20,12 @@ class SurfaceRibScan extends Component {
 
     let tableRows = DebrisInfo.map(category => {
         return(
-            <RibScanRow key={category.trash_id} id={category.trash_id} name={category.name}/>
+            <RibScanRow
+                key={category.trash_id}
+                id={category.trash_id}
+                name={category.name}
+                updateSRS={this.props.updateSRS}
+            />
         );
     });
 
