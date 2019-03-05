@@ -75,7 +75,7 @@ router.route('/surveys')
      */
     .post(asyncHandler(async (req, res) => {
         let { bID: beachID, survData } = req.body;
-        await surveys.addToBeach(survData, beachID, dateOfSub);
+        await surveys.addToBeach(survData, beachID);
         res.json({ res: "Survey Created" })
     }));
 

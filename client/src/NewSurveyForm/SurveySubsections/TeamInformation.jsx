@@ -18,18 +18,32 @@ class TeamInformation extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
+            <div className="uk-child-width-1-2 uk-grid">
                 <div>
-                  <label>Name<span className="uk-text-danger">*</span></label>
+                  <label>First Name<span className="uk-text-danger">*</span></label>
                   <input
                     type='string'
-                    placeholder='First/Last Name'
-                    id='name'
+                    placeholder='First Name'
+                    id='userFirst'
                     className='uk-input uk-margin'
                     defaultValue={this.props.data.name}
                     onChange={this.props.updateSurveyState}
                     required
                     />
                 </div>
+                <div>
+                  <label>Last Name<span className="uk-text-danger">*</span></label>
+                  <input
+                    type='string'
+                    placeholder='Last Name'
+                    id='userLast'
+                    className='uk-input uk-margin'
+                    defaultValue={this.props.data.name}
+                    onChange={this.props.updateSurveyState}
+                    required
+                    />
+                </div>
+              </div>
 
                 <div className="uk-child-width-1-2 uk-grid">
                   <div>

@@ -75,26 +75,21 @@ let surveySchema = new Schema({
     user: {
         f: {
             type: String,
-            required: true,
             alias: "first"
         },
         l: {
             type: String,
-            required: true,
             alias: "last"
         },
     },
     email: {
         type: String,
-        required: true
     },
     org: {
         type: String,
-        required: true
     },
     reason: {
         type: String,
-        required: true
     },
     survDate: {
         type: Date,
@@ -123,8 +118,8 @@ let surveySchema = new Schema({
         type: Map,
         of: newDataSchema
     },
-    srsDebrisLength: { type: Number, required: true, min: 0 },
-    asDebrisLength: { type: Number, required: true, min: 0 }
+    srsDebrisLength: { type: Number, min: 0 },
+    asDebrisLength: { type: Number, min: 0 }
 }, { versionKey: false });
 
 surveySchema.methods.getSRSTotal = function(newDebris) {

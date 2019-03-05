@@ -26,7 +26,7 @@ class SurveyForm extends Component {
     {
       surveyData : {
         // fields (id's) :
-        // TI: name, orgName, orgLoc, email, cleanUpTime, cleanUpDate
+        // TI: userFirst, userLast, orgName, orgLoc, email, cleanUpTime, cleanUpDate
         // SA: beachName, latitude, longitude,
         //     {usageRecreation, usageCommercial, usageOther}
         //     {locationChoiceProximity, locationChoiceDebris, locationChoiceOther}
@@ -90,18 +90,18 @@ class SurveyForm extends Component {
  updateDisplayStrings() {
       const data = this.state.surveyData;
 
-      const _usage = (data.usageRecreation ? "Recreation, " : "") +
-                    (data.usageCommercial ? "Commercial, " : "") +
+      const _usage = (data.usageRecreation ? "recreation, " : "") +
+                    (data.usageCommercial ? "commercial, " : "") +
                     (data.usageOther ? data.usageOther : "");
 
-      const _locChoice = (data.locationChoiceDebris ? "Debris, " : "") +
-                        (data.locationChoiceProximity ? "Proximity, " : "") +
+      const _locChoice = (data.locationChoiceDebris ? "debris, " : "") +
+                        (data.locationChoiceProximity ? "proximity, " : "") +
                         (data.locationChoiceOther ? data.locationChoiceOther : "");
 
-      const _subType =   (data.substrateTypeSand ? "Sand, " : "") +
-                        (data.substrateTypeRipRap ? "Sand, " : "") +
-                        (data.substrateTypePebble ? "Pebble, " : "") +
-                        (data.substrateTypeSeaweed ? "Pebble, " : "") +
+      const _subType =   (data.substrateTypeSand ? "sand, " : "") +
+                        (data.substrateTypeRipRap ? "rip rap, " : "") +
+                        (data.substrateTypePebble ? "pebble, " : "") +
+                        (data.substrateTypeSeaweed ? "seaweed, " : "") +
                         (data.substrateTypeOther ? data.substrateTypeOther : "");
 
       const _dateTime = (data.cleanUpDate ? data.cleanUpDate : "") +
@@ -160,32 +160,48 @@ class SurveyForm extends Component {
       const data = this.state.surveyData;
 
       const form = {
-          user : (data.name ? data.name : ""),
-          email : (data.email ? data.email : ""),
-          org : (data.orgName ? data.orgName : ""),
-          reason : (show.locChoice ? show.locChoice : ""),
-          st : (show.subType ? show.subType : ""),
-          slope : (data.slope ? data.slope : ""),
-          lastTide : {
-              type : (data.tideTypeB ? data.tideTypeB : ""),
-              time : (data.tideTimeB ? data.tideTimeB : ""),
-              height : (data.tideHeightB ? data.tideHeightB : "")
+          survData : {
+              user : {
+                f : (data.userFirst ? data.userFirst : ""),
+                l : (data.userLast ? data.userLast : "")
+              },
+              email : (data.email ? data.email : ""),
+              org : (data.orgName ? data.orgName : ""),
+              reason : (show.locChoice ? show.locChoice : ""),
+              st : (show.subType ? show.subType : ""),
+              slope : (data.slope ? data.slope : ""),
+              lastTide : {
+                  type : (data.tideTypeB ? data.tideTypeB : ""),
+                  time : (data.tideTimeB ? data.tideTimeB : ""),
+                  height : (data.tideHeightB ? data.tideHeightB : "")
+              },
+              nextTide : {
+                  type : (data.tideTypeA ? data.tideTypeA : ""),
+                  time : (data.tideTimeA ? data.tideTimeA : ""),
+                  height : (data.tideHeightA ? data.tideHeightA : "")
+              },
+              wind : {
+                  dir : (data.windDir ? data.windDir : ""),
+                  spd : (data.windSpeed ? data.windSpeed : "")
+              },
+              majorUse: (show.usage ? show.usage : ""),
+              weight: (data.weight ? data.weight : ""),
+              /* SRSDebris: [
+                  [cigaretteButts, {
+                      fresh (total):
+                      weathered (total):
+                  }],
+                  ...
+              ]
+              */
+              SRSDebris : [],
+              ASDebris : [],
+              srsDebrisLength : 0,
+              asDebrisLength : 0,
+              survDate: new Date().setUTCHours(72, 0, 0, 0)
           },
-          nextTide : {
-              type : (data.tideTypeA ? data.tideTypeA : ""),
-              time : (data.tideTimeA ? data.tideTimeA : ""),
-              height : (data.tideHeightA ? data.tideHeightA : "")
-          },
-          windDir: (data.windDir ? data.windDir : ""),
-          windSpeed: (data.windSpeed ? data.windSpeed : ""),
-          majorUse: (show.usage ? show.usage : ""),
-          weight: (data.weight ? data.weight : ""),
-          SRSDebris : [],
-          ASDebris : [],
-          srsDebrisLength : 0,
-          asDebrisLength : 0,
-          survDate: Date.now(),
-          beachID: '5c74f1bc71992a56a570d485'
+          bID : '5c74f1bc71992a56a570d485'
+
       }
 
       return form;
