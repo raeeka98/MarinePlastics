@@ -8,14 +8,15 @@ import {
 
 import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
 
+import { DebrisInfo } from './debrisInfo';
+
 import '../accordion-styles.css';
 
 class AccumulationSurvey extends Component {
 
   render() {
-    let testCategories = this.props.trash;
 
-    let tableRows = testCategories.map(category => {
+    let tableRows = DebrisInfo.map(category => {
         return(
             <AccumulationSurveyRow
               key={category.trash_id}
