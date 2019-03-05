@@ -67,7 +67,6 @@ router.route('/surveys')
     //adds survey to beach
     /**post body
      * {
-     * dos:324252342,
      * bID: (beachID),
      * survData:{
      *      (All requred survey data)
@@ -75,7 +74,7 @@ router.route('/surveys')
      * }
      */
     .post(asyncHandler(async (req, res) => {
-        let { dos: dateOfSub, bID: beachID, survData } = req.body;
+        let { bID: beachID, survData } = req.body;
         await surveys.addToBeach(survData, beachID, dateOfSub);
         res.json({ res: "Survey Created" })
     }));
