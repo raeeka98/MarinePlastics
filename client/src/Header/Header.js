@@ -102,18 +102,6 @@ render() {
               </ul>
             </div>
          </div>
-         <div className="uk-hidden@m">
-          <div className="uk-navbar-right">
-            <ul className="uk-navbar-nav">
-            <li>
-            { this.props.auth.isAuthenticated()
-              ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log Out</button>
-              : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log In</button>
-            }
-          </li>
-          </ul>
-          </div>
-          </div>
      </nav>
    )
  }
