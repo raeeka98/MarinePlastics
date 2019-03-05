@@ -86,36 +86,51 @@ class Home extends Component {
     this.handleSearch(e.target.value, this.state.filter);
   }
 
-  handleViewTypeChange(e) {
-    this.setState({ view: e.target.value });
-    
+  async handleViewTypeChange(e) {
+    console.log("state before promise = " + this.state.view);
+
+    let changeState = await this.setState({ view: e.target.value });
+  
+    console.log("state after promise = " + this.state.view);
+  
     let container = document.getElementById("mainContainer");
     //console.log(container.classList);
 
-    if (container.classList.contains('listView')) {
-      container.classList.add("mapView");
-      container.classList.remove("listView");
-      console.log(container.classList);
-    }
-
-    else if (container.classList.contains('mapView')) {
-      container.classList.add("listView");
-      container.classList.remove("mapView");
-      console.log(container.classList);
-    }
-
-    // Add/Remove styling classes as 
-    // if (this.state.view === "list") {
-    //   console.log("state = list");
-    //   container.classList.add("listView");
-    //   container.classList.remove("mapView")
-    // }
-
-    // if (this.state.view === "map") {
-    //   console.log("state = map")
+    // if (container.classList.contains('listView')) {
     //   container.classList.add("mapView");
     //   container.classList.remove("listView");
+    //   console.log(container.classList);
     // }
+
+    // else if (container.classList.contains('mapView')) {
+    //   container.classList.add("listView");
+    //   container.classList.remove("mapView");
+    //   console.log(container.classList);
+    // }
+
+    
+
+    // Add/Remove styling classes as 
+    if (this.state.view === "list") {
+      console.log("state = list");
+      container.classList.add("list-view");
+      container.classList.remove("map-view");
+      container.classList.remove("split-view");
+    }
+
+    if (this.state.view === "map") {
+      console.log("state = map")
+      container.classList.add("map-view");
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+    }
+
+    if (this.state.view === "split") {
+      console.log("state = split");
+      container.classList.add("splitv-view");
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+    }
   }
 
 
@@ -235,36 +250,42 @@ class Home extends Component {
     let totalWeight = this.state.totalWeight;
 
     return (
-      <div className="uk-align-center">
+      
         <div className="uk-align-center">
-          <form className="uk-grid uk-grid-small uk-margin-small-bottom uk-width-4-5">
-            <div className="uk-width-2-5">
-              <input
-                className="uk-input uk-form"
-                id="searchBar"
-                type="search"
-                onChange={this.handleSearchChange}
-                placeholder="Search..."
-              />
-            </div>
-            <div className="uk-width-1-5">
-              <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
-                <option value="beach">By Beach</option>
-                <option value="debris">By Debris</option>
-                <option value="user">By Team Leader</option>
-                <option value="org">By Organization</option>
-              </select>
-            </div>
-            <div className="uk-width-1-5">
-              <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
-                <option value="list">List</option>
-                <option value="map">Map</option>
-                <option value="listmap">List and Map</option>
-              </select>
-            </div>
-          </form>
+          
+          <div className="uk-align-center uk-width-4-5">
+            <form className="uk-grid uk-grid-small uk-margin-small-bottom">
+              <div className="uk-width-3-5">
+                <input
+                  className="uk-input uk-form"
+                  id="searchBar"
+                  type="search"
+                  onChange={this.handleSearchChange}
+                  placeholder="Search..."
+                />
+              </div>
 
-          <div id="mainContainer" className="listView">
+              <div className="uk-width-1-5">
+                <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
+                  <option value="beach">By Beach</option>
+                  <option value="debris">By Debris</option>
+                  <option value="user">By Team Leader</option>
+                  <option value="org">By Organization</option>
+                </select>
+              </div>
+
+              <div className="uk-width-1-5">
+                <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
+                  <option value="list">List</option>
+                  <option value="map">Map</option>
+                  <option value="split">List and Map</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+
+          <div id="mainContainer" className="list-view uk-align-center">
             {this.state.view === 'list' 
               ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                   {this.showEntries(locationNodes)}
@@ -277,6 +298,20 @@ class Home extends Component {
               : null
             }
 
+            { this.state.view === 'split'
+              ? <div className="uk-flex uk-flex-row">
+                  <div className="uk-width-1-3">
+                    <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+                      {this.showEntries(locationNodes)}
+                    </div>
+                  </div>
+                  <div className="uk-width-2-3">
+                    <Map/>
+                  </div>
+                </div>
+              : null
+            }
+
           </div>
           {/* <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
@@ -284,7 +319,7 @@ class Home extends Component {
             </div>
           </div> */}
         </div>
-      </div>
+      
     );
   }
 
