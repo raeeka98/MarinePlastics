@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
+import Map from '../Map/Map'
 
 import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
@@ -19,41 +20,43 @@ class Home extends Component {
       error: false,
 
       beaches: [],
-      surveys: []
+      surveys: [],
+      view: 'list'
     };
-    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    //this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
+    this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
     //this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this, );
     this.url = '/beaches';
   }
 
   // gets the entries from the server, saves them in the state
-  loadCommentsFromServer() {
-    axios.get(this.url)
-      .then(res => {
-        res.data.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
-        // sorts data into locations
-        // const sorted = locationSort(res.data);
-        this.setState({
-          data: res.data,
-          rawData: res.data,
-          loaded: true
-        });
-      })
-      .catch(err => {
-        console.log(err.message);
-        this.setState({
-          loaded: true,
-          error: true
-        });
-      })
-  }
+  // loadCommentsFromServer() {
+  //   axios.get(this.url)
+  //     .then(res => {
+  //       res.data.sort((a, b) => {
+  //         return new Date(b.date).getTime() - new Date(a.date).getTime();
+  //       });
+  //       // sorts data into locations
+  //       // const sorted = locationSort(res.data);
+  //       this.setState({
+  //         data: res.data,
+  //         rawData: res.data,
+  //         loaded: true
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message);
+  //       this.setState({
+  //         loaded: true,
+  //         error: true
+  //       });
+  //     })
+  // }
 
   // Load the beach names
   loadBeaches() {
@@ -81,6 +84,38 @@ class Home extends Component {
 
   handleSearchChange(e) {
     this.handleSearch(e.target.value, this.state.filter);
+  }
+
+  handleViewTypeChange(e) {
+    this.setState({ view: e.target.value });
+    
+    let container = document.getElementById("mainContainer");
+    //console.log(container.classList);
+
+    if (container.classList.contains('listView')) {
+      container.classList.add("mapView");
+      container.classList.remove("listView");
+      console.log(container.classList);
+    }
+
+    else if (container.classList.contains('mapView')) {
+      container.classList.add("listView");
+      container.classList.remove("mapView");
+      console.log(container.classList);
+    }
+
+    // Add/Remove styling classes as 
+    // if (this.state.view === "list") {
+    //   console.log("state = list");
+    //   container.classList.add("listView");
+    //   container.classList.remove("mapView")
+    // }
+
+    // if (this.state.view === "map") {
+    //   console.log("state = map")
+    //   container.classList.add("mapView");
+    //   container.classList.remove("listView");
+    // }
   }
 
 
@@ -200,35 +235,54 @@ class Home extends Component {
     let totalWeight = this.state.totalWeight;
 
     return (
-      <div className="uk-container">
-        <div className="uk-width-2-3 uk-align-center uk-margin-top">
-          <form className="uk-grid uk-grid-small uk-margin-small-bottom">
-            <div className="uk-width-2-3">
+      <div className="uk-align-center">
+        <div className="uk-align-center">
+          <form className="uk-grid uk-grid-small uk-margin-small-bottom uk-width-4-5">
+            <div className="uk-width-2-5">
               <input
-                className="uk-input uk-form-large"
+                className="uk-input uk-form"
                 id="searchBar"
                 type="search"
                 onChange={this.handleSearchChange}
                 placeholder="Search..."
               />
             </div>
-            <div className="uk-width-1-3">
-              <select className="uk-select uk-form-large" id='type' onChange={this.handleSearchTypeChange}>
+            <div className="uk-width-1-5">
+              <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
                 <option value="beach">By Beach</option>
                 <option value="debris">By Debris</option>
                 <option value="user">By Team Leader</option>
                 <option value="org">By Organization</option>
               </select>
             </div>
+            <div className="uk-width-1-5">
+              <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
+                <option value="list">List</option>
+                <option value="map">Map</option>
+                <option value="listmap">List and Map</option>
+              </select>
+            </div>
           </form>
-          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
-            {this.showEntries(locationNodes)}
+
+          <div id="mainContainer" className="listView">
+            {this.state.view === 'list' 
+              ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+                  {this.showEntries(locationNodes)}
+                </div> 
+              : null
+            }
+
+            { this.state.view === 'map' 
+              ? <Map/>
+              : null
+            }
+
           </div>
-          <div className="uk-section uk-section-primary uk-margin-top">
+          {/* <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
               <h2 className="uk-text-center uk-heading">{totalWeight} pieces of marine debris picked up so far!</h2>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );

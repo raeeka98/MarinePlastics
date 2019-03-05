@@ -4,6 +4,7 @@
 
 #locations {
     position: relative;
+    max-height: 70vh;
 }
 
 .loader {
@@ -96,4 +97,12 @@
         background: #0f7ae5;
         opacity: 0.5;
     }
+}
+
+.listView {
+    width: 70vw;
+}
+
+.mapView {
+    width: 100vw;
 }
