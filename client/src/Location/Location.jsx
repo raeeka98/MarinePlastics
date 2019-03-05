@@ -142,7 +142,7 @@ class Location extends Component {
     // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{name}</p></div>;
     return (
-      <div>
+      <div className="uk-container">
         <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
         <div className="uk-grid uk-grid-match">
           {console.log(this.state.surveys)}

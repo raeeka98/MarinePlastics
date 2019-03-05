@@ -203,7 +203,7 @@ class Home extends Component {
     let totalWeight = this.state.totalWeight;
 
     return (
-      <div>
+      <div className="uk-container">
         <div className="uk-width-2-3 uk-align-center uk-margin-top">
           <form className="uk-grid uk-grid-small uk-margin-small-bottom">
             <div className="uk-width-2-3">

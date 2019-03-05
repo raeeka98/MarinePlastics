@@ -24,6 +24,8 @@ import PageNotFound from './PageNotFound/PageNotFound';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
+import './App.css';
+
 class App extends Component {
   constructor() {
     require('dotenv').config()
@@ -53,15 +55,20 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.userProfile)
-    
+    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/map', '/chooseform'];
+
     return (
       <div>
         {/* type of router that has history (can go back and forth in broswer history and still have states from before) */}
         <BrowserRouter>
-          <div className="uk-container uk-container-center">
-            {/* every page has header/footer, only content within div changes*/}
-            <Header auth={this.auth} />
+
+          
+          <div className="uk-container-expand uk-container-center">
+            
+            {/* pages listed in headerRoutes array are rendered with the Header*/}
+            <Route path={headerRoutes} render={() => ( <Header auth={this.auth} /> )} />
+            
+            
             <div>
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
@@ -91,7 +98,10 @@ class App extends Component {
                 <Route component={ PageNotFound } />
               </Switch>
             </div>
-            <Footer />
+
+            {/* Render the footer if you're not on the Landing Page*/}
+            <Route path={headerRoutes} component={Footer} />
+            
           </div>
         </BrowserRouter>
       </div>

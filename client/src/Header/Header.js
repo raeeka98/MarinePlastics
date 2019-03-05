@@ -56,72 +56,74 @@ handleHover = () => {
 
 render() {
    return (
-     <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
+     <div className="uk-padding-small uk-padding-remove-top">
+      <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
 
-       <div className="uk-navbar-left uk-visible@m">
-         <ul className="uk-navbar-nav">
-           <li className="uk-logo">
-             <Link to="/home" >
-               <h1 className="uk-text-large uk-margin-remove-bottom">
-                 Marine Plastics Monitor
-               </h1>
-             </Link>
-           </li>
-           { this.props.auth.isAuthenticated()
-             ? <li><Link to='/survey'>Survey</Link></li>
-             : null
-           }
-           { this.props.auth.isAuthenticated()
-             ? <li><Link to='/newsurvey'>New Survey</Link></li>
-             : null
-           }
-           <li><Link to="/map">Map</Link></li>
-           <li><Link to="/protocol">Protocol</Link></li>
-           <li>
-           { this.props.auth.isAuthenticated()
-             ? <Link className="uk-button" to="/profile">Profile</Link>
-             : null
-           }
-           </li>
-            </ul>
-            </div>
-            <div className="uk-navbar-right uk-visible@m">
-                { this.props.auth.isAuthenticated()
-                  ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</button>
-                  : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button>
-                }
-              </div>
-           <div className="uk-hidden@m">
-            <div className="uk-navbar-left">
-              <ul className="uk-navbar-nav">
-              <li className="uk-logo">
-                <Link to="/home" >
-                  <h1 className="uk-text-small uk-margin-remove-bottom">
-                    Marine Plastics Monitor
-                  </h1>
-                </Link>
-              </li>
-               <li className="nav__menu-item uk-margin-remove-bottom" onMouseLeave={this.handleLeave} >
-                   <div className="uk-navbar-item" style={{textTransform:'uppercase',color:'#999'}} onMouseEnter={this.handleHover}>Menu</div>
-                      { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
-                </li>
-
-              </ul>
-            </div>
-         </div>
-         <div className="uk-hidden@m">
-          <div className="uk-navbar-right">
-            <ul className="uk-navbar-nav">
+        <div className="uk-navbar-left uk-visible@m">
+          <ul className="uk-navbar-nav">
+            <li className="uk-logo">
+              <Link to="/home" >
+                <h1 className="uk-text-large uk-margin-remove-bottom">
+                  Marine Plastics Monitor
+                </h1>
+              </Link>
+            </li>
+            { this.props.auth.isAuthenticated()
+              ? <li><Link to='/survey'>Survey</Link></li>
+              : null
+            }
+            { this.props.auth.isAuthenticated()
+              ? <li><Link to='/newsurvey'>New Survey</Link></li>
+              : null
+            }
+            <li><Link to="/map">Map</Link></li>
+            <li><Link to="/protocol">Protocol</Link></li>
             <li>
             { this.props.auth.isAuthenticated()
-              ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log Out</button>
-              : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log In</button>
+              ? <Link className="uk-button" to="/profile">Profile</Link>
+              : null
             }
-          </li>
-          </ul>
+            </li>
+              </ul>
+              </div>
+              <div className="uk-navbar-right uk-visible@m">
+                  { this.props.auth.isAuthenticated()
+                    ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</button>
+                    : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button>
+                  }
+                </div>
+            <div className="uk-hidden@m">
+              <div className="uk-navbar-left">
+                <ul className="uk-navbar-nav">
+                <li className="uk-logo">
+                  <Link to="/home" >
+                    <h1 className="uk-text-small uk-margin-remove-bottom">
+                      Marine Plastics Monitor
+                    </h1>
+                  </Link>
+                </li>
+                <li className="nav__menu-item uk-margin-remove-bottom" onMouseLeave={this.handleLeave} >
+                    <div className="uk-navbar-item" style={{textTransform:'uppercase',color:'#999'}} onMouseEnter={this.handleHover}>Menu</div>
+                        { this.state.showAboutMenu && <Submenu auth={this.props.auth}/> }
+                  </li>
+
+                </ul>
+              </div>
           </div>
-          </div>
-     </nav>
+          <div className="uk-hidden@m">
+            <div className="uk-navbar-right">
+              <ul className="uk-navbar-nav">
+              <li>
+              { this.props.auth.isAuthenticated()
+                ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log Out</button>
+                : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log In</button>
+              }
+            </li>
+            </ul>
+            </div>
+            </div>
+      </nav>
+      </div>
    )
  }
 }

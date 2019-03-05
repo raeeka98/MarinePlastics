@@ -154,7 +154,7 @@ class SurveyForm extends Component {
 
   render() {
       return(
-        <div>
+        <div className="uk-container">
           {console.log(this.state)}
             {this.state.isInputting && (
             <div>

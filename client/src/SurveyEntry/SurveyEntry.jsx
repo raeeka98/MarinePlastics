@@ -23,7 +23,6 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    console.log(this.state.surveyID);
     axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
         console.log(res.data);
@@ -86,20 +85,20 @@ class SurveyEntry extends Component {
   }
 
   render() {
-    console.log(this.state.auth)
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
 
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
+    console.log(this.state.surveyData);
 
     // if there is data (which is once the component mounts)
-    if (this.state.surveyData.SRSData) {
-      let { SRSData, ASData } = this.state.surveyData;
+    if (this.state.surveyData.SRSDebris) {
+      let { SRSDebris, ASDebris } = this.state.surveyData;
       // for every type of trash, return a surveyTableRow component with the data
-      for (const trash in SRSData) {
-        const trashData = SRSData[trash];
+      for (const trash in SRSDebris) {
+        const trashData = SRSDebris[trash];
         SRSRows.push(
           <SurveyTableRow
             key={trash}
@@ -109,8 +108,8 @@ class SurveyEntry extends Component {
           />
         );
       }
-      for (const trash in ASData) {
-        const trashData = ASData[trash];
+      for (const trash in ASDebris) {
+        const trashData = ASDebris[trash];
         ASRows.push(
           <SurveyTableRow
             key={trash}
@@ -121,8 +120,8 @@ class SurveyEntry extends Component {
         );
       }
 
-      document.getElementById('SRS-section').style.display = this.state.surveyData.srsDataLength > 0 ? 'block' : 'none';
-      document.getElementById('AS-section').style.display = this.state.surveyData.asDataLength > 0 ? 'block' : 'none';
+      document.getElementById('SRS-section').style.display = this.state.surveyData.srsDebrisLength > 0 ? 'block' : 'none';
+      document.getElementById('AS-section').style.display = this.state.surveyData.asDebrisLength > 0 ? 'block' : 'none';
     }
 
     if (this.state.surveyData.weight || this.state.surveyData.NumberOfPeople) {
@@ -145,9 +144,9 @@ class SurveyEntry extends Component {
     }
     console.log(this.props.location.state.info);
     return (
-      <div>
+      <div className="uk-container">
         <h2 className="uk-text-primary uk-heading-primary">
-          <Link to={{ pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: { data: this.props.location.state.info } }}>
+          <Link to={{ pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: { data: this.props.location.state.info, userProfile: this.state.userProfile } }}>
             {this.state.beachName}
           </Link>
           <span className="uk-text-muted uk-text-large uk-margin-left">
@@ -235,7 +234,7 @@ class SurveyEntry extends Component {
           
           
          
-          <div id="b-cleanup-section" className=" uk-margin-bottom" style={{ display: 'none' }}>
+          <div id="b-cleanup-section" className=" uk-margin-bottom" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
@@ -248,38 +247,44 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
+          <div id="SRS-section" style={{ display: 'none' }}>
+          <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <h3>Surface Rib Scan Survey</h3>
+            <table className="uk-table uk-table-striped">
+              <thead>
+                <tr>
+                  <th>Debris Type</th>
+                  <th>Amount Fresh</th>
+                  <th>Amount Weathered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SRSRows}
+              </tbody>
+            </table>
+            </div>
+          </div>
+          <div id="AS-section" style={{ display: 'none' }}>
+          <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <h3>Accumulation Survey</h3>
+            <table className="uk-table uk-table-striped">
+              <thead>
+                <tr>
+                  <th>Debris Type</th>
+                  <th>Amount Fresh</th>
+                  <th>Amount Weathered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ASRows}
+              </tbody>
+            </table>
+          </div>
+          </div>
         </div>
           
-        <div id="SRS-section" style={{ display: 'none' }}>
-          <h3>Surface Rib Scan Survey</h3>
-          <table className="uk-table uk-table-striped">
-            <thead>
-              <tr>
-                <th>Debris Type</th>
-                <th>Amount Fresh</th>
-                <th>Amount Weathered</th>
-              </tr>
-            </thead>
-            <tbody>
-              {SRSRows}
-            </tbody>
-          </table>
-        </div>
-        <div id="AS-section" style={{ display: 'none' }}>
-          <h3>Accumulation Survey</h3>
-          <table className="uk-table uk-table-striped">
-            <thead>
-              <tr>
-                <th>Debris Type</th>
-                <th>Amount Fresh</th>
-                <th>Amount Weathered</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ASRows}
-            </tbody>
-          </table>
-        </div>
+        
+        
         <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
       
