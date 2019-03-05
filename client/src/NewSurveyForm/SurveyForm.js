@@ -87,14 +87,6 @@ class SurveyForm extends Component {
          email: profile.email
        });
     });
-
-    axios.get("/beaches/trash")
-      .then(res => {
-        this.setState({trash: res.data});
-      })
-      .catch(err => {
-        console.log(err);
-      });
   }
 
  updateDisplayStrings() {
@@ -164,6 +156,16 @@ class SurveyForm extends Component {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };
 
+  calcTotalsSRS() {
+
+      return [];
+  }
+
+  calcTotalsAS() {
+
+      return [];
+  }
+
   prepareForm() {
       // for that visual AESTHETIC
       const show = this.state.displayStrings;
@@ -204,8 +206,8 @@ class SurveyForm extends Component {
                   ...
               ]
               */
-              SRSDebris : [],
-              ASDebris : [],
+              SRSDebris : this.calcTotalsSRS(),
+              ASDebris : this.calcTotalsAS(),
               srsDebrisLength : 0,
               asDebrisLength : 0,
               survDate: new Date().setUTCHours(72, 0, 0, 0)
@@ -253,10 +255,12 @@ class SurveyForm extends Component {
     })
   }
 
+
+
   render() {
       return(
         <div>
-          {console.log(this.state.SRSData)}
+          {console.log(this.state.surveyData)}
             {this.state.isInputting && (
             <div>
               <form id="surveyForm">
@@ -272,13 +276,11 @@ class SurveyForm extends Component {
                     />
                     <SurfaceRibScan
                         data={this.state.surveyData}
-                        trash={this.state.trash}
                         updateSurveyState={this.updateSurveyState}
                         updateSRS={this.updateSRS}
                     />
                     <AccumulationSurvey
                         data={this.state.surveyData}
-                        trash={this.state.trash}
                         updateAS={this.updateAS}
                     />
                     <MicroDebrisSurvey

@@ -28,9 +28,6 @@ const RibScanCell = (props) => {
 
 
 class RibScanRow extends Component {
-    constructor(props) {
-      super(props);
-    }
 
     render() {
       return(

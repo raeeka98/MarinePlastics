@@ -18,16 +18,17 @@ class SurfaceRibScan extends Component {
 
   render() {
 
-    let tableRows = DebrisInfo.map(category => {
-        return(
-            <RibScanRow
-                key={category.trash_id}
-                id={category.trash_id}
-                name={category.name}
-                updateSRS={this.props.updateSRS}
-            />
-        );
-    });
+    let tableRows = [];
+    for(const id in DebrisInfo) {
+        tableRows.push(
+          <RibScanRow
+              key={id}
+              id={id}
+              name={DebrisInfo[id]}
+              updateSRS={this.props.updateSRS}
+          />
+        )
+    }
 
     return(
       <AccordionItem className="accordion__item">
@@ -50,9 +51,9 @@ class SurfaceRibScan extends Component {
                       <input
                         type='string'
                         placeholder='Rib #1 Start'
-                        defaultValue={this.props.data.rib}
                         id='rib1Start'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -62,6 +63,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #2 Start'
                         id='rib2Start'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -71,6 +73,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #3 Start'
                         id='rib3Start'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -80,6 +83,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #4 Start'
                         id='rib4Start'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -93,6 +97,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #1 End'
                         id='rib1End'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -102,6 +107,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #2 End'
                         id='rib2End'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -111,6 +117,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #3 End'
                         id='rib3End'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>
@@ -120,6 +127,7 @@ class SurfaceRibScan extends Component {
                         placeholder='Rib #4 End'
                         id='rib4End'
                         className='uk-input uk-margin'
+                        onChange={this.props.updateSurveyState}
                         required
                         />
                     </div>

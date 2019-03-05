@@ -16,16 +16,18 @@ class AccumulationSurvey extends Component {
 
   render() {
 
-    let tableRows = DebrisInfo.map(category => {
-        return(
-            <AccumulationSurveyRow
-              key={category.trash_id}
-              id={category.trash_id}
-              name={category.name}
-              updateAS={this.props.updateAS}
-            />
-        );
-    });
+    let tableRows = [];
+    for(const id in DebrisInfo) {
+        tableRows.push(
+          <AccumulationSurveyRow
+              key={id}
+              id={id}
+              name={DebrisInfo[id]}
+              updateSRS={this.props.updateSRS}
+          />
+        )
+    }
+    
     return(
       <AccordionItem className="accordion__item">
           <AccordionItemTitle className="accordion__title accordion__title--animated">
