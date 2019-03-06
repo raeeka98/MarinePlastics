@@ -50,16 +50,14 @@ class SurveyForm extends Component {
       ASData : {
           // format for debris is: trash_id + "accumulation" + ("Fresh | Weathered | Total")
       },
+      displayStrings : {
+          usage : "",
+          locChoice : "",
+          subType : ""
+      },
       isInputting: true,
       isReviewing: false,
-      displayStrings: {
-        usage : "",
-        locChoice : "",
-        subType : "",
-        dateTime : ""
-      },
       isSubmitted: false,
-      trash: [],
       user: "",
       email: ""
     }
@@ -89,7 +87,7 @@ class SurveyForm extends Component {
     });
   }
 
- updateDisplayStrings() {
+ async updateDisplayStrings() {
       const data = this.state.surveyData;
 
       const _usage = (data.usageRecreation ? "recreation, " : "") +
@@ -106,21 +104,17 @@ class SurveyForm extends Component {
                         (data.substrateTypeSeaweed ? "seaweed, " : "") +
                         (data.substrateTypeOther ? data.substrateTypeOther : "");
 
-      const _dateTime = (data.cleanUpDate ? data.cleanUpDate : "") +
-                       (data.cleanUpTime ? data.cleanUpTime : "");
-
       this.setState({
-          displayStrings: {
-            usage : _usage,
-            locChoice : _locChoice,
-            subType : _subType,
-            dateTime : _dateTime
+          displayStrings : {
+              usage : _usage,
+              locChoice : _locChoice,
+              subType : _subType
           }
       })
   }
 
   moveToReview() {
-
+      this.updateDisplayStrings();
       this.setState({
           isInputting: false,
           isReviewing: true,
@@ -138,7 +132,6 @@ class SurveyForm extends Component {
 
   moveToSubmit() {
       const form = this.prepareForm();
-      console.log(form);
       axios.post("beaches/surveys", form)
           .then(res => {
               this.setState({
@@ -156,15 +149,6 @@ class SurveyForm extends Component {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };
 
-  /* SRSDebris: [
-      [cigaretteButts, {
-          fresh (total):
-          weathered (total):
-      }],
-      ...
-  ]
-  */
-
   calcTotalsSRS() {
       let totals = {};
       let totalsArray = [];
@@ -172,21 +156,69 @@ class SurveyForm extends Component {
       const data = this.state.SRSData;
 
       for(const id in data) {
-          totals[id] = "fun";
+          const noNum = id.replace(/__[1-4]/, '');
+          const trash_id = noNum.replace(/__\w+/,'');
+          const type = noNum.replace(/\w+__/, '');
+          if(!totals[trash_id]) {
+              totals[trash_id] = {
+                  fresh : 0,
+                  weathered : 0
+              }
+          }
+          if(type === "weathered") {
+              totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+          } else {
+              totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+          }
       }
-
+      for(const id in totals) {
+          totalsArray.push([
+              id,
+              {fresh: totals[id].fresh, weathered: totals[id].weathered}
+          ]);
+      }
       return totalsArray;
   }
 
   calcTotalsAS() {
+      let totals = {};
+      let totalsArray = [];
 
-      return [];
+      const data = this.state.ASData;
+
+      for(const id in data) {
+          const noAcc = id.replace(/__accumulation/i, '');
+          const trash_id = noAcc.replace(/__\w+/,'');
+          const type = noAcc.replace(/\w+__/, '');
+          console.log(trash_id);
+          console.log(type);
+          if(!totals[trash_id]) {
+              totals[trash_id] = {
+                  fresh : 0,
+                  weathered : 0
+              }
+          }
+          if(type === "weathered") {
+              totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+          } else {
+              totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+          }
+      }
+      for(const id in totals) {
+          totalsArray.push([
+              id,
+              {fresh: totals[id].fresh, weathered: totals[id].weathered}
+          ]);
+      }
+      return totalsArray;
   }
 
   prepareForm() {
       // for that visual AESTHETIC
-      const show = this.state.displayStrings;
+
       const data = this.state.surveyData;
+      const show = this.state.displayStrings;
+      console.log(show);
 
       const form = {
           survData : {
@@ -227,7 +259,7 @@ class SurveyForm extends Component {
               ASDebris : this.calcTotalsAS(),
               srsDebrisLength : 0,
               asDebrisLength : 0,
-              survDate: new Date().setUTCHours(72, 0, 0, 0)
+              survDate: new Date(data.cleanUpDate+"T"+data.cleanUpTime)
           },
           bID : '5c74f1bc71992a56a570d485'
 
@@ -293,11 +325,12 @@ class SurveyForm extends Component {
                     />
                     <SurfaceRibScan
                         data={this.state.surveyData}
+                        SRSData={this.state.SRSData}
                         updateSurveyState={this.updateSurveyState}
                         updateSRS={this.updateSRS}
                     />
                     <AccumulationSurvey
-                        data={this.state.surveyData}
+                        data={this.state.ASData}
                         updateAS={this.updateAS}
                     />
                     <MicroDebrisSurvey
@@ -306,6 +339,7 @@ class SurveyForm extends Component {
                     />
                     <Totals
                         updateSurveyState={this.updateSurveyState}
+                        data={this.state.surveyData}
                     />
                   </Accordion>
               </form>
@@ -315,7 +349,12 @@ class SurveyForm extends Component {
           {this.state.isReviewing && (
             <div>
               <button className="uk-button uk-button-secondary" onClick={this.moveToInput}>Back to Input</button>
-              <Review data={this.state.surveyData} displayStrings/>
+              <Review
+                data={this.state.surveyData}
+                SRSData={this.state.SRSData}
+                ASData={this.state.ASData}
+                displayStrings={this.state.displayStrings}
+              />
               <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit</button>
             </div>
           )}

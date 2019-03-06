@@ -5,7 +5,7 @@ class AccumulationSurveyRow extends Component {
 
     render() {
       return(
-        <div className="uk-grid uk-child-width-1-4">
+        <div className="uk-grid uk-child-width-1-3">
             <div>
                 <h5>{this.props.name}</h5>
             </div>
@@ -13,8 +13,9 @@ class AccumulationSurveyRow extends Component {
               <input
                 type="number"
                 min="0"
-                id={this.props.id + "accumulationFresh"}
+                id={this.props.id + "__fresh__accumulation"}
                 className="uk-input"
+                defaultValue={this.props.data[this.props.id + "__fresh__accumulation"]}
                 onChange={this.props.updateAS}
               />
             </div>
@@ -22,17 +23,9 @@ class AccumulationSurveyRow extends Component {
                 <input
                   type="number"
                   min="0"
-                  id={this.props.id + "accumulationWeathered"}
+                  id={this.props.id + "__weathered__accumulation"}
                   className="uk-input"
-                  onChange={this.props.updateAS}
-                />
-            </div>
-            <div>
-                <input
-                  type="number"
-                  min="0"
-                  id={this.props.id + "accumulationTotal"}
-                  className="uk-input"
+                  defaultValue={this.props.data[this.props.id + "__weathered__accumulation"]}
                   onChange={this.props.updateAS}
                 />
             </div>

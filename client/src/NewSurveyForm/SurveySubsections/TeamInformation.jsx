@@ -26,7 +26,7 @@ class TeamInformation extends Component {
                     placeholder='First Name'
                     id='userFirst'
                     className='uk-input uk-margin'
-                    defaultValue={this.props.data.name}
+                    defaultValue={this.props.data.userFirst}
                     onChange={this.props.updateSurveyState}
                     required
                     />
@@ -38,7 +38,7 @@ class TeamInformation extends Component {
                     placeholder='Last Name'
                     id='userLast'
                     className='uk-input uk-margin'
-                    defaultValue={this.props.data.name}
+                    defaultValue={this.props.data.userLast}
                     onChange={this.props.updateSurveyState}
                     required
                     />

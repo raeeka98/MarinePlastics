@@ -132,40 +132,17 @@ class SurveyArea extends Component {
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):<span className="uk-text-danger">*</span></label>
-                    <div className="uk-grid">
-                      <div className="uk-width-1-2">
                         <input
                           type='string'
                           placeholder='Degrees'
                           id='compassDegrees'
+                          defaultValue={this.props.data.compassDegrees}
                           onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
-                      </div>
-                      {/*<div className="uk-width-1-4">
-                          <span>&#176;</span>
-                          </div>*/}
-                          <div className="uk-width-1-2">
-                            <select
-                              id='compassCardinal'
-                              onChange={this.props.updateSurveyState}
-                              className='uk-input uk-margin'
-                              required
-                              >
-                            <option>North</option>
-                            <option>Northeast</option>
-                            <option>East</option>
-                            <option>Southeast</option>
-                            <option>South</option>
-                            <option>Southwest</option>
-                            <option>West</option>
-                            <option>Northwest</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
                     </div>
+                  </div>
 
                     <hr></hr>
 

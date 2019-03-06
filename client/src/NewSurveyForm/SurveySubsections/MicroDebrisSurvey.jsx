@@ -33,7 +33,7 @@ class MicroDebrisSurvey extends Component {
                         id={"microFreshTotalRib1"}
                         value={this.props.data.microFreshTotalRib1}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -42,8 +42,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib1"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib1}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib1}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -55,9 +55,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib2"}
-                        value={this.props.data.microFreshTotalRib2}
+                        defaultValue={this.props.data.microFreshTotalRib2}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -66,8 +66,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib2"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib2}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib2}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -79,9 +79,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib3"}
-                        value={this.props.data.microFreshTotalRib3}
+                        defaultValue={this.props.data.microFreshTotalRib3}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -90,8 +90,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib3"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib3}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib3}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -103,9 +103,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib4"}
-                        value={this.props.data.microFreshTotalRib4}
+                        defaultValue={this.props.data.microFreshTotalRib4}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -114,8 +114,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib4"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib4}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib4}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>

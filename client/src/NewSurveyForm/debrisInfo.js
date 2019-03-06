@@ -16,11 +16,15 @@ const DebrisInfo = {
   aluminumCans       : "Aluminum Cans"                    ,
   hygieneItems       : "Hygiene Items"                    ,
   tileBrick          : "Tile / Brick"                     ,
-  misc               : "Misc. (general)"                  
+  misc               : "Misc. (general)"
 }
 
 function getDebrisNameById(id){
     return DebrisInfo[id];
 }
 
-export { DebrisInfo, getDebrisNameById }
+function getDebrisMap(){
+    return DebrisInfo;
+}
+
+export { getDebrisNameById, getDebrisMap }

@@ -8,7 +8,7 @@ import {
 
 import RibScanRow from '../TableRows/RibScanRow';
 
-import { DebrisInfo } from '../debrisInfo';
+import { getDebrisNameById, getDebrisMap } from '../debrisInfo';
 
 
 import '../accordion-styles.css';
@@ -19,12 +19,13 @@ class SurfaceRibScan extends Component {
   render() {
 
     let tableRows = [];
-    for(const id in DebrisInfo) {
+    for(const id in getDebrisMap()) {
         tableRows.push(
           <RibScanRow
               key={id}
               id={id}
-              name={DebrisInfo[id]}
+              name={getDebrisNameById(id)}
+              data={this.props.SRSData}
               updateSRS={this.props.updateSRS}
           />
         )
