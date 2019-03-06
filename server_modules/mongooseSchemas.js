@@ -151,7 +151,10 @@ let surveySchema = new Schema({
     },
     st: substrateTypeSchema,
     slope: String,
-    cmpsDir: { type: Number },
+    cmpsDir: {
+        type: Number,
+        alias: "compassDirection"
+    },
     lastTide: tideSchema,
     nextTide: tideSchema,
     wind: {
