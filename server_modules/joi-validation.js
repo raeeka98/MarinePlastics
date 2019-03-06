@@ -2,7 +2,7 @@ const joi = require("joi");
 
 const bodySchema = joi.object({
     bID: joi.string().alphanum().required(),
-
+    survData: surveyDataSchema
 });
 
 const userDataSchema = joi.object({
@@ -50,7 +50,7 @@ const surveyDataSchema = joi.object({
     user: userDataSchema,
     email: joi.string().email().required(),
     org: joi.string().trim().min(1).max(255).alphanum().replace(/\s\s+/g).required(),
-    reason:reasonTypeSchema ,
+    reason: reasonTypeSchema,
     survDate: joi.date().max('now').greater(1104580800).required(),
     st: substraightTypeSchema,
     slope: joi.string().valid(["winter,summer"]),
