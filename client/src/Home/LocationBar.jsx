@@ -7,7 +7,8 @@ class LocationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            surveys: []
+            surveys: [],
+            clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
@@ -16,7 +17,7 @@ class LocationBar extends Component {
     // Called when a user expands the accordion
     // Fetches surveys listed under the beach that is clicked
     getSurveysFromBeach() {
-    
+        this.setState({clicked : true})
         let beachID = this.props.location._id;
         let surveysHTML = [];
         
@@ -46,6 +47,8 @@ class LocationBar extends Component {
         let surveyID = survey.survey;
         let promise = [];
         let surveyDay;
+        //We need to use a promise here because we want the surveys to be displayed in
+        //the correct order, ie by date
         promise.push(axios.get(`/beaches/surveys/${surveyID}/date`));
 
         axios.all(promise)
@@ -76,7 +79,7 @@ class LocationBar extends Component {
 
     handleAccordionClick = (e) => {
         console.log("handleAccordionClick");
-        if(this.state.surveys.length === 0)
+        if(this.state.surveys.length === 0 && !this.state.clicked)
             this.getSurveysFromBeach();
 
         let accordionWrapper = e.target.parentElement;

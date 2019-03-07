@@ -242,9 +242,9 @@ class SurveyEntry extends Component {
             {new Date(this.state.surveyData.survDate).toLocaleDateString()}
           </span>
         </h2>
-        <div className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
+        <div data-uk-grid="masonry: true" className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
           <div>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
               <p><strong>Team Leader:</strong> {this.state.surveyData.user}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
@@ -252,8 +252,8 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
-          <div id="b-cleanup-section" className="uk-margin-buttom" >
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+          <div id="b-cleanup-section"  >
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
                 this.state.surveyData.NumberOfPeople ?
@@ -267,7 +267,7 @@ class SurveyEntry extends Component {
           </div>  
 
           <div id="survey-area-section" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
               {
                 this.state.surveyData.lat && this.state.surveyData.lon ?
@@ -309,7 +309,7 @@ class SurveyEntry extends Component {
           </div>
 
           <div id="SRS-section" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3>Surface Rib Scan Survey</h3>
               <table className="uk-table uk-table-striped">
                 <thead>
@@ -326,7 +326,7 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
-          <div id="tide-section" className="uk-margin-bottom" style={{display : 'none'}}>
+          <div id="tide-section" style={{display : 'none'}}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
               <h4>The Last Tide</h4>
@@ -373,7 +373,7 @@ class SurveyEntry extends Component {
           </div>
         </div>
           {console.log(this.state.chartDataSRS)}
-        <div className="uk-card uk-card-default uk-card-body">
+        <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
           <h2>Debris quantity totals for this survey:</h2>
           <div className="uk-width-1-5">
             {this.renderOptions()}
