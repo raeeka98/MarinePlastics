@@ -308,8 +308,6 @@ class SurveyForm extends Component {
 
   render() {
       return(
-        <div>
-          {console.log(this.state.surveyData)}
             {this.state.isInputting && (
             <div>
               <form id="surveyForm">
