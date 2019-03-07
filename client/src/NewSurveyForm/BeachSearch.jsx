@@ -1,22 +1,26 @@
-//Search Component
-
 import React, { Component } from 'react';
 import axios from 'axios';
+
+/**
+ * Beach Search Component
+ * Used in SurveyArea to suggest beaches while typing
+ */
 
 class BeachSearch extends Component {
   state = {
     query: '', //what gets sent to the backend
+    selection: '', //id of what has been clicked
     results: [], //list of beaches
     timeout: null, //prevents pinging backend too much
     showItems: false, //if true, show suggestions
   }
   
+  //ping backend for results
   getInfo = () => {
     if (this.state.query) {
       axios.get("/beaches/search", { params: { q: this.state.query } })
       .then(res => {
         this.setState({ results: res.data, showItems: true});
-        console.log(res.data);
       }).catch(err => {
         console.log(err);
       });
@@ -25,6 +29,7 @@ class BeachSearch extends Component {
     }
   }
   
+  //called when the input is changed
   handleInputChange = () => {
     this.setState({ query: this.search.value });
     clearTimeout(this.state.timeout);
@@ -34,20 +39,29 @@ class BeachSearch extends Component {
     }, 250)});
   }
   
-  onSuggestionClick = (name) => {
-    this.search.value = name;
-    this.setState({ query: name, showItems: false});
+  //called when a suggestion is clicked
+  onSuggestionClick = (res) => {
+    this.search.value = res.n;
+    this.setState({ query: res.n, selection: res._id, showItems: false});
   }
   
   render() {
-    
+
+    //List of suggestions
     const Suggestions = (props) => {
       const options = props.results.map(r => (
-        <li key={r._id} onClick={()=>this.onSuggestionClick(r.n)}>
-          {r.n}
+        <li key={r._id}>
+          <button
+            className="uk-button uk-button-default"
+            onClick={()=>this.onSuggestionClick(r)}>{r.n}
+          </button>
         </li>
       ))
-      return <ul>{options}</ul>
+      return (
+        <div style={{display:'block'}} uk-dropdown="bottom-left; duration:0">
+          <ul className="uk-nav uk-dropdown-nav">{options}</ul>
+        </div>
+      );
     }
 
     return (
@@ -56,9 +70,9 @@ class BeachSearch extends Component {
         <input id="name-of-beach" className="uk-input uk-margin"
           placeholder="Search for..."
           ref={input => this.search = input}
-          onChange={this.handleInputChange}
+          onChange={()=>this.handleInputChange()}
           />
-        {this.state.showItems
+        {this.state.showItems && this.state.query
           ? <Suggestions results={this.state.results} />
           : null}
       </div>
