@@ -56,6 +56,12 @@ router.route('/map')
         let points = await beaches.getAllLonLat();
         res.json(points);
     }));
+router.route('/search')
+    .get(asyncHandler(async (req, res) => {
+        let { q: query } = req.query;
+        let matchedQuery = await beaches.queryBeachNames(query);
+        res.json(matchedQuery);
+    }));
 
 router.route('/allstats')
     .get(asyncHandler(async(req, res) => {
@@ -67,7 +73,6 @@ router.route('/surveys')
     //adds survey to beach
     /**post body
      * {
-     * dos:324252342,
      * bID: (beachID),
      * survData:{
      *      (All requred survey data)
@@ -75,8 +80,8 @@ router.route('/surveys')
      * }
      */
     .post(asyncHandler(async (req, res) => {
-        let { dos: dateOfSub, bID: beachID, survData } = req.body;
-        await surveys.addToBeach(survData, beachID, dateOfSub);
+        let { bID: beachID, survData } = req.body;
+        await surveys.addToBeach(survData, beachID);
         res.json({ res: "Survey Created" })
     }));
 
@@ -111,6 +116,8 @@ router.route('/surveys/:surveyID/date')
         let date = await surveys.getDateCreated(sID);
         res.json(date);
     }));
+
+
 
 router.route('/:beachID')
     /*get all surveys submited in the year then month.

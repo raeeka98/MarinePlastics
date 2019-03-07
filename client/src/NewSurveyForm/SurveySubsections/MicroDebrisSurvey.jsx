@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -10,9 +9,6 @@ import {
 import '../accordion-styles.css';
 
 class MicroDebrisSurvey extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     return(
@@ -22,8 +18,6 @@ class MicroDebrisSurvey extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
-
                   <div className="uk-grid uk-child-width-1-3">
                       <div></div>
                       <div><h4>Fresh Total</h4></div>
@@ -39,7 +33,7 @@ class MicroDebrisSurvey extends Component {
                         id={"microFreshTotalRib1"}
                         value={this.props.data.microFreshTotalRib1}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -48,8 +42,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib1"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib1}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib1}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -61,9 +55,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib2"}
-                        value={this.props.data.microFreshTotalRib2}
+                        defaultValue={this.props.data.microFreshTotalRib2}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -72,8 +66,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib2"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib2}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib2}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -85,9 +79,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib3"}
-                        value={this.props.data.microFreshTotalRib3}
+                        defaultValue={this.props.data.microFreshTotalRib3}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -96,8 +90,8 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib3"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib3}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib3}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
@@ -109,9 +103,9 @@ class MicroDebrisSurvey extends Component {
                         type="number"
                         min="0"
                         id={"microFreshTotalRib4"}
-                        value={this.props.data.microFreshTotalRib4}
+                        defaultValue={this.props.data.microFreshTotalRib4}
                         className="uk-input"
-                        onBlur={this.props.updateSurveyState}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                     <div>
@@ -120,13 +114,11 @@ class MicroDebrisSurvey extends Component {
                         min="0"
                         id="microWeatheredTotalRib4"
                         className="uk-input"
-                        value={this.props.data.microWeatheredTotalRib4}
-                        onBlur={this.props.updateSurveyState}
+                        defaultValue={this.props.data.microWeatheredTotalRib4}
+                        onChange={this.props.updateSurveyState}
                       />
                     </div>
                   </div>
-
-              </form>
           </AccordionItemBody>
       </AccordionItem>
     )
