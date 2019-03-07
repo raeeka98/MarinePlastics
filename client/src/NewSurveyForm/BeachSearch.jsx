@@ -20,7 +20,7 @@ class BeachSearch extends Component {
     if (this.state.query) {
       axios.get("/beaches/search", { params: { q: this.state.query } })
       .then(res => {
-        this.setState({ results: res.data, showItems: true});
+        this.setState({ results: res.data.slice(0,4), showItems: true});
       }).catch(err => {
         console.log(err);
       });
