@@ -63,6 +63,7 @@ class SurveyEntry extends Component {
   getSurvey = () => {
     axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
+        console.log(res.data)
         this.setState({ surveyData: res.data });
       })
       .catch(err => {
@@ -246,7 +247,8 @@ class SurveyEntry extends Component {
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <p><strong>Team Leader:</strong> {this.state.surveyData.user}</p>
+              <p><strong>Team Leader:</strong> {this.state.surveyData.user?this.state.surveyData.user.f 
+                  + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
             </div>
@@ -256,8 +258,8 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
-                this.state.surveyData.NumberOfPeople ?
-                  <p><strong>Number of People:</strong> {this.state.surveyData.NumberOfPeople}</p> : null
+                this.state.surveyData.numOfP ?
+                  <p><strong>Number of People:</strong> {this.state.surveyData.numOfP}</p> : null
               }
               {
                 this.state.surveyData.weight ?
@@ -275,15 +277,25 @@ class SurveyEntry extends Component {
               }
               {
                 this.state.surveyData.reason ?
-                  <p><strong>Reason for Location Choice:</strong> {this.state.surveyData.reason}</p> : null
+                  <p><strong>Reason for Location Choice: </strong> 
+                     {
+                      this.state.surveyData.reason.prox ? "Proximity" : this.state.surveyData.reason.debris ? "Debris": this.state.surveyData.reason.other
+                     }
+                  </p> : null
               }
               {
                 this.state.surveyData.majorUse ?
-                  <p><strong>Major Use:</strong> {this.state.surveyData.majorUse}</p> : null
+                  <p><strong>Major Use: </strong> 
+                    {this.state.surveyData.majorUse.rec ? "Recreation" : this.state.surveyData.majorUse.com ? "Commercial" : this.state.surveyData.majorUse.other}
+                  </p> : null
               }
               {
                 this.state.surveyData.st ?
-                  <p><strong>Substrate Type:</strong> {this.state.surveyData.st}</p> : null
+                  <p><strong>Substrate Type: </strong> 
+                    {
+                      this.state.surveyData.st.s ? "Sand" : this.state.surveyData.st.p ? "Pebbles" : this.state.surveyData.st.rr ? "Rip rap" : this.state.surveyData.st.sea ? "Seaweed" : this.state.surveyData.st.other
+                    }
+                  </p> : null
               }
               {
                 this.state.surveyData.slope ?
@@ -294,8 +306,12 @@ class SurveyEntry extends Component {
                   <p><strong>Beach Aspect:</strong> {this.state.surveyData.aspect}</p> : null
               }
               {
-                this.state.surveyData.windDir ?
-                  <p><strong>Wind Direction:</strong> {this.state.surveyData.windDir}</p> : null
+                this.state.surveyData.wind ?
+                  <p><strong>Wind Direction: </strong> {this.state.surveyData.wind.dir}</p> : null
+              }
+              {
+                this.state.surveyData.wind ?
+                  <p><strong>Wind Speed: </strong> {this.state.surveyData.wind.spd} knots</p> : null
               }
               {
                 this.state.surveyData.nroName ?
@@ -304,6 +320,10 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.nroDist ?
                   <p><strong>Distance to Nearest River:</strong> {this.state.surveyData.nroDist}m</p> : null
+              }
+              {
+                this.state.surveyData.cmpsDir ?
+                  <p><strong>Compass Direction:</strong> {this.state.surveyData.cmpsDir} Degrees</p> : null
               }
             </div>
           </div>
