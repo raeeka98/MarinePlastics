@@ -44,6 +44,9 @@ class Review extends Component {
             {d.riverDistance &&
               <p>Nearest River Output Distance: {d.riverDistance}</p>
             }
+            {
+
+            }
 
 
             <p>Clean Up Start Time: {d.cleanUpTime}</p>
