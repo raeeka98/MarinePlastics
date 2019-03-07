@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 // to get the pin styles
 import '../Map/Map.css';
 import { sumDebrisTypes } from '../_helpers/ChartHelpers';
 
-
+const debrisInfo = getDebrisMap();
 
 class Location extends Component {
   constructor(props) {
@@ -74,14 +75,20 @@ class Location extends Component {
         console.log(res.data);
         var categories = res.data.typesOfDebrisFound;
         var total = 0;
+        var cleanCategories = {};
         for(const trash in categories){
           total+=categories[trash];
         }
         for(const trash in categories){
           categories[trash] /= total;
-          categories[trash] = Math.round(categories[trash]*100); 
+          let infoEntry = debrisInfo[trash];
+          if(infoEntry === "Fishing Line / Polypropylene Rope")
+            infoEntry = "Fishing Line";
+          if(infoEntry === "Plastic Bottles / Plastic Caps")
+            infoEntry = "Plastic Bottles";
+          cleanCategories[infoEntry] = Math.round(categories[trash]*100); 
         }
-        this.setState({beachStats: categories});
+        this.setState({beachStats: cleanCategories});
       });
    
   }

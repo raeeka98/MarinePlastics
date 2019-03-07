@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import {PieChart} from './SurveyCharts'
+import {getDebrisMap} from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import { runInThisContext } from 'vm';
+
+const debrisInfo = getDebrisMap();
 
 
 class SurveyEntry extends Component {
@@ -92,14 +95,19 @@ class SurveyEntry extends Component {
       //Now we can sort the data so that it will display nicely
       var keysSRS = Object.keys(SRSChartDataObject);
       console.log(keysSRS)
-      let sortedKeys = {}; 
+      let cleanedKeysSorted = {}; 
       keysSRS.sort((a,b) => {return (SRSChartDataObject[a] - SRSChartDataObject[b])});
       for(const i in keysSRS){
-        let key = keysSRS[i]
-        sortedKeys[key] = SRSChartDataObject[key];
+        let key = keysSRS[i];
+        let cleanedKey = debrisInfo[key]
+        if(cleanedKey === "Fishing Line / Polypropylene Rope")
+            cleanedKey = "Fishing Line";
+          if(cleanedKey === "Plastic Bottles / Plastic Caps")
+            cleanedKey = "Plastic Bottles";
+        cleanedKeysSorted[cleanedKey] = SRSChartDataObject[key];
       }
       //Set the state of the component
-      this.setState({chartDataSRS: sortedKeys});
+      this.setState({chartDataSRS: cleanedKeysSorted});
     } else {
       // We dont have survey data for the surface rib scan!!
       this.setState({srsSelected:false});
@@ -113,14 +121,19 @@ class SurveyEntry extends Component {
        //Now we can sort i guess
        var keysAS = Object.keys(ASChartDataObject);
        console.log(keysAS)
-       let sortedKeys = {}; 
+       let cleanedKeysSorted = {}; 
        keysAS.sort((a,b) => {return (ASChartDataObject[a] - ASChartDataObject[b])});
        for(const i in keysAS){
-         let key = keysAS[i]
-         sortedKeys[key] = ASChartDataObject[key];
+         let key = keysAS[i];
+         let cleanedKey = debrisInfo[key];
+         if(cleanedKey === "Fishing Line / Polypropylene Rope")
+            cleanedKey = "Fishing Line";
+          if(cleanedKey === "Plastic Bottles / Plastic Caps")
+            cleanedKey = "Plastic Bottles";
+         cleanedKeysSorted[cleanedKey] = ASChartDataObject[key];
        }
 
-      this.setState({chartDataAS: sortedKeys});
+      this.setState({chartDataAS: cleanedKeysSorted});
     } else {
       if(!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
       this.setState({debrisNA : true});
@@ -191,7 +204,7 @@ class SurveyEntry extends Component {
         SRSRows.push(
           <SurveyTableRow
             key={trash}
-            name={trash}
+            name={debrisInfo[trash]}
             fresh={trashData.fresh}
             weathered={trashData.weathered}
           />
@@ -203,7 +216,7 @@ class SurveyEntry extends Component {
         ASRows.push(
           <SurveyTableRow
             key={trash}
-            name={trash}
+            name={debrisInfo[trash]}
             fresh={trashData.fresh}
             weathered={trashData.weathered}
           />
