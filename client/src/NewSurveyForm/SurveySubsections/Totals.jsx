@@ -9,9 +9,7 @@ import {
 import '../accordion-styles.css';
 
 class Totals extends Component {
-  constructor(props){
-    super(props)
-  }
+
 
   render() {
     return(
@@ -25,8 +23,9 @@ class Totals extends Component {
             <input
               type='string'
               placeholder='Total Weight'
-              id='total-weight'
+              id='weight'
               onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.weight}
               className='uk-input uk-margin'
               required
               />
