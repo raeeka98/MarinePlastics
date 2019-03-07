@@ -79,7 +79,7 @@ const beachDataSchema = joi.object({
     n: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").max(40).required(),
     lat: joi.number().min(-85).max(85).required(),
     lon: joi.number().min(-180).max(180).required(),
-    nroName: joi.trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").max(40).required(),
+    nroName: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").max(40).required(),
     nroDist: joi.number().min(0).required()
 });
 
