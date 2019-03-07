@@ -11,37 +11,11 @@ joi = joi.extend(joi => ({
     }]
 }));
 
-joi = joi.extend(joi => ({
-    base: joi.string(),
-    name: "string",
-    language: {
-        alpha: "Invalid syntax for input"
-    },
-    rules: [{
-        name: "alpha",
-        params: {
-            allowSpace: joi.bool(),
-        },
-        validate (params, value, state, options) {
 
-            if (params.allowSpace) {
-                let s = value.replace(/\s\s+/, " ");
-                if (/^[a-zA-Z\s]*$/.test(s)) {
-                    return s;
-                }
-                return this.createError('number.alpha', { v: value, allowSpace: params.allowSpace }, state, options);
-            }
-            if (/^[a-zA-Z]*$/g.test(s)) {
-                return value;
-            }
-            return this.createError('number.alpha', { v: value, allowSpace: params.allowSpace }, state, options);
-        }
-    }]
-}));
 
 const userDataSchema = joi.object({
-    f: joi.string().min(1).max(30).trim().required(),
-    l: joi.string().min(1).max(30).trim().required()
+    f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(),
+    l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required()
 });
 
 const substraightTypeSchema = joi.object({
@@ -49,13 +23,13 @@ const substraightTypeSchema = joi.object({
     pebble: joi.bool(),
     rip_rap: joi.bool(),
     seaweed: joi.bool(),
-    other: joi.string().alpha(true).lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
 }).or(["sand", "pebble", "rr", "seaweed", "other"]);
 
 const reasonTypeSchema = joi.object({
     prox: joi.bool(),
     debris: joi.bool(),
-    other: joi.string().alpha(true).lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
 }).or(["prox", "debirs", "other"]).error(new Error("Please select one option"));
 
 const tideDataSchema = joi.object({
@@ -67,7 +41,7 @@ const tideDataSchema = joi.object({
 const majorUseSchema = joi.object({
     rec: joi.bool(),
     com: joi.bool(),
-    other: joi.string().alpha(true).lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
 }).or(["rec", "com", "other"]);
 
 const windDataSchema = joi.object({
@@ -86,7 +60,7 @@ const debrisData = joi.array().items(
 const surveyDataSchema = joi.object({
     user: userDataSchema.required(),
     email: joi.string().email({ minDomainAtoms: 2 }).required(),
-    org: joi.string().trim().min(1).max(255).alphanum().replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
+    org: joi.string().trim().min(1).max(60).alphanum().replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
     reason: reasonTypeSchema.required(),
     survDate: joi.date().max('now').greater(1104580800).sanitize().required(),
     st: substraightTypeSchema.required(),
@@ -102,7 +76,7 @@ const surveyDataSchema = joi.object({
 });
 
 const beachDataSchema = joi.object({
-    n: joi.string().trim().alphanum().replace(/\s\s+/, " ").max(40).required(),
+    n: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").max(40).required(),
     lat: joi.number().min(-85).max(85).required(),
     lon: joi.number().min(-180).max(180).required(),
     nroName: joi.string().min(0).max(255).required(),
@@ -123,7 +97,7 @@ let dataTest = {
     bID: "5c74f1bc71992a56a570d485",
     survData: {
         user: {
-            f: "<p>Tes<p>",
+            f: "pTesp",
             l: "ter"
         },
         email: "asd@gmail.com",
@@ -154,7 +128,7 @@ let dataTest = {
             spd: 6
         },
         majorUse: {
-            rec: undefined,
+            rec: "true",
             com: undefined,
             other: undefined
         },
