@@ -15,11 +15,17 @@ class Location extends Component {
     // the data is passed from ../Home/Home.js from the Link
     // this.props.location.state is where the Link passes the state to
     let beachData = this.props.location.state.data;
+    let userProfile = this.props.location.state.userProfile;
+    /*let getUserProfile = this.props.location.state.getUserProfile;
+    let isAuth = this.props.location.state.isAuth;*/
 
     this.state = {
       beachData,
       pieChartData: {},
-      surveys: null
+      surveys: null,
+      userProfile,
+     // getUserProfile,
+     // isAuth
     }
     this.getLatLon = this.getLatLon.bind(this);
   }
@@ -119,7 +125,8 @@ class Location extends Component {
         <li key={entry._id}>
           <Link className="uk-link-muted"
                 to={{ pathname: `/surveys/${entry._id.replace(' ', '-')}`,
-                        state: {beachName: this.state.beachData.n, surveyID: entry._id} }}>
+                        state: {beachName: this.state.beachData.n, surveyID: entry._id, info: this.state.beachData, 
+                        userProfile: this.state.userProfile/*, getUserProfile: this.state.getUserProfile, isAuth:this.state.isAuth*/} }}>
                     
                 {subDate.toLocaleDateString()}            
           </Link>
@@ -135,7 +142,7 @@ class Location extends Component {
     // the marker for the location on the map
     const CustomMarker = ({ name }) => <div className="custom-marker"><p>{name}</p></div>;
     return (
-      <div>
+      <div className="uk-container">
         <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
         <div className="uk-grid uk-grid-match">
           {console.log(this.state.surveys)}
@@ -172,6 +179,7 @@ class Location extends Component {
           }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
+            {console.log(this.state.beachStats)}
             <PieChart chartData={this.state.beachStats} />
           </div>
         </div>
