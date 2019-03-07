@@ -73,6 +73,7 @@ render() {
              : null
            }
            <li><Link to="/map">Map</Link></li>
+           <li><Link to="/protocol">Protocol</Link></li>
            <li><Link to="/about">About</Link></li>
 
             </ul>

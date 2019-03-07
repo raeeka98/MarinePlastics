@@ -31,7 +31,6 @@ class LocationBar extends Component {
                
             }
             
-
           })
           .catch(err => {
             console.log(err);
@@ -68,13 +67,10 @@ class LocationBar extends Component {
                     </li>
                 );
                 this.setState({surveys: surveysHTML})
-            })
-       // console.log(this.props.location.n);
-        
+            })        
     }
 
     handleAccordionClick = (e) => {
-        console.log("handleAccordionClick");
         if(this.state.surveys.length === 0)
             this.getSurveysFromBeach();
 
