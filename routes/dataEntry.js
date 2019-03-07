@@ -63,6 +63,12 @@ router.route('/map')
         let points = await beaches.getAllLonLat();
         res.json(points);
     }));
+router.route('/search')
+    .get(asyncHandler(async (req, res) => {
+        let { q: query } = req.query;
+        let matchedQuery = await beaches.queryBeachNames(query);
+        res.json(matchedQuery);
+    }));
 
 router.route('/allstats')
     .get(asyncHandler(async (req, res) => {
@@ -124,6 +130,8 @@ router.route('/surveys/:surveyID/date')
         let date = await surveys.getDateCreated(sID);
         res.json(date);
     }));
+
+
 
 router.route('/:beachID')
     /*get all surveys submited in the year then month.
