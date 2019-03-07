@@ -86,6 +86,8 @@ router.route('/surveys')
             await surveys.addToBeach(beachData.survData, beachData.bID);
             res.json({ res: "Survey Created" })
         } catch (err) {
+            console.log(err);
+            
             res.json(err);
         }
 
