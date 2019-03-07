@@ -87,7 +87,7 @@ router.route('/surveys')
             res.json({ res: "Survey Created" })
         } catch (err) {
             console.log(err);
-            
+
             res.json(err);
         }
 
@@ -163,12 +163,12 @@ router.route('/:beachID/coords')
         res.json(coords);
     }));
 
-/*router.route('/:beachID/info')
+router.route('/:beachID/info')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
-        let info = await beaches.getOneInfo(bID);
-        return info;
-    }))*/
+        let data = await beaches.getInfo(bID);
+        res.json(data);
+    }))
 
 
 module.exports = { router };
