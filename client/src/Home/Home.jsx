@@ -54,7 +54,7 @@ class Home extends Component {
       })
   }
 
-  // Load the beach names
+  // Load the beach info
   loadBeaches() {
     axios.get(this.url) 
       .then(res => {

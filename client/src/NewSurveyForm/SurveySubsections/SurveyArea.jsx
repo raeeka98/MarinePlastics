@@ -9,6 +9,8 @@ import {
 
 import '../accordion-styles.css';
 
+import BeachSearch from '../BeachSearch';
+
 class SurveyArea extends Component {
   constructor(props){
     super(props)
@@ -29,14 +31,7 @@ class SurveyArea extends Component {
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <label>Name<span className="uk-text-danger">*</span></label>
-                  <input
-                    type='string'
-                    placeholder='Name of Beach'
-                    id='name-of-beach'
-                    className='uk-input uk-margin'
-                    required
-                    />
+                  <BeachSearch/>
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
