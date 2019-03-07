@@ -3,8 +3,8 @@ import React from 'react';
 export function ProtocolPage() {
   
   return (
-    <div className="uk-container">
-      <h2 className="uk-heading-primary">The COI Beach Cleanup Protocol</h2>
+    <div className= "uk-padding">
+      <h2 className="uk-heading">The COI Beach Cleanup Protocol</h2>
       <h3>Why Pick Up Beach Trash?</h3>
       <p>
         Marine debris is one of the top three concerns for ocean health today and is only getting worse because of the 
