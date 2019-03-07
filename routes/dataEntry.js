@@ -1,5 +1,6 @@
 let { beaches, surveys, trash } = require('../server_modules/mongoose');
 let router = require('express').Router();
+let { beachValidate, surveyValidate } = require("../server_modules/joi-validation");
 
 /**
  *
@@ -39,9 +40,15 @@ router.route('/')
         }
      */
     .post(asyncHandler(async (req, res) => {
-        let beachData = req.body;
-        let beach = await beaches.create(beachData);
-        res.json({ res: "Created beach" });
+        let beachData;
+        try {
+            beachData = await beachValidate(req.body);
+            let beach = await beaches.create(beachData);
+            res.json({ res: `Added beach ${beach.n}` });
+        } catch (err) {
+            console.log(err);
+            res.json(err);
+        }
     }));
 
 router.route('/trash')
@@ -58,7 +65,7 @@ router.route('/map')
     }));
 
 router.route('/allstats')
-    .get(asyncHandler(async(req, res) => {
+    .get(asyncHandler(async (req, res) => {
         let beachWStats = await beaches.getAllStats();
         res.json(beachWStats);
     }));
@@ -74,9 +81,14 @@ router.route('/surveys')
      * }
      */
     .post(asyncHandler(async (req, res) => {
-        let { bID: beachID, survData } = req.body;
-        await surveys.addToBeach(survData, beachID);
-        res.json({ res: "Survey Created" })
+        try {
+            let beachData = surveyValidate(req.body);
+            await surveys.addToBeach(beachData.survData, beachData.bID);
+            res.json({ res: "Survey Created" })
+        } catch (err) {
+            res.json(err);
+        }
+
     }));
 
 

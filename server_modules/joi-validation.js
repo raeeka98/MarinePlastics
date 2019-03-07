@@ -23,13 +23,13 @@ const substraightTypeSchema = joi.object({
     pebble: joi.bool(),
     rip_rap: joi.bool(),
     seaweed: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
 }).or(["sand", "pebble", "rr", "seaweed", "other"]);
 
 const reasonTypeSchema = joi.object({
     prox: joi.bool(),
     debris: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
 }).or(["prox", "debirs", "other"]).error(new Error("Please select one option"));
 
 const tideDataSchema = joi.object({
@@ -41,7 +41,7 @@ const tideDataSchema = joi.object({
 const majorUseSchema = joi.object({
     rec: joi.bool(),
     com: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").lowercase()
+    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
 }).or(["rec", "com", "other"]);
 
 const windDataSchema = joi.object({
@@ -76,10 +76,10 @@ const surveyDataSchema = joi.object({
 });
 
 const beachDataSchema = joi.object({
-    n: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/," ").max(40).required(),
+    n: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").max(40).required(),
     lat: joi.number().min(-85).max(85).required(),
     lon: joi.number().min(-180).max(180).required(),
-    nroName: joi.string().min(0).max(255).required(),
+    nroName: joi.trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").max(40).required(),
     nroDist: joi.number().min(0).required()
 });
 
@@ -90,7 +90,7 @@ const bodySchema = joi.object({
 
 module.exports = {
     beachValidate: beachDataSchema.validate,
-    bodyValidate: bodySchema.validate
+    surveyValidate: bodySchema.validate
 }
 
 let dataTest = {
@@ -155,5 +155,3 @@ async function fun1 () {
         console.log(err.details[0].context);
     }
 }
-
-fun1();
