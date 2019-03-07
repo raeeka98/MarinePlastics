@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -12,9 +11,6 @@ import '../accordion-styles.css';
 import BeachSearch from '../BeachSearch';
 
 class SurveyArea extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     return(
@@ -24,14 +20,21 @@ class SurveyArea extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-            <form>
               <div>
                 <h4>Beach Info:</h4>
               </div>
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <BeachSearch/>
+                  <label>Name<span className="uk-text-danger">*</span></label>
+                  <input
+                    type='string'
+                    placeholder='Name of Beach'
+                    id='beachName'
+                    className='uk-input uk-margin'
+                    onChange={this.props.updateSurveyState}
+                    required
+                    />
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
@@ -39,6 +42,7 @@ class SurveyArea extends Component {
                     type='string'
                     placeholder='Latitude of Beach'
                     id='latitude'
+                    onChange={this.props.updateSurveyState}
                     className='uk-input uk-margin'
                     required
                     />
@@ -49,6 +53,7 @@ class SurveyArea extends Component {
                       type='string'
                       placeholder='Longitude of Beach'
                       id='longitude'
+                      onChange={this.props.updateSurveyState}
                       className='uk-input uk-margin'
                       required
                       />
@@ -62,8 +67,9 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='usage-recreation'
+                          id='usageRecreation'
                           className='uk-checkbox'
+                          onChange={this.props.updateCheckedState}
                           required
                           />
                       </label> Recreational
@@ -72,21 +78,22 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='usage-commercial'
+                          id='usageCommercial'
                           className='uk-checkbox'
+                          onChange={this.props.updateCheckedState}
                           required
                           />
                       </label> Commercial
                     </div>
                     <div>
-                      <label>
+                      <label>Other</label>
                         <input
-                          type='checkbox'
-                          id='usage-other'
-                          className='uk-checkbox'
+                          type='string'
+                          id='usageOther'
+                          className='uk-input'
+                          onChange={this.props.updateSurveyState}
                           required
                           />
-                      </label> Other
                     </div>
                   </div>
 
@@ -96,7 +103,8 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='location-choice-proximity'
+                          id='locationChoiceProximity'
+                          onChange={this.props.updateCheckedState}
                           className='uk-checkbox'
                           required
                           />
@@ -106,50 +114,37 @@ class SurveyArea extends Component {
                       <label>
                         <input
                           type='checkbox'
-                          id='location-choice-debris'
+                          id='locationChoiceDebris'
+                          onClick={this.props.updateCheckedState}
                           className='uk-checkbox'
                           required
                           />
                       </label> Known for Debris
                     </div>
                     <div>
-                      <label>
+                      <label> Other</label>
                         <input
-                          type='checkbox'
-                          id='location-choice-other'
-                          className='uk-checkbox'
+                          type='string'
+                          id='locationChoiceOther'
+                          onChange={this.props.updateSurveyState}
+                          className='uk-input'
                           required
                           />
-                      </label> Other
                     </div>
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):<span className="uk-text-danger">*</span></label>
-                    <div className="uk-grid">
-                      <div className="uk-width-1-2">
                         <input
                           type='string'
                           placeholder='Degrees'
-                          id='compass-direction-degrees'
+                          id='compassDegrees'
+                          defaultValue={this.props.data.compassDegrees}
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
-                      </div>
-                      {/*<div className="uk-width-1-4">
-                          <span>&#176;</span>
-                          </div>*/}
-                          <div className="uk-width-1-2">
-                            <input
-                              type='string'
-                              placeholder='Direction'
-                              id='latitude'
-                              className='uk-input uk-margin'
-                              required
-                              />
-                          </div>
-                        </div>
-                      </div>
                     </div>
+                  </div>
 
                     <hr></hr>
 
@@ -163,7 +158,7 @@ class SurveyArea extends Component {
                         <input
                           type='string'
                           placeholder='Nearest River Output Name'
-                          id='river-name'
+                          id='riverName'
                           className='uk-input uk-margin'
                           required
                           />
@@ -173,7 +168,7 @@ class SurveyArea extends Component {
                         <input
                           type='string'
                           placeholder='Nearest River Output Distance'
-                          id='river-distance'
+                          id='riverDistance'
                           className='uk-input uk-margin'
                           required
                           />
@@ -191,7 +186,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Type:<span className="uk-text-danger"></span></label>
                         <select
-                          id='tide-type-before'
+                          id='tideTypeB'
                           className='uk-select uk-margin'
                           required
                           >
@@ -202,7 +197,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Type:<span className="uk-text-danger"></span></label>
                         <select
-                          id='tide-type-after'
+                          id='tideTypeA'
                           className='uk-select uk-margin'
                           required
                           >
@@ -218,7 +213,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='tide-height-before'
+                          id='tideHeightB'
                           className='uk-input uk-margin'
                           required
                           />
@@ -228,7 +223,7 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='tide-height-after'
+                          id='tideHeightA'
                           className='uk-input uk-margin'
                           required
                           />
@@ -240,7 +235,7 @@ class SurveyArea extends Component {
                         <label>Time:<span className="uk-text-danger"></span></label>
                         <input
                           type="time"
-                          id='tide-time-before'
+                          id='tideTimeB'
                           className='uk-input uk-margin'
                           required
                           />
@@ -249,7 +244,7 @@ class SurveyArea extends Component {
                         <label>Time:<span className="uk-text-danger"></span></label>
                         <input
                           type="time"
-                          id='tide-time-before'
+                          id='tideTimeA'
                           className='uk-input uk-margin'
                           required
                           />
@@ -265,25 +260,35 @@ class SurveyArea extends Component {
                         <input
                           type="string"
                           placeholder="Height"
-                          id='wind-speed'
+                          id='windSpeed'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
 
                         <label>Direction:<span className="uk-text-danger"></span></label>
-                        <input
-                          type="string"
-                          placeholder="Height"
-                          id='wind-direction'
+                        <select
+                          id='windDir'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
-                          />
+                          >
+                        <option>North</option>
+                        <option>Northeast</option>
+                        <option>East</option>
+                        <option>Southeast</option>
+                        <option>South</option>
+                        <option>Southwest</option>
+                        <option>West</option>
+                        <option>Northwest</option>
+                        </select>
                       </div>
                       <div>
                         <h4>Slope</h4>
                         <select
                           id='slope'
                           className='uk-select uk-margin'
+                          onChange={this.props.updateSurveyState}
                           required
                           >
                           <option>Winter Profile</option>
@@ -296,7 +301,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-sand'
+                              id='substrateTypeSand'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -306,7 +312,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-pebble'
+                              id='substrateTypePebble'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -316,7 +323,8 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-rip-rap'
+                              id='substrateTypeRipRap'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
@@ -326,25 +334,25 @@ class SurveyArea extends Component {
                           <label>
                             <input
                               type='checkbox'
-                              id='substrate-type-seaweed'
+                              id='substrateTypeSeaweed'
+                              onChange={this.props.updateCheckedState}
                               className='uk-checkbox'
                               required
                               />
                           </label> Seaweed
                         </div>
                         <div className="uk-margin">
-                          <label>
+                          <label>Other</label>
                             <input
-                              type='checkbox'
-                              id='substrate-type-other'
-                              className='uk-checkbox'
+                              type='string'
+                              id='substrateTypeOther'
+                              onChange={this.props.updateSurveyState}
+                              className='uk-input'
                               required
                               />
-                          </label> Other
                         </div>
                       </div>
                     </div>
-              </form>
 
           </AccordionItemBody>
       </AccordionItem>

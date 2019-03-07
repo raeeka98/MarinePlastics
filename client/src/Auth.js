@@ -24,17 +24,17 @@ export default class Auth {
     this.getLoggedInProfile = this.getLoggedInProfile.bind(this);
   }
 
-  login() {
-    this.auth0.authorize();
+  async login() {
+    let result = await this.auth0.authorize();
     // want to redirect here but doesnt work correctly (redirects before auth)
-    // window.location.replace('/home');
-  }
 
+    //window.location.replace('/home');
+  }
   handleAuthentication(fn) {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        window.location.replace('/');
+        window.location.replace('/home');
       } else if (err) {
         fn(err.errorDescription);
       }

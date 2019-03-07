@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
+import Map from '../Map/Map'
 
 import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
@@ -19,39 +20,17 @@ class Home extends Component {
       error: false,
 
       beaches: [],
-      surveys: []
+      surveys: [],
+      view: 'list'
     };
-    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.styleMain = this.styleMain.bind(this);
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
-    //this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this, );
+    this.getTotalDebris = this.getTotalDebris.bind(this);
+    this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
     this.url = '/beaches';
-  }
-
-  // gets the entries from the server, saves them in the state
-  loadCommentsFromServer() {
-    axios.get(this.url)
-      .then(res => {
-        res.data.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
-        // sorts data into locations
-        // const sorted = locationSort(res.data);
-        this.setState({
-          data: res.data,
-          rawData: res.data,
-          loaded: true
-        });
-      })
-      .catch(err => {
-        console.log(err.message);
-        this.setState({
-          loaded: true,
-          error: true
-        });
-      })
   }
 
   // Load the beach info
@@ -82,6 +61,33 @@ class Home extends Component {
     this.handleSearch(e.target.value, this.state.filter);
   }
 
+  async handleViewTypeChange(e) {
+    await this.setState({ view: e.target.value });
+    let container = document.getElementById("mainContainer");
+    
+    // Add/Remove styling classes when view is changed
+    if (this.state.view === "list") {
+      console.log("state = list");
+      container.classList.add("list-view");
+      container.classList.remove("map-view");
+      container.classList.remove("split-view");
+    }
+
+    if (this.state.view === "map") {
+      console.log("state = map")
+      container.classList.add("map-view");
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+    }
+
+    if (this.state.view === "split") {
+      console.log("state = split");
+      container.classList.add("split-view");
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+    }
+  }
+
 
   filterFunctions = {
     beach: locationFind,
@@ -99,25 +105,20 @@ class Home extends Component {
       });
   }
 
-  handleAccordionClick = (e) => {
-
-    
-    let accordionWrapper = e.target.parentElement;
-    let accordionContent = e.target.nextSibling;
-    if (e.target.classList.contains('uk-text-muted')) {
-      accordionWrapper = e.target.parentElement.parentElement;
-      accordionContent = e.target.parentElement.nextSibling;
-    }
-
-    if (accordionWrapper.classList.contains('uk-open')) {
-      accordionWrapper.classList.remove('uk-open');
-      accordionContent.style.display = 'none';
-    } else {
-      accordionWrapper.classList.add('uk-open');
-      accordionContent.style.display = 'block';
-    }
+  getTotalDebris(){
+    axios.get(this.url + "/allstats")
+      .then((res) => {
+        let dataArray = res.data;
+        var dataTotals = 0;
+        for(let i = 0; i < dataArray.length; i++){
+          let rawStats = dataArray[i].stats.TODF;
+          for(const trash in rawStats){
+            dataTotals += rawStats[trash];
+          }
+        }
+        this.setState({totalWeight : dataTotals});
+      })
   }
-
   
 
   showEntries = (locationNodes) => {
@@ -134,83 +135,116 @@ class Home extends Component {
     );
   }
 
+  styleMain () {
+    let main = document.getElementById("mainContainer");
+    let mainOffset = main.offsetTop;
+    console.log("mainOffset = " + mainOffset);
+    console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
+    let availSpace = document.documentElement.clientHeight - mainOffset;
+    main.style.height = availSpace + "px";
+  }
+
   // once the component is on the page, checks the server for comments
   componentDidMount() {
+    this.styleMain();
     this.loadBeaches();
+    this.getTotalDebris();
     //this.loadCommentsFromServer();
   }
 
   render() {
-
+    //console.log(this.props.userProfile)
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      // an array of HTML elements with paths to each survey page
-      let entryNodes = [];
-      let subDate = new Date(0);
-
-
-
-      for (const date in location.surveys) {
-        const entryID = location.surveys[date];
-        console.log(date);
-        subDate.setUTCMilliseconds(date);
-        entryNodes.push(
-          <li key={`entry-${entryID}`}>
-            <Link className="uk-link-muted"
-              to={{ pathname: `/${location.name.replace(' ', '-')}/${entryID}` }}
-              >
-              {subDate.toLocaleDateString()}
-            </Link>
-          </li>
-        );
-      }
+     
       return <LocationBar
         key={i}
-        getSurveysFromBeach={this.getSurveysFromBeach}
         location={location}
-        //entryNodes={entryNodes}
         path={path}
         entryString={entryString}
+        userProfile={this.props.userProfile}
+        //getUserProfile={this.props.getUserProfile}
+        //sisAuth={this.props.isAuth}
       />
     });
 
-    let totalWeight = getTotalPounds(this.state.rawData);
+    console.log(this.state.rawData);
+    let totalWeight = this.state.totalWeight;
 
     return (
-      <div>
-        <div className="uk-width-2-3 uk-align-center uk-margin-top">
-          <form className="uk-grid uk-grid-small uk-margin-small-bottom">
-            <div className="uk-width-2-3">
-              <input
-                className="uk-input uk-form-large"
-                id="searchBar"
-                type="search"
-                onChange={this.handleSearchChange}
-                placeholder="Search..."
-              />
-            </div>
-            <div className="uk-width-1-3">
-              <select className="uk-select uk-form-large" id='type' onChange={this.handleSearchTypeChange}>
-                <option value="beach">By Beach</option>
-                <option value="debris">By Debris</option>
-                <option value="user">By Team Leader</option>
-                <option value="org">By Organization</option>
-              </select>
-            </div>
-          </form>
-          <div id="locations" className="uk-background-muted uk-padding uk-height-large" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
-            {this.showEntries(locationNodes)}
+      
+        <div className="uk-align-center">
+          
+          <div className="uk-align-center uk-width-4-5">
+            <form className="uk-grid uk-grid-small">
+              <div className="uk-width-3-5">
+                <input
+                  className="uk-input uk-form"
+                  id="searchBar"
+                  type="search"
+                  onChange={this.handleSearchChange}
+                  placeholder="Search..."
+                />
+              </div>
+
+              <div className="uk-width-1-5">
+                <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
+                  <option value="beach">By Beach</option>
+                  <option value="debris">By Debris</option>
+                  <option value="user">By Team Leader</option>
+                  <option value="org">By Organization</option>
+                </select>
+              </div>
+
+              <div className="uk-width-1-5">
+                <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
+                  <option value="list">List</option>
+                  <option value="map">Map</option>
+                  <option value="split">List and Map</option>
+                </select>
+              </div>
+            </form>
           </div>
-          <div className="uk-section uk-section-primary uk-margin-top">
+
+
+          <div id="mainContainer" className="list-view uk-align-center">
+            {this.state.view === 'list' 
+              ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+                  {this.showEntries(locationNodes)}
+                </div> 
+              : null
+            }
+
+            { this.state.view === 'map' 
+              ? <Map userProfile={this.props.userProfile}/>
+              : null
+            }
+
+            { this.state.view === 'split'
+              ? <div className="uk-flex uk-flex-row">
+                  <div className="uk-width-1-3">
+                    <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+                      {this.showEntries(locationNodes)}
+                    </div>
+                  </div>
+                  <div className="uk-width-2-3">
+                    <Map userProfile={this.props.userProfile}/>
+                  </div>
+                </div>
+              : null
+            }
+
+          </div>
+          {/* <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
-              <h2 className="uk-text-center uk-heading">{totalWeight} pounds of marine debris picked up so far!</h2>
+              <h2 className="uk-text-center uk-heading">{totalWeight} pieces of marine debris picked up so far!</h2>
             </div>
-          </div>
+          </div> */}
         </div>
-      </div>
+      
     );
   }
 
