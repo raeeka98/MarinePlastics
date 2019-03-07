@@ -8,6 +8,8 @@ import {
 
 import '../accordion-styles.css';
 
+import BeachSearch from '../BeachSearch';
+
 class SurveyArea extends Component {
 
   render() {
