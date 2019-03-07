@@ -222,7 +222,7 @@ class SurveyForm extends Component {
       const min = parseInt(data.cleanUpTime.replace(/[0-9]+:/, ''));
       const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
-      date = date.valueOf() + (hr * 60) + min;
+      date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
       console.log(date);
       const form = {
           survData : {
