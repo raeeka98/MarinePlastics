@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import {PieChart} from '../Location/Charts'
-import Auth from '../Auth';
 import axios from 'axios';
+import {PieChart} from './SurveyCharts'
 
 import SurveyTableRow from './SurveyTableRow';
+import { runInThisContext } from 'vm';
+
 
 class SurveyEntry extends Component {
   constructor(props) {
@@ -17,21 +18,112 @@ class SurveyEntry extends Component {
       userProfile : this.props.location.state.userProfile,
      // getUserProfile: this.props.location.state.getUserProfile,
       //isAuth: this.props.location.state.isAuth,
-      deletedComment: false
+      deletedComment: false,
+      srsSelected: true,
+      debrisNA: false
     };
-    console.log(this.state.userProfile)
     //this.auth = new Auth();
+    this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
+    this.renderOptions = this.renderOptions.bind(this);
+  }
+
+  renderOptions() {
+    if(this.state.surveyData.srsDebrisLength > 0 && this.state.surveyData.asDebrisLength > 0){
+      console.log("Render both")
+      //render both options
+      return  (
+        <select className="uk-select uk-form" id="view-type" onChange={this.handleChartTypeChange}>
+              <option value="srs">Suface Rib Scan</option>
+              <option value="as">Accumulation Sweep</option>
+        </select>
+      )
+    } else if(this.state.surveyData.srsDebrisLength > 0 ){
+      return <h3>Surface Rib Scan</h3>
+    } else if (this.state.surveyData.asDebrisLength > 0){
+      return <h3>Accumulation Sweep</h3>
+    } else {
+      return <h3>Debris total not available</h3>
+    }
+  }
+
+  /*
+   * If the user wants to select a survey to display, then we need to be able
+   * to set the state of the Survey component to tell it what to render
+   */
+
+  async handleChartTypeChange (e) {
+    await this.setState({ view: e.target.value });
+     if(this.state.view === 'srs'){
+       this.setState({srsSelected:true})
+     } else {
+       this.setState({srsSelected:false})
+     }
   }
 
   getSurvey = () => {
     axios.get(`/beaches/surveys/${this.state.surveyID}`)
       .then(res => {
-        console.log(res.data);
         this.setState({ surveyData: res.data });
       })
       .catch(err => {
         console.log(err);
+      })
+      .then(() => {
+        this.getChartData();
       });
+  }
+
+  /**
+   * getChartData: This function will need to extract the SRS and AS debris data in a way
+   * that the PieChart can process the data and display it
+   */
+
+  getChartData = () => {
+    //First, check to see if we even have the data
+    if(this.state.surveyData.SRSDebris){
+      //If yes, then we need to sum up the number of pieces picked up for the given trash type
+      //add the weathered and fresh totals
+      var SRSChartDataObject = {};
+      for(const key in this.state.surveyData.SRSDebris){
+        let thisDebrisTotal = this.state.surveyData.SRSDebris[key].fresh + this.state.surveyData.SRSDebris[key].weathered;
+        SRSChartDataObject[key] = thisDebrisTotal;
+      }
+      //Now we can sort the data so that it will display nicely
+      var keysSRS = Object.keys(SRSChartDataObject);
+      console.log(keysSRS)
+      let sortedKeys = {}; 
+      keysSRS.sort((a,b) => {return (SRSChartDataObject[a] - SRSChartDataObject[b])});
+      for(const i in keysSRS){
+        let key = keysSRS[i]
+        sortedKeys[key] = SRSChartDataObject[key];
+      }
+      //Set the state of the component
+      this.setState({chartDataSRS: sortedKeys});
+    } else {
+      // We dont have survey data for the surface rib scan!!
+      this.setState({srsSelected:false});
+    }
+    if(this.state.surveyData.ASDebris){
+      var ASChartDataObject = {};
+      for(const key in this.state.surveyData.ASDebris){
+        let thisDebrisTotal = this.state.surveyData.ASDebris[key].fresh + this.state.surveyData.ASDebris[key].weathered;
+        ASChartDataObject[key] = thisDebrisTotal;
+      }
+       //Now we can sort i guess
+       var keysAS = Object.keys(ASChartDataObject);
+       console.log(keysAS)
+       let sortedKeys = {}; 
+       keysAS.sort((a,b) => {return (ASChartDataObject[a] - ASChartDataObject[b])});
+       for(const i in keysAS){
+         let key = keysAS[i]
+         sortedKeys[key] = ASChartDataObject[key];
+       }
+
+      this.setState({chartDataAS: sortedKeys});
+    } else {
+      if(!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
+      this.setState({debrisNA : true});
+    }
   }
 
   deleteSurvey = () => {
@@ -74,15 +166,11 @@ class SurveyEntry extends Component {
     )
   }
 
-  componentWillMount() {
-    if(this.state.userProfile){
-      console.log(this.state.userProfile)
-    }
-  }
   
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
+    //this.getChartData();
   }
 
   render() {
@@ -92,7 +180,6 @@ class SurveyEntry extends Component {
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
-    console.log(this.state.surveyData);
 
     // if there is data (which is once the component mounts)
     if (this.state.surveyData.SRSDebris) {
@@ -144,7 +231,6 @@ class SurveyEntry extends Component {
     if (this.state.surveyData.lastTide || this.state.surveyData.nextTide) {
       document.getElementById('tide-section').style.display = 'block';
     }
-    console.log(this.props.location.state.info);
     return (
       <div className="uk-container">
         <h2 className="uk-text-primary uk-heading-primary">
@@ -286,7 +372,14 @@ class SurveyEntry extends Component {
             </div>
           </div>
         </div>
-          
+          {console.log(this.state.chartDataSRS)}
+        <div className="uk-card uk-card-default uk-card-body">
+          <h2>Debris quantity totals for this survey:</h2>
+          <div className="uk-width-1-5">
+            {this.renderOptions()}
+          </div>
+          {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected? this.state.chartDataSRS : this.state.chartDataAS}/> }
+        </div>
         <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
       </div>
       

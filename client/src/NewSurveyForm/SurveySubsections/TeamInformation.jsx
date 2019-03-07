@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -10,9 +9,6 @@ import {
 import '../accordion-styles.css';
 
 class TeamInformation extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     return(
@@ -22,19 +18,32 @@ class TeamInformation extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-              <form>
+            <div className="uk-child-width-1-2 uk-grid">
                 <div>
-                  <label>Name<span className="uk-text-danger">*</span></label>
+                  <label>First Name<span className="uk-text-danger">*</span></label>
                   <input
                     type='string'
-                    placeholder='First/Last Name'
-                    id='name'
+                    placeholder='First Name'
+                    id='userFirst'
                     className='uk-input uk-margin'
-                    defaultValue={this.props.data.name}
+                    defaultValue={this.props.data.userFirst}
                     onChange={this.props.updateSurveyState}
                     required
                     />
                 </div>
+                <div>
+                  <label>Last Name<span className="uk-text-danger">*</span></label>
+                  <input
+                    type='string'
+                    placeholder='Last Name'
+                    id='userLast'
+                    className='uk-input uk-margin'
+                    defaultValue={this.props.data.userLast}
+                    onChange={this.props.updateSurveyState}
+                    required
+                    />
+                </div>
+              </div>
 
                 <div className="uk-child-width-1-2 uk-grid">
                   <div>
@@ -99,7 +108,6 @@ class TeamInformation extends Component {
                         />
                     </div>
                 </div>
-              </form>
           </AccordionItemBody>
       </AccordionItem>
     )

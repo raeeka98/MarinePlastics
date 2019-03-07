@@ -179,6 +179,7 @@ class Location extends Component {
           }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
+            {console.log(this.state.beachStats)}
             <PieChart chartData={this.state.beachStats} />
           </div>
         </div>

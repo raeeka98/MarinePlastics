@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import {
-    Accordion,
     AccordionItem,
     AccordionItemTitle,
     AccordionItemBody,
@@ -10,9 +9,6 @@ import {
 import '../accordion-styles.css';
 
 class SurveyArea extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     return(
@@ -22,7 +18,6 @@ class SurveyArea extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-            <form>
               <div>
                 <h4>Beach Info:</h4>
               </div>
@@ -137,33 +132,17 @@ class SurveyArea extends Component {
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):<span className="uk-text-danger">*</span></label>
-                    <div className="uk-grid">
-                      <div className="uk-width-1-2">
                         <input
                           type='string'
                           placeholder='Degrees'
                           id='compassDegrees'
+                          defaultValue={this.props.data.compassDegrees}
                           onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
-                      </div>
-                      {/*<div className="uk-width-1-4">
-                          <span>&#176;</span>
-                          </div>*/}
-                          <div className="uk-width-1-2">
-                            <input
-                              type='string'
-                              placeholder='Cardinal Direction'
-                              onChange={this.props.updateSurveyState}
-                              id='compassCardinal'
-                              className='uk-input uk-margin'
-                              required
-                              />
-                          </div>
-                        </div>
-                      </div>
                     </div>
+                  </div>
 
                     <hr></hr>
 
@@ -280,24 +259,34 @@ class SurveyArea extends Component {
                           type="string"
                           placeholder="Height"
                           id='windSpeed'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
                           />
 
                         <label>Direction:<span className="uk-text-danger"></span></label>
-                        <input
-                          type="string"
-                          placeholder="Height"
+                        <select
                           id='windDir'
+                          onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
                           required
-                          />
+                          >
+                        <option>North</option>
+                        <option>Northeast</option>
+                        <option>East</option>
+                        <option>Southeast</option>
+                        <option>South</option>
+                        <option>Southwest</option>
+                        <option>West</option>
+                        <option>Northwest</option>
+                        </select>
                       </div>
                       <div>
                         <h4>Slope</h4>
                         <select
                           id='slope'
                           className='uk-select uk-margin'
+                          onChange={this.props.updateSurveyState}
                           required
                           >
                           <option>Winter Profile</option>
@@ -362,7 +351,6 @@ class SurveyArea extends Component {
                         </div>
                       </div>
                     </div>
-              </form>
 
           </AccordionItemBody>
       </AccordionItem>

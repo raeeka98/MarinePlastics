@@ -25,6 +25,7 @@ class LocationBar extends Component {
 
             // For every month returned by the get request, render html that links to survey page
             // Then append that html to the surveysHTML array, which is then updated to the state
+            console.log(res.data);
             for (let month of Object.keys(res.data)) {
                 let survey = res.data[month]
                 this.createHTMLForEntries(month, survey);
