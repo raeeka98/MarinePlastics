@@ -111,13 +111,27 @@ class SurveyForm extends Component {
       })
   }
 
+  // returns ID's of invalid elements if invalid, if not, returns false;
+  validate() {
+      return true;
+  }
+
+  navToID(id) {
+      alert("fill out " + id);
+  }
+
   moveToReview() {
-      this.updateDisplayStrings();
-      this.setState({
-          isInputting: false,
-          isReviewing: true,
-          isSubmitted: false
-      })
+      const invalidInput = this.validate();
+      if (invalidInput) {
+        this.navToID(invalidInput);
+      } else {
+        this.updateDisplayStrings();
+        this.setState({
+            isInputting: false,
+            isReviewing: true,
+            isSubmitted: false,
+        })
+      }
   }
 
   moveToInput() {
@@ -142,6 +156,8 @@ class SurveyForm extends Component {
               console.log(err.response)
           })
   }
+
+
 
   toTitleCase(word) {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
