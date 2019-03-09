@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { getDebrisNameById } from '../debrisInfo';
+
 class Review extends Component {
 
   componentDidMount() {
@@ -25,8 +27,11 @@ class Review extends Component {
             <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
         </div>
 
+        <br></br>
+
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Survey Area:</h3>
+
             <p>Beach Name: {d.name}</p>
             <p>Beach Coordinates: {d.latitude} (lat), {d.longitude} (lon)</p>
             {s.usage.length > 0 &&
@@ -59,8 +64,55 @@ class Review extends Component {
                 <p>{d.tideTypeA} tide of {d.tideTypeA} ft at{d.tideTimeA}</p>
               </div>
             }
-            <p>Clean Up Start Time: {d.cleanUpTime}</p>
+            {d.windSpeed &&
+              <p>Wind Speed: {d.windSpeed} knots</p>
+            }
+            {d.windDir &&
+              <p>Wind Direction: {d.windDir}</p>
+            }
+            {d.slope &&
+              <p>Slope: {d.slope}</p>
+            }
+            {s.subType.length > 0 &&
+              <p>Substrate Type: {s.subType}</p>
+            }
         </div>
+
+        <br></br>
+
+        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
+            <h3 className="uk-card-title">Surface Rib Scan:</h3>
+        </div>
+
+        <br></br>
+
+        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
+            <h3 className="uk-card-title">Accumulation Survey:</h3>
+        </div>
+
+        <br></br>
+
+        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
+            <h3 className="uk-card-title">Micro Debris Survey:</h3>
+        </div>
+
+        <br></br>
+
+        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
+            <h3 className="uk-card-title">Accumulation Survey:</h3>
+        </div>
+
+        <br></br>
+
+        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
+            <h3 className="uk-card-title">Total Weight:</h3>
+
+            {d.weight ?
+              (<p><b>d.weight</b></p>) :
+              (<p>No weight inputted</p>)
+            }
+        </div>
+
       </div>
     );
   }
