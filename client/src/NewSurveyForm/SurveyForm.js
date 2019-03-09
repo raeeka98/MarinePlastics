@@ -15,8 +15,6 @@ import {
     Accordion,
 } from 'react-accessible-accordion';
 
-import { DebrisInfo } from './debrisInfo';
-
 import './accordion-styles.css';
 
 class SurveyForm extends Component {
