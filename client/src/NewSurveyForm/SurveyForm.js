@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Auth from '../Auth';
@@ -14,8 +15,6 @@ import Review from './SurveySubsections/Review';
 import {
     Accordion,
 } from 'react-accessible-accordion';
-
-import { DebrisInfo } from './debrisInfo';
 
 import './accordion-styles.css';
 
@@ -113,13 +112,46 @@ class SurveyForm extends Component {
       })
   }
 
+  // returns ID's of invalid elements if invalid, if not, returns empty array;
+  validate() {
+      let invalid = [];
+
+      const isValidEmail = this.state.surveyData.email &&
+                           this.state.surveyData.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
+
+      const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
+                           'email', 'cleanUpTime', 'cleanUpDate', 'beachName',
+                           'latitude', 'longitude'];
+
+      for(const id of requiredIDs) {
+          if(!this.state.surveyData[id]) {
+              invalid.push(id);
+          }
+      }
+
+      if(!isValidEmail && this.state.surveyData.email) {
+          invalid.push('email (not valid email)');
+      }
+      return invalid;
+  }
+
+  navToID(ids) {
+      alert("fill out " + ids);
+  }
+
   moveToReview() {
-      this.updateDisplayStrings();
-      this.setState({
-          isInputting: false,
-          isReviewing: true,
-          isSubmitted: false
-      })
+      const invalidInput = this.validate();
+      console.log(invalidInput);
+      if (invalidInput && invalidInput.length) {
+        this.navToID(invalidInput);
+      } else {
+        this.updateDisplayStrings();
+        this.setState({
+            isInputting: false,
+            isReviewing: true,
+            isSubmitted: false,
+        })
+      }
   }
 
   moveToInput() {
@@ -144,6 +176,8 @@ class SurveyForm extends Component {
               console.log(err.response)
           })
   }
+
+
 
   toTitleCase(word) {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -308,7 +342,7 @@ class SurveyForm extends Component {
 
   render() {
       return(
-        <div>
+        <div className="centering-container">
             {this.state.isInputting && (
             <div>
               <form id="surveyForm">
@@ -342,7 +376,10 @@ class SurveyForm extends Component {
                     />
                   </Accordion>
               </form>
-              <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
+              <div className="submit-button-container">
+                <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
+              </div>
+
             </div>
           )}
           {this.state.isReviewing && (
@@ -359,8 +396,12 @@ class SurveyForm extends Component {
           )}
           {this.state.isSubmitted && (
             <div>
-              <h1>submitted!! </h1>
+              <h1>Your survey was successfully submitted! </h1>
+              <h3>Click <Link to="/home">here</Link> to view your survey.</h3>
+              <div className="submit-button-container">
                 <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Back to Review</button>
+              </div>
+
             </div>
           )}
 

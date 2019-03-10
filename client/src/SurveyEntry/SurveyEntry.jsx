@@ -5,6 +5,7 @@ import {PieChart} from './SurveyCharts'
 
 import SurveyTableRow from './SurveyTableRow';
 import { runInThisContext } from 'vm';
+import './surveyEntry.css';
 
 
 class SurveyEntry extends Component {
@@ -25,6 +26,7 @@ class SurveyEntry extends Component {
     //this.auth = new Auth();
     this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
+
   }
 
   renderOptions() {
@@ -131,9 +133,12 @@ class SurveyEntry extends Component {
       alert("You must be logged in to delete a survey");
     } else {
       if(this.state.userProfile.name !== this.state.surveyData.email){
-        alert("You cannot delete this survey because you did not create it")
+        let message = "You cannot delete this survey because you did not create it";
+        this.showConfirmationModal(message);
+        //alert("You cannot delete this survey because you did not create it")
       } else {
         alert("deleted survey!");
+        
       }/*
       axios.delete(`/beaches/surveys/${this.state.surveyID}`, 
       { params:
@@ -154,13 +159,16 @@ class SurveyEntry extends Component {
     }
   }
 
-  showConfirmationModal = () => {
+  showConfirmationModal = (message) => {
     return (
       <div id="confirmationModal" className="uk-modal">
         <div className="uk-modal-dialog">
           <h1>Are you sure you want to delete this survey?</h1>
-          <button className="uk-button uk-button-default">Cancel</button>
-          <button className="uk-button uk-button-danger">Delete</button>
+          <p>{{message}}</p>
+          <div className="uk-text-right">
+            <button className="uk-button uk-button-default">Cancel</button>
+            <button className="uk-button uk-button-danger">Delete</button>
+          </div>
         </div>
       </div>
     )
@@ -380,7 +388,51 @@ class SurveyEntry extends Component {
           </div>
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected? this.state.chartDataSRS : this.state.chartDataAS}/> }
         </div>
-        <button className="uk-button uk-button-danger" onClick={this.deleteSurvey}>Delete Survey</button>
+        
+
+        {/* ------ DELETE FUNCTIONALITY ------ */}
+        {/* If current user and author of survey match, allow them to delete*/}
+
+        
+        { !this.state.userProfile 
+          ? null 
+          : (this.state.userProfile.name === this.state.surveyData.email) 
+            ? <button className="uk-button uk-button-danger uk-margin" 
+                      data-uk-toggle="target: #delete-confirmation-modal">
+                      Delete Survey
+              </button>
+            : <button className="uk-button button-disabled uk-margin" 
+                      data-uk-toggle="target: #delete-incorrect-auth">
+                      Delete Survey
+              </button>
+        }
+
+
+        <div id="delete-incorrect-auth" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <button className="uk-modal-close-default" data-uk-close></button>
+            <h2>Permission denied.</h2>
+            <p>You may only delete surveys you created.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+            </p>
+          </div>
+        </div>
+        
+        <div id="delete-confirmation-modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <h2>Are you sure you want to delete this survey?</h2>
+            <p>This action cannot be undone.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+              <button className="uk-button uk-button-danger uk-margin-left">Delete</button>
+            </p>
+
+            <button className="uk-modal-close-default" data-uk-close></button>
+          </div>
+        </div>
+
+
       </div>
       
     );

@@ -21,7 +21,7 @@ class Home extends Component {
 
       beaches: [],
       surveys: [],
-      view: 'list'
+      view: 'split'
     };
     this.styleMain = this.styleMain.bind(this);
     this.loadBeaches = this.loadBeaches.bind(this);
@@ -201,18 +201,22 @@ class Home extends Component {
 
               <div className="uk-width-1-5">
                 <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
+                  <option value="split">List and Map</option>
                   <option value="list">List</option>
                   <option value="map">Map</option>
-                  <option value="split">List and Map</option>
+                  
                 </select>
               </div>
             </form>
           </div>
 
 
-          <div id="mainContainer" className="list-view uk-align-center">
+          <div id="mainContainer" className="split-view uk-align-center" >
             {this.state.view === 'list' 
-              ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+              ? <div id="locations" 
+                      className="uk-background-muted uk-padding uk-height-expand" 
+                      data-uk-height-viewport="offset-top: true" 
+                      style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                   {this.showEntries(locationNodes)}
                 </div> 
               : null
@@ -226,7 +230,10 @@ class Home extends Component {
             { this.state.view === 'split'
               ? <div className="uk-flex uk-flex-row">
                   <div className="uk-width-1-3">
-                    <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+                    <div id="locations" 
+                          className="uk-background-muted uk-padding uk-height-expand" 
+                          data-uk-height-viewport="offset-top: true" 
+                          style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                       {this.showEntries(locationNodes)}
                     </div>
                   </div>
