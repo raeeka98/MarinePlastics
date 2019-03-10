@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ProtocolPage() {
+export function AboutPage() {
   
   return (
     <div className="uk-container">
@@ -28,4 +28,4 @@ export function ProtocolPage() {
   );
 }
 
-export default ProtocolPage;
+export default AboutPage;

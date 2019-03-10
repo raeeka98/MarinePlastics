@@ -23,6 +23,7 @@ class Submenu extends Component {
               }
               
               <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+              <li className="nav__submenu-item "><Link to="/about">About</Link></li>
           
               { this.props.auth.isAuthenticated()
                 ? <li className="nav__submenu-item "><Link to='/profile'>Profile</Link></li>
@@ -74,6 +75,8 @@ render() {
             }
             
             <li><Link to="/protocol">Protocol</Link></li>
+            <li><Link to="/about">About</Link></li>
+
             <li>
             { this.props.auth.isAuthenticated()
               ? <Link className="uk-button" to="/profile">Profile</Link>
@@ -82,6 +85,7 @@ render() {
             </li>
               </ul>
               </div>
+
               <div className="uk-navbar-right uk-visible@m">
                   { this.props.auth.isAuthenticated()
                     ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</button>
