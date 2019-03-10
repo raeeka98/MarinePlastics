@@ -1,0 +1,14 @@
+.error-text {
+    color: #009b9b;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+.center-parent {
+    text-align: center;
+}
+.text-container {
+    display: inline-block;
+}

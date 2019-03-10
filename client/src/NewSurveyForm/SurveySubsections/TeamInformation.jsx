@@ -47,7 +47,7 @@ class TeamInformation extends Component {
 
                 <div className="uk-child-width-1-2 uk-grid">
                   <div>
-                    <label>Organization Name</label>
+                    <label>Organization Name<span className="uk-text-danger">*</span></label>
                     <input
                       type='string'
                       placeholder='Organization Name'
@@ -89,7 +89,7 @@ class TeamInformation extends Component {
                       <label>Clean Up Date<span className="uk-text-danger">*</span></label>
                       <input
                         type='date'
-                        defaultValue={this.props.data.date}
+                        defaultValue={this.props.data.cleanUpDate}
                         onChange={this.props.updateSurveyState}
                         id='cleanUpDate'
                         className='uk-input uk-margin'

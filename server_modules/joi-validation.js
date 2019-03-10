@@ -1,16 +1,5 @@
 let joi = require("joi");
 
-joi = joi.extend(joi => ({
-    base: joi.date(),
-    name: "date",
-    rules: [{
-        name: "sanitize",
-        validate (params, value, state, options) {
-            return value.setUTCHours(0, 0, 0, 0);
-        }
-    }]
-}));
-
 
 
 const userDataSchema = joi.object({
@@ -62,7 +51,7 @@ const surveyDataSchema = joi.object({
     email: joi.string().email({ minDomainAtoms: 2 }).required(),
     org: joi.string().trim().min(1).max(60).alphanum().replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
     reason: reasonTypeSchema.required(),
-    survDate: joi.date().max('now').greater(1104580800).sanitize().required(),
+    survDate: joi.date().max('now').greater(1104580800).required(),
     st: substraightTypeSchema.required(),
     slope: joi.string().valid(["winter", "summer"]).required(),
     cmpsDir: joi.number().max(360).min(0).required(),

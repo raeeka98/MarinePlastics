@@ -55,7 +55,6 @@ class SurfaceRibScan extends Component {
                         id='rib1Start'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -65,7 +64,6 @@ class SurfaceRibScan extends Component {
                         id='rib2Start'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -75,7 +73,6 @@ class SurfaceRibScan extends Component {
                         id='rib3Start'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -85,7 +82,6 @@ class SurfaceRibScan extends Component {
                         id='rib4Start'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                   </div>
@@ -99,7 +95,6 @@ class SurfaceRibScan extends Component {
                         id='rib1End'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -109,7 +104,6 @@ class SurfaceRibScan extends Component {
                         id='rib2End'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -119,7 +113,6 @@ class SurfaceRibScan extends Component {
                         id='rib3End'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                     <div>
@@ -129,7 +122,6 @@ class SurfaceRibScan extends Component {
                         id='rib4End'
                         className='uk-input uk-margin'
                         onChange={this.props.updateSurveyState}
-                        required
                         />
                     </div>
                   </div>
