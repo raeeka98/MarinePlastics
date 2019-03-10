@@ -140,15 +140,16 @@ class SurveyForm extends Component {
 
   moveToReview() {
       const invalidInput = this.validate();
-      if (invalidInput === []) {
+      console.log(invalidInput);
+      if (invalidInput && invalidInput.length) {
+        this.navToID(invalidInput);
+      } else {
         this.updateDisplayStrings();
         this.setState({
             isInputting: false,
             isReviewing: true,
             isSubmitted: false,
         })
-      } else {
-        this.navToID(invalidInput);
       }
   }
 
