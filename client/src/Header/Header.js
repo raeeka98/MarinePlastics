@@ -15,12 +15,15 @@ class Submenu extends Component {
             <div className="uk-navbar-left">
               <ul className="nav__submenu uk-nav uk-dropdown-nav " >
 
-              <li className="nav__submenu-item " ><Link to="/map">Map</Link></li>
-              <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+              <li className="nav__submenu-item " ><Link to="/home">Home</Link></li>
+              
               { this.props.auth.isAuthenticated()
-                ? <li className="nav__submenu-item "><Link to='/survey'>Survey</Link></li>
+                ? <li className="nav__submenu-item "><Link to='/survey'>Add Survey</Link></li>
                 : null
               }
+              
+              <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+          
               { this.props.auth.isAuthenticated()
                 ? <li className="nav__submenu-item "><Link to='/profile'>Profile</Link></li>
                 : null
@@ -64,11 +67,12 @@ render() {
                 </h1>
               </Link>
             </li>
+            <li><Link to="/home">Home</Link></li>
             { this.props.auth.isAuthenticated()
-              ? <li><Link to='/survey'>Survey</Link></li>
+              ? <li><Link to='/survey'>Add Survey</Link></li>
               : null
             }
-            <li><Link to="/map">Map</Link></li>
+            
             <li><Link to="/protocol">Protocol</Link></li>
             <li>
             { this.props.auth.isAuthenticated()
