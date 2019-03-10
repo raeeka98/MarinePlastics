@@ -9,9 +9,6 @@ import Auth from './Auth';
 import Landing from './Landing/Landing';
 import Home from './Home/Home';
 import SurveyEntry from './SurveyEntry/SurveyEntry';
-
-// for testing new survey form
-import Steps from './SurveyForm/SurveyForm';
 import SurveyForm from './NewSurveyForm/SurveyForm'
 
 import UserProfile from './UserProfile/UserProfile';
@@ -47,7 +44,7 @@ class App extends Component {
         console.log("We authenticated");
         console.log(this.state.userProfile);
       });
-      
+
     } else {
       this.setState({userProfile: null});
     }
@@ -62,13 +59,13 @@ class App extends Component {
         {/* type of router that has history (can go back and forth in broswer history and still have states from before) */}
         <BrowserRouter>
 
-          
+
           <div className="uk-container-expand uk-container-center">
-            
+
             {/* pages listed in headerRoutes array are rendered with the Header*/}
             <Route path={headerRoutes} render={() => ( <Header auth={this.auth} /> )} />
-            
-            
+
+
             <div>
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
@@ -76,9 +73,7 @@ class App extends Component {
                 <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
                 <Route exact path='/home' render={() =>  <Home  userProfile={this.state.userProfile}/>} />
 
-                {/* for testing new component: */}
-                <Route path='/survey' component={Steps} />
-                <Route path='/newsurvey' component={SurveyForm} />
+                <Route path='/survey' component={SurveyForm} />
 
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
@@ -101,7 +96,7 @@ class App extends Component {
 
             {/* Render the footer if you're not on the Landing Page*/}
             <Route path={headerRoutes} component={Footer} />
-            
+
           </div>
         </BrowserRouter>
       </div>
