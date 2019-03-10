@@ -76,45 +76,6 @@ var tideSchema = new Schema({
     height: Number,
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
-//create new instance of the mongoose.schema. the schema takes an object that shows
-//the shape of your database entries.
-// var CommentsSchema = new Schema({
-//     user: {
-//         type: String,
-//         required: true
-//     },
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     org: String,
-//     input_date: {
-//         type: String,
-//         required: true,
-//         unique: true
-//     },
-//     date: String,
-//     beach: String,
-//     reason: String,
-//     st: String,
-//     lat: Number,
-//     lon: Number,
-//     slope: String,
-//     nroName: String,
-//     nroDist: Number,
-//     aspect: String,
-//     lastTide: tideSchema,
-//     nextTide: tideSchema,
-//     windDir: String,
-//     windSpeed: Number,
-//     majorUse: String,
-//     weight: Number,
-//     NumberOfPeople: Number,
-//     SRSData: [dataSchema],
-//     SRSTotal: Number,
-//     ASData: [dataSchema],
-//     ASTotal: Number,
-// }, { versionKey: false });
 
 let surveySchema = new Schema({
     bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
