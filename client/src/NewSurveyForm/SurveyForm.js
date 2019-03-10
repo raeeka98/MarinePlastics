@@ -343,7 +343,10 @@ class SurveyForm extends Component {
     })
   }
 
-
+  //since there is no id field, create a function for storing id
+  setBeachID = (name, id) => {
+    this.setState({surveyData: {beachName: name, beachID: id}});
+  }
 
   render() {
       return(
@@ -360,6 +363,7 @@ class SurveyForm extends Component {
                         data={this.state.surveyData}
                         updateSurveyState={this.updateSurveyState}
                         updateCheckedState={this.updateCheckedState}
+                        setBeachID={this.setBeachID}
                     />
                     <SurfaceRibScan
                         data={this.state.surveyData}

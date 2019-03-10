@@ -9,7 +9,6 @@ import axios from 'axios';
 class BeachSearch extends Component {
   state = {
     query: '', //what gets sent to the backend
-    selection: '', //id of what has been clicked
     results: [], //list of beaches
     timeout: null, //prevents pinging backend too much
     showItems: false, //if true, show suggestions
@@ -31,6 +30,7 @@ class BeachSearch extends Component {
   
   //called when the input is changed
   handleInputChange = () => {
+    this.props.setBeachID(this.search.value, null);
     this.setState({ query: this.search.value });
     clearTimeout(this.state.timeout);
     let that = this;
@@ -43,11 +43,11 @@ class BeachSearch extends Component {
   onSuggestionClick = (res) => {
     this.search.value = res.n;
     this.props.autofill(res._id);
-    this.setState({ query: res.n, selection: res._id, showItems: false});
+    this.props.setBeachID(res.n, res._id);
+    this.setState({ query: res.n, showItems: false});
   }
   
   render() {
-
     //List of suggestions
     const Suggestions = (props) => {
       const options = props.results.map(r => (
