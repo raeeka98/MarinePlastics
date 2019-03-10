@@ -111,26 +111,44 @@ class SurveyForm extends Component {
       })
   }
 
-  // returns ID's of invalid elements if invalid, if not, returns false;
+  // returns ID's of invalid elements if invalid, if not, returns empty array;
   validate() {
-      return true;
+      let invalid = [];
+
+      const isValidEmail = this.state.surveyData.email &&
+                           this.state.surveyData.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
+
+      const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
+                           'email', 'cleanUpTime', 'cleanUpDate', 'beachName',
+                           'latitude', 'longitude'];
+
+      for(const id of requiredIDs) {
+          if(!this.state.surveyData[id]) {
+              invalid.push(id);
+          }
+      }
+
+      if(!isValidEmail && this.state.surveyData.email) {
+          invalid.push('email (not valid email)');
+      }
+      return invalid;
   }
 
-  navToID(id) {
-      alert("fill out " + id);
+  navToID(ids) {
+      alert("fill out " + ids);
   }
 
   moveToReview() {
       const invalidInput = this.validate();
-      if (invalidInput) {
-        this.navToID(invalidInput);
-      } else {
+      if (invalidInput === []) {
         this.updateDisplayStrings();
         this.setState({
             isInputting: false,
             isReviewing: true,
             isSubmitted: false,
         })
+      } else {
+        this.navToID(invalidInput);
       }
   }
 
