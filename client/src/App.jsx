@@ -73,7 +73,7 @@ class App extends Component {
                 <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
                 <Route exact path='/home' render={() =>  <Home  userProfile={this.state.userProfile}/>} />
 
-                <Route path='/newsurvey' component={SurveyForm} />
+                <Route path='/survey' component={SurveyForm} />
 
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
