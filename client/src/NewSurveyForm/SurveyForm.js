@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Auth from '../Auth';
@@ -395,8 +396,12 @@ class SurveyForm extends Component {
           )}
           {this.state.isSubmitted && (
             <div>
-              <h1>submitted!! </h1>
+              <h1>Your survey was successfully submitted! </h1>
+              <h3>Click <Link to="/home">here</Link> to view your survey.</h3>
+              <div className="submit-button-container">
                 <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Back to Review</button>
+              </div>
+
             </div>
           )}
 
