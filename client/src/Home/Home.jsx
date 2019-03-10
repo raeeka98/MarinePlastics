@@ -33,7 +33,7 @@ class Home extends Component {
     this.url = '/beaches';
   }
 
-  // Load the beach names
+  // Load the beach info
   loadBeaches() {
     axios.get(this.url) 
       .then(res => {
@@ -97,13 +97,12 @@ class Home extends Component {
   };
 
   handleSearch(value, filter) {
-    let result = this.state.data;
-    if (value.length > 0) {
-      if (this.filterFunctions.hasOwnProperty(filter)) {
-        result = this.filterFunctions[filter](this.state.data, value);
-      }
-    }
-    this.setState({ searchResult: result });
+    axios.get("/beaches/search", { params: { q: value } })
+      .then(res => {
+        this.setState({ beaches: res.data });
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   getTotalDebris(){
