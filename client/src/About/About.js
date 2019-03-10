@@ -8,7 +8,7 @@ export function AboutPage() {
     <div>
       <div className="uk-width-1-1 uk-padding-large uk-padding-remove-bottom uk-flex uk-flex-row">
       <div className= "uk-width-1-4">
-              <img src={bottle} alt="bottle"></img>
+              <img src={bottle} alt="bottle" className="uk-padding uk-padding-remove-right"></img>
             </div>
         <div className="uk-width-3-4 uk-padding-large uk-padding-remove-vertical">
           <div className="uk-flex uk-flex-column">
