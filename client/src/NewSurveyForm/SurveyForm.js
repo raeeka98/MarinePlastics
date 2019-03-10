@@ -164,6 +164,7 @@ class SurveyForm extends Component {
 
   moveToSubmit() {
       const form = this.prepareForm();
+      console.log(form);
       axios.post("beaches/surveys", form)
           .then(res => {
               console.log(res.data);
