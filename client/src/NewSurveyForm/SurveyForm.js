@@ -323,10 +323,12 @@ class SurveyForm extends Component {
   updateSRS(e) {
     const key = e.target.id;
     const val = e.target.value;
+    console.log("Updating SRS", key, val);
     this.setState(prevState => {
         prevState.SRSData[key] = val;
         return prevState;
     })
+    console.log(this.state.SRSData);
   }
 
   updateAS(e) {
