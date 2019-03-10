@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import {
     AccordionItem,
@@ -12,35 +11,6 @@ import '../accordion-styles.css';
 import BeachSearch from '../BeachSearch';
 
 class SurveyArea extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        showOtherUsage : false,
-        showOtherReason : false,
-        showOtherSubstrate : false
-    }
-  }
-  
-  autofill = (beachID) => {
-    axios.get("/beaches/" + beachID + "/info")
-      .then(res => { //assign values to inputs
-        // ID to attribute
-        let pairs = {
-          latitude: 'lat',
-          longitude: 'lon',
-          riverName: 'nroName',
-          riverDistance: 'nroDist',
-        }
-        //match results with the input boxes
-        for (let key in pairs){
-            let el = document.getElementById(key);
-            el.value = res.data[pairs[key]];
-            this.props.setSurveyData(key, el.value);
-          };
-      }).catch(err => {
-        console.log(err);
-      });
-  };
 
   render() {
     return(
@@ -56,7 +26,15 @@ class SurveyArea extends Component {
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <BeachSearch autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
+                  <label>Name<span className="uk-text-danger">*</span></label>
+                  <input
+                    type='string'
+                    placeholder='Name of Beach'
+                    id='beachName'
+                    className='uk-input uk-margin'
+                    onChange={this.props.updateSurveyState}
+                    required
+                    />
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
@@ -105,28 +83,14 @@ class SurveyArea extends Component {
                       </label> Commercial
                     </div>
                     <div>
-                      <label>
+                      <label>Other</label>
                         <input
-                          type='checkbox'
-                          className='uk-checkbox'
-                          onClick={ e => this.setState({ showOtherUsage : e.target.checked }) }
+                          type='string'
+                          id='usageOther'
+                          className='uk-input'
+                          onChange={this.props.updateSurveyState}
                           />
-                      </label> Other
                     </div>
-                    {this.state.showOtherUsage &&
-                      (
-                        <div>
-                            <input
-                              type='string'
-                              id='usageOther'
-                              className='uk-input'
-                              onChange={this.props.updateSurveyState}
-                              />
-                        </div>
-                      )
-                    }
-
-
                   </div>
 
                   <div>
@@ -154,26 +118,16 @@ class SurveyArea extends Component {
                       </label> Known for Debris
                     </div>
                     <div>
-                      <label>
+                      <label> Other</label>
                         <input
-                          type='checkbox'
-                          className='uk-checkbox'
-                          onClick={ e => this.setState({ showOtherReason : e.target.checked }) }
+                          type='string'
+                          id='locationChoiceOther'
+                          placeholder='Other Reasons for Location Choice'
+                          onChange={this.props.updateSurveyState}
+                          defaultValue={this.props.data.locationChoiceOther}
+                          className='uk-input'
                           />
-                      </label> Other
                     </div>
-                    {this.state.showOtherReason &&
-                      (
-                        <div>
-                            <input
-                              type='string'
-                              id='locationChoiceOther'
-                              className='uk-input'
-                              onChange={this.props.updateSurveyState}
-                              />
-                        </div>
-                      )
-                    }
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):</label>
@@ -397,27 +351,17 @@ class SurveyArea extends Component {
                               />
                           </label> Seaweed
                         </div>
-                        <div>
-                          <label>
+                        <div className="uk-margin">
+                          <label>Other</label>
                             <input
-                              type='checkbox'
-                              className='uk-checkbox'
-                              onClick={ e => this.setState({ showOtherSubstrate : e.target.checked }) }
+                              type='string'
+                              id='substrateTypeOther'
+                              placeholder='Other Substrate Types'
+                              onChange={this.props.updateSurveyState}
+                              defaultValue={this.props.data.substrateTypeOther}
+                              className='uk-input'
                               />
-                          </label> Other
                         </div>
-                        {this.state.showOtherSubstrate &&
-                          (
-                            <div>
-                                <input
-                                  type='string'
-                                  id='substrateTypeOther'
-                                  className='uk-input'
-                                  onChange={this.props.updateSurveyState}
-                                  />
-                            </div>
-                          )
-                        }
                       </div>
                     </div>
 

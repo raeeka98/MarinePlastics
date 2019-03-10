@@ -164,6 +164,7 @@ class SurveyForm extends Component {
       const form = this.prepareForm();
       axios.post("beaches/surveys", form)
           .then(res => {
+              console.log(res);
               this.setState({
                   isInputting: false,
                   isReviewing: false,
