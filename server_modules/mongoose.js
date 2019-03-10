@@ -298,6 +298,9 @@ let beaches = {
     getAllStats: async function() {
         //let projection = `stats.TODF`;
         return await beachModel.find({}, 'stats.TODF').exec();
+    },
+    getInfo: async function (beachID) {
+        return await beachModel.findById(beachID).select("n lat lon nroName nroDist");
     }
 }
 

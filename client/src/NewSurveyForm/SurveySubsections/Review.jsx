@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
-
+import ASRowReview from '../TableRows/ASRowReview';
 import { getDebrisNameById } from '../debrisInfo';
 import {getDebrisMap} from '../debrisInfo';
 
@@ -17,8 +17,8 @@ class Review extends Component {
   }
 
   render() {
-    console.log(this.props.SRSData);
     var SRSRows = [];
+    var ASRows = [];
     // Parse the row info that we got from the data
     var parsedRows = {};
     /* parsedRows
@@ -46,7 +46,6 @@ class Review extends Component {
     }
 
     // Now take the parsed data and then create row objects for each 
-    console.log(parsedRows);
     for (const key in parsedRows) {
       SRSRows.push(
         <RibScanRowReview 
@@ -58,6 +57,33 @@ class Review extends Component {
         />
       )
     }
+    console.log(this.props.ASData);
+    // Now we do a similar thing for the As Data
+    parsedRows = {};
+    index = 0;
+    for(const key in this.props.ASData) {
+      let parsedKey = key.split('__')[0];
+      let freshWeath = key.split('__')[1];
+      if(!parsedRows[parsedKey]) 
+        parsedRows[parsedKey] = {};
+      
+      parsedRows[parsedKey][freshWeath] = this.props.ASData[key];
+    }
+
+    // Render the rows
+    console.log(parsedRows);
+    for (const key in parsedRows){
+      ASRows.push(
+        <ASRowReview
+          id={key}
+          key={key}
+          name = {debrisInfo[key]}
+          fresh = {parsedRows[key].fresh}
+          weathered={parsedRows[key].weathered}
+        />
+      )
+    }
+
     const d = this.props.data;
     const s = this.props.displayStrings;
     
@@ -144,140 +170,7 @@ class Review extends Component {
                   {SRSRows}
                 </tbody>
               </table>
-              {/*<div className="accordion__arrow" role="presentation" />
-                  <div className="uk-grid uk-child-width-1-5">
-                    <div></div>
-                    <div><h4>Rib #1</h4></div>
-                    <div><h4>Rib #2</h4></div>
-                    <div><h4>Rib #3</h4></div>
-                    <div><h4>Rib #4</h4></div>
-                  </div>
 
-                  <div className="uk-grid uk-child-width-1-5">
-                    <div><h5>Rib Start Point(m)</h5></div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #1 Start'
-                        id='rib1Start'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #2 Start'
-                        id='rib2Start'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #3 Start'
-                        id='rib3Start'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #4 Start'
-                        id='rib4Start'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                  </div>
-
-                  <div className="uk-grid uk-child-width-1-5">
-                    <div><h5>Rib End Point(m)</h5></div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #1 End'
-                        id='rib1End'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #2 End'
-                        id='rib2End'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #3 End'
-                        id='rib3End'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                    <div>
-                      <input
-                        type='string'
-                        placeholder='Rib #4 End'
-                        id='rib4End'
-                        className='uk-input uk-margin'
-                        onChange={this.props.updateSurveyState}
-                        />
-                    </div>
-                  </div>
-
-                  <hr></hr>
-
-                  <div className="uk-grid data-uk-sticky">
-                      <div className="uk-width-1-5"></div>
-                      <div className="uk-width-1-5">
-                          <div className="uk-grid">
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #1 Fresh</label></center>
-                            </div>
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #1 Weathered</label></center>
-                            </div>
-                          </div>
-                      </div>
-                      <div className="uk-width-1-5">
-                          <div className="uk-grid">
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #2 Fresh</label></center>
-                            </div>
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #2 Weathered</label></center>
-                            </div>
-                          </div>
-                      </div>
-                      <div className="uk-width-1-5">
-                          <div className="uk-grid">
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #3 Fresh</label></center>
-                            </div>
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #3 Weathered</label></center>
-                            </div>
-                          </div>
-                      </div>
-                      <div className="uk-width-1-5">
-                          <div className="uk-grid">
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #4 Fresh</label></center>
-                            </div>
-                            <div className="uk-width-1-2">
-                                <center><label>Rib #4 Weathered</label></center>
-                            </div>
-                          </div>
-                      </div>
-          </div>*/}
 
             </div>
 
@@ -285,6 +178,17 @@ class Review extends Component {
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Accumulation Survey:</h3>
+            <table className='uk-table uk-table-striped'>
+                  <tr>
+                    <th>Debris Type</th>
+                    <th>Fresh</th>
+                    <th>Weathered</th>
+                    
+                  </tr>
+                <tbody>
+                  {ASRows}
+                </tbody>
+              </table>
         </div>
 
         <br></br>

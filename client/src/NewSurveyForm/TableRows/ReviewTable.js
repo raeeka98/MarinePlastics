@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 
-class RibScanRowReview extends Component {
+export default class RibScanRowReview extends Component {
 
     render() {
 
@@ -21,8 +21,4 @@ class RibScanRowReview extends Component {
     }
   }
 
-class ASRowReview {
-    
-}
 
-export default RibScanRowReview;

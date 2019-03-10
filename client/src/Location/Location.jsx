@@ -64,7 +64,7 @@ class Location extends Component {
         axios.all(promise)
           .then((response) => {
             response.map(res => {
-              trueSurveys.push(res.data);
+              trueSurveys.push(res.data.survData);
             })
           })
           .then(() => this.setState({surveys: trueSurveys}));
