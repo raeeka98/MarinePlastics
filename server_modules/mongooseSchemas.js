@@ -89,6 +89,7 @@ let surveySchema = new Schema({
             alias: "last"
         },
     },
+    userID: String,
     email: {
         type: String,
     },

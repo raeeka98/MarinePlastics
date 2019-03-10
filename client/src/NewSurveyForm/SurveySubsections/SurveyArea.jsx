@@ -65,6 +65,7 @@ class SurveyArea extends Component {
                     placeholder='Latitude of Beach'
                     id='latitude'
                     onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.latitude}
                     className='uk-input uk-margin'
                     />
                 </div>
@@ -74,6 +75,7 @@ class SurveyArea extends Component {
                       type='string'
                       placeholder='Longitude of Beach'
                       id='longitude'
+                      defaultValue={this.props.data.longitude}
                       onChange={this.props.updateSurveyState}
                       className='uk-input uk-margin'
                       />
@@ -100,6 +102,7 @@ class SurveyArea extends Component {
                           type='checkbox'
                           id='usageCommercial'
                           className='uk-checkbox'
+                          defaultValue={this.props.data.usageCommercial}
                           onChange={this.props.updateCheckedState}
                           />
                       </label> Commercial
@@ -120,6 +123,7 @@ class SurveyArea extends Component {
                               type='string'
                               id='usageOther'
                               className='uk-input'
+                              defaultValue={this.props.data.usageOther}
                               onChange={this.props.updateSurveyState}
                               />
                         </div>
@@ -169,6 +173,7 @@ class SurveyArea extends Component {
                               type='string'
                               id='locationChoiceOther'
                               className='uk-input'
+                              defaultValue={this.props.data.locationChoiceOther}
                               onChange={this.props.updateSurveyState}
                               />
                         </div>
@@ -413,6 +418,7 @@ class SurveyArea extends Component {
                                   type='string'
                                   id='substrateTypeOther'
                                   className='uk-input'
+                                  defaultValue={this.props.data.substrateTypeOther}
                                   onChange={this.props.updateSurveyState}
                                   />
                             </div>
