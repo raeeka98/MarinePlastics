@@ -77,59 +77,6 @@ class SurveyEntry extends Component {
       });
   }
 
-  /**
-   * getChartData: This function will need to extract the SRS and AS debris data in a way
-   * that the PieChart can process the data and display it
-   */
-
-  getChartData = () => {
-    //First, check to see if we even have the data
-    if (this.state.surveyData.SRSDebris) {
-      //If yes, then we need to sum up the number of pieces picked up for the given trash type
-      //add the weathered and fresh totals
-      var SRSChartDataObject = {};
-      for (const key in this.state.surveyData.SRSDebris) {
-        let thisDebrisTotal = this.state.surveyData.SRSDebris[key].fresh + this.state.surveyData.SRSDebris[key].weathered;
-        SRSChartDataObject[key] = thisDebrisTotal;
-      }
-      //Now we can sort the data so that it will display nicely
-      var keysSRS = Object.keys(SRSChartDataObject);
-      console.log(keysSRS)
-      let sortedKeys = {};
-      keysSRS.sort((a, b) => { return (SRSChartDataObject[a] - SRSChartDataObject[b]) });
-      for (const i in keysSRS) {
-        let key = keysSRS[i]
-        sortedKeys[key] = SRSChartDataObject[key];
-      }
-      //Set the state of the component
-      this.setState({ chartDataSRS: sortedKeys });
-    } else {
-      // We dont have survey data for the surface rib scan!!
-      this.setState({ srsSelected: false });
-    }
-    if (this.state.surveyData.ASDebris) {
-      var ASChartDataObject = {};
-      for (const key in this.state.surveyData.ASDebris) {
-        let thisDebrisTotal = this.state.surveyData.ASDebris[key].fresh + this.state.surveyData.ASDebris[key].weathered;
-        ASChartDataObject[key] = thisDebrisTotal;
-      }
-      //Now we can sort i guess
-      var keysAS = Object.keys(ASChartDataObject);
-      console.log(keysAS)
-      let sortedKeys = {};
-      keysAS.sort((a, b) => { return (ASChartDataObject[a] - ASChartDataObject[b]) });
-      for (const i in keysAS) {
-        let key = keysAS[i]
-        sortedKeys[key] = ASChartDataObject[key];
-      }
-
-      this.setState({ chartDataAS: sortedKeys });
-    } else {
-      if (!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
-        this.setState({ debrisNA: true });
-    }
-  }
-
   deleteSurvey = () => {
 
     axios.delete(`/beaches/surveys/${this.state.surveyID}`,
@@ -183,7 +130,6 @@ class SurveyEntry extends Component {
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
-    //this.getChartData();
   }
 
   render() {
