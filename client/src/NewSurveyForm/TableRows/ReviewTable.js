@@ -21,4 +21,8 @@ class RibScanRowReview extends Component {
     }
   }
 
+class ASRowReview {
+    
+}
+
 export default RibScanRowReview;
