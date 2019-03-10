@@ -32,7 +32,7 @@ export function LandingPage(props) {
         <div className="uk-flex uk-flex-middle uk-flex-column">
 
           <div id="header-text">
-            Welcome to the Marine Plastic Monitor.
+            Welcome to the Marine Plastics Monitor.
           </div>
 
           <div className="uk-flex uk-flex-column intro-text">

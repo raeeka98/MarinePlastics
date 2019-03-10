@@ -381,7 +381,7 @@ class SurveyForm extends Component {
 
           },
 
-          bID : '5c74f1bc71992a56a570d485'
+          bID : data.beachID ? data.beachID : data.beachName,
 
       }
 
@@ -425,7 +425,10 @@ class SurveyForm extends Component {
     console.log(this.state.ASData)
   }
 
-
+  //alternative
+  setSurveyData = (key, val) => {
+    this.setState(prevState => {prevState.surveyData[key] = val; return prevState});
+  }
 
   render() {
       return(
@@ -442,6 +445,7 @@ class SurveyForm extends Component {
                         data={this.state.surveyData}
                         updateSurveyState={this.updateSurveyState}
                         updateCheckedState={this.updateCheckedState}
+                        setSurveyData={this.setSurveyData}
                     />
                     <SurfaceRibScan
                         data={this.state.surveyData}

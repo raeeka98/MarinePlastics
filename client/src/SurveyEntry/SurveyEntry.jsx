@@ -6,6 +6,7 @@ import {getDebrisMap} from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import { runInThisContext } from 'vm';
+import './surveyEntry.css';
 
 const debrisInfo = getDebrisMap();
 
@@ -28,6 +29,7 @@ class SurveyEntry extends Component {
     //this.auth = new Auth();
     this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
+
   }
 
   renderOptions() {
@@ -146,7 +148,6 @@ class SurveyEntry extends Component {
   }
 
   deleteSurvey = () => {
-
     axios.delete(`/beaches/surveys/${this.state.surveyID}`,
       {
         params:
@@ -182,13 +183,16 @@ class SurveyEntry extends Component {
 
   }
 
-  showConfirmationModal = () => {
+  showConfirmationModal = (message) => {
     return (
       <div id="confirmationModal" className="uk-modal">
         <div className="uk-modal-dialog">
           <h1>Are you sure you want to delete this survey?</h1>
-          <button className="uk-button uk-button-default">Cancel</button>
-          <button className="uk-button uk-button-danger">Delete</button>
+          <p>{{message}}</p>
+          <div className="uk-text-right">
+            <button className="uk-button uk-button-default">Cancel</button>
+            <button className="uk-button uk-button-danger">Delete</button>
+          </div>
         </div>
       </div>
     )
@@ -431,6 +435,7 @@ class SurveyEntry extends Component {
           </div>
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
+        
         <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.deleteSurvey}>Delete Survey</button>
         <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
 

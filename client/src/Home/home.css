@@ -4,6 +4,8 @@
 
 #locations {
     position: relative;
+    overflow: auto;
+    max-height: 700px;
 }
 
 .loader {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import {
     AccordionItem,
@@ -11,7 +12,6 @@ import '../accordion-styles.css';
 import BeachSearch from '../BeachSearch';
 
 class SurveyArea extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +20,27 @@ class SurveyArea extends Component {
         showOtherSubstrate : false
     }
   }
+  
+  autofill = (beachID) => {
+    axios.get("/beaches/" + beachID + "/info")
+      .then(res => { //assign values to inputs
+        // ID to attribute
+        let pairs = {
+          latitude: 'lat',
+          longitude: 'lon',
+          riverName: 'nroName',
+          riverDistance: 'nroDist',
+        }
+        //match results with the input boxes
+        for (let key in pairs){
+            let el = document.getElementById(key);
+            el.value = res.data[pairs[key]];
+            this.props.setSurveyData(key, el.value);
+          };
+      }).catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return(
@@ -35,16 +56,7 @@ class SurveyArea extends Component {
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <label>Name<span className="uk-text-danger">*</span></label>
-                  <input
-                    type='string'
-                    placeholder='Name of Beach'
-                    id='beachName'
-                    defaultValue={this.props.data.beachName}
-                    className='uk-input uk-margin'
-                    onChange={this.props.updateSurveyState}
-                    required
-                    />
+                  <BeachSearch autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
