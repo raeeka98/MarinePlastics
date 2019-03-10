@@ -27,7 +27,6 @@ class Totals extends Component {
               onChange={this.props.updateSurveyState}
               defaultValue={this.props.data.weight}
               className='uk-input uk-margin'
-              required
               />
           </AccordionItemBody>
       </AccordionItem>

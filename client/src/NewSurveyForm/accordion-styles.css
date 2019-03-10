@@ -11,19 +11,32 @@
     position: relative;
 }
 
+.centering-container {
+    text-align: center;
+}
+
 .accordion {
-    width: 90%;
-    border: 10px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    width: 95%;
+    border: none;
+    display: inline-block;
     border-radius: 20px;
 }
 
 .accordion__item {
-    width: 96%;
+    width: 100%;
     border-radius: 20px;
+    border: 1px rgba(0, 0, 0, 1);
+}
+
+.accordion__item:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.2 ease-in;
 }
 
 .accordion__item + .accordion__item {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 10px solid rgba(0, 0, 0, 0);
 }
 
 .accordion__item--has-icon {
@@ -31,13 +44,17 @@
 }
 
 .accordion__title {
-    background-color: #1E87F0;
+    position: relative;
+    background-color:  #009b9b !important;
     color: #FCFEFF;
+
     cursor: pointer;
-    padding: 25px;
-    width: 100%;
-    text-align: left;
-    border: none;
+    padding: 18px;
+    width: 95%;
+    height: 10%;
+    display: inline-block;
+    text-align: center;
+
 }
 
 .accordion__title h2 {
@@ -46,7 +63,9 @@
 
 
 .accordion__title:hover {
-    background-color: #0c66c0;
+    background-color: #3b5c5e;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.2s ease-in;
 }
 
 .accordion__body {
@@ -71,7 +90,7 @@
     position: absolute;
     width: 24px;
     height: 12px;
-    right: 20%;
+    right: 5%;
     margin-top: -30px;
 }
 
@@ -169,4 +188,8 @@
 .accordion__title--animated[aria-expanded='true']:hover .accordion__arrow {
     animation-name: move-up;
     animation-duration: 1.5s;
+}
+
+.submit-button-container {
+    padding: 10px
 }

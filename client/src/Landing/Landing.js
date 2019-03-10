@@ -30,11 +30,11 @@ export function LandingPage(props) {
         {/*sign up*/}
 
         <div className="uk-flex uk-flex-middle uk-flex-column">
-          
+
           <div id="header-text">
             Welcome to the Marine Plastic Monitor.
           </div>
-          
+
           <div className="uk-flex uk-flex-column intro-text">
             <p>Marine debris is one of the top three concerns for ocean health today and is only getting worse because of the rapid rate at which plastic products are made. The impacts of debris in the environment are devastating, but anyone can help reduce the damage by participating in or leading beach cleanups.</p>
             <p>Beyond beach cleanups, marine debris monitoring programs are necessary to compare debris sources, amounts, locations, and movement internationally. This data can be used to influence policy and provide insight into where problem areas are.</p>
@@ -51,22 +51,20 @@ export function LandingPage(props) {
                   Sign Up
                 </button>)
             }
-            <button className="uk-button uk-button-default uk-button-large guest-button" style={ textButtonStyles }>
-              <Link className="uk-link-reset" to="/home">
+              <Link className="uk-button uk-button-default uk-button-large guest-button" to="/home">
                 { props.auth.isAuthenticated() ? 'Continue' : 'Continue as Guest' }
               </Link>
-            </button>
           </div>
 
         </div>
       </div>
 
-      
-      
+
+
       { props.isAuth ? <div className="uk-alert-primary" style={{borderRadius:"10px",padding:"5px",display:"inline-block", height:"content",width:"content",position:"absolute",top:"20%",left:"50%",transform:"translateX(-50%)"}}>
           {props.isAuth}
           <button style={{margin:"5px"}} onClick={e=>{props.disableError()}}>OK</button>
-      </div> : null } 
+      </div> : null }
     </div>
   );
 }
