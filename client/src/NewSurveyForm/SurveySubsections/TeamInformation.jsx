@@ -89,7 +89,7 @@ class TeamInformation extends Component {
                       <label>Clean Up Date<span className="uk-text-danger">*</span></label>
                       <input
                         type='date'
-                        defaultValue={this.props.data.date}
+                        defaultValue={this.props.data.cleanUpDate}
                         onChange={this.props.updateSurveyState}
                         id='cleanUpDate'
                         className='uk-input uk-margin'

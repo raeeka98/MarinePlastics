@@ -60,7 +60,7 @@ class SurveyArea extends Component {
 
                 <div className="uk-grid uk-child-width-1-3">
                   <div>
-                    <label>Major Usage<span className="uk-text-danger">*</span></label>
+                    <label>Major Usage</label>
                     <div>
                       <label>
                         <input
@@ -96,7 +96,7 @@ class SurveyArea extends Component {
                   </div>
 
                   <div>
-                    <label>Reason for Location Choice<span className="uk-text-danger">*</span></label>
+                    <label>Reason for Location Choice</label>
                     <div>
                       <label>
                         <input
@@ -135,7 +135,7 @@ class SurveyArea extends Component {
                     </div>
                   </div>
                   <div>
-                    <label>Compass Direction (When Facing the Water):<span className="uk-text-danger">*</span></label>
+                    <label>Compass Direction (When Facing the Water):</label>
                         <input
                           type='string'
                           placeholder='Degrees'
