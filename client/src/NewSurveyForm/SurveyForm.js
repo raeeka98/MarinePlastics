@@ -308,7 +308,7 @@ class SurveyForm extends Component {
       return(
         <div>
             {this.state.isInputting && (
-            <div>
+            <div style={{marginLeft:'7vw'}}>
               <form id="surveyForm">
                 <Accordion>
                     <TeamInformation
