@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import {
     AccordionItem,
@@ -11,6 +12,35 @@ import '../accordion-styles.css';
 import BeachSearch from '../BeachSearch';
 
 class SurveyArea extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        showOtherUsage : false,
+        showOtherReason : false,
+        showOtherSubstrate : false
+    }
+  }
+  
+  autofill = (beachID) => {
+    axios.get("/beaches/" + beachID + "/info")
+      .then(res => { //assign values to inputs
+        // ID to attribute
+        let pairs = {
+          latitude: 'lat',
+          longitude: 'lon',
+          riverName: 'nroName',
+          riverDistance: 'nroDist',
+        }
+        //match results with the input boxes
+        for (let key in pairs){
+            let el = document.getElementById(key);
+            el.value = res.data[pairs[key]];
+            this.props.setSurveyData(key, el.value);
+          };
+      }).catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return(
@@ -26,15 +56,7 @@ class SurveyArea extends Component {
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <label>Name<span className="uk-text-danger">*</span></label>
-                  <input
-                    type='string'
-                    placeholder='Name of Beach'
-                    id='beachName'
-                    className='uk-input uk-margin'
-                    onChange={this.props.updateSurveyState}
-                    required
-                    />
+                  <BeachSearch autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
@@ -43,6 +65,7 @@ class SurveyArea extends Component {
                     placeholder='Latitude of Beach'
                     id='latitude'
                     onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.latitude}
                     className='uk-input uk-margin'
                     />
                 </div>
@@ -52,6 +75,7 @@ class SurveyArea extends Component {
                       type='string'
                       placeholder='Longitude of Beach'
                       id='longitude'
+                      defaultValue={this.props.data.longitude}
                       onChange={this.props.updateSurveyState}
                       className='uk-input uk-margin'
                       />
@@ -78,19 +102,35 @@ class SurveyArea extends Component {
                           type='checkbox'
                           id='usageCommercial'
                           className='uk-checkbox'
+                          defaultValue={this.props.data.usageCommercial}
                           onChange={this.props.updateCheckedState}
                           />
                       </label> Commercial
                     </div>
                     <div>
-                      <label>Other</label>
+                      <label>
                         <input
-                          type='string'
-                          id='usageOther'
-                          className='uk-input'
-                          onChange={this.props.updateSurveyState}
+                          type='checkbox'
+                          className='uk-checkbox'
+                          onClick={ e => this.setState({ showOtherUsage : e.target.checked }) }
                           />
+                      </label> Other
                     </div>
+                    {this.state.showOtherUsage &&
+                      (
+                        <div>
+                            <input
+                              type='string'
+                              id='usageOther'
+                              className='uk-input'
+                              defaultValue={this.props.data.usageOther}
+                              onChange={this.props.updateSurveyState}
+                              />
+                        </div>
+                      )
+                    }
+
+
                   </div>
 
                   <div>
@@ -118,16 +158,27 @@ class SurveyArea extends Component {
                       </label> Known for Debris
                     </div>
                     <div>
-                      <label> Other</label>
+                      <label>
                         <input
-                          type='string'
-                          id='locationChoiceOther'
-                          placeholder='Other Reasons for Location Choice'
-                          onChange={this.props.updateSurveyState}
-                          defaultValue={this.props.data.locationChoiceOther}
-                          className='uk-input'
+                          type='checkbox'
+                          className='uk-checkbox'
+                          onClick={ e => this.setState({ showOtherReason : e.target.checked }) }
                           />
+                      </label> Other
                     </div>
+                    {this.state.showOtherReason &&
+                      (
+                        <div>
+                            <input
+                              type='string'
+                              id='locationChoiceOther'
+                              className='uk-input'
+                              defaultValue={this.props.data.locationChoiceOther}
+                              onChange={this.props.updateSurveyState}
+                              />
+                        </div>
+                      )
+                    }
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):</label>
@@ -351,17 +402,28 @@ class SurveyArea extends Component {
                               />
                           </label> Seaweed
                         </div>
-                        <div className="uk-margin">
-                          <label>Other</label>
+                        <div>
+                          <label>
                             <input
-                              type='string'
-                              id='substrateTypeOther'
-                              placeholder='Other Substrate Types'
-                              onChange={this.props.updateSurveyState}
-                              defaultValue={this.props.data.substrateTypeOther}
-                              className='uk-input'
+                              type='checkbox'
+                              className='uk-checkbox'
+                              onClick={ e => this.setState({ showOtherSubstrate : e.target.checked }) }
                               />
+                          </label> Other
                         </div>
+                        {this.state.showOtherSubstrate &&
+                          (
+                            <div>
+                                <input
+                                  type='string'
+                                  id='substrateTypeOther'
+                                  className='uk-input'
+                                  defaultValue={this.props.data.substrateTypeOther}
+                                  onChange={this.props.updateSurveyState}
+                                  />
+                            </div>
+                          )
+                        }
                       </div>
                     </div>
 

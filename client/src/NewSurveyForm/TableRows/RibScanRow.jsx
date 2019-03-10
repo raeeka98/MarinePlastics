@@ -74,4 +74,5 @@ class RibScanRow extends Component {
     }
 }
 
+
 export default RibScanRow;
