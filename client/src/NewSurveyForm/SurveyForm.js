@@ -80,8 +80,9 @@ class SurveyForm extends Component {
     // set entry user/email from auth0
     this.auth.getLoggedInProfile((err, profile) => {
       this.setState({
-         user: profile.name,
-         email: profile.email
+         user : profile.name,
+         email : profile.email,
+         userID : profile.sub
        });
     });
   }
@@ -116,11 +117,11 @@ class SurveyForm extends Component {
   validate() {
       let invalid = [];
 
-      const isValidEmail = this.state.surveyData.email &&
-                           this.state.surveyData.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
+      const isValidEmail = this.state.email &&
+                           this.state.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
 
       const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-                           'email', 'cleanUpTime', 'cleanUpDate', 'beachName',
+                          'cleanUpTime', 'cleanUpDate', 'beachName',
                            'latitude', 'longitude'];
 
       for(const id of requiredIDs) {
@@ -129,9 +130,10 @@ class SurveyForm extends Component {
           }
       }
 
-      if(!isValidEmail && this.state.surveyData.email) {
+      if(!isValidEmail) {
           invalid.push('email (not valid email)');
       }
+
       return invalid;
   }
 
@@ -164,14 +166,19 @@ class SurveyForm extends Component {
 
   moveToSubmit() {
       const form = this.prepareForm();
+      console.log(form);
       axios.post("beaches/surveys", form)
           .then(res => {
-              console.log(res);
-              this.setState({
-                  isInputting: false,
-                  isReviewing: false,
-                  isSubmitted: true
-                })
+              console.log(res.data);
+              if(res.data.survID === undefined) {
+
+              } else {
+                this.setState({
+                    isInputting: false,
+                    isReviewing: false,
+                    isSubmitted: true
+                  })
+              }
           })
           .catch(err => {
               console.log(err.response)
@@ -251,21 +258,101 @@ class SurveyForm extends Component {
   prepareForm() {
       // for that visual AESTHETIC
 
-      const data = this.state.surveyData;
-      const show = this.state.displayStrings;
-      console.log(show);
+      const cardinalMap = {
+          North : 'N',
+          Northeast : 'NE',
+          East : 'E',
+          Southeast : 'SE',
+          South : 'S',
+          Southwest : 'SW',
+          West : 'W',
+          Northwest : 'NW',
+          None : ''
+      }
 
+      const data = this.state.surveyData;
+      let date = new Date(data.cleanUpDate);
+      const min = parseInt(data.cleanUpTime.replace(/[0-9]+:/, ''));
+      const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
+
+      date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
+      console.log(date);
+
+      /*
+      bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
+      user: {
+          f: {
+              type: String,
+              alias: "first"
+          },
+          l: {
+              type: String,
+              alias: "last"
+          },
+      },
+      userID: String,
+      email: {
+          type: String,
+      },
+      org: {
+          type: String,
+      },
+      reason: locationReason,
+      survDate: {
+          type: Date,
+      },
+      st: substrateTypeSchema,
+      slope: String,
+      cmpsDir: {
+          type: Number,
+          alias: "compassDirection"
+      },
+      lastTide: tideSchema,
+      nextTide: tideSchema,
+      wind: {
+          dir: { type: String },
+          spd: { type: Number }
+      },
+      majorUse: majorUsageSchema,
+      numOfP: {
+          type: Number,
+          alias: "NumberOfPeople"
+      },
+      SRSDebris: {
+          type: Map,
+          of: newDataSchema
+      },
+      ASDebris: {
+          type: Map,
+          of: newDataSchema
+      },
+      srsDebrisLength: { type: Number, required: true, min: 0 },
+      asDebrisLength: { type: Number, required: true, min: 0 }
+      */
       const form = {
           survData : {
               user : {
-                f : (data.userFirst ? data.userFirst : ""),
-                l : (data.userLast ? data.userLast : "")
+                first : (data.userFirst ? data.userFirst : ""),
+                last : (data.userLast ? data.userLast : "")
               },
-              email : (data.email ? data.email : ""),
+              userID : this.state.userID,
+              email : this.state.email,
               org : (data.orgName ? data.orgName : ""),
-              reason : (show.locChoice ? show.locChoice : ""),
-              st : (show.subType ? show.subType : ""),
+              reason : {
+                  prox: data.locationChoiceProximity,
+                  debris: data.locationChoiceProximity,
+                  other: data.locationChoiceOther ? data.locationChoiceOther : ""
+              },
+              survDate: date,
+              st : {
+                  s : data.substrateTypeSand,
+                  p : data.substrateTypePebble,
+                  rr : data.substrateTypeRipRap,
+                  sea : data.substrateTypeSeaweed,
+                  other : data.substrateTypeOther ? data.substrateTypeOther : ""
+              },
               slope : (data.slope ? data.slope : ""),
+              compassDirection : (data.compassDegrees ? data.compassDegrees : ""),
               lastTide : {
                   type : (data.tideTypeB ? data.tideTypeB : ""),
                   time : (data.tideTimeB ? data.tideTimeB : ""),
@@ -277,25 +364,23 @@ class SurveyForm extends Component {
                   height : (data.tideHeightA ? data.tideHeightA : "")
               },
               wind : {
-                  dir : (data.windDir ? data.windDir : ""),
+                  dir : (data.windDir ? cardinalMap[data.windDir] : ""),
                   spd : (data.windSpeed ? data.windSpeed : "")
               },
-              majorUse: (show.usage ? show.usage : ""),
+              majorUse: {
+                  rec : data.usageRecreation,
+                  com : data.usageCommercial,
+                  other : (data.usageOther ? data.usageOther : "")
+              },
+              numOfP : data.numofP ? data.numOfP : 0,
               weight: (data.weight ? data.weight : ""),
-              /* SRSDebris: [
-                  [cigaretteButts, {
-                      fresh (total):
-                      weathered (total):
-                  }],
-                  ...
-              ]
-              */
               SRSDebris : this.calcTotalsSRS(),
               ASDebris : this.calcTotalsAS(),
               srsDebrisLength : 0,
-              asDebrisLength : 0,
-              survDate: new Date(data.cleanUpDate+"T"+data.cleanUpTime)
+              asDebrisLength : 0
+
           },
+
           bID : '5c74f1bc71992a56a570d485'
 
       }

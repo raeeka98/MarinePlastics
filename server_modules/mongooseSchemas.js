@@ -12,63 +12,70 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 let Schema = mongoose.Schema;
 
-var dataSchema = new Schema({
-    name: { type: String, required: true },
-    fresh: Number,
-    weathered: Number,
-}, { versionKey: false, _id: false });
-
 let newDataSchema = new Schema({
-    fresh: { type: Number, default: 0, min: 0 },
-    weathered: { type: Number, default: 0, min: 0 }
-}, { versionKey: false, _id: false });
+    fresh: { type: Number },
+    weathered: { type: Number }
+}, { versionKey: false, _id: false, validateBeforeSave: false });
+
+let substrateTypeSchema = new Schema({
+    s: {
+        type: Boolean,
+        alias: "sand",
+        default: undefined
+    },
+    p: {
+        type: Boolean,
+        alias: "pebble",
+        default: undefined
+    },
+    rr: {
+        type: Boolean,
+        alias: "rip_rap",
+        default: undefined
+    },
+    sea: {
+        type: Boolean,
+        alias: "seaweed",
+        default: undefined
+    },
+    other: String
+}, { versionKey: false, _id: false, validateBeforeSave: false });
+
+
+let majorUsageSchema = new Schema({
+    rec: {
+        type: Boolean,
+        default: undefined,
+        alias: "recreational"
+    },
+    com: {
+        type: Boolean,
+        default: undefined,
+        alias: "commercial"
+    },
+    other: String
+}, { versionKey: false, _id: false, validateBeforeSave: false });
+
+let locationReason = new Schema({
+    prox: {
+        type: Boolean,
+        default: undefined,
+        alias: "proximity"
+    },
+    debris: {
+        type: Boolean,
+        default: undefined,
+    },
+    other: String
+}, { versionKey: false, _id: false, validateBeforeSave: false })
 
 
 var tideSchema = new Schema({
     type: String,
     time: String,
     height: Number,
-}, { versionKey: false, _id: false });
+}, { versionKey: false, _id: false, validateBeforeSave: false });
 
-//create new instance of the mongoose.schema. the schema takes an object that shows
-//the shape of your database entries.
-// var CommentsSchema = new Schema({
-//     user: {
-//         type: String,
-//         required: true
-//     },
-//     email: {
-//         type: String,
-//         required: true
-//     },
-//     org: String,
-//     input_date: {
-//         type: String,
-//         required: true,
-//         unique: true
-//     },
-//     date: String,
-//     beach: String,
-//     reason: String,
-//     st: String,
-//     lat: Number,
-//     lon: Number,
-//     slope: String,
-//     nroName: String,
-//     nroDist: Number,
-//     aspect: String,
-//     lastTide: tideSchema,
-//     nextTide: tideSchema,
-//     windDir: String,
-//     windSpeed: Number,
-//     majorUse: String,
-//     weight: Number,
-//     NumberOfPeople: Number,
-//     SRSData: [dataSchema],
-//     SRSTotal: Number,
-//     ASData: [dataSchema],
-//     ASTotal: Number,
-// }, { versionKey: false });
 
 let surveySchema = new Schema({
     bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
@@ -82,32 +89,32 @@ let surveySchema = new Schema({
             alias: "last"
         },
     },
+    userID: String,
     email: {
         type: String,
     },
     org: {
         type: String,
     },
-    reason: {
-        type: String,
-    },
+    reason: locationReason,
     survDate: {
         type: Date,
-        required: true
     },
-    st: String,
+    st: substrateTypeSchema,
     slope: String,
-    aspect: String,
+    cmpsDir: {
+        type: Number,
+        alias: "compassDirection"
+    },
     lastTide: tideSchema,
     nextTide: tideSchema,
     wind: {
         dir: { type: String },
-        spd: { type: Number, min: 0 }
+        spd: { type: Number }
     },
-    majorUse: String,
-    NumOfP: {
+    majorUse: majorUsageSchema,
+    numOfP: {
         type: Number,
-        min: 0,
         alias: "NumberOfPeople"
     },
     SRSDebris: {
@@ -118,9 +125,9 @@ let surveySchema = new Schema({
         type: Map,
         of: newDataSchema
     },
-    srsDebrisLength: { type: Number, min: 0 },
-    asDebrisLength: { type: Number, min: 0 }
-}, { versionKey: false });
+    srsDebrisLength: { type: Number, required: true, min: 0 },
+    asDebrisLength: { type: Number, required: true, min: 0 }
+}, { versionKey: false, validateBeforeSave: false });
 
 surveySchema.methods.getSRSTotal = function(newDebris) {
     let total = 0;
@@ -193,7 +200,7 @@ let dayTotalsSchema = new Schema({
     date: { type: Number, index: true },
     AST: { type: Number, required: true, default: 0, min: 0 },
     SRST: { type: Number, required: true, default: 0, min: 0 }
-}, { versionKey: false, _id: false })
+}, { versionKey: false, _id: false, validateBeforeSave: false })
 
 let yearTotalsSchema = new Schema({
     "0": { type: [dayTotalsSchema], default: undefined },
@@ -208,13 +215,13 @@ let yearTotalsSchema = new Schema({
     "9": { type: [dayTotalsSchema], default: undefined },
     "10": { type: [dayTotalsSchema], default: undefined },
     "11": { type: [dayTotalsSchema], default: undefined },
-}, { versionKey: false });
+}, { versionKey: false, validateBeforeSave: false });
 
 
 let daySurveySchema = new Schema({
     date: { type: Number, index: true, required: true },
     survey: { type: String }
-}, { versionKey: false, _id: false })
+}, { versionKey: false, _id: false, validateBeforeSave: false })
 
 let yearSurveySchema = new Schema({
     "0": { type: [daySurveySchema], default: undefined },
@@ -229,7 +236,7 @@ let yearSurveySchema = new Schema({
     "9": { type: [daySurveySchema], default: undefined },
     "10": { type: [daySurveySchema], default: undefined },
     "11": { type: [daySurveySchema], default: undefined },
-}, { versionKey: false });
+}, { versionKey: false, validateBeforeSave: false });
 
 
 let beachSchema = new Schema({
@@ -279,7 +286,7 @@ let beachSchema = new Schema({
             alias: "lastUpdated"
         }
     }
-}, { versionKey: false });
+}, { versionKey: false, validateBeforeSave: false });
 
 let trashSchema = new Schema({
     trash_id: {
@@ -292,7 +299,7 @@ let trashSchema = new Schema({
         unique: true,
         required: true
     }
-}, { versionKey: false });
+}, { versionKey: false, validateBeforeSave: false });
 
 
 
