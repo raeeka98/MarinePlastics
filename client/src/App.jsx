@@ -13,6 +13,7 @@ import SurveyForm from './NewSurveyForm/SurveyForm'
 
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
+import About from './About/About';
 import Map from './Map/Map.js';
 import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
@@ -46,11 +47,10 @@ class App extends Component {
     } else {
       this.setState({userProfile: null});
     }
-
   }
 
   render() {
-    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/map', '/chooseform'];
+    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/about', '/map', '/chooseform'];
 
     return (
       <div>
@@ -85,6 +85,7 @@ class App extends Component {
                   )}
                 />
                 <Route exact path='/protocol' component={ Protocol } />
+                <Route exact path='/about' component={ About } />
                 <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />}/>
                 <Route path='/chooseform' component={ ChooseForm } />
 

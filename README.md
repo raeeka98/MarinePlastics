@@ -27,9 +27,9 @@ To deploy to the live site: https://devcenter.heroku.com/articles/git
 If the site breaks, view the logs on Heroku for an error
 
 
-In `./src/Protocol/Protocol.js` there is a link to our data sheet. Instead of hosting the pdf on our site, we host it [on scribd](https://www.scribd.com/document/380752641/COIDataSheet). This was because we use `React Router`, when we tried to add a link that to download like this:
+In `./src/About/About.js` there is a link to our data sheet. Instead of hosting the pdf on our site, we host it [on scribd](https://www.scribd.com/document/380752641/COIDataSheet). This was because we use `React Router`, when we tried to add a link that to download like this:
 ```
-  <a href="./src/Protocol/Protocol" download>Data Sheet</a>
+  <a href="./src/About/About" download>Data Sheet</a>
 ```
 it would link to a blank page on our site instead. There has to be a way around this, we just didn't have time to figure it out.
 
@@ -62,7 +62,7 @@ In `./src/Auth.js`, authentication is set up with:
 There is a lot that we would still love to see happen:
   * Add on hover to pie charts that display the percentage
     * Might be helpful: https://rma-consulting.github.io/react-easy-chart/pie-chart/index.html#mouseHandlers
-  * Add diagrams and pictures to the protocol page
+  * Add diagrams and pictures to the protocol segment of the about page
     * Could definitely use the diagrams from the final presentation (export them as SVGs so they look nice and are scalable)
   * Ability to update existing entries belonging to user
     * Might be nice if it was a table that had each entry as a row and the columns be the different form fields

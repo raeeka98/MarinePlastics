@@ -21,3 +21,7 @@
 a {
     color: #00adad;
 }
+
+a:hover {
+    color: #009b9b
+}

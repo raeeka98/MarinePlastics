@@ -15,12 +15,15 @@ class Submenu extends Component {
             <div className="uk-navbar-left">
               <ul className="nav__submenu uk-nav uk-dropdown-nav " >
 
-              <li className="nav__submenu-item " ><Link to="/map">Map</Link></li>
-              <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+              <li className="nav__submenu-item " ><Link to="/home">Home</Link></li>
+              
               { this.props.auth.isAuthenticated()
-                ? <li className="nav__submenu-item "><Link to='/survey'>Survey</Link></li>
+                ? <li className="nav__submenu-item "><Link to='/survey'>Add Survey</Link></li>
                 : null
               }
+              
+              <li className="nav__submenu-item "><Link to="/protocol">Protocol</Link></li>
+          
               { this.props.auth.isAuthenticated()
                 ? <li className="nav__submenu-item "><Link to='/profile'>Profile</Link></li>
                 : null
@@ -64,26 +67,27 @@ render() {
                 </h1>
               </Link>
             </li>
+            <li><Link to="/home">Home</Link></li>
+
             { this.props.auth.isAuthenticated()
-              ? <li><Link to='/survey'>Survey</Link></li>
+              ? <li><Link to='/survey'>Add Survey</Link></li>
               : null
             }
-            <li><Link to="/map">Map</Link></li>
-            <li><Link to="/protocol">Protocol</Link></li>
-            <li>
-            { this.props.auth.isAuthenticated()
-              ? <Link className="uk-button" to="/profile">Profile</Link>
-              : null
-            }
-            </li>
+            
+          <li><Link to="/protocol">Protocol</Link></li>
+
+           <li><Link to="/about">About</Link></li>
               </ul>
               </div>
               <div className="uk-navbar-right uk-visible@m">
-                  { this.props.auth.isAuthenticated()
-                    ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary">Log Out</button>
-                    : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary">Log In</button>
-                  }
-                </div>
+              <ul className="uk-navbar-nav">
+                { this.props.auth.isAuthenticated()
+                  ? <li><Link to="/profile">Profile</Link></li>
+                  : <li><button onClick={ this.props.auth.login } className="uk-button uk-button-text">Sign Up</button></li>
+                }
+              </ul>
+              </div>
+
             <div className="uk-hidden@m">
               <div className="uk-navbar-left">
                 <ul className="uk-navbar-nav">
@@ -102,20 +106,8 @@ render() {
                 </ul>
               </div>
           </div>
-          <div className="uk-hidden@m">
-            <div className="uk-navbar-right">
-              <ul className="uk-navbar-nav">
-              <li>
-              { this.props.auth.isAuthenticated()
-                ? <button onClick={ this.props.auth.logout } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log Out</button>
-                : <button onClick={ this.props.auth.login } className="uk-button uk-button-primary uk-navbar-item" style={{color:'#fff'}}>Log In</button>
-              }
-            </li>
-            </ul>
-            </div>
-            </div>
-      </nav>
-      </div>
+     </nav>
+     </div>
    )
  }
 }
