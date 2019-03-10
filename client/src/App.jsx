@@ -42,8 +42,6 @@ class App extends Component {
     if(this.auth.isAuthenticated()){
       this.auth.getLoggedInProfile((err, profile) => {
         this.setState({userProfile: profile});
-        console.log("We authenticated");
-        console.log(this.state.userProfile);
       });
 
     } else {

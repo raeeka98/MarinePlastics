@@ -35,7 +35,7 @@ class Home extends Component {
 
   // Load the beach info
   loadBeaches() {
-    axios.get(this.url) 
+    axios.get(this.url)
       .then(res => {
         this.setState({
           beaches: res.data,
@@ -64,7 +64,7 @@ class Home extends Component {
   async handleViewTypeChange(e) {
     await this.setState({ view: e.target.value });
     let container = document.getElementById("mainContainer");
-    
+
     // Add/Remove styling classes when view is changed
     if (this.state.view === "list") {
       console.log("state = list");
@@ -119,7 +119,7 @@ class Home extends Component {
         this.setState({totalWeight : dataTotals});
       })
   }
-  
+
 
   showEntries = (locationNodes) => {
     let errStr = "Something went wrong!"
@@ -159,7 +159,7 @@ class Home extends Component {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-     
+
       return <LocationBar
         key={i}
         location={location}
@@ -175,9 +175,9 @@ class Home extends Component {
     let totalWeight = this.state.totalWeight;
 
     return (
-      
+
         <div className="uk-align-center">
-          
+
           <div className="uk-align-center uk-width-4-5">
             <form className="uk-grid uk-grid-small">
               <div className="uk-width-3-5">
@@ -210,19 +210,15 @@ class Home extends Component {
             </form>
           </div>
 
-
-          <div id="mainContainer" className="split-view uk-align-center" >
-            {this.state.view === 'list' 
-              ? <div id="locations" 
-                      className="uk-background-muted uk-padding uk-height-expand" 
-                      data-uk-height-viewport="offset-top: true" 
-                      style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+          <div id="mainContainer" className="list-view uk-align-center">
+            {this.state.view === 'list'
+              ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                   {this.showEntries(locationNodes)}
-                </div> 
+                </div>
               : null
             }
 
-            { this.state.view === 'map' 
+            { this.state.view === 'map'
               ? <Map userProfile={this.props.userProfile}/>
               : null
             }
@@ -251,7 +247,7 @@ class Home extends Component {
             </div>
           </div> */}
         </div>
-      
+
     );
   }
 

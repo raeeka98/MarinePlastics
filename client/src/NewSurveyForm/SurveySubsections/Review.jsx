@@ -32,7 +32,7 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Survey Area:</h3>
 
-            <p>Beach Name: {d.name}</p>
+            <p>Beach Name: {d.beachName}</p>
             <p>Beach Coordinates: {d.latitude} (lat), {d.longitude} (lon)</p>
             {s.usage.length > 0 &&
               <p>Major Usage: {s.usage}</p>
