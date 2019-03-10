@@ -79,7 +79,6 @@ class SurveyArea extends Component {
                           id='usageCommercial'
                           className='uk-checkbox'
                           onChange={this.props.updateCheckedState}
-
                           />
                       </label> Commercial
                     </div>
@@ -90,7 +89,6 @@ class SurveyArea extends Component {
                           id='usageOther'
                           className='uk-input'
                           onChange={this.props.updateSurveyState}
-
                           />
                     </div>
                   </div>
@@ -105,7 +103,6 @@ class SurveyArea extends Component {
                           onChange={this.props.updateCheckedState}
                           defaultValue={this.props.data.locationChoiceDebris}
                           className='uk-checkbox'
-
                           />
                       </label> Proximity/Convenience
                     </div>
@@ -117,7 +114,6 @@ class SurveyArea extends Component {
                           onClick={this.props.updateCheckedState}
                           defaultValue={this.props.data.locationChoiceProximity}
                           className='uk-checkbox'
-
                           />
                       </label> Known for Debris
                     </div>
@@ -130,7 +126,6 @@ class SurveyArea extends Component {
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.locationChoiceOther}
                           className='uk-input'
-
                           />
                     </div>
                   </div>
@@ -143,7 +138,6 @@ class SurveyArea extends Component {
                           defaultValue={this.props.data.compassDegrees}
                           onChange={this.props.updateSurveyState}
                           className='uk-input uk-margin'
-
                           />
                     </div>
                   </div>
@@ -162,7 +156,6 @@ class SurveyArea extends Component {
                           placeholder='Nearest River Output Name'
                           id='riverName'
                           className='uk-input uk-margin'
-
                           />
                       </div>
                       <div>
@@ -172,7 +165,6 @@ class SurveyArea extends Component {
                           placeholder='Nearest River Output Distance'
                           id='riverDistance'
                           className='uk-input uk-margin'
-
                           />
                       </div>
                     </div>
@@ -192,9 +184,8 @@ class SurveyArea extends Component {
                           className='uk-select uk-margin'
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.tideTypeB}
-
                           >
-                          <option>Please Select</option>
+                          {!this.props.data.tideTypeB && <option>Please Select</option>}
                           <option>Low</option>
                           <option>High</option>
                         </select>
@@ -206,9 +197,8 @@ class SurveyArea extends Component {
                           className='uk-select uk-margin'
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.tideTypeA}
-
                           >
-                          <option>Please Select</option>
+                          {!this.props.data.tideTypeA && <option>Please Select</option>}
                           <option>Low</option>
                           <option>High</option>
                         </select>
@@ -225,7 +215,6 @@ class SurveyArea extends Component {
                           className='uk-input uk-margin'
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.tideHeightB}
-
                           />
                       </div>
                       <div>
@@ -237,7 +226,6 @@ class SurveyArea extends Component {
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.tideHeightA}
                           className='uk-input uk-margin'
-
                           />
                       </div>
                     </div>
@@ -291,7 +279,7 @@ class SurveyArea extends Component {
                           className='uk-input uk-margin'
 
                           >
-                          <option>Please Select</option>
+                          {(!this.props.data.windDir) && <option>Please Select</option>}
                           <option>North</option>
                           <option>Northeast</option>
                           <option>East</option>
@@ -300,6 +288,7 @@ class SurveyArea extends Component {
                           <option>Southwest</option>
                           <option>West</option>
                           <option>Northwest</option>
+                          <option>None</option>
                         </select>
                       </div>
                       <div>
@@ -309,11 +298,11 @@ class SurveyArea extends Component {
                           className='uk-select uk-margin'
                           onChange={this.props.updateSurveyState}
                           defaultValue={this.props.data.slope}
-
                           >
-                            <option>Please Select</option>
+                            {(!this.props.data.slope) && <option>Please Select</option>}
                             <option>Winter Profile</option>
                             <option>Summer Profile</option>
+                            <option>None</option>
                         </select>
                       </div>
                       <div>
@@ -326,7 +315,6 @@ class SurveyArea extends Component {
                               onChange={this.props.updateCheckedState}
                               defaultValue={this.props.data.substrateTypeSand}
                               className='uk-checkbox'
-
                               />
                           </label> Sand
                         </div>
@@ -338,7 +326,6 @@ class SurveyArea extends Component {
                               onChange={this.props.updateCheckedState}
                               defaultValue={this.props.data.substrateTypePebble}
                               className='uk-checkbox'
-
                               />
                           </label> Pebble
                         </div>
@@ -350,7 +337,6 @@ class SurveyArea extends Component {
                               onChange={this.props.updateCheckedState}
                               defaultValue={this.props.data.substrateTypeRipRap}
                               className='uk-checkbox'
-
                               />
                           </label> Rip Rap
                         </div>
@@ -362,7 +348,6 @@ class SurveyArea extends Component {
                               onChange={this.props.updateCheckedState}
                               defaultValue={this.props.data.substrateTypeSeaweed}
                               className='uk-checkbox'
-
                               />
                           </label> Seaweed
                         </div>
@@ -375,7 +360,6 @@ class SurveyArea extends Component {
                               onChange={this.props.updateSurveyState}
                               defaultValue={this.props.data.substrateTypeOther}
                               className='uk-input'
-
                               />
                         </div>
                       </div>
