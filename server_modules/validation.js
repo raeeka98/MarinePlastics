@@ -12,9 +12,9 @@ let notContainSpaces = (val) => {
 let surveyValidationSchema = checkSchema({
     bID: {
         in: "body",
-
+        isAlphanumeric: true
     },
-    "survData.user.first": {
+    "survData.user.f": {
         in: "body",
         isString: true,
         isEmpty: {
@@ -31,7 +31,7 @@ let surveyValidationSchema = checkSchema({
             }
         },
     },
-    "survData.user.last": {
+    "survData.user.l": {
         in: "body",
         isEmpty: {
             negated: true

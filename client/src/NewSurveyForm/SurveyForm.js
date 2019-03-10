@@ -253,8 +253,12 @@ class SurveyForm extends Component {
 
       const data = this.state.surveyData;
       const show = this.state.displayStrings;
-      console.log(show);
+      let date = new Date(data.cleanUpDate);
+      const min = parseInt(data.cleanUpTime.replace(/[0-9]+:/, ''));
+      const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
+      date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
+      console.log(date);
       const form = {
           survData : {
               user : {
@@ -296,6 +300,7 @@ class SurveyForm extends Component {
               asDebrisLength : 0,
               survDate: new Date(data.cleanUpDate+"T"+data.cleanUpTime)
           },
+
           bID : '5c74f1bc71992a56a570d485'
 
       }
