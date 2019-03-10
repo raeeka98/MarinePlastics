@@ -4,14 +4,14 @@ import coi from './COI.png'
 export function ProtocolPage() {
   
   return (
-    <div className= " uk-padding">
+    <div className= "uk-padding uk-padding-remove-vertical">
     <div className= "uk-width-1-1 uk-flex uk-flex-middle">
 
       <div className= "uk-width-3-4 uk-text-bottom uk-flex">
       <h2 className= "uk-text-bold">The COI Beach Cleanup Protocol</h2>
       </div>
       <div className= "uk-width-1-4">
-              <img src={coi} alt="coi" className="uk-padding uk-padding-remove-right"></img>
+              <img src={coi} alt="coi" className=""></img>
             </div>
       
       </div>
