@@ -68,12 +68,14 @@ render() {
               </Link>
             </li>
             <li><Link to="/home">Home</Link></li>
+
             { this.props.auth.isAuthenticated()
               ? <li><Link to='/survey'>Add Survey</Link></li>
               : null
             }
             
-            <li><Link to="/protocol">Protocol</Link></li>
+          <li><Link to="/protocol">Protocol</Link></li>
+
            <li><Link to="/about">About</Link></li>
               </ul>
               </div>
