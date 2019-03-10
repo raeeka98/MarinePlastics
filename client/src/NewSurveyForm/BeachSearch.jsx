@@ -30,7 +30,8 @@ class BeachSearch extends Component {
   
   //called when the input is changed
   handleInputChange = () => {
-    this.props.setBeachID(this.search.value, null);
+    this.props.setSurveyData('beachName', this.search.value);
+    this.props.setSurveyData('beachID', null);
     this.setState({ query: this.search.value });
     clearTimeout(this.state.timeout);
     let that = this;
@@ -43,7 +44,8 @@ class BeachSearch extends Component {
   onSuggestionClick = (res) => {
     this.search.value = res.n;
     this.props.autofill(res._id);
-    this.props.setBeachID(res.n, res._id);
+    this.props.setSurveyData('beachName', res.n);
+    this.props.setSurveyData('beachID', res._id);
     this.setState({ query: res.n, showItems: false});
   }
   

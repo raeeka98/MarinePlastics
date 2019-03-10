@@ -27,11 +27,10 @@ class SurveyArea extends Component {
         }
         
         //match results with the input boxes
-        let change = new Event('change');
         for (let key in pairs){
             let el = document.getElementById(key);
             el.value = res.data[pairs[key]];
-            el.dispatchEvent(change)
+            this.props.setSurveyData(key, el.value);
           };
 
       }).catch(err => {
@@ -53,7 +52,7 @@ class SurveyArea extends Component {
 
               <div className="uk-grid uk-child-width-1-3">
                 <div>
-                  <BeachSearch autofill={this.autofill} setBeachID={this.props.setBeachID} />
+                  <BeachSearch autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
                 </div>
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
