@@ -167,11 +167,15 @@ class SurveyForm extends Component {
       axios.post("beaches/surveys", form)
           .then(res => {
               console.log(res.data);
-              this.setState({
-                  isInputting: false,
-                  isReviewing: false,
-                  isSubmitted: true
-                })
+              if(res.data.survID === undefined) {
+
+              } else {
+                this.setState({
+                    isInputting: false,
+                    isReviewing: false,
+                    isSubmitted: true
+                  })
+              }
           })
           .catch(err => {
               console.log(err.response)
