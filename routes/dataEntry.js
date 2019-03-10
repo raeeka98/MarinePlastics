@@ -93,7 +93,6 @@ router.route('/surveys')
             res.json({ res: "Survey Created" })
         } catch (err) {
             console.log(err);
-
             res.json(err);
         }
 

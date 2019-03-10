@@ -12,13 +12,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 let Schema = mongoose.Schema;
 
-var dataSchema = new Schema({
-    name: { type: String, required: true },
-    fresh: Number,
-    weathered: Number,
-}, { versionKey: false, _id: false, validateBeforeSave: false });
-
-
 let newDataSchema = new Schema({
     fresh: { type: Number },
     weathered: { type: Number }
