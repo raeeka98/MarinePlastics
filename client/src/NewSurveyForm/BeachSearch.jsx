@@ -71,7 +71,7 @@ class BeachSearch extends Component {
       <div onMouseLeave={()=>this.setState({showItems: false})}>
         <label>Name<span className="uk-text-danger">*</span></label>
         <input id="beachName" className="uk-input uk-margin"
-          placeholder="Search for..."
+          placeholder="Name of Beach"
           ref={input => this.search = input}
           onChange={()=>this.handleInputChange()}
           />
