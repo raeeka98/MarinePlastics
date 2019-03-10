@@ -12,6 +12,15 @@ import BeachSearch from '../BeachSearch';
 
 class SurveyArea extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+        showOtherUsage : false,
+        showOtherReason : false,
+        showOtherSubstrate : false
+    }
+  }
+
   render() {
     return(
       <AccordionItem className="accordion__item">
@@ -83,14 +92,28 @@ class SurveyArea extends Component {
                       </label> Commercial
                     </div>
                     <div>
-                      <label>Other</label>
+                      <label>
                         <input
-                          type='string'
-                          id='usageOther'
-                          className='uk-input'
-                          onChange={this.props.updateSurveyState}
+                          type='checkbox'
+                          className='uk-checkbox'
+                          onClick={ e => this.setState({ showOtherUsage : e.target.checked }) }
                           />
+                      </label> Other
                     </div>
+                    {this.state.showOtherUsage &&
+                      (
+                        <div>
+                            <input
+                              type='string'
+                              id='usageOther'
+                              className='uk-input'
+                              onChange={this.props.updateSurveyState}
+                              />
+                        </div>
+                      )
+                    }
+
+
                   </div>
 
                   <div>
@@ -118,16 +141,26 @@ class SurveyArea extends Component {
                       </label> Known for Debris
                     </div>
                     <div>
-                      <label> Other</label>
+                      <label>
                         <input
-                          type='string'
-                          id='locationChoiceOther'
-                          placeholder='Other Reasons for Location Choice'
-                          onChange={this.props.updateSurveyState}
-                          defaultValue={this.props.data.locationChoiceOther}
-                          className='uk-input'
+                          type='checkbox'
+                          className='uk-checkbox'
+                          onClick={ e => this.setState({ showOtherReason : e.target.checked }) }
                           />
+                      </label> Other
                     </div>
+                    {this.state.showOtherReason &&
+                      (
+                        <div>
+                            <input
+                              type='string'
+                              id='locationChoiceOther'
+                              className='uk-input'
+                              onChange={this.props.updateSurveyState}
+                              />
+                        </div>
+                      )
+                    }
                   </div>
                   <div>
                     <label>Compass Direction (When Facing the Water):</label>
@@ -351,17 +384,27 @@ class SurveyArea extends Component {
                               />
                           </label> Seaweed
                         </div>
-                        <div className="uk-margin">
-                          <label>Other</label>
+                        <div>
+                          <label>
                             <input
-                              type='string'
-                              id='substrateTypeOther'
-                              placeholder='Other Substrate Types'
-                              onChange={this.props.updateSurveyState}
-                              defaultValue={this.props.data.substrateTypeOther}
-                              className='uk-input'
+                              type='checkbox'
+                              className='uk-checkbox'
+                              onClick={ e => this.setState({ showOtherSubstrate : e.target.checked }) }
                               />
+                          </label> Other
                         </div>
+                        {this.state.showOtherSubstrate &&
+                          (
+                            <div>
+                                <input
+                                  type='string'
+                                  id='substrateTypeOther'
+                                  className='uk-input'
+                                  onChange={this.props.updateSurveyState}
+                                  />
+                            </div>
+                          )
+                        }
                       </div>
                     </div>
 
