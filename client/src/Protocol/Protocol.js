@@ -13,7 +13,7 @@ export function ProtocolPage() {
       <div className= "uk-width-1-4">
               <img src={coi} alt="coi" className=""></img>
             </div>
-      
+    
       </div>
     <div>
       <h3>Why Pick Up Beach Trash?</h3>
