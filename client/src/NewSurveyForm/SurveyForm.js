@@ -119,9 +119,7 @@ class SurveyForm extends Component {
       const isValidEmail = this.state.surveyData.email &&
                            this.state.surveyData.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
 
-      const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-                           'email', 'cleanUpTime', 'cleanUpDate', 'beachName',
-                           'latitude', 'longitude'];
+      const requiredIDs = [];
 
       for(const id of requiredIDs) {
           if(!this.state.surveyData[id]) {
@@ -300,7 +298,7 @@ class SurveyForm extends Component {
               survDate: new Date(data.cleanUpDate+"T"+data.cleanUpTime)
           },
 
-          bID : '5c74f1bc71992a56a570d485'
+          bID : data.beachID ? data.beachID : data.beachName,
 
       }
 
@@ -343,7 +341,10 @@ class SurveyForm extends Component {
     })
   }
 
-
+  //alternative
+  setSurveyData = (key, val) => {
+    this.setState(prevState => {prevState.surveyData[key] = val; return prevState});
+  }
 
   render() {
       return(
@@ -360,6 +361,7 @@ class SurveyForm extends Component {
                         data={this.state.surveyData}
                         updateSurveyState={this.updateSurveyState}
                         updateCheckedState={this.updateCheckedState}
+                        setSurveyData={this.setSurveyData}
                     />
                     <SurfaceRibScan
                         data={this.state.surveyData}
