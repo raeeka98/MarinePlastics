@@ -42,6 +42,7 @@ class BeachSearch extends Component {
   //called when a suggestion is clicked
   onSuggestionClick = (res) => {
     this.search.value = res.n;
+    this.props.autofill(res._id);
     this.setState({ query: res.n, selection: res._id, showItems: false});
   }
   
@@ -67,7 +68,7 @@ class BeachSearch extends Component {
     return (
       <div onMouseLeave={()=>this.setState({showItems: false})}>
         <label>Name<span className="uk-text-danger">*</span></label>
-        <input id="name-of-beach" className="uk-input uk-margin"
+        <input id="beachName" className="uk-input uk-margin"
           placeholder="Search for..."
           ref={input => this.search = input}
           onChange={()=>this.handleInputChange()}
