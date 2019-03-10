@@ -341,7 +341,7 @@ class SurveyForm extends Component {
 
   render() {
       return(
-        <div>
+        <div className="centering-container">
             {this.state.isInputting && (
             <div>
               <form id="surveyForm">
@@ -375,7 +375,10 @@ class SurveyForm extends Component {
                     />
                   </Accordion>
               </form>
-              <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
+              <div className="submit-button-container">
+                <button className="uk-button uk-button-secondary" onClick={this.moveToReview}>Review</button>
+              </div>
+
             </div>
           )}
           {this.state.isReviewing && (
