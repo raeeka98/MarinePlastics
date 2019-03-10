@@ -272,7 +272,11 @@ class SurveyForm extends Component {
               },
               email : (data.email ? data.email : ""),
               org : (data.orgName ? data.orgName : ""),
-              reason : (show.locChoice ? show.locChoice : ""),
+              reason : {
+                  prox: data.locationChoiceProximity ? data.locationChoiceProximity : false,
+                  debris: data.locationChoiceProximity ? data.locationChoiceProximity : false,
+                  other: data.locationChoiceOther ? data.locationChoiceOther : ""
+              },
               st : (show.subType ? show.subType : ""),
               slope : (data.slope ? data.slope : ""),
               lastTide : {
@@ -289,21 +293,17 @@ class SurveyForm extends Component {
                   dir : (data.windDir ? data.windDir : ""),
                   spd : (data.windSpeed ? data.windSpeed : "")
               },
-              majorUse: (show.usage ? show.usage : ""),
+              majorUse: {
+                  rec : (data.usageRecreation ? data.usageRecreation : false),
+                  com : (data.usageCommercial ? data.usageCommercial : false),
+                  other : (data.usageOther ? data.usageOther : "")
+              },
               weight: (data.weight ? data.weight : ""),
-              /* SRSDebris: [
-                  [cigaretteButts, {
-                      fresh (total):
-                      weathered (total):
-                  }],
-                  ...
-              ]
-              */
               SRSDebris : this.calcTotalsSRS(),
               ASDebris : this.calcTotalsAS(),
               srsDebrisLength : 0,
               asDebrisLength : 0,
-              survDate: new Date(data.cleanUpDate+"T"+data.cleanUpTime)
+              survDate: date
           },
 
           bID : '5c74f1bc71992a56a570d485'
