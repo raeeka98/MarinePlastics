@@ -13,7 +13,7 @@ const substraightTypeSchema = joi.object({
     rip_rap: joi.bool(),
     seaweed: joi.bool(),
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["sand", "pebble", "rr", "seaweed", "other"]);
+}).or(["sand", "pebble", "rip_rap", "seaweed", "other"]);
 
 const reasonTypeSchema = joi.object({
     prox: joi.bool(),
