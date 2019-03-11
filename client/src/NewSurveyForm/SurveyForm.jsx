@@ -90,25 +90,46 @@ class SurveyForm extends Component {
     async updateDisplayStrings() {
         const data = this.state.surveyData;
 
-        const _usage = (data.usageRecreation ? "recreation, " : "") +
-            (data.usageCommercial ? "commercial, " : "") +
-            (data.usageOther ? data.usageOther : "");
+        let usage = {
+            rec:data.usageRecreation ,
+            com: data.usageCommercial,
+            other:data.usageOther
+        }
 
-        const _locChoice = (data.locationChoiceDebris ? "debris, " : "") +
-            (data.locationChoiceProximity ? "proximity, " : "") +
-            (data.locationChoiceOther ? data.locationChoiceOther : "");
+        let locChoice = {
+            debris:data.locationChoiceDebris,
+            prox: data.locationChoiceProximity ,
+            other:data.locationChoiceOther
+        }
 
-        const _subType = (data.substrateTypeSand ? "sand, " : "") +
-            (data.substrateTypeRipRap ? "rip rap, " : "") +
-            (data.substrateTypePebble ? "pebble, " : "") +
-            (data.substrateTypeSeaweed ? "seaweed, " : "") +
-            (data.substrateTypeOther ? data.substrateTypeOther : "");
+        let subType = {
+            sand:data.substrateTypeSand ,
+            pebble:data.substrateTypePebble,
+            rip_rap:data.substrateTypeRipRap,
+            seaweed:data.substrateTypeSeaweed,
+            other:data.substrateTypeOther
+
+        }
+
+        // const _usage = (data.usageRecreation ? "recreation, " : "") +
+        //     (data.usageCommercial ? "commercial, " : "") +
+        //     (data.usageOther ? data.usageOther : "");
+
+        // const _locChoice = (data.locationChoiceDebris ? "debris, " : "") +
+        //     (data.locationChoiceProximity ? "proximity, " : "") +
+        //     (data.locationChoiceOther ? data.locationChoiceOther : "");
+
+        // const _subType = (data.substrateTypeSand ? "sand, " : "") +
+            // (data.substrateTypeRipRap ? "rip rap, " : "") +
+            // (data.substrateTypePebble ? "pebble, " : "") +
+            // (data.substrateTypeSeaweed ? "seaweed, " : "") +
+            // (data.substrateTypeOther ? data.substrateTypeOther : "");
 
         this.setState({
             displayStrings: {
-                usage: _usage,
-                locChoice: _locChoice,
-                subType: _subType
+                usage: usage,
+                locChoice: locChoice,
+                subType: subType
             }
         })
     }
@@ -165,7 +186,7 @@ class SurveyForm extends Component {
     }
 
     moveToSubmit() {
-        //   const form = this.prepareForm();
+        const form1 = this.prepareForm();
         const form = {
             bID: "5c74f23944ffae570ecaffad",
             survData: {
@@ -180,7 +201,7 @@ class SurveyForm extends Component {
                     prox: true,
                     other: "ye"
                 },
-                survDate: new Date().setUTCHours(-24,0,0,0),
+                survDate: new Date().setUTCHours(-24, 0, 0, 0),
                 st: {
                     sand: true,
                     rip_rap: true
@@ -215,7 +236,9 @@ class SurveyForm extends Component {
                 ]
             }
         }
-        axios.post("beaches/surveys", form)
+        console.log(form1);
+
+        axios.post("beaches/surveys", form1)
             .then(res => {
                 this.setState({
                     isInputting: false,
@@ -315,11 +338,14 @@ class SurveyForm extends Component {
                     f: (data.userFirst ? data.userFirst : ""),
                     l: (data.userLast ? data.userLast : "")
                 },
-                email: (data.email ? data.email : ""),
+                email: this.state.email,
+                userID: this.state.userID,
                 org: (data.orgName ? data.orgName : ""),
                 reason: (show.locChoice ? show.locChoice : ""),
+                survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
+                cmpsDir:100,
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -335,7 +361,7 @@ class SurveyForm extends Component {
                     spd: (data.windSpeed ? data.windSpeed : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
-                weight: (data.weight ? data.weight : ""),
+                // weight: (data.weight ? data.weight : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -344,11 +370,9 @@ class SurveyForm extends Component {
                     ...
                 ]
                 */
+                numOfP: 6,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
-                srsDebrisLength: 0,
-                asDebrisLength: 0,
-                survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime)
             },
 
             bID: '5c74f1bc71992a56a570d485'
@@ -442,8 +466,8 @@ class SurveyForm extends Component {
         return (
             <div className="centering-container" >
                 {(this.state.isInputting && this.inputting()) ||
-                (this.state.isReviewing && this.reviewing()) ||
-                (this.state.isSubmitted && this.submitting())}
+                    (this.state.isReviewing && this.reviewing()) ||
+                    (this.state.isSubmitted && this.submitting())}
             </div>
         );
     }
