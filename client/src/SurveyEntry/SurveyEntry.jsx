@@ -20,7 +20,8 @@ class SurveyEntry extends Component {
       deletedComment: false,
       srsSelected: true,
       debrisNA: false,
-      editSurvey: false
+      editSurvey: false,
+      editable: false
     };
     //this.auth = new Auth();
     this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
@@ -61,13 +62,17 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
+    console.log(this.state.userProfile ? this.state.userProfile.sub : null);
+    
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
-        userID: this.state.userProfile.sub
+        userID: this.state.userProfile ? this.state.userProfile.sub : ''
       }
     })
       .then(res => {
-        this.setState({ surveyData: res.data });
+        console.log(res.data);
+
+        this.setState({ surveyData: res.data.survData, editable: res.data.e });
       })
       .catch(err => {
         console.log(err);
@@ -75,6 +80,59 @@ class SurveyEntry extends Component {
       .then(() => {
         this.getChartData();
       });
+  }
+
+  /**
+   * getChartData: This function will need to extract the SRS and AS debris data in a way
+   * that the PieChart can process the data and display it
+   */
+
+  getChartData = () => {
+    //First, check to see if we even have the data
+    if (this.state.surveyData.SRSDebris) {
+      //If yes, then we need to sum up the number of pieces picked up for the given trash type
+      //add the weathered and fresh totals
+      var SRSChartDataObject = {};
+      for (const key in this.state.surveyData.SRSDebris) {
+        let thisDebrisTotal = this.state.surveyData.SRSDebris[key].fresh + this.state.surveyData.SRSDebris[key].weathered;
+        SRSChartDataObject[key] = thisDebrisTotal;
+      }
+      //Now we can sort the data so that it will display nicely
+      var keysSRS = Object.keys(SRSChartDataObject);
+      console.log(keysSRS)
+      let sortedKeys = {};
+      keysSRS.sort((a, b) => { return (SRSChartDataObject[a] - SRSChartDataObject[b]) });
+      for (const i in keysSRS) {
+        let key = keysSRS[i]
+        sortedKeys[key] = SRSChartDataObject[key];
+      }
+      //Set the state of the component
+      this.setState({ chartDataSRS: sortedKeys });
+    } else {
+      // We dont have survey data for the surface rib scan!!
+      this.setState({ srsSelected: false });
+    }
+    if (this.state.surveyData.ASDebris) {
+      var ASChartDataObject = {};
+      for (const key in this.state.surveyData.ASDebris) {
+        let thisDebrisTotal = this.state.surveyData.ASDebris[key].fresh + this.state.surveyData.ASDebris[key].weathered;
+        ASChartDataObject[key] = thisDebrisTotal;
+      }
+      //Now we can sort i guess
+      var keysAS = Object.keys(ASChartDataObject);
+      console.log(keysAS)
+      let sortedKeys = {};
+      keysAS.sort((a, b) => { return (ASChartDataObject[a] - ASChartDataObject[b]) });
+      for (const i in keysAS) {
+        let key = keysAS[i]
+        sortedKeys[key] = ASChartDataObject[key];
+      }
+
+      this.setState({ chartDataAS: sortedKeys });
+    } else {
+      if (!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
+        this.setState({ debrisNA: true });
+    }
   }
 
   deleteSurvey = () => {
@@ -85,7 +143,7 @@ class SurveyEntry extends Component {
         {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
-          userID: this.state.userProfile.sub
+          userID: this.state.userProfile ? this.state.userProfile.sub : ''
         }
       })
       .then(res => {
@@ -103,7 +161,7 @@ class SurveyEntry extends Component {
   editSurvey = () => {
     axios.get(`/beaches/surveys/${this.state.surveyID}/edit`, {
       params: {
-        id: this.state.userProfile.sub
+        id: this.state.userProfile ? this.state.userProfile : ''
       }
     })
       .then(res => {
@@ -343,9 +401,14 @@ class SurveyEntry extends Component {
           </div>
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
-        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.deleteSurvey}>Delete Survey</button>
-        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
-
+        {
+          this.state.editable ? (
+            <React.Fragment>
+              <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.deleteSurvey}>Delete Survey</button>
+              <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
+            </React.Fragment>
+          ) : null
+        }
       </div>
 
     );

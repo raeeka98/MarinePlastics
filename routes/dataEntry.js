@@ -1,6 +1,6 @@
 let { beaches, surveys, trash } = require('../server_modules/mongoose');
 let router = require('express').Router();
-let { beachValidate, surveyValidate } = require("../server_modules/joi-validation");
+let { beachValidation, surveyValidation } = require("../server_modules/joi-validation");
 
 /**
  *
@@ -42,8 +42,10 @@ router.route('/')
     .post(asyncHandler(async (req, res) => {
         let beachData;
         try {
-            beachData = await beachValidate(req.body);
-            let beach = await beaches.create(beachData);
+            beachData = await beachValidation.validate(req.body);
+            console.log(beachData);
+
+            //let beach = await beaches.create(beachData);
             res.json({ res: `Added beach ${beach.n}` });
         } catch (err) {
             console.log(err);
@@ -87,8 +89,10 @@ router.route('/surveys')
      * }
      */
     .post(asyncHandler(async (req, res) => {
+        console.log(req.body);
+        
         try {
-            let beachData = await surveyValidate(req.body);
+            let beachData = await surveyValidation.validate(req.body);
             let surv = await surveys.addToBeach(beachData.survData, beachData.bID);
             res.json({ survID: surv._id });
         } catch (err) {
@@ -106,8 +110,9 @@ router.route('/surveys/:surveyID')
         //console.log("Obtaining survey...");
         let { userID } = req.query;
         let surveyID = req.params.surveyID;
+
         let survey = await surveys.get(surveyID);
-        let rtnMsg = { survData: survey, e: survey.userID == userID }
+        let rtnMsg = { survData: survey, e: survey.userID == userID };
         res.json(rtnMsg);
     }))
     //find a specific survey and edit it
