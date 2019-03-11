@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { PieChart } from './SurveyCharts'
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import { runInThisContext } from 'vm';
+import './surveyEntry.css';
+
+const debrisInfo = getDebrisMap();
 
 
 class SurveyEntry extends Component {
@@ -26,6 +30,7 @@ class SurveyEntry extends Component {
     //this.auth = new Auth();
     this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
+
   }
 
   renderOptions() {
@@ -63,7 +68,7 @@ class SurveyEntry extends Component {
 
   getSurvey = () => {
     console.log(this.state.userProfile ? this.state.userProfile.sub : null);
-    
+
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID: this.state.userProfile ? this.state.userProfile.sub : ''
@@ -89,6 +94,7 @@ class SurveyEntry extends Component {
 
   getChartData = () => {
     //First, check to see if we even have the data
+
     if (this.state.surveyData.SRSDebris) {
       //If yes, then we need to sum up the number of pieces picked up for the given trash type
       //add the weathered and fresh totals
@@ -100,14 +106,19 @@ class SurveyEntry extends Component {
       //Now we can sort the data so that it will display nicely
       var keysSRS = Object.keys(SRSChartDataObject);
       console.log(keysSRS)
-      let sortedKeys = {};
+      let cleanedKeysSorted = {};
       keysSRS.sort((a, b) => { return (SRSChartDataObject[a] - SRSChartDataObject[b]) });
       for (const i in keysSRS) {
-        let key = keysSRS[i]
-        sortedKeys[key] = SRSChartDataObject[key];
+        let key = keysSRS[i];
+        let cleanedKey = debrisInfo[key]
+        if (cleanedKey === "Fishing Line / Polypropylene Rope")
+          cleanedKey = "Fishing Line";
+        if (cleanedKey === "Plastic Bottles / Plastic Caps")
+          cleanedKey = "Plastic Bottles";
+        cleanedKeysSorted[cleanedKey] = SRSChartDataObject[key];
       }
       //Set the state of the component
-      this.setState({ chartDataSRS: sortedKeys });
+      this.setState({ chartDataSRS: cleanedKeysSorted });
     } else {
       // We dont have survey data for the surface rib scan!!
       this.setState({ srsSelected: false });
@@ -121,14 +132,19 @@ class SurveyEntry extends Component {
       //Now we can sort i guess
       var keysAS = Object.keys(ASChartDataObject);
       console.log(keysAS)
-      let sortedKeys = {};
+      let cleanedKeysSorted = {};
       keysAS.sort((a, b) => { return (ASChartDataObject[a] - ASChartDataObject[b]) });
       for (const i in keysAS) {
-        let key = keysAS[i]
-        sortedKeys[key] = ASChartDataObject[key];
+        let key = keysAS[i];
+        let cleanedKey = debrisInfo[key];
+        if (cleanedKey === "Fishing Line / Polypropylene Rope")
+          cleanedKey = "Fishing Line";
+        if (cleanedKey === "Plastic Bottles / Plastic Caps")
+          cleanedKey = "Plastic Bottles";
+        cleanedKeysSorted[cleanedKey] = ASChartDataObject[key];
       }
 
-      this.setState({ chartDataAS: sortedKeys });
+      this.setState({ chartDataAS: cleanedKeysSorted });
     } else {
       if (!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
         this.setState({ debrisNA: true });
@@ -136,7 +152,6 @@ class SurveyEntry extends Component {
   }
 
   deleteSurvey = () => {
-
     axios.delete(`/beaches/surveys/${this.state.surveyID}`,
       {
         params:
@@ -172,22 +187,37 @@ class SurveyEntry extends Component {
 
   }
 
-  showConfirmationModal = () => {
-    return (
-      <div id="confirmationModal" className="uk-modal">
-        <div className="uk-modal-dialog">
-          <h1>Are you sure you want to delete this survey?</h1>
-          <button className="uk-button uk-button-default">Cancel</button>
-          <button className="uk-button uk-button-danger">Delete</button>
-        </div>
-      </div>
-    )
-  }
-
 
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
+  }
+
+  editBtns = () => {
+    return (
+      <React.Fragment>
+        <button className="uk-button uk-button-danger uk-margin"
+          data-uk-toggle="target: #delete-confirmation-modal">
+          Delete Survey
+        </button>
+        
+        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
+
+        <div id="delete-confirmation-modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <h2>Are you sure you want to delete this survey?</h2>
+            <p>This action cannot be undone.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
+            </p>
+
+            <button className="uk-modal-close-default" data-uk-close></button>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+
   }
 
   render() {
@@ -207,7 +237,7 @@ class SurveyEntry extends Component {
         SRSRows.push(
           <SurveyTableRow
             key={trash}
-            name={trash}
+            name={debrisInfo[trash]}
             fresh={trashData.fresh}
             weathered={trashData.weathered}
           />
@@ -219,7 +249,7 @@ class SurveyEntry extends Component {
         ASRows.push(
           <SurveyTableRow
             key={trash}
-            name={trash}
+            name={debrisInfo[trash]}
             fresh={trashData.fresh}
             weathered={trashData.weathered}
           />
@@ -250,6 +280,8 @@ class SurveyEntry extends Component {
     }
     return (
       <div className="uk-container">
+
+        {/* BEACH NAME AND DATE */}
         <h2 className="uk-text-primary uk-heading-primary">
           <Link to={{
             pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: {
@@ -263,22 +295,25 @@ class SurveyEntry extends Component {
             {new Date(this.state.surveyData.survDate).toLocaleDateString()}
           </span>
         </h2>
-        <div className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
+
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
+        <div data-uk-grid="masonry: true" className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
           <div>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <p><strong>Team Leader:</strong> {this.state.surveyData.user}</p>
+              <p><strong>Team Leader:</strong> {this.state.surveyData.user ? this.state.surveyData.user.f
+                + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
             </div>
           </div>
 
-          <div id="b-cleanup-section" className="uk-margin-buttom" >
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+          <div id="b-cleanup-section"  >
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
-                this.state.surveyData.NumberOfPeople ?
-                  <p><strong>Number of People:</strong> {this.state.surveyData.NumberOfPeople}</p> : null
+                this.state.surveyData.numOfP ?
+                  <p><strong>Number of People:</strong> {this.state.surveyData.numOfP}</p> : null
               }
               {
                 this.state.surveyData.weight ?
@@ -287,8 +322,9 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
+          {/* SURVEY AREA SECTION */}
           <div id="survey-area-section" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
               {
                 this.state.surveyData.lat && this.state.surveyData.lon ?
@@ -296,15 +332,25 @@ class SurveyEntry extends Component {
               }
               {
                 this.state.surveyData.reason ?
-                  <p><strong>Reason for Location Choice:</strong> {this.state.surveyData.reason}</p> : null
+                  <p><strong>Reason for Location Choice: </strong>
+                    {
+                      this.state.surveyData.reason.prox ? "Proximity" : this.state.surveyData.reason.debris ? "Debris" : this.state.surveyData.reason.other
+                    }
+                  </p> : null
               }
               {
                 this.state.surveyData.majorUse ?
-                  <p><strong>Major Use:</strong> {this.state.surveyData.majorUse}</p> : null
+                  <p><strong>Major Use: </strong>
+                    {this.state.surveyData.majorUse.rec ? "Recreation" : this.state.surveyData.majorUse.com ? "Commercial" : this.state.surveyData.majorUse.other}
+                  </p> : null
               }
               {
                 this.state.surveyData.st ?
-                  <p><strong>Substrate Type:</strong> {this.state.surveyData.st}</p> : null
+                  <p><strong>Substrate Type: </strong>
+                    {
+                      this.state.surveyData.st.s ? "Sand" : this.state.surveyData.st.p ? "Pebbles" : this.state.surveyData.st.rr ? "Rip rap" : this.state.surveyData.st.sea ? "Seaweed" : this.state.surveyData.st.other
+                    }
+                  </p> : null
               }
               {
                 this.state.surveyData.slope ?
@@ -315,8 +361,12 @@ class SurveyEntry extends Component {
                   <p><strong>Beach Aspect:</strong> {this.state.surveyData.aspect}</p> : null
               }
               {
-                this.state.surveyData.windDir ?
-                  <p><strong>Wind Direction:</strong> {this.state.surveyData.windDir}</p> : null
+                this.state.surveyData.wind ?
+                  <p><strong>Wind Direction: </strong> {this.state.surveyData.wind.dir}</p> : null
+              }
+              {
+                this.state.surveyData.wind ?
+                  <p><strong>Wind Speed: </strong> {this.state.surveyData.wind.spd} knots</p> : null
               }
               {
                 this.state.surveyData.nroName ?
@@ -326,11 +376,16 @@ class SurveyEntry extends Component {
                 this.state.surveyData.nroDist ?
                   <p><strong>Distance to Nearest River:</strong> {this.state.surveyData.nroDist}m</p> : null
               }
+              {
+                this.state.surveyData.cmpsDir ?
+                  <p><strong>Compass Direction:</strong> {this.state.surveyData.cmpsDir} Degrees</p> : null
+              }
             </div>
           </div>
 
+          {/* SRS SECTION*/}
           <div id="SRS-section" style={{ display: 'none' }}>
-            <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
+            <div className="uk-card uk-card-default uk-card-body">
               <h3>Surface Rib Scan Survey</h3>
               <table className="uk-table uk-table-striped">
                 <thead>
@@ -347,7 +402,8 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
-          <div id="tide-section" className="uk-margin-bottom" style={{ display: 'none' }}>
+          {/* TIDE SECTION*/}
+          <div id="tide-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
               <h4>The Last Tide</h4>
@@ -375,6 +431,7 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
+          {/* AS SECTION */}
           <div id="AS-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3>Accumulation Survey</h3>
@@ -393,22 +450,17 @@ class SurveyEntry extends Component {
             </div>
           </div>
         </div>
-        {console.log(this.state.chartDataSRS)}
-        <div className="uk-card uk-card-default uk-card-body">
+
+        {/* DEBRIS TOTALS AND PIE CHART */}
+        <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
           <h2>Debris quantity totals for this survey:</h2>
           <div className="uk-width-1-5">
             {this.renderOptions()}
           </div>
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
-        {
-          this.state.editable ? (
-            <React.Fragment>
-              <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.deleteSurvey}>Delete Survey</button>
-              <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
-            </React.Fragment>
-          ) : null
-        }
+
+        {this.state.editable && this.editBtns()}
       </div>
 
     );

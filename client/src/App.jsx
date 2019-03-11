@@ -9,13 +9,11 @@ import Auth from './Auth';
 import Landing from './Landing/Landing';
 import Home from './Home/Home';
 import SurveyEntry from './SurveyEntry/SurveyEntry';
-
-// for testing new survey form
-import Steps from './SurveyForm/SurveyForm';
 import SurveyForm from './NewSurveyForm/SurveyForm'
 
 import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
+import About from './About/About';
 import Map from './Map/Map.js';
 import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
@@ -44,18 +42,15 @@ class App extends Component {
     if (this.auth.isAuthenticated()) {
       this.auth.getLoggedInProfile((err, profile) => {
         this.setState({ userProfile: profile });
-        console.log("We authenticated");
-        console.log(this.state.userProfile);
       });
 
     } else {
       this.setState({ userProfile: null });
     }
-
   }
 
   render() {
-    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/map', '/chooseform'];
+    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/about', '/map', '/chooseform'];
 
     return (
       <div>
@@ -77,9 +72,7 @@ class App extends Component {
                 <Route exact path='/home' render={() => <Home userProfile={this.state.userProfile} />} />
 
                 {/* for testing new component: */}
-                <Route path='/survey' component={Steps} />
-                <Route path='/newsurvey' render={()=><SurveyForm auth={this.auth}/>} />
-
+                <Route path='/survey' render={()=><SurveyForm auth={this.auth}/>}/>
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
@@ -91,9 +84,13 @@ class App extends Component {
                       : <UserProfile auth={this.auth} />
                   )}
                 />
-                <Route exact path='/protocol' component={Protocol} />
-                <Route path='/map' render={() => <Map userProfile={this.auth} />} />
-                <Route path='/chooseform' component={ChooseForm} />
+                <Route exact path='/protocol' component={ Protocol } />
+                <Route exact path='/about' component={ About } />
+                <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />}/>
+
+                <Route exact path='/about' component={ About } />
+              
+                <Route path='/chooseform' component={ ChooseForm } />
 
                 <Route component={PageNotFound} />
               </Switch>

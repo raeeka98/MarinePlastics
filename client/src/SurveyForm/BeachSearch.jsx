@@ -9,6 +9,7 @@ import axios from 'axios';
 class BeachSearch extends Component {
   state = {
     query: '', //what gets sent to the backend
+    selection: '', //id of what has been clicked
     results: [], //list of beaches
     timeout: null, //prevents pinging backend too much
     showItems: false, //if true, show suggestions
@@ -30,8 +31,6 @@ class BeachSearch extends Component {
   
   //called when the input is changed
   handleInputChange = () => {
-    this.props.setSurveyData('beachName', this.search.value);
-    this.props.setSurveyData('beachID', null);
     this.setState({ query: this.search.value });
     clearTimeout(this.state.timeout);
     let that = this;
@@ -43,13 +42,11 @@ class BeachSearch extends Component {
   //called when a suggestion is clicked
   onSuggestionClick = (res) => {
     this.search.value = res.n;
-    this.props.autofill(res._id);
-    this.props.setSurveyData('beachName', res.n);
-    this.props.setSurveyData('beachID', res._id);
-    this.setState({ query: res.n, showItems: false});
+    this.setState({ query: res.n, selection: res._id, showItems: false});
   }
   
   render() {
+
     //List of suggestions
     const Suggestions = (props) => {
       const options = props.results.map(r => (
@@ -70,8 +67,8 @@ class BeachSearch extends Component {
     return (
       <div onMouseLeave={()=>this.setState({showItems: false})}>
         <label>Name<span className="uk-text-danger">*</span></label>
-        <input id="beachName" className="uk-input uk-margin"
-          placeholder="Name of Beach"
+        <input id="name-of-beach" className="uk-input uk-margin"
+          placeholder="Search for..."
           ref={input => this.search = input}
           onChange={()=>this.handleInputChange()}
           />

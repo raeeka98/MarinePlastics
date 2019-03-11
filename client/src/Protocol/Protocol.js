@@ -1,10 +1,21 @@
 import React from 'react';
+import coi from './COI.png'
 
 export function ProtocolPage() {
   
   return (
-    <div className="uk-container">
-      <h2 className="uk-heading-primary">The COI Beach Cleanup Protocol</h2>
+    <div className= "uk-padding uk-padding-remove-vertical">
+    <div className= "uk-width-1-1 uk-flex uk-flex-middle">
+
+      <div className= "uk-width-3-4 uk-text-bottom uk-flex">
+      <h2 className= "uk-text-bold">The COI Beach Cleanup Protocol</h2>
+      </div>
+      <div className= "uk-width-1-4">
+              <img src={coi} alt="coi" className=""></img>
+            </div>
+    
+      </div>
+    <div>
       <h3>Why Pick Up Beach Trash?</h3>
       <p>
         Marine debris is one of the top three concerns for ocean health today and is only getting worse because of the 
@@ -24,6 +35,7 @@ export function ProtocolPage() {
         Download and read the Training Field Guide and the field form linked below to get started.
       </p>
       <a href="http://localhost:3001/pdfs/COIDataSheet_Oct_24.pdf" download>View Our Data Sheet </a>
+    </div>
     </div>
   );
 }

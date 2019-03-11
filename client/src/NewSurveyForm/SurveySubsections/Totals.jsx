@@ -19,15 +19,32 @@ class Totals extends Component {
               <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
           <AccordionItemBody className="accordion__body">
-            <label>Total Weight of all Trash Pieces (lb):<span className="uk-text-danger">*</span></label>
-            <input
-              type='string'
-              placeholder='Total Weight'
-              id='weight'
-              onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.weight}
-              className='uk-input uk-margin'
-              />
+            <div className="uk-grid uk-child-width-1-2">
+               <div>
+                 <label>Total Number of People:</label>
+                 <input
+                  type="number"
+                  min="0"
+                  id="numPeople"
+                  className="uk-input uk-margin"
+                  defaultValue={this.props.data.numPeople}
+                  onChange={this.props.updateSurveyState}
+                 />
+               </div>
+               <div>
+                 <label>Total Weight of all Trash Pieces (lb):</label>
+                 <input
+                   type='string'
+                   placeholder='Total Weight'
+                   id='weight'
+                   onChange={this.props.updateSurveyState}
+                   defaultValue={this.props.data.weight}
+                   className='uk-input uk-margin'
+                   />
+               </div>
+            </div>
+
+
           </AccordionItemBody>
       </AccordionItem>
     )
