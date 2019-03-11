@@ -87,6 +87,9 @@ class App extends Component {
                 <Route exact path='/protocol' component={ Protocol } />
                 <Route exact path='/about' component={ About } />
                 <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />}/>
+
+                <Route exact path='/about' component={ About } />
+              
                 <Route path='/chooseform' component={ ChooseForm } />
 
                 <Route component={ PageNotFound } />
