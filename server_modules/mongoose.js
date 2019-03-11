@@ -11,11 +11,14 @@ let trash = {
 
 let surveys = {
     get: async function(surveyID) {
-        return await surveyModel.findById(surveyID).lean().exec();
+        let obj = await surveyModel.findById(surveyID).lean().exec();
+        console.log(obj);
+        return obj;
     },
     getDateCreated: async function(surveyID) {
-        let projection = `survDate`;
-        let dateObj = await surveyModel.findById(surveyID).select(projection).exec();
+        console.log(surveyID);
+        let dateObj = await surveyModel.findById(surveyID).lean().exec();
+        console.log(dateObj);
         let date = dateObj.survDate;
         return date;
     },
@@ -187,8 +190,10 @@ let beaches = {
         return beachRt;
     },
     getStats: async function(beachID, year) {
+        console.log("GEtting stats", beachID);
         let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
+        console.log(stats.TODF);
         let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
         keysToSort.sort((a,b)=>{return stats.TODF[a]-stats.TODF[b]});
         let sortedKeys = {};
@@ -196,6 +201,7 @@ let beaches = {
         for(let i = 0; i < keysToSort.length; i++){
             sortedKeys[keysToSort[i]] = stats.TODF[keysToSort[i]];
         }
+        console.log(sortedKeys);
         return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
 
@@ -323,6 +329,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     //edited survey
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, newASTotal, newSRSTotal, date } = updatePayload;
+    
     let result = [];
     let path = `${date.getUTCMonth()}`
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
@@ -342,11 +349,14 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
-    let result = [];
+    console.log(newDebrisData);
+    console.log(prevDebrisData);
+    let result = {};
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
+        console.log(result);
         update.beachUpdate.$set['stats.TODF'] = result;
     }
-
+    console.log(update);
     if (oldStats.ttls.size <= 0) {
         //create new year
         let totals = new yearTotalsModel({
@@ -377,10 +387,10 @@ function compareTrash (newDebrisData, prevDebrisData, result) {
                 let origAmnt = prevDebrisData.get(trashName);
                 let newTotal = newTrashAmnt + origAmnt;
                 if (newTotal != 0) {
-                    result.push([trashName, newTotal]);
+                    result[trashName] = newTotal;
                 }
             } else {
-                result.push([trashName, newTrashAmnt]);
+                result[trashName] = newTrashAmnt;
             }
         });
     } else {
