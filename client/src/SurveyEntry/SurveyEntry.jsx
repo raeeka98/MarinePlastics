@@ -183,21 +183,6 @@ class SurveyEntry extends Component {
 
   }
 
-  showConfirmationModal = (message) => {
-    return (
-      <div id="confirmationModal" className="uk-modal">
-        <div className="uk-modal-dialog">
-          <h1>Are you sure you want to delete this survey?</h1>
-          <p>{{message}}</p>
-          <div className="uk-text-right">
-            <button className="uk-button uk-button-default">Cancel</button>
-            <button className="uk-button uk-button-danger">Delete</button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
 
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
@@ -478,7 +463,7 @@ class SurveyEntry extends Component {
             <p>This action cannot be undone.</p>
             <p className="uk-text-right">
               <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              <button className="uk-button uk-button-danger uk-margin-left">Delete</button>
+              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
             </p>
 
              <button className="uk-modal-close-default" data-uk-close></button>
