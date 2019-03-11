@@ -206,6 +206,7 @@ class SurveyEntry extends Component {
   }
 
   render() {
+    console.log(this.state.surveyData);
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     if (this.state.editSurvey) return <Redirect to="/newsurvey" />

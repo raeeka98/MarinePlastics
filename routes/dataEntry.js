@@ -1,6 +1,6 @@
 let { beaches, surveys, trash } = require('../server_modules/mongoose');
 let router = require('express').Router();
-let { beachValidate, surveyValidate } = require("../server_modules/joi-validation");
+let { beachValidate, surveyValidate, fun1 } = require("../server_modules/joi-validation");
 
 /**
  *
@@ -51,6 +51,12 @@ router.route('/')
         }
     }));
 
+router.route('/test')
+    .get(asyncHandler(async(req, res) => {
+        await fun1();
+        res.json({Did: "Done"});
+    }))
+
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
@@ -88,6 +94,7 @@ router.route('/surveys')
      */
     .post(asyncHandler(async (req, res) => {
         try {
+            console.log(req.body);
             let beachData = await surveyValidate(req.body);
             let surv = await surveys.addToBeach(beachData.survData, beachData.bID);
             res.json({ survID: surv._id });

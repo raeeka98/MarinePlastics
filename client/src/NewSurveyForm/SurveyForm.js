@@ -58,7 +58,9 @@ class SurveyForm extends Component {
       isReviewing: false,
       isSubmitted: false,
       user: "",
-      email: ""
+      email: "",
+      srsLength: 0,
+      asLength: 0
     }
     this.moveToReview = this.moveToReview.bind(this);
     this.moveToInput = this.moveToInput.bind(this);
@@ -219,7 +221,8 @@ class SurveyForm extends Component {
               {fresh: totals[id].fresh, weathered: totals[id].weathered}
           ]);
       }
-      return totalsArray;
+      this.setState({srsLength: totalsArray.length})
+      return totals;
   }
 
   calcTotalsAS() {
@@ -252,7 +255,9 @@ class SurveyForm extends Component {
               {fresh: totals[id].fresh, weathered: totals[id].weathered}
           ]);
       }
-      return totalsArray;
+      this.setState({asLength: totalsArray.length})
+      console.log(this.state.asLength);
+      return totals;
   }
 
   prepareForm() {
@@ -332,27 +337,27 @@ class SurveyForm extends Component {
       const form = {
           survData : {
               user : {
-                first : (data.userFirst ? data.userFirst : ""),
-                last : (data.userLast ? data.userLast : "")
+                f : (data.userFirst ? data.userFirst : ""),
+                l : (data.userLast ? data.userLast : "")
               },
               userID : this.state.userID,
               email : this.state.email,
               org : (data.orgName ? data.orgName : ""),
               reason : {
-                  prox: data.locationChoiceProximity,
-                  debris: data.locationChoiceProximity,
+                  prox: (data.locationChoiceProximity ? data.locationChoiceProximity : false),
+                  debris: (data.locationChoiceDebris ? data.locationChoiceDebris : false),
                   other: data.locationChoiceOther ? data.locationChoiceOther : ""
               },
               survDate: date,
               st : {
-                  s : data.substrateTypeSand,
-                  p : data.substrateTypePebble,
-                  rr : data.substrateTypeRipRap,
-                  sea : data.substrateTypeSeaweed,
+                  s : (data.substrateTypeSand ? data.substrateTypeSand : false),
+                  p : (data.substrateTypePebble ? data.substrateTypePebble : false),
+                  rr : (data.substrateTypeRipRap ? data.substrateTypeRipRap : false),
+                  sea : (data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false),
                   other : data.substrateTypeOther ? data.substrateTypeOther : ""
               },
               slope : (data.slope ? data.slope : ""),
-              compassDirection : (data.compassDegrees ? data.compassDegrees : ""),
+              cmpsDir : (data.compassDegrees ? data.compassDegrees : ""),
               lastTide : {
                   type : (data.tideTypeB ? data.tideTypeB : ""),
                   time : (data.tideTimeB ? data.tideTimeB : ""),
@@ -368,16 +373,16 @@ class SurveyForm extends Component {
                   spd : (data.windSpeed ? data.windSpeed : "")
               },
               majorUse: {
-                  rec : data.usageRecreation,
-                  com : data.usageCommercial,
+                  rec : (data.usageRecreation ? data.usageRecreation : false),
+                  com : (data.usageCommercial ? data.usageCommercial : false),
                   other : (data.usageOther ? data.usageOther : "")
               },
               numOfP : data.numofP ? data.numOfP : 0,
               weight: (data.weight ? data.weight : ""),
               SRSDebris : this.calcTotalsSRS(),
               ASDebris : this.calcTotalsAS(),
-              srsDebrisLength : 0,
-              asDebrisLength : 0
+              srsDebrisLength : this.state.srsLength,
+              asDebrisLength : this.state.asLength
 
           },
 
@@ -422,7 +427,6 @@ class SurveyForm extends Component {
         prevState.ASData[key] = val;
         return prevState;
     })
-    console.log(this.state.ASData)
   }
 
   //alternative
@@ -482,7 +486,7 @@ class SurveyForm extends Component {
                 ASData={this.state.ASData}
                 displayStrings={this.state.displayStrings}
               />
-              <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit</button>
+              <button className="uk-button" onClick={this.moveToSubmit}>Submit</button>
             </div>
           )}
           {this.state.isSubmitted && (
