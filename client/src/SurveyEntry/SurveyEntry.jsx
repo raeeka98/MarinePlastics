@@ -183,21 +183,6 @@ class SurveyEntry extends Component {
 
   }
 
-  showConfirmationModal = (message) => {
-    return (
-      <div id="confirmationModal" className="uk-modal">
-        <div className="uk-modal-dialog">
-          <h1>Are you sure you want to delete this survey?</h1>
-          <p>{{message}}</p>
-          <div className="uk-text-right">
-            <button className="uk-button uk-button-default">Cancel</button>
-            <button className="uk-button uk-button-danger">Delete</button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
 
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
@@ -265,6 +250,8 @@ class SurveyEntry extends Component {
     }
     return (
       <div className="uk-container">
+        
+        {/* BEACH NAME AND DATE */}
         <h2 className="uk-text-primary uk-heading-primary">
           <Link to={{
             pathname: `/location/${this.state.beachName.replace(/\s/g, '')}`, state: {
@@ -278,6 +265,8 @@ class SurveyEntry extends Component {
             {new Date(this.state.surveyData.survDate).toLocaleDateString()}
           </span>
         </h2>
+
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
         <div data-uk-grid="masonry: true" className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
@@ -302,7 +291,8 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-
+          
+          {/* SURVEY AREA SECTION */}
           <div id="survey-area-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
@@ -363,6 +353,7 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
+          {/* SRS SECTION*/}
           <div id="SRS-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
               <h3>Surface Rib Scan Survey</h3>
@@ -380,7 +371,8 @@ class SurveyEntry extends Component {
               </table>
             </div>
           </div>
-
+          
+          {/* TIDE SECTION*/}
           <div id="tide-section" style={{display : 'none'}}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
@@ -409,6 +401,7 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
+          {/* AS SECTION */}
           <div id="AS-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3>Accumulation Survey</h3>
@@ -427,7 +420,8 @@ class SurveyEntry extends Component {
             </div>
           </div>
         </div>
-          {console.log(this.state.chartDataSRS)}
+
+        {/* DEBRIS TOTALS AND PIE CHART */}
         <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
           <h2>Debris quantity totals for this survey:</h2>
           <div className="uk-width-1-5">
@@ -436,7 +430,47 @@ class SurveyEntry extends Component {
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
         
-        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.deleteSurvey}>Delete Survey</button>
+        {/* DELETE FUNCTIONALITY */}
+        {/* Only show delete button if user is logged in */}
+        { !this.state.userProfile 
+          ? null 
+          : (this.state.userProfile.name === this.state.surveyData.email) 
+            ? <button className="uk-button uk-button-danger uk-margin" 
+                      data-uk-toggle="target: #delete-confirmation-modal">
+                      Delete Survey
+              </button>
+            : <button className="uk-button button-disabled uk-margin" 
+                      data-uk-toggle="target: #delete-incorrect-auth">
+                      Delete Survey
+              </button>
+        }
+
+        {/* Modals for delete functionality */}
+        <div id="delete-incorrect-auth" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <button className="uk-modal-close-default" data-uk-close></button>
+            <h2>Permission denied.</h2>
+            <p>You may only delete surveys you created.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+            </p>
+          </div>
+        </div>
+
+         <div id="delete-confirmation-modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <h2>Are you sure you want to delete this survey?</h2>
+            <p>This action cannot be undone.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
+            </p>
+
+             <button className="uk-modal-close-default" data-uk-close></button>
+          </div>
+        </div>
+
+        {/* Survey button */}
         <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
 
       </div>
