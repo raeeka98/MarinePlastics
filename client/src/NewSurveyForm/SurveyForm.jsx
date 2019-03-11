@@ -91,39 +91,25 @@ class SurveyForm extends Component {
         const data = this.state.surveyData;
 
         let usage = {
-            rec:data.usageRecreation ,
-            com: data.usageCommercial,
-            other:data.usageOther
+            rec: data.usageRecreation ? data.usageRecreation : undefined,
+            com: data.usageCommercial ? data.usageCommercial : undefined,
+            other: data.usageOther ? data.usageOther : undefined
         }
 
         let locChoice = {
-            debris:data.locationChoiceDebris,
-            prox: data.locationChoiceProximity ,
-            other:data.locationChoiceOther
+            debris: data.locationChoiceDebris ? data.locationChoiceDebris : undefined,
+            prox: data.locationChoiceProximity ? data.locationChoiceProximity : undefined,
+            other: data.locationChoiceOther ? data.locationChoiceOther : undefined
         }
 
         let subType = {
-            sand:data.substrateTypeSand ,
-            pebble:data.substrateTypePebble,
-            rip_rap:data.substrateTypeRipRap,
-            seaweed:data.substrateTypeSeaweed,
-            other:data.substrateTypeOther
+            sand: data.substrateTypeSand ? data.substrateTypeSand : undefined,
+            pebble: data.substrateTypePebble ? data.substrateTypePebble : undefined,
+            rip_rap: data.substrateTypeRipRap ? data.substrateTypeRipRap : undefined,
+            seaweed: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : undefined,
+            other: data.substrateTypeOther ? data.substrateTypeOther : undefined
 
         }
-
-        // const _usage = (data.usageRecreation ? "recreation, " : "") +
-        //     (data.usageCommercial ? "commercial, " : "") +
-        //     (data.usageOther ? data.usageOther : "");
-
-        // const _locChoice = (data.locationChoiceDebris ? "debris, " : "") +
-        //     (data.locationChoiceProximity ? "proximity, " : "") +
-        //     (data.locationChoiceOther ? data.locationChoiceOther : "");
-
-        // const _subType = (data.substrateTypeSand ? "sand, " : "") +
-            // (data.substrateTypeRipRap ? "rip rap, " : "") +
-            // (data.substrateTypePebble ? "pebble, " : "") +
-            // (data.substrateTypeSeaweed ? "seaweed, " : "") +
-            // (data.substrateTypeOther ? data.substrateTypeOther : "");
 
         this.setState({
             displayStrings: {
@@ -186,65 +172,19 @@ class SurveyForm extends Component {
     }
 
     moveToSubmit() {
-        const form1 = this.prepareForm();
-        const form = {
-            bID: "5c74f23944ffae570ecaffad",
-            survData: {
-                user: {
-                    f: "pTesp",
-                    l: "ter"
-                },
-                email: this.state.email,
-                userID: this.state.userID,
-                org: "yo",
-                reason: {
-                    prox: true,
-                    other: "ye"
-                },
-                survDate: new Date().setUTCHours(-24, 0, 0, 0),
-                st: {
-                    sand: true,
-                    rip_rap: true
-                },
-                slope: "winter",
-                cmpsDir: "100",
-                lastTide: {
-                    type: "low",
-                    time: "03:33",
-                    height: "5"
-                },
-                nextTide: {
-                    type: "low",
-                    time: "03:33",
-                    height: "5"
-                },
-                wind: {
-                    dir: "n",
-                    spd: 6
-                },
-                majorUse: {
-                    rec: "true",
-                    com: undefined,
-                    other: undefined
-                },
-                numOfP: "6",
-                SRSDebris: [
-                    ["plastic", { fresh: "4", weathered: "9" }]
-                ],
-                ASDebris: [
-                    ["miscPlastic", { fresh: "2", weathered: "5" }]
-                ]
-            }
-        }
-        console.log(form1);
+        const form = this.prepareForm();
+        console.log(form);
 
-        axios.post("beaches/surveys", form1)
+        axios.post("beaches/surveys", form)
             .then(res => {
-                this.setState({
-                    isInputting: false,
-                    isReviewing: false,
-                    isSubmitted: true
-                })
+                console.log(res.data.survID);
+                if (res.data.survID) {
+                    this.setState({
+                        isInputting: false,
+                        isReviewing: false,
+                        isSubmitted: true
+                    })
+                }
             })
             .catch(err => {
                 console.log(err.response)
@@ -345,7 +285,7 @@ class SurveyForm extends Component {
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
-                cmpsDir:100,
+                cmpsDir: 100,
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -441,7 +381,7 @@ class SurveyForm extends Component {
     reviewing = () => {
         return (
             <div>
-                <button lassName="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
+                <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
                 <Review data={this.state.surveyData} SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
                 <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit </button>
             </div>);
