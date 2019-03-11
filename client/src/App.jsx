@@ -32,24 +32,24 @@ class App extends Component {
     super();
     // creates a new authentication object, which can be passed to other components
     this.auth = new Auth();
-    this.state = {error: ""};
+    this.state = { error: "" };
   }
 
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
-    this.auth.handleAuthentication(error=>{
-      this.setState({error});
+    this.auth.handleAuthentication(error => {
+      this.setState({ error });
     });
 
-    if(this.auth.isAuthenticated()){
+    if (this.auth.isAuthenticated()) {
       this.auth.getLoggedInProfile((err, profile) => {
-        this.setState({userProfile: profile});
+        this.setState({ userProfile: profile });
         console.log("We authenticated");
         console.log(this.state.userProfile);
       });
-      
+
     } else {
-      this.setState({userProfile: null});
+      this.setState({ userProfile: null });
     }
 
   }
@@ -62,23 +62,23 @@ class App extends Component {
         {/* type of router that has history (can go back and forth in broswer history and still have states from before) */}
         <BrowserRouter>
 
-          
+
           <div className="uk-container-expand uk-container-center">
-            
+
             {/* pages listed in headerRoutes array are rendered with the Header*/}
-            <Route path={headerRoutes} render={() => ( <Header auth={this.auth} /> )} />
-            
-            
+            <Route path={headerRoutes} render={() => (<Header auth={this.auth} />)} />
+
+
             <div>
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
               <Switch>
-                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
-                <Route exact path='/home' render={() =>  <Home  userProfile={this.state.userProfile}/>} />
+                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={() => { this.setState({ error: null }) }} />)} />
+                <Route exact path='/home' render={() => <Home userProfile={this.state.userProfile} />} />
 
                 {/* for testing new component: */}
                 <Route path='/survey' component={Steps} />
-                <Route path='/newsurvey' component={SurveyForm} />
+                <Route path='/newsurvey' render={()=><SurveyForm auth={this.auth}/>} />
 
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
@@ -87,21 +87,21 @@ class App extends Component {
                   path='/profile'
                   render={() => (
                     !this.auth.isAuthenticated()
-                    ? <Redirect to='/' />
-                    : <UserProfile auth={ this.auth } />
+                      ? <Redirect to='/' />
+                      : <UserProfile auth={this.auth} />
                   )}
                 />
-                <Route exact path='/protocol' component={ Protocol } />
-                <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />}/>
-                <Route path='/chooseform' component={ ChooseForm } />
+                <Route exact path='/protocol' component={Protocol} />
+                <Route path='/map' render={() => <Map userProfile={this.auth} />} />
+                <Route path='/chooseform' component={ChooseForm} />
 
-                <Route component={ PageNotFound } />
+                <Route component={PageNotFound} />
               </Switch>
             </div>
 
             {/* Render the footer if you're not on the Landing Page*/}
             <Route path={headerRoutes} component={Footer} />
-            
+
           </div>
         </BrowserRouter>
       </div>
