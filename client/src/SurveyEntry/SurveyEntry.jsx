@@ -162,6 +162,7 @@ class SurveyEntry extends Component {
         this.setState({
           deletedComment: true
         })
+        alert("Survey deleted successfully.");
       })
       .catch(err => {
         console.log(err)
@@ -194,7 +195,7 @@ class SurveyEntry extends Component {
     console.log(this.state.surveyData);
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
-    if (this.state.editSurvey) return <Redirect to="/newsurvey" />
+    if (this.state.editSurvey) return <Redirect to="/survey" />
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
@@ -231,7 +232,7 @@ class SurveyEntry extends Component {
       document.getElementById('AS-section').style.display = this.state.surveyData.asDebrisLength > 0 ? 'block' : 'none';
     }
 
-    if (this.state.surveyData.weight || this.state.surveyData.NumberOfPeople) {
+    if (this.state.surveyData.weight || this.state.surveyData.numOfP) {
       document.getElementById('b-cleanup-section').style.display = 'block';
     }
 
@@ -279,7 +280,7 @@ class SurveyEntry extends Component {
             </div>
           </div>
 
-          <div id="b-cleanup-section"  >
+          <div id="b-cleanup-section" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
@@ -464,7 +465,7 @@ class SurveyEntry extends Component {
             <p>This action cannot be undone.</p>
             <p className="uk-text-right">
               <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
+              <button className="uk-button uk-button-danger uk-margin-left uk-modal-close" onClick={this.deleteSurvey}>Delete</button>
             </p>
 
              <button className="uk-modal-close-default" data-uk-close></button>

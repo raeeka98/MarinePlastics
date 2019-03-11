@@ -95,7 +95,7 @@ router.route('/surveys')
     .post(asyncHandler(async (req, res) => {
         try {
             console.log(req.body);
-            let beachData = await surveyValidate(req.body);
+            let beachData = /*await surveyValidate*/(req.body);
             let surv = await surveys.addToBeach(beachData.survData, beachData.bID);
             res.json({ survID: surv._id });
         } catch (err) {

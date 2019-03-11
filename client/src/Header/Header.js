@@ -78,13 +78,6 @@ render() {
             <li><Link to="/protocol">Protocol</Link></li>
             <li><Link to="/about">About</Link></li>
 
-            <li>
-            { this.props.auth.isAuthenticated()
-              ? <Link className="uk-button" to="/profile">Profile</Link>
-              : null
-            }
-            </li>
-
               </ul>
               </div>
 

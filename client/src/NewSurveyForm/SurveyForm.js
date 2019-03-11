@@ -193,6 +193,8 @@ class SurveyForm extends Component {
     return word.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
   };
 
+  
+
   calcTotalsSRS() {
       let totals = {};
       let totalsArray = [];
@@ -222,7 +224,7 @@ class SurveyForm extends Component {
           ]);
       }
       this.setState({srsLength: totalsArray.length})
-      return totals;
+      return [totals, totalsArray.length];
   }
 
   calcTotalsAS() {
@@ -256,8 +258,7 @@ class SurveyForm extends Component {
           ]);
       }
       this.setState({asLength: totalsArray.length})
-      console.log(this.state.asLength);
-      return totals;
+      return [totals, totalsArray.length];
   }
 
   prepareForm() {
@@ -379,10 +380,10 @@ class SurveyForm extends Component {
               },
               numOfP : data.numofP ? data.numOfP : 0,
               weight: (data.weight ? data.weight : ""),
-              SRSDebris : this.calcTotalsSRS(),
-              ASDebris : this.calcTotalsAS(),
-              srsDebrisLength : this.state.srsLength,
-              asDebrisLength : this.state.asLength
+              SRSDebris : this.calcTotalsSRS()[0],
+              ASDebris : this.calcTotalsAS()[0],
+              srsDebrisLength : this.calcTotalsSRS()[1],
+              asDebrisLength : this.calcTotalsAS()[1]
 
           },
 
