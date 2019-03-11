@@ -1,4 +1,3 @@
-
 let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
 
 /*--------------database helpers-------------------*/
@@ -11,9 +10,7 @@ let trash = {
 
 let surveys = {
     get: async function(surveyID) {
-        let obj = await surveyModel.findById(surveyID).lean().exec();
-        console.log(obj);
-        return obj;
+        return await surveyModel.findById(surveyID).select("-userID").lean().exec();
     },
     getDateCreated: async function(surveyID) {
         console.log(surveyID);
@@ -81,6 +78,7 @@ let surveys = {
         return oldSurvey;
     },
     addToBeach: async function(surveyData, beachID) {
+        
         let survDate = new Date(surveyData.survDate);
         let survey = new surveyModel(surveyData);
         let update = {};
@@ -195,10 +193,10 @@ let beaches = {
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
         console.log(stats.TODF);
         let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
-        keysToSort.sort((a,b)=>{return stats.TODF[a]-stats.TODF[b]});
+        keysToSort.sort((a, b) => { return stats.TODF[a] - stats.TODF[b] });
         let sortedKeys = {};
         // Construct a new object that will contain the object in sorted order
-        for(let i = 0; i < keysToSort.length; i++){
+        for (let i = 0; i < keysToSort.length; i++) {
             sortedKeys[keysToSort[i]] = stats.TODF[keysToSort[i]];
         }
         console.log(sortedKeys);
@@ -294,7 +292,7 @@ let beaches = {
     queryBeachNames: async function(query) {
         return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n").exec();
     },
-    getOneLonLat: async function(beachID){
+    getOneLonLat: async function(beachID) {
         let projection = `lat lon`
         return await beachModel
             .findById(beachID)
@@ -305,7 +303,7 @@ let beaches = {
         //let projection = `stats.TODF`;
         return await beachModel.find({}, 'stats.TODF').exec();
     },
-    getInfo: async function (beachID) {
+    getInfo: async function(beachID) {
         return await beachModel.findById(beachID).select("n lat lon nroName nroDist");
     }
 }

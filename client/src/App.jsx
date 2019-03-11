@@ -30,22 +30,22 @@ class App extends Component {
     super();
     // creates a new authentication object, which can be passed to other components
     this.auth = new Auth();
-    this.state = {error: ""};
+    this.state = { error: "" };
   }
 
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
-    this.auth.handleAuthentication(error=>{
-      this.setState({error});
+    this.auth.handleAuthentication(error => {
+      this.setState({ error });
     });
 
-    if(this.auth.isAuthenticated()){
+    if (this.auth.isAuthenticated()) {
       this.auth.getLoggedInProfile((err, profile) => {
-        this.setState({userProfile: profile});
+        this.setState({ userProfile: profile });
       });
 
     } else {
-      this.setState({userProfile: null});
+      this.setState({ userProfile: null });
     }
   }
 
@@ -61,18 +61,18 @@ class App extends Component {
           <div className="uk-container-expand uk-container-center">
 
             {/* pages listed in headerRoutes array are rendered with the Header*/}
-            <Route path={headerRoutes} render={() => ( <Header auth={this.auth} /> )} />
+            <Route path={headerRoutes} render={() => (<Header auth={this.auth} />)} />
 
 
             <div>
               {/* routes: when the user goes to a specified url, loads corresponding component */}
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
               <Switch>
-                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={()=>{this.setState({error: null})}}/>)} />
-                <Route exact path='/home' render={() =>  <Home  userProfile={this.state.userProfile}/>} />
+                <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={() => { this.setState({ error: null }) }} />)} />
+                <Route exact path='/home' render={() => <Home userProfile={this.state.userProfile} />} />
 
-                <Route path='/survey' component={SurveyForm} />
-
+                {/* for testing new component: */}
+                <Route path='/survey' render={()=><SurveyForm auth={this.auth}/>}/>
                 <Route path='/location/:beachID' component={LocationPage} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
@@ -80,8 +80,8 @@ class App extends Component {
                   path='/profile'
                   render={() => (
                     !this.auth.isAuthenticated()
-                    ? <Redirect to='/' />
-                    : <UserProfile auth={ this.auth } />
+                      ? <Redirect to='/' />
+                      : <UserProfile auth={this.auth} />
                   )}
                 />
                 <Route exact path='/protocol' component={ Protocol } />
@@ -92,7 +92,7 @@ class App extends Component {
               
                 <Route path='/chooseform' component={ ChooseForm } />
 
-                <Route component={ PageNotFound } />
+                <Route component={PageNotFound} />
               </Switch>
             </div>
 

@@ -61,7 +61,7 @@ class SurveyArea extends Component {
                 <div>
                   <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
                   <input
-                    type='string'
+                    type='number'
                     placeholder='Latitude of Beach'
                     id='latitude'
                     onChange={this.props.updateSurveyState}
@@ -72,7 +72,7 @@ class SurveyArea extends Component {
                 <div>
                   <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
                     <input
-                      type='string'
+                      type='number'
                       placeholder='Longitude of Beach'
                       id='longitude'
                       defaultValue={this.props.data.longitude}
@@ -81,7 +81,7 @@ class SurveyArea extends Component {
                       />
                   </div>
                 </div>
-
+                string
                 <div className="uk-grid uk-child-width-1-3">
                   <div>
                     <label>Major Usage</label>
@@ -183,7 +183,7 @@ class SurveyArea extends Component {
                   <div>
                     <label>Compass Direction (When Facing the Water):</label>
                         <input
-                          type='string'
+                          type='number'
                           placeholder='Degrees'
                           id='compassDegrees'
                           defaultValue={this.props.data.compassDegrees}
@@ -237,8 +237,8 @@ class SurveyArea extends Component {
                           defaultValue={this.props.data.tideTypeB}
                           >
                           {!this.props.data.tideTypeB && <option>Please Select</option>}
-                          <option>Low</option>
-                          <option>High</option>
+                          <option value="low">Low</option>
+                          <option value="high">High</option>
                         </select>
                       </div>
                       <div>
@@ -250,8 +250,8 @@ class SurveyArea extends Component {
                           defaultValue={this.props.data.tideTypeA}
                           >
                           {!this.props.data.tideTypeA && <option>Please Select</option>}
-                          <option>Low</option>
-                          <option>High</option>
+                          <option value="low">Low</option>
+                          <option value="high">High</option>
                         </select>
                       </div>
                     </div>
@@ -260,7 +260,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Height (ft):<span className="uk-text-danger"></span></label>
                         <input
-                          type="string"
+                          type="number"
                           placeholder="Height"
                           id='tideHeightB'
                           className='uk-input uk-margin'
@@ -271,7 +271,7 @@ class SurveyArea extends Component {
                       <div>
                         <label>Height (ft):<span className="uk-text-danger"></span></label>
                         <input
-                          type="string"
+                          type="number"
                           placeholder="Height"
                           id='tideHeightA'
                           onChange={this.props.updateSurveyState}
@@ -313,7 +313,7 @@ class SurveyArea extends Component {
                         <h4>Wind</h4>
                         <label>Speed:<span className="uk-text-danger"></span></label>
                         <input
-                          type="string"
+                          type="number"
                           placeholder="Speed (knots)"
                           id='windSpeed'
                           onChange={this.props.updateSurveyState}
@@ -331,15 +331,14 @@ class SurveyArea extends Component {
 
                           >
                           {(!this.props.data.windDir) && <option>Please Select</option>}
-                          <option>North</option>
-                          <option>Northeast</option>
-                          <option>East</option>
-                          <option>Southeast</option>
-                          <option>South</option>
-                          <option>Southwest</option>
-                          <option>West</option>
-                          <option>Northwest</option>
-                          <option>None</option>
+                          <option value="n">North</option>
+                          <option value="ne">Northeast</option>
+                          <option value="e">East</option>
+                          <option value="se">Southeast</option>
+                          <option value="s">South</option>
+                          <option value="sw">Southwest</option>
+                          <option value="w">West</option>
+                          <option value="nw">Northwest</option>
                         </select>
                       </div>
                       <div>
@@ -351,9 +350,8 @@ class SurveyArea extends Component {
                           defaultValue={this.props.data.slope}
                           >
                             {(!this.props.data.slope) && <option>Please Select</option>}
-                            <option>Winter Profile</option>
-                            <option>Summer Profile</option>
-                            <option>None</option>
+                            <option value="winter">Winter Profile</option>
+                            <option value="summer">Summer Profile</option>
                         </select>
                       </div>
                       <div>

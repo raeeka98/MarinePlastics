@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import {PieChart} from './SurveyCharts'
-import {getDebrisMap} from '../NewSurveyForm/debrisInfo'
+import { PieChart } from './SurveyCharts'
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import { runInThisContext } from 'vm';
@@ -24,7 +24,8 @@ class SurveyEntry extends Component {
       deletedComment: false,
       srsSelected: true,
       debrisNA: false,
-      editSurvey: false
+      editSurvey: false,
+      editable: false
     };
     //this.auth = new Auth();
     this.handleChartTypeChange = this.handleChartTypeChange.bind(this);
@@ -66,14 +67,17 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
+    console.log(this.state.userProfile ? this.state.userProfile.sub : null);
+
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
-        userID: this.state.userProfile.sub
+        userID: this.state.userProfile ? this.state.userProfile.sub : ''
       }
     })
       .then(res => {
-        console.log(res.data)
-        this.setState({ surveyData: res.data.survData });
+        console.log(res.data);
+
+        this.setState({ surveyData: res.data.survData, editable: res.data.e });
       })
       .catch(err => {
         console.log(err);
@@ -102,19 +106,19 @@ class SurveyEntry extends Component {
       //Now we can sort the data so that it will display nicely
       var keysSRS = Object.keys(SRSChartDataObject);
       console.log(keysSRS)
-      let cleanedKeysSorted = {}; 
-      keysSRS.sort((a,b) => {return (SRSChartDataObject[a] - SRSChartDataObject[b])});
-      for(const i in keysSRS){
+      let cleanedKeysSorted = {};
+      keysSRS.sort((a, b) => { return (SRSChartDataObject[a] - SRSChartDataObject[b]) });
+      for (const i in keysSRS) {
         let key = keysSRS[i];
         let cleanedKey = debrisInfo[key]
-        if(cleanedKey === "Fishing Line / Polypropylene Rope")
-            cleanedKey = "Fishing Line";
-          if(cleanedKey === "Plastic Bottles / Plastic Caps")
-            cleanedKey = "Plastic Bottles";
+        if (cleanedKey === "Fishing Line / Polypropylene Rope")
+          cleanedKey = "Fishing Line";
+        if (cleanedKey === "Plastic Bottles / Plastic Caps")
+          cleanedKey = "Plastic Bottles";
         cleanedKeysSorted[cleanedKey] = SRSChartDataObject[key];
       }
       //Set the state of the component
-      this.setState({chartDataSRS: cleanedKeysSorted});
+      this.setState({ chartDataSRS: cleanedKeysSorted });
     } else {
       // We dont have survey data for the surface rib scan!!
       this.setState({ srsSelected: false });
@@ -125,22 +129,22 @@ class SurveyEntry extends Component {
         let thisDebrisTotal = this.state.surveyData.ASDebris[key].fresh + this.state.surveyData.ASDebris[key].weathered;
         ASChartDataObject[key] = thisDebrisTotal;
       }
-       //Now we can sort i guess
-       var keysAS = Object.keys(ASChartDataObject);
-       console.log(keysAS)
-       let cleanedKeysSorted = {}; 
-       keysAS.sort((a,b) => {return (ASChartDataObject[a] - ASChartDataObject[b])});
-       for(const i in keysAS){
-         let key = keysAS[i];
-         let cleanedKey = debrisInfo[key];
-         if(cleanedKey === "Fishing Line / Polypropylene Rope")
-            cleanedKey = "Fishing Line";
-          if(cleanedKey === "Plastic Bottles / Plastic Caps")
-            cleanedKey = "Plastic Bottles";
-         cleanedKeysSorted[cleanedKey] = ASChartDataObject[key];
-       }
+      //Now we can sort i guess
+      var keysAS = Object.keys(ASChartDataObject);
+      console.log(keysAS)
+      let cleanedKeysSorted = {};
+      keysAS.sort((a, b) => { return (ASChartDataObject[a] - ASChartDataObject[b]) });
+      for (const i in keysAS) {
+        let key = keysAS[i];
+        let cleanedKey = debrisInfo[key];
+        if (cleanedKey === "Fishing Line / Polypropylene Rope")
+          cleanedKey = "Fishing Line";
+        if (cleanedKey === "Plastic Bottles / Plastic Caps")
+          cleanedKey = "Plastic Bottles";
+        cleanedKeysSorted[cleanedKey] = ASChartDataObject[key];
+      }
 
-      this.setState({chartDataAS: cleanedKeysSorted});
+      this.setState({ chartDataAS: cleanedKeysSorted });
     } else {
       if (!this.state.surveyData.SRSDebris && !this.state.surveyData.ASDebris)
         this.setState({ debrisNA: true });
@@ -154,7 +158,7 @@ class SurveyEntry extends Component {
         {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
-          userID: this.state.userProfile.sub
+          userID: this.state.userProfile ? this.state.userProfile.sub : ''
         }
       })
       .then(res => {
@@ -173,7 +177,7 @@ class SurveyEntry extends Component {
   editSurvey = () => {
     axios.get(`/beaches/surveys/${this.state.surveyID}/edit`, {
       params: {
-        id: this.state.userProfile.sub
+        id: this.state.userProfile ? this.state.userProfile : ''
       }
     })
       .then(res => {
@@ -188,7 +192,33 @@ class SurveyEntry extends Component {
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
-    //this.getChartData();
+  }
+
+  editBtns = () => {
+    return (
+      <React.Fragment>
+        <button className="uk-button uk-button-danger uk-margin"
+          data-uk-toggle="target: #delete-confirmation-modal">
+          Delete Survey
+        </button>
+        
+        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
+
+        <div id="delete-confirmation-modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <h2>Are you sure you want to delete this survey?</h2>
+            <p>This action cannot be undone.</p>
+            <p className="uk-text-right">
+              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
+            </p>
+
+            <button className="uk-modal-close-default" data-uk-close></button>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+
   }
 
   render() {
@@ -252,7 +282,7 @@ class SurveyEntry extends Component {
     }
     return (
       <div className="uk-container">
-        
+
         {/* BEACH NAME AND DATE */}
         <h2 className="uk-text-primary uk-heading-primary">
           <Link to={{
@@ -273,8 +303,8 @@ class SurveyEntry extends Component {
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <p><strong>Team Leader:</strong> {this.state.surveyData.user?this.state.surveyData.user.f 
-                  + " " + this.state.surveyData.user.l : ""}</p>
+              <p><strong>Team Leader:</strong> {this.state.surveyData.user ? this.state.surveyData.user.f
+                + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
             </div>
@@ -293,7 +323,7 @@ class SurveyEntry extends Component {
               }
             </div>
           </div>
-          
+
           {/* SURVEY AREA SECTION */}
           <div id="survey-area-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body">
@@ -304,21 +334,21 @@ class SurveyEntry extends Component {
               }
               {
                 this.state.surveyData.reason ?
-                  <p><strong>Reason for Location Choice: </strong> 
-                     {
-                      this.state.surveyData.reason.prox ? "Proximity" : this.state.surveyData.reason.debris ? "Debris": this.state.surveyData.reason.other
-                     }
+                  <p><strong>Reason for Location Choice: </strong>
+                    {
+                      this.state.surveyData.reason.prox ? "Proximity" : this.state.surveyData.reason.debris ? "Debris" : this.state.surveyData.reason.other
+                    }
                   </p> : null
               }
               {
                 this.state.surveyData.majorUse ?
-                  <p><strong>Major Use: </strong> 
+                  <p><strong>Major Use: </strong>
                     {this.state.surveyData.majorUse.rec ? "Recreation" : this.state.surveyData.majorUse.com ? "Commercial" : this.state.surveyData.majorUse.other}
                   </p> : null
               }
               {
                 this.state.surveyData.st ?
-                  <p><strong>Substrate Type: </strong> 
+                  <p><strong>Substrate Type: </strong>
                     {
                       this.state.surveyData.st.s ? "Sand" : this.state.surveyData.st.p ? "Pebbles" : this.state.surveyData.st.rr ? "Rip rap" : this.state.surveyData.st.sea ? "Seaweed" : this.state.surveyData.st.other
                     }
@@ -373,9 +403,9 @@ class SurveyEntry extends Component {
               </table>
             </div>
           </div>
-          
+
           {/* TIDE SECTION*/}
-          <div id="tide-section" style={{display : 'none'}}>
+          <div id="tide-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
               <h4>The Last Tide</h4>
@@ -431,50 +461,8 @@ class SurveyEntry extends Component {
           </div>
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
-        
-        {/* DELETE FUNCTIONALITY */}
-        {/* Only show delete button if user is logged in */}
-        { !this.state.userProfile 
-          ? null 
-          : (this.state.userProfile.name === this.state.surveyData.email) 
-            ? <button className="uk-button uk-button-danger uk-margin" 
-                      data-uk-toggle="target: #delete-confirmation-modal">
-                      Delete Survey
-              </button>
-            : <button className="uk-button button-disabled uk-margin" 
-                      data-uk-toggle="target: #delete-incorrect-auth">
-                      Delete Survey
-              </button>
-        }
 
-        {/* Modals for delete functionality */}
-        <div id="delete-incorrect-auth" data-uk-modal>
-          <div className="uk-modal-dialog uk-modal-body">
-            <button className="uk-modal-close-default" data-uk-close></button>
-            <h2>Permission denied.</h2>
-            <p>You may only delete surveys you created.</p>
-            <p className="uk-text-right">
-              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-            </p>
-          </div>
-        </div>
-
-         <div id="delete-confirmation-modal" data-uk-modal>
-          <div className="uk-modal-dialog uk-modal-body">
-            <h2>Are you sure you want to delete this survey?</h2>
-            <p>This action cannot be undone.</p>
-            <p className="uk-text-right">
-              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              <button className="uk-button uk-button-danger uk-margin-left uk-modal-close" onClick={this.deleteSurvey}>Delete</button>
-            </p>
-
-             <button className="uk-modal-close-default" data-uk-close></button>
-          </div>
-        </div>
-
-        {/* Survey button */}
-        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
-
+        {this.state.editable && this.editBtns()}
       </div>
 
     );
