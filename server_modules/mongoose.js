@@ -102,6 +102,7 @@ let surveys = {
             rtnMsg = surv;
         } else {
             //year already exists
+            console.log("YEar exists");
             let yearSurveyID = surveys.get(`${survDate.getUTCFullYear()}`);
             let path = `${survDate.getUTCMonth()}`;
             let yearSurveyUpdate = {
@@ -117,6 +118,7 @@ let surveys = {
                 [`${path}.date`]: { $ne: survDate.getUTCDate() }
             }
             let doc = await yearSurveyModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
+            console.log("Year model");
             console.log(doc);
 
             if (doc) {

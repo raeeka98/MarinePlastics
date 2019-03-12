@@ -50,7 +50,7 @@ const surveyDataSchema = joi.object({
     user: userDataSchema.required(),
     email: joi.string().email({ minDomainAtoms: 2 }).required(),
     userID: joi.string().trim().min(3).alphanum().required(),
-    org: joi.string().trim().min(1).max(60).alphanum().replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
+    org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
     reason: reasonTypeSchema.required(),
     survDate: joi.date().max('now').greater(1104580800).required(),
     st: substraightTypeSchema.required(),
