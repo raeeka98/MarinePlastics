@@ -393,7 +393,7 @@ function compareTrash (newDebrisData, prevDebrisData, result) {
             }
         });
         prevDebrisData.forEach((val, key) => {
-            result[key] = val;
+            result.push([key, val]);
         });
     } else {
         return false;
