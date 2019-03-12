@@ -77,7 +77,7 @@ class SurveyEntry extends Component {
       .then(res => {
         console.log(res.data);
 
-        this.setState({ surveyData: res.data.survData, editable: true });
+        this.setState({ surveyData: res.data.survData, editable: res.data.e });
       })
       .catch(err => {
         console.log(err);
