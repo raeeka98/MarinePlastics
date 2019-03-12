@@ -125,7 +125,7 @@ class SurveyForm extends Component {
         let invalid = [];
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-                     'cleanUpTime', 'cleanUpDate', 'beachName',
+            'cleanUpTime', 'cleanUpDate', 'beachName',
             'latitude', 'longitude'
         ];
 
@@ -309,9 +309,14 @@ class SurveyForm extends Component {
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
             },
-
-            bID: '5c74f288871a77575341f892'
-
+            bID: data.beachID ? data.beachID : undefined,
+            beachData: data.beachID ? undefined : {
+                n: data.beachName,
+                lat: data.latitude,
+                lon: data.longitude,
+                nroName: data.riverName,
+                nroDist: data.riverDistance
+            }
         }
 
         return form;
@@ -319,7 +324,7 @@ class SurveyForm extends Component {
 
     //alternative
     setSurveyData = (key, val) => {
-        this.setState(prevState => {prevState.surveyData[key] = val; return prevState});
+        this.setState(prevState => { prevState.surveyData[key] = val; return prevState });
     }
 
     updateSurveyState(e) {

@@ -74,9 +74,10 @@ const beachDataSchema = joi.object({
 });
 
 const bodySchema = joi.object({
-    bID: joi.string().alphanum().required(),
-    survData: surveyDataSchema.required()
-});
+    bID: joi.string().alphanum(),
+    survData: surveyDataSchema.required(),
+    beachData: beachDataSchema
+}).xor('bID', 'beachData');
 
 module.exports = {
     beachValidation: beachDataSchema,
