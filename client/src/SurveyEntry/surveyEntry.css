@@ -1,7 +1,22 @@
+.button-active {
+    background-color: #00adad;
+    color: white;
+}
+
+.button-active:hover {
+    background-color: #009b9b;
+    color: white;
+}
+
 .button-disabled {
     background-color: #dddddd;
 }
 
 .button-disabled:hover {
     cursor: default;
+}
+
+#delete {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
