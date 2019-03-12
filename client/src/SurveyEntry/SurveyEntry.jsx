@@ -195,22 +195,52 @@ class SurveyEntry extends Component {
   }
 
   editBtns = () => {
+    console.log(this.state.editable);
     return (
       <React.Fragment>
-        <button className="uk-button uk-button-danger uk-margin"
-          data-uk-toggle="target: #delete-confirmation-modal">
-          Delete Survey
-        </button>
         
-        <button className="uk-button uk-button-danger" style={btnStyle} onClick={this.editSurvey}>Edit Survey</button>
+        {/* Edit and Delete buttons are disabled if user is not logged in or doesn't own the survey */}
+        { this.state.editable ? 
+          <div className="uk-flex uk-flex-row">
+            <button className="uk-button button-active uk-margin-right" onClick={this.editSurvey}>Edit Survey</button>
+            <button className="uk-button button-active"
+              data-uk-toggle="target: #modal">
+              Delete Survey
+            </button>
+            
+          </div>
+          :
+          <div className="uk-flex uk-flex-row">
+            <button className="uk-button button-disabled uk-margin-right" 
+              data-uk-toggle="target: #modal">
+              Edit Survey</button>
+            <button className="uk-button button-disabled"
+              data-uk-toggle="target: #modal"
+              id="delete">
+              Delete Survey</button>
+            
+          </div>
+        }
 
-        <div id="delete-confirmation-modal" data-uk-modal>
+        
+        {/* The modal that is opened by clicking on the edit/delete buttons */}
+        <div id="modal" data-uk-modal>
           <div className="uk-modal-dialog uk-modal-body">
-            <h2>Are you sure you want to delete this survey?</h2>
-            <p>This action cannot be undone.</p>
+            {this.state.editable ? 
+              <div>
+                <h2>Are you sure you want to delete this survey?</h2>
+                <p>This action cannot be undone.</p>
+              </div>
+              :
+              <div>
+                <h2>You do not have permission to make changes to this survey.</h2>
+                <p>Please log in to continue.</p>
+              </div>
+            }
+            
             <p className="uk-text-right">
               <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
+              {this.state.editable ? <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> : null}
             </p>
 
             <button className="uk-modal-close-default" data-uk-close></button>
@@ -462,7 +492,7 @@ class SurveyEntry extends Component {
           {this.state.debrisNA ? null : <PieChart chartData={this.state.srsSelected ? this.state.chartDataSRS : this.state.chartDataAS} />}
         </div>
 
-        {this.state.editable && this.editBtns()}
+        {this.editBtns()}
       </div>
 
     );
@@ -471,6 +501,5 @@ class SurveyEntry extends Component {
 
 export default SurveyEntry;
 
-const btnStyle = {
-  margin: '5px'
-}
+
+

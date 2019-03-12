@@ -159,6 +159,7 @@ class Home extends Component {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
+      console.log(location.numOfSurveys);
 
       return <LocationBar
         key={i}
@@ -210,7 +211,7 @@ class Home extends Component {
             </form>
           </div>
 
-          <div id="mainContainer" className="list-view uk-align-center">
+          <div id="mainContainer" className="split-view uk-align-center">
             {this.state.view === 'list'
               ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                   {this.showEntries(locationNodes)}
