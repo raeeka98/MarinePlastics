@@ -87,7 +87,7 @@ class SurveyForm extends Component {
         });
     }
 
-    async updateDisplayStrings() {
+    updateDisplayStrings() {
         const data = this.state.surveyData;
 
         let usage = {
