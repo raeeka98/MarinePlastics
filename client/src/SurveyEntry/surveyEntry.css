@@ -15,8 +15,3 @@
 .button-disabled:hover {
     cursor: default;
 }
-
-#delete {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}

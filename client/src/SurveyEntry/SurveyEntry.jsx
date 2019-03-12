@@ -201,8 +201,8 @@ class SurveyEntry extends Component {
         {/* Edit and Delete buttons are disabled if user is not logged in or doesn't own the survey */}
         { this.state.editable ? 
           <div className="uk-flex uk-flex-row">
-            <button className="uk-button button-active uk-margin" onClick={this.editSurvey}>Edit Survey</button>
-            <button className="uk-button button-active uk-margin"
+            <button className="uk-button button-active uk-margin-right" onClick={this.editSurvey}>Edit Survey</button>
+            <button className="uk-button button-active"
               data-uk-toggle="target: #modal">
               Delete Survey
             </button>
@@ -210,10 +210,10 @@ class SurveyEntry extends Component {
           </div>
           :
           <div className="uk-flex uk-flex-row">
-            <button className="uk-button button-disabled uk-margin" 
+            <button className="uk-button button-disabled uk-margin-right" 
               data-uk-toggle="target: #modal">
               Edit Survey</button>
-            <button className="uk-button button-disabled uk-margin"
+            <button className="uk-button button-disabled"
               data-uk-toggle="target: #modal"
               id="delete">
               Delete Survey</button>
