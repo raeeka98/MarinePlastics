@@ -47,6 +47,7 @@ class Review extends Component {
 
     // Now take the parsed data and then create row objects for each 
     for (const key in parsedRows) {
+      console.log(parsedRows[key]);
       SRSRows.push(
         <RibScanRowReview 
           id = {key}

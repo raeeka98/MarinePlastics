@@ -103,10 +103,10 @@ class SurveyForm extends Component {
         }
 
         let subType = {
-            sand: data.substrateTypeSand ? data.substrateTypeSand : undefined,
-            pebble: data.substrateTypePebble ? data.substrateTypePebble : undefined,
-            rip_rap: data.substrateTypeRipRap ? data.substrateTypeRipRap : undefined,
-            seaweed: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : undefined,
+            s: data.substrateTypeSand ? data.substrateTypeSand : false,
+            p: data.substrateTypePebble ? data.substrateTypePebble : false,
+            rr: data.substrateTypeRipRap ? data.substrateTypeRipRap : false,
+            sea: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false,
             other: data.substrateTypeOther ? data.substrateTypeOther : undefined
 
         }
@@ -124,11 +124,8 @@ class SurveyForm extends Component {
     validate() {
         let invalid = [];
 
-        const isValidEmail = this.state.surveyData.email &&
-            this.state.surveyData.email.match(/[\w-.]+@([\w-]+\.)+[\w]+/);
-
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-            'email', 'cleanUpTime', 'cleanUpDate', 'beachName',
+                     'cleanUpTime', 'cleanUpDate', 'beachName',
             'latitude', 'longitude'
         ];
 
@@ -138,9 +135,7 @@ class SurveyForm extends Component {
             }
         }
 
-        if (!isValidEmail && this.state.surveyData.email) {
-            invalid.push('email (not valid email)');
-        }
+
         return invalid;
     }
 
@@ -322,6 +317,11 @@ class SurveyForm extends Component {
         return form;
     }
 
+    //alternative
+    setSurveyData = (key, val) => {
+        this.setState(prevState => {prevState.surveyData[key] = val; return prevState});
+    }
+
     updateSurveyState(e) {
         const key = e.target.id;
         const val = e.target.value;
@@ -364,7 +364,7 @@ class SurveyForm extends Component {
                 <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
-                        <SurveyArea data={this.state.surveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState} />
+                        <SurveyArea data={this.state.surveyData} setSurveyData={this.setSurveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState} />
                         <SurfaceRibScan data={this.state.surveyData} SRSData={this.state.SRSData} updateSurveyState={this.updateSurveyState} updateSRS={this.updateSRS} />
                         <AccumulationSurvey data={this.state.ASData} updateAS={this.updateAS} />
                         <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
