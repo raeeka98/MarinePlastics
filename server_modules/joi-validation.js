@@ -8,12 +8,12 @@ const userDataSchema = joi.object({
 });
 
 const substraightTypeSchema = joi.object({
-    sand: joi.bool(),
-    pebble: joi.bool(),
-    rip_rap: joi.bool(),
-    seaweed: joi.bool(),
+    s: joi.bool(),
+    p: joi.bool(),
+    rr: joi.bool(),
+    sea: joi.bool(),
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["sand", "pebble", "rip_rap", "seaweed", "other"]);
+}).or(["sand", "pebble", "rr", "seaweed", "other"]);
 
 const reasonTypeSchema = joi.object({
     prox: joi.bool(),
@@ -50,7 +50,7 @@ const surveyDataSchema = joi.object({
     user: userDataSchema.required(),
     email: joi.string().email({ minDomainAtoms: 2 }).required(),
     userID: joi.string().trim().min(3).alphanum().required(),
-    org: joi.string().trim().min(1).max(60).alphanum().replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
+    org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
     reason: reasonTypeSchema.required(),
     survDate: joi.date().max('now').greater(1104580800).required(),
     st: substraightTypeSchema.required(),
@@ -90,6 +90,7 @@ let dataTest = {
             f: "pTesp",
             l: "ter"
         },
+        userID: "5c631395fafc067adaa77d55",
         email: "asd@gmail.com",
         org: "yo",
         reason: {
@@ -98,8 +99,8 @@ let dataTest = {
         },
         survDate: Date.now(),
         st: {
-            sand: true,
-            rip_rap: true
+            s: true,
+            rr: true
         },
         slope: "winter",
         cmpsDir: "100",
@@ -123,12 +124,12 @@ let dataTest = {
             other: undefined
         },
         numOfP: "6",
-        SRSDebris: [
-            ["plastic", { fresh: "4", weathered: "9" }]
-        ],
-        ASDebris: [
-            ["miscPlastic", { fresh: "2", weathered: "5" }]
-        ]
+        SRSDebris: {
+            plastic: { fresh: "4", weathered: "9" }
+        },
+        ASDebris: {
+            miscPlastic: { fresh: "2", weathered: "5" }
+        }
     }
 }
 

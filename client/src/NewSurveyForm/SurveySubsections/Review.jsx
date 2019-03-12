@@ -47,6 +47,7 @@ class Review extends Component {
 
     // Now take the parsed data and then create row objects for each 
     for (const key in parsedRows) {
+      console.log(parsedRows[key]);
       SRSRows.push(
         <RibScanRowReview 
           id = {key}
@@ -155,6 +156,34 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
               <h2>Surface Rib Scan</h2>
               <table className='uk-table uk-table-striped'>
+                <thead>  
+                  <tr>
+                    <th>Range</th>
+                    <th>Rib #1</th>
+                    <th>Rib #2</th>
+                    <th>Rib #3</th>
+                    <th>Rib #4</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Rib Start</td>
+                    <td>{d.rib1Start}</td>
+                    <td>{d.rib2Start}</td>
+                    <td>{d.rib3Start}</td>
+                    <td>{d.rib4Start}</td>
+                  </tr>
+                  <tr>
+                    <td>Rib End</td>
+                    <td>{d.rib1End}</td>
+                    <td>{d.rib2End}</td>
+                    <td>{d.rib3End}</td>
+                    <td>{d.rib4End}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table className='uk-table uk-table-striped'>
+                <thead>
                   <tr>
                     <th>Debris Type</th>
                     <th>Rib #1 Fresh</th>
@@ -166,6 +195,7 @@ class Review extends Component {
                     <th>Rib #4 Fresh</th>
                     <th>Rib #4 Weathered</th>
                   </tr>
+                </thead>
                 <tbody>
                   {SRSRows}
                 </tbody>
@@ -179,12 +209,13 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Accumulation Survey:</h3>
             <table className='uk-table uk-table-striped'>
+                <thead>  
                   <tr>
                     <th>Debris Type</th>
                     <th>Fresh</th>
                     <th>Weathered</th>
-                    
                   </tr>
+                </thead>
                 <tbody>
                   {ASRows}
                 </tbody>

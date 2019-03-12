@@ -81,7 +81,7 @@ class SurveyArea extends Component {
                       />
                   </div>
                 </div>
-                string
+                
                 <div className="uk-grid uk-child-width-1-3">
                   <div>
                     <label>Major Usage</label>

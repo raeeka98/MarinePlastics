@@ -53,6 +53,12 @@ router.route('/')
         }
     }));
 
+router.route('/test')
+    .get(asyncHandler(async(req, res) => {
+        await fun1();
+        res.json({Did: "Done"});
+    }))
+
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
