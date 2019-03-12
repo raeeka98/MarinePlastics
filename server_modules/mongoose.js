@@ -84,6 +84,7 @@ let surveys = {
         let update = {};
         let rtnMsg = null;
         survey.bID = beachID;
+        console.log(beachID);
         let { surveys } = await beachModel.findById(beachID).select("surveys stats").exec();
         let surveyEntryData = {
             date: survDate.getUTCDate(),

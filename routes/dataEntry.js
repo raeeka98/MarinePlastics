@@ -95,7 +95,7 @@ router.route('/surveys')
             let surveyData = await surveyValidation.validate(req.body);
             console.log(surveyData);
             
-            if (!surveyData.beachID) {
+            if (!surveyData.bID) {
                 beachData = await beaches.create(surveyData.beachData);
             }
             let beachID = beachData ? beachData._id : surveyData.bID;
