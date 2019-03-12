@@ -13,13 +13,13 @@ const substraightTypeSchema = joi.object({
     rr: joi.bool(),
     sea: joi.bool(),
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["sand", "pebble", "rr", "seaweed", "other"]);
+}).or(["s", "p", "rr", "sea", "other"]);
 
 const reasonTypeSchema = joi.object({
     prox: joi.bool(),
     debris: joi.bool(),
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["prox", "debirs", "other"]).error(new Error("Please select one option"));
+}).or(["prox", "debris", "other"]).error(new Error("Please select one option"));
 
 const tideDataSchema = joi.object({
     type: joi.string().valid(['low', 'high']).valid().required(),
@@ -61,8 +61,8 @@ const surveyDataSchema = joi.object({
     wind: windDataSchema.required(),
     majorUse: majorUseSchema.required(),
     numOfP: joi.number().min(0).required(),
-    SRSDebris: joi.array().items(debrisData).max(17).required(),
-    ASDebris: joi.array().items(debrisData).max(17).required()
+    SRSDebris: joi.array().items(debrisData).max(17).optional(),
+    ASDebris: joi.array().items(debrisData).max(17).optional()
 });
 
 const beachDataSchema = joi.object({
