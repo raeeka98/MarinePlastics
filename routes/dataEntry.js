@@ -53,12 +53,6 @@ router.route('/')
         }
     }));
 
-router.route('/test')
-    .get(asyncHandler(async(req, res) => {
-        await fun1();
-        res.json({Did: "Done"});
-    }))
-
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
@@ -96,10 +90,16 @@ router.route('/surveys')
      */
     .post(asyncHandler(async (req, res) => {
         console.log(req.body);
-        
         try {
-            let beachData = await surveyValidation.validate(req.body);
-            let surv = await surveys.addToBeach(beachData.survData, beachData.bID);
+            let beachData = null;
+            let surveyData = await surveyValidation.validate(req.body);
+            console.log(surveyData);
+            
+            if (!surveyData.beachID) {
+                beachData = await beaches.create(surveyData.beachData);
+            }
+            let beachID = beachData ? beachData._id : surveyData.bID;
+            let surv = await surveys.addToBeach(surveyData.survData, beachID);
             res.json({ survID: surv._id });
         } catch (err) {
             console.log(err);
@@ -114,11 +114,13 @@ router.route('/surveys/:surveyID')
     //get a specific survey
     .get(asyncHandler(async (req, res) => {
         //console.log("Obtaining survey...");
-        let { userID } = req.query;
+        let { userID: clientID } = req.query;
         let surveyID = req.params.surveyID;
 
         let survey = await surveys.get(surveyID);
-        let rtnMsg = { survData: survey, e: survey.userID == userID };
+        let ownerID = survey.userID;
+        survey.userID = undefined;
+        let rtnMsg = { survData: survey, e: ownerID == clientID };
         res.json(rtnMsg);
     }))
     //find a specific survey and edit it
