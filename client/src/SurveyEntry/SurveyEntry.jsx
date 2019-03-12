@@ -34,7 +34,7 @@ class SurveyEntry extends Component {
   }
 
   renderOptions() {
-    if (this.state.surveyData.srsDebrisLength > 0 && this.state.surveyData.asDebrisLength > 0) {
+    if (this.state.surveyData.SRSDebris && this.state.surveyData.ASDebris) {
       console.log("Render both")
       //render both options
       return (
@@ -43,9 +43,9 @@ class SurveyEntry extends Component {
           <option value="as">Accumulation Sweep</option>
         </select>
       )
-    } else if (this.state.surveyData.srsDebrisLength > 0) {
+    } else if (this.state.surveyData.SRSDebris) {
       return <h3>Surface Rib Scan</h3>
-    } else if (this.state.surveyData.asDebrisLength > 0) {
+    } else if (this.state.surveyData.ASDebris) {
       return <h3>Accumulation Sweep</h3>
     } else {
       return <h3>Debris total not available</h3>
@@ -77,7 +77,7 @@ class SurveyEntry extends Component {
       .then(res => {
         console.log(res.data);
 
-        this.setState({ surveyData: res.data.survData, editable: res.data.e });
+        this.setState({ surveyData: res.data.survData, editable: true });
       })
       .catch(err => {
         console.log(err);
@@ -258,8 +258,8 @@ class SurveyEntry extends Component {
         );
       }
 
-      document.getElementById('SRS-section').style.display = this.state.surveyData.srsDebrisLength > 0 ? 'block' : 'none';
-      document.getElementById('AS-section').style.display = this.state.surveyData.asDebrisLength > 0 ? 'block' : 'none';
+      document.getElementById('SRS-section').style.display = this.state.surveyData.SRSDebris ? 'block' : 'none';
+      document.getElementById('AS-section').style.display = this.state.surveyData.ASDebris ? 'block' : 'none';
     }
 
     if (this.state.surveyData.weight || this.state.surveyData.numOfP) {

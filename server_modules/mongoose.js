@@ -349,11 +349,8 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
-    console.log(newDebrisData);
-    console.log(prevDebrisData);
-    let result = {};
+    let result = [];
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
-        console.log(result);
         update.beachUpdate.$set['stats.TODF'] = result;
     }
     console.log(update);
@@ -380,17 +377,19 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
     let trash = Object.keys(newDebrisData);
-    if (trash.length > 0) {
+        if (trash.length > 0) {
+        console.log("Trash has data " + trash);
         trash.forEach(trashName => {
             let newTrashAmnt = newDebrisData[trashName];
             if (prevDebrisData.has(trashName)) {
+                console.log("Old data has: " + trashName);
                 let origAmnt = prevDebrisData.get(trashName);
                 let newTotal = newTrashAmnt + origAmnt;
                 if (newTotal != 0) {
-                    result[trashName] = newTotal;
+                    result.push([trashName, newTotal]);;
                 }
             } else {
-                result[trashName] = newTrashAmnt;
+                result.push([trashName, newTrashAmnt]);;
             }
         });
     } else {
