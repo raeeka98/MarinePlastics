@@ -311,10 +311,10 @@ class SurveyForm extends Component {
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
-                n: data.beachName,
+                n: data.beachName.replace(" ", "_"),
                 lat: data.latitude,
                 lon: data.longitude,
-                nroName: data.riverName,
+                nroName: data.riverName.replace(" ", "_"),
                 nroDist: data.riverDistance
             }
         }

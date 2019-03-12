@@ -99,6 +99,7 @@ class Home extends Component {
   handleSearch(value, filter) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
+        console.log(res.data);
         this.setState({ beaches: res.data });
       }).catch(err => {
         console.log(err);
