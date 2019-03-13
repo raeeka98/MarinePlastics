@@ -125,7 +125,7 @@ class SurveyForm extends Component {
         let invalid = [];
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-            'cleanUpTime', 'cleanUpDate', 'beachName',
+            'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName', 'riverDistance',
             'latitude', 'longitude'
         ];
 
