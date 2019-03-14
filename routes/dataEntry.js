@@ -25,6 +25,10 @@ router.route('/')
         */
         let { s: skip } = req.query;
         let b = await beaches.getBeachNames(skip);
+        console.log(b);
+        for (var i in b){
+            b[i].n = b[i].n.replace("_", " ");
+        }
         //returns array of beach names and their ids
         //[{_id:1234,n:"testb"}]
         res.json(b);
@@ -53,12 +57,6 @@ router.route('/')
         }
     }));
 
-router.route('/test')
-    .get(asyncHandler(async(req, res) => {
-        await fun1();
-        res.json({Did: "Done"});
-    }))
-
 router.route('/trash')
     .get(asyncHandler(async (req, res) => {
         let allTrash = await trash.getMany();
@@ -69,18 +67,27 @@ router.route('/map')
     //get all beaches with lon and lat
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
+        for(let idx = 0; idx < points.length; idx++){
+            points[idx].n = points[idx].n.replace("_", " ");
+        }
         res.json(points);
     }));
 router.route('/search')
     .get(asyncHandler(async (req, res) => {
         let { q: query } = req.query;
+        query = query.replace(" ", "_");
         let matchedQuery = await beaches.queryBeachNames(query);
+        for(const key in matchedQuery) {
+            matchedQuery[key].n = matchedQuery[key].n.replace("_", " "); 
+        }
+        console.log(matchedQuery);
         res.json(matchedQuery);
     }));
 
 router.route('/allstats')
     .get(asyncHandler(async (req, res) => {
         let beachWStats = await beaches.getAllStats();
+        console.log(beachWStats);
         res.json(beachWStats);
     }));
 
@@ -96,10 +103,16 @@ router.route('/surveys')
      */
     .post(asyncHandler(async (req, res) => {
         console.log(req.body);
-        
         try {
-            let beachData = await surveyValidation.validate(req.body);
-            let surv = await surveys.addToBeach(beachData.survData, beachData.bID);
+            let beachData = null;
+            let surveyData = await surveyValidation.validate(req.body);
+            console.log(surveyData);
+            
+            if (!surveyData.bID) {
+                beachData = await beaches.create(surveyData.beachData);
+            }
+            let beachID = beachData ? beachData._id : surveyData.bID;
+            let surv = await surveys.addToBeach(surveyData.survData, beachID);
             res.json({ survID: surv._id });
         } catch (err) {
             console.log(err);
@@ -114,11 +127,13 @@ router.route('/surveys/:surveyID')
     //get a specific survey
     .get(asyncHandler(async (req, res) => {
         //console.log("Obtaining survey...");
-        let { userID } = req.query;
+        let { userID: clientID } = req.query;
         let surveyID = req.params.surveyID;
 
         let survey = await surveys.get(surveyID);
-        let rtnMsg = { survData: survey, e: survey.userID == userID };
+        let ownerID = survey.userID;
+        survey.userID = undefined;
+        let rtnMsg = { survData: survey, e: ownerID == clientID };
         res.json(rtnMsg);
     }))
     //find a specific survey and edit it

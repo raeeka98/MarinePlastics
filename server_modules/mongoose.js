@@ -10,7 +10,7 @@ let trash = {
 
 let surveys = {
     get: async function(surveyID) {
-        return await surveyModel.findById(surveyID).select("-userID").lean().exec();
+        return await surveyModel.findById(surveyID).lean().exec();
     },
     getDateCreated: async function(surveyID) {
         console.log(surveyID);
@@ -78,12 +78,13 @@ let surveys = {
         return oldSurvey;
     },
     addToBeach: async function(surveyData, beachID) {
-        
+
         let survDate = new Date(surveyData.survDate);
         let survey = new surveyModel(surveyData);
         let update = {};
         let rtnMsg = null;
         survey.bID = beachID;
+        console.log(beachID);
         let { surveys } = await beachModel.findById(beachID).select("surveys stats").exec();
         let surveyEntryData = {
             date: survDate.getUTCDate(),
@@ -102,7 +103,6 @@ let surveys = {
             rtnMsg = surv;
         } else {
             //year already exists
-            console.log("YEar exists");
             let yearSurveyID = surveys.get(`${survDate.getUTCFullYear()}`);
             let path = `${survDate.getUTCMonth()}`;
             let yearSurveyUpdate = {
@@ -118,8 +118,6 @@ let surveys = {
                 [`${path}.date`]: { $ne: survDate.getUTCDate() }
             }
             let doc = await yearSurveyModel.findOneAndUpdate(find, yearSurveyUpdate).exec();
-            console.log("Year model");
-            console.log(doc);
 
             if (doc) {
                 await survey.save();
@@ -292,7 +290,7 @@ let beaches = {
         return await beachModel.find({}, "n lat lon").exec();
     },
     queryBeachNames: async function(query) {
-        return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n").exec();
+        return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n").limit(10).exec();
     },
     getOneLonLat: async function(beachID) {
         let projection = `lat lon`
@@ -329,7 +327,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     //edited survey
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, newASTotal, newSRSTotal, date } = updatePayload;
-    
+
     let result = [];
     let path = `${date.getUTCMonth()}`
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
@@ -349,14 +347,11 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
-    console.log(newDebrisData);
-    console.log(prevDebrisData);
-    let result = {};
+    let result = [];
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
-        console.log(result);
         update.beachUpdate.$set['stats.TODF'] = result;
     }
-    console.log(update);
+    console.log(JSON.stringify(update));
     if (oldStats.ttls.size <= 0) {
         //create new year
         let totals = new yearTotalsModel({
@@ -375,23 +370,30 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
             }
         }
     };
+    console.log(JSON.stringify(update));
     totalsQuery._id = totalsID;
 }
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
     let trash = Object.keys(newDebrisData);
-    if (trash.length > 0) {
+        if (trash.length > 0) {
+        console.log("Trash has data " + trash);
         trash.forEach(trashName => {
             let newTrashAmnt = newDebrisData[trashName];
             if (prevDebrisData.has(trashName)) {
+                console.log("Old data has: " + trashName);
                 let origAmnt = prevDebrisData.get(trashName);
+                prevDebrisData.delete(trashName);
                 let newTotal = newTrashAmnt + origAmnt;
                 if (newTotal != 0) {
-                    result[trashName] = newTotal;
+                    result.push([trashName, newTotal]);;
                 }
             } else {
-                result[trashName] = newTrashAmnt;
+                result.push([trashName, newTrashAmnt]);;
             }
+        });
+        prevDebrisData.forEach((val, key) => {
+            result.push([key, val]);
         });
     } else {
         return false;

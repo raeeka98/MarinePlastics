@@ -44,7 +44,7 @@ class Review extends Component {
       }
       index = ++index % 8;
     }
-
+    console.log(parsedRows);
     // Now take the parsed data and then create row objects for each 
     for (const key in parsedRows) {
       console.log(parsedRows[key]);

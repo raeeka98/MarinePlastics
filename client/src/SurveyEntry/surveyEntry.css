@@ -1,3 +1,13 @@
+.button-active {
+    background-color: #00adad;
+    color: white;
+}
+
+.button-active:hover {
+    background-color: #009b9b;
+    color: white;
+}
+
 .button-disabled {
     background-color: #dddddd;
 }
