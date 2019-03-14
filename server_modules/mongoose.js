@@ -275,11 +275,13 @@ let beaches = {
     },
     getBeachNames: async function(skip) {
         let projection = `n`;
+        let proj_mod = `stats.lastUp`;
         return await beachModel
             .find()
             .skip(skip)
             .limit(20)
             .select(projection)
+            .sort([[proj_mod, -1]])
             .exec();
 
     },
