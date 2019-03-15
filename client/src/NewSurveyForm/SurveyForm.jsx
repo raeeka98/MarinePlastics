@@ -256,6 +256,10 @@ class SurveyForm extends Component {
         return totalsArray;
     }
 
+    calculateCompassDegrees() {
+
+    }
+
     prepareForm() {
         // for that visual AESTHETIC
 
@@ -280,7 +284,7 @@ class SurveyForm extends Component {
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
-                cmpsDir: 100,
+                cmpsDir: this.calculateCompassDegrees(),
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -363,7 +367,7 @@ class SurveyForm extends Component {
         })
     }
 
-    inputting = () => {
+    showInputPage = () => {
         return (
             <div>
                 <form id="surveyForm">
@@ -383,7 +387,7 @@ class SurveyForm extends Component {
 
     }
 
-    reviewing = () => {
+    showReviewPage = () => {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
@@ -392,7 +396,7 @@ class SurveyForm extends Component {
             </div>);
     }
 
-    submitting = () => {
+    showSubmitPage = () => {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
@@ -410,9 +414,9 @@ class SurveyForm extends Component {
     render() {
         return (
             <div className="centering-container" >
-                {(this.state.isInputting && this.inputting()) ||
-                    (this.state.isReviewing && this.reviewing()) ||
-                    (this.state.isSubmitted && this.submitting())}
+                {(this.state.isInputting && this.showInputPage()) ||
+                    (this.state.isReviewing && this.showReviewPage()) ||
+                    (this.state.isSubmitted && this.showSubmitPage())}
             </div>
         );
     }

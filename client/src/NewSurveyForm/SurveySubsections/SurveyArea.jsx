@@ -61,25 +61,74 @@ class SurveyArea extends Component {
             </div>
             <div>
               <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
-              <input
-                type='number'
-                placeholder='Latitude of Beach'
-                id='latitude'
-                onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.latitude}
-                className='uk-input uk-margin'
-              />
+              <div className="uk-grid uk-margin uk-child-width-1-3">
+                <div>
+
+                  <input
+                    type='number'
+                    placeholder='&#176;'
+                    id='latDeg'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.latDeg}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+                <div>
+                  <input
+                    type='number'
+                    placeholder='"'
+                    id='latMin'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.latMin}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+                <div>
+                  <input
+                    type='number'
+                    placeholder="'"
+                    id='latSec'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.latSec}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+              </div>
             </div>
             <div>
               <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
-              <input
-                type='number'
-                placeholder='Longitude of Beach'
-                id='longitude'
-                defaultValue={this.props.data.longitude}
-                onChange={this.props.updateSurveyState}
-                className='uk-input uk-margin'
-              />
+              <div className="uk-grid uk-margin uk-child-width-1-3">
+                <div>
+                  <input
+                    type='number'
+                    placeholder='&#176;'
+                    id='lonDeg'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.lonDeg}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+                <div>
+                  <input
+                    type='number'
+                    placeholder='"'
+                    id='lonMin'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.lonMin}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+                <div>
+                  <input
+                    type='number'
+                    placeholder="'"
+                    id='lonSec'
+                    onChange={this.props.updateSurveyState}
+                    defaultValue={this.props.data.lonSec}
+                    className='uk-input uk-margin'
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
