@@ -212,7 +212,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Approximate Distance</label>
+              <label>Approximate Distance (mi)</label>
               <input
                 type='number'
                 placeholder='Nearest River Output Distance'

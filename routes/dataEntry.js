@@ -207,6 +207,7 @@ router.route('/:beachID/info')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let data = await beaches.getInfo(bID);
+        data.nroName = data.nroName.replace("_", " ");
         res.json(data);
     }));
 
