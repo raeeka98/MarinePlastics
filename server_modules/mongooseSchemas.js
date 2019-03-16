@@ -102,6 +102,7 @@ let surveySchema = new Schema({
     },
     st: substrateTypeSchema,
     slope: String,
+    weight: Number,
     cmpsDir: {
         type: Number,
         alias: "compassDirection"
@@ -262,7 +263,7 @@ let beachSchema = new Schema({
     lastMod: { type: Date, default: Date.now, index: true },
     nroName: String,
     nroDist: { type: Number, min: 0 },
-    numSurvey: {type: Number, min: 0},
+    numSurvey: { type: Number, min: 0 },
     surveys: {
         type: Map,
         of: { type: mongoose.Types.ObjectId, ref: "YearSurveys" },

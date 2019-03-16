@@ -62,7 +62,8 @@ const surveyDataSchema = joi.object({
     majorUse: majorUseSchema.required(),
     numOfP: joi.number().min(0).required(),
     SRSDebris: joi.array().items(debrisData).max(17).optional(),
-    ASDebris: joi.array().items(debrisData).max(17).optional()
+    ASDebris: joi.array().items(debrisData).max(17).optional(),
+    weight: joi.number().min(0).required()
 });
 
 const beachDataSchema = joi.object({
