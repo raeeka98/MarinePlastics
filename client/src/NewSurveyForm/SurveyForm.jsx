@@ -17,6 +17,7 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 class SurveyForm extends Component {
     constructor(props) {
@@ -124,6 +125,18 @@ class SurveyForm extends Component {
     validate() {
         let invalid = [];
 
+        const displayIDs = {
+            userFirst: "First name",
+            userLast: "Last name",
+            orgName: "Organization Name",
+            orgLoc: "Organization Location",
+            cleanUpTime: "Clean Up Time",
+            cleanUpDate: "Clean Up Start Time",
+            beachName: "Name of Beach",
+            latitude: "Latitude",
+            longitude: "Longitude"
+        }
+
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
             'cleanUpTime', 'cleanUpDate', 'beachName',
             'latitude', 'longitude'
@@ -131,7 +144,7 @@ class SurveyForm extends Component {
 
         for (const id of requiredIDs) {
             if (!this.state.surveyData[id]) {
-                invalid.push(id);
+                invalid.push(displayIDs[id]);
             }
         }
 
@@ -139,8 +152,9 @@ class SurveyForm extends Component {
         return invalid;
     }
 
+
     navToID(ids) {
-        alert("fill out " + ids);
+        alert("Please fill out the following: " + ids)
     }
 
     moveToReview() {
@@ -387,7 +401,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
-                <Review data={this.state.surveyData} SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
+                <Review data={this.state.surveyData} email={this.state.email}SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
                 <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit </button>
             </div>);
     }

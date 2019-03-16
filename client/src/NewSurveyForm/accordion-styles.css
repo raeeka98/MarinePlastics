@@ -16,9 +16,9 @@
 }
 
 .accordion {
-    text-align: left;
+    text-align: center;
     position: relative;
-    width: 95%;
+    width: 95vw;
     border: none;
     display: inline-block;
     border-radius: 20px;
@@ -69,7 +69,8 @@
 }
 
 .accordion__body {
-    padding: 20px;
+    text-align:left;
+    padding: 2vw;
     display: block;
     animation: fadein 0.35s ease-in;
 }
