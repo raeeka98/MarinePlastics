@@ -18,6 +18,7 @@ import {
 
 import './accordion-styles.css';
 import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
+import { runInThisContext } from 'vm';
 
 class SurveyForm extends Component {
     constructor(props) {
@@ -134,19 +135,55 @@ class SurveyForm extends Component {
             cleanUpDate: "Clean Up Start Time",
             beachName: "Name of Beach",
             latitude: "Latitude",
-            longitude: "Longitude"
+            longitude: "Longitude",
+            compassDegrees: "Compass Degrees",
+            riverName: "River Name",
+            riverDistance: "Nearest River Output Distance",
+            usage: "Usage",
+            locChoice: "Reason for Location Choice",
+            subType: "Substrate Type",
+            slope: "Slope",
+            tideHeightA: "Next Tide Height",
+            tideTimeA: "Next Tide Time",
+            tideTypeA: "Next Tide Type",
+            tideHeightB: "Last Tide Height",
+            tideTypeB: "Last Tide Type",
+            tideTimeB: "Last Tide Time",
+            windDir: "Wind Direction",
+            windSpeed: "Wind Speed"
+
         }
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
             'cleanUpTime', 'cleanUpDate', 'beachName',
-            'latitude', 'longitude'
+            'latitude', 'longitude', 'compassDegrees', 'riverName', 
+            'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
+            'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed'
         ];
 
+
+        //Things in survey
         for (const id of requiredIDs) {
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
             }
         }
+        
+        //Check for usage
+        if(!this.state.surveyData.usageRecreation 
+            && !this.state.surveyData.usageCommercial 
+                && !this.state.surveyData.usageOther)
+                invalid.push(displayIDs.usage);
+        
+        //Check if the user filled out the reason for location choice
+        if(!this.state.surveyData.locationChoiceDebris && !this.state.surveyData.locationChoiceProximity
+            && !this.state.surveyData.locationChoiceOther)
+            invalid.push(displayIDs.locChoice);
+        
+        // Check if the user filled out the substrate type
+        if(!this.state.surveyData.substrateTypeSand && !this.state.surveyData.substrateTypePebble && !this.state.surveyData.substrateTypeRipRap
+            && !this.state.surveyData.substrateTypeSeaweed && !this.state.surveyData.substrateTypeOther)
+            invalid.push(displayIDs.subType);
 
 
         return invalid;
@@ -196,7 +233,9 @@ class SurveyForm extends Component {
                 }
             })
             .catch(err => {
-                console.log(err.response)
+                console.log("We caught an error");
+                console.log(err.response);
+                alert(err.response.data.error.details[0].message);
             })
     }
 
@@ -290,11 +329,11 @@ class SurveyForm extends Component {
                 email: this.state.email,
                 userID: this.state.userID,
                 org: (data.orgName ? data.orgName : ""),
-                reason: (show.locChoice ? show.locChoice : ""),
+                reason: (show.locChoice ? show.locChoice : "No reason"),
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
-                cmpsDir: 100,
+                cmpsDir: (data.compassDegrees ? data.compassDegrees : 100),
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -319,16 +358,16 @@ class SurveyForm extends Component {
                     ...
                 ]
                 */
-                numOfP: 6,
+                numOfP: 0,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
-                n: data.beachName.replace(" ", "_"),
+                n: data.beachName.replace(/\s/g, "_"),
                 lat: data.latitude,
                 lon: data.longitude,
-                nroName: data.riverName.replace(" ", "_"),
+                nroName: data.riverName.replace(/\s/g, "_"),
                 nroDist: data.riverDistance
             }
         }
