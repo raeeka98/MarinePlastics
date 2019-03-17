@@ -106,9 +106,6 @@ class LocationBar extends Component {
                         <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location, userProfile: this.props.userProfile  } }} style={{ textDecoration: 'none', color: 'black'  }}>
                             {this.props.location.n}
                             </Link>
-                            <span className="uk-text-muted uk-text-small uk-margin-remove-bottom">
-                                {this.props.location._numOfSurveys} {this.props.entryString}
-                            </span>
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
                         <p>
