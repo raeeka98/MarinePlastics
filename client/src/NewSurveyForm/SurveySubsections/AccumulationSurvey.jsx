@@ -38,8 +38,8 @@ class AccumulationSurvey extends Component {
           <AccordionItemBody className="accordion__body">
               <div className="uk-grid uk-child-width-1-3">
                   <div></div>
-                  <div><h4>Fresh</h4></div>
-                  <div><h4>Weathered</h4></div>
+                  <div><h4>Pieces Fresh</h4></div>
+                  <div><h4>Pieces Weathered</h4></div>
               </div>
               {tableRows}
           </AccordionItemBody>
