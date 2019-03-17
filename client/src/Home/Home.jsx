@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
 
-import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
+import { locationSort, lastModFilter, dateFind, locationFind, debrisFind, userFind, orgFind, beachNameFilter } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
 import './home.css';
 
@@ -15,7 +15,7 @@ class Home extends Component {
       data: [],
       rawData: [],
       searchResult: [],
-      filter: 'beach',
+      filter: 'mod',
       loaded: false,
       error: false,
 
@@ -30,6 +30,7 @@ class Home extends Component {
     this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
     this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
     this.url = '/beaches';
   }
 
@@ -41,7 +42,7 @@ class Home extends Component {
           beaches: res.data,
           loaded: true
         });
-        //console.log(this.state.beaches);
+        console.log(this.state.beaches);
       })
       .catch(err => {
         console.log(err.message);
@@ -53,8 +54,8 @@ class Home extends Component {
   }
 
   handleSearchTypeChange(e) {
-    this.setState({ filter: e.target.value });
-    this.handleSearch(document.getElementById("searchBar").value, e.target.value);
+    // this.setState({ filter: e.target.value });
+    // this.handleSearch(document.getElementById("searchBar").value, e.target.value);
   }
 
   handleSearchChange(e) {
@@ -88,15 +89,32 @@ class Home extends Component {
     }
   }
 
+  // Upon initial load, data is loaded by last modification (from the backend)
+  async handleFilterChange(e) {
+    let filterName = e.target.value;
+
+    console.log(filterName);
+    
+    if (filterName === 'mod') {
+      let sortedBeachList = await lastModFilter(this.state.beaches);
+      this.setState({ beaches: sortedBeachList });
+    }
+    else if (filterName === 'beach') {
+      let sortedBeachList = await beachNameFilter(this.state.beaches);
+      this.setState({ beaches: sortedBeachList });
+    }
+  }
+
 
   filterFunctions = {
+    mod: dateFind,
     beach: locationFind,
     debris: debrisFind,
     user: userFind,
     org: orgFind
   };
 
-  handleSearch(value, filter) {
+  handleSearch(value) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
         console.log(res.data);
@@ -139,8 +157,6 @@ class Home extends Component {
   styleMain () {
     let main = document.getElementById("mainContainer");
     let mainOffset = main.offsetTop;
-    console.log("mainOffset = " + mainOffset);
-    console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
     let availSpace = document.documentElement.clientHeight - mainOffset;
     main.style.height = availSpace + "px";
   }
@@ -160,7 +176,7 @@ class Home extends Component {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      console.log(location.numOfSurveys);
+      //console.log(location.numOfSurveys);
 
       return <LocationBar
         key={i}
@@ -173,7 +189,7 @@ class Home extends Component {
       />
     });
 
-    console.log(this.state.rawData);
+    //console.log(this.state.rawData);
     let totalWeight = this.state.totalWeight;
 
     return (
@@ -193,7 +209,8 @@ class Home extends Component {
               </div>
 
               <div className="uk-width-1-5">
-                <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
+                <select className="uk-select uk-form" id='type' onChange={this.handleFilterChange}>
+                  <option value="mod">Last Modified</option>
                   <option value="beach">By Beach</option>
                   <option value="debris">By Debris</option>
                   <option value="user">By Team Leader</option>

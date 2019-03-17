@@ -96,7 +96,7 @@ class LocationBar extends Component {
     }
 
     render() { 
-        console.log(this.props.userProfile)
+        //console.log(this.props.userProfile)
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>

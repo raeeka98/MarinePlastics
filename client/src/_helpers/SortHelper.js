@@ -1,9 +1,11 @@
 import geolib from 'geolib';
+import axios from 'axios';
 
 // can export as many functions as you want from one file
 // can use locationSort anywhere if put: import { locationSort } from '/path/to/_helpers/SortHelper'
 
 export function locationSort(data) {
+  console.log("locationSort called");
   let sorted = [];
   for (let i = 0; i < data.length; i++) {
     // if data[i] matches anything in sorted, returns the index of the match in sorted
@@ -47,6 +49,12 @@ export function locationSort(data) {
   return sorted;
 }
 
+export function dateFind(locations, searchTerm) {
+  console.log("dateFind called");
+  let res = [];
+  return res;
+}
+
 export function locationFind(locations, searchTerm){
   if (searchTerm === '') {
     return locations;
@@ -62,7 +70,37 @@ export function locationFind(locations, searchTerm){
   }
 }
 
+// Accepts array of objects containing beach names and IDs
+// Returns array similar to input but sorted by last modified date
+export function lastModFilter(beaches) {
+  
+  beaches.sort(function (a, b) {
+
+    a = new Date(a.lastMod).getTime();
+    b = new Date(b.lastMod).getTime();
+    console.log(a);
+    return a < b ? 1 : a > b ? -1 : 0;
+  });
+  console.log(beaches);
+
+  return beaches;
+}
+
+export function beachNameFilter(beaches) {
+  beaches.sort(function (a, b) {
+    if (a.n < b.n) {
+      return -1;
+    } else if (a.n > b.n) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return beaches;
+}
+
 export function debrisFind(locations, searchTerm){
+  console.log("debrisFind called");
   if (searchTerm === ''){ return locations; } 
   else {
     const normalizedST = searchTerm.replace(/\s/g, '').toLowerCase();

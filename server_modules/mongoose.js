@@ -274,7 +274,7 @@ let beaches = {
         return res;
     },
     getBeachNames: async function(skip) {
-        let projection = `n`;
+        let projection = `n lastMod`;
         let proj_mod = `stats.lastUp`;
         return await beachModel
             .find()
@@ -306,7 +306,7 @@ let beaches = {
         return await beachModel.find({}, 'stats.TODF').exec();
     },
     getInfo: async function(beachID) {
-        return await beachModel.findById(beachID).select("n lat lon nroName nroDist");
+        return await beachModel.findById(beachID).select("n lat lon nroName nroDist lastMod").exec();
     }
 }
 
