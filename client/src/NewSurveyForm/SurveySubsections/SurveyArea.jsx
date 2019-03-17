@@ -49,7 +49,7 @@ class SurveyArea extends Component {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
         const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
-        this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);    
+        this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
       }).catch(err => {
         console.log(err);
       });
@@ -110,7 +110,7 @@ class SurveyArea extends Component {
                     id='latDir'
                     className='uk-select uk-margin'
                     onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.latDir}
+                    value={this.props.data.latDir}
                   >
                     {!this.props.data.latDir && <option></option>}
                     <option value='1' >N</option>
@@ -158,7 +158,7 @@ class SurveyArea extends Component {
                     id='lonDir'
                     className='uk-select uk-margin'
                     onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.lonDir}
+                    value={this.props.data.lonDir}
                   >
                     {!this.props.data.lonDir && <option></option>}
                     <option value='1' >E</option>
@@ -323,7 +323,7 @@ class SurveyArea extends Component {
                 id='tideTypeB'
                 className='uk-select uk-margin'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideTypeB}
+                value={this.props.data.tideTypeB}
               >
                 {!this.props.data.tideTypeB && <option>Please Select</option>}
                 <option value="low">Low</option>
@@ -336,7 +336,7 @@ class SurveyArea extends Component {
                 id='tideTypeA'
                 className='uk-select uk-margin'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideTypeA}
+                value={this.props.data.tideTypeA}
               >
                 {!this.props.data.tideTypeA && <option>Please Select</option>}
                 <option value="low">Low</option>
@@ -415,9 +415,8 @@ class SurveyArea extends Component {
               <select
                 id='windDir'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.windDir}
+                value={this.props.data.windDir}
                 className='uk-input uk-margin'
-
               >
                 {(!this.props.data.windDir) && <option>Please Select</option>}
                 <option value="n">North</option>
@@ -436,7 +435,7 @@ class SurveyArea extends Component {
                 id='slope'
                 className='uk-select uk-margin'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.slope}
+                value={this.props.data.slope}
               >
                 {(!this.props.data.slope) && <option>Please Select</option>}
                 <option value="winter">Winter Profile</option>
@@ -455,7 +454,7 @@ class SurveyArea extends Component {
                     className='uk-checkbox'
                   />
                 </label> Sand
-                        </div>
+              </div>
               <div className="uk-margin">
                 <label>
                   <input
@@ -466,7 +465,7 @@ class SurveyArea extends Component {
                     className='uk-checkbox'
                   />
                 </label> Pebble
-                        </div>
+              </div>
               <div className="uk-margin">
                 <label>
                   <input
@@ -477,7 +476,7 @@ class SurveyArea extends Component {
                     className='uk-checkbox'
                   />
                 </label> Rip Rap
-                        </div>
+              </div>
               <div className="uk-margin">
                 <label>
                   <input
@@ -488,7 +487,7 @@ class SurveyArea extends Component {
                     className='uk-checkbox'
                   />
                 </label> Seaweed
-                        </div>
+              </div>
               <div>
                 <label>
                   <input
@@ -497,7 +496,7 @@ class SurveyArea extends Component {
                     onClick={e => this.setState({ showOtherSubstrate: e.target.checked })}
                   />
                 </label> Other
-                        </div>
+              </div>
               {this.state.showOtherSubstrate &&
                 (
                   <div>

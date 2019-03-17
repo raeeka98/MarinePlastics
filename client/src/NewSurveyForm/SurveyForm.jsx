@@ -126,7 +126,7 @@ class SurveyForm extends Component {
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName', 'riverDistance',
-            'latitude', 'longitude'
+            'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
         ];
 
         for (const id of requiredIDs) {
@@ -192,28 +192,20 @@ class SurveyForm extends Component {
         return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    convertToDecimalDegrees(d, min, sec) {
-        return parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0);
+    convertToDecimalDegrees(d, min, sec, dir) {
+        return parseFloat(dir) * (parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0));
     }
 
-
-
-    calcTotals(type) {
+    calcTotalsSRS() {
         let totals = {};
         let totalsArray = [];
-        let data;
 
-        if(type === "SRS"){
-          data = this.state.SRSData;
-        }else if(type === "AS") {
-          data = this.state.ASData;
-        }
+        const data = this.state.SRSData;
 
         for (const id in data) {
-            let shavedData = id.replace(/__[1-4]/, '');
-            shavedData = shavedData.replace(/__accumulation/i, '');
-            const trash_id = shavedData.replace(/__\w+/, '');
-            const type = shavedData.replace(/\w+__/, '');
+            const noNum = id.replace(/__[1-4]/, '');
+            const trash_id = noNum.replace(/__\w+/, '');
+            const type = noNum.replace(/\w+__/, '');
             if (!totals[trash_id]) {
                 totals[trash_id] = {
                     fresh: 0,
@@ -235,41 +227,37 @@ class SurveyForm extends Component {
         return totalsArray;
     }
 
-    // calcTotalsAS() {
-    //     let totals = {};
-    //     let totalsArray = [];
-    //
-    //     const data = this.state.ASData;
-    //
-    //     for (const id in data) {
-    //         const noAcc = id.replace(/__accumulation/i, '');
-    //         const trash_id = noAcc.replace(/__\w+/, '');
-    //         const type = noAcc.replace(/\w+__/, '');
-    //         console.log(trash_id);
-    //         console.log(type);
-    //         if (!totals[trash_id]) {
-    //             totals[trash_id] = {
-    //                 fresh: 0,
-    //                 weathered: 0
-    //             }
-    //         }
-    //         if (type === "weathered") {
-    //             totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
-    //         } else {
-    //             totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
-    //         }
-    //     }
-    //     for (const id in totals) {
-    //         totalsArray.push([
-    //             id,
-    //             { fresh: totals[id].fresh, weathered: totals[id].weathered }
-    //         ]);
-    //     }
-    //     return totalsArray;
-    // }
+    calcTotalsAS() {
+        let totals = {};
+        let totalsArray = [];
 
-    calculateCompassDegrees() {
+        const data = this.state.ASData;
 
+        for (const id in data) {
+            const noAcc = id.replace(/__accumulation/i, '');
+            const trash_id = noAcc.replace(/__\w+/, '');
+            const type = noAcc.replace(/\w+__/, '');
+            console.log(trash_id);
+            console.log(type);
+            if (!totals[trash_id]) {
+                totals[trash_id] = {
+                    fresh: 0,
+                    weathered: 0
+                }
+            }
+            if (type === "weathered") {
+                totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+            } else {
+                totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+            }
+        }
+        for (const id in totals) {
+            totalsArray.push([
+                id,
+                { fresh: totals[id].fresh, weathered: totals[id].weathered }
+            ]);
+        }
+        return totalsArray;
     }
 
     prepareForm() {
@@ -282,7 +270,6 @@ class SurveyForm extends Component {
         const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
         date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
-        console.log(date);
         const form = {
             survData: {
                 user: {
@@ -296,7 +283,7 @@ class SurveyForm extends Component {
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
-                cmpsDir: this.calculateCompassDegrees(),
+                cmpsDir: data.compassDegrees,
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -322,14 +309,14 @@ class SurveyForm extends Component {
                 ]
                 */
                 numOfP: data.numPeople,
-                SRSDebris: this.calcTotals("SRS"),
-                ASDebris: this.calcTotals("AS"),
+                SRSDebris: this.calcTotalsSRS(),
+                ASDebris: this.calcTotalsAS(),
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
                 n: data.beachName.replace(" ", "_"),
-                lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec),
-                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec),
+                lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec, data.latDir),
+                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.latDir),
                 nroName: data.riverName.replace(" ", "_"),
                 nroDist: data.riverDistance
             }
@@ -339,6 +326,7 @@ class SurveyForm extends Component {
     }
 
     updateCoordState = (coordInfo, riverName, riverDist) => {
+
         this.setState(prevState => {
 
             for(const key in coordInfo) {
@@ -395,6 +383,7 @@ class SurveyForm extends Component {
     showInputPage = () => {
         return (
             <div>
+              {console.log(this.convertToDecimalDegrees(this.state.surveyData.lonDeg, this.state.surveyData.lonMin, this.state.surveyData.lonSec, this.state.surveyData.lonDir))}
                 <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
