@@ -40,6 +40,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+<<<<<<< HEAD
 //now  we can set the route path & initialize the API
 router.get('/', function(req, res) {
   res.json({ message: 'API Initialized!'});
@@ -166,6 +167,11 @@ router.route('/comments/:id')
 
 //Use our router configuration when we call /api
 app.use('/api', router);
+=======
+app.get('/pdfs/1.1.pdf', (req, res) => res.sendFile(path.join(__dirname,'/pdfs/1.1.pdf')));
+
+app.get('*', (req, res) => res.sendFile(path.join(__dirname + '/client/build/index.html')))
+>>>>>>> 038f8edc6f5b433d3cbc19d47ad345835eb7ea49
 
 //starts the server and listens for requests
 app.listen(port, function() {
