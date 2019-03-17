@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
 import { lastModFilter, beachNameFilter } from '../_helpers/SortHelper';
-//import { locationSort, lastModFilter, dateFind, locationFind, debrisFind, userFind, orgFind, beachNameFilter } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
 import './home.css';
 
@@ -27,7 +26,6 @@ class Home extends Component {
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    //this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
     this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
@@ -54,12 +52,6 @@ class Home extends Component {
       })
   }
 
-  // handleSearchTypeChange(e) {
-  //   // this.setState({ filter: e.target.value });
-  //   // this.handleSearch(document.getElementById("searchBar").value, e.target.value);
-  // }
-
-  
 
   async handleViewTypeChange(e) {
     await this.setState({ view: e.target.value });
@@ -107,15 +99,6 @@ class Home extends Component {
       this.setState({ beaches: sortedBeachList });
     }
   }
-
-
-  // filterFunctions = {
-  //   mod: dateFind,
-  //   beach: locationFind,
-  //   debris: debrisFind,
-  //   user: userFind,
-  //   org: orgFind
-  // };
 
   handleSearchChange(e) {
     this.handleSearch(e.target.value, this.state.filter);
@@ -174,7 +157,6 @@ class Home extends Component {
     this.styleMain();
     this.loadBeaches();
     this.getTotalDebris();
-    //this.loadCommentsFromServer();
   }
 
   render() {
@@ -184,7 +166,6 @@ class Home extends Component {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      //console.log(location.numOfSurveys);
 
       return <LocationBar
         key={i}
@@ -192,12 +173,9 @@ class Home extends Component {
         path={path}
         entryString={entryString}
         userProfile={this.props.userProfile}
-        //getUserProfile={this.props.getUserProfile}
-        //sisAuth={this.props.isAuth}
       />
     });
 
-    //console.log(this.state.rawData);
     let totalWeight = this.state.totalWeight;
 
     return (
@@ -219,10 +197,7 @@ class Home extends Component {
               <div className="uk-width-1-5">
                 <select className="uk-select uk-form" id='type' onChange={this.handleFilterChange}>
                   <option value="mod">Last Modified</option>
-                  <option value="beach">By Beach</option>
-                  <option value="debris">By Debris</option>
-                  <option value="user">By Team Leader</option>
-                  <option value="org">By Organization</option>
+                  <option value="beach">Beach Name</option>
                 </select>
               </div>
 
