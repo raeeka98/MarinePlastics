@@ -134,8 +134,14 @@ class SurveyForm extends Component {
             cleanUpTime: "Clean Up Time",
             cleanUpDate: "Clean Up Start Time",
             beachName: "Name of Beach",
-            latitude: "Latitude",
-            longitude: "Longitude",
+            latDir: "Latitude Direction",
+            lonDir: "Longitude Direction",
+            latDeg: "Latitude Degrees",
+            lonDeg: "Longitude Degrees",
+            latMin: "Latitude Minutes",
+            lonMin: "Longitude Minutes",
+            latSec: "Latitude Seconds",
+            lonSec: "Longitude Seconds",
             compassDegrees: "Compass Degrees",
             riverName: "River Name",
             riverDistance: "Nearest River Output Distance",
@@ -155,10 +161,11 @@ class SurveyForm extends Component {
         }
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-            'cleanUpTime', 'cleanUpDate', 'beachName',
-            'latitude', 'longitude', 'compassDegrees', 'riverName', 
+            'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName', 
             'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
-            'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed'
+            'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
+            'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName', 'riverDistance',
+            'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
         ];
 
 
@@ -245,6 +252,10 @@ class SurveyForm extends Component {
         return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
+    convertToDecimalDegrees(d, min, sec, dir) {
+        return parseFloat(dir) * (parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0));
+    }
+
     calcTotalsSRS() {
         let totals = {};
         let totalsArray = [];
@@ -319,7 +330,6 @@ class SurveyForm extends Component {
         const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
         date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
-        console.log(date);
         const form = {
             survData: {
                 user: {
@@ -349,7 +359,7 @@ class SurveyForm extends Component {
                     spd: (data.windSpeed ? data.windSpeed : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
-                // weight: (data.weight ? data.weight : ""),
+                weight: (data.weight ? data.weight : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -358,21 +368,35 @@ class SurveyForm extends Component {
                     ...
                 ]
                 */
-                numOfP: 0,
+                numOfP: data.numPeople,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
                 n: data.beachName.replace(/\s/g, "_"),
-                lat: data.latitude,
-                lon: data.longitude,
                 nroName: data.riverName.replace(/\s/g, "_"),
+                lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec, data.latDir),
+                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.latDir),
                 nroDist: data.riverDistance
             }
         }
 
         return form;
+    }
+
+    updateCoordState = (coordInfo, riverName, riverDist) => {
+
+        this.setState(prevState => {
+
+            for(const key in coordInfo) {
+                prevState.surveyData[key] = coordInfo[key];
+            }
+            prevState.surveyData.riverName = riverName;
+            prevState.surveyData.riverDist = riverDist;
+
+            return prevState;
+        })
     }
 
     //alternative
@@ -416,16 +440,32 @@ class SurveyForm extends Component {
         })
     }
 
-    inputting = () => {
+    showInputPage = () => {
         return (
             <div>
-                <form id="surveyForm">
+              <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
-                        <SurveyArea data={this.state.surveyData} setSurveyData={this.setSurveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState} />
-                        <SurfaceRibScan data={this.state.surveyData} SRSData={this.state.SRSData} updateSurveyState={this.updateSurveyState} updateSRS={this.updateSRS} />
-                        <AccumulationSurvey data={this.state.ASData} updateAS={this.updateAS} />
-                        <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
+                        <SurveyArea
+                          data={this.state.surveyData}
+                          setSurveyData={this.setSurveyData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateCheckedState={this.updateCheckedState}
+                          updateCoordState={this.updateCoordState}
+                        />
+                        <SurfaceRibScan
+                          data={this.state.surveyData}
+                          SRSData={this.state.SRSData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateSRS={this.updateSRS}
+                        />
+                        <AccumulationSurvey
+                          data={this.state.ASData}
+                          updateAS={this.updateAS} />
+                        <MicroDebrisSurvey
+                          data={this.state.surveyData}
+                          updateSurveyState={this.updateSurveyState}
+                        />
                     </Accordion>
                 </form>
                 <div className="submit-button-container" >
@@ -436,7 +476,7 @@ class SurveyForm extends Component {
 
     }
 
-    reviewing = () => {
+    showReviewPage = () => {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
@@ -445,7 +485,7 @@ class SurveyForm extends Component {
             </div>);
     }
 
-    submitting = () => {
+    showSubmitPage = () => {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
@@ -463,9 +503,9 @@ class SurveyForm extends Component {
     render() {
         return (
             <div className="centering-container" >
-                {(this.state.isInputting && this.inputting()) ||
-                    (this.state.isReviewing && this.reviewing()) ||
-                    (this.state.isSubmitted && this.submitting())}
+                {(this.state.isInputting && this.showInputPage()) ||
+                    (this.state.isReviewing && this.showReviewPage()) ||
+                    (this.state.isSubmitted && this.showSubmitPage())}
             </div>
         );
     }

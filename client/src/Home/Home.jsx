@@ -139,8 +139,8 @@ class Home extends Component {
   styleMain () {
     let main = document.getElementById("mainContainer");
     let mainOffset = main.offsetTop;
-    console.log("mainOffset = " + mainOffset);
-    console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
+    // console.log("mainOffset = " + mainOffset);
+    // console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
     let availSpace = document.documentElement.clientHeight - mainOffset;
     main.style.height = availSpace + "px";
   }
@@ -160,7 +160,7 @@ class Home extends Component {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      console.log(location.numOfSurveys);
+      // console.log(location.numOfSurveys);
 
       return <LocationBar
         key={i}
@@ -173,7 +173,7 @@ class Home extends Component {
       />
     });
 
-    console.log(this.state.rawData);
+    // console.log(this.state.rawData);
     let totalWeight = this.state.totalWeight;
 
     return (
@@ -206,7 +206,7 @@ class Home extends Component {
                   <option value="split">List and Map</option>
                   <option value="list">List</option>
                   <option value="map">Map</option>
-                  
+
                 </select>
               </div>
             </form>
@@ -228,9 +228,9 @@ class Home extends Component {
             { this.state.view === 'split'
               ? <div className="uk-flex uk-flex-row">
                   <div className="uk-width-1-3">
-                    <div id="locations" 
-                          className="uk-background-muted uk-padding uk-height-expand" 
-                          data-uk-height-viewport="offset-top: true" 
+                    <div id="locations"
+                          className="uk-background-muted uk-padding uk-height-expand"
+                          data-uk-height-viewport="offset-top: true"
                           style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                       {this.showEntries(locationNodes)}
                     </div>
