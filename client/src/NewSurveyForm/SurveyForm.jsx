@@ -143,8 +143,12 @@ class SurveyForm extends Component {
         ];
 
         for (const id of requiredIDs) {
+            console.log(id);
+            console.log(displayIDs[id]);
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
+                document.getElementById(id).classList.add('invalidInput');
+                console.log(id.classList);
             }
         }
 
@@ -344,10 +348,17 @@ class SurveyForm extends Component {
     updateSurveyState(e) {
         const key = e.target.id;
         const val = e.target.value;
+        console.log(val);
+        console.log(e);
+        let element = document.getElementById(key);
         this.setState(prevState => {
             prevState.surveyData[key] = val
             return prevState;
         })
+
+        if (val && element.classList.contains('invalidInput')) {
+            element.classList.remove('invalidInput');
+        }
     }
 
     updateCheckedState(e) {
