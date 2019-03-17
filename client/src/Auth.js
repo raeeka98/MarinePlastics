@@ -6,7 +6,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH_DOMAIN,
     clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
-    redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
+    redirectUri: process.env.REACT_APP_AUTH_LOGIN_REDIRECT_URI,
     audience: process.env.REACT_APP_AUTH_AUDIENCE,
     responseType: 'token id_token',
     scope: 'openid email profile'
@@ -77,9 +77,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    let base = encodeURIComponent(process.env.REACT_APP_AUTH_REDIRECT_URI);
+    let base = encodeURIComponent(process.env.REACT_APP_AUTH_LOGOUT_REDIRECT_URI);
     window.location.replace('https://' + process.env.REACT_APP_AUTH_DOMAIN + '/v2/logout?returnTo=' + 
-      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logo ut of auth0 */
+      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logout of auth0 */
   }
 
   isAuthenticated() {
