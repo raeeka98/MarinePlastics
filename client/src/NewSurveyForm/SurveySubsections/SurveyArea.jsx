@@ -202,7 +202,7 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Name<span className="uk-text-danger">*</span></label>
+              <label>River Name<span className="uk-text-danger">*</span></label>
               <input
                 type='string'
                 placeholder='Nearest River Output Name'

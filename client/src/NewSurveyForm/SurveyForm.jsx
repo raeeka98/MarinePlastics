@@ -164,9 +164,10 @@ class SurveyForm extends Component {
     moveToReview() {
         const invalidInput = this.validate();
         console.log(invalidInput);
-        if (invalidInput && invalidInput.length) {
-            this.navToID(invalidInput);
-        } else {
+        // if (invalidInput && invalidInput.length) {
+        //     this.navToID(invalidInput);
+        // } 
+        if (invalidInput.length === 0) {
             this.updateDisplayStrings();
             this.setState({
                 isInputting: false,
@@ -348,14 +349,14 @@ class SurveyForm extends Component {
     updateSurveyState(e) {
         const key = e.target.id;
         const val = e.target.value;
-        console.log(val);
-        console.log(e);
-        let element = document.getElementById(key);
+        
         this.setState(prevState => {
             prevState.surveyData[key] = val
             return prevState;
         })
 
+        // Remove the invalid input styling if they are coming back from review step
+        let element = document.getElementById(key);
         if (val && element.classList.contains('invalidInput')) {
             element.classList.remove('invalidInput');
         }
