@@ -74,9 +74,10 @@ class Home extends Component {
 
     if (this.state.view === "split") {
       console.log("state = split");
-      container.classList.add("split-view");
       container.classList.remove("list-view");
       container.classList.remove("split-view");
+      container.classList.add("split-view");
+      
     }
   }
 
@@ -226,7 +227,7 @@ class Home extends Component {
             }
 
             { this.state.view === 'split'
-              ? <div className="uk-flex uk-flex-row">
+              ? <div className="uk-flex uk-flex-row uk-margin">
                   <div className="uk-width-1-3">
                     <div id="locations" 
                           className="uk-background-muted uk-padding uk-height-expand" 
