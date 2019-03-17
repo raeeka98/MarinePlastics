@@ -383,8 +383,7 @@ class SurveyForm extends Component {
     showInputPage = () => {
         return (
             <div>
-              {console.log(this.convertToDecimalDegrees(this.state.surveyData.lonDeg, this.state.surveyData.lonMin, this.state.surveyData.lonSec, this.state.surveyData.lonDir))}
-                <form id="surveyForm">
+              <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
                         <SurveyArea
