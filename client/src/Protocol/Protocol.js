@@ -34,7 +34,7 @@ export function ProtocolPage() {
       <p>
         Download and read the Training Field Guide and the field form linked below to get started.
       </p>
-      <a href="http://localhost:3001/pdfs/COIDataSheet_Oct_24.pdf" download>View Our Data Sheet </a>
+      <a href="pdfs/COIDataSheet_Oct_24.pdf" download>View Our Data Sheet </a>
     </div>
     </div>
   );

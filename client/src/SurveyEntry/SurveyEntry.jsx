@@ -17,6 +17,7 @@ class SurveyEntry extends Component {
     let { surveyID } = props.match.params;
     this.state = {
       beachName: this.props.location.state.beachName,
+      info: this.props.location.state.info,
       surveyID,
       surveyData: {},
       userProfile: this.props.location.state.userProfile,
@@ -84,7 +85,18 @@ class SurveyEntry extends Component {
       })
       .then(() => {
         this.getChartData();
-      });
+      })
+      .then(()=> {
+        this.getBeachInfo();
+      })
+  }
+
+  getBeachInfo = () => {
+    axios.get(`/beaches/${this.state.surveyData.bID}/info`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({info: res.data});
+      })
   }
 
   /**
@@ -252,7 +264,7 @@ class SurveyEntry extends Component {
   }
 
   render() {
-    console.log(this.state.surveyData);
+    console.log(this.state.info);
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     if (this.state.editSurvey) return <Redirect to="/survey" />
@@ -359,8 +371,8 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
               {
-                this.state.surveyData.lat && this.state.surveyData.lon ?
-                  <p><strong>GPS Coordinates:</strong> {this.state.surveyData.lat}, {this.state.surveyData.lon}</p> : null
+                this.state.info.lat && this.state.info.lon ?
+                  <p><strong>GPS Coordinates:</strong> {this.state.info.lat}, {this.state.info.lon}</p> : null
               }
               {
                 this.state.surveyData.reason ?
@@ -401,12 +413,12 @@ class SurveyEntry extends Component {
                   <p><strong>Wind Speed: </strong> {this.state.surveyData.wind.spd} knots</p> : null
               }
               {
-                this.state.surveyData.nroName ?
-                  <p><strong>Nearest River:</strong> {this.state.surveyData.nroName}</p> : null
+                this.state.info.nroName ?
+                  <p><strong>Nearest River:</strong> {this.state.info.nroName}</p> : null
               }
               {
-                this.state.surveyData.nroDist ?
-                  <p><strong>Distance to Nearest River:</strong> {this.state.surveyData.nroDist}m</p> : null
+                this.state.info.nroDist ?
+                  <p><strong>Distance to Nearest River:</strong> {this.state.info.nroDist}mi</p> : null
               }
               {
                 this.state.surveyData.cmpsDir ?

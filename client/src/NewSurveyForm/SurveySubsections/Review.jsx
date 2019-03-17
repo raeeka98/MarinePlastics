@@ -30,19 +30,16 @@ class Review extends Component {
         ...
       }
     */
-    var index = 0;
     for(const key in this.props.SRSData) {
-      let parsedKey = key.split('__')[0];
-      let ribRow = parseInt(key.split('__')[2]) - 1;
-      if(index >= 0 && index < 4) {
-        // If we're looking at the fresh debris
-        if(index === 0)
-          parsedRows[parsedKey] = {fresh : [], weathered : []};
-        parsedRows[parsedKey].fresh.push(this.props.SRSData[key]); 
-      } else {
-        parsedRows[parsedKey].weathered.push(this.props.SRSData[key]);
+      //keys of the form item__condition__rib
+      let item = key.split('__')[0];
+      let condition = key.split('__')[1];
+      let rib = key.split('__')[2] - 1; 
+      //store info in parsedRows
+      if (!parsedRows[item]) {
+        parsedRows[item] = {fresh: new Array(4), weathered: new Array(4)};
       }
-      index = ++index % 8;
+      parsedRows[item][condition][rib] = this.props.SRSData[key];
     }
     console.log(parsedRows);
     // Now take the parsed data and then create row objects for each 
@@ -61,7 +58,6 @@ class Review extends Component {
     console.log(this.props.ASData);
     // Now we do a similar thing for the As Data
     parsedRows = {};
-    index = 0;
     for(const key in this.props.ASData) {
       let parsedKey = key.split('__')[0];
       let freshWeath = key.split('__')[1];
@@ -95,7 +91,7 @@ class Review extends Component {
             <p>Name: <b>{d.userFirst} {d.userLast}</b></p>
             <p>Organization Name: <b>{d.orgName}</b></p>
             <p>Organization Location: <b>{d.orgLoc}</b></p>
-            <p>Email Address: <b>{d.email}</b></p>
+            <p>Email Address: <b>{this.props.email}</b></p>
             <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
             <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
         </div>
@@ -155,7 +151,7 @@ class Review extends Component {
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
               <h2>Surface Rib Scan</h2>
-              <table className='uk-table uk-table-striped'>
+              <table className='uk-table uk-table-striped uk-table-middle'>
                 <thead>  
                   <tr>
                     <th>Range</th>
@@ -165,13 +161,13 @@ class Review extends Component {
                     <th>Rib #4</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Rib Start</td>
-                    <td>{d.rib1Start}</td>
+                <tbody style={{textAlign: 'left'}}>
+                  <tr >
+                    <td >Rib Start</td>
+                    <td >{d.rib1Start}</td>
                     <td>{d.rib2Start}</td>
                     <td>{d.rib3Start}</td>
-                    <td>{d.rib4Start}</td>
+                    <td >{d.rib4Start}</td>
                   </tr>
                   <tr>
                     <td>Rib End</td>
@@ -208,15 +204,15 @@ class Review extends Component {
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Accumulation Survey:</h3>
-            <table className='uk-table uk-table-striped'>
+            <table className='uk-table uk-table-striped uk-table-middle'>
                 <thead>  
                   <tr>
-                    <th>Debris Type</th>
+                    <th className='uk-width-small'>Debris Type</th>
                     <th>Fresh</th>
                     <th>Weathered</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style={{textAlign: "left"}}>
                   {ASRows}
                 </tbody>
               </table>
