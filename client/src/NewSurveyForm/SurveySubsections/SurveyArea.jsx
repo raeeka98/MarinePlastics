@@ -52,7 +52,7 @@ class SurveyArea extends Component {
         </AccordionItemTitle>
         <AccordionItemBody className="accordion__body">
           <div>
-            <h4>Beach Info:</h4>
+            <h4>Beach Info</h4>
           </div>
 
           <div className="uk-grid uk-child-width-1-3">
@@ -60,7 +60,7 @@ class SurveyArea extends Component {
               <BeachSearch autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
             </div>
             <div>
-              <label>Coordinates (Latitude):<span className="uk-text-danger">*</span></label>
+              <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Latitude of Beach'
@@ -71,7 +71,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
+              <label>Coordinates (Longitude)<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Longitude of Beach'
@@ -85,7 +85,7 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Major Usage</label>
+              <label>Major Usage<span className="uk-text-danger">*</span></label>
               <div>
                 <label>
                   <input
@@ -135,7 +135,7 @@ class SurveyArea extends Component {
             </div>
 
             <div>
-              <label>Reason for Location Choice</label>
+              <label>Reason for Location Choice<span className="uk-text-danger">*</span></label>
               <div>
                 <label>
                   <input
@@ -182,7 +182,7 @@ class SurveyArea extends Component {
               }
             </div>
             <div>
-              <label>Compass Direction (When Facing the Water):</label>
+              <label>Compass Direction (When Facing the Water)<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Degrees'
@@ -197,12 +197,12 @@ class SurveyArea extends Component {
           <hr></hr>
 
           <div>
-            <h4>Nearest River Output:</h4>
+            <h4>Nearest River Output</h4>
           </div>
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Name</label>
+              <label>Name<span className="uk-text-danger">*</span></label>
               <input
                 type='string'
                 placeholder='Nearest River Output Name'
@@ -212,7 +212,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Approximate Distance (mi)</label>
+              <label>Approximate Distance (mi)<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Nearest River Output Distance'
@@ -226,13 +226,13 @@ class SurveyArea extends Component {
           <hr></hr>
 
           <div className="uk-grid uk-child-width-1-2">
-            <h4>Last Tide Before Clean Up:</h4>
-            <h4>Next Tide After Clean Up:</h4>
+            <h4>Last Tide Before Clean Up</h4>
+            <h4>Next Tide After Clean Up</h4>
           </div>
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Type:<span className="uk-text-danger"></span></label>
+              <label>Type<span className="uk-text-danger">*</span></label>
               <select
                 id='tideTypeB'
                 className='uk-select uk-margin'
@@ -245,7 +245,7 @@ class SurveyArea extends Component {
               </select>
             </div>
             <div>
-              <label>Type:<span className="uk-text-danger"></span></label>
+              <label>Type<span className="uk-text-danger">*</span></label>
               <select
                 id='tideTypeA'
                 className='uk-select uk-margin'
@@ -261,7 +261,7 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Height (ft):<span className="uk-text-danger"></span></label>
+              <label>Height (ft)<span className="uk-text-danger">*</span></label>
               <input
                 type="number"
                 placeholder="Height"
@@ -272,7 +272,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Height (ft):<span className="uk-text-danger"></span></label>
+              <label>Height (ft)<span className="uk-text-danger">*</span></label>
               <input
                 type="number"
                 placeholder="Height"
@@ -286,7 +286,7 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Time:<span className="uk-text-danger"></span></label>
+              <label>Time<span className="uk-text-danger">*</span></label>
               <input
                 type="time"
                 id='tideTimeB'
@@ -297,7 +297,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Time:<span className="uk-text-danger"></span></label>
+              <label>Time<span className="uk-text-danger">*</span></label>
               <input
                 type="time"
                 id='tideTimeA'
@@ -314,7 +314,7 @@ class SurveyArea extends Component {
           <div className="uk-grid uk-child-width-1-3">
             <div>
               <h4>Wind</h4>
-              <label>Speed:<span className="uk-text-danger"></span></label>
+              <label>Speed<span className="uk-text-danger">*</span></label>
               <input
                 type="number"
                 placeholder="Speed (knots)"
@@ -325,7 +325,7 @@ class SurveyArea extends Component {
 
               />
 
-              <label>Direction:<span className="uk-text-danger"></span></label>
+              <label>Direction<span className="uk-text-danger">*</span></label>
               <select
                 id='windDir'
                 onChange={this.props.updateSurveyState}
@@ -346,6 +346,7 @@ class SurveyArea extends Component {
             </div>
             <div>
               <h4>Slope</h4>
+              <label>Slope<span className="uk-text-danger">*</span></label>
               <select
                 id='slope'
                 className='uk-select uk-margin'
@@ -353,12 +354,13 @@ class SurveyArea extends Component {
                 defaultValue={this.props.data.slope}
               >
                 {(!this.props.data.slope) && <option>Please Select</option>}
+                
                 <option value="winter">Winter Profile</option>
                 <option value="summer">Summer Profile</option>
               </select>
             </div>
             <div>
-              <h4>Substrate Type</h4>
+              <h4>Substrate Type<span className="uk-text-danger">*</span></h4>
               <div className="uk-margin">
                 <label>
                   <input
