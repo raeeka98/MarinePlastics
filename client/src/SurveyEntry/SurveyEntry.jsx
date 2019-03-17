@@ -34,6 +34,13 @@ class SurveyEntry extends Component {
 
   }
 
+  windDir = {
+    n: "North",
+    e: "East",
+    s: "South",
+    w: "West"
+  }
+
   renderOptions() {
     if (this.state.surveyData.SRSDebris && this.state.surveyData.ASDebris) {
       console.log("Render both")
@@ -68,12 +75,12 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    let userID = this.state.userProfile.sub.split("|")[1];
-    
+    let userID = this.state.userProfile ? this.state.userProfile.sub.split("|")[1] : undefined;
+
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID
-      } 
+      }
     })
       .then(res => {
         console.log(res.data);
@@ -86,7 +93,7 @@ class SurveyEntry extends Component {
       .then(() => {
         this.getChartData();
       })
-      .then(()=> {
+      .then(() => {
         this.getBeachInfo();
       })
   }
@@ -95,7 +102,7 @@ class SurveyEntry extends Component {
     axios.get(`/beaches/${this.state.surveyData.bID}/info`)
       .then(res => {
         console.log(res.data);
-        this.setState({info: res.data});
+        this.setState({ info: res.data });
       })
   }
 
@@ -210,35 +217,44 @@ class SurveyEntry extends Component {
     console.log(this.state.editable);
     return (
       <React.Fragment>
-        
+
         {/* Edit and Delete buttons are disabled if user is not logged in or doesn't own the survey */}
-        { this.state.editable ? 
+        {this.state.editable ?
           <div className="uk-flex uk-flex-row">
-            <button className="uk-button button-active uk-margin-right" onClick={this.editSurvey}>Edit Survey</button>
+            <button className="uk-button button-active uk-margin-right" ><Link className="uk-button button-active" to={{
+              pathname: `${this.props.location.pathname}/edit`,
+              state: {
+                surveyData: this.state.surveyData,
+                beachName: this.state.beachName,
+                info: this.state.info
+              }
+            }}>Edit Survey</Link></button>
             <button className="uk-button button-active"
               data-uk-toggle="target: #modal">
               Delete Survey
             </button>
-            
+
           </div>
           :
           <div className="uk-flex uk-flex-row">
-            <button className="uk-button button-disabled uk-margin-right" 
+            <button className="uk-button button-disabled uk-margin-right"
               data-uk-toggle="target: #modal">
-              Edit Survey</button>
+              Edit Survey
+              </button>
             <button className="uk-button button-disabled"
               data-uk-toggle="target: #modal"
               id="delete">
-              Delete Survey</button>
-            
+              Delete Survey
+              </button>
+
           </div>
         }
 
-        
+
         {/* The modal that is opened by clicking on the edit/delete buttons */}
         <div id="modal" data-uk-modal>
           <div className="uk-modal-dialog uk-modal-body">
-            {this.state.editable ? 
+            {this.state.editable ?
               <div>
                 <h2>Are you sure you want to delete this survey?</h2>
                 <p>This action cannot be undone.</p>
@@ -249,7 +265,7 @@ class SurveyEntry extends Component {
                 <p>Please log in to continue.</p>
               </div>
             }
-            
+
             <p className="uk-text-right">
               <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
               {this.state.editable ? <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> : null}
@@ -267,7 +283,6 @@ class SurveyEntry extends Component {
     console.log(this.state.info);
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
-    if (this.state.editSurvey) return <Redirect to="/survey" />
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
@@ -406,7 +421,7 @@ class SurveyEntry extends Component {
               }
               {
                 this.state.surveyData.wind ?
-                  <p><strong>Wind Direction: </strong> {this.state.surveyData.wind.dir}</p> : null
+                  <p><strong>Wind Direction: </strong> {this.windDir[this.state.surveyData.wind.dir]}</p> : null
               }
               {
                 this.state.surveyData.wind ?
