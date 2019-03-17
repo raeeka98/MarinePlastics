@@ -18,6 +18,7 @@ import Map from './Map/Map.js';
 import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
 import PageNotFound from './PageNotFound/PageNotFound';
+import SurveyEntryEdit from "./SurveyEntry/surveyEntryEdit";
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -74,6 +75,7 @@ class App extends Component {
                 {/* for testing new component: */}
                 <Route path='/survey' render={()=><SurveyForm auth={this.auth}/>}/>
                 <Route path='/location/:beachID' component={LocationPage} />
+                <Route path="/:beachName/:surveyID/edit" component={SurveyEntryEdit}/>
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
                 <Route
