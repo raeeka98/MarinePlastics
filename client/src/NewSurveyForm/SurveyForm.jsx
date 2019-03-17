@@ -192,16 +192,28 @@ class SurveyForm extends Component {
         return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
 
-    calcTotalsSRS() {
+    convertToDecimalDegrees(d, min, sec) {
+        return parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0);
+    }
+
+
+
+    calcTotals(type) {
         let totals = {};
         let totalsArray = [];
+        let data;
 
-        const data = this.state.SRSData;
+        if(type === "SRS"){
+          data = this.state.SRSData;
+        }else if(type === "AS") {
+          data = this.state.ASData;
+        }
 
         for (const id in data) {
-            const noNum = id.replace(/__[1-4]/, '');
-            const trash_id = noNum.replace(/__\w+/, '');
-            const type = noNum.replace(/\w+__/, '');
+            let shavedData = id.replace(/__[1-4]/, '');
+            shavedData = shavedData.replace(/__accumulation/i, '');
+            const trash_id = shavedData.replace(/__\w+/, '');
+            const type = shavedData.replace(/\w+__/, '');
             if (!totals[trash_id]) {
                 totals[trash_id] = {
                     fresh: 0,
@@ -223,38 +235,38 @@ class SurveyForm extends Component {
         return totalsArray;
     }
 
-    calcTotalsAS() {
-        let totals = {};
-        let totalsArray = [];
-
-        const data = this.state.ASData;
-
-        for (const id in data) {
-            const noAcc = id.replace(/__accumulation/i, '');
-            const trash_id = noAcc.replace(/__\w+/, '');
-            const type = noAcc.replace(/\w+__/, '');
-            console.log(trash_id);
-            console.log(type);
-            if (!totals[trash_id]) {
-                totals[trash_id] = {
-                    fresh: 0,
-                    weathered: 0
-                }
-            }
-            if (type === "weathered") {
-                totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
-            } else {
-                totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
-            }
-        }
-        for (const id in totals) {
-            totalsArray.push([
-                id,
-                { fresh: totals[id].fresh, weathered: totals[id].weathered }
-            ]);
-        }
-        return totalsArray;
-    }
+    // calcTotalsAS() {
+    //     let totals = {};
+    //     let totalsArray = [];
+    //
+    //     const data = this.state.ASData;
+    //
+    //     for (const id in data) {
+    //         const noAcc = id.replace(/__accumulation/i, '');
+    //         const trash_id = noAcc.replace(/__\w+/, '');
+    //         const type = noAcc.replace(/\w+__/, '');
+    //         console.log(trash_id);
+    //         console.log(type);
+    //         if (!totals[trash_id]) {
+    //             totals[trash_id] = {
+    //                 fresh: 0,
+    //                 weathered: 0
+    //             }
+    //         }
+    //         if (type === "weathered") {
+    //             totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+    //         } else {
+    //             totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+    //         }
+    //     }
+    //     for (const id in totals) {
+    //         totalsArray.push([
+    //             id,
+    //             { fresh: totals[id].fresh, weathered: totals[id].weathered }
+    //         ]);
+    //     }
+    //     return totalsArray;
+    // }
 
     calculateCompassDegrees() {
 
@@ -310,20 +322,33 @@ class SurveyForm extends Component {
                 ]
                 */
                 numOfP: data.numPeople,
-                SRSDebris: this.calcTotalsSRS(),
-                ASDebris: this.calcTotalsAS(),
+                SRSDebris: this.calcTotals("SRS"),
+                ASDebris: this.calcTotals("AS"),
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
                 n: data.beachName.replace(" ", "_"),
-                lat: data.latitude,
-                lon: data.longitude,
+                lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec),
+                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec),
                 nroName: data.riverName.replace(" ", "_"),
                 nroDist: data.riverDistance
             }
         }
 
         return form;
+    }
+
+    updateCoordState = (coordInfo, riverName, riverDist) => {
+        this.setState(prevState => {
+
+            for(const key in coordInfo) {
+                prevState.surveyData[key] = coordInfo[key];
+            }
+            prevState.surveyData.riverName = riverName;
+            prevState.surveyData.riverDist = riverDist;
+
+            return prevState;
+        })
     }
 
     //alternative
@@ -373,10 +398,26 @@ class SurveyForm extends Component {
                 <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
-                        <SurveyArea data={this.state.surveyData} setSurveyData={this.setSurveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState} />
-                        <SurfaceRibScan data={this.state.surveyData} SRSData={this.state.SRSData} updateSurveyState={this.updateSurveyState} updateSRS={this.updateSRS} />
-                        <AccumulationSurvey data={this.state.ASData} updateAS={this.updateAS} />
-                        <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
+                        <SurveyArea
+                          data={this.state.surveyData}
+                          setSurveyData={this.setSurveyData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateCheckedState={this.updateCheckedState}
+                          updateCoordState={this.updateCoordState}
+                        />
+                        <SurfaceRibScan
+                          data={this.state.surveyData}
+                          SRSData={this.state.SRSData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateSRS={this.updateSRS}
+                        />
+                        <AccumulationSurvey
+                          data={this.state.ASData}
+                          updateAS={this.updateAS} />
+                        <MicroDebrisSurvey
+                          data={this.state.surveyData}
+                          updateSurveyState={this.updateSurveyState}
+                        />
                     </Accordion>
                 </form>
                 <div className="submit-button-container" >
