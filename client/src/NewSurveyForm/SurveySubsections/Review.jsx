@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
 import ASRowReview from '../TableRows/ASRowReview';
-import { getDebrisNameById } from '../debrisInfo';
 import {getDebrisMap} from '../debrisInfo';
 
 const debrisInfo = getDebrisMap();

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
 
-import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
-import { getTotalPounds } from '../_helpers/ChartHelpers';
 import './home.css';
 
 class Home extends Component {
@@ -88,14 +85,6 @@ class Home extends Component {
     }
   }
 
-
-  filterFunctions = {
-    beach: locationFind,
-    debris: debrisFind,
-    user: userFind,
-    org: orgFind
-  };
-
   handleSearch(value, filter) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
@@ -172,9 +161,6 @@ class Home extends Component {
         //sisAuth={this.props.isAuth}
       />
     });
-
-    // console.log(this.state.rawData);
-    let totalWeight = this.state.totalWeight;
 
     return (
 

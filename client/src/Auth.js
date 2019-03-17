@@ -25,10 +25,7 @@ export default class Auth {
   }
 
   async login() {
-    let result = await this.auth0.authorize();
-    // want to redirect here but doesnt work correctly (redirects before auth)
-
-    //window.location.replace('/home');
+    await this.auth0.authorize();
   }
   handleAuthentication(fn) {
     this.auth0.parseHash((err, authResult) => {

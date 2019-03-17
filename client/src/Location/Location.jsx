@@ -6,7 +6,6 @@ import axios from 'axios';
 import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 // to get the pin styles
 import '../Map/Map.css';
-import { sumDebrisTypes } from '../_helpers/ChartHelpers';
 
 const debrisInfo = getDebrisMap();
 
@@ -63,9 +62,7 @@ class Location extends Component {
         // Then, take that promise and fill the surveys field in the correct order 
         axios.all(promise)
           .then((response) => {
-            response.map(res => {
-              trueSurveys.push(res.data.survData);
-            })
+            response.map(res => trueSurveys.push(res.data.survData))
           })
           .then(() => this.setState({surveys: trueSurveys}));
       });

@@ -19,7 +19,6 @@ class LocationBar extends Component {
     getSurveysFromBeach() {
         this.setState({clicked : true})
         let beachID = this.props.location._id;
-        let surveysHTML = [];
 
         axios.get('/beaches/' + beachID)
           .then(res => {
@@ -52,10 +51,7 @@ class LocationBar extends Component {
 
         axios.all(promise)
             .then(response => {
-                response.map(res => {
-                    surveyDay = new Date(res.data);
-                    // console.log(surveyDay.toLocaleDateString());
-                });
+                response.map(res => surveyDay = new Date(res.data));
             })
             .then(() => {
                 let surveysHTML = this.state.surveys;
