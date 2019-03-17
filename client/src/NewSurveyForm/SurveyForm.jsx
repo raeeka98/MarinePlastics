@@ -138,8 +138,8 @@ class SurveyForm extends Component {
         }
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
-            'cleanUpTime', 'cleanUpDate', 'beachName',
-            'latitude', 'longitude'
+            'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName', 'riverDistance',
+            'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
         ];
 
         for (const id of requiredIDs) {
@@ -205,6 +205,10 @@ class SurveyForm extends Component {
     toTitleCase(word) {
         return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     };
+
+    convertToDecimalDegrees(d, min, sec, dir) {
+        return parseFloat(dir) * (parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0));
+    }
 
     calcTotalsSRS() {
         let totals = {};
@@ -280,7 +284,6 @@ class SurveyForm extends Component {
         const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
         date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
-        console.log(date);
         const form = {
             survData: {
                 user: {
@@ -294,7 +297,7 @@ class SurveyForm extends Component {
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
                 st: (show.subType ? show.subType : ""),
                 slope: (data.slope ? data.slope : ""),
-                cmpsDir: 100,
+                cmpsDir: data.compassDegrees,
                 lastTide: {
                     type: (data.tideTypeB ? data.tideTypeB : ""),
                     time: (data.tideTimeB ? data.tideTimeB : ""),
@@ -310,7 +313,7 @@ class SurveyForm extends Component {
                     spd: (data.windSpeed ? data.windSpeed : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
-                // weight: (data.weight ? data.weight : ""),
+                weight: (data.weight ? data.weight : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -319,21 +322,35 @@ class SurveyForm extends Component {
                     ...
                 ]
                 */
-                numOfP: 6,
+                numOfP: data.numPeople,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
                 n: data.beachName.replace(" ", "_"),
-                lat: data.latitude,
-                lon: data.longitude,
+                lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec, data.latDir),
+                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.latDir),
                 nroName: data.riverName.replace(" ", "_"),
                 nroDist: data.riverDistance
             }
         }
 
         return form;
+    }
+
+    updateCoordState = (coordInfo, riverName, riverDist) => {
+
+        this.setState(prevState => {
+
+            for(const key in coordInfo) {
+                prevState.surveyData[key] = coordInfo[key];
+            }
+            prevState.surveyData.riverName = riverName;
+            prevState.surveyData.riverDist = riverDist;
+
+            return prevState;
+        })
     }
 
     //alternative
@@ -377,16 +394,32 @@ class SurveyForm extends Component {
         })
     }
 
-    inputting = () => {
+    showInputPage = () => {
         return (
             <div>
-                <form id="surveyForm">
+              <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
-                        <SurveyArea data={this.state.surveyData} setSurveyData={this.setSurveyData} updateSurveyState={this.updateSurveyState} updateCheckedState={this.updateCheckedState} />
-                        <SurfaceRibScan data={this.state.surveyData} SRSData={this.state.SRSData} updateSurveyState={this.updateSurveyState} updateSRS={this.updateSRS} />
-                        <AccumulationSurvey data={this.state.ASData} updateAS={this.updateAS} />
-                        <MicroDebrisSurvey data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
+                        <SurveyArea
+                          data={this.state.surveyData}
+                          setSurveyData={this.setSurveyData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateCheckedState={this.updateCheckedState}
+                          updateCoordState={this.updateCoordState}
+                        />
+                        <SurfaceRibScan
+                          data={this.state.surveyData}
+                          SRSData={this.state.SRSData}
+                          updateSurveyState={this.updateSurveyState}
+                          updateSRS={this.updateSRS}
+                        />
+                        <AccumulationSurvey
+                          data={this.state.ASData}
+                          updateAS={this.updateAS} />
+                        <MicroDebrisSurvey
+                          data={this.state.surveyData}
+                          updateSurveyState={this.updateSurveyState}
+                        />
                     </Accordion>
                 </form>
                 <div className="submit-button-container" >
@@ -397,7 +430,7 @@ class SurveyForm extends Component {
 
     }
 
-    reviewing = () => {
+    showReviewPage = () => {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
@@ -406,7 +439,7 @@ class SurveyForm extends Component {
             </div>);
     }
 
-    submitting = () => {
+    showSubmitPage = () => {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
@@ -424,9 +457,9 @@ class SurveyForm extends Component {
     render() {
         return (
             <div className="centering-container" >
-                {(this.state.isInputting && this.inputting()) ||
-                    (this.state.isReviewing && this.reviewing()) ||
-                    (this.state.isSubmitted && this.submitting())}
+                {(this.state.isInputting && this.showInputPage()) ||
+                    (this.state.isReviewing && this.showReviewPage()) ||
+                    (this.state.isSubmitted && this.showSubmitPage())}
             </div>
         );
     }
