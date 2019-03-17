@@ -3,8 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
-
-import { locationSort, lastModFilter, dateFind, locationFind, debrisFind, userFind, orgFind, beachNameFilter } from '../_helpers/SortHelper';
+import { lastModFilter, beachNameFilter } from '../_helpers/SortHelper';
+//import { locationSort, lastModFilter, dateFind, locationFind, debrisFind, userFind, orgFind, beachNameFilter } from '../_helpers/SortHelper';
 import { getTotalPounds } from '../_helpers/ChartHelpers';
 import './home.css';
 
@@ -27,10 +27,11 @@ class Home extends Component {
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
+    //this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
     this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
     this.url = '/beaches';
   }
 
@@ -53,14 +54,12 @@ class Home extends Component {
       })
   }
 
-  handleSearchTypeChange(e) {
-    // this.setState({ filter: e.target.value });
-    // this.handleSearch(document.getElementById("searchBar").value, e.target.value);
-  }
+  // handleSearchTypeChange(e) {
+  //   // this.setState({ filter: e.target.value });
+  //   // this.handleSearch(document.getElementById("searchBar").value, e.target.value);
+  // }
 
-  handleSearchChange(e) {
-    this.handleSearch(e.target.value, this.state.filter);
-  }
+  
 
   async handleViewTypeChange(e) {
     await this.setState({ view: e.target.value });
@@ -90,11 +89,15 @@ class Home extends Component {
   }
 
   // Upon initial load, data is loaded by last modification (from the backend)
+  // Called when filter type is changed, then calls changeFilter() to reorder entries
   async handleFilterChange(e) {
     let filterName = e.target.value;
+    await this.setState({ filter: filterName})
+    this.changeFilter();    
+  }
 
-    console.log(filterName);
-    
+  async changeFilter() {
+    let filterName = this.state.filter;
     if (filterName === 'mod') {
       let sortedBeachList = await lastModFilter(this.state.beaches);
       this.setState({ beaches: sortedBeachList });
@@ -106,19 +109,24 @@ class Home extends Component {
   }
 
 
-  filterFunctions = {
-    mod: dateFind,
-    beach: locationFind,
-    debris: debrisFind,
-    user: userFind,
-    org: orgFind
-  };
+  // filterFunctions = {
+  //   mod: dateFind,
+  //   beach: locationFind,
+  //   debris: debrisFind,
+  //   user: userFind,
+  //   org: orgFind
+  // };
+
+  handleSearchChange(e) {
+    this.handleSearch(e.target.value, this.state.filter);
+  }
 
   handleSearch(value) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
         console.log(res.data);
         this.setState({ beaches: res.data });
+        this.changeFilter();
       }).catch(err => {
         console.log(err);
       });
