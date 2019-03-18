@@ -170,7 +170,9 @@ class SurveyForm extends Component {
         for (const id of requiredIDs) {
             if (this.state.surveyData[id] === undefined) {
                 invalid.push(displayIDs[id]);
-                document.getElementById(id).classList.add('invalidInput');
+                console.log(id);
+                if (document.getElementById(id)) 
+                    document.getElementById(id).classList.add('invalidInput');
             }
         }
 
@@ -285,8 +287,14 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if(isNaN(totals[trash_id].weathered)) {
+                    totals[trash_id].weathered = 0;
+                }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if(isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
             }
         }
         for (const id in totals) {
@@ -294,6 +302,7 @@ class SurveyForm extends Component {
                 id,
                 { fresh: totals[id].fresh, weathered: totals[id].weathered }
             ]);
+            console.log(totalsArray);
         }
         return totalsArray;
     }
@@ -319,8 +328,14 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if(isNaN(totals[trash_id].weathered)) {
+                    totals[trash_id].weathered = 0;
+                }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if(isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
             }
         }
         for (const id in totals) {
@@ -423,7 +438,7 @@ class SurveyForm extends Component {
         // Remove the invalid input styling if they are coming back from review step
         let element = document.getElementById(key);
         if (val && element.classList.contains('invalidInput')) {
-            element.classList.remove('invalidInput');
+            if (element) { element.classList.remove('invalidInput'); }
         }
     }
 
