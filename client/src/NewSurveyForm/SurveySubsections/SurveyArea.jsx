@@ -243,7 +243,7 @@ class SurveyArea extends Component {
                     className='uk-checkbox'
                   />
                 </label> Known for Debris
-                    </div>
+              </div>
               <div>
                 <label>
                   <input
@@ -347,7 +347,7 @@ class SurveyArea extends Component {
             </div>
           </div>
 
-          <div className="uk-grid uk-child-width-1-2">
+          <div className="uk-grid uk-child-width-1-4">
             <div>
               <label>Height (ft)<span className="uk-text-danger">*</span></label>
               <input
@@ -360,20 +360,6 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Height (ft)<span className="uk-text-danger">*</span></label>
-              <input
-                type="number"
-                placeholder="Height"
-                id='tideHeightA'
-                onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideHeightA}
-                className='uk-input uk-margin'
-              />
-            </div>
-          </div>
-
-          <div className="uk-grid uk-child-width-1-2">
-            <div>
               <label>Time<span className="uk-text-danger">*</span></label>
               <input
                 type="time"
@@ -382,6 +368,17 @@ class SurveyArea extends Component {
                 defaultValue={this.props.data.tideTimeB}
                 className='uk-input uk-margin'
 
+              />
+            </div>
+            <div>
+              <label>Height (ft)<span className="uk-text-danger">*</span></label>
+              <input
+                type="number"
+                placeholder="Height"
+                id='tideHeightA'
+                onChange={this.props.updateSurveyState}
+                defaultValue={this.props.data.tideHeightA}
+                className='uk-input uk-margin'
               />
             </div>
             <div>
