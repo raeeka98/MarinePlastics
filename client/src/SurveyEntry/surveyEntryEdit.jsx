@@ -45,10 +45,7 @@ class SurveyEntryEdit extends Component {
       asOptions,
       srsOptions
     };
-    //this.auth = new Auth();
-
   }
-
 
 
   windDir = {
@@ -134,7 +131,7 @@ class SurveyEntryEdit extends Component {
       newData: sendingData
     }))
   }
-  
+
   editSurveyCheckBoxes = e => {
     let pathStr = e.target.name;
     let path = pathStr.split(".");

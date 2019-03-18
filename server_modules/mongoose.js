@@ -66,14 +66,14 @@ let surveys = {
         }
 
         console.log(update);
-        let oldSurvey = await surveyModel.findByIdAndUpdate(surveyID, update).exec();
+        let newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
         //update stats
         let updatePayload = {
             reason: "edit",
             newASTotal: 0,
             newSRSTotal: 0,
             newDebrisData: {},
-            date:oldSurvey.survDate
+            date: oldSurvey.survDate
         };
         newSRSDebris.forEach(val => {
             updatePayload.SRSTotal += val[1].fresh + val[1].weathered;
@@ -94,7 +94,7 @@ let surveys = {
 
         await beaches.updateStats(oldSurvey.bID, updatePayload);
 
-        return oldSurvey;
+        return newSurvey;
     },
     addToBeach: async function(surveyData, beachID) {
 

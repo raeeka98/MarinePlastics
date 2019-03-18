@@ -26,7 +26,7 @@ router.route('/')
         let { s: skip } = req.query;
         let b = await beaches.getBeachNames(skip);
         console.log(b);
-        for (var i in b){
+        for (var i in b) {
             b[i].n = b[i].n.replace("_", " ");
         }
         //returns array of beach names and their ids
@@ -67,7 +67,7 @@ router.route('/map')
     //get all beaches with lon and lat
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
-        for(let idx = 0; idx < points.length; idx++){
+        for (let idx = 0; idx < points.length; idx++) {
             points[idx].n = points[idx].n.replace("_", " ");
         }
         res.json(points);
@@ -77,8 +77,8 @@ router.route('/search')
         let { q: query } = req.query;
         query = query.replace(" ", "_");
         let matchedQuery = await beaches.queryBeachNames(query);
-        for(const key in matchedQuery) {
-            matchedQuery[key].n = matchedQuery[key].n.replace("_", " "); 
+        for (const key in matchedQuery) {
+            matchedQuery[key].n = matchedQuery[key].n.replace("_", " ");
         }
         console.log(matchedQuery);
         res.json(matchedQuery);
@@ -107,7 +107,7 @@ router.route('/surveys')
             let beachData = null;
             let surveyData = await surveyValidation.validate(req.body);
             console.log(surveyData);
-            
+
             if (!surveyData.bID) {
                 beachData = await beaches.create(surveyData.beachData);
             }
@@ -141,7 +141,7 @@ router.route('/surveys/:surveyID')
         let updateData = req.body;
         console.log(updateData);
         let updatedSurvey = await surveys.update(req.params.surveyID, updateData);
-        res.json({res:"Success"});
+        res.json({ res: "Success", surveyData: updatedSurvey });
     }))
     //delete an survey
     .delete(asyncHandler(async (req, res) => {
