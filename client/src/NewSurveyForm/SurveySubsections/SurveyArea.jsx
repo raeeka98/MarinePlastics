@@ -268,7 +268,7 @@ class SurveyArea extends Component {
               }
             </div>
             <div>
-              <label>Compass Direction (When Facing the Water):</label>
+              <label>Compass Direction (When Facing the Water):<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Degrees'

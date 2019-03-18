@@ -34,7 +34,8 @@ class SurveyEntry extends Component {
   }
 
   renderOptions() {
-    if (this.state.surveyData.SRSDebris && this.state.surveyData.ASDebris) {
+    if (this.state.surveyData.SRSDebris 
+         && this.state.surveyData.ASDebris) {
       console.log("Render both")
       //render both options
       return (
@@ -355,7 +356,7 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
-                this.state.surveyData.numOfP ?
+                this.state.surveyData.numOfP !== 0 ?
                   <p><strong>Number of People:</strong> {this.state.surveyData.numOfP}</p> : null
               }
               {
