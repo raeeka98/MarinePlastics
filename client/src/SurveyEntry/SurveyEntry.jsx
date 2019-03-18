@@ -246,13 +246,18 @@ class SurveyEntry extends Component {
               :
               <div>
                 <h2>You do not have permission to make changes to this survey.</h2>
-                <p>Please log in to continue.</p>
+                <p>You may only edit or delete a survey if you created it and are logged in.</p>
               </div>
             }
             
             <p className="uk-text-right">
-              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              {this.state.editable ? <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> : null}
+              
+              {this.state.editable ? 
+                <div>
+                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> 
+                  <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+                </div>
+                : null}
             </p>
 
             <button className="uk-modal-close-default" data-uk-close></button>

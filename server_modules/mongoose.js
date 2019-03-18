@@ -274,12 +274,14 @@ let beaches = {
         return res;
     },
     getBeachNames: async function(skip) {
-        let projection = `n`;
+        let projection = `n lastMod`;
+        let proj_mod = `stats.lastUp`;
         return await beachModel
             .find()
             .skip(skip)
             .limit(20)
             .select(projection)
+            .sort([[proj_mod, -1]])
             .exec();
 
     },
@@ -290,7 +292,7 @@ let beaches = {
         return await beachModel.find({}, "n lat lon").exec();
     },
     queryBeachNames: async function(query) {
-        return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n").limit(10).exec();
+        return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n lastMod").limit(10).exec();
     },
     getOneLonLat: async function(beachID) {
         let projection = `lat lon`
@@ -304,7 +306,7 @@ let beaches = {
         return await beachModel.find({}, 'stats.TODF').exec();
     },
     getInfo: async function(beachID) {
-        return await beachModel.findById(beachID).select("n lat lon nroName nroDist");
+        return await beachModel.findById(beachID).select("n lat lon nroName nroDist lastMod").exec();
     }
 }
 

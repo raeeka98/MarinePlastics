@@ -55,7 +55,8 @@ class SurveyForm extends Component {
             isSubmitted: false,
             user: "",
             email: "",
-            userID: ""
+            userID: "",
+            invalidForm: false
         }
         this.moveToReview = this.moveToReview.bind(this);
         this.moveToInput = this.moveToInput.bind(this);
@@ -65,6 +66,7 @@ class SurveyForm extends Component {
         this.prepareForm = this.prepareForm.bind(this);
         this.updateSRS = this.updateSRS.bind(this);
         this.updateAS = this.updateAS.bind(this);
+        this.showAlert = this.showAlert.bind(this);
     }
 
     componentDidMount() {
@@ -166,8 +168,12 @@ class SurveyForm extends Component {
 
         //Things in survey
         for (const id of requiredIDs) {
+            console.log(id);
+            console.log(displayIDs[id]);
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
+                document.getElementById(id).classList.add('invalidInput');
+                console.log(id.classList);
             }
         }
         
@@ -200,15 +206,25 @@ class SurveyForm extends Component {
         const invalidInput = this.validate();
         console.log(invalidInput);
         if (invalidInput && invalidInput.length) {
-            this.navToID(invalidInput);
-        } else {
+            this.setState({ invalidForm: true})
+        } 
+        else {
             this.updateDisplayStrings();
             this.setState({
+                invalidForm: false,
                 isInputting: false,
                 isReviewing: true,
                 isSubmitted: false,
             })
         }
+    }
+
+    showAlert() {
+        return (
+            <div className="uk-alert-danger uk-padding-small">
+                <p>Whoops! Looks like you didn't fill out some required fields. Please go back and fill them out.</p>
+            </div>
+        )
     }
 
     moveToInput() {
@@ -398,10 +414,17 @@ class SurveyForm extends Component {
     updateSurveyState(e) {
         const key = e.target.id;
         const val = e.target.value;
+        
         this.setState(prevState => {
             prevState.surveyData[key] = val
             return prevState;
         })
+
+        // Remove the invalid input styling if they are coming back from review step
+        let element = document.getElementById(key);
+        if (val && element.classList.contains('invalidInput')) {
+            element.classList.remove('invalidInput');
+        }
     }
 
     updateCheckedState(e) {
@@ -434,7 +457,8 @@ class SurveyForm extends Component {
     showInputPage = () => {
         return (
             <div>
-              <form id="surveyForm">
+                {this.state.invalidForm ? this.showAlert() : null}
+                <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
                         <SurveyArea
