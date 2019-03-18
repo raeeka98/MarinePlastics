@@ -74,7 +74,7 @@ class SurveyArea extends Component {
             </div>
             <div>
               <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
-              <div className="uk-grid uk-margin uk-child-width-1-4">
+              <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
                 <div>
                   <input
                     type='number'
@@ -122,7 +122,7 @@ class SurveyArea extends Component {
             </div>
             <div>
               <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
-              <div className="uk-grid uk-margin uk-child-width-1-4">
+              <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
                 <div>
                   <input
                     type='number'
@@ -441,7 +441,7 @@ class SurveyArea extends Component {
                 value={this.props.data.slope}
               >
                 {(!this.props.data.slope) && <option>Please Select</option>}
-                
+
                 <option value="winter">Winter Profile</option>
                 <option value="summer">Summer Profile</option>
               </select>
