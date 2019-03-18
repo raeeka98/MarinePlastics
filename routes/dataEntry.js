@@ -131,6 +131,7 @@ router.route('/surveys/:surveyID')
         let surveyID = req.params.surveyID;
 
         let survey = await surveys.get(surveyID);
+        console.log(survey);
         let ownerID = survey.userID;
         survey.userID = undefined;
         let rtnMsg = { survData: survey, e: ownerID == clientID };

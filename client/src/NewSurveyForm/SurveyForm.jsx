@@ -141,7 +141,7 @@ class SurveyForm extends Component {
             lonSec: "Longitude Seconds",
             compassDegrees: "Compass Degrees",
             riverName: "River Name",
-            riverDist: "Nearest River Output Distance",
+            riverDistance: "Nearest River Output Distance",
             usage: "Usage",
             locChoice: "Reason for Location Choice",
             subType: "Substrate Type",
@@ -159,7 +159,7 @@ class SurveyForm extends Component {
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName', 
-            'riverDist', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
+            'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
             'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName',
             'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
@@ -171,8 +171,12 @@ class SurveyForm extends Component {
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
                 console.log(id);
+<<<<<<< HEAD
                 if (document.getElementById(id)) 
                     document.getElementById(id).classList.add('invalidInput');
+=======
+                document.getElementById(id).classList.add('invalidInput');
+>>>>>>> f050695a112e228110dc66df0d26f6828af1d6c7
             }
         }
         
@@ -386,7 +390,7 @@ class SurveyForm extends Component {
                 n: data.beachName.replace(/\s/g, "_"),
                 nroName: data.riverName.replace(/\s/g, "_"),
                 lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec, data.latDir),
-                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.latDir),
+                lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.lonDir),
                 nroDist: data.riverDistance
             }
         }
