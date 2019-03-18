@@ -137,10 +137,11 @@ router.route('/surveys/:surveyID')
         res.json(rtnMsg);
     }))
     //find a specific survey and edit it
-    .put(asyncHandler(async (req, res) => {
-        let { oldSurvey, newSurvey } = req.body;
-        let updatedSurvey = await surveys.update(req.params.surveyID, newSurvey, oldSurvey);
-        res.json(updatedSurvey);
+    .post(asyncHandler(async (req, res) => {
+        let updateData = req.body;
+        console.log(updateData);
+        let updatedSurvey = await surveys.update(req.params.surveyID, updateData);
+        res.json({res:"Success"});
     }))
     //delete an survey
     .delete(asyncHandler(async (req, res) => {

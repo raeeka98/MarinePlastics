@@ -134,6 +134,7 @@ class SurveyEntryEdit extends Component {
       newData: sendingData
     }))
   }
+  
   editSurveyCheckBoxes = e => {
     let pathStr = e.target.name;
     let path = pathStr.split(".");
@@ -155,7 +156,29 @@ class SurveyEntryEdit extends Component {
 
   save = () => {
     console.log("save");
-    
+    let newASDebris = [];
+    this.state.asDebris.forEach(val => {
+      newASDebris.push([val.trashID, { fresh: val.fresh, weathered: val.weathered }])
+    });
+    let newSRSDebris = [];
+    this.state.srsDebris.forEach(val => {
+      newSRSDebris.push([val.trashID, { fresh: val.fresh, weathered: val.weathered }])
+    });
+    let oldSRSDebris = this.state.origSRSDebris.map(val => [val.trashID, { fresh: val.fresh, weathered: val.weathered }]);
+    let oldASDebris = this.state.origASDebris.map(val => [val.trashID, { fresh: val.fresh, weathered: val.weathered }]);
+    let finalData = {
+      newSRSDebris,
+      newASDebris,
+      oldSRSDebris,
+      oldASDebris,
+      changedInfo: { ...this.state.newData }
+    }
+    console.log(finalData);
+    axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
+      finalData)
+      .then(res => {
+        console.log(res.data);
+      });
   }
 
   render() {
@@ -226,8 +249,8 @@ class SurveyEntryEdit extends Component {
               <h3 className="uk-card-title">Team Information</h3>
               <div>
                 <strong>Team Leader:</strong>
-                <div><input type="text" name="f" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.f}></input></div>
-                <input type="text" name="l" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.l} />
+                <div><input type="text" name="user.f" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.f}></input></div>
+                <input type="text" name="user.l" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.l} />
               </div>
               <p><strong>Organization:</strong> <input type="text" name="org" onChange={this.editSurveyData} defaultValue={this.state.surveyData.org} /></p>
               <p><strong>Email:</strong>

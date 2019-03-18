@@ -46,20 +46,6 @@ let surveys = {
         return await Promise.all([removeFromSurveys, statsUpdate]);
     },
     /**
-     * {
-     *  changedDebris:{
-     *      deleted:[plastic,umbrella], <- all deleted materials or when the
-     *                                     difference between old and new cancel out.
-     *                                      eg oldData = 4, changedVal = -4
-     *      added:{
-     *          metal:4, <- new material added to survey with value
-     *          paper:123
-     *      },
-     *      changedVal:{
-     *          miscplastic:-4, <- the difference between new and old data
-     *          cloth:10
-     *      }
-     *  },
      *  changedInfo:{
      *      teamleader,email,slope,lastTide,nextTide,etc...
      *  }
@@ -68,12 +54,45 @@ let surveys = {
      */
     update: async function(surveyID, updatedFields) {
 
+        let { newSRSDebris, newASDebris, oldSRSDebris, oldASDebris, changedInfo } = updatedFields;
+        let update = {
+            $set: {
+                ...changedInfo,
+                SRSDebris: newSRSDebris,
+                ASDebris: newASDebris,
+                srsDebrisLength: newSRSDebris.length,
+                asDebrisLength: newASDebris.length
+            }
+        }
+
         console.log(update);
         let oldSurvey = await surveyModel.findByIdAndUpdate(surveyID, update).exec();
         //update stats
         let updatePayload = {
             reason: "edit",
+            newASTotal: 0,
+            newSRSTotal: 0,
+            newDebrisData: {},
+            date:oldSurvey.survDate
         };
+        newSRSDebris.forEach(val => {
+            updatePayload.SRSTotal += val[1].fresh + val[1].weathered;
+        });
+        newASDebris.forEach(val => {
+            updatePayload.ASTotal += val[1].fresh + val[1].weathered;
+        });
+
+        oldSRSDebris.forEach(oldVal => {
+            let index = newSRSDebris.findIndex(val => val[0] === oldVal[0]);
+            if (index == -1) {
+                updatePayload.newDebrisData[oldVal[0]] = -oldVal[1].fresh - oldVal[1].weathered;
+            } else {
+                updatePayload.newDebrisData[oldVal[0]] = (oldVal[1].fresh + oldVal[1].weathered) -
+                    (newSRSDebris[index][1].fresh + newSRSDebris[index][1].weathered)
+            }
+        });
+
+        await beaches.updateStats(oldSurvey.bID, updatePayload);
 
         return oldSurvey;
     },
@@ -376,7 +395,7 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
     let trash = Object.keys(newDebrisData);
-        if (trash.length > 0) {
+    if (trash.length > 0) {
         console.log("Trash has data " + trash);
         trash.forEach(trashName => {
             let newTrashAmnt = newDebrisData[trashName];
