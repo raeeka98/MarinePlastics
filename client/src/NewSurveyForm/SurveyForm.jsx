@@ -166,14 +166,11 @@ class SurveyForm extends Component {
         ];
 
 
-        //Things in survey
+        //Check for fields that need just a single entry
         for (const id of requiredIDs) {
-            console.log(id);
-            console.log(displayIDs[id]);
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
                 document.getElementById(id).classList.add('invalidInput');
-                console.log(id.classList);
             }
         }
         
@@ -202,9 +199,12 @@ class SurveyForm extends Component {
         alert("Please fill out the following: " + ids)
     }
 
+    /*
+     * moveToReview: Switches to the review state, checks to see if the required entries have
+     * been input by the user
+     */
     moveToReview() {
         const invalidInput = this.validate();
-        console.log(invalidInput);
         if (invalidInput && invalidInput.length) {
             this.setState({ invalidForm: true})
         } 
@@ -235,13 +235,14 @@ class SurveyForm extends Component {
         })
     }
 
+    /*
+     * moveToSubmit: successfully submits the form if the validation in the backend passes
+     */
     moveToSubmit() {
         const form = this.prepareForm();
-        console.log(form);
 
         axios.post("beaches/surveys", form)
             .then(res => {
-                console.log(res.data.survID);
                 if (res.data.survID) {
                     this.setState({
                         isInputting: false,
@@ -251,7 +252,6 @@ class SurveyForm extends Component {
                 }
             })
             .catch(err => {
-                console.log("We caught an error");
                 console.log(err.response);
                 alert(err.response.data.error.details[0].message);
             })
@@ -298,6 +298,9 @@ class SurveyForm extends Component {
         return totalsArray;
     }
 
+    /*
+     * Caculate the totals for the accumulcation sweep
+     */
     calcTotalsAS() {
         let totals = {};
         let totalsArray = [];
@@ -308,8 +311,6 @@ class SurveyForm extends Component {
             const noAcc = id.replace(/__accumulation/i, '');
             const trash_id = noAcc.replace(/__\w+/, '');
             const type = noAcc.replace(/\w+__/, '');
-            console.log(trash_id);
-            console.log(type);
             if (!totals[trash_id]) {
                 totals[trash_id] = {
                     fresh: 0,

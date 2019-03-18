@@ -48,7 +48,6 @@ class SurveyArea extends Component {
   autofill = (beachID) => {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
-        console.log(res.data);
         const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
         this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
       }).catch(err => {

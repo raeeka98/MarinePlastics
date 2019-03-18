@@ -40,10 +40,8 @@ class Home extends Component {
           beaches: res.data,
           loaded: true
         });
-        console.log(this.state.beaches);
       })
       .catch(err => {
-        console.log(err.message);
         this.setState({
           loaded: true,
           error: true
@@ -56,23 +54,22 @@ class Home extends Component {
     await this.setState({ view: e.target.value });
     let container = document.getElementById("mainContainer");
 
-    // Add/Remove styling classes when view is changed
+    // Change the state to display the list only
     if (this.state.view === "list") {
-      console.log("state = list");
       container.classList.add("list-view");
       container.classList.remove("map-view");
       container.classList.remove("split-view");
     }
 
+    //Display the map only  
     if (this.state.view === "map") {
-      console.log("state = map")
       container.classList.add("map-view");
       container.classList.remove("list-view");
       container.classList.remove("split-view");
     }
 
+    //Display the split view
     if (this.state.view === "split") {
-      console.log("state = split");
       container.classList.remove("list-view");
       container.classList.remove("split-view");
       container.classList.add("split-view");
@@ -104,10 +101,12 @@ class Home extends Component {
     this.handleSearch(e.target.value, this.state.filter);
   }
 
+  /* 
+   * Query the database for beaches that match the substring that the use input 
+  */
   handleSearch(value) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
-        console.log(res.data);
         this.setState({ beaches: res.data });
         this.changeFilter();
       }).catch(err => {
@@ -160,7 +159,6 @@ class Home extends Component {
   }
 
   render() {
-    //console.log(this.props.userProfile)
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
 

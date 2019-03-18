@@ -6,10 +6,8 @@ export function lastModFilter(beaches) {
 
     a = new Date(a.lastMod).getTime();
     b = new Date(b.lastMod).getTime();
-    console.log(a);
     return a < b ? 1 : a > b ? -1 : 0;
   });
-  console.log(beaches);
 
   return beaches;
 }
