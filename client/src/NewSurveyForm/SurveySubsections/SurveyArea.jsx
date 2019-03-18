@@ -47,7 +47,7 @@ class SurveyArea extends Component {
     return (
       <AccordionItem className="accordion__item">
         <AccordionItemTitle className="accordion__title accordion__title--animated">
-          <h2>Survey Area</h2>
+          <h2>Survey Area<span className="uk-text-danger">*</span></h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
         <AccordionItemBody className="accordion__body">
@@ -428,6 +428,10 @@ class SurveyArea extends Component {
                 )
               }
             </div>
+          </div>
+
+          <div className="uk-padding-large uk-padding-remove-botom uk-width-1-1">
+            <div className="uk-text uk-text-small uk-text-center uk-text-muted"><span className="uk-text-danger">*</span> = Indicates required field.</div>
           </div>
 
         </AccordionItemBody>

@@ -18,7 +18,7 @@
 .accordion {
     text-align: center;
     position: relative;
-    width: 95vw;
+    width: 80vw;
     border: none;
     display: inline-block;
     border-radius: 20px;
@@ -26,8 +26,8 @@
 
 .accordion__item {
     width: 100%;
-    border-radius: 20px;
-    border: 1px rgba(0, 0, 0, 1);
+    /* border-radius: 20px; */
+    margin-bottom: 5px;
 }
 
 .accordion__item:hover {
@@ -35,9 +35,10 @@
     transition: 0.2 ease-in;
 }
 
-.accordion__item + .accordion__item {
-    border-top: 10px solid rgba(0, 0, 0, 0);
-}
+/* .accordion__item + .accordion__item {
+    border-bottom: 10px solid rgba(0, 0, 0, 0); 
+    margin-bottom: 10px;
+} */
 
 .accordion__item--has-icon {
     position: relative;
@@ -49,8 +50,8 @@
     color: #FCFEFF;
 
     cursor: pointer;
-    padding: 18px;
-    width: 95%;
+    padding: 18px 0px 5px 0px;
+    width: 100%;
     height: 10%;
     display: inline-block;
     text-align: center;
@@ -92,7 +93,7 @@
     width: 24px;
     height: 12px;
     right: 5%;
-    margin-top: -30px;
+    margin-top: -45px;
 }
 
 .accordion__arrow::after,

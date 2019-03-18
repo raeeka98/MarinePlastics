@@ -59,7 +59,8 @@ class SurveyForm extends Component {
             isSubmitted: false,
             user: "",
             email: "",
-            userID: ""
+            userID: "",
+            invalidForm: false
         }
         this.moveToReview = this.moveToReview.bind(this);
         this.moveToInput = this.moveToInput.bind(this);
@@ -69,6 +70,7 @@ class SurveyForm extends Component {
         this.prepareForm = this.prepareForm.bind(this);
         this.updateSRS = this.updateSRS.bind(this);
         this.updateAS = this.updateAS.bind(this);
+        this.showAlert = this.showAlert.bind(this);
     }
 
     componentDidMount() {
@@ -164,17 +166,26 @@ class SurveyForm extends Component {
     moveToReview() {
         const invalidInput = this.validate();
         console.log(invalidInput);
-        // if (invalidInput && invalidInput.length) {
-        //     this.navToID(invalidInput);
-        // } 
-        if (invalidInput.length === 0) {
+        if (invalidInput && invalidInput.length) {
+            this.setState({ invalidForm: true})
+        } 
+        else {
             this.updateDisplayStrings();
             this.setState({
+                invalidForm: false,
                 isInputting: false,
                 isReviewing: true,
                 isSubmitted: false,
             })
         }
+    }
+
+    showAlert() {
+        return (
+            <div className="uk-alert-danger uk-padding-small">
+                <p>Whoops! Looks like you didn't fill out some required fields. Please go back and fill them out.</p>
+            </div>
+        )
     }
 
     moveToInput() {
@@ -392,6 +403,7 @@ class SurveyForm extends Component {
     inputting = () => {
         return (
             <div>
+                {this.state.invalidForm ? this.showAlert() : null}
                 <form id="surveyForm">
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
