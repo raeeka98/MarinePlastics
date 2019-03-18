@@ -286,8 +286,14 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if(isNaN(totals[trash_id].weathered)) {
+                    totals[trash_id].weathered = 0;
+                }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if(isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
             }
         }
         for (const id in totals) {
@@ -295,6 +301,7 @@ class SurveyForm extends Component {
                 id,
                 { fresh: totals[id].fresh, weathered: totals[id].weathered }
             ]);
+            console.log(totalsArray);
         }
         return totalsArray;
     }
@@ -320,8 +327,14 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if(isNaN(totals[trash_id].weathered)) {
+                    totals[trash_id].weathered = 0;
+                }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if(isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
             }
         }
         for (const id in totals) {
