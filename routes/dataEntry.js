@@ -115,7 +115,7 @@ router.route('/surveys')
             let surv = await surveys.addToBeach(surveyData.survData, beachID);
             res.json({ survID: surv._id });
         } catch (err) {
-            console.log("ERROR NONONONONONONONONONONONONONONONONO");
+            console.log(err);
             res.status(500).send({error: err})
         }
 

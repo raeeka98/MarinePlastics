@@ -48,6 +48,7 @@ class SurveyArea extends Component {
   autofill = (beachID) => {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
+        console.log(res.data);
         const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
         this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
       }).catch(err => {
@@ -293,6 +294,7 @@ class SurveyArea extends Component {
                 type='string'
                 placeholder='Nearest River Output Name'
                 id='riverName'
+                defaultValue={this.props.data.riverName}
                 onChange={this.props.updateSurveyState}
                 className='uk-input uk-margin'
               />
@@ -303,6 +305,7 @@ class SurveyArea extends Component {
                 type='number'
                 placeholder='Nearest River Output Distance'
                 id='riverDistance'
+                defaultValue={this.props.data.riverDist}
                 onChange={this.props.updateSurveyState}
                 className='uk-input uk-margin'
               />

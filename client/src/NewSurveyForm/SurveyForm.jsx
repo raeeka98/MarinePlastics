@@ -141,7 +141,7 @@ class SurveyForm extends Component {
             lonSec: "Longitude Seconds",
             compassDegrees: "Compass Degrees",
             riverName: "River Name",
-            riverDistance: "Nearest River Output Distance",
+            riverDist: "Nearest River Output Distance",
             usage: "Usage",
             locChoice: "Reason for Location Choice",
             subType: "Substrate Type",
@@ -159,9 +159,9 @@ class SurveyForm extends Component {
 
         const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName', 
-            'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
+            'riverDist', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
             'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
-            'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName', 'riverDistance',
+            'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName',
             'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
         ];
 
