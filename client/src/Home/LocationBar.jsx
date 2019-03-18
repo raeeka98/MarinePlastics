@@ -8,10 +8,13 @@ class LocationBar extends Component {
         super(props);
         this.state = {
             surveys: [],
+            lat: 0,
+            lon: 0,
             clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
+        this.getLatLon = this.getLatLon.bind(this);
     };
 
     // Called when a user expands the accordion
@@ -38,6 +41,8 @@ class LocationBar extends Component {
             console.log(err);
           })
       }
+
+    
 
     // returns HTML for every entry in the sorted array of locations
     // should display date and contain a link to specific survey page
@@ -74,6 +79,16 @@ class LocationBar extends Component {
             })
     }
 
+    getLatLon() {
+        console.log("howdy")
+        let beachID = this.props.location._id;
+        axios.get(`/beaches/${beachID}/coords`)
+          .then( res => {
+            this.setState({lon: res.data.lon, lat: res.data.lat});
+          })
+    
+      }
+
     handleAccordionClick = (e) => {
         if(this.state.surveys.length === 0 && !this.state.clicked)
             this.getSurveysFromBeach();
@@ -94,7 +109,17 @@ class LocationBar extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.state.lat===0 && this.state.lon===0){ 
+          console.log("Null lat lon");
+          this.getLatLon();
+        }
+        
+      }
+
     render() {
+        let lat = this.state.lat;
+        let lon = this.state.lon;
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>
@@ -104,6 +129,9 @@ class LocationBar extends Component {
                         <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location, userProfile: this.props.userProfile  } }} style={{ textDecoration: 'none', color: 'black'  }}>
                             {this.props.location.n}
                             </Link>
+                            <span className="uk-text-muted uk-text-small uk-margin-remove-bottom">
+                                {lat} {lon}
+                            </span>
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
                         <p>
