@@ -176,11 +176,6 @@ class Home extends Component {
       />
     });
 
-<<<<<<< HEAD
-    let totalWeight = this.state.totalWeight;
-
-=======
->>>>>>> Development
     return (
 
         <div className="uk-align-center">
