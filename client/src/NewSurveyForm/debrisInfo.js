@@ -19,12 +19,39 @@ const DebrisInfo = {
   misc               : "Misc. (general)"
 }
 
+const DebrisInfoID = {
+  "Cigarette Butts" : "cigaretteButts"                    ,
+  "Fishing Line / Polypropylene Rope" : "fishingLineRope" ,
+   "Plastic Cups"    : "plasticCups"                      ,
+   "Plastic Straws"  : "plasticStraws"                    ,
+   "Filmed Plastic"  : "filmedPlastic"                    ,
+   "Misc. Plastic"   : "miscPlastic"                      ,
+   "Plastic Bottles / Plastic Caps":"plasticBottlesCaps"  ,
+   "Styrofoam"       :"styrofoam"                         ,
+   "Wood / Paper"    :"woodPaper"                         ,
+  "Food / Organic"   :"foodOrganic"                       ,
+  "Urethane Foam"    :"urethaneFoam"                      ,
+  "Metal"            :"metal"                             ,
+  "Glass"            :"glass"                             ,
+  "Cotton / Cloth"   :"cottonCloth"                       ,
+  "Aluminum Cans"    :"aluminumCans"                      ,
+  "Hygiene Items"    :"hygieneItems"                      ,
+  "Tile / Brick"     :"tileBrick"                         ,
+  "Misc. (general)"  :"misc"              
+}
+
+const debrisNames = Object.values(DebrisInfo);
+
 function getDebrisNameById(id){
     return DebrisInfo[id];
+}
+
+function getDebrisID(debrisName){
+  return DebrisInfoID[debrisName];
 }
 
 function getDebrisMap(){
     return DebrisInfo;
 }
 
-export { getDebrisNameById, getDebrisMap }
+export { getDebrisNameById, getDebrisMap , debrisNames ,getDebrisID}
