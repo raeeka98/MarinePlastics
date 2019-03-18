@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { userFind } from '../_helpers/SortHelper';
-
 
 class UserProfile extends Component {
   constructor(props) {

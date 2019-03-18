@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
 import { lastModFilter, beachNameFilter } from '../_helpers/SortHelper';
@@ -81,6 +80,7 @@ class Home extends Component {
     }
   }
 
+<<<<<<< HEAD
   // Upon initial load, data is loaded by last modification (from the backend)
   // Called when filter type is changed, then calls changeFilter() to reorder entries
   async handleFilterChange(e) {
@@ -106,6 +106,9 @@ class Home extends Component {
   }
 
   handleSearch(value) {
+=======
+  handleSearch(value, filter) {
+>>>>>>> Development
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
         console.log(res.data);
@@ -177,8 +180,11 @@ class Home extends Component {
       />
     });
 
+<<<<<<< HEAD
     let totalWeight = this.state.totalWeight;
 
+=======
+>>>>>>> Development
     return (
 
         <div className="uk-align-center">
