@@ -304,7 +304,7 @@ class SurveyArea extends Component {
                 type='number'
                 placeholder='Nearest River Output Distance'
                 id='riverDistance'
-                defaultValue={this.props.data.riverDist}
+                defaultValue={this.props.data.riverDistance}
                 onChange={this.props.updateSurveyState}
                 className='uk-input uk-margin'
               />
