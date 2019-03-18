@@ -5,7 +5,6 @@ import { PieChart } from './SurveyCharts'
 import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
-import { runInThisContext } from 'vm';
 import './surveyEntry.css';
 
 const debrisInfo = getDebrisMap();

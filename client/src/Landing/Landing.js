@@ -14,10 +14,6 @@ export function LandingPage(props) {
     backgroundImage: `url(${background})`,
     height: `100vh`
   };
-  const textButtonStyles = {
-    width: `fit-content`,
-    margin: `auto`,
-  }
 
   return (
     <div className="uk-width-1-1 uk-flex uk-flex-row">

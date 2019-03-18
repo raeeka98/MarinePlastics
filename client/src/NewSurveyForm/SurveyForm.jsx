@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Auth from '../Auth';
-
 import AccumulationSurvey from './SurveySubsections/AccumulationSurvey';
 import MicroDebrisSurvey from './SurveySubsections/MicroDebrisSurvey';
 import SurfaceRibScan from './SurveySubsections/SurfaceRibScan';
 import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
-import Totals from './SurveySubsections/Totals';
 import Review from './SurveySubsections/Review';
 
 import {
@@ -17,8 +14,6 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
-import { runInThisContext } from 'vm';
 
 class SurveyForm extends Component {
     constructor(props) {
@@ -325,11 +320,7 @@ class SurveyForm extends Component {
 
         const data = this.state.surveyData;
         const show = this.state.displayStrings;
-        let date = new Date(data.cleanUpDate);
-        const min = parseInt(data.cleanUpTime.replace(/[0-9]+:/, ''));
-        const hr = parseInt(data.cleanUpTime.replace(/:[0-9]+/, ''));
 
-        date = parseInt(date.valueOf()) + (((hr * 60) + min) * 100000);
         const form = {
             survData: {
                 user: {
