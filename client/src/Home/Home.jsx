@@ -16,6 +16,7 @@ class Home extends Component {
       loaded: false,
       error: false,
 
+      timeout: null,
       beaches: [],
       surveys: [],
       view: 'split'
@@ -97,7 +98,12 @@ class Home extends Component {
   }
 
   handleSearchChange(e) {
-    this.handleSearch(e.target.value, this.state.filter);
+    clearTimeout(this.state.timeout);
+    let that = this;
+    let query = e.target.value;
+    this.setState({
+      timeout: setTimeout(
+      () => that.handleSearch(query, that.state.filter), 250)});
   }
 
   /* 
