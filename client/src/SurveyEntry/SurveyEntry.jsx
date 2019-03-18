@@ -5,7 +5,6 @@ import { PieChart } from './SurveyCharts'
 import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
-import { runInThisContext } from 'vm';
 import './surveyEntry.css';
 
 const debrisInfo = getDebrisMap();
@@ -34,9 +33,12 @@ class SurveyEntry extends Component {
 
   }
 
+  /*
+   * For rendering the switch between the pie chart data
+   */
   renderOptions() {
-    if (this.state.surveyData.SRSDebris && this.state.surveyData.ASDebris) {
-      console.log("Render both")
+    if (this.state.surveyData.SRSDebris 
+         && this.state.surveyData.ASDebris) {
       //render both options
       return (
         <select className="uk-select uk-form" id="view-type" onChange={this.handleChartTypeChange}>
@@ -68,7 +70,12 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    let userID = this.state.userProfile.sub.split("|")[1];
+    let userID;
+    if(this.state.userProfile){
+      userID = this.state.userProfile.sub.split("|")[1];
+    } else {
+      userID = "";
+    }
     
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
@@ -76,8 +83,6 @@ class SurveyEntry extends Component {
       } 
     })
       .then(res => {
-        console.log(res.data);
-
         this.setState({ surveyData: res.data.survData, editable: res.data.e });
       })
       .catch(err => {
@@ -94,7 +99,6 @@ class SurveyEntry extends Component {
   getBeachInfo = () => {
     axios.get(`/beaches/${this.state.surveyData.bID}/info`)
       .then(res => {
-        console.log(res.data);
         this.setState({info: res.data});
       })
   }
@@ -117,7 +121,6 @@ class SurveyEntry extends Component {
       }
       //Now we can sort the data so that it will display nicely
       var keysSRS = Object.keys(SRSChartDataObject);
-      console.log(keysSRS)
       let cleanedKeysSorted = {};
       keysSRS.sort((a, b) => { return (SRSChartDataObject[a] - SRSChartDataObject[b]) });
       for (const i in keysSRS) {
@@ -143,7 +146,6 @@ class SurveyEntry extends Component {
       }
       //Now we can sort i guess
       var keysAS = Object.keys(ASChartDataObject);
-      console.log(keysAS)
       let cleanedKeysSorted = {};
       keysAS.sort((a, b) => { return (ASChartDataObject[a] - ASChartDataObject[b]) });
       for (const i in keysAS) {
@@ -174,7 +176,6 @@ class SurveyEntry extends Component {
         }
       })
       .then(res => {
-        console.log("Survey deleted!")
         this.setState({
           deletedComment: true
         })
@@ -193,8 +194,6 @@ class SurveyEntry extends Component {
       }
     })
       .then(res => {
-        console.log(this.state.userProfile.sub);
-        console.log(res.data);
         this.setState({ editSurvey: true });
       })
 
@@ -207,7 +206,6 @@ class SurveyEntry extends Component {
   }
 
   editBtns = () => {
-    console.log(this.state.editable);
     return (
       <React.Fragment>
         
@@ -246,13 +244,18 @@ class SurveyEntry extends Component {
               :
               <div>
                 <h2>You do not have permission to make changes to this survey.</h2>
-                <p>Please log in to continue.</p>
+                <p>You may only edit or delete a survey if you created it and are logged in.</p>
               </div>
             }
             
             <p className="uk-text-right">
-              <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
-              {this.state.editable ? <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> : null}
+              
+              {this.state.editable ? 
+                <div>
+                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> 
+                  <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
+                </div>
+                : null}
             </p>
 
             <button className="uk-modal-close-default" data-uk-close></button>
@@ -264,7 +267,6 @@ class SurveyEntry extends Component {
   }
 
   render() {
-    console.log(this.state.info);
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     if (this.state.editSurvey) return <Redirect to="/survey" />
@@ -356,7 +358,7 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
               {
-                this.state.surveyData.numOfP ?
+                this.state.surveyData.numOfP !== 0 ?
                   <p><strong>Number of People:</strong> {this.state.surveyData.numOfP}</p> : null
               }
               {

@@ -22,14 +22,12 @@ class LocationBar extends Component {
     getSurveysFromBeach() {
         this.setState({clicked : true})
         let beachID = this.props.location._id;
-        let surveysHTML = [];
 
         axios.get('/beaches/' + beachID)
           .then(res => {
 
             // For every month returned by the get request, render html that links to survey page
             // Then append that html to the surveysHTML array, which is then updated to the state
-            console.log(res.data);
             for (let month of Object.keys(res.data)) {
                 let survey = res.data[month]
                 this.createHTMLForEntries(month, survey);
@@ -47,7 +45,6 @@ class LocationBar extends Component {
     // returns HTML for every entry in the sorted array of locations
     // should display date and contain a link to specific survey page
     createHTMLForEntries(month, survey) {
-        // console.log(survey);
         let surveyID = survey.survey;
         let promise = [];
         let surveyDay;
@@ -57,10 +54,7 @@ class LocationBar extends Component {
 
         axios.all(promise)
             .then(response => {
-                response.map(res => {
-                    surveyDay = new Date(res.data);
-                    // console.log(surveyDay.toLocaleDateString());
-                });
+                response.map(res => surveyDay = new Date(res.data));
             })
             .then(() => {
                 let surveysHTML = this.state.surveys;
@@ -69,8 +63,7 @@ class LocationBar extends Component {
                         <Link className="uk-link-muted"
                         to={{ pathname: `/surveys/${surveyID.replace(' ', '-')}`,
                                 state: {beachName: this.props.location.n, surveyID: surveyID, info: this.props.location,
-                                userProfile: this.props.userProfile/*, getUserProfile: this.props.getUserProfile, isAuth: this.props.isAuth*/} }}>
-                            {console.log(`returning ${surveyDay.toLocaleDateString()}`)}
+                                userProfile: this.props.userProfile} }}>
                             {surveyDay.toLocaleDateString()}
                         </Link>
                     </li>

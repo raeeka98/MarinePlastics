@@ -19,7 +19,6 @@ export function sumTotals (surveys, isSRS) {
     let attr = isSRS ? 'SRSDebris' : 'ASDebris';
     for (const surveyDate in surveys) {
         const data = surveys[surveyDate][attr];
-        console.log(data);
         date = new Date(surveys[surveyDate].survDate);
         let localDate = date.toLocaleDateString();
         for (const trash in data) {
