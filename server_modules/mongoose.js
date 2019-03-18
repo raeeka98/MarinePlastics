@@ -127,7 +127,8 @@ let surveys = {
                 rtnMsg = survey;
 
             } else {
-                throw new Error(`A survey already exists on that date`);
+                res.json({error: new Error(`A survey already exists on that date`)});
+                return res;
             }
         }
 

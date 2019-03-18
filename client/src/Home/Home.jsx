@@ -3,7 +3,6 @@ import axios from 'axios';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
 import { lastModFilter, beachNameFilter } from '../_helpers/SortHelper';
-import { getTotalPounds } from '../_helpers/ChartHelpers';
 import './home.css';
 
 class Home extends Component {

@@ -367,7 +367,6 @@ class SurveyForm extends Component {
                     spd: (data.windSpeed ? data.windSpeed : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
-                weight: (data.weight ? data.weight : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -376,7 +375,7 @@ class SurveyForm extends Component {
                     ...
                 ]
                 */
-                numOfP: data.numPeople,
+                numOfP: 0,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
             },

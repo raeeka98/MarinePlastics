@@ -70,7 +70,12 @@ class SurveyEntry extends Component {
   }
 
   getSurvey = () => {
-    let userID = this.state.userProfile.sub.split("|")[1];
+    let userID;
+    if(this.state.userProfile){
+      userID = this.state.userProfile.sub.split("|")[1];
+    } else {
+      userID = "";
+    }
     
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {

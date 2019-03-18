@@ -58,7 +58,10 @@ class Location extends Component {
         // Then, take that promise and fill the surveys field in the correct order 
         axios.all(promise)
           .then((response) => {
-            response.map(res => trueSurveys.push(res.data.survData))
+            response.map(res => {trueSurveys.push(res.data.survData)
+              console.log(res.data);
+
+            })
           })
           .then(() => this.setState({surveys: trueSurveys}));
       });
@@ -108,7 +111,7 @@ class Location extends Component {
 
   render() {
     let { lat, lon, name: beachName } = this.state.beachData;
-    
+    console.log(this.state.surveys);
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
