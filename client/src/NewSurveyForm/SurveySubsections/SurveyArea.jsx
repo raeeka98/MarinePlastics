@@ -299,7 +299,7 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Approximate Distance (mi)<span className="uk-text-danger">*</span></label>
+              <label>Approximate Distance (ft)<span className="uk-text-danger">*</span></label>
               <input
                 type='number'
                 placeholder='Nearest River Output Distance'
@@ -399,7 +399,7 @@ class SurveyArea extends Component {
           <div className="uk-grid uk-child-width-1-3">
             <div>
               <h4>Wind</h4>
-              <label>Speed<span className="uk-text-danger">*</span></label>
+              <label>Speed (knots)<span className="uk-text-danger">*</span></label>
               <input
                 type="number"
                 placeholder="Speed (knots)"
