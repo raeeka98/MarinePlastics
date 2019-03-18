@@ -401,7 +401,7 @@ class SurveyForm extends Component {
                 prevState.surveyData[key] = coordInfo[key];
             }
             prevState.surveyData.riverName = riverName;
-            prevState.surveyData.riverDist = riverDist;
+            prevState.surveyData.riverDistance = riverDist;
 
             return prevState;
         })
