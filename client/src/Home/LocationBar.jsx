@@ -13,14 +13,14 @@ class LocationBar extends Component {
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
     };
-    
+
     // Called when a user expands the accordion
     // Fetches surveys listed under the beach that is clicked
     getSurveysFromBeach() {
         this.setState({clicked : true})
         let beachID = this.props.location._id;
         let surveysHTML = [];
-        
+
         axios.get('/beaches/' + beachID)
           .then(res => {
 
@@ -30,9 +30,9 @@ class LocationBar extends Component {
             for (let month of Object.keys(res.data)) {
                 let survey = res.data[month]
                 this.createHTMLForEntries(month, survey);
-               
+
             }
-            
+
           })
           .catch(err => {
             console.log(err);
@@ -42,7 +42,7 @@ class LocationBar extends Component {
     // returns HTML for every entry in the sorted array of locations
     // should display date and contain a link to specific survey page
     createHTMLForEntries(month, survey) {
-        console.log(survey);
+        // console.log(survey);
         let surveyID = survey.survey;
         let promise = [];
         let surveyDay;
@@ -54,16 +54,16 @@ class LocationBar extends Component {
             .then(response => {
                 response.map(res => {
                     surveyDay = new Date(res.data);
-                    console.log(surveyDay.toLocaleDateString());
+                    // console.log(surveyDay.toLocaleDateString());
                 });
             })
-            .then(() => {  
-                let surveysHTML = this.state.surveys;  
+            .then(() => {
+                let surveysHTML = this.state.surveys;
                 surveysHTML.push(
                     <li key={`entry-${surveyID}`}>
                         <Link className="uk-link-muted"
                         to={{ pathname: `/surveys/${surveyID.replace(' ', '-')}`,
-                                state: {beachName: this.props.location.n, surveyID: surveyID, info: this.props.location, 
+                                state: {beachName: this.props.location.n, surveyID: surveyID, info: this.props.location,
                                 userProfile: this.props.userProfile/*, getUserProfile: this.props.getUserProfile, isAuth: this.props.isAuth*/} }}>
                             {console.log(`returning ${surveyDay.toLocaleDateString()}`)}
                             {surveyDay.toLocaleDateString()}
@@ -71,11 +71,10 @@ class LocationBar extends Component {
                     </li>
                 );
                 this.setState({surveys: surveysHTML})
-            })        
+            })
     }
 
     handleAccordionClick = (e) => {
-        console.log("handleAccordionClick");
         if(this.state.surveys.length === 0 && !this.state.clicked)
             this.getSurveysFromBeach();
 
@@ -85,7 +84,7 @@ class LocationBar extends Component {
           accordionWrapper = e.target.parentElement.parentElement;
           accordionContent = e.target.parentElement.nextSibling;
         }
-    
+
         if (accordionWrapper.classList.contains('uk-open')) {
           accordionWrapper.classList.remove('uk-open');
           accordionContent.style.display = 'none';
@@ -95,8 +94,7 @@ class LocationBar extends Component {
         }
     }
 
-    render() { 
-        //console.log(this.props.userProfile)
+    render() {
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>
@@ -112,7 +110,7 @@ class LocationBar extends Component {
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
                         <p>
-                        <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location, 
+                        <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location,
                                     userProfile: this.props.userProfile } }}>
                                     Go to location page
                         </Link>

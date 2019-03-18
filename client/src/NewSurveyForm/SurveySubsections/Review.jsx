@@ -226,15 +226,6 @@ class Review extends Component {
 
         <br></br>
 
-        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Total Weight:</h3>
-
-            {d.weight ?
-              (<p><b>{d.weight}</b></p>) :
-              (<p>No weight inputted</p>)
-            }
-        </div>
-
       </div>
     );
   }
