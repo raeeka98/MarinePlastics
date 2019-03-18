@@ -61,7 +61,7 @@ const surveyDataSchema = joi.object({
     wind: windDataSchema.required(),
     majorUse: majorUseSchema.required(),
     numOfP: joi.number().min(0).required(),
-    SRSDebris: joi.array().items(debrisData).max(17).optional(),
+    SRSDebris: joi.array().items(debrisData).max(18).optional(),
     ASDebris: joi.array().items(debrisData).max(17).optional()
 });
 

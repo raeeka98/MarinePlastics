@@ -179,6 +179,8 @@ class SurveyEntry extends Component {
         this.setState({
           deletedComment: true
         })
+        let closeModal = document.getElementById('closeModalButton');
+        closeModal.click();
         alert("Survey deleted successfully.");
       })
       .catch(err => {
@@ -258,7 +260,7 @@ class SurveyEntry extends Component {
                 : null}
             </p>
 
-            <button className="uk-modal-close-default" data-uk-close></button>
+            <button id="closeModalButton" className="uk-modal-close-default" data-uk-close></button>
           </div>
         </div>
       </React.Fragment>

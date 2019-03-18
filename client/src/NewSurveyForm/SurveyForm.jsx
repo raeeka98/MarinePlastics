@@ -171,12 +171,8 @@ class SurveyForm extends Component {
             if (!this.state.surveyData[id]) {
                 invalid.push(displayIDs[id]);
                 console.log(id);
-<<<<<<< HEAD
                 if (document.getElementById(id)) 
                     document.getElementById(id).classList.add('invalidInput');
-=======
-                document.getElementById(id).classList.add('invalidInput');
->>>>>>> f050695a112e228110dc66df0d26f6828af1d6c7
             }
         }
         
@@ -429,7 +425,7 @@ class SurveyForm extends Component {
         // Remove the invalid input styling if they are coming back from review step
         let element = document.getElementById(key);
         if (val && element.classList.contains('invalidInput')) {
-            element.classList.remove('invalidInput');
+            if (element) { element.classList.remove('invalidInput'); }
         }
     }
 
