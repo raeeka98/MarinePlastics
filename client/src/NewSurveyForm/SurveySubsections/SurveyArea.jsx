@@ -328,8 +328,8 @@ class SurveyArea extends Component {
                 value={this.props.data.tideTypeB}
               >
                 {!this.props.data.tideTypeB && <option>Please Select</option>}
-                <option value="low">Low</option>
-                <option value="high">High</option>
+                <option value="Low">Low</option>
+                <option value="High">High</option>
               </select>
             </div>
             <div>
@@ -341,8 +341,8 @@ class SurveyArea extends Component {
                 value={this.props.data.tideTypeA}
               >
                 {!this.props.data.tideTypeA && <option>Please Select</option>}
-                <option value="low">Low</option>
-                <option value="high">High</option>
+                <option value="Low">Low</option>
+                <option value="High">High</option>
               </select>
             </div>
           </div>
@@ -439,8 +439,8 @@ class SurveyArea extends Component {
               >
                 {(!this.props.data.slope) && <option>Please Select</option>}
 
-                <option value="winter">Winter Profile</option>
-                <option value="summer">Summer Profile</option>
+                <option value="Winter">Winter Profile</option>
+                <option value="Summer">Summer Profile</option>
               </select>
             </div>
             <div>

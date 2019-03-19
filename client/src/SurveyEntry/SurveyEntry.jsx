@@ -37,13 +37,17 @@ class SurveyEntry extends Component {
 
   windDir = {
     n: "North",
+    ne: "Northeast",
     e: "East",
+    se: "Southeast",
     s: "South",
-    w: "West"
+    sw: "Southwest",
+    w: "West",
+    nw: "Northwest"
   }
 
   renderOptions() {
-    if (this.state.surveyData.SRSDebris 
+    if (this.state.surveyData.SRSDebris
          && this.state.surveyData.ASDebris) {
       //render both options
       return (
@@ -202,7 +206,7 @@ class SurveyEntry extends Component {
       })
 
   }
-  
+
   convertLatLon = () => {
     let lat = this.state.info.lat;
             let latDeg = Math.floor(lat);
@@ -212,7 +216,7 @@ class SurveyEntry extends Component {
             latSec = (Math.trunc((latSec*100))/100);
             let latDir = Math.sign(latDeg);
             latDeg = latDeg * latDir;
-            
+
             let lon = this.state.info.lon;
             let lonDeg = Math.floor(lon);
             tempDecimal = (lon - lonDeg) * 60;
@@ -285,10 +289,10 @@ class SurveyEntry extends Component {
             }
 
             <p className="uk-text-right">
-              
-              {this.state.editable ? 
+
+              {this.state.editable ?
                 <div>
-                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> 
+                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
                   <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
                 </div>
                 : null}
@@ -550,6 +554,3 @@ class SurveyEntry extends Component {
 }
 
 export default SurveyEntry;
-
-
-
