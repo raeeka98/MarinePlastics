@@ -17,8 +17,8 @@ class SurveyTableRow extends Component {
           {this.props.edit ? <span className="minusBtn" onClick={this.deleteDebris}></span> : null}
           {this.props.name}
         </td>
-        <td>{this.props.edit ? <input type="number" name="fresh" onChange={this.changeDebris} defaultValue={this.props.fresh} /> : this.props.fresh} </td>
-        <td>{this.props.edit ? <input type="number" name="weathered" onChange={this.changeDebris} defaultValue={this.props.weathered} /> : this.props.weathered}</td>
+        <td>{this.props.edit ? <input className="uk-input uk-form-small" type="number" name="fresh" onChange={this.changeDebris} defaultValue={this.props.fresh} /> : this.props.fresh} </td>
+        <td>{this.props.edit ? <input className="uk-input uk-form-small" type="number" name="weathered" onChange={this.changeDebris} defaultValue={this.props.weathered} /> : this.props.weathered}</td>
       </tr>
     );
   }

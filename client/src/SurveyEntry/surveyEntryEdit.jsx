@@ -282,7 +282,7 @@ class SurveyEntryEdit extends Component {
                   <input className="uk-input uk-form-small" type="number" name="numOfP" onChange={this.editSurveyData} defaultValue={this.state.surveyData.numOfP} />
                 </div>
                 <div className="uk-width-1-2">
-                  <p>Total Weight</p>
+                  <p>Total Weight (lbs)</p>
                   <input className="uk-input uk-form-small" type="number" name="weight" onChange={this.editSurveyData} defaultValue={this.state.surveyData.weight} />
                 </div>
               </div>
@@ -317,52 +317,85 @@ class SurveyEntryEdit extends Component {
                   </div>
                 </div>
               </div>
-              <div>
-                <strong>Major Use: </strong>
-                <div><span>Recreation: </span>
-                  <input type="checkbox" name="majorUse.rec" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.rec} />
-                </div>
-                <div><span>Commercial: </span>
-                  <input type="checkbox" name="majorUse.com" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.com} />
+
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Major Use</p>
+                <div>
+                  <input className="uk-checkbox" type="checkbox" name="majorUse.rec" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.rec} />
+                  <span className="uk-margin-left uk-text-small">Recreation</span>
                 </div>
                 <div>
-                  <span>Other: </span>
-                  <input type="text" name="majorUse.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} />
+                  <input className="uk-checkbox" type="checkbox" name="majorUse.com" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.com} />
+                  <span className="uk-margin-left uk-text-small">Commercial</span>
+                </div>
+                <div className="uk-grid uk-margin-small-top otherInput">
+                  <div className="uk-width-auto">
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                  </div>
+                  <div className="uk-width-expand">
+                    <input className="uk-input uk-form-small" type="text" name="majorUse.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other"/>
+                  </div>
                 </div>
               </div>
-              <div><strong>Substrate Type: </strong>
-                <div><span>Sand: </span>
-                  <input type="checkbox" name="st.s" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.st.s} />
-                </div>
-                <div><span>Pebble: </span>
-                  <input type="checkbox" name="st.p" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.st.p} />
+
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Substrate Type</p>
+                <div>
+                  <input className="uk-checkbox" type="checkbox" name="st.s" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.st.s} />
+                  <span className="uk-margin-left uk-text-small">Sand</span>
                 </div>
                 <div>
-                  <span>Other: </span>
-                  <input type="text" name="st.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.st.other} />
+                  <input className="uk-checkbox" type="checkbox" name="st.p" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.st.p} />
+                  <span className="uk-margin-left uk-text-small">Pebble</span>
+                </div>
+                <div className="uk-grid uk-margin-small-top otherInput">
+                  <div className="uk-width-auto">
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                  </div>
+                  <div className="uk-width-expand">
+                    <input className="uk-input uk-form-small" type="text" name="st.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.st.other} placeholder="Other"/>
+                  </div>
                 </div>
               </div>
-              <p>
-                <strong>Beach Slope:</strong>
-                <select name="slope" onChange={this.editSurveyData} defaultValue={this.state.surveyData.slope}>
+
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Beach Slope:</p>
+                <select className="uk-select uk-form-small" name="slope" onChange={this.editSurveyData} defaultValue={this.state.surveyData.slope}>
                   <option value="winter" >Winter</option>
                   <option value="summer" >Summer</option>
                 </select>
-              </p>
-              <p><strong>Beach Aspect:</strong>
-                <input type="text" name="aspect" onChange={this.editSurveyData} defaultValue={this.state.surveyData.aspect} />
-              </p>
-              <p><strong>Wind Direction: </strong>
-                <select name="wind.dir" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.dir}>
+              </div>
+
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Beach Aspect</p>
+                <input className="uk-input uk-form-small" type="text" name="aspect" onChange={this.editSurveyData} defaultValue={this.state.surveyData.aspect} />
+                
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Wind Direction</p>
+                <select className="uk-select uk-form-small" name="wind.dir" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.dir}>
                   <option value="n">North</option>
                   <option value="s">South</option>
                   <option value="e">East</option>
                   <option value="w">West</option>
-                </select></p>
-              <p><strong>Wind Speed: </strong> <input type="number" name="wind.spd" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.spd} /> knots</p>
-              <p><strong>Nearest River:</strong> <input type="text" name="info.nroName" onChange={this.editSurveyData} defaultValue={this.state.info.nroName} /></p>
-              <p><strong>Distance to Nearest River:</strong> <input type="text" name="info.nroDist" onChange={this.editSurveyData} defaultValue={this.state.info.nroDist} /> mi</p>
-              <p><strong>Compass Direction:</strong> <input type="number" name="cmpsDir" onChange={this.editSurveyData} defaultValue={this.state.surveyData.cmpsDir} /> Degrees</p>
+                </select>
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Wind Speed (knots)</p>
+                <input className="uk-input uk-form-small" type="number" name="wind.spd" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.spd} />
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Nearest River</p> 
+                <input className="uk-input uk-form-small" type="text" name="info.nroName" onChange={this.editSurveyData} defaultValue={this.state.info.nroName} />
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Distance to Nearest River (mi)</p>
+                <input className="uk-input uk-form-small" type="text" name="info.nroDist" onChange={this.editSurveyData} defaultValue={this.state.info.nroDist} />
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Compass Direction (degrees)</p>
+                <input className="uk-input uk-form-small" type="number" name="cmpsDir" onChange={this.editSurveyData} defaultValue={this.state.surveyData.cmpsDir} />
+              </div>
             </div>
           </div>
 
@@ -373,38 +406,38 @@ class SurveyEntryEdit extends Component {
           <div id="tide-section">
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
-              <h4>The Last Tide</h4>
-              <div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <h4>The Last Tide</h4>
                 <div>
-                  <p><strong>Type: </strong>
-                    <select name="lastTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.type}>
+                  <div>
+                    <p>Type</p>
+                    <select className="uk-select uk-form-small" name="lastTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.type}>
                       <option value="low">Low</option>
                       <option value="high">High</option>
                     </select>
-                  </p>
-                  <p>
-                    <strong>Time: </strong>
-                    <input type="time" name="lastTide.time" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.time} />
-                  </p>
-                  <p><strong>Height:</strong> <input type="number" name="lastTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.height} />
-                  </p>
+                  </div>
+                  <p>Time</p>
+                  <input className="uk-input uk-form-small" type="time" name="lastTide.time" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.time} />
+                  <p>Height</p>
+                  <input className="uk-input uk-form-small" type="number" name="lastTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.height} />
                 </div>
               </div>
-              <h4>The Next Tide</h4>
-              <div>
+              
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <h4>The Next Tide</h4>
                 <div>
-                  <p><strong>Type: </strong>
-                    <select name="nextTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.type}>
+                  <p>Type</p>
+                    <select className="uk-select uk-form-small" name="nextTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.type}>
                       <option value="low">Low</option>
                       <option value="high">High</option>
                     </select>
-                  </p>
-                  <p>
-                    <strong>Time: </strong>
-                    <input type="time" name="nextTide.time" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.time} />
-                  </p>
-                  <p><strong>Height:</strong> <input type="number" name="nextTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.height} />
-                  </p>
+                  
+                  <p>Time</p>
+                  <input className="uk-input uk-form-small" type="time" name="nextTide.time" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.time} />
+                  
+                  <p>Height</p>
+                  <input className="uk-input uk-form-small" type="number" name="nextTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.height} />
+                
                 </div>
               </div>
             </div>
