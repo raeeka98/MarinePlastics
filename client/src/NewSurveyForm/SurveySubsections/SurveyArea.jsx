@@ -70,7 +70,7 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <BeachSearch id="beachName" autofill={this.autofill} setSurveyData={this.props.setSurveyData} />
+              <BeachSearch id="beachName" autofill={this.autofill} setSurveyData={this.props.setSurveyData} defaultValue={this.props.data.beachName}/>
             </div>
             <div>
               <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>

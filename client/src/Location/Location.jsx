@@ -59,7 +59,6 @@ class Location extends Component {
         axios.all(promise)
           .then((response) => {
             response.map(res => {trueSurveys.push(res.data.survData)
-              console.log(res.data);
 
             })
           })
@@ -110,9 +109,7 @@ class Location extends Component {
 
 
   render() {
-    console.log(this.state.beachData);
     let { lat, lon, name: beachName } = this.state.beachData;
-    console.log(this.state.surveys);
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened

@@ -13,7 +13,6 @@ class EditableTable extends Component {
 
     addtoData = (e) => {
         this.props.addNewDebris(this.props.type,e.target.value);
-        console.log("add to new");
         this.setState(prevState => ({
             addingnew: false,
             inProgress: null

@@ -128,7 +128,6 @@ class LocationBar extends Component {
     render() {
         let lat = this.state.lat;
         let lon = this.state.lon;
-
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>
