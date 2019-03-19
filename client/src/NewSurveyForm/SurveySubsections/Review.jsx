@@ -15,6 +15,10 @@ class Review extends Component {
 
   }
 
+  toTitleCase(word) {
+      return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  };
+
   render() {
     var SRSRows = [];
     var ASRows = [];
@@ -119,7 +123,7 @@ class Review extends Component {
             {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
               <div>
                 <h4>Tide Before:</h4>
-                <p>Type: {d.tideTypeB} </p>
+                <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
                 <p>Height: {d.tideHeightB}</p>
                 <p>Time: {d.tideTimeB}</p>
               </div>
@@ -127,7 +131,7 @@ class Review extends Component {
             {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
               <div>
                 <h4>Tide After:</h4>
-                <p>Type: {d.tideTypeA} </p>
+                <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
                 <p>Height: {d.tideHeightA}</p>
                 <p>Time: {d.tideTimeA}</p>
               </div>
@@ -139,7 +143,7 @@ class Review extends Component {
               <p>Wind Direction: {d.windDir}</p>
             }
             {d.slope &&
-              <p>Slope: {d.slope}</p>
+              <p>Slope: {this.toTitleCase(d.slope)}</p>
             }
             {s.subType.length > 0 &&
               <p>Substrate Type: {s.subType}</p>
