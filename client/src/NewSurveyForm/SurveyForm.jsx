@@ -170,7 +170,7 @@ class SurveyForm extends Component {
         for (const id of requiredIDs) {
             if (this.state.surveyData[id] === undefined) {
                 invalid.push(displayIDs[id]);
-                if (document.getElementById(id)) 
+                if (document.getElementById(id))
                     document.getElementById(id).classList.add('invalidInput');
             }
         }

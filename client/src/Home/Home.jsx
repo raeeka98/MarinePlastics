@@ -61,7 +61,7 @@ class Home extends Component {
       container.classList.remove("split-view");
     }
 
-    //Display the map only  
+    //Display the map only
     if (this.state.view === "map") {
       container.classList.add("map-view");
       container.classList.remove("list-view");
@@ -73,7 +73,7 @@ class Home extends Component {
       container.classList.remove("list-view");
       container.classList.remove("split-view");
       container.classList.add("split-view");
-      
+
     }
   }
 
@@ -82,7 +82,7 @@ class Home extends Component {
   async handleFilterChange(e) {
     let filterName = e.target.value;
     await this.setState({ filter: filterName})
-    this.changeFilter();    
+    this.changeFilter();
   }
 
   async changeFilter() {
@@ -106,8 +106,8 @@ class Home extends Component {
       () => that.handleSearch(query, that.state.filter), 250)});
   }
 
-  /* 
-   * Query the database for beaches that match the substring that the use input 
+  /*
+   * Query the database for beaches that match the substring that the use input
   */
   handleSearch(value) {
     axios.get("/beaches/search", { params: { q: value } })
