@@ -15,6 +15,10 @@ class Review extends Component {
 
   }
 
+  toTitleCase(word) {
+      return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  };
+
   render() {
     var SRSRows = [];
     var ASRows = [];
@@ -33,17 +37,17 @@ class Review extends Component {
       //keys of the form item__condition__rib
       let item = key.split('__')[0];
       let condition = key.split('__')[1];
-      let rib = key.split('__')[2] - 1; 
+      let rib = key.split('__')[2] - 1;
       //store info in parsedRows
       if (!parsedRows[item]) {
         parsedRows[item] = {fresh: new Array(4), weathered: new Array(4)};
       }
       parsedRows[item][condition][rib] = this.props.SRSData[key];
     }
-    // Now take the parsed data and then create row objects for each 
+    // Now take the parsed data and then create row objects for each
     for (const key in parsedRows) {
       SRSRows.push(
-        <RibScanRowReview 
+        <RibScanRowReview
           id = {key}
           key = {key}
           name = {debrisInfo[key]}
@@ -57,9 +61,9 @@ class Review extends Component {
     for(const key in this.props.ASData) {
       let parsedKey = key.split('__')[0];
       let freshWeath = key.split('__')[1];
-      if(!parsedRows[parsedKey]) 
+      if(!parsedRows[parsedKey])
         parsedRows[parsedKey] = {fresh: 0, weathered:0};
-      
+
       parsedRows[parsedKey][freshWeath] = this.props.ASData[key];
     }
 
@@ -78,7 +82,7 @@ class Review extends Component {
 
     const d = this.props.data;
     const s = this.props.displayStrings;
-    
+
     return(
       <div className="uk-background-muted uk-padding">
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
@@ -97,7 +101,9 @@ class Review extends Component {
             <h3 className="uk-card-title">Survey Area:</h3>
 
             <p>Beach Name: {d.beachName}</p>
-            <p>Beach Coordinates: {d.latitude} (lat), {d.longitude} (lon)</p>
+            <p>Beach Coordinates: {d.latDeg}&#176;{d.latMin.toFixed(2) + "'" + d.latSec.toFixed(2) + '"' + (d.latDir === 1 ? "N  " : "S  ")}
+                                  {d.lonDeg}&#176;{d.lonMin.toFixed(2) + "'" + d.lonSec.toFixed(2) + '"' + (d.lonDir === 1 ? "E  " : "W  ")}
+            </p>
             {s.usage.length > 0 &&
               <p>Major Usage: {s.usage}</p>
             }
@@ -110,22 +116,24 @@ class Review extends Component {
             {d.riverName &&
               <p>Nearest River Output Name: {d.riverName}</p>
             }
-            {d.riverDistance &&
+            {(d.riverDistance !== undefined) &&
               <p>Nearest River Output Distance: {d.riverDistance}</p>
             }
 
             {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
               <div>
                 <h4>Tide Before:</h4>
-                <p>Type: {d.tideTypeB} </p>
+                <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
                 <p>Height: {d.tideHeightB}</p>
                 <p>Time: {d.tideTimeB}</p>
               </div>
             }
             {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
               <div>
-                <h5>Tide After:</h5>
-                <p>{d.tideTypeA} tide of {d.tideTypeA} ft at{d.tideTimeA}</p>
+                <h4>Tide After:</h4>
+                <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
+                <p>Height: {d.tideHeightA}</p>
+                <p>Time: {d.tideTimeA}</p>
               </div>
             }
             {d.windSpeed &&
@@ -135,7 +143,7 @@ class Review extends Component {
               <p>Wind Direction: {d.windDir}</p>
             }
             {d.slope &&
-              <p>Slope: {d.slope}</p>
+              <p>Slope: {this.toTitleCase(d.slope)}</p>
             }
             {s.subType.length > 0 &&
               <p>Substrate Type: {s.subType}</p>
@@ -147,7 +155,7 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
               <h2>Surface Rib Scan</h2>
               <table className='uk-table uk-table-striped uk-table-middle'>
-                <thead>  
+                <thead>
                   <tr>
                     <th>Range</th>
                     <th>Rib #1</th>
@@ -200,7 +208,7 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Accumulation Survey:</h3>
             <table className='uk-table uk-table-striped uk-table-middle'>
-                <thead>  
+                <thead>
                   <tr>
                     <th className='uk-width-small'>Debris Type</th>
                     <th>Fresh</th>

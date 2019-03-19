@@ -14,7 +14,6 @@ const debrisInfo = getDebrisMap();
 class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
-    console.log(props.location.state.surveyData);
     let srsOptions = debrisNames;
     let asOptions = debrisNames;
 
@@ -57,7 +56,6 @@ class SurveyEntryEdit extends Component {
   }
 
   deleteDebris = (typeOfDebris, deletedTrashID) => {
-    console.log(deletedTrashID);
     let newsrsDebris = this.state.srsDebris;
     let newasDebris = this.state.asDebris;
     if (typeOfDebris === "SRS") {
@@ -106,13 +104,10 @@ class SurveyEntryEdit extends Component {
       srsOptions: newsrsOptions,
       asOptions: newasOptions
     }));
-    console.log("add");
 
   }
 
   editSurveyData = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
 
     let pathStr = e.target.name;
     let path = pathStr.split(".");
@@ -153,7 +148,6 @@ class SurveyEntryEdit extends Component {
   }
 
   save = () => {
-    console.log("save");
     let newASDebris = [];
     this.state.asDebris.forEach(val => {
       newASDebris.push([val.trashID, { fresh: val.fresh, weathered: val.weathered }])
@@ -171,11 +165,9 @@ class SurveyEntryEdit extends Component {
       oldASDebris,
       changedInfo: { ...this.state.newData }
     }
-    console.log(finalData);
     axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
       finalData)
       .then(res => {
-        console.log(res.data);
       });
     this.setState({editSurvey: true});
   }
