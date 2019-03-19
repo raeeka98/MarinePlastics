@@ -76,10 +76,10 @@ let surveys = {
             date: newSurvey.survDate
         };
         newSRSDebris.forEach(val => {
-            updatePayload.SRSTotal += val[1].fresh + val[1].weathered;
+            updatePayload.newSRSTotal += val[1].fresh + val[1].weathered;
         });
         newASDebris.forEach(val => {
-            updatePayload.ASTotal += val[1].fresh + val[1].weathered;
+            updatePayload.newASTotal += val[1].fresh + val[1].weathered;
         });
 
         oldSRSDebris.forEach(oldVal => {
