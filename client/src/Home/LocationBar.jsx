@@ -8,8 +8,12 @@ class LocationBar extends Component {
         super(props);
         this.state = {
             surveys: [],
+<<<<<<< HEAD
             lat: [0,0,0],
             lon: [0,0,0],
+=======
+            loading: false,
+>>>>>>> Development
             clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
@@ -20,12 +24,12 @@ class LocationBar extends Component {
     // Called when a user expands the accordion
     // Fetches surveys listed under the beach that is clicked
     getSurveysFromBeach() {
-        this.setState({clicked : true})
+        this.setState({clicked: true, loading: true});
         let beachID = this.props.location._id;
 
         axios.get('/beaches/' + beachID)
           .then(res => {
-
+            this.setState({loading: false});
             // For every month returned by the get request, render html that links to survey page
             // Then append that html to the surveysHTML array, which is then updated to the state
             for (let month of Object.keys(res.data)) {
@@ -33,7 +37,6 @@ class LocationBar extends Component {
                 this.createHTMLForEntries(month, survey);
 
             }
-
           })
           .catch(err => {
             console.log(err);
@@ -150,7 +153,7 @@ class LocationBar extends Component {
                         </Link>
                             </p>
                             <ul className="uk-list uk-list-bullet uk-padding-remove-left">
-                                {this.state.surveys.length > 0 ? this.state.surveys : "Loading surveys..."}
+                                {this.state.loading ? "Loading surveys..." : this.state.surveys}
                             </ul>
                         </div>
                     </li>
