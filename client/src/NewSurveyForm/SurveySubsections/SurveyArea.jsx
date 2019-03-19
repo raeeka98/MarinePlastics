@@ -418,14 +418,14 @@ class SurveyArea extends Component {
                 className='uk-input uk-margin'
               >
                 {(!this.props.data.windDir) && <option>Please Select</option>}
-                <option value="N">North</option>
-                <option value="NE">Northeast</option>
-                <option value="E">East</option>
-                <option value="SE">Southeast</option>
-                <option value="S">South</option>
-                <option value="SW">Southwest</option>
-                <option value="W">West</option>
-                <option value="NW">Northwest</option>
+                <option value="n">North</option>
+                <option value="ne">Northeast</option>
+                <option value="e">East</option>
+                <option value="se">Southeast</option>
+                <option value="s">South</option>
+                <option value="sw">Southwest</option>
+                <option value="w">West</option>
+                <option value="nw">Northwest</option>
               </select>
             </div>
             <div>
