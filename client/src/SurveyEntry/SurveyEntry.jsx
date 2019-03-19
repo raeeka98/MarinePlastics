@@ -17,6 +17,8 @@ class SurveyEntry extends Component {
     this.state = {
       beachName: this.props.location.state.beachName,
       info: this.props.location.state.info,
+      lat : [0,0,0,0],
+      lon : [0,0,0,0],
       surveyID,
       surveyData: {},
       userProfile: this.props.location.state.userProfile,
@@ -179,6 +181,8 @@ class SurveyEntry extends Component {
         this.setState({
           deletedComment: true
         })
+        let closeModal = document.getElementById('closeModalButton');
+        closeModal.click();
         alert("Survey deleted successfully.");
       })
       .catch(err => {
@@ -198,11 +202,33 @@ class SurveyEntry extends Component {
       })
 
   }
+  
+  convertLatLon = () => {
+    let lat = this.state.info.lat;
+            let latDeg = Math.floor(lat);
+            let tempDecimal = (lat - latDeg) * 60;
+            let latMin = Math.floor(tempDecimal);
+            let latSec = (tempDecimal - latMin) * 60;
+            latSec = (Math.trunc((latSec*100))/100);
+            let latDir = Math.sign(latDeg);
+            latDeg = latDeg * latDir;
+            
+            let lon = this.state.info.lon;
+            let lonDeg = Math.floor(lon);
+            tempDecimal = (lon - lonDeg) * 60;
+            let lonMin = Math.floor(tempDecimal);
+            let lonSec = (tempDecimal - lonMin) * 60;
+            lonSec = (Math.trunc((latSec*100))/100);
+            let lonDir = Math.sign(lonDeg);
+            lonDeg = lonDeg * lonDir;
 
+            this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
+  }
 
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
+    this.convertLatLon();
   }
 
   editBtns = () => {
@@ -258,7 +284,7 @@ class SurveyEntry extends Component {
                 : null}
             </p>
 
-            <button className="uk-modal-close-default" data-uk-close></button>
+            <button id="closeModalButton" className="uk-modal-close-default" data-uk-close></button>
           </div>
         </div>
       </React.Fragment>
@@ -374,7 +400,7 @@ class SurveyEntry extends Component {
               <h3 className="uk-card-title">Survey Area</h3>
               {
                 this.state.info.lat && this.state.info.lon ?
-                  <p><strong>GPS Coordinates:</strong> {this.state.info.lat}, {this.state.info.lon}</p> : null
+                  <p><strong>GPS Coordinates:</strong> {this.state.lat[0]}&deg; {this.state.lat[1]}' {this.state.lat[2]}''{(this.state.lat[3]===1) ? 'N' : 'S'}    ,   {this.state.lon[0]}&deg; {this.state.lon[1]}' {this.state.lon[2]}''{(this.state.lon[3]===1) ? 'E' : 'W'}</p> : null
               }
               {
                 this.state.surveyData.reason ?
