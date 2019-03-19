@@ -192,7 +192,8 @@ router.route('/:beachID/stats')
         let bID = req.params.beachID;
         let { yr: year } = req.query;
         let stats = await beaches.getStats(bID, year);
-        //console.log(stats);
+        //stats.n = stats.n.replace(/_/g, " ");
+        console.log(stats);
         res.json(stats);
     }));
 
@@ -200,6 +201,7 @@ router.route('/:beachID/coords')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let coords = await beaches.getOneLonLat(bID);
+        //coords.n = coords.n.replace(/_/g, " ");
         console.log("Coords:")
         console.log(coords);
         res.json(coords);
@@ -209,6 +211,7 @@ router.route('/:beachID/info')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let data = await beaches.getInfo(bID);
+        data.n = data.n.replace(/_/g, " ");
         data.nroName = data.nroName.replace(/_/g, " ");
         res.json(data);
     }));

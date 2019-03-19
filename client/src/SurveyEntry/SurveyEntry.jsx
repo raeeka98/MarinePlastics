@@ -75,6 +75,7 @@ class SurveyEntry extends Component {
 
   getSurvey = () => {
     let userID = this.state.userProfile ? this.state.userProfile.sub.split("|")[1] : undefined;
+    console.log(userID);
 
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
@@ -218,7 +219,8 @@ class SurveyEntry extends Component {
               state: {
                 surveyData: this.state.surveyData,
                 beachName: this.state.beachName,
-                info: this.state.info
+                info: this.state.info,
+                userProfile: this.state.userProfile
               }
             }}>Edit Survey</Link></button>
             <button className="uk-button button-active"
@@ -278,6 +280,7 @@ class SurveyEntry extends Component {
 
   render() {
     // redirect if data change actions are being taken
+    console.log(this.state.surveyData);
     if (this.state.deletedComment) return <Redirect to="/home" />
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];

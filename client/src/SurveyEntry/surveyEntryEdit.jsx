@@ -37,6 +37,7 @@ class SurveyEntryEdit extends Component {
       surveyData: props.location.state.surveyData,
       beachName: props.location.state.beachName,
       info: props.location.state.info,
+      userProfile: props.location.state.userProfile,
       newData: {},
       origSRSDebris: [...srsDebris],
       origASDebris: [...asDebris],
@@ -176,12 +177,24 @@ class SurveyEntryEdit extends Component {
       .then(res => {
         console.log(res.data);
       });
+    this.setState({editSurvey: true});
   }
 
   render() {
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
-    if (this.state.editSurvey) return <Redirect to="/survey" />
+    if (this.state.editSurvey) {
+      return <Redirect to={
+          {
+            pathname : `/surveys/${this.state.surveyData._id}`,
+            state: {
+              beachName: this.state.beachName,
+              info: this.state.info,
+              userProfile: this.state.userProfile 
+            }
+          }
+        } />
+    }
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
