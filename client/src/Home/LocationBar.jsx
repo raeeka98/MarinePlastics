@@ -9,6 +9,8 @@ class LocationBar extends Component {
         this.state = {
             surveys: [],
             loading: false,
+            lat: [0,0,0,0],
+            lon: [0,0,0,0],
             clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
