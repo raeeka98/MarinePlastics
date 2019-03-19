@@ -110,6 +110,7 @@ class Location extends Component {
 
 
   render() {
+    console.log(this.state.beachData);
     let { lat, lon, name: beachName } = this.state.beachData;
     console.log(this.state.surveys);
     let surveys = [];

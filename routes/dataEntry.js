@@ -107,7 +107,7 @@ router.route('/surveys')
             let beachData = null;
             let surveyData = await surveyValidation.validate(req.body);
             console.log(surveyData);
-            
+
             if (!surveyData.bID) {
                 beachData = await beaches.create(surveyData.beachData);
             }
@@ -138,10 +138,11 @@ router.route('/surveys/:surveyID')
         res.json(rtnMsg);
     }))
     //find a specific survey and edit it
-    .put(asyncHandler(async (req, res) => {
-        let { oldSurvey, newSurvey } = req.body;
-        let updatedSurvey = await surveys.update(req.params.surveyID, newSurvey, oldSurvey);
-        res.json(updatedSurvey);
+    .post(asyncHandler(async (req, res) => {
+        let updateData = req.body;
+        console.log(updateData);
+        let updatedSurvey = await surveys.update(req.params.surveyID, updateData);
+        res.json({ res: "Success", surveyData: updatedSurvey });
     }))
     //delete an survey
     .delete(asyncHandler(async (req, res) => {
@@ -191,7 +192,8 @@ router.route('/:beachID/stats')
         let bID = req.params.beachID;
         let { yr: year } = req.query;
         let stats = await beaches.getStats(bID, year);
-        //console.log(stats);
+        //stats.n = stats.n.replace(/_/g, " ");
+        console.log(stats);
         res.json(stats);
     }));
 
@@ -199,6 +201,7 @@ router.route('/:beachID/coords')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let coords = await beaches.getOneLonLat(bID);
+        //coords.n = coords.n.replace(/_/g, " ");
         console.log("Coords:")
         console.log(coords);
         res.json(coords);
@@ -208,6 +211,7 @@ router.route('/:beachID/info')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let data = await beaches.getInfo(bID);
+        data.n = data.n.replace(/_/g, " ");
         data.nroName = data.nroName.replace(/_/g, " ");
         res.json(data);
     }));

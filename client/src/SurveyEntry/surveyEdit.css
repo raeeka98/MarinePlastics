@@ -1,0 +1,108 @@
+
+.editable{
+    position: relative;
+}
+
+.editable>.minusBtn {
+    position: absolute;
+    left: -20px;
+    margin: 0;
+    padding: 0;
+    background: rgba(253, 0, 0, 0.705);
+    width: 30px;
+    height: 30px;
+    margin:0;
+    transform-origin: center;
+    transform: translate(-50%,-25%);
+    border-radius: 50%;
+    user-select: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 2px #ccc;
+}
+
+.editable>.minusBtn::before,.editable>.minusBtn::after{
+    content: "";
+    width: 3px;
+    border-radius: 25%;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) rotate(90deg);
+    background: white;
+    position: absolute;
+}
+
+
+
+
+.editable> .minusBtn:active {
+    background: rgb(214, 3, 3);
+} 
+
+/* .tableEdit>tbody .minusBtn>span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: calc(1em*1.5);
+    font-weight: bold;
+} */
+
+.tableEdit>tbody>#plusBtn {
+    position: absolute;
+    cursor: pointer;
+    background: #009b9b;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    box-sizing: border-box;
+    transform-origin: center;
+    transform: translateX(-50%);
+    padding: 0;
+    margin: 0.3em 0;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px 2px #ccc;
+    border: none;
+}
+
+
+
+.tableEdit>tbody>#plusBtn::after,
+.tableEdit>tbody>#plusBtn::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    box-sizing: border-box;
+    transform-origin: center;
+    transform:translate(-50%,-50%);
+    background: white;
+    border-radius: 25%;
+}
+
+.tableEdit>tbody>#plusBtn::before {
+    width: 20px;
+    height: 4px;
+}
+
+.tableEdit>tbody>#plusBtn:active {
+    background: #047070;
+}
+
+.otherInput {
+    position: relative;
+    top: -5px;
+}
+
+.otherInput input[type=text] {
+    position: relative;
+    left: -10px;
+}
+
+@media screen and (min-width: 960px) {
+    .otherInput input[type=text] {
+        left: -15px;
+    }
+}

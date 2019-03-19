@@ -9,10 +9,13 @@ class LocationBar extends Component {
         this.state = {
             surveys: [],
             loading: false,
+            lat: [0,0,0,0],
+            lon: [0,0,0,0],
             clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
         this.createHTMLForEntries = this.createHTMLForEntries.bind(this);
+        this.getLatLon = this.getLatLon.bind(this);
     };
 
     // Called when a user expands the accordion
@@ -36,6 +39,8 @@ class LocationBar extends Component {
             console.log(err);
           })
       }
+
+    
 
     // returns HTML for every entry in the sorted array of locations
     // should display date and contain a link to specific survey page
@@ -67,6 +72,33 @@ class LocationBar extends Component {
             })
     }
 
+    getLatLon() {
+        let beachID = this.props.location._id;
+        axios.get(`/beaches/${beachID}/coords`)
+          .then( res => {
+            let lat = res.data.lat;
+            let latDeg = Math.floor(lat);
+            let tempDecimal = (lat - latDeg) * 60;
+            let latMin = Math.floor(tempDecimal);
+            let latSec = (tempDecimal - latMin) * 60;
+            latSec = (Math.trunc((latSec*100))/100);
+            let latDir = Math.sign(latDeg);
+            latDeg = latDeg * latDir;
+            
+            let lon = res.data.lon;
+            let lonDeg = Math.floor(lon);
+            tempDecimal = (lon - lonDeg) * 60;
+            let lonMin = Math.floor(tempDecimal);
+            let lonSec = (tempDecimal - lonMin) * 60;
+            lonSec = (Math.trunc((latSec*100))/100);
+            let lonDir = Math.sign(lonDeg);
+            lonDeg = lonDeg * lonDir;
+
+            this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
+          })
+    
+      }
+
     handleAccordionClick = (e) => {
         if(this.state.surveys.length === 0 && !this.state.clicked)
             this.getSurveysFromBeach();
@@ -87,7 +119,16 @@ class LocationBar extends Component {
         }
     }
 
+    componentDidMount() {
+        //if(this.state.lat===[0,0,0] && this.state.lon===[0,0,0]){ 
+          this.getLatLon();
+        //} 
+      }
+
     render() {
+        let lat = this.state.lat;
+        let lon = this.state.lon;
+
         return (
         <div className="uk-card uk-card-default uk-card-body uk-margin ">
             <div>
@@ -97,9 +138,9 @@ class LocationBar extends Component {
                         <Link to={{ pathname: `/location/${this.props.path}`, state: { data: this.props.location, userProfile: this.props.userProfile  } }} style={{ textDecoration: 'none', color: 'black'  }}>
                             {this.props.location.n}
                             </Link>
-                            <span className="uk-text-muted uk-text-small uk-margin-remove-bottom">
-                                {this.props.location._numOfSurveys} {this.props.entryString}
-                            </span>
+                            <div className="uk-text-muted uk-text-small uk-margin-remove-bottom">
+                                {lat[0]}&deg;{lat[1]}'{lat[2]}''{(lat[3]===1) ? 'N' : 'S'} {lon[0]}&deg;{lon[1]}'{lon[2]}''{(lon[3]===1) ? 'E' : 'W'}
+                            </div>
                         </span>
                         <div className="uk-accordion-content" style={{ display: 'none' }}>
                         <p>
