@@ -54,7 +54,7 @@ class EditableTable extends Component {
         return (<div id={`${this.props.type}-section`} >
             <div className="uk-card uk-card-default uk-card-body">
                 <h3>{this.props.type === "SRS" ? "Surface Rib Scan Survey" : "Accumulation Survey"}</h3>
-                <div className="uk-overflow-auto">
+                <div>
                     <table className="uk-table uk-table-striped tableEdit">
                         <thead>
                             <tr>
