@@ -65,7 +65,7 @@ let surveys = {
             }
         }
 
-        console.log(update);
+        console.log(updatedFields);
         let newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
         //update stats
         let updatePayload = {
