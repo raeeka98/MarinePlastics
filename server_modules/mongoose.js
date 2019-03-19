@@ -92,7 +92,7 @@ let surveys = {
             }
         });
 
-        await beaches.updateStats(oldSurvey.bID, updatePayload);
+        await beaches.updateStats(newSurvey.bID, updatePayload);
 
         return newSurvey;
     },
