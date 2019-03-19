@@ -170,7 +170,6 @@ class SurveyForm extends Component {
         for (const id of requiredIDs) {
             if (this.state.surveyData[id] === undefined) {
                 invalid.push(displayIDs[id]);
-                console.log(id);
                 if (document.getElementById(id)) 
                     document.getElementById(id).classList.add('invalidInput');
             }
@@ -302,7 +301,6 @@ class SurveyForm extends Component {
                 id,
                 { fresh: totals[id].fresh, weathered: totals[id].weathered }
             ]);
-            console.log(totalsArray);
         }
         return totalsArray;
     }

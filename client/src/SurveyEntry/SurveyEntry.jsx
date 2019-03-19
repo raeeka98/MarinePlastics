@@ -77,7 +77,6 @@ class SurveyEntry extends Component {
 
   getSurvey = () => {
     let userID = this.state.userProfile ? this.state.userProfile.sub.split("|")[1] : undefined;
-    console.log(userID);
 
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
@@ -102,6 +101,9 @@ class SurveyEntry extends Component {
     axios.get(`/beaches/${this.state.surveyData.bID}/info`)
       .then(res => {
         this.setState({info: res.data});
+      })
+      .then(() => {
+        this.convertLatLon();
       })
   }
 
@@ -204,31 +206,31 @@ class SurveyEntry extends Component {
   }
   
   convertLatLon = () => {
+        //this.setState({info: res.data});
     let lat = this.state.info.lat;
-            let latDeg = Math.floor(lat);
-            let tempDecimal = (lat - latDeg) * 60;
-            let latMin = Math.floor(tempDecimal);
-            let latSec = (tempDecimal - latMin) * 60;
-            latSec = (Math.trunc((latSec*100))/100);
-            let latDir = Math.sign(latDeg);
-            latDeg = latDeg * latDir;
-            
-            let lon = this.state.info.lon;
-            let lonDeg = Math.floor(lon);
-            tempDecimal = (lon - lonDeg) * 60;
-            let lonMin = Math.floor(tempDecimal);
-            let lonSec = (tempDecimal - lonMin) * 60;
-            lonSec = (Math.trunc((latSec*100))/100);
-            let lonDir = Math.sign(lonDeg);
-            lonDeg = lonDeg * lonDir;
+    let latDeg = Math.floor(lat);
+    let tempDecimal = (lat - latDeg) * 60;
+    let latMin = Math.floor(tempDecimal);
+    let latSec = (tempDecimal - latMin) * 60;
+    latSec = (Math.trunc((latSec*100))/100);
+    let latDir = Math.sign(latDeg);
+    latDeg = latDeg * latDir;
+    
+    let lon = this.state.info.lon;
+    let lonDeg = Math.floor(lon);
+    tempDecimal = (lon - lonDeg) * 60;
+    let lonMin = Math.floor(tempDecimal);
+    let lonSec = (tempDecimal - lonMin) * 60;
+    lonSec = (Math.trunc((latSec*100))/100);
+    let lonDir = Math.sign(lonDeg);
+    lonDeg = lonDeg * lonDir;
 
-            this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
+    this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
   }
 
   // once the component is on the page, gets the surveyData from the server
   componentDidMount() {
     this.getSurvey();
-    this.convertLatLon();
   }
 
   editBtns = () => {
@@ -304,7 +306,6 @@ class SurveyEntry extends Component {
 
   render() {
     // redirect if data change actions are being taken
-    console.log(this.state.surveyData);
     if (this.state.deletedComment) return <Redirect to="/home" />
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
