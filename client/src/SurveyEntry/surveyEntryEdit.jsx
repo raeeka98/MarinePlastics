@@ -253,27 +253,39 @@ class SurveyEntryEdit extends Component {
         </h2>
 
         {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
-        <div data-uk-grid="masonry: true" className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2">
+        <div data-uk-grid="masonry: true" className="uk-grid uk-grid-large uk-grid-match uk-width-1 uk-child-width-1-2@m">
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <div>
-                <strong>Team Leader:</strong>
-                <div><input type="text" name="user.f" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.f}></input></div>
-                <input type="text" name="user.l" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.l} />
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Team Leader</p>
+                <input className="uk-input uk-form-small uk-margin-small-bottom" type="text" name="user.f" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.f}></input>
+                <input className="uk-input uk-form-small" type="text" name="user.l" onChange={this.editSurveyData} defaultValue={this.state.surveyData.user.l} />
               </div>
-              <p><strong>Organization:</strong> <input type="text" name="org" onChange={this.editSurveyData} defaultValue={this.state.surveyData.org} /></p>
-              <p><strong>Email:</strong>
-                <input type="email" name="email" onChange={this.editSurveyData} defaultValue={this.state.surveyData.email} />
-              </p>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Organization</p>
+                <input className="uk-input uk-form-small" type="text" name="org" onChange={this.editSurveyData} defaultValue={this.state.surveyData.org} />
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Email</p>
+                <input className="uk-input uk-form-small" type="email" name="email" onChange={this.editSurveyData} defaultValue={this.state.surveyData.email} />
+              </div>
             </div>
           </div>
 
           <div id="b-cleanup-section" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Basic Clean Up</h3>
-              <p><strong>Number of People:</strong> <input type="number" name="numOfP" onChange={this.editSurveyData} defaultValue={this.state.surveyData.numOfP} /></p>
-              <p><strong>Total Weight:</strong> <input type="number" name="weight" onChange={this.editSurveyData} defaultValue={this.state.surveyData.weight} /></p>
+              <div className="uk-grid">
+                <div className="uk-width-1-2">
+                  <p>Number of People</p>
+                  <input className="uk-input uk-form-small" type="number" name="numOfP" onChange={this.editSurveyData} defaultValue={this.state.surveyData.numOfP} />
+                </div>
+                <div className="uk-width-1-2">
+                  <p>Total Weight</p>
+                  <input className="uk-input uk-form-small" type="number" name="weight" onChange={this.editSurveyData} defaultValue={this.state.surveyData.weight} />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -281,17 +293,28 @@ class SurveyEntryEdit extends Component {
           <div id="survey-area-section" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
-              <p><strong>GPS Coordinates:</strong> {this.state.info.lat}, {this.state.info.lon}</p>
-              <div><strong>Reason for Location Choice: </strong>
-                <div><span>Proximity: </span>
-                  <input type="checkbox" name="reason.prox" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.rec} />
-                </div>
-                <div><span>Debris: </span>
-                  <input type="checkbox" name="reason.debris" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.com} />
+              <div className="uk-padding-small uk-padding-remove-horizontal"> 
+                <p>GPS Coordinates</p>
+                <p className="uk-text-small uk-margin-small-left">Lat: <span className="uk-text-muted">{this.state.info.lat}</span></p>
+                <p className="uk-text-small uk-margin-small-left">Lon: <span className="uk-text-muted">{this.state.info.lon}</span></p>
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Reason for Location Choice</p>
+                <div>
+                  <input className="uk-checkbox" type="checkbox" name="reason.prox" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.rec} />
+                  <span className="uk-margin-left uk-text-small">Proximity</span>
                 </div>
                 <div>
-                  <span>Other: </span>
-                  <input type="text" name="majorUse.reason.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} />
+                  <input className="uk-checkbox" type="checkbox" name="reason.debris" onChange={this.editSurveyCheckBoxes} defaultChecked={this.state.surveyData.majorUse.com} />
+                  <span className="uk-margin-left uk-text-small">Debris</span>
+                </div>
+                <div className="uk-grid uk-margin-small-top otherInput">
+                  <div className="uk-width-auto">
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                  </div>
+                  <div className="uk-width-expand">
+                    <input className="uk-input uk-form-small" type="text" name="majorUse.reason.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other"/>
+                  </div>
                 </div>
               </div>
               <div>

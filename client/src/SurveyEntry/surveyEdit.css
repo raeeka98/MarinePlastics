@@ -82,11 +82,27 @@
     border-radius: 25%;
 }
 
-.tableEdit>tbody>#plusBtn::before{
+.tableEdit>tbody>#plusBtn::before {
     width: 20px;
     height: 4px;
 }
 
-.tableEdit>tbody>#plusBtn:active{
+.tableEdit>tbody>#plusBtn:active {
     background: #047070;
+}
+
+.otherInput {
+    position: relative;
+    top: -5px;
+}
+
+.otherInput input[type=text] {
+    position: relative;
+    left: -10px;
+}
+
+@media screen and (min-width: 960px) {
+    .otherInput input[type=text] {
+        left: -15px;
+    }
 }
