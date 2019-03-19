@@ -73,6 +73,7 @@ class BeachSearch extends Component {
         <input id="beachName" className="uk-input uk-margin"
           placeholder="Name of Beach"
           ref={input => this.search = input}
+          defaultValue={this.props.defaultValue}
           onChange={()=>this.handleInputChange()}
           />
         {this.state.showItems && this.state.query

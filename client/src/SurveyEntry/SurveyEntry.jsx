@@ -37,13 +37,20 @@ class SurveyEntry extends Component {
 
   windDir = {
     n: "North",
+    ne: "Northeast",
     e: "East",
+    se: "Southeast",
     s: "South",
-    w: "West"
+    sw: "Southwest",
+    w: "West",
+    nw: "Northwest"
   }
+  toTitleCase(word) {
+      return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  };
 
   renderOptions() {
-    if (this.state.surveyData.SRSDebris 
+    if (this.state.surveyData.SRSDebris
          && this.state.surveyData.ASDebris) {
       //render both options
       return (
@@ -204,7 +211,7 @@ class SurveyEntry extends Component {
       })
 
   }
-  
+
   convertLatLon = () => {
         //this.setState({info: res.data});
     let lat = this.state.info.lat;
@@ -236,7 +243,6 @@ class SurveyEntry extends Component {
   editBtns = () => {
     return (
       <React.Fragment>
-
         {/* Edit and Delete buttons are disabled if user is not logged in or doesn't own the survey */}
         {this.state.editable ?
           <div className="uk-flex uk-flex-row">
@@ -287,10 +293,10 @@ class SurveyEntry extends Component {
             }
 
             <p className="uk-text-right">
-              
-              {this.state.editable ? 
+
+              {this.state.editable ?
                 <div>
-                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button> 
+                  <button className="uk-button uk-button-danger uk-margin-left" onClick={this.deleteSurvey}>Delete</button>
                   <button className="uk-button uk-button-default uk-modal-close">Cancel</button>
                 </div>
                 : null}
@@ -437,7 +443,7 @@ class SurveyEntry extends Component {
               }
               {
                 this.state.surveyData.slope ?
-                  <p><strong>Beach Slope:</strong> {this.state.surveyData.slope}</p> : null
+                  <p><strong>Beach Slope:</strong> {this.toTitleCase(this.state.surveyData.slope)}</p> : null
               }
               {
                 this.state.surveyData.aspect ?
@@ -489,23 +495,23 @@ class SurveyEntry extends Component {
           <div id="tide-section" style={{ display: 'none' }}>
             <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
               <h3 className="uk-card-title">Tide Information</h3>
-              <h4>The Last Tide</h4>
+              <h4>Last Tide</h4>
               <div>
                 {
                   this.state.surveyData.lastTide ?
                     (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.lastTide.type}</p>
+                      <p><strong>Type:</strong> {this.toTitleCase(this.state.surveyData.lastTide.type)}</p>
                       <p><strong>Time:</strong> {this.state.surveyData.lastTide.time}</p>
                       <p><strong>Height:</strong> {this.state.surveyData.lastTide.height}</p>
                     </div>) : null
                 }
               </div>
-              <h4>The Next Tide</h4>
+              <h4>Next Tide</h4>
               <div>
                 {
                   this.state.surveyData.nextTide ?
                     (<div>
-                      <p><strong>Type:</strong> {this.state.surveyData.nextTide.type}</p>
+                      <p><strong>Type:</strong> {this.toTitleCase(this.state.surveyData.nextTide.type)}</p>
                       <p><strong>Time:</strong> {this.state.surveyData.nextTide.time}</p>
                       <p><strong>Height:</strong> {this.state.surveyData.nextTide.height}</p>
                     </div>) : null
@@ -551,6 +557,3 @@ class SurveyEntry extends Component {
 }
 
 export default SurveyEntry;
-
-
-
