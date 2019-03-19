@@ -24,7 +24,7 @@ const reasonTypeSchema = joi.object({
 const tideDataSchema = joi.object({
     type: joi.string().valid(['low', 'high']).valid().required(),
     time: joi.string().regex(/^$|^(([01][0-9])|(2[0-3])):[0-5][0-9]$/).required(),
-    height: joi.number().integer().min(0).required()
+    height: joi.number().required()
 });
 
 const majorUseSchema = joi.object({
@@ -61,9 +61,8 @@ const surveyDataSchema = joi.object({
     wind: windDataSchema.required(),
     majorUse: majorUseSchema.required(),
     numOfP: joi.number().min(0).required(),
-    SRSDebris: joi.array().items(debrisData).max(17).optional(),
-    ASDebris: joi.array().items(debrisData).max(17).optional(),
-    weight: joi.number().min(0).required()
+    SRSDebris: joi.array().items(debrisData).max(18).optional(),
+    ASDebris: joi.array().items(debrisData).max(18).optional()
 });
 
 const beachDataSchema = joi.object({

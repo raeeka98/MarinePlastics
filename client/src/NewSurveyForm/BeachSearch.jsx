@@ -13,7 +13,7 @@ class BeachSearch extends Component {
     timeout: null, //prevents pinging backend too much
     showItems: false, //if true, show suggestions
   }
-  
+
   //ping backend for results
   getInfo = () => {
     if (this.state.query) {
@@ -27,7 +27,7 @@ class BeachSearch extends Component {
       this.setState({ results: []});
     }
   }
-  
+
   //called when the input is changed
   handleInputChange = () => {
     this.props.setSurveyData('beachName', this.search.value);
@@ -39,7 +39,7 @@ class BeachSearch extends Component {
       that.getInfo();
     }, 250)});
   }
-  
+
   //called when a suggestion is clicked
   onSuggestionClick = (res) => {
     this.search.value = res.n;
@@ -48,7 +48,7 @@ class BeachSearch extends Component {
     this.props.setSurveyData('beachID', res._id);
     this.setState({ query: res.n, showItems: false});
   }
-  
+
   render() {
     //List of suggestions
     const Suggestions = (props) => {
@@ -68,7 +68,7 @@ class BeachSearch extends Component {
     }
 
     return (
-      <div onMouseLeave={()=>this.setState({showItems: false})}>
+      <div>
         <label>Name<span className="uk-text-danger">*</span></label>
         <input id="beachName" className="uk-input uk-margin"
           placeholder="Name of Beach"

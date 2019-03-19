@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
 import ASRowReview from '../TableRows/ASRowReview';
-import { getDebrisNameById } from '../debrisInfo';
 import {getDebrisMap} from '../debrisInfo';
 
 const debrisInfo = getDebrisMap();
@@ -30,24 +29,19 @@ class Review extends Component {
         ...
       }
     */
-    var index = 0;
     for(const key in this.props.SRSData) {
-      let parsedKey = key.split('__')[0];
-      let ribRow = parseInt(key.split('__')[2]) - 1;
-      if(index >= 0 && index < 4) {
-        // If we're looking at the fresh debris
-        if(index === 0)
-          parsedRows[parsedKey] = {fresh : [], weathered : []};
-        parsedRows[parsedKey].fresh.push(this.props.SRSData[key]); 
-      } else {
-        parsedRows[parsedKey].weathered.push(this.props.SRSData[key]);
+      //keys of the form item__condition__rib
+      let item = key.split('__')[0];
+      let condition = key.split('__')[1];
+      let rib = key.split('__')[2] - 1; 
+      //store info in parsedRows
+      if (!parsedRows[item]) {
+        parsedRows[item] = {fresh: new Array(4), weathered: new Array(4)};
       }
-      index = ++index % 8;
+      parsedRows[item][condition][rib] = this.props.SRSData[key];
     }
-    console.log(parsedRows);
     // Now take the parsed data and then create row objects for each 
     for (const key in parsedRows) {
-      console.log(parsedRows[key]);
       SRSRows.push(
         <RibScanRowReview 
           id = {key}
@@ -58,21 +52,18 @@ class Review extends Component {
         />
       )
     }
-    console.log(this.props.ASData);
     // Now we do a similar thing for the As Data
     parsedRows = {};
-    index = 0;
     for(const key in this.props.ASData) {
       let parsedKey = key.split('__')[0];
       let freshWeath = key.split('__')[1];
       if(!parsedRows[parsedKey]) 
-        parsedRows[parsedKey] = {};
+        parsedRows[parsedKey] = {fresh: 0, weathered:0};
       
       parsedRows[parsedKey][freshWeath] = this.props.ASData[key];
     }
 
     // Render the rows
-    console.log(parsedRows);
     for (const key in parsedRows){
       ASRows.push(
         <ASRowReview
@@ -229,15 +220,6 @@ class Review extends Component {
         </div>
 
         <br></br>
-
-        <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Total Weight:</h3>
-
-            {d.weight ?
-              (<p><b>{d.weight}</b></p>) :
-              (<p>No weight inputted</p>)
-            }
-        </div>
 
       </div>
     );

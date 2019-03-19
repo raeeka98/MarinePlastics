@@ -6,7 +6,6 @@ import axios from 'axios';
 import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 // to get the pin styles
 import '../Map/Map.css';
-import { sumDebrisTypes } from '../_helpers/ChartHelpers';
 
 const debrisInfo = getDebrisMap();
 
@@ -17,8 +16,6 @@ class Location extends Component {
     // this.props.location.state is where the Link passes the state to
     let beachData = this.props.location.state.data;
     let userProfile = this.props.location.state.userProfile;
-    /*let getUserProfile = this.props.location.state.getUserProfile;
-    let isAuth = this.props.location.state.isAuth;*/
 
     this.state = {
       beachData,
@@ -49,22 +46,21 @@ class Location extends Component {
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
         this.setState({ surveyIDs: res.data });
-        console.log(this.state.surveyIDs);
       })
       .then( () => {
         //Here, we're gonna need to make a promise so that we'll get the surveys in order
         let promise = [];
         let trueSurveys = [];
         for(var i = 0; i < this.state.surveyIDs.length; i++){
-          //while(i !== 0 && !this.state.surveys);
           promise.push(axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
             
         }
         // Then, take that promise and fill the surveys field in the correct order 
         axios.all(promise)
           .then((response) => {
-            response.map(res => {
-              trueSurveys.push(res.data.survData);
+            response.map(res => {trueSurveys.push(res.data.survData)
+              console.log(res.data);
+
             })
           })
           .then(() => this.setState({surveys: trueSurveys}));
@@ -72,7 +68,6 @@ class Location extends Component {
         // Then, grab the stats for the beach
       axios.get(`/beaches/${this.state.beachData._id}/stats`)
       .then( res => {
-        console.log(res.data);
         var categories = res.data.typesOfDebrisFound;
         var total = 0;
         var cleanCategories = {};
@@ -99,19 +94,15 @@ class Location extends Component {
         var bData = this.state.beachData;
         bData.lon = res.data.lon;
         bData.lat = res.data.lat;
-        console.log(res.data);
         this.setState({beachData: bData});
       })
-      .then(() => { 
-        console.log(this.state.beachData);
-      });
 
   }
 
   componentDidMount() {
     this.getStats();
+    // There's no latitude or longitude, we need to fetch it from the server
     if(!this.state.beachData.lat && !this.state.beachData.lon){
-      console.log("Null lat lon");
       this.getLatLon();
     }
     
@@ -120,7 +111,7 @@ class Location extends Component {
 
   render() {
     let { lat, lon, name: beachName } = this.state.beachData;
-    
+    console.log(this.state.surveys);
     let surveys = [];
     // for every entry, returns a link to the entry page
     // text is the date cleanup happened
@@ -152,7 +143,6 @@ class Location extends Component {
       <div className="uk-container">
         <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
         <div className="uk-grid uk-grid-match">
-          {console.log(this.state.surveys)}
           <ColumnChart chartData={this.state.surveys} />
           <div className="uk-width-1-4">
             <div className="uk-card uk-card-default uk-card-body">
@@ -186,7 +176,6 @@ class Location extends Component {
           }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
-            {console.log(this.state.beachStats)}
             <PieChart chartData={this.state.beachStats} />
           </div>
         </div>

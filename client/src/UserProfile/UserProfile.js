@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { userFind } from '../_helpers/SortHelper';
-
 
 class UserProfile extends Component {
   constructor(props) {
@@ -62,8 +60,6 @@ class UserProfile extends Component {
         </div>
         <div className="uk-card-body">
             <p>Email: <a href={`mailto:${ profile.email }`}>{ profile.email }</a></p>
-            <p>Cleanups:</p>
-            <ul id="user-entries" className="uk-list uk-list-bullet"></ul>
         </div>
       </div>
     );

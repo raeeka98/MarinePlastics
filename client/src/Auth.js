@@ -25,10 +25,7 @@ export default class Auth {
   }
 
   async login() {
-    let result = await this.auth0.authorize();
-    // want to redirect here but doesnt work correctly (redirects before auth)
-
-    //window.location.replace('/home');
+    await this.auth0.authorize();
   }
   handleAuthentication(fn) {
     this.auth0.parseHash((err, authResult) => {
@@ -77,9 +74,9 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    let base = encodeURIComponent(process.env.REACT_APP_AUTH_LOGIN_REDIRECT_URI);
+    let base = encodeURIComponent(process.env.REACT_APP_AUTH_LOGOUT_REDIRECT_URI);
     window.location.replace('https://' + process.env.REACT_APP_AUTH_DOMAIN + '/v2/logout?returnTo=' + 
-      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logo ut of auth0 */
+      base + '&client_id=' + process.env.REACT_APP_AUTH_CLIENT_ID); /* Logout of auth0 */
   }
 
   isAuthenticated() {

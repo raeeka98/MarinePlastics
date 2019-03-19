@@ -25,3 +25,8 @@ a {
 a:hover {
     color: #009b9b
 }
+
+input.invalidInput {
+    border: 1px solid #f0506e;
+    background-color: #faeaed;
+}

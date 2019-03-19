@@ -26,8 +26,8 @@ router.route('/')
         let { s: skip } = req.query;
         let b = await beaches.getBeachNames(skip);
         console.log(b);
-        for (var i in b) {
-            b[i].n = b[i].n.replace("_", " ");
+        for (var i in b){
+            b[i].n = b[i].n.replace(/_/g, " ");
         }
         //returns array of beach names and their ids
         //[{_id:1234,n:"testb"}]
@@ -67,8 +67,8 @@ router.route('/map')
     //get all beaches with lon and lat
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
-        for (let idx = 0; idx < points.length; idx++) {
-            points[idx].n = points[idx].n.replace("_", " ");
+        for(let idx = 0; idx < points.length; idx++){
+            points[idx].n = points[idx].n.replace(/_/g, " ");
         }
         res.json(points);
     }));
@@ -77,8 +77,8 @@ router.route('/search')
         let { q: query } = req.query;
         query = query.replace(" ", "_");
         let matchedQuery = await beaches.queryBeachNames(query);
-        for (const key in matchedQuery) {
-            matchedQuery[key].n = matchedQuery[key].n.replace("_", " ");
+        for(const key in matchedQuery) {
+            matchedQuery[key].n = matchedQuery[key].n.replace(/_/g, " "); 
         }
         console.log(matchedQuery);
         res.json(matchedQuery);
@@ -116,7 +116,7 @@ router.route('/surveys')
             res.json({ survID: surv._id });
         } catch (err) {
             console.log(err);
-            res.json(err);
+            res.status(500).send({error: err})
         }
 
     }));
@@ -131,6 +131,7 @@ router.route('/surveys/:surveyID')
         let surveyID = req.params.surveyID;
 
         let survey = await surveys.get(surveyID);
+        console.log(survey);
         let ownerID = survey.userID;
         survey.userID = undefined;
         let rtnMsg = { survData: survey, e: ownerID == clientID };
@@ -208,7 +209,7 @@ router.route('/:beachID/info')
     .get(asyncHandler(async (req, res) => {
         let bID = req.params.beachID;
         let data = await beaches.getInfo(bID);
-        data.nroName = data.nroName.replace("_", " ");
+        data.nroName = data.nroName.replace(/_/g, " ");
         res.json(data);
     }));
 

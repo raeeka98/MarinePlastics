@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import LocationBar from './LocationBar';
 import Map from '../Map/Map'
-
-import { locationSort, locationFind, debrisFind, userFind, orgFind } from '../_helpers/SortHelper';
-import { getTotalPounds } from '../_helpers/ChartHelpers';
+import { lastModFilter, beachNameFilter } from '../_helpers/SortHelper';
 import './home.css';
 
 class Home extends Component {
@@ -15,7 +12,7 @@ class Home extends Component {
       data: [],
       rawData: [],
       searchResult: [],
-      filter: 'beach',
+      filter: 'mod',
       loaded: false,
       error: false,
 
@@ -27,9 +24,10 @@ class Home extends Component {
     this.loadBeaches = this.loadBeaches.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleSearchTypeChange = this.handleSearchTypeChange.bind(this);
     this.getTotalDebris = this.getTotalDebris.bind(this);
     this.handleViewTypeChange = this.handleViewTypeChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.changeFilter = this.changeFilter.bind(this);
     this.url = '/beaches';
   }
 
@@ -41,10 +39,8 @@ class Home extends Component {
           beaches: res.data,
           loaded: true
         });
-        //console.log(this.state.beaches);
       })
       .catch(err => {
-        console.log(err.message);
         this.setState({
           loaded: true,
           error: true
@@ -52,55 +48,66 @@ class Home extends Component {
       })
   }
 
-  handleSearchTypeChange(e) {
-    this.setState({ filter: e.target.value });
-    this.handleSearch(document.getElementById("searchBar").value, e.target.value);
+
+  async handleViewTypeChange(e) {
+    await this.setState({ view: e.target.value });
+    let container = document.getElementById("mainContainer");
+
+    // Change the state to display the list only
+    if (this.state.view === "list") {
+      container.classList.add("list-view");
+      container.classList.remove("map-view");
+      container.classList.remove("split-view");
+    }
+
+    //Display the map only  
+    if (this.state.view === "map") {
+      container.classList.add("map-view");
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+    }
+
+    //Display the split view
+    if (this.state.view === "split") {
+      container.classList.remove("list-view");
+      container.classList.remove("split-view");
+      container.classList.add("split-view");
+      
+    }
+  }
+
+  // Upon initial load, data is loaded by last modification (from the backend)
+  // Called when filter type is changed, then calls changeFilter() to reorder entries
+  async handleFilterChange(e) {
+    let filterName = e.target.value;
+    await this.setState({ filter: filterName})
+    this.changeFilter();    
+  }
+
+  async changeFilter() {
+    let filterName = this.state.filter;
+    if (filterName === 'mod') {
+      let sortedBeachList = await lastModFilter(this.state.beaches);
+      this.setState({ beaches: sortedBeachList });
+    }
+    else if (filterName === 'beach') {
+      let sortedBeachList = await beachNameFilter(this.state.beaches);
+      this.setState({ beaches: sortedBeachList });
+    }
   }
 
   handleSearchChange(e) {
     this.handleSearch(e.target.value, this.state.filter);
   }
 
-  async handleViewTypeChange(e) {
-    await this.setState({ view: e.target.value });
-    let container = document.getElementById("mainContainer");
-
-    // Add/Remove styling classes when view is changed
-    if (this.state.view === "list") {
-      console.log("state = list");
-      container.classList.add("list-view");
-      container.classList.remove("map-view");
-      container.classList.remove("split-view");
-    }
-
-    if (this.state.view === "map") {
-      console.log("state = map")
-      container.classList.add("map-view");
-      container.classList.remove("list-view");
-      container.classList.remove("split-view");
-    }
-
-    if (this.state.view === "split") {
-      console.log("state = split");
-      container.classList.add("split-view");
-      container.classList.remove("list-view");
-      container.classList.remove("split-view");
-    }
-  }
-
-
-  filterFunctions = {
-    beach: locationFind,
-    debris: debrisFind,
-    user: userFind,
-    org: orgFind
-  };
-
-  handleSearch(value, filter) {
+  /* 
+   * Query the database for beaches that match the substring that the use input 
+  */
+  handleSearch(value) {
     axios.get("/beaches/search", { params: { q: value } })
       .then(res => {
-        console.log(res.data);
         this.setState({ beaches: res.data });
+        this.changeFilter();
       }).catch(err => {
         console.log(err);
       });
@@ -139,8 +146,6 @@ class Home extends Component {
   styleMain () {
     let main = document.getElementById("mainContainer");
     let mainOffset = main.offsetTop;
-    console.log("mainOffset = " + mainOffset);
-    console.log("available space = " + (document.documentElement.clientHeight - mainOffset));
     let availSpace = document.documentElement.clientHeight - mainOffset;
     main.style.height = availSpace + "px";
   }
@@ -150,17 +155,14 @@ class Home extends Component {
     this.styleMain();
     this.loadBeaches();
     this.getTotalDebris();
-    //this.loadCommentsFromServer();
   }
 
   render() {
-    //console.log(this.props.userProfile)
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
 
       let path = location.n.replace(" ", "");
       let entryString = location.numOfSurveys > 1 ? 'Entries' : 'Entry';
-      console.log(location.numOfSurveys);
 
       return <LocationBar
         key={i}
@@ -168,13 +170,8 @@ class Home extends Component {
         path={path}
         entryString={entryString}
         userProfile={this.props.userProfile}
-        //getUserProfile={this.props.getUserProfile}
-        //sisAuth={this.props.isAuth}
       />
     });
-
-    console.log(this.state.rawData);
-    let totalWeight = this.state.totalWeight;
 
     return (
 
@@ -193,11 +190,9 @@ class Home extends Component {
               </div>
 
               <div className="uk-width-1-5">
-                <select className="uk-select uk-form" id='type' onChange={this.handleSearchTypeChange}>
-                  <option value="beach">By Beach</option>
-                  <option value="debris">By Debris</option>
-                  <option value="user">By Team Leader</option>
-                  <option value="org">By Organization</option>
+                <select className="uk-select uk-form" id='type' onChange={this.handleFilterChange}>
+                  <option value="mod">Last Modified</option>
+                  <option value="beach">Beach Name</option>
                 </select>
               </div>
 
@@ -206,7 +201,7 @@ class Home extends Component {
                   <option value="split">List and Map</option>
                   <option value="list">List</option>
                   <option value="map">Map</option>
-                  
+
                 </select>
               </div>
             </form>
@@ -226,11 +221,11 @@ class Home extends Component {
             }
 
             { this.state.view === 'split'
-              ? <div className="uk-flex uk-flex-row">
+              ? <div className="uk-flex uk-flex-row uk-margin">
                   <div className="uk-width-1-3">
-                    <div id="locations" 
-                          className="uk-background-muted uk-padding uk-height-expand" 
-                          data-uk-height-viewport="offset-top: true" 
+                    <div id="locations"
+                          className="uk-background-muted uk-padding uk-height-expand"
+                          data-uk-height-viewport="offset-top: true"
                           style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                       {this.showEntries(locationNodes)}
                     </div>
