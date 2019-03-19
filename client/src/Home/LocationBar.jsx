@@ -8,12 +8,7 @@ class LocationBar extends Component {
         super(props);
         this.state = {
             surveys: [],
-<<<<<<< HEAD
-            lat: [0,0,0],
-            lon: [0,0,0],
-=======
             loading: false,
->>>>>>> Development
             clicked: false //Prevents the user from spamming the click button and loading the surveys multiple times
         }
         this.getSurveysFromBeach = this.getSurveysFromBeach.bind(this);
