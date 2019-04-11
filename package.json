@@ -10,7 +10,7 @@
         "server": "nodemon server.js ",
         "postinstall": "npm install --prefix client",
         "dev": "concurrently --kill-others \"npm run client\" \"npm run server\"",
-        "heroku-postbuild" : "npm install --prefix client && npm run build --prefix client"
+        "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
     },
     "repository": {
         "type": "git",
@@ -29,7 +29,9 @@
         "express-sanitizer": "^1.0.5",
         "express-validator": "^5.3.1",
         "joi": "^14.3.1",
-        "mongoose": "^5.4.8"
+        "mongoose": "^5.4.8",
+        "passport": "^0.4.0",
+        "passport-google-oauth": "^2.0.0"
     },
     "devDependencies": {
         "nodemon": "^1.18.10"

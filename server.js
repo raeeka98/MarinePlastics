@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const path = require('path');
 const app = express();
+const loginRoute = require("./routes/login");
 const { router: dataEntryRouter } = require('./routes/dataEntry');
 //set our port to either a predetermined port number if you have set it up, or 3001
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -23,6 +24,7 @@ app.use(function(err, req, res, next) {
 
 //Use our router configuration when we call /api
 app.use('/beaches', dataEntryRouter);
+app.use(loginRoute);
 
 app.get('/pdfs/COIDataSheet_Oct_24.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_Oct_24.pdf')));
 
