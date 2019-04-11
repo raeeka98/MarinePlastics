@@ -12,6 +12,24 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 let Schema = mongoose.Schema;
 
+let userSchema = new Schema({
+    _id: {
+        type: String,
+        unique: true
+    },
+    admin: {
+        type: Boolean,
+        default: false
+    },
+    survSub: {
+        type: [String],
+        alias: "surveys_submitted"
+    }
+},
+{ _id: false, versionKey: false }
+)
+
+
 let newDataSchema = new Schema({
     fresh: { type: Number },
     weathered: { type: Number }
@@ -310,6 +328,7 @@ const beachModel = mongoose.model('Beaches', beachSchema);
 const surveyModel = mongoose.model('Surveys', surveySchema);
 const yearSurveyModel = mongoose.model("YearSurveys", yearSurveySchema);
 const yearTotalsModel = mongoose.model("YearTotals", yearTotalsSchema);
+const userModel = mongoose.model("Users", userSchema);
 
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
