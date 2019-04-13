@@ -1,4 +1,4 @@
-let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel } = require('./mongooseSchemas');
+let { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel, userModel } = require('./mongooseSchemas');
 
 /*--------------database helpers-------------------*/
 
@@ -330,6 +330,24 @@ let beaches = {
     }
 }
 
+let users = {
+    addUser: async function(userID) {
+        let userData = {
+            _id: userID,
+            admin: false,
+            survSub: []
+        }
+        let newUser = new userModel(userData);
+        let userRes = await newUser.save();
+        return userRes;
+    },
+    getUserInfo: async function(userID) {
+        let userInfo = await userModel.findOne({_id: userID}).exec();
+        console.log(userInfo)
+        return userInfo;
+    }
+}
+
 function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, date } = updatePayload;
@@ -498,5 +516,6 @@ async function test1 () {
 module.exports = {
     beaches,
     surveys,
-    trash
+    trash,
+    users
 };

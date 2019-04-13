@@ -19,6 +19,7 @@ import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
 import PageNotFound from './PageNotFound/PageNotFound';
 import SurveyEntryEdit from "./SurveyEntry/surveyEntryEdit";
+import GoogleLogin from "./GoogleLogin";
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -83,7 +84,7 @@ class App extends Component {
                   render={() => (
                     !this.auth.isAuthenticated()
                       ? <Redirect to='/' />
-                      : <UserProfile auth={this.auth} />
+                      : <UserProfile auth={this.auth} userProfile={this.state.userProfile} />
                   )}
                 />
                 <Route exact path='/protocol' component={ Protocol } />
@@ -93,6 +94,7 @@ class App extends Component {
                 <Route exact path='/about' component={ About } />
               
                 <Route path='/chooseform' component={ ChooseForm } />
+                  <Route path='/googlelogin' render={()=> <GoogleLogin userProfile={this.state.userProfile}/>} />
 
                 <Route component={PageNotFound} />
               </Switch>

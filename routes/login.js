@@ -1,15 +1,28 @@
-const passport = require("../server_modules/passport");
+'use strict';
+let {users} = require('../server_modules/mongoose');
 let router = require('express').Router();
 
-router.get("/auth/google",
-    passport.authenticate("google", { scope: ["https://www.googleapis.com/auth/userinfo.profile"] })
-);
+/** 
+ * @param {Promise} fn
+ */
 
-router.get("/auth/google/cb",
-    passport.authenticate("google", { failureRedirect: "/" }),
-    function(req, res) {
-        res.redirect('/');
+let asyncHandler = fn => 
+    (req, res, next) => {
+        Promise.resolve(fn(req, res, next)).catch(next);
     }
-);
 
-module.exports = router;
+router.route('/:userID')
+    /* Create the new user schema */
+    .post(asyncHandler(async(req, res) => {
+        let userID = req.params.userID;
+        let createdUser = await users.addUser(userID);
+        res.json({res: "Successfully added user", userData: createdUser})
+    }))
+
+    .get(asyncHandler(async(req, res) => {
+        let userID = req.params.userID;
+        let userData = await users.getUserInfo(userID);
+        res.json(userData);
+    }));
+
+module.exports = {router};

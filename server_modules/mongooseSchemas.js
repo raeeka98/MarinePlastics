@@ -26,7 +26,7 @@ let userSchema = new Schema({
         alias: "surveys_submitted"
     }
 },
-{ _id: false, versionKey: false }
+{ versionKey: false }
 )
 
 
@@ -333,4 +333,4 @@ const userModel = mongoose.model("Users", userSchema);
 
 // const commentModel = mongoose.model('Comment', CommentsSchema);
 
-module.exports = { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel };
+module.exports = { beachModel, surveyModel, yearSurveyModel, trashModel, yearTotalsModel, userModel };

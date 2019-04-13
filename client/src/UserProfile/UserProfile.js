@@ -6,51 +6,67 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: {},
+      profile: this.props.userProfile,
       data: [],
     }
 
-    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
+    this.loadSubmittedSurveys = this.loadSubmittedSurveys.bind(this);
     this.addUserEntries = this.addUserEntries.bind(this);
-    this.url = '/beaches';
+    this.renderCleanupDates = this.renderCleanupDates.bind(this);
+    this.url = '/login';
   }
 
-  loadCommentsFromServer() {
-    axios.get(this.url)
+  loadSubmittedSurveys() {
+    //console.log(this.state.profile)
+
+    let userID = this.props.userProfile.sub ? this.props.userProfile.sub.split("|")[1] : "";
+    axios.get(this.url + `/${userID}`)
       .then(res => {
         this.setState({ data: res.data });
+        console.log(res.data)
       });
   }
 
   addUserEntries(data) {
     let root = document.getElementById('user-entries');
-    let newHTML = "";
-    for (let i = 0; i < data.length; i++) {
-      for (let j= 0; j < data[i].entries.length; j++) {
-        newHTML += ("<li><a href='/entry/" + data[i].entries[j]._id + "'/>" + data[i].entries[j].date +"</a></li>");
+    let newHTML = "Cleanups";
+      for (let j= 0; j < data.survSub.length; j++) {
+        newHTML += ("<li><a href='/entry/" + data[j] + "'/>" + data[j] +"</a></li>");
       }
-    }
+
     root.innerHTML = newHTML;
+  }
+
+  renderCleanupDates() {
+    const {data} = this.state;
+    console.log(data)
+    const {survSub} = data;
+    if(!survSub){
+      console.log("Not rendering");
+      return
+    }
+    var surveyDates = [];
+    console.log("Rendering...");
+    for(var i = 0; i < survSub.length; i++){
+      surveyDates.push(
+        <li>{survSub[i]}</li>
+      )
+    }
+    return surveyDates;
   }
 
   // returns profile from auth0 when component loads
   componentWillMount() {
-    const { userProfile, getLoggedInProfile } = this.props.auth;
-    if (!userProfile) {
-      getLoggedInProfile((err, profile) => {
-        this.setState({ profile });
-      });
-    } else {
-      this.setState({ profile: userProfile });
-    }
+    
+    this.loadSubmittedSurveys();
   }
 
   componentDidMount() {
-    this.loadCommentsFromServer();
   }
 
   render() {
     const { profile } = this.state;
+    console.log(profile)
     return (
       <div className="uk-card uk-card-default uk-width-1-4 uk-align-center">
         <div className="uk-card-header uk-align-center">
@@ -60,6 +76,10 @@ class UserProfile extends Component {
         </div>
         <div className="uk-card-body">
             <p>Email: <a href={`mailto:${ profile.email }`}>{ profile.email }</a></p>
+            <p>Cleanups:</p>
+            <ul>
+              {this.renderCleanupDates()}
+            </ul>
         </div>
       </div>
     );
