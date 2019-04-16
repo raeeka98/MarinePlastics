@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import { resolve } from 'url';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/home', for prod
 redirectUri: 'http://localhost:3000/home', for dev*/
@@ -30,14 +31,17 @@ export default class Auth {
         await this.auth0.authorize();
     }
     handleAuthentication(fn) {
-        this.auth0.parseHash((err, authResult) => {
-            if (authResult && authResult.accessToken && authResult.idToken) {
-                this.setSession(authResult);
-                window.location.replace('/home');
-            } else if (err) {
-                fn(err.errorDescription);
-            }
-        });
+        return new Promise( (res,rej)=>{
+            this.auth0.parseHash((err, authResult) => {
+                if (authResult && authResult.accessToken && authResult.idToken) {
+                    this.setSession(authResult);
+                    res();
+                    // window.location.replace('/home');
+                } else if (err) {
+                    rej(err.errorDescription);
+                }
+            });
+        })
     }
 
     setSession(authResult) {
@@ -54,7 +58,6 @@ export default class Auth {
     }
 
     getProfile(token, cb) {
-        // let accessToken = this.getAccessToken();
         this.auth0.client.userInfo(token, (err, profile) => {
             if (profile) {
                 this.userProfile = profile;
