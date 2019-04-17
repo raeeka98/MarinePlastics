@@ -9,7 +9,7 @@ export default class Auth {
         clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
         redirectUri: process.env.REACT_APP_AUTH_LOGIN_REDIRECT_URI,
         responseType: 'token id_token',
-        scope: 'openid email profile'
+        scope: 'openid email profile roles '
     });
     accessToken;
     idToken;

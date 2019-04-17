@@ -40,6 +40,8 @@ class App extends Component {
       .then(() => {
         if (this.auth.isAuthenticated()) {
           this.auth.getLoggedInProfile((err, profile) => {
+            console.log(profile);
+            
             this.setState({ userProfile: profile });
           });
 
