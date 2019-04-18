@@ -37,18 +37,21 @@ class App extends Component {
 
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
-    this.auth.handleAuthentication(error => {
-      this.setState({ error });
-    });
+    this.auth.handleAuthentication()
+      .then(() => {
+        if (this.auth.isAuthenticated()) {
+          this.auth.getLoggedInProfile((err, profile) => {
+            this.setState({ userProfile: profile });
+          });
 
-    if (this.auth.isAuthenticated()) {
-      this.auth.getLoggedInProfile((err, profile) => {
-        this.setState({ userProfile: profile });
-      });
+        } else {
+          this.setState({ userProfile: null });
+        }
+      })
+      .catch(err => {
+        this.setState({ err });
 
-    } else {
-      this.setState({ userProfile: null });
-    }
+      })
   }
 
   render() {
@@ -74,9 +77,9 @@ class App extends Component {
                 <Route exact path='/home' render={() => <Home userProfile={this.state.userProfile} />} />
 
                 {/* for testing new component: */}
-                <Route path='/survey' render={()=><SurveyForm auth={this.auth}/>}/>
+                <Route path='/survey' render={() => <SurveyForm auth={this.auth} />} />
                 <Route path='/location/:beachID' component={LocationPage} />
-                <Route path="/:beachName/:surveyID/edit" component={SurveyEntryEdit}/>
+                <Route path="/:beachName/:surveyID/edit" component={SurveyEntryEdit} />
                 <Route path='/:beachName/:surveyID' component={SurveyEntry} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
                 <Route
@@ -87,14 +90,20 @@ class App extends Component {
                       : <UserProfile auth={this.auth} userProfile={this.state.userProfile} />
                   )}
                 />
-                <Route exact path='/protocol' component={ Protocol } />
-                <Route exact path='/about' component={ About } />
-                <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />}/>
+                <Route exact path='/protocol' component={Protocol} />
+                <Route exact path='/about' component={About} />
+                <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />} />
 
+<<<<<<< HEAD
                 <Route exact path='/about' component={ About } />
               
                 <Route path='/chooseform' component={ ChooseForm } />
                   <Route path='/googlelogin' render={()=> <GoogleLogin userProfile={this.state.userProfile}/>} />
+=======
+                <Route exact path='/about' component={About} />
+
+                <Route path='/chooseform' component={ChooseForm} />
+>>>>>>> admin-prev
 
                 <Route component={PageNotFound} />
               </Switch>
