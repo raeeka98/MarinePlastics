@@ -102,6 +102,9 @@ class SurveyEntry extends Component {
       .then(() => {
         this.getBeachInfo();
       })
+      .then(() => {
+        this.isUserAdmin();
+      })
   }
 
   getBeachInfo = () => {
@@ -233,6 +236,18 @@ class SurveyEntry extends Component {
     lonDeg = lonDeg * lonDir;
 
     this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
+  }
+
+  isUserAdmin = () => {
+    // If the user already can delete/edit their own survey then we don't care if they're an admin
+    if(this.state.editable === true)
+      return;
+    let userID = this.state.userProfile ? this.state.userProfile : ''
+    axios.get(`/login/${userID}`)
+      .then((res) => {
+        console.log(res.data)
+        this.setState({editable: res.data.admin})
+      })
   }
 
   // once the component is on the page, gets the surveyData from the server

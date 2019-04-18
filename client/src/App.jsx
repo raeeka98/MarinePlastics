@@ -94,16 +94,9 @@ class App extends Component {
                 <Route exact path='/about' component={About} />
                 <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />} />
 
-<<<<<<< HEAD
-                <Route exact path='/about' component={ About } />
-              
-                <Route path='/chooseform' component={ ChooseForm } />
-                  <Route path='/googlelogin' render={()=> <GoogleLogin userProfile={this.state.userProfile}/>} />
-=======
                 <Route exact path='/about' component={About} />
 
                 <Route path='/chooseform' component={ChooseForm} />
->>>>>>> admin-prev
 
                 <Route component={PageNotFound} />
               </Switch>
