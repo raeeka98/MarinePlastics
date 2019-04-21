@@ -24,7 +24,7 @@ app.use(function(err, req, res, next) {
 //Use our router configuration when we call /api
 app.use('/beaches', dataEntryRouter);
 
-app.get('/pdfs/COIDataSheet_Oct_24.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_Oct_24.pdf')));
+app.get('/pdfs/COIDataSheet_4_16_19.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_4_16_19.pdf')));
 
 app.get('*', (req, res) => res.sendFile(reactPath));
 
