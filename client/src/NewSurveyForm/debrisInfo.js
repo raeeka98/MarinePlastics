@@ -24,6 +24,32 @@ const DebrisInfoID = {
   "Other : Wood / Paper"              : "otherWoodPaper"
 }
 
+const AllDebris = {
+  cigaretteButts     : "Cigarette Butts"                  ,
+  fishingLineRope    : "Fishing Line / Polypropylene Rope",
+  plasticCups        : "Plastic Cups"                     ,
+  plasticStraws      : "Plastic Straws"                   ,
+  filmedPlastic      : "Filmed Plastic"                   ,
+  miscPlastic        : "Misc. Plastic"                    ,
+  plasticBottlesCaps : "Plastic Bottles / Plastic Caps"   ,
+  styrofoam          : "Styrofoam"                        ,
+  woodPaper          : "Wood / Paper"                     ,
+  foodOrganic        : "Food / Organic"                   ,
+  urethaneFoam       : "Urethane Foam"                    ,
+  metal              : "Metal"                            ,
+  glass              : "Glass"                            ,
+  cottonCloth        : "Cotton / Cloth"                   ,
+  aluminumCans       : "Aluminum Cans"                    ,
+  hygieneItems       : "Hygiene Items"                    ,
+  tileBrick          : "Tile / Brick"                     ,
+  styrofoamUrethane  : "Styrofoam / Urethane"             ,
+  otherPlastics      : "Other : Plastics"                 ,
+  otherFoodOrganics  : "Other : Food / Organics"          ,
+  otherCottonCloth   : "Other : Cotton / Cloth"           ,
+  otherWoodPaper     : "Other : Wood / Paper"             ,
+  misc               : "Misc. (general)"
+}
+
 const debrisNames = Object.values(DebrisInfo);
 
 function getDebrisNameById(id){
@@ -38,4 +64,8 @@ function getDebrisMap(){
     return DebrisInfo;
 }
 
-export { getDebrisNameById, getDebrisMap , debrisNames ,getDebrisID}
+function getAllDebris() {
+    return AllDebris;
+}
+
+export { getDebrisNameById, getDebrisMap , debrisNames ,getDebrisID, getAllDebris}
