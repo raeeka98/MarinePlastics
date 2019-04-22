@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { PieChart } from './SurveyCharts'
-import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
+import { getAllDebris } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import './surveyEntry.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebris();
 
 
 class SurveyEntry extends Component {
@@ -222,7 +222,7 @@ class SurveyEntry extends Component {
     latSec = (Math.trunc((latSec*100))/100);
     let latDir = Math.sign(latDeg);
     latDeg = latDeg * latDir;
-    
+
     let lon = this.state.info.lon;
     let lonDeg = Math.floor(lon);
     tempDecimal = (lon - lonDeg) * 60;
