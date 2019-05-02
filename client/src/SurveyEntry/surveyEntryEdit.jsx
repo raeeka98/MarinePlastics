@@ -166,10 +166,13 @@ class SurveyEntryEdit extends Component {
       changedInfo: { ...this.state.newData }
     }
     axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
-      finalData)
+      finalData, {
+        headers: {
+          Authorization:`Bearer ${this.props.auth.getAccessToken()}`
+        }
+      })
       .then(res => {
       });
-    this.setState({editSurvey: true});
   }
 
   render() {
@@ -177,15 +180,15 @@ class SurveyEntryEdit extends Component {
     if (this.state.deletedComment) return <Redirect to="/home" />
     if (this.state.editSurvey) {
       return <Redirect to={
-          {
-            pathname : `/surveys/${this.state.surveyData._id}`,
-            state: {
-              beachName: this.state.beachName,
-              info: this.state.info,
-              userProfile: this.state.userProfile 
-            }
+        {
+          pathname: `/surveys/${this.state.surveyData._id}`,
+          state: {
+            beachName: this.state.beachName,
+            info: this.state.info,
+            userProfile: this.state.userProfile
           }
-        } />
+        }
+      } />
     }
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
@@ -285,7 +288,7 @@ class SurveyEntryEdit extends Component {
           <div id="survey-area-section" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
-              <div className="uk-padding-small uk-padding-remove-horizontal"> 
+              <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>GPS Coordinates</p>
                 <p className="uk-text-small uk-margin-small-left">Lat: <span className="uk-text-muted">{this.state.info.lat}</span></p>
                 <p className="uk-text-small uk-margin-small-left">Lon: <span className="uk-text-muted">{this.state.info.lon}</span></p>
@@ -302,10 +305,10 @@ class SurveyEntryEdit extends Component {
                 </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
-                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false} />
                   </div>
                   <div className="uk-width-expand">
-                    <input className="uk-input uk-form-small" type="text" name="majorUse.reason.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other"/>
+                    <input className="uk-input uk-form-small" type="text" name="majorUse.reason.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other" />
                   </div>
                 </div>
               </div>
@@ -322,10 +325,10 @@ class SurveyEntryEdit extends Component {
                 </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
-                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false} />
                   </div>
                   <div className="uk-width-expand">
-                    <input className="uk-input uk-form-small" type="text" name="majorUse.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other"/>
+                    <input className="uk-input uk-form-small" type="text" name="majorUse.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.majorUse.other} placeholder="Other" />
                   </div>
                 </div>
               </div>
@@ -342,10 +345,10 @@ class SurveyEntryEdit extends Component {
                 </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
-                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false }/>
+                    <input className="uk-checkbox" type="checkbox" defaultChecked={this.state.surveyData.majorUse.other ? true : false} />
                   </div>
                   <div className="uk-width-expand">
-                    <input className="uk-input uk-form-small" type="text" name="st.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.st.other} placeholder="Other"/>
+                    <input className="uk-input uk-form-small" type="text" name="st.other" onChange={this.editSurveyData} defaultValue={this.state.surveyData.st.other} placeholder="Other" />
                   </div>
                 </div>
               </div>
@@ -361,7 +364,7 @@ class SurveyEntryEdit extends Component {
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Beach Aspect</p>
                 <input className="uk-input uk-form-small" type="text" name="aspect" onChange={this.editSurveyData} defaultValue={this.state.surveyData.aspect} />
-                
+
               </div>
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Wind Direction</p>
@@ -377,7 +380,7 @@ class SurveyEntryEdit extends Component {
                 <input className="uk-input uk-form-small" type="number" name="wind.spd" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.spd} />
               </div>
               <div className="uk-padding-small uk-padding-remove-horizontal">
-                <p>Nearest River</p> 
+                <p>Nearest River</p>
                 <input className="uk-input uk-form-small" type="text" name="info.nroName" onChange={this.editSurveyData} defaultValue={this.state.info.nroName} />
               </div>
               <div className="uk-padding-small uk-padding-remove-horizontal">
@@ -414,22 +417,22 @@ class SurveyEntryEdit extends Component {
                   <input className="uk-input uk-form-small" type="number" name="lastTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.lastTide.height} />
                 </div>
               </div>
-              
+
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <h4>The Next Tide</h4>
                 <div>
                   <p>Type</p>
-                    <select className="uk-select uk-form-small" name="nextTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.type}>
-                      <option value="low">Low</option>
-                      <option value="high">High</option>
-                    </select>
-                  
+                  <select className="uk-select uk-form-small" name="nextTide.type" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.type}>
+                    <option value="low">Low</option>
+                    <option value="high">High</option>
+                  </select>
+
                   <p>Time</p>
                   <input className="uk-input uk-form-small" type="time" name="nextTide.time" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.time} />
-                  
+
                   <p>Height</p>
                   <input className="uk-input uk-form-small" type="number" name="nextTide.height" onChange={this.editSurveyData} defaultValue={this.state.surveyData.nextTide.height} />
-                
+
                 </div>
               </div>
             </div>

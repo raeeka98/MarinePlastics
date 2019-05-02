@@ -81,7 +81,7 @@ class Home extends Component {
   // Called when filter type is changed, then calls changeFilter() to reorder entries
   async handleFilterChange(e) {
     let filterName = e.target.value;
-    await this.setState({ filter: filterName})
+    await this.setState({ filter: filterName })
     this.changeFilter();
   }
 
@@ -103,7 +103,8 @@ class Home extends Component {
     let query = e.target.value;
     this.setState({
       timeout: setTimeout(
-      () => that.handleSearch(query, that.state.filter), 250)});
+        () => that.handleSearch(query, that.state.filter), 250)
+    });
   }
 
   /*
@@ -119,18 +120,18 @@ class Home extends Component {
       });
   }
 
-  getTotalDebris(){
+  getTotalDebris() {
     axios.get(this.url + "/allstats")
       .then((res) => {
         let dataArray = res.data;
         var dataTotals = 0;
-        for(let i = 0; i < dataArray.length; i++){
+        for (let i = 0; i < dataArray.length; i++) {
           let rawStats = dataArray[i].stats.TODF;
-          for(const trash in rawStats){
+          for (const trash in rawStats) {
             dataTotals += rawStats[trash];
           }
         }
-        this.setState({totalWeight : dataTotals});
+        this.setState({ totalWeight: dataTotals });
       })
   }
 
@@ -149,7 +150,7 @@ class Home extends Component {
     );
   }
 
-  styleMain () {
+  styleMain() {
     let main = document.getElementById("mainContainer");
     let mainOffset = main.offsetTop;
     let availSpace = document.documentElement.clientHeight - mainOffset;
@@ -181,75 +182,75 @@ class Home extends Component {
 
     return (
 
-        <div className="uk-align-center">
+      <div className="uk-align-center">
 
-          <div className="uk-align-center uk-width-4-5">
-            <form className="uk-grid uk-grid-small">
-              <div className="uk-width-3-5">
-                <input
-                  className="uk-input uk-form"
-                  id="searchBar"
-                  type="search"
-                  onChange={this.handleSearchChange}
-                  placeholder="Search..."
-                />
-              </div>
+        <div className="uk-align-center uk-width-4-5">
+          <form className="uk-grid uk-grid-small">
+            <div className="uk-width-3-5">
+              <input
+                className="uk-input uk-form"
+                id="searchBar"
+                type="search"
+                onChange={this.handleSearchChange}
+                placeholder="Search..."
+              />
+            </div>
 
-              <div className="uk-width-1-5">
-                <select className="uk-select uk-form" id='type' onChange={this.handleFilterChange}>
-                  <option value="mod">Last Modified</option>
-                  <option value="beach">Beach Name</option>
-                </select>
-              </div>
+            <div className="uk-width-1-5">
+              <select className="uk-select uk-form" id='type' onChange={this.handleFilterChange}>
+                <option value="mod">Last Modified</option>
+                <option value="beach">Beach Name</option>
+              </select>
+            </div>
 
-              <div className="uk-width-1-5">
-                <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
-                  <option value="split">List and Map</option>
-                  <option value="list">List</option>
-                  <option value="map">Map</option>
+            <div className="uk-width-1-5">
+              <select className="uk-select uk-form" id="view-type" onChange={this.handleViewTypeChange}>
+                <option value="split">List and Map</option>
+                <option value="list">List</option>
+                <option value="map">Map</option>
 
-                </select>
-              </div>
-            </form>
-          </div>
+              </select>
+            </div>
+          </form>
+        </div>
 
-          <div id="mainContainer" className="split-view uk-align-center">
-            {this.state.view === 'list'
-              ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+        <div id="mainContainer" className="split-view uk-align-center">
+          {this.state.view === 'list'
+            ? <div id="locations" className="uk-background-muted uk-padding" style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
+              {this.showEntries(locationNodes)}
+            </div>
+            : null
+          }
+
+          {this.state.view === 'map'
+            ? <Map userProfile={this.props.userProfile} />
+            : null
+          }
+
+          {this.state.view === 'split'
+            ? <div className="uk-flex uk-flex-row uk-margin">
+              <div className="uk-width-1-3">
+                <div id="locations"
+                  className="uk-background-muted uk-padding uk-height-expand"
+                  data-uk-height-viewport="offset-top: true"
+                  style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
                   {this.showEntries(locationNodes)}
                 </div>
-              : null
-            }
+              </div>
+              <div className="uk-width-2-3">
+                <Map userProfile={this.props.userProfile} />
+              </div>
+            </div>
+            : null
+          }
 
-            { this.state.view === 'map'
-              ? <Map userProfile={this.props.userProfile}/>
-              : null
-            }
-
-            { this.state.view === 'split'
-              ? <div className="uk-flex uk-flex-row uk-margin">
-                  <div className="uk-width-1-3">
-                    <div id="locations"
-                          className="uk-background-muted uk-padding uk-height-expand"
-                          data-uk-height-viewport="offset-top: true"
-                          style={locationNodes.length > 1 ? { overflowY: 'scroll' } : null}>
-                      {this.showEntries(locationNodes)}
-                    </div>
-                  </div>
-                  <div className="uk-width-2-3">
-                    <Map userProfile={this.props.userProfile}/>
-                  </div>
-                </div>
-              : null
-            }
-
-          </div>
-          {/* <div className="uk-section uk-section-primary uk-margin-top">
+        </div>
+        {/* <div className="uk-section uk-section-primary uk-margin-top">
             <div className="uk-container">
               <h2 className="uk-text-center uk-heading">{totalWeight} pieces of marine debris picked up so far!</h2>
             </div>
           </div> */}
-        </div>
+      </div>
 
     );
   }
