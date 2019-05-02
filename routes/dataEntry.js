@@ -160,7 +160,9 @@ function verifySurveyJWT (checkjwt) {
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
-            let sameUser = req.user.sub.split('|')[1] === surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            console.log(sameUser);
+
             if (!sameUser) {
                 return res.json({ res: "Failed to submit" });
             }
@@ -173,20 +175,15 @@ function verifySurveyJWT (checkjwt) {
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
-            let sameUser = req.user.sub.split('|')[1] === surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            console.log(sameUser);
+
             if (!sameUser) {
                 return res.json({ res: "Failed to delete" });
             }
             await surveys.remove(bID, surveyID, dateOfSub);
             res.json({ message: 'survey has been deleted' })
         }));
-
-
-    router.route('/surveys/:surveyID/edit')
-        .get(asyncHandler(async (req, res) => {
-            res.send(req.query.id);
-        }))
-
 
     router.route('/surveys/:surveyID/date')
         .get(asyncHandler(async (req, res) => {
