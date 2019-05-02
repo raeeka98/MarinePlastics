@@ -41,7 +41,6 @@ class App extends Component {
         if (this.auth.isAuthenticated()) {
           this.auth.getLoggedInProfile((err, profile) => {
             console.log(profile);
-            
             this.setState({ userProfile: profile });
           });
 
@@ -75,13 +74,13 @@ class App extends Component {
               {/* if passing information (i.e. authentication) to the component, need to use render argument */}
               <Switch>
                 <Route exact path='/' render={() => (<Landing auth={this.auth} isAuth={this.state.error} disableError={() => { this.setState({ error: null }) }} />)} />
-                <Route exact path='/home' render={() => <Home userProfile={this.state.userProfile} />} />
+                <Route exact path='/home' render={() => <Home auth={this.auth} userProfile={this.state.userProfile} />} />
 
                 {/* for testing new component: */}
                 <Route path='/survey' render={() => <SurveyForm auth={this.auth} />} />
                 <Route path='/location/:beachID' component={LocationPage} />
-                <Route path="/:beachName/:surveyID/edit" component={SurveyEntryEdit} />
-                <Route path='/:beachName/:surveyID' component={SurveyEntry} />
+                <Route path="/:beachName/:surveyID/edit" render={props => <SurveyEntryEdit {...props} auth={this.auth} />} />
+                <Route path='/:beachName/:surveyID' render={props => (<SurveyEntry {...props} auth={this.auth} />)} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
                 <Route
                   path='/profile'
