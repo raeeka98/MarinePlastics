@@ -188,15 +188,23 @@ class SurveyEntry extends Component {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
           userID: this.state.userProfile ? this.state.userProfile.sub : ''
+        },
+        headers: {
+          Authorization: `Bearer ${this.props.auth.getAccessToken()}`
         }
       })
       .then(res => {
-        this.setState({
-          deletedComment: true
-        })
-        let closeModal = document.getElementById('closeModalButton');
-        closeModal.click();
-        alert("Survey deleted successfully.");
+        if (res.data.res === "fail") {
+          alert("Survey deleted failed.");
+        }
+        else {
+          this.setState({
+            deletedComment: true
+          })
+          let closeModal = document.getElementById('closeModalButton');
+          closeModal.click();
+          alert("Survey deleted successfully.");
+        }
       })
       .catch(err => {
         console.log(err)

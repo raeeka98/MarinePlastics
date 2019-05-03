@@ -164,10 +164,10 @@ function verifySurveyJWT (checkjwt) {
             console.log(sameUser);
 
             if (!sameUser) {
-                return res.json({ res: "Failed to submit" });
+                return res.json({ res: "fail" });
             }
             let updatedSurvey = await surveys.update(surveyID, updateData);
-            res.json({ res: "Success", surveyData: updatedSurvey });
+            res.json({ res: "success", surveyData: updatedSurvey });
         }))
         //delete an survey
         .delete(checkjwt, asyncHandler(async (req, res) => {
@@ -179,10 +179,10 @@ function verifySurveyJWT (checkjwt) {
             console.log(sameUser);
 
             if (!sameUser) {
-                return res.json({ res: "Failed to delete" });
+                return res.json({ res: "fail" });
             }
             await surveys.remove(bID, surveyID, dateOfSub);
-            res.json({ message: 'survey has been deleted' })
+            res.json({ res:"success" })
         }));
 
     router.route('/surveys/:surveyID/date')
@@ -220,7 +220,6 @@ router.route('/:beachID/stats')
         let { yr: year } = req.query;
         let stats = await beaches.getStats(bID, year);
         //stats.n = stats.n.replace(/_/g, " ");
-        console.log(stats);
         res.json(stats);
     }));
 

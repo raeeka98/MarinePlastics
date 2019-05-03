@@ -43,7 +43,8 @@ class SurveyEntryEdit extends Component {
       srsDebris,
       asDebris,
       asOptions,
-      srsOptions
+      srsOptions,
+      editedSurveyData: false
     };
   }
 
@@ -113,7 +114,6 @@ class SurveyEntryEdit extends Component {
     let path = pathStr.split(".");
     let oldData = { ...this.state.surveyData };
     let sendingData = { ...this.state.newData };
-
     if (path.length === 2) {
       oldData[path[0]][path[1]] = e.target.value;
       sendingData[pathStr] = e.target.value;
@@ -168,17 +168,21 @@ class SurveyEntryEdit extends Component {
     axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
       finalData, {
         headers: {
-          Authorization:`Bearer ${this.props.auth.getAccessToken()}`
+          Authorization: `Bearer ${this.props.auth.getAccessToken()}`
         }
       })
       .then(res => {
+        if (res.data.res === "fail") {
+          alert("This account does not have the correct permissions.")
+        } else {
+          this.setState({ editedSurveyData: true })
+        }
       });
   }
 
   render() {
     // redirect if data change actions are being taken
-    if (this.state.deletedComment) return <Redirect to="/home" />
-    if (this.state.editSurvey) {
+    if (this.state.editedSurveyData) {
       return <Redirect to={
         {
           pathname: `/surveys/${this.state.surveyData._id}`,
@@ -288,11 +292,11 @@ class SurveyEntryEdit extends Component {
           <div id="survey-area-section" >
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
-              <div className="uk-padding-small uk-padding-remove-horizontal">
+              {/* <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>GPS Coordinates</p>
                 <p className="uk-text-small uk-margin-small-left">Lat: <span className="uk-text-muted">{this.state.info.lat}</span></p>
                 <p className="uk-text-small uk-margin-small-left">Lon: <span className="uk-text-muted">{this.state.info.lon}</span></p>
-              </div>
+              </div> */}
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Reason for Location Choice</p>
                 <div>
@@ -379,14 +383,14 @@ class SurveyEntryEdit extends Component {
                 <p>Wind Speed (knots)</p>
                 <input className="uk-input uk-form-small" type="number" name="wind.spd" onChange={this.editSurveyData} defaultValue={this.state.surveyData.wind.spd} />
               </div>
-              <div className="uk-padding-small uk-padding-remove-horizontal">
+              {/* <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Nearest River</p>
                 <input className="uk-input uk-form-small" type="text" name="info.nroName" onChange={this.editSurveyData} defaultValue={this.state.info.nroName} />
               </div>
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Distance to Nearest River (mi)</p>
                 <input className="uk-input uk-form-small" type="text" name="info.nroDist" onChange={this.editSurveyData} defaultValue={this.state.info.nroDist} />
-              </div>
+              </div> */}
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Compass Direction (degrees)</p>
                 <input className="uk-input uk-form-small" type="number" name="cmpsDir" onChange={this.editSurveyData} defaultValue={this.state.surveyData.cmpsDir} />
