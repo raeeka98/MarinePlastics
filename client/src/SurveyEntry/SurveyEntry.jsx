@@ -84,7 +84,6 @@ class SurveyEntry extends Component {
 
   getSurvey = () => {
     let userID = this.state.userProfile ? this.state.userProfile.sub.split("|")[1] : undefined;
-    console.log(this.props.auth.getAccessToken());
 
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
