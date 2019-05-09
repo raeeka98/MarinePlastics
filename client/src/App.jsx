@@ -39,10 +39,7 @@ class App extends Component {
     this.auth.handleAuthentication()
       .then(() => {
         if (this.auth.isAuthenticated()) {
-          this.auth.getLoggedInProfile((err, profile) => {
-            this.setState({ userProfile: profile });
-          });
-
+          this.setState({ userProfile: this.auth.getLoggedInProfile() });
         } else {
           this.setState({ userProfile: null });
         }

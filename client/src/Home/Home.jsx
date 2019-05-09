@@ -165,6 +165,7 @@ class Home extends Component {
   }
 
   render() {
+
     // returns HTML for every entry in the sorted array of locations
     let locationNodes = this.state.beaches.map((location, i) => {
 

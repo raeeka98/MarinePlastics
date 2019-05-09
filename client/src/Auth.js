@@ -31,12 +31,16 @@ export default class Auth {
     async login () {
         await this.auth0.authorize();
     }
-    handleAuthentication(fn) {
-        return new Promise( (res,rej)=>{
+    handleAuthentication() {
+        return new Promise((res, rej) => {
             this.auth0.parseHash((err, authResult) => {
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     this.setSession(authResult);
-                    res();
+                    this.getProfile(authResult.accessToken)
+                        .then(profile => {
+                            this.userProfile = profile;
+                            res();
+                        });
                     // window.location.replace('/home');
                 } else if (err) {
                     rej(err.errorDescription);
@@ -47,7 +51,7 @@ export default class Auth {
 
     setSession(authResult) {
         // Set the time that the Access Token will expire at
-        localStorage.setItem("isLoggedIn","true");
+        localStorage.setItem("isLoggedIn", "true");
         let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
         this.expiresAt = expiresAt;
         this.accessToken = authResult.accessToken;
@@ -58,18 +62,26 @@ export default class Auth {
         return this.accessToken;
     }
 
-    getProfile(token, cb) {
-        this.auth0.client.userInfo(token, (err, profile) => {
-            if (profile) {
-                this.userProfile = profile;
-            }
-            cb(err, profile);
-        });
+    getProfile(token) {
+        return new Promise((res, rej) => {
+            this.auth0.client.userInfo(token, (err, profile) => {
+                if (profile) {
+                    console.log(profile);
+                    
+                    res(profile);
+                }
+                if (err) {
+                    rej(err);
+                }
+            });
+
+        })
     }
 
-    getLoggedInProfile(cb) {
-        this.getProfile(this.getAccessToken(), cb);
+    getLoggedInProfile(){
+        return this.userProfile;
     }
+
 
     logout() {
         // Clear Access Token and ID Token from local storage
