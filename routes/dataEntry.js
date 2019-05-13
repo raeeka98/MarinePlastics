@@ -75,7 +75,7 @@ router.route('/map')
 router.route('/search')
     .get(asyncHandler(async (req, res) => {
         let { q: query } = req.query;
-        query = query.replace(" ", "_");
+        query = query.replace(/_/g, "_");
         let matchedQuery = await beaches.queryBeachNames(query);
         for(const key in matchedQuery) {
             matchedQuery[key].n = matchedQuery[key].n.replace(/_/g, " "); 
