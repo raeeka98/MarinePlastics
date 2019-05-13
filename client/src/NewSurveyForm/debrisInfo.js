@@ -1,6 +1,32 @@
 const DebrisInfo = {
   cigaretteButts     : "Cigarette Butts"                  ,
   fishingLineRope    : "Fishing Line / Polypropylene Rope",
+  plasticStraws      : "Plastic Straws"                   ,
+  filmedPlastic      : "Filmed Plastic"                   ,
+  plasticBottlesCaps : "Plastic Bottles / Plastic Caps"   ,
+  styrofoamUrethane  : "Styrofoam / Urethane"             ,
+  otherPlastics      : "Other : Plastics"                 ,
+  otherFoodOrganics  : "Other : Food / Organics"          ,
+  otherCottonCloth   : "Other : Cotton / Cloth"           ,
+  otherWoodPaper     : "Other : Wood / Paper"
+}
+
+const DebrisInfoID = {
+  "Cigarette Butts"                   : "cigaretteButts"      ,
+  "Fishing Line / Polypropylene Rope" : "fishingLineRope"     ,
+  "Plastic Straws"                    : "plasticStraws"       ,
+  "Filmed Plastic"                    : "filmedPlastic"       ,
+  "Plastic Bottles / Plastic Caps"    : "plasticBottlesCaps"  ,
+  "Styrofoam / Urethane"              : "styrofoamUrethane"   ,
+  "Other : Plastics"                  : "otherPlastics"       ,
+  "Other : Food / Organics"           : "otherFoodOrganics"   ,
+  "Other : Cotton / Cloth"            : "otherCottonCloth"    ,
+  "Other : Wood / Paper"              : "otherWoodPaper"
+}
+
+const AllDebris = {
+  cigaretteButts     : "Cigarette Butts"                  ,
+  fishingLineRope    : "Fishing Line / Polypropylene Rope",
   plasticCups        : "Plastic Cups"                     ,
   plasticStraws      : "Plastic Straws"                   ,
   filmedPlastic      : "Filmed Plastic"                   ,
@@ -16,28 +42,12 @@ const DebrisInfo = {
   aluminumCans       : "Aluminum Cans"                    ,
   hygieneItems       : "Hygiene Items"                    ,
   tileBrick          : "Tile / Brick"                     ,
+  styrofoamUrethane  : "Styrofoam / Urethane"             ,
+  otherPlastics      : "Other : Plastics"                 ,
+  otherFoodOrganics  : "Other : Food / Organics"          ,
+  otherCottonCloth   : "Other : Cotton / Cloth"           ,
+  otherWoodPaper     : "Other : Wood / Paper"             ,
   misc               : "Misc. (general)"
-}
-
-const DebrisInfoID = {
-  "Cigarette Butts" : "cigaretteButts"                    ,
-  "Fishing Line / Polypropylene Rope" : "fishingLineRope" ,
-   "Plastic Cups"    : "plasticCups"                      ,
-   "Plastic Straws"  : "plasticStraws"                    ,
-   "Filmed Plastic"  : "filmedPlastic"                    ,
-   "Misc. Plastic"   : "miscPlastic"                      ,
-   "Plastic Bottles / Plastic Caps":"plasticBottlesCaps"  ,
-   "Styrofoam"       :"styrofoam"                         ,
-   "Wood / Paper"    :"woodPaper"                         ,
-  "Food / Organic"   :"foodOrganic"                       ,
-  "Urethane Foam"    :"urethaneFoam"                      ,
-  "Metal"            :"metal"                             ,
-  "Glass"            :"glass"                             ,
-  "Cotton / Cloth"   :"cottonCloth"                       ,
-  "Aluminum Cans"    :"aluminumCans"                      ,
-  "Hygiene Items"    :"hygieneItems"                      ,
-  "Tile / Brick"     :"tileBrick"                         ,
-  "Misc. (general)"  :"misc"              
 }
 
 const debrisNames = Object.values(DebrisInfo);
@@ -54,4 +64,8 @@ function getDebrisMap(){
     return DebrisInfo;
 }
 
-export { getDebrisNameById, getDebrisMap , debrisNames ,getDebrisID}
+function getAllDebris() {
+    return AllDebris;
+}
+
+export { getDebrisNameById, getDebrisMap , debrisNames ,getDebrisID, getAllDebris}

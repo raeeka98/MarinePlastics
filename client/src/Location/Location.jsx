@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
-import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
+import { getAllDebris } from '../NewSurveyForm/debrisInfo'
 // to get the pin styles
 import '../Map/Map.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebris();
 
 class Location extends Component {
   constructor(props) {
@@ -28,18 +28,18 @@ class Location extends Component {
     this.getLatLon = this.getLatLon.bind(this);
   }
 
-  /* 
-   * getStats(): 
+  /*
+   * getStats():
    *  This function gets all the survey IDs using the given location's ID.
    *  Once it gets the survey IDs, it will then loop through each ID to obtain the actual
    *  survey contents that are stored in the database. These will be used for displaying the
    *  chart data as well as provide the data when the use clicks the links on the side of
    *  the page.
-   * 
+   *
    *  Arguments: none (retrieves beach IDs stored in state)
-   *  
+   *
    *  Returns: No return values, but it will store an array of survey information in this.state.surveys
-   * 
+   *
    *  Raises: none
   */
   getStats = () => {
@@ -53,9 +53,9 @@ class Location extends Component {
         let trueSurveys = [];
         for(var i = 0; i < this.state.surveyIDs.length; i++){
           promise.push(axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
-            
+
         }
-        // Then, take that promise and fill the surveys field in the correct order 
+        // Then, take that promise and fill the surveys field in the correct order
         axios.all(promise)
           .then((response) => {
             response.map(res => {trueSurveys.push(res.data.survData)
@@ -80,11 +80,11 @@ class Location extends Component {
             infoEntry = "Fishing Line";
           if(infoEntry === "Plastic Bottles / Plastic Caps")
             infoEntry = "Plastic Bottles";
-          cleanCategories[infoEntry] = Math.round(categories[trash]*100); 
+          cleanCategories[infoEntry] = Math.round(categories[trash]*100);
         }
         this.setState({beachStats: cleanCategories});
       });
-   
+
   }
 
   getLatLon() {
@@ -104,7 +104,7 @@ class Location extends Component {
     if(!this.state.beachData.lat && !this.state.beachData.lon){
       this.getLatLon();
     }
-    
+
   }
 
 
@@ -121,10 +121,10 @@ class Location extends Component {
         <li key={entry._id}>
           <Link className="uk-link-muted"
                 to={{ pathname: `/surveys/${entry._id.replace(' ', '-')}`,
-                        state: {beachName: this.state.beachData.n, surveyID: entry._id, info: this.state.beachData, 
+                        state: {beachName: this.state.beachData.n, surveyID: entry._id, info: this.state.beachData,
                         userProfile: this.state.userProfile/*, getUserProfile: this.state.getUserProfile, isAuth:this.state.isAuth*/} }}>
-                    
-                {subDate.toLocaleDateString()}            
+
+                {subDate.toLocaleDateString()}
           </Link>
         </li>
       );
