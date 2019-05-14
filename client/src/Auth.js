@@ -67,7 +67,7 @@ export default class Auth {
             this.auth0.client.userInfo(token, (err, profile) => {
                 if (profile) {
                     console.log(profile);
-                    
+
                     res(profile);
                 }
                 if (err) {
@@ -78,8 +78,15 @@ export default class Auth {
         })
     }
 
-    getLoggedInProfile(){
+    getLoggedInProfile() {
         return this.userProfile;
+    }
+
+    containsRole = (role) => {
+        if(this.userProfile){
+            return this.userProfile['https://marineplastics.com/roles'].includes(role);
+        }
+        return false;
     }
 
 

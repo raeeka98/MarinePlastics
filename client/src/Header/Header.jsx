@@ -40,7 +40,7 @@ class Submenu extends Component {
 class Menu extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       auth: this.props.auth,
       showAboutMenu: false
@@ -56,14 +56,7 @@ class Menu extends Component {
   };
 
   render() {
-    let profile = this.state.auth.getLoggedInProfile();
-    console.log(this.state.auth.getLoggedInProfile());
-    let roles = undefined;
-    if (profile) {
-      
-      roles = profile['https://marineplastics.com/roles'];
-    }
-
+    
     return (
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
@@ -86,7 +79,7 @@ class Menu extends Component {
 
               <li><Link to="/protocol">Protocol</Link></li>
               <li><Link to="/about">About</Link></li>
-              {this.props.auth.isAuthenticated() && roles.includes('Super Admin')
+              {this.props.auth.isAuthenticated() && this.props.auth.containsRole('Super Admin')
                 ? <li><Link to='/adminPage'>Admin Page</Link></li>
                 : null
               }

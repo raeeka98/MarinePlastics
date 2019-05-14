@@ -19,6 +19,7 @@ import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
 import PageNotFound from './PageNotFound/PageNotFound';
 import SurveyEntryEdit from "./SurveyEntry/surveyEntryEdit";
+import AdminPage from "./admin/AdminPage";
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -82,10 +83,15 @@ class App extends Component {
                   path='/profile'
                   render={() => (
                     !this.auth.isAuthenticated()
-                      ? <Redirect to='/' />
+                      ? <Redirect to='/home' />
                       : <UserProfile auth={this.auth} />
                   )}
                 />
+                <Route path='/adminPage' render={() => (
+                  // this.auth.isAuthenticated() && this.auth.containsRole("Super Admin")
+                     <AdminPage auth={this.auth} />
+                    // : <Redirect to='/home' />
+                )} />
                 <Route exact path='/protocol' component={Protocol} />
                 <Route exact path='/about' component={About} />
                 <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />} />
