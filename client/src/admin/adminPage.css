@@ -1,0 +1,13 @@
+.searchBlock{
+    background: rgb(219, 218, 218);
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 1em;
+    margin: 0.5em 0 0 0;
+}
+
+.emailInput{
+    width: 80%;
+    margin: auto;
+}
