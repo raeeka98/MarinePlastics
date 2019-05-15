@@ -56,7 +56,7 @@ let asyncHandler = fn =>
         Promise.resolve(fn(req, res, next)).catch(next);
     }
 
-module.exports = function(checkJwt, jwtManagement) {
+module.exports = function(checkJwt) {
     router.use(checkJwt, hasPermission);
 
     router.get("/find", asyncHandler(async (req, res) => {
@@ -73,10 +73,16 @@ module.exports = function(checkJwt, jwtManagement) {
                     authorization: `Bearer ${token}`
                 }
             });
+            console.log(users);
+
             console.log(users[0]);
             res.json(users[0]);
 
         } catch (err) {
+            let { data: response } = err.response;
+            if (response.statusCode === 400) {
+                return res.status(400).json({ err: response.error });
+            }
             console.log(err);
             res.status(500).json({ err: "Something went wrong!" });
         }
@@ -91,7 +97,7 @@ module.exports = function(checkJwt, jwtManagement) {
 
         try {
             let token = await obtainAccessToken("manager");
-            let res = await axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
+            let { data } = await axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
                 roles: ['rol_TeEKH4d1DDLAbCVT']
             }, {
                 headers: {
@@ -100,6 +106,9 @@ module.exports = function(checkJwt, jwtManagement) {
                     'content-type': 'application/json'
                 }
             });
+            console.log(data);
+            res.json({ res: "success" });
+
         } catch (err) {
             console.log(err);
             req.status(500).json({ err: "Something went wrong!" });
@@ -112,15 +121,17 @@ module.exports = function(checkJwt, jwtManagement) {
 
         try {
             let token = await obtainAccessToken("manager");
-            let res = await axios.get("https://marine-plastics-coi.auth0.com/api/v2/roles/rol_TeEKH4d1DDLAbCVT/users", {
+            let { data } = await axios.get("https://marine-plastics-coi.auth0.com/api/v2/roles/rol_TeEKH4d1DDLAbCVT/users", {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
             });
+            console.log(data);
+            res.json(data);
         } catch (err) {
-
+            console.log(err);
+            req.status(500).json({ err: "Something went wrong!" });
         }
-
     }));
 
     return router;
