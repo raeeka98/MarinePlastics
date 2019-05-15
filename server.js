@@ -23,17 +23,6 @@ const jwtUser = jwt({
     algorithms: ['RS256']
 });
 
-const jwtManagement = jwt({
-    secret: jwksRsa.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: 'https://marine-plastics-coi.auth0.com/.well-known/jwks.json'
-    }),
-    audience: 'https://marine-plastics-coi.auth0.com/api/v2/',
-    issuer: 'https://marine-plastics-coi.auth0.com/',
-    algorithms: ['RS256']
-});
 
 verifySurveyJWT(jwtUser);   
 
@@ -54,7 +43,7 @@ app.use(function(err, req, res, next) {
 
 //Use our router configuration when we call /api
 app.use('/beaches', dataEntryRouter);
-app.use('/auth', auth0Route(jwtUser,jwtManagement));
+app.use('/auth', auth0Route(jwtUser));
 
 app.get('/pdfs/COIDataSheet_Oct_24.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_Oct_24.pdf')));
 
