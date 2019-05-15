@@ -10,6 +10,7 @@ let asyncHandler = fn =>
     (req, res, next) => {
         Promise.resolve(fn(req, res, next)).catch(next);
     }
+
 router.route('/')
     /*get ALL beaches NAMES ONLY
     When they click + on the beach it shall display all the years
@@ -182,7 +183,7 @@ function verifySurveyJWT (checkjwt) {
                 return res.json({ res: "fail" });
             }
             await surveys.remove(bID, surveyID, dateOfSub);
-            res.json({ res:"success" })
+            res.json({ res: "success" })
         }));
 
     router.route('/surveys/:surveyID/date')

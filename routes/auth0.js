@@ -38,105 +38,90 @@ function hasPermission (req, res, next) {
     next();
 }
 
-function obtainAccessToken (API) {
-    return new Promise((res, rej) => {
-        let { body: apiBody, accessToken: currtoken } = API === "user" ? userAPI : managAPI;
-        let currentTime = new Date().getTime();
-        if (currtoken.token && currtoken.expiresAt < currentTime) {
-            res(currentToken.token);
-        }
-        let chosenAPI =
-            axios.post("https://marine-plastics-coi.auth0.com/oauth/token", )
-            .then(res => {
-
-                let tokenData = res.data;
-                console.log(tokenData.access_token);
-                currentToken.token = tokenData.access_token;
-                currentToken.expiresAt = (tokenData.expires_in * 1000) + new Date().getTime();
-            })
-            .catch(err => {
-                console.log(err.response.data);
-
-            })
-    })
+async function obtainAccessToken (API) {
+    let { body: apiBody, accessToken: currtoken } = API === "user" ? userAPI : managAPI;
+    let currentTime = new Date().getTime();
+    if (currtoken.token && currtoken.expiresAt < currentTime) {
+        return currtoken.token;
+    }
+    let res = await axios.post("https://marine-plastics-coi.auth0.com/oauth/token", apiBody)
+    let tokenData = res.data;
+    currtoken.token = tokenData.access_token;
+    currtoken.expiresAt = (tokenData.expires_in * 1000) + new Date().getTime();
+    return currtoken.token;
 }
 
-obtainAccessToken();
-
-
-
+let asyncHandler = fn =>
+    (req, res, next) => {
+        Promise.resolve(fn(req, res, next)).catch(next);
+    }
 
 module.exports = function(checkJwt, jwtManagement) {
     router.use(checkJwt, hasPermission);
 
-    router.get("/find", (req, res) => {
+    router.get("/find", asyncHandler(async (req, res) => {
         let reqEmail = req.query.e;
         console.log(reqEmail);
-        console.log(req.headers['authorization']);
+        try {
+            let token = await obtainAccessToken("manager");
+
+            let { data: users } = await axios.get("https://marine-plastics-coi.auth0.com/api/v2/users-by-email", {
+                params: {
+                    email: reqEmail
+                },
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            console.log(users[0]);
+            res.json(users[0]);
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ err: "Something went wrong!" });
+        }
+
+    }));
 
 
 
-        // axios.get("https://marine-plastics-coi.auth0.com/api/v2/users-by-email", {
-        //         params: {
-        //             email: reqEmail
-        //         },
-        //         headers: {
-        //             Authorization: req.headers['authorization']
-        //         }
-        //     })
-        //     .then(res => {
-        //         console.log(res.data);
-        //     })
-        //     .catch(err => {
-        //         console.log("sth went wrong");
-        //         console.log(err);
-        //     })
-    });
-
-    function serv () {
-        console.log("serv");
-
-
-    }
-
-
-
-    router.post("/setRole", (req, res) => {
+    router.post("/setRole", asyncHandler(async (req, res) => {
         let { userID } = req.body;
         console.log("new Role");
 
-        axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
+        try {
+            let token = await obtainAccessToken("manager");
+            let res = await axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
                 roles: ['rol_TeEKH4d1DDLAbCVT']
             }, {
                 headers: {
                     'cache-control': 'no-cache',
-                    Authorization: req.headers['authorization'],
+                    Authorization: `Bearer ${token}`,
                     'content-type': 'application/json'
                 }
-            })
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
+            });
+        } catch (err) {
+            console.log(err);
+            req.status(500).json({ err: "Something went wrong!" });
+        }
 
-            })
-    });
 
-    router.get("/getAdmins", (req, res) => {
-        axios.get("https://marine-plastics-coi.auth0.com/api/v2/roles/rol_TeEKH4d1DDLAbCVT/users", {
+    }));
+
+    router.get("/getAdmins", asyncHandler(async (req, res) => {
+
+        try {
+            let token = await obtainAccessToken("manager");
+            let res = await axios.get("https://marine-plastics-coi.auth0.com/api/v2/roles/rol_TeEKH4d1DDLAbCVT/users", {
                 headers: {
-                    authorization: req.headers['authorization']
+                    authorization: `Bearer ${token}`
                 }
-            })
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
+            });
+        } catch (err) {
 
-            })
-    })
+        }
+
+    }));
 
     return router;
 }
