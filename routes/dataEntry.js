@@ -84,6 +84,20 @@ router.route('/search')
         res.json(matchedQuery);
     }));
 
+router.route('/search/closest')
+    .get(asyncHandler(async (req, res) => {
+        console.log("Got a request: ", req.query);
+        let coordinates = JSON.parse(req.query.coords);
+        let lat = coordinates.lat, lon = coordinates.lon;
+        await beaches.getClosestCoords(lat, lon, function(result) {
+            for(const key in result) {
+                result[key].n = result[key].n.replace(/_/g, " "); 
+            }
+            res.json(result);
+        });
+        
+    }))
+
 router.route('/allstats')
     .get(asyncHandler(async (req, res) => {
         let beachWStats = await beaches.getAllStats();
