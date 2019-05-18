@@ -12,11 +12,8 @@ export default class Auth {
         scope: 'openid email profile roles',
         audience: process.env.REACT_APP_AUTH_AUDIENCE
     });
-    accessToken;
-    idToken;
-    expiresAt;
 
-    userProfile;
+    userProfile = null;
 
     constructor() {
         this.login = this.login.bind(this);
@@ -33,6 +30,12 @@ export default class Auth {
     }
     handleAuthentication() {
         return new Promise((res, rej) => {
+            let accessToken = localStorage.getItem("accessToken");
+            let expiresAt = localStorage.getItem("expiresAt");
+            let token = localStorage.getItem("idToken");
+            if (accessToken && expiresAt && token) {
+                res();
+            }
             this.auth0.parseHash((err, authResult) => {
                 if (authResult && authResult.accessToken && authResult.idToken) {
                     this.setSession(authResult);
@@ -51,15 +54,14 @@ export default class Auth {
 
     setSession(authResult) {
         // Set the time that the Access Token will expire at
-        localStorage.setItem("isLoggedIn", "true");
         let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
-        this.expiresAt = expiresAt;
-        this.accessToken = authResult.accessToken;
-        this.idToken = authResult.idToken;
+        localStorage.setItem("accessToken", authResult.accessToken);
+        localStorage.setItem("expiresAt", expiresAt);
+        localStorage.setItem("idToken", authResult.idToken);
     }
 
     getAccessToken() {
-        return this.accessToken;
+        return localStorage.getItem("accessToken");
     }
 
     getProfile(token) {
@@ -79,12 +81,25 @@ export default class Auth {
     }
 
     getLoggedInProfile() {
-        return this.userProfile;
+        return new Promise((res, rej) => {
+            if (this.userProfile) {
+                res(this.userProfile);
+            }
+            let token = localStorage.getItem("accessToken");
+            if (token != null) {
+                this.getProfile(token)
+                    .then(prof => {
+                        res(prof);
+                    })
+            }
+            res(null)
+        })
     }
 
-    containsRole = (role) => {
-        if(this.userProfile){
-            return this.userProfile['https://marineplastics.com/roles'].includes(role);
+    containsRole = async role => {
+        let prof = await this.getLoggedInProfile();
+        if (prof) {
+            return prof['https://marineplastics.com/roles'].includes(role);
         }
         return false;
     }
@@ -92,10 +107,10 @@ export default class Auth {
 
     logout() {
         // Clear Access Token and ID Token from local storage
-        this.accessToken = null;
-        this.idToken = false;
-        this.expiresAt = 0;
-        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("expiresAt");
+        localStorage.removeItem("idToken");
+        this.userProfile = null;
         // navigate to the home route
         this.auth0.logout({
             return_to: window.location.origin
@@ -106,7 +121,9 @@ export default class Auth {
         // Check whether the current time is past the
         // Access Token's expiry time
         // Added check to make sure localstorage is defined
-        let expiresAt = this.expiresAt;
+        let expiresAt = localStorage.getItem("expiresAt");
+        console.log(expiresAt);
+
         return new Date().getTime() < expiresAt;
     }
 }
