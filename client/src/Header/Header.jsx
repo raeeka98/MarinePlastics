@@ -43,7 +43,9 @@ class Menu extends Component {
 
     this.state = {
       auth: this.props.auth,
-      showAboutMenu: false
+      showAboutMenu: false,
+      sa: false,
+      checked: false
     };
   }
 
@@ -56,7 +58,12 @@ class Menu extends Component {
   };
 
   render() {
-    
+    if (!this.state.checked) {
+      this.props.auth.containsRole('Super Admin')
+        .then(res => {
+          this.setState({ sa: res, checked: true });
+        })
+    }
     return (
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
@@ -79,7 +86,7 @@ class Menu extends Component {
 
               <li><Link to="/protocol">Protocol</Link></li>
               <li><Link to="/about">About</Link></li>
-              {this.props.auth.isAuthenticated() && this.props.auth.containsRole('Super Admin')
+              {this.props.auth.isAuthenticated()
                 ? <li><Link to='/adminPage'>Admin Page</Link></li>
                 : null
               }
