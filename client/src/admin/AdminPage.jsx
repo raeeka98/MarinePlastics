@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ProfileViewer from './ProfileViewer'
 import './adminPage.css';
 
 class AdminPage extends Component {
@@ -9,7 +10,9 @@ class AdminPage extends Component {
         this.state = {
             auth: this.props.auth,
             currentFoundUser: null,
-            searchEmail: ''
+            searchEmail: '',
+            searched: false,
+            loading: false
         };
 
     }
@@ -20,23 +23,27 @@ class AdminPage extends Component {
 
     searchEmail = e => {
         e.preventDefault();
-        console.log(this.state.auth.getAccessToken());
-        let token = this.state.auth.getAccessToken();
+        this.setState({ loading: true, searched: true }, () => {
+            console.log(this.state.auth.getAccessToken());
+            let token = this.state.auth.getAccessToken();
 
-        axios.get("/auth/find", {
-            params: {
-                e: this.state.searchEmail
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            axios.get("/auth/find", {
+                params: {
+                    e: this.state.searchEmail
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then(res => {
+                    this.setState({ currentFoundUser: res.data, loading: false });
+                })
+                .catch(err => {
+                    this.setState({ loading: false });
+                    console.log(err);
+                })
         })
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+
     }
 
     button = () => {
@@ -47,18 +54,43 @@ class AdminPage extends Component {
         )
     }
 
+    viewProfile = () => {
+        if (!this.state.searched) {
+            return (
+                <React.Fragment>
+                    <div>Search for a profile by email</div>
+                </React.Fragment>
+            );
+        }
+        return (
+            <React.Fragment>
+                <ProfileViewer profile={this.state.currentFoundUser} />
+                <div>
+                    <button>Give Admin Priveleges?</button>
+                </div>
+            </React.Fragment>
+        );
+
+    }
+
+
     render() {
         return (
             <div className=" uk-container uk-container-center">
                 <div className=" searchBlock uk-margin">
-                    <form method="post" onSubmit={this.searchEmail}>
+                    {!this.state.loading ? <form method="post" onSubmit={this.searchEmail}>
                         <div>
                             <input className="uk-input" type="email" name="emailAddr" id="addr" value={this.state.searchEmail} onChange={this.emailChange} />
                             {this.button()}
                         </div>
-                    </form>
+                    </form> : null}
+                </div>
+                <div className={`profileBlock ${this.state.searched ? "" : "firstSearch"}`}>
+                    {this.viewProfile()}
+
                 </div>
             </div>
+
         );
     }
 
