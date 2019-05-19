@@ -37,10 +37,15 @@ class App extends Component {
 
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
+    console.log(this.auth.isAuthenticated());
+    
     this.auth.handleAuthentication()
       .then(() => {
         if (this.auth.isAuthenticated()) {
-          this.setState({ userProfile: this.auth.getLoggedInProfile() });
+          this.auth.getLoggedInProfile()
+            .then(prof => {
+              this.setState({ userProfile: prof });
+            })
         } else {
           this.setState({ userProfile: null });
         }
@@ -84,13 +89,13 @@ class App extends Component {
                   render={() => (
                     !this.auth.isAuthenticated()
                       ? <Redirect to='/home' />
-                      : <UserProfile auth={this.auth} />
+                      : <UserProfile auth={this.auth} userProfile={this.state.userProfile} />
                   )}
                 />
                 <Route path='/adminPage' render={() => (
                   // this.auth.isAuthenticated() && this.auth.containsRole("Super Admin")
-                     <AdminPage auth={this.auth} />
-                    // : <Redirect to='/home' />
+                  <AdminPage auth={this.auth} />
+                  // : <Redirect to='/home' />
                 )} />
                 <Route exact path='/protocol' component={Protocol} />
                 <Route exact path='/about' component={About} />
