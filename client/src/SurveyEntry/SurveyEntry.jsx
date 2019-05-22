@@ -17,8 +17,8 @@ class SurveyEntry extends Component {
     this.state = {
       beachName: this.props.location.state.beachName,
       info: this.props.location.state.info,
-      lat : [0,0,0,0],
-      lon : [0,0,0,0],
+      lat: [0, 0, 0, 0],
+      lon: [0, 0, 0, 0],
       surveyID,
       surveyData: {},
       userProfile: this.props.location.state.userProfile,
@@ -46,12 +46,12 @@ class SurveyEntry extends Component {
     nw: "Northwest"
   }
   toTitleCase(word) {
-      return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
   };
 
   renderOptions() {
     if (this.state.surveyData.SRSDebris
-         && this.state.surveyData.ASDebris) {
+      && this.state.surveyData.ASDebris) {
       //render both options
       return (
         <select className="uk-select uk-form" id="view-type" onChange={this.handleChartTypeChange}>
@@ -88,6 +88,9 @@ class SurveyEntry extends Component {
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID
+      },
+      headers: {
+        Authorization: `Bearer ${this.props.auth.getAccessToken()}`
       }
     })
       .then(res => {
@@ -107,7 +110,7 @@ class SurveyEntry extends Component {
   getBeachInfo = () => {
     axios.get(`/beaches/${this.state.surveyData.bID}/info`)
       .then(res => {
-        this.setState({info: res.data});
+        this.setState({ info: res.data });
       })
       .then(() => {
         this.convertLatLon();
@@ -184,15 +187,23 @@ class SurveyEntry extends Component {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
           userID: this.state.userProfile ? this.state.userProfile.sub : ''
+        },
+        headers: {
+          Authorization: `Bearer ${this.props.auth.getAccessToken()}`
         }
       })
       .then(res => {
-        this.setState({
-          deletedComment: true
-        })
-        let closeModal = document.getElementById('closeModalButton');
-        closeModal.click();
-        alert("Survey deleted successfully.");
+        if (res.data.res === "fail") {
+          alert("Survey deleted failed.");
+        }
+        else {
+          this.setState({
+            deletedComment: true
+          })
+          let closeModal = document.getElementById('closeModalButton');
+          closeModal.click();
+          alert("Survey deleted successfully.");
+        }
       })
       .catch(err => {
         console.log(err)
@@ -201,25 +212,17 @@ class SurveyEntry extends Component {
 
 
   editSurvey = () => {
-    axios.get(`/beaches/surveys/${this.state.surveyID}/edit`, {
-      params: {
-        id: this.state.userProfile ? this.state.userProfile : ''
-      }
-    })
-      .then(res => {
-        this.setState({ editSurvey: true });
-      })
-
+    this.setState({ editSurvey: true });
   }
 
   convertLatLon = () => {
-        //this.setState({info: res.data});
+    //this.setState({info: res.data});
     let lat = this.state.info.lat;
     let latDeg = Math.floor(lat);
     let tempDecimal = (lat - latDeg) * 60;
     let latMin = Math.floor(tempDecimal);
     let latSec = (tempDecimal - latMin) * 60;
-    latSec = (Math.trunc((latSec*100))/100);
+    latSec = (Math.trunc((latSec * 100)) / 100);
     let latDir = Math.sign(latDeg);
     latDeg = latDeg * latDir;
 
@@ -228,11 +231,11 @@ class SurveyEntry extends Component {
     tempDecimal = (lon - lonDeg) * 60;
     let lonMin = Math.floor(tempDecimal);
     let lonSec = (tempDecimal - lonMin) * 60;
-    lonSec = (Math.trunc((latSec*100))/100);
+    lonSec = (Math.trunc((latSec * 100)) / 100);
     let lonDir = Math.sign(lonDeg);
     lonDeg = lonDeg * lonDir;
 
-    this.setState({lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir]});
+    this.setState({ lat: [latDeg, latMin, latSec, latDir], lon: [lonDeg, lonMin, lonSec, lonDir] });
   }
 
   // once the component is on the page, gets the surveyData from the server
@@ -417,7 +420,7 @@ class SurveyEntry extends Component {
               <h3 className="uk-card-title">Survey Area</h3>
               {
                 this.state.info.lat && this.state.info.lon ?
-                  <p><strong>GPS Coordinates:</strong> {this.state.lat[0]}&deg; {this.state.lat[1]}' {this.state.lat[2]}''{(this.state.lat[3]===1) ? 'N' : 'S'}    ,   {this.state.lon[0]}&deg; {this.state.lon[1]}' {this.state.lon[2]}''{(this.state.lon[3]===1) ? 'E' : 'W'}</p> : null
+                  <p><strong>GPS Coordinates:</strong> {this.state.lat[0]}&deg; {this.state.lat[1]}' {this.state.lat[2]}''{(this.state.lat[3] === 1) ? 'N' : 'S'}    ,   {this.state.lon[0]}&deg; {this.state.lon[1]}' {this.state.lon[2]}''{(this.state.lon[3] === 1) ? 'E' : 'W'}</p> : null
               }
               {
                 this.state.surveyData.reason ?

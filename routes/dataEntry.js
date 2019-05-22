@@ -10,6 +10,7 @@ let asyncHandler = fn =>
     (req, res, next) => {
         Promise.resolve(fn(req, res, next)).catch(next);
     }
+
 router.route('/')
     /*get ALL beaches NAMES ONLY
     When they click + on the beach it shall display all the years
@@ -25,8 +26,7 @@ router.route('/')
         */
         let { s: skip } = req.query;
         let b = await beaches.getBeachNames(skip);
-        console.log(b);
-        for (var i in b){
+        for (var i in b) {
             b[i].n = b[i].n.replace(/_/g, " ");
         }
         //returns array of beach names and their ids
@@ -47,8 +47,6 @@ router.route('/')
         let beachData;
         try {
             beachData = await beachValidation.validate(req.body);
-            console.log(beachData);
-
             //let beach = await beaches.create(beachData);
             res.json({ res: `Added beach ${beach.n}` });
         } catch (err) {
@@ -67,7 +65,7 @@ router.route('/map')
     //get all beaches with lon and lat
     .get(asyncHandler(async (req, res) => {
         let points = await beaches.getAllLonLat();
-        for(let idx = 0; idx < points.length; idx++){
+        for (let idx = 0; idx < points.length; idx++) {
             points[idx].n = points[idx].n.replace(/_/g, " ");
         }
         res.json(points);
@@ -77,10 +75,9 @@ router.route('/search')
         let { q: query } = req.query;
         query = query.replace(/ /g, "_");
         let matchedQuery = await beaches.queryBeachNames(query);
-        for(const key in matchedQuery) {
-            matchedQuery[key].n = matchedQuery[key].n.replace(/_/g, " "); 
+        for (const key in matchedQuery) {
+            matchedQuery[key].n = matchedQuery[key].n.replace(/_/g, " ");
         }
-        console.log(matchedQuery);
         res.json(matchedQuery);
     }));
 
@@ -101,7 +98,6 @@ router.route('/search/closest')
 router.route('/allstats')
     .get(asyncHandler(async (req, res) => {
         let beachWStats = await beaches.getAllStats();
-        console.log(beachWStats);
         res.json(beachWStats);
     }));
 
@@ -116,11 +112,9 @@ router.route('/surveys')
      * }
      */
     .post(asyncHandler(async (req, res) => {
-        console.log(req.body);
         try {
             let beachData = null;
             let surveyData = await surveyValidation.validate(req.body);
-            console.log(surveyData);
 
             if (!surveyData.bID) {
                 beachData = await beaches.create(surveyData.beachData);
@@ -130,55 +124,89 @@ router.route('/surveys')
             res.json({ survID: surv._id });
         } catch (err) {
             console.log(err);
-            res.status(500).send({error: err})
+            res.status(500).send({ error: err })
         }
 
     }));
 
 
+function checkIfSignedIn (req, res, next) {
+    let bearer = req.headers['authorization'];
+    console.log(bearer);
 
-router.route('/surveys/:surveyID')
-    //get a specific survey
-    .get(asyncHandler(async (req, res) => {
-        //console.log("Obtaining survey...");
-        let { userID: clientID } = req.query;
-        let surveyID = req.params.surveyID;
+    if (bearer != undefined) {
+        let tokens = bearer.split(' ');
 
-        let survey = await surveys.get(surveyID);
-        console.log(survey);
-        let ownerID = survey.userID;
-        survey.userID = undefined;
-        let rtnMsg = { survData: survey, e: ownerID == clientID };
-        res.json(rtnMsg);
-    }))
-    //find a specific survey and edit it
-    .post(asyncHandler(async (req, res) => {
-        let updateData = req.body;
-        console.log(updateData);
-        let updatedSurvey = await surveys.update(req.params.surveyID, updateData);
-        res.json({ res: "Success", surveyData: updatedSurvey });
-    }))
-    //delete an survey
-    .delete(asyncHandler(async (req, res) => {
-        let { bID, dos: dateOfSub } = req.query;
-        let surveyID = req.params.surveyID;
-        await surveys.remove(bID, surveyID, dateOfSub);
-        res.json({ message: 'survey has been deleted' })
-    }));
+        if (tokens.length == 2 && tokens[1] != 'undefined') {
+            return next();
+        }
+    }
+    let surveyID = req.params.surveyID;
+    surveys.get(surveyID)
+        .then(surv => {
+            surv.userID = undefined;
+            let rtnMsg = { survData: surv, e: false };
+            res.json(rtnMsg);
+        });
 
-router.route('/surveys/:surveyID/edit')
-    .get(asyncHandler(async (req, res) => {
-        res.send(req.query.id);
-    }))
+}
 
+function verifySurveyJWT (checkjwt) {
+    router.route('/surveys/:surveyID')
+        //get a specific survey for logged in
+        .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
+            //console.log("Obtaining survey...");
+            let loggedInUser = req.user;
+            console.log(loggedInUser);
 
-router.route('/surveys/:surveyID/date')
-    .get(asyncHandler(async (req, res) => {
-        let sID = req.params.surveyID;
-        let date = await surveys.getDateCreated(sID);
-        res.json(date);
-    }));
+            let { userID: clientID } = req.query;
+            let surveyID = req.params.surveyID;
 
+            let survey = await surveys.get(surveyID);
+            let ownerID = survey.userID;
+            survey.userID = undefined;
+            let editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
+            let rtnMsg = { survData: survey, e: editable };
+            res.json(rtnMsg);
+        }))
+        //find a specific survey and edit it
+        .post(checkjwt, asyncHandler(async (req, res) => {
+            let updateData = req.body;
+            let surveyID = req.params.surveyID;
+            let surveyCreator = await surveys.getUserID(surveyID);
+            surveyCreator = surveyCreator.userID;
+            let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            console.log(sameUser);
+
+            if (!sameUser) {
+                return res.json({ res: "fail" });
+            }
+            let updatedSurvey = await surveys.update(surveyID, updateData);
+            res.json({ res: "success", surveyData: updatedSurvey });
+        }))
+        //delete an survey
+        .delete(checkjwt, asyncHandler(async (req, res) => {
+            let { bID, dos: dateOfSub } = req.query;
+            let surveyID = req.params.surveyID;
+            let surveyCreator = await surveys.getUserID(surveyID);
+            surveyCreator = surveyCreator.userID;
+            let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+            console.log(sameUser);
+
+            if (!sameUser) {
+                return res.json({ res: "fail" });
+            }
+            await surveys.remove(bID, surveyID, dateOfSub);
+            res.json({ res: "success" })
+        }));
+
+    router.route('/surveys/:surveyID/date')
+        .get(asyncHandler(async (req, res) => {
+            let sID = req.params.surveyID;
+            let date = await surveys.getDateCreated(sID);
+            res.json(date);
+        }));
+}
 
 
 router.route('/:beachID')
@@ -207,7 +235,6 @@ router.route('/:beachID/stats')
         let { yr: year } = req.query;
         let stats = await beaches.getStats(bID, year);
         //stats.n = stats.n.replace(/_/g, " ");
-        console.log(stats);
         res.json(stats);
     }));
 
@@ -216,8 +243,6 @@ router.route('/:beachID/coords')
         let bID = req.params.beachID;
         let coords = await beaches.getOneLonLat(bID);
         //coords.n = coords.n.replace(/_/g, " ");
-        console.log("Coords:")
-        console.log(coords);
         res.json(coords);
     }));
 
@@ -232,4 +257,4 @@ router.route('/:beachID/info')
 
 
 
-module.exports = { router };
+module.exports = { router, verifySurveyJWT };
