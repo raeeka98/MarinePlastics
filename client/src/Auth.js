@@ -31,10 +31,15 @@ export default class Auth {
     handleAuthentication() {
         return new Promise((res, rej) => {
             let accessToken = localStorage.getItem("accessToken");
-            let expiresAt = localStorage.getItem("expiresAt");
             let token = localStorage.getItem("idToken");
-            if (accessToken && expiresAt && token) {
-                res();
+            if (this.isAuthenticated()) {
+                if (accessToken && token) {
+                    this.getProfile(accessToken)
+                        .then(profile => {
+                            this.userProfile = profile;
+                            res();
+                        });
+                }
             }
             this.auth0.parseHash((err, authResult) => {
                 if (authResult && authResult.accessToken && authResult.idToken) {

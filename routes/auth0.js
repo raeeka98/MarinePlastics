@@ -73,49 +73,75 @@ module.exports = function(checkJwt) {
                     authorization: `Bearer ${token}`
                 }
             });
-            console.log(users);
-
-            console.log(users[0]);
-            res.json(users[0]);
+            if(users.length<1){
+                return res.status(400).json({err:"No profile attached to that email"});
+            }
+            let user = users[0];
+            
+            let { data: roles } = await axios.get(`https://marine-plastics-coi.auth0.com/api/v2/users/${user.user_id}/roles`, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            })
+            user.roles = roles;
+            res.json(user);
 
         } catch (err) {
+            console.log(err);
+            
             let { data: response } = err.response;
             if (response.statusCode === 400) {
                 return res.status(400).json({ err: response.error });
             }
-            console.log(err);
             res.status(500).json({ err: "Something went wrong!" });
         }
 
     }));
 
 
+    router.route("/setRole/:id")
+        .put(asyncHandler(async (req, res) => {
+            let { id: userID } = req.params;
 
-    router.post("/setRole", asyncHandler(async (req, res) => {
-        let { userID } = req.body;
-        console.log("new Role");
+            try {
+                let token = await obtainAccessToken("manager");
+                await axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
+                    roles: ['rol_TeEKH4d1DDLAbCVT']
+                }, {
+                    headers: {
+                        'cache-control': 'no-cache',
+                        Authorization: `Bearer ${token}`,
+                        'content-type': 'application/json'
+                    }
+                });
+                res.json({ res: "success", role_id: "rol_TeEKH4d1DDLAbCVT" });
 
-        try {
+            } catch (err) {
+                console.log(err.response.data);
+                req.status(500).json({ err: "Something went wrong!" });
+            }
+        }))
+        .delete(asyncHandler(async (req, res) => {
+            let { id: userID } = req.params;
             let token = await obtainAccessToken("manager");
-            let { data } = await axios.post(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
-                roles: ['rol_TeEKH4d1DDLAbCVT']
-            }, {
-                headers: {
-                    'cache-control': 'no-cache',
-                    Authorization: `Bearer ${token}`,
-                    'content-type': 'application/json'
-                }
-            });
-            console.log(data);
-            res.json({ res: "success" });
+            try {
+                await axios.delete(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
+                    data: {
+                        roles: ['rol_TeEKH4d1DDLAbCVT']
+                    },
+                    headers: {
+                        'cache-control': 'no-cache',
+                        Authorization: `Bearer ${token}`,
+                        'content-type': 'application/json'
+                    }
+                });
+                res.json({ res: "success" });
+            } catch (err) {
+                console.log(err.response.data);
+                req.status(500).json({ err: "Something went wrong!" });
+            }
+        }));
 
-        } catch (err) {
-            console.log(err);
-            req.status(500).json({ err: "Something went wrong!" });
-        }
-
-
-    }));
 
     router.get("/getAdmins", asyncHandler(async (req, res) => {
 
@@ -126,10 +152,9 @@ module.exports = function(checkJwt) {
                     authorization: `Bearer ${token}`
                 }
             });
-            console.log(data);
             res.json(data);
         } catch (err) {
-            console.log(err);
+            console.log(err.response.data);
             req.status(500).json({ err: "Something went wrong!" });
         }
     }));
