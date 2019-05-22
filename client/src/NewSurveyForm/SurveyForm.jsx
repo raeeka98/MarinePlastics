@@ -56,6 +56,8 @@ class SurveyForm extends Component {
             user: "",
             email: "",
             userID: "",
+            survID: "",
+            beachName:"",
             invalidForm: false
         }
         this.moveToReview = this.moveToReview.bind(this);
@@ -176,18 +178,18 @@ class SurveyForm extends Component {
         }
 
         //Check for usage
-        if(!this.state.surveyData.usageRecreation
+        if (!this.state.surveyData.usageRecreation
             && !this.state.surveyData.usageCommercial
-                && !this.state.surveyData.usageOther)
-                invalid.push(displayIDs.usage);
+            && !this.state.surveyData.usageOther)
+            invalid.push(displayIDs.usage);
 
         //Check if the user filled out the reason for location choice
-        if(!this.state.surveyData.locationChoiceDebris && !this.state.surveyData.locationChoiceProximity
+        if (!this.state.surveyData.locationChoiceDebris && !this.state.surveyData.locationChoiceProximity
             && !this.state.surveyData.locationChoiceOther)
             invalid.push(displayIDs.locChoice);
 
         // Check if the user filled out the substrate type
-        if(!this.state.surveyData.substrateTypeSand && !this.state.surveyData.substrateTypePebble && !this.state.surveyData.substrateTypeRipRap
+        if (!this.state.surveyData.substrateTypeSand && !this.state.surveyData.substrateTypePebble && !this.state.surveyData.substrateTypeRipRap
             && !this.state.surveyData.substrateTypeSeaweed && !this.state.surveyData.substrateTypeOther)
             invalid.push(displayIDs.subType);
 
@@ -207,7 +209,7 @@ class SurveyForm extends Component {
     moveToReview() {
         const invalidInput = this.validate();
         if (invalidInput && invalidInput.length) {
-            this.setState({ invalidForm: true})
+            this.setState({ invalidForm: true })
         }
         else {
             this.updateDisplayStrings();
@@ -248,7 +250,9 @@ class SurveyForm extends Component {
                     this.setState({
                         isInputting: false,
                         isReviewing: false,
-                        isSubmitted: true
+                        isSubmitted: true,
+                        survID: res.data.survID,
+                        beachName:form.beachData.n
                     })
                 }
             })
@@ -265,7 +269,7 @@ class SurveyForm extends Component {
     };
 
     convertToDecimalDegrees(d, min, sec, dir) {
-        return parseFloat(dir) * (parseFloat(d) + (parseFloat(min)/60.0) + (parseFloat(sec)/3600.0));
+        return parseFloat(dir) * (parseFloat(d) + (parseFloat(min) / 60.0) + (parseFloat(sec) / 3600.0));
     }
 
     calcTotalsSRS() {
@@ -286,12 +290,12 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
-                if(isNaN(totals[trash_id].weathered)) {
+                if (isNaN(totals[trash_id].weathered)) {
                     totals[trash_id].weathered = 0;
                 }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
-                if(isNaN(totals[trash_id].fresh)) {
+                if (isNaN(totals[trash_id].fresh)) {
                     totals[trash_id].fresh = 0;
                 }
             }
@@ -326,12 +330,12 @@ class SurveyForm extends Component {
             }
             if (type === "weathered") {
                 totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
-                if(isNaN(totals[trash_id].weathered)) {
+                if (isNaN(totals[trash_id].weathered)) {
                     totals[trash_id].weathered = 0;
                 }
             } else {
                 totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
-                if(isNaN(totals[trash_id].fresh)) {
+                if (isNaN(totals[trash_id].fresh)) {
                     totals[trash_id].fresh = 0;
                 }
             }
@@ -409,7 +413,7 @@ class SurveyForm extends Component {
 
         this.setState(prevState => {
 
-            for(const key in coordInfo) {
+            for (const key in coordInfo) {
                 prevState.surveyData[key] = coordInfo[key];
             }
             prevState.surveyData.riverName = riverName;
@@ -475,24 +479,24 @@ class SurveyForm extends Component {
                     <Accordion>
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
                         <SurveyArea
-                          data={this.state.surveyData}
-                          setSurveyData={this.setSurveyData}
-                          updateSurveyState={this.updateSurveyState}
-                          updateCheckedState={this.updateCheckedState}
-                          updateCoordState={this.updateCoordState}
+                            data={this.state.surveyData}
+                            setSurveyData={this.setSurveyData}
+                            updateSurveyState={this.updateSurveyState}
+                            updateCheckedState={this.updateCheckedState}
+                            updateCoordState={this.updateCoordState}
                         />
                         <SurfaceRibScan
-                          data={this.state.surveyData}
-                          SRSData={this.state.SRSData}
-                          updateSurveyState={this.updateSurveyState}
-                          updateSRS={this.updateSRS}
+                            data={this.state.surveyData}
+                            SRSData={this.state.SRSData}
+                            updateSurveyState={this.updateSurveyState}
+                            updateSRS={this.updateSRS}
                         />
                         <AccumulationSurvey
-                          data={this.state.ASData}
-                          updateAS={this.updateAS} />
+                            data={this.state.ASData}
+                            updateAS={this.updateAS} />
                         <MicroDebrisSurvey
-                          data={this.state.surveyData}
-                          updateSurveyState={this.updateSurveyState}
+                            data={this.state.surveyData}
+                            updateSurveyState={this.updateSurveyState}
                         />
                     </Accordion>
                 </form>
@@ -508,7 +512,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
-                <Review data={this.state.surveyData} email={this.state.email}SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
+                <Review data={this.state.surveyData} email={this.state.email} SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
                 <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit </button>
             </div>);
     }
@@ -517,7 +521,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
-                <h3>Click <Link to="/home" > here</Link> to view your survey.</h3>
+                <h3>Click <Link to={`${this.state.beachName}/surveys/${this.state.survID}`} > here</Link> to view your survey.</h3>
                 <div className="submit-button-container">
                     <button className="uk-button uk-button-secondary" onClick={this.moveToReview} >
                         Back to Review
