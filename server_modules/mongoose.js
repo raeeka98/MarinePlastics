@@ -9,22 +9,20 @@ let trash = {
 }
 
 let surveys = {
+    getUserID: async function(surveyID) {
+        return await surveyModel.findById(surveyID).select('userID').lean().exec();
+    },
     get: async function(surveyID) {
         return await surveyModel.findById(surveyID).lean().exec();
     },
     getDateCreated: async function(surveyID) {
-        console.log(surveyID);
         let dateObj = await surveyModel.findById(surveyID).lean().exec();
-        console.log(dateObj);
         let date = dateObj.survDate;
         return date;
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
         let dateOfSub = new Date(epochDateOfSubmit);
         let { stats, surveys } = await beachModel.findById(beachID, `stats.ttls.${dateOfSub.getUTCFullYear()} surveys.${dateOfSub.getUTCFullYear()}`).lean().exec();
-        console.log(stats);
-        console.log(surveys);
-
 
         let surveyUpdate = {
             $pull: {
@@ -65,7 +63,6 @@ let surveys = {
             }
         }
 
-        console.log(updatedFields);
         let newSurvey = await surveyModel.findByIdAndUpdate(surveyID, update, { new: true }).exec();
         //update stats
         let updatePayload = {
@@ -103,7 +100,6 @@ let surveys = {
         let update = {};
         let rtnMsg = null;
         survey.bID = beachID;
-        console.log(beachID);
         let { surveys } = await beachModel.findById(beachID).select("surveys stats").exec();
         let surveyEntryData = {
             date: survDate.getUTCDate(),
@@ -146,7 +142,7 @@ let surveys = {
                 rtnMsg = survey;
 
             } else {
-                res.json({error: new Error(`A survey already exists on that date`)});
+                res.json({ error: new Error(`A survey already exists on that date`) });
                 return res;
             }
         }
@@ -176,7 +172,6 @@ let beaches = {
         let totalsQuery = {};
         let projection = `stats.lastUp stats.TODF stats.ttls.${date.getUTCFullYear()}`;
         let { stats: oldStats } = await beachModel.findById(beachID).select(projection).exec();
-        console.log(updatePayload);
         switch (updateReason) {
             case 'new':
                 createdSurvey(update, totalsQuery, updatePayload, oldStats);
@@ -190,11 +185,9 @@ let beaches = {
         }
 
         update.beachUpdate.$set['stats.lastUp'] = Date.now();
-        console.log(update);
 
         let beachProm = beachModel.findByIdAndUpdate(beachID, update.beachUpdate, { new: true }).exec();
         let promises = [beachProm];
-        console.log(totalsQuery);
 
         if (totalsQuery._id) {
             promises.push(yearTotalsModel.findOneAndUpdate(totalsQuery, update.totalsUpdate, { new: true }).exec());
@@ -208,10 +201,8 @@ let beaches = {
         return beachRt;
     },
     getStats: async function(beachID, year) {
-        console.log("GEtting stats", beachID);
         let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
-        console.log(stats.TODF);
         let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
         keysToSort.sort((a, b) => { return stats.TODF[a] - stats.TODF[b] });
         let sortedKeys = {};
@@ -219,7 +210,6 @@ let beaches = {
         for (let i = 0; i < keysToSort.length; i++) {
             sortedKeys[keysToSort[i]] = stats.TODF[keysToSort[i]];
         }
-        console.log(sortedKeys);
         return { totals: stats.ttls[year], typesOfDebrisFound: sortedKeys, lastUp: stats.lastUp };
     },
 
@@ -235,7 +225,6 @@ let beaches = {
         for (const yearTotalID of totalYearIterator) {
             promises.push(yearTotalsModel.findByIdAndRemove(yearTotalID).exec());
         }
-        console.log(`removal beach ${removedBeach}`);
 
         await Promise.all(promises);
 
@@ -301,7 +290,9 @@ let beaches = {
             .skip(skip)
             .limit(20)
             .select(projection)
-            .sort([[proj_mod, -1]])
+            .sort([
+                [proj_mod, -1]
+            ])
             .exec();
 
     },
@@ -373,7 +364,6 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
         update.beachUpdate.$set['stats.TODF'] = result;
     }
-    console.log(JSON.stringify(update));
     if (oldStats.ttls.size <= 0) {
         //create new year
         let totals = new yearTotalsModel({
@@ -392,18 +382,15 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
             }
         }
     };
-    console.log(JSON.stringify(update));
     totalsQuery._id = totalsID;
 }
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
     let trash = Object.keys(newDebrisData);
     if (trash.length > 0) {
-        console.log("Trash has data " + trash);
         trash.forEach(trashName => {
             let newTrashAmnt = newDebrisData[trashName];
             if (prevDebrisData.has(trashName)) {
-                console.log("Old data has: " + trashName);
                 let origAmnt = prevDebrisData.get(trashName);
                 prevDebrisData.delete(trashName);
                 let newTotal = newTrashAmnt + origAmnt;
