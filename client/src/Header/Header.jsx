@@ -44,7 +44,7 @@ class Menu extends Component {
     this.state = {
       auth: this.props.auth,
       showAboutMenu: false,
-      sa: false,
+      sa: false, //superAdmin
       checked: false
     };
   }
@@ -80,13 +80,13 @@ class Menu extends Component {
               <li><Link to="/home">Home</Link></li>
 
               {this.props.auth.isAuthenticated()
-                ? <li><Link to='/ survey'>Add Survey</Link></li>
+                ? <li><Link to='/survey'>Add Survey</Link></li>
                 : null
               }
 
               <li><Link to="/protocol">Protocol</Link></li>
               <li><Link to="/about">About</Link></li>
-              {this.props.auth.isAuthenticated()
+              {this.props.auth.isAuthenticated() && this.state.sa
                 ? <li><Link to='/adminPage'>Admin Page</Link></li>
                 : null
               }

@@ -7,7 +7,7 @@ export default class Auth {
     auth0 = new auth0.WebAuth({
         domain: process.env.REACT_APP_AUTH_DOMAIN,
         clientID: process.env.REACT_APP_AUTH_CLIENT_ID,
-        redirectUri: process.env.REACT_APP_AUTH_LOGIN_REDIRECT_URI,
+        redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URI,
         responseType: 'token id_token',
         scope: 'openid email profile roles',
         audience: process.env.REACT_APP_AUTH_AUDIENCE
