@@ -318,6 +318,28 @@ let beaches = {
     },
     getInfo: async function(beachID) {
         return await beachModel.findById(beachID).select("n lat lon nroName nroDist lastMod").exec();
+    },
+    getClosestCoords: async function(latitude, longitude, callback) {
+        await beachModel.find().exec(function(err, res) {
+            if(err)
+                return err;
+            let beaches = res;
+            let result = [];
+            console.log(`${latitude}, ${longitude}`)
+            const lat1Rad = (Math.PI/180) * (latitude);
+            const lon1Rad = (Math.PI/180) * (longitude);
+            const earthRadius = 6371;
+            var lat2Rad, lon2Rad, distance;
+            for(const beach in beaches){
+                lat2Rad = (Math.PI/180) * (beaches[beach].lat);
+                lon2Rad = (Math.PI/180) * (beaches[beach].lon);
+                distance = Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad) 
+                        + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad)) * earthRadius;
+                if(distance <= 8)
+                    result.push(beaches[beach]);
+            }
+            callback(result); //Return back to the main function
+        });
     }
 }
 
