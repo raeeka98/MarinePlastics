@@ -5,7 +5,27 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const path = require('path');
 const app = express();
-const { router: dataEntryRouter } = require('./routes/dataEntry');
+
+const { router: dataEntryRouter, verifySurveyJWT } = require('./routes/dataEntry');
+const auth0Route = require('./routes/auth0');
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+
+const jwtUser = jwt({
+    secret: jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://marine-plastics-coi.auth0.com/.well-known/jwks.json'
+    }),
+    audience: 'https://user-auth.com',
+    issuer: 'https://marine-plastics-coi.auth0.com/',
+    algorithms: ['RS256']
+});
+
+
+verifySurveyJWT(jwtUser);   
+
 //set our port to either a predetermined port number if you have set it up, or 3001
 app.use(express.static(path.join(__dirname, 'client/build')));
 let reactPath = path.join(__dirname, "/client/build/index.html");
@@ -23,6 +43,7 @@ app.use(function(err, req, res, next) {
 
 //Use our router configuration when we call /api
 app.use('/beaches', dataEntryRouter);
+app.use('/auth', auth0Route(jwtUser));
 
 app.get('/pdfs/COIDataSheet_4_16_19.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_4_16_19.pdf')));
 
