@@ -142,8 +142,8 @@ let surveys = {
                 rtnMsg = survey;
 
             } else {
-                res.json({ error: new Error(`A survey already exists on that date`) });
-                return res;
+                let error = new Error(`A survey already exists on that date`);
+                throw error;
             }
         }
 
@@ -320,22 +320,32 @@ let beaches = {
         return await beachModel.findById(beachID).select("n lat lon nroName nroDist lastMod").exec();
     },
     getClosestCoords: async function(latitude, longitude, callback) {
+        /**
+         * Use the Law of Cosines to find the beaches in the database within a five mile (or here, 8 km) 
+         * radius of the given latitude and longitude of the beach. The callback function is just used 
+         * to properly return the result of the function used within the exec() portion of the query.
+         * 
+         * This may have some work to be done in terms of optimization, but as of now all of the beaches stored
+         * in the database are returned and iterated over. Their latitudes and longitudes are used to determine
+         * the geospacial relation to the given latitude and longitude via the law of cosines.
+         */
         await beachModel.find().exec(function(err, res) {
             if(err)
                 return err;
             let beaches = res;
             let result = [];
-            console.log(`${latitude}, ${longitude}`)
             const lat1Rad = (Math.PI/180) * (latitude);
             const lon1Rad = (Math.PI/180) * (longitude);
             const earthRadius = 6371;
+            const beachRadius = 8; //km
             var lat2Rad, lon2Rad, distance;
             for(const beach in beaches){
                 lat2Rad = (Math.PI/180) * (beaches[beach].lat);
                 lon2Rad = (Math.PI/180) * (beaches[beach].lon);
+                // Law of Cosines
                 distance = Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad) 
                         + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad)) * earthRadius;
-                if(distance <= 8)
+                if(distance <= beachRadius)
                     result.push(beaches[beach]);
             }
             callback(result); //Return back to the main function
