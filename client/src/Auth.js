@@ -73,8 +73,6 @@ export default class Auth {
         return new Promise((res, rej) => {
             this.auth0.client.userInfo(token, (err, profile) => {
                 if (profile) {
-                    console.log(profile);
-
                     res(profile);
                 }
                 if (err) {
@@ -88,16 +86,15 @@ export default class Auth {
     getLoggedInProfile() {
         return new Promise((res, rej) => {
             if (this.userProfile) {
-                res(this.userProfile);
+                return res(this.userProfile);
             }
             let token = localStorage.getItem("accessToken");
             if (token != null) {
                 this.getProfile(token)
                     .then(prof => {
-                        res(prof);
+                        return res(prof);
                     })
             }
-            res(null)
         })
     }
 
@@ -118,7 +115,7 @@ export default class Auth {
         this.userProfile = null;
         // navigate to the home route
         this.auth0.logout({
-            return_to: window.location.origin
+            returnTo: process.env.REACT_APP_AUTH_LOGOUT_URI
         });
     }
 
@@ -127,8 +124,6 @@ export default class Auth {
         // Access Token's expiry time
         // Added check to make sure localstorage is defined
         let expiresAt = localStorage.getItem("expiresAt");
-        console.log(expiresAt);
-
         return new Date().getTime() < expiresAt;
     }
 }
