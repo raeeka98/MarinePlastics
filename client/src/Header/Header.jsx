@@ -61,6 +61,7 @@ class Menu extends Component {
     if (!this.state.checked) {
       this.props.auth.containsRole('Super Admin')
         .then(res => {
+          console.log(res);
           this.setState({ sa: res, checked: true });
         })
     }
@@ -68,7 +69,7 @@ class Menu extends Component {
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
 
-          <div className="uk-navbar-left uk-visible@m">
+          <div className="uk-navbar-left uk-visible">
             <ul className="uk-navbar-nav">
               <li className="uk-logo">
                 <Link to="/home" >
