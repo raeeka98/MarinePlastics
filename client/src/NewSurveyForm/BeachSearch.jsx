@@ -69,7 +69,6 @@ class BeachSearch extends Component {
 
     return (
       <div>
-        <label>Name<span className="uk-text-danger">*</span></label>
         <input id="beachName" className="uk-input uk-margin"
           placeholder="Name of Beach"
           ref={input => this.search = input}
