@@ -1,5 +1,4 @@
 import auth0 from 'auth0-js';
-import { resolve } from 'url';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/home', for prod
 redirectUri: 'http://localhost:3000/home', for dev*/
