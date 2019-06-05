@@ -24,21 +24,21 @@ class SurveyArea extends Component {
 
   updateLatLonFront = (lat, lon) => {
 
-        let latDeg = Math.floor(lat);
-        let tempDecimal = (lat - latDeg) * 60;
-        const latMin = Math.floor(tempDecimal);
-        const latSec = (tempDecimal - latMin) * 60;
-        const latDir = Math.sign(latDeg);
-        latDeg = latDeg * latDir;
+    let latDeg = Math.floor(lat);
+    let tempDecimal = (lat - latDeg) * 60;
+    const latMin = Math.floor(tempDecimal);
+    const latSec = (tempDecimal - latMin) * 60;
+    const latDir = Math.sign(latDeg);
+    latDeg = latDeg * latDir;
 
-        let lonDeg = Math.floor(lon);
-        tempDecimal = (lon - lonDeg) * 60;
-        const lonMin = Math.floor(tempDecimal);
-        const lonSec = (tempDecimal - lonMin) * 60;
-        const lonDir = Math.sign(lonDeg);
-        lonDeg = lonDeg * lonDir;
+    let lonDeg = Math.floor(lon);
+    tempDecimal = (lon - lonDeg) * 60;
+    const lonMin = Math.floor(tempDecimal);
+    const lonSec = (tempDecimal - lonMin) * 60;
+    const lonDir = Math.sign(lonDeg);
+    lonDeg = lonDeg * lonDir;
 
-        return {latitude : lat, latDeg, latMin, latSec, latDir, longitude : lon, lonDeg, lonMin, lonSec, lonDir}
+    return { latitude: lat, latDeg, latMin, latSec, latDir, longitude: lon, lonDeg, lonMin, lonSec, lonDir }
 
   }
 
@@ -55,8 +55,281 @@ class SurveyArea extends Component {
       });
   };
 
+  beachNameInput = (autoFilled) => {
+
+    if (autoFilled) {
+      return (
+        <input
+          className="uk-input uk-margin"
+          defaultValue={autoFilled.n}
+          disabled>
+        </input>);
+    }
+    return (
+      <BeachSearch
+        id="beachName"
+        autofill={this.autofill}
+        setSurveyData={this.props.setSurveyData}
+        defaultValue={this.props.data.beachName} />
+    );
+  }
+
+  riverNameInput = (autoFilled) => {
+    if (autoFilled) {
+      return (
+        <input
+          defaultValue={autoFilled.nroName}
+          className='uk-input uk-margin'
+          disabled
+        />
+      );
+    }
+    return (
+      <input
+        type='string'
+        placeholder='Nearest River Output Name'
+        id='riverName'
+        defaultValue={this.props.data.riverName}
+        onChange={this.props.updateSurveyState}
+        className='uk-input uk-margin'
+      />
+    )
+  }
+
+  latLongToDMS = (lat, lon) => {
+    let latDeg = Math.floor(lat);
+    let tempDecimal = (lat - latDeg) * 60;
+    let latMin = Math.floor(tempDecimal);
+    let latSec = (tempDecimal - latMin) * 60;
+    latSec = (Math.trunc((latSec * 100)) / 100);
+    let latDir = Math.sign(latDeg);
+    latDeg = latDeg * latDir;
+
+    let lonDeg = Math.floor(lon);
+    tempDecimal = (lon - lonDeg) * 60;
+    let lonMin = Math.floor(tempDecimal);
+    let lonSec = (tempDecimal - lonMin) * 60;
+    lonSec = (Math.trunc((latSec * 100)) / 100);
+    let lonDir = Math.sign(lonDeg);
+    lonDeg = lonDeg * lonDir;
+    return {
+      lat: {
+        latDeg, latMin, latSec, latDir: (latDir === 1) ? 'N' : 'S'
+      },
+      lon: {
+        lonDeg, lonMin, lonSec, lonDir: (lonDir === 1) ? 'E' : 'W'
+      }
+    }
+  }
+
+  coordsInput = (autoFilled) => {
+    let latDivs, lonDivs;
+    if (autoFilled) {
+      let {lat,lon} = this.latLongToDMS(autoFilled.lat, autoFilled.lon);
+      
+      latDivs = (
+        <React.Fragment>
+          <div>
+            <input
+              defaultValue={lat.latDeg}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lat.latMin}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lat.latSec}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lat.latDir}
+              className='uk-input uk-margin'
+              disabled
+            >
+            </input>
+          </div>
+        </React.Fragment>
+      );
+      lonDivs = (
+        <React.Fragment>
+          <div>
+            <input
+              defaultValue={lon.lonDeg}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lon.lonMin}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lon.lonSec}
+              className='uk-input uk-margin'
+              disabled
+            />
+          </div>
+          <div>
+            <input
+              defaultValue={lon.lonDir}
+              className='uk-input uk-margin'
+              disabled
+            >
+            </input>
+          </div>
+        </React.Fragment>
+      )
+    } else {
+      latDivs = (
+        <React.Fragment>
+          <div>
+            <input
+              type='number'
+              placeholder='&#176;'
+              id='latDeg'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.latDeg}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <input
+              type='number'
+              placeholder="'"
+              id='latMin'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.latMin}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <input
+              type='number'
+              placeholder='"'
+              id='latSec'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.latSec}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <select
+              id='latDir'
+              className='uk-select uk-margin'
+              onChange={this.props.updateSurveyState}
+              value={this.props.data.latDir}
+            >
+              {!this.props.data.latDir && <option></option>}
+              <option value='1' >N</option>
+              <option value="-1">S</option>
+            </select>
+          </div>
+        </React.Fragment>
+      );
+      lonDivs = (
+        <React.Fragment>
+          <div>
+            <input
+              type='number'
+              placeholder='&#176;'
+              id='lonDeg'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.lonDeg}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <input
+              type='number'
+              placeholder="'"
+              id='lonMin'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.lonMin}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <input
+              type='number'
+              placeholder='"'
+              id='lonSec'
+              onChange={this.props.updateSurveyState}
+              defaultValue={this.props.data.lonSec}
+              className='uk-input uk-margin'
+            />
+          </div>
+          <div>
+            <select
+              id='lonDir'
+              className='uk-select uk-margin'
+              onChange={this.props.updateSurveyState}
+              value={this.props.data.lonDir}
+            >
+              {!this.props.data.lonDir && <option></option>}
+              <option value='1' >E</option>
+              <option value="-1">W</option>
+            </select>
+          </div>
+        </React.Fragment>
+      );
+    }
+    return (
+      <React.Fragment>
+        <div>
+          <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
+          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          {latDivs}
+          </div>
+        </div>
+        <div>
+          <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
+          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          {lonDivs}
+          </div>
+        </div>
+      </React.Fragment>
+    )
+  }
+
+  riverDistInput = (autoFilled) => {
+    if (autoFilled) {
+      return (
+        <input
+          defaultValue={autoFilled.nroDist}
+          className='uk-input uk-margin'
+          disabled
+        />
+      );
+    }
+    return (
+      <input
+        type='number'
+        placeholder='Nearest River Output Distance'
+        id='riverDistance'
+        defaultValue={this.props.data.riverDistance}
+        onChange={this.props.updateSurveyState}
+        className='uk-input uk-margin'
+      />
+    );
+  }
+
 
   render() {
+    let autoFilledData = this.props.autoFilledBeachData;
     return (
       <AccordionItem className="accordion__item">
         <AccordionItemTitle className="accordion__title accordion__title--animated">
@@ -70,103 +343,10 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <BeachSearch id="beachName" autofill={this.autofill} setSurveyData={this.props.setSurveyData} defaultValue={this.props.data.beachName}/>
+              <label>Beach Name<span className="uk-text-danger">*</span></label>
+              {this.beachNameInput(autoFilledData)}
             </div>
-            <div>
-              <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
-              <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
-                <div>
-                  <input
-                    type='number'
-                    placeholder='&#176;'
-                    id='latDeg'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.latDeg}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <input
-                    type='number'
-                    placeholder="'"
-                    id='latMin'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.latMin}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <input
-                    type='number'
-                    placeholder='"'
-                    id='latSec'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.latSec}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <select
-                    id='latDir'
-                    className='uk-select uk-margin'
-                    onChange={this.props.updateSurveyState}
-                    value={this.props.data.latDir}
-                  >
-                    {!this.props.data.latDir && <option></option>}
-                    <option value='1' >N</option>
-                    <option value="-1">S</option>
-                  </select>
-                </div>
-
-              </div>
-            </div>
-            <div>
-              <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
-              <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
-                <div>
-                  <input
-                    type='number'
-                    placeholder='&#176;'
-                    id='lonDeg'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.lonDeg}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <input
-                    type='number'
-                    placeholder="'"
-                    id='lonMin'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.lonMin}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <input
-                    type='number'
-                    placeholder='"'
-                    id='lonSec'
-                    onChange={this.props.updateSurveyState}
-                    defaultValue={this.props.data.lonSec}
-                    className='uk-input uk-margin'
-                  />
-                </div>
-                <div>
-                  <select
-                    id='lonDir'
-                    className='uk-select uk-margin'
-                    onChange={this.props.updateSurveyState}
-                    value={this.props.data.lonDir}
-                  >
-                    {!this.props.data.lonDir && <option></option>}
-                    <option value='1' >E</option>
-                    <option value="-1">W</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            {this.coordsInput(autoFilledData)}
           </div>
 
           <div className="uk-grid uk-child-width-1-3">
@@ -289,25 +469,11 @@ class SurveyArea extends Component {
           <div className="uk-grid uk-child-width-1-2">
             <div>
               <label>River Name<span className="uk-text-danger">*</span></label>
-              <input
-                type='string'
-                placeholder='Nearest River Output Name'
-                id='riverName'
-                defaultValue={this.props.data.riverName}
-                onChange={this.props.updateSurveyState}
-                className='uk-input uk-margin'
-              />
+              {this.riverNameInput(autoFilledData)}
             </div>
             <div>
               <label>Approximate Distance (ft)<span className="uk-text-danger">*</span></label>
-              <input
-                type='number'
-                placeholder='Nearest River Output Distance'
-                id='riverDistance'
-                defaultValue={this.props.data.riverDistance}
-                onChange={this.props.updateSurveyState}
-                className='uk-input uk-margin'
-              />
+              {this.riverDistInput(autoFilledData)}
             </div>
           </div>
 
