@@ -262,7 +262,9 @@ class SurveyForm extends Component {
                     this.setState({
                         isInputting: false,
                         isReviewing: false,
-                        isSubmitted: true
+                        isSubmitted: true,
+                        survID: res.data.survID,
+                        beachName:form.beachData.n
                     })
                 }
             })
@@ -532,7 +534,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
-                <h3>Click <Link to="/home" > here</Link> to view your survey.</h3>
+                <h3>Click <Link to={`${this.state.beachName}/surveys/${this.state.survID}`} > here</Link> to view your survey.</h3>
                 <div className="submit-button-container">
                     <button className="uk-button uk-button-secondary" onClick={this.moveToReview} >
                         Back to Review
