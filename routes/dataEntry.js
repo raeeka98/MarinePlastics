@@ -73,13 +73,30 @@ router.route('/map')
 router.route('/search')
     .get(asyncHandler(async (req, res) => {
         let { q: query } = req.query;
-        query = query.replace(" ", "_");
+        query = query.replace(/ /g, "_");
         let matchedQuery = await beaches.queryBeachNames(query);
         for (const key in matchedQuery) {
             matchedQuery[key].n = matchedQuery[key].n.replace(/_/g, " ");
         }
         res.json(matchedQuery);
     }));
+
+router.route('/search/closest')
+    /**
+     * Return a list of beaches within a 5 mile (8 km) radius of the given coordinates
+     */
+    .get(asyncHandler(async (req, res) => {
+        let coordinates = JSON.parse(req.query.coords);
+        let lat = coordinates.lat, lon = coordinates.lon;
+        // Pass a callback function to return the result from the database query
+        await beaches.getClosestCoords(lat, lon, function(result) {
+            for(const key in result) {
+                result[key].n = result[key].n.replace(/_/g, " "); 
+            }
+            res.json(result);
+        });
+        
+    }))
 
 router.route('/allstats')
     .get(asyncHandler(async (req, res) => {
@@ -110,7 +127,7 @@ router.route('/surveys')
             res.json({ survID: surv._id });
         } catch (err) {
             console.log(err);
-            res.status(500).send({ error: err })
+            res.status(500).send({ error: err.message })
         }
 
     }));
