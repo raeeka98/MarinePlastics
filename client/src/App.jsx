@@ -38,7 +38,7 @@ class App extends Component {
   componentDidMount() {
     // checks if the user is logged in or not (see Auth.js for the function)
     console.log(this.auth.isAuthenticated());
-    
+
     this.auth.handleAuthentication()
       .then(() => {
         if (this.auth.isAuthenticated()) {
@@ -79,8 +79,8 @@ class App extends Component {
                 <Route exact path='/home' render={() => <Home auth={this.auth} userProfile={this.state.userProfile} />} />
 
                 {/* for testing new component: */}
-                <Route path='/survey' render={() => <SurveyForm auth={this.auth} />} />
-                <Route path='/location/:beachID' component={LocationPage} />
+                <Route path='/survey' render={props => <SurveyForm {...props} auth={this.auth} />} />
+                <Route path='/location/:beachID' render={props => <LocationPage {...props}/>} auth={this.auth}/>
                 <Route path="/:beachName/:surveyID/edit" render={props => <SurveyEntryEdit {...props} auth={this.auth} />} />
                 <Route path='/:beachName/:surveyID' render={props => (<SurveyEntry {...props} auth={this.auth} />)} />
                 {/* for the profile page: if user is logged in, load the userprofile component. otherwise redirect to landing page */}
