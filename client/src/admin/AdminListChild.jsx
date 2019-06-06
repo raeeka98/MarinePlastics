@@ -26,7 +26,8 @@ export default class AdminListChild extends Component {
     render() {
         let { email, pic, name } = this.state;
         return (
-            <div onClick={this.viewProf}> <img style={imgStyle} src={pic} alt="prof" /> {name} <b>{email}</b>
+            <div> <img style={imgStyle} src={pic} alt="prof" /> {name} <b>{email}</b>
+                <button className="profBtn" onClick={this.viewProf} >View Profile</button>
                 <button className="removeBtn" onClick={this.removePriv}>Remove</button>
             </div>
         );
