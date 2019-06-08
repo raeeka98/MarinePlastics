@@ -43,10 +43,10 @@ const AllDebris = {
   hygieneItems       : "Hygiene Items"                    ,
   tileBrick          : "Tile / Brick"                     ,
   styrothane         : "Styrofoam / Urethane"             ,
-  otherPlastics      : "Other : Plastics"                 ,
-  otherFoodOrganics  : "Other : Food / Organics"          ,
-  otherCottonCloth   : "Other : Cotton / Cloth"           ,
-  otherWoodPaper     : "Other : Wood / Paper"             ,
+  otherPlastic       : "Other : Plastics"                 ,
+  otherFood          : "Other : Food / Organics"          ,
+  otherCotton        : "Other : Cotton / Cloth"           ,
+  otherWood          : "Other : Wood / Paper"             ,
   misc               : "Misc. (general)"
 }
 
