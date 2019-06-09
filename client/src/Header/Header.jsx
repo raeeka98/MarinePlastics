@@ -44,7 +44,7 @@ class Menu extends Component {
     this.state = {
       auth: this.props.auth,
       showAboutMenu: false,
-      sa: false,
+      sa: false, //superAdmin
       checked: false
     };
   }
@@ -61,6 +61,7 @@ class Menu extends Component {
     if (!this.state.checked) {
       this.props.auth.containsRole('Super Admin')
         .then(res => {
+          console.log(res);
           this.setState({ sa: res, checked: true });
         })
     }
@@ -68,7 +69,7 @@ class Menu extends Component {
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
 
-          <div className="uk-navbar-left uk-visible@m">
+          <div className="uk-navbar-left uk-visible">
             <ul className="uk-navbar-nav">
               <li className="uk-logo">
                 <Link to="/home" >
@@ -80,13 +81,13 @@ class Menu extends Component {
               <li><Link to="/home">Home</Link></li>
 
               {this.props.auth.isAuthenticated()
-                ? <li><Link to='/ survey'>Add Survey</Link></li>
+                ? <li><Link to='/survey'>Add Survey</Link></li>
                 : null
               }
 
               <li><Link to="/protocol">Protocol</Link></li>
               <li><Link to="/about">About</Link></li>
-              {this.props.auth.isAuthenticated()
+              {this.props.auth.isAuthenticated() && this.state.sa
                 ? <li><Link to='/adminPage'>Admin Page</Link></li>
                 : null
               }

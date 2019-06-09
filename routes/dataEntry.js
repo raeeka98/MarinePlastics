@@ -50,7 +50,6 @@ router.route('/')
             //let beach = await beaches.create(beachData);
             res.json({ res: `Added beach ${beach.n}` });
         } catch (err) {
-            console.log(err);
             res.json(err);
         }
     }));
@@ -82,10 +81,13 @@ router.route('/search')
     }));
 
 router.route('/search/closest')
+    /**
+     * Return a list of beaches within a 5 mile (8 km) radius of the given coordinates
+     */
     .get(asyncHandler(async (req, res) => {
-        console.log("Got a request: ", req.query);
         let coordinates = JSON.parse(req.query.coords);
         let lat = coordinates.lat, lon = coordinates.lon;
+        // Pass a callback function to return the result from the database query
         await beaches.getClosestCoords(lat, lon, function(result) {
             for(const key in result) {
                 result[key].n = result[key].n.replace(/_/g, " "); 
@@ -123,8 +125,7 @@ router.route('/surveys')
             let surv = await surveys.addToBeach(surveyData.survData, beachID);
             res.json({ survID: surv._id });
         } catch (err) {
-            console.log(err);
-            res.status(500).send({ error: err })
+            res.status(500).send({ error: err.message })
         }
 
     }));
@@ -132,12 +133,11 @@ router.route('/surveys')
 
 function checkIfSignedIn (req, res, next) {
     let bearer = req.headers['authorization'];
-    console.log(bearer);
 
     if (bearer != undefined) {
         let tokens = bearer.split(' ');
 
-        if (tokens.length == 2 && tokens[1] != 'undefined') {
+        if (tokens.length == 2 && (tokens[1] != 'undefined' &&  tokens[1] != 'null')) {
             return next();
         }
     }
@@ -155,9 +155,8 @@ function verifySurveyJWT (checkjwt) {
     router.route('/surveys/:surveyID')
         //get a specific survey for logged in
         .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
-            //console.log("Obtaining survey...");
+            console.log("GETTING USER INFORMATION YEETYEETUETT");
             let loggedInUser = req.user;
-            console.log(loggedInUser);
 
             let { userID: clientID } = req.query;
             let surveyID = req.params.surveyID;
@@ -171,13 +170,12 @@ function verifySurveyJWT (checkjwt) {
         }))
         //find a specific survey and edit it
         .post(checkjwt, asyncHandler(async (req, res) => {
+            console.log("Im in post for some reason")
             let updateData = req.body;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-            console.log(sameUser);
-
             if (!sameUser) {
                 return res.json({ res: "fail" });
             }
@@ -186,13 +184,12 @@ function verifySurveyJWT (checkjwt) {
         }))
         //delete an survey
         .delete(checkjwt, asyncHandler(async (req, res) => {
+            console.log("Delete also lol")
             let { bID, dos: dateOfSub } = req.query;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-            console.log(sameUser);
-
             if (!sameUser) {
                 return res.json({ res: "fail" });
             }

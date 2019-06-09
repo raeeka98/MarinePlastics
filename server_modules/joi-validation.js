@@ -84,66 +84,52 @@ module.exports = {
     surveyValidation: bodySchema
 }
 
-let dataTest = {
-    bID: "5c74f1bc71992a56a570d485",
-    survData: {
-        user: {
-            f: "pTesp",
-            l: "ter"
-        },
-        userID: "5c631395fafc067adaa77d55",
-        email: "asd@gmail.com",
-        org: "yo",
-        reason: {
-            prox: true,
-            other: "ye"
-        },
-        survDate: Date.now(),
-        st: {
-            s: true,
-            rr: true
-        },
-        slope: "winter",
-        cmpsDir: "100",
-        lastTide: {
-            type: "low",
-            time: "03:33",
-            height: "5"
-        },
-        nextTide: {
-            type: "low",
-            time: "03:33",
-            height: "5"
-        },
-        wind: {
-            dir: "n",
-            spd: 6
-        },
-        majorUse: {
-            rec: "true",
-            com: undefined,
-            other: undefined
-        },
-        numOfP: "6",
-        SRSDebris: {
-            plastic: { fresh: "4", weathered: "9" }
-        },
-        ASDebris: {
-            miscPlastic: { fresh: "2", weathered: "5" }
-        }
-    }
-}
-
-async function fun1 () {
-    try {
-        let res = await bodySchema.validate(dataTest);
-        console.log(res);
-
-    } catch (err) {
-        console.log(err.details[0].message);
-
-        console.log(err.details[0].path);
-        console.log(err.details[0].type);
-        console.log(err.details[0].context);
-    }
-}
+// let dataTest = {
+//     bID: "5c74f1bc71992a56a570d485",
+//     survData: {
+//         user: {
+//             f: "pTesp",
+//             l: "ter"
+//         },
+//         userID: "5c631395fafc067adaa77d55",
+//         email: "asd@gmail.com",
+//         org: "yo",
+//         reason: {
+//             prox: true,
+//             other: "ye"
+//         },
+//         survDate: Date.now(),
+//         st: {
+//             s: true,
+//             rr: true
+//         },
+//         slope: "winter",
+//         cmpsDir: "100",
+//         lastTide: {
+//             type: "low",
+//             time: "03:33",
+//             height: "5"
+//         },
+//         nextTide: {
+//             type: "low",
+//             time: "03:33",
+//             height: "5"
+//         },
+//         wind: {
+//             dir: "n",
+//             spd: 6
+//         },
+//         majorUse: {
+//             rec: "true",
+//             com: undefined,
+//             other: undefined
+//         },
+//         numOfP: "6",
+//         SRSDebris: {
+//             plastic: { fresh: "4", weathered: "9" }
+//         },
+//         ASDebris: {
+//             miscPlastic: { fresh: "2", weathered: "5" }
+//         }
+//     }
+// }

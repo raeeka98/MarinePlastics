@@ -29,8 +29,6 @@ let userAPI = {
 }
 
 function hasPermission (req, res, next) {
-    console.log(req.user);
-
     let hasPermission = req.user.permissions.includes('create:admin');
     if (!hasPermission) {
         return res.status(403).json({ err: "Do not have the right permissions." });
@@ -61,7 +59,7 @@ module.exports = function(checkJwt) {
 
     router.get("/find", asyncHandler(async (req, res) => {
         let reqEmail = req.query.e;
-        console.log(reqEmail);
+        let resp = { found: false, user: null };
         try {
             let token = await obtainAccessToken("manager");
 
@@ -73,22 +71,21 @@ module.exports = function(checkJwt) {
                     authorization: `Bearer ${token}`
                 }
             });
-            if(users.length<1){
-                return res.status(400).json({err:"No profile attached to that email"});
+            if (users.length < 1) {
+                return res.json(resp);
             }
-            let user = users[0];
-            
-            let { data: roles } = await axios.get(`https://marine-plastics-coi.auth0.com/api/v2/users/${user.user_id}/roles`, {
+            resp.found = true;
+            resp.user = users[0];
+
+            let { data: roles } = await axios.get(`https://marine-plastics-coi.auth0.com/api/v2/users/${resp.user.user_id}/roles`, {
                 headers: {
                     authorization: `Bearer ${token}`
                 }
             })
-            user.roles = roles;
-            res.json(user);
+            resp.user.roles = roles;
+            return res.json(resp);
 
         } catch (err) {
-            console.log(err);
-            
             let { data: response } = err.response;
             if (response.statusCode === 400) {
                 return res.status(400).json({ err: response.error });
@@ -117,7 +114,6 @@ module.exports = function(checkJwt) {
                 res.json({ res: "success", role_id: "rol_TeEKH4d1DDLAbCVT" });
 
             } catch (err) {
-                console.log(err.response.data);
                 req.status(500).json({ err: "Something went wrong!" });
             }
         }))
@@ -137,7 +133,6 @@ module.exports = function(checkJwt) {
                 });
                 res.json({ res: "success" });
             } catch (err) {
-                console.log(err.response.data);
                 req.status(500).json({ err: "Something went wrong!" });
             }
         }));
@@ -154,7 +149,6 @@ module.exports = function(checkJwt) {
             });
             res.json(data);
         } catch (err) {
-            console.log(err.response.data);
             req.status(500).json({ err: "Something went wrong!" });
         }
     }));

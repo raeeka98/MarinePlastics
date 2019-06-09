@@ -20,6 +20,7 @@ class SurveyForm extends Component {
         super(props);
         this.url = '/surveys'
         this.auth = this.props.auth;
+
         this.state = {
             surveyData: {
                 // fields (id's) :
@@ -56,9 +57,8 @@ class SurveyForm extends Component {
             user: "",
             email: "",
             userID: "",
-            survID: "",
-            beachName:"",
-            invalidForm: false
+            invalidForm: false,
+            autoFilledBeachData: null
         }
         this.moveToReview = this.moveToReview.bind(this);
         this.moveToInput = this.moveToInput.bind(this);
@@ -86,6 +86,18 @@ class SurveyForm extends Component {
                 userID: profile.sub.split("|")[1]
             });
         });
+        let { beachID } = this.props.location.state;
+        if (beachID) {
+            axios.get(`/beaches/${beachID}/info`)
+                .then(res => {
+                    this.setState({
+                        surveyData: { beachID },
+                        autoFilledBeachData: res.data
+                    });
+                    console.log(res.data);
+                    //beachData
+                })
+        }
     }
 
     updateDisplayStrings() {
@@ -480,6 +492,7 @@ class SurveyForm extends Component {
                         <TeamInformation data={this.state.surveyData} updateSurveyState={this.updateSurveyState} />
                         <SurveyArea
                             data={this.state.surveyData}
+                            autoFilledBeachData={this.state.autoFilledBeachData}
                             setSurveyData={this.setSurveyData}
                             updateSurveyState={this.updateSurveyState}
                             updateCheckedState={this.updateCheckedState}

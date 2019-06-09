@@ -30,9 +30,6 @@
     padding: 0.2em;
 }
 
-.list div:hover {
-    cursor: pointer;
-}
 
 .list div:nth-child(odd) {
     background: rgb(238, 237, 237);
@@ -42,13 +39,12 @@
     background: whitesmoke;
 }
 
-
-.removeBtn {
+.removeBtn,.profBtn{
+    box-sizing: content-box;
     border: none;
     cursor: pointer;
     position: absolute;
     font-weight: bold;
-    right: 0%;
     height: 100%;
     top: 50%;
     width: 5em;
@@ -57,11 +53,21 @@
 }
 
 .removeBtn {
+    right: 0%;
+}
+.profBtn {
+    right: 6em;
+}
+
+.removeBtn {
     background: rgb(221, 143, 143);
 }
 
-.list div button:active {
+.list div .removeBtn:active {
     background: rgb(187, 113, 113);
+}
+.list div .profBtn:active {
+    background: rgb(184, 184, 192);
 }
 
 .firstSearch {

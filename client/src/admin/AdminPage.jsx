@@ -25,7 +25,7 @@ class AdminPage extends Component {
 
     searchEmail = (e, email) => {
         e.preventDefault();
-        this.setState({ loading: true, searched: true }, () => {
+        this.setState({ loading: true, searched: true, currFoundUser: null }, () => {
             let token = this.state.auth.getAccessToken();
             let searchEmail = email || this.state.searchEmail;
             axios.get("/auth/find", {
@@ -36,8 +36,12 @@ class AdminPage extends Component {
                     Authorization: `Bearer ${token}`
                 }
             })
-                .then(res => {
-                    this.setState({ currFoundUser: res.data, loading: false });
+                .then(({ data }) => {
+                    if (data.found) {
+                        this.setState({ currFoundUser: data.user, loading: false });
+                    } else {
+                        this.setState({ loading: false });
+                    }
                 })
                 .catch(err => {
                     this.setState({ loading: false });
@@ -48,8 +52,8 @@ class AdminPage extends Component {
 
     searchBtn = () => {
         let correctEmail = this.state.searchEmail.length > 0 && /.+@.+\..+/.test(this.state.searchEmail);
-        let currentlyLoading = this.state.loading;
-        if (currentlyLoading) {
+        let { loading } = this.state;
+        if (loading) {
             return (
                 <button className="uk-button uk-button-default uk-button-primary uk-margin-small-top" type="submit" disabled>Search</button>
             );
@@ -82,6 +86,7 @@ class AdminPage extends Component {
     }
 
     viewProfile = () => {
+        let { currFoundUser: profile, loading } = this.state;
         if (!this.state.searched) {
             return (
                 <React.Fragment>
@@ -89,15 +94,17 @@ class AdminPage extends Component {
                 </React.Fragment>
             );
         }
-        let profile = this.state.currFoundUser;
-        let currentlyLoading = this.state.loading;
-        if (profile && !currentlyLoading) {
+        if (profile && !loading) {
             return (
                 <React.Fragment>
-                    <ProfileViewer profile={this.state.currFoundUser} />
+                    <ProfileViewer profile={profile} />
                     {this.givePrivBtn(profile.roles)}
                 </React.Fragment>
             );
+        } else if (!profile && !loading) {
+            return (
+                <div><b>NO PROFILE FOUND</b></div>
+            )
         } else {
             return (
                 <div><b>LOADING PROFILE</b></div>
@@ -139,10 +146,12 @@ class AdminPage extends Component {
         })
             .then(({ data }) => {
                 if (data.res === "success") {
-                    user.roles = [];
-                    this.setState({ currFoundUser: user }, () => {
-                        this.getAllAdmins();
-                    })
+                    if (user) {
+                        user.roles = [];
+                        this.setState({ currFoundUser: user }, () => {
+                            this.getAllAdmins();
+                        })
+                    }
                 }
             });
 
@@ -165,7 +174,7 @@ class AdminPage extends Component {
 
     adminViewer = () => {
         let { admins } = this.state;
-        if(!admins){
+        if (!admins) {
             return (
                 <b>OBTAINING ADMINS</b>
             )
