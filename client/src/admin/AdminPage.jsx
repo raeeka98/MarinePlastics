@@ -25,7 +25,7 @@ class AdminPage extends Component {
 
     searchEmail = (e, email) => {
         e.preventDefault();
-        this.setState({ loading: true, searched: true }, () => {
+        this.setState({ loading: true, searched: true, currFoundUser: null }, () => {
             let token = this.state.auth.getAccessToken();
             let searchEmail = email || this.state.searchEmail;
             axios.get("/auth/find", {
