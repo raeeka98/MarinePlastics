@@ -135,12 +135,11 @@ router.route('/surveys')
 
 function checkIfSignedIn (req, res, next) {
     let bearer = req.headers['authorization'];
-    console.log(bearer);
 
     if (bearer != undefined) {
         let tokens = bearer.split(' ');
 
-        if (tokens.length == 2 && tokens[1] != 'undefined') {
+        if (tokens.length == 2 && (tokens[1] != 'undefined' &&  tokens[1] != 'null')) {
             return next();
         }
     }
