@@ -158,7 +158,7 @@ class Location extends Component {
                       beachID:this.state.beachData._id
                     }
                   }} >
-                    + Create Survey
+                    + Add Survey
                   </Link>
                 </li> : null}
               </ul>
