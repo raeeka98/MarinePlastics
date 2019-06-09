@@ -50,7 +50,6 @@ router.route('/')
             //let beach = await beaches.create(beachData);
             res.json({ res: `Added beach ${beach.n}` });
         } catch (err) {
-            console.log(err);
             res.json(err);
         }
     }));
@@ -126,7 +125,6 @@ router.route('/surveys')
             let surv = await surveys.addToBeach(surveyData.survData, beachID);
             res.json({ survID: surv._id });
         } catch (err) {
-            console.log(err);
             res.status(500).send({ error: err.message })
         }
 
@@ -159,7 +157,6 @@ function verifySurveyJWT (checkjwt) {
         .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
             //console.log("Obtaining survey...");
             let loggedInUser = req.user;
-            console.log(loggedInUser);
 
             let { userID: clientID } = req.query;
             let surveyID = req.params.surveyID;
@@ -178,8 +175,6 @@ function verifySurveyJWT (checkjwt) {
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-            console.log(sameUser);
-
             if (!sameUser) {
                 return res.json({ res: "fail" });
             }
@@ -193,8 +188,6 @@ function verifySurveyJWT (checkjwt) {
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-            console.log(sameUser);
-
             if (!sameUser) {
                 return res.json({ res: "fail" });
             }
