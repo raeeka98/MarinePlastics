@@ -155,7 +155,7 @@ function verifySurveyJWT (checkjwt) {
     router.route('/surveys/:surveyID')
         //get a specific survey for logged in
         .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
-            //console.log("Obtaining survey...");
+            console.log("GETTING USER INFORMATION YEETYEETUETT");
             let loggedInUser = req.user;
 
             let { userID: clientID } = req.query;
@@ -170,6 +170,7 @@ function verifySurveyJWT (checkjwt) {
         }))
         //find a specific survey and edit it
         .post(checkjwt, asyncHandler(async (req, res) => {
+            console.log("Im in post for some reason")
             let updateData = req.body;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
@@ -183,6 +184,7 @@ function verifySurveyJWT (checkjwt) {
         }))
         //delete an survey
         .delete(checkjwt, asyncHandler(async (req, res) => {
+            console.log("Delete also lol")
             let { bID, dos: dateOfSub } = req.query;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);

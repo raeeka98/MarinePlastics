@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { getDebrisMap, debrisNames, getDebrisID } from '../NewSurveyForm/debrisInfo'
+import { getAllDebris, allDebrisNames, getAllDebrisID } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import EditableTable from './editableTable'
 import './surveyEntry.css';
 import './surveyEdit.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebris();
 
 
 class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
-    let srsOptions = debrisNames;
-    let asOptions = debrisNames;
+    let srsOptions = allDebrisNames;
+    let asOptions = allDebrisNames;
 
     let srsDebris = [], asDebris = [];
     let { SRSDebris, ASDebris } = props.location.state.surveyData;
@@ -94,10 +94,10 @@ class SurveyEntryEdit extends Component {
 
     if (type === "SRS") {
       newsrsOptions = newsrsOptions.filter(val => val !== trashName);
-      newSRS = [...newSRS, { trashName: trashName, trashID: getDebrisID(trashName), fresh: 0, weathered: 0 }];
+      newSRS = [...newSRS, { trashName: trashName, trashID: getAllDebrisID(trashName), fresh: 0, weathered: 0 }];
     } else {
       newasOptions = newasOptions.filter(val => val !== trashName);
-      newAS = [...newAS, { trashName: trashName, trashID: getDebrisID(trashName), fresh: 0, weathered: 0 }];
+      newAS = [...newAS, { trashName: trashName, trashID: getAllDebrisID(trashName), fresh: 0, weathered: 0 }];
     }
     this.setState(prev => ({
       srsDebris: newSRS,
