@@ -56,6 +56,7 @@ let surveys = {
     update: async function(surveyID, updatedFields) {
 
         let { newSRSDebris, newASDebris, oldSRSDebris, oldASDebris, changedInfo } = updatedFields;
+        
         let update = {
             $set: {
                 ...changedInfo,
