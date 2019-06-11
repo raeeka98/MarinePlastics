@@ -2,6 +2,7 @@ import auth0 from 'auth0-js';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/home', for prod
 redirectUri: 'http://localhost:3000/home', for dev*/
+//Redeploy
 export default class Auth {
     auth0 = new auth0.WebAuth({
         domain: process.env.REACT_APP_AUTH_DOMAIN,
