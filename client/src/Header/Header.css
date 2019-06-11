@@ -1,0 +1,24 @@
+.logOutBtn {
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    box-sizing: border-box;
+    min-height: 80px;
+    font-size: .875rem;
+    font-family: -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: #999;
+    text-transform: uppercase;
+    transition: .1s ease-in-out;
+    transition-property: color, background-color;
+}
+
+.logOutBtn:hover{
+    color: black;
+    cursor: pointer;
+}
