@@ -86,8 +86,9 @@ class SurveyForm extends Component {
                 userID: profile.sub.split("|")[1]
             });
         });
-        let { beachID } = this.props.location.state;
-        if (beachID) {
+
+        if (this.props.location.state.beachID !== undefined) {
+            let { beachID } = this.props.location.state;
             axios.get(`/beaches/${beachID}/info`)
                 .then(res => {
                     this.setState({
