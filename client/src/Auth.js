@@ -19,6 +19,9 @@ export default class Auth {
         await this.auth0.authorize();
     }
     handleAuthentication = () => {
+        //Check if browser has token
+        //if already have token then aquire profile 
+        //else aquire tokens then profile
         return new Promise((res, rej) => {
             let accessToken = localStorage.getItem("accessToken");
             let token = localStorage.getItem("idToken");
@@ -39,7 +42,7 @@ export default class Auth {
                             this.userProfile = profile;
                             res();
                         });
-                    // window.location.replace('/home');
+                    window.location.replace('/home');
                 } else if (err) {
                     rej(err.errorDescription);
                 }
@@ -60,6 +63,7 @@ export default class Auth {
     }
 
     getProfile = (token) => {
+        //aquires the profile from a token from auth0
         return new Promise((res, rej) => {
             this.auth0.client.userInfo(token, (err, profile) => {
                 if (profile) {
@@ -74,6 +78,8 @@ export default class Auth {
     }
 
     getLoggedInProfile = () => {
+        //Gets the logged in profile from cache 
+        // if it doesnt exist in cache then get it from auth0
         return new Promise((res, rej) => {
             if (this.userProfile) {
                 return res(this.userProfile);
@@ -87,8 +93,9 @@ export default class Auth {
             }
         })
     }
-
+    
     containsRole = async role => {
+        //Checks if the logged in profile is a role
         let prof = await this.getLoggedInProfile();
         if (prof) {
             return prof['https://marineplastics.com/roles'].includes(role);

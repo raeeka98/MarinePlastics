@@ -13,14 +13,17 @@ let surveys = {
         return await surveyModel.findById(surveyID).select('userID').lean().exec();
     },
     get: async function(surveyID) {
+        //get survey
         return await surveyModel.findById(surveyID).lean().exec();
     },
     getDateCreated: async function(surveyID) {
+        //get the date the survey was created
         let dateObj = await surveyModel.findById(surveyID).lean().exec();
         let date = dateObj.survDate;
         return date;
     },
     remove: async function(beachID, surveyID, epochDateOfSubmit) {
+        //remove a survey
         let dateOfSub = new Date(epochDateOfSubmit);
         let { stats, surveys } = await beachModel.findById(beachID, `stats.ttls.${dateOfSub.getUTCFullYear()} surveys.${dateOfSub.getUTCFullYear()}`).lean().exec();
 
@@ -94,7 +97,7 @@ let surveys = {
         return newSurvey;
     },
     addToBeach: async function(surveyData, beachID) {
-
+        // add a survey to beach
         let survDate = new Date(surveyData.survDate);
         let survey = new surveyModel(surveyData);
         let update = {};
@@ -167,6 +170,7 @@ let surveys = {
 
 let beaches = {
     updateStats: async function(beachID, updatePayload) {
+        //update overall stats to beach
         let update = { beachUpdate: { $set: {} }, totalsUpdate: {} };
         let { date, reason: updateReason } = updatePayload;
         let totalsQuery = {};
@@ -196,11 +200,13 @@ let beaches = {
     },
 
     create: async function(beachData) {
+        //create a new beach
         let location = new beachModel(beachData);
         let beachRt = await location.save();
         return beachRt;
     },
     getStats: async function(beachID, year) {
+        // get the types of debris on beach 
         let projection = `stats.ttls.${year} stats.TODF stats.lastUp`;
         let { stats } = await beachModel.findById(beachID, projection).populate(`stats.ttls.${year}`).lean().exec();
         let keysToSort = Object.keys(stats.TODF); //Sort the keys based on their values
@@ -214,6 +220,7 @@ let beaches = {
     },
 
     remove: async function(beachID) {
+        //remove beach and all surveys under it
         let removedBeach = await beachModel.findByIdAndDelete(beachID).exec();
         let surveyYearIterator = removedBeach.surveys.values();
         let totalYearIterator = removedBeach.stats.ttls.values();
@@ -230,11 +237,8 @@ let beaches = {
 
     },
     getSurveys: async function(beachID, surveyYear, surveyMonth, surveysSkip, numOfSurveys) {
+        //get all surveys under a beach
         let projection = "surveys";
-        // return await beachModel.findById(beachID)
-        //     .select(projection)
-        //     .slice(`surveys.${surveyYear}.${surveyMonth}`, [surveysSkip, numOfSurveys])
-        //     .exec();
         let { surveys } = await beachModel.findById(beachID)
             .populate(`surveys`)
             .select(projection)
@@ -252,6 +256,7 @@ let beaches = {
         return res;
     },
     getSubmitYears: async function(beachID) {
+        //get all years that contain a survey
         let doc = await beachModel.findById(beachID)
             .select("surveys")
             .populate('surveys')
@@ -259,6 +264,7 @@ let beaches = {
         return [...doc.surveys.keys()];
     },
     getSubmitMonths: async function(beachID, year) {
+        //get all months that contain a survey
         let doc = await beachModel.findById(beachID)
             .select(`surveys.${year}`)
             .populate("surveys")
@@ -275,6 +281,7 @@ let beaches = {
         return res;
     },
     getSurveysUnderMonth: async function(beachID, year, month) {
+        //get surveys under a month
         let doc = await beachModel.findById(beachID)
             .select(`surveys.${year}.${month}`)
             .populate("surveys").lean().exec();
@@ -283,6 +290,7 @@ let beaches = {
         return res;
     },
     getBeachNames: async function(skip) {
+        //get all beach names skipping an amount of beaches
         let projection = `n lastMod`;
         let proj_mod = `stats.lastUp`;
         return await beachModel
@@ -297,15 +305,19 @@ let beaches = {
 
     },
     getAllNames: async function() {
+        //get all beach names
         return await beachModel.find({}, "n").exec();
     },
     getAllLonLat: async function() {
+        //get all lat and lon of all beaches
         return await beachModel.find({}, "n lat lon").exec();
     },
     queryBeachNames: async function(query) {
+        //find beach name that contains the query
         return await beachModel.find({ n: { $regex: `${query}`, $options: "i" } }).select("n lastMod").limit(10).exec();
     },
     getOneLonLat: async function(beachID) {
+        //get lat lon of one beach
         let projection = `lat lon`
         return await beachModel
             .findById(beachID)
@@ -354,6 +366,7 @@ let beaches = {
 }
 
 function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
+    //survey was removed update stats
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, date } = updatePayload;
     let result = [];
@@ -389,7 +402,6 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
 
 function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     //new survey
-
     let { TODF: prevDebrisData } = oldStats;
     let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
     let result = [];
@@ -418,6 +430,7 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 }
 
 function compareTrash (newDebrisData, prevDebrisData, result) {
+    //check what trash was deleted or removed
     let trash = Object.keys(newDebrisData);
     if (trash.length > 0) {
         trash.forEach(trashName => {

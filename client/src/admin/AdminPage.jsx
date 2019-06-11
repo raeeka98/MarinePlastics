@@ -24,6 +24,7 @@ class AdminPage extends Component {
     }
 
     searchEmail = (e, email) => {
+        //Search for email in auth0 database
         e.preventDefault();
         this.setState({ loading: true, searched: true, currFoundUser: null }, () => {
             let token = this.state.auth.getAccessToken();
@@ -113,6 +114,7 @@ class AdminPage extends Component {
     }
 
     givePriv = () => {
+        //give currFoundUser admin editing/deleting access
         let { currFoundUser: user } = this.state;
         if (user) {
             let token = this.state.auth.getAccessToken();
@@ -134,6 +136,8 @@ class AdminPage extends Component {
 
 
     removePriv = (e, id) => {
+        //remove currFoundUser admin editing/deleting access
+
         let { currFoundUser: user } = this.state;
 
         let token = this.state.auth.getAccessToken();
@@ -159,6 +163,7 @@ class AdminPage extends Component {
     }
 
     getAllAdmins = () => {
+        //get all current admins
         let token = this.state.auth.getAccessToken();
 
         axios.get("/auth/getAdmins", {

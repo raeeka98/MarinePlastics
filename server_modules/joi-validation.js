@@ -1,14 +1,16 @@
 let joi = require("joi");
 
-
+/*
+ * Check aliases in mongooseSchemas.js
+ */
 
 const userDataSchema = joi.object({
-    f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(),
-    l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required()
+    f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(), //first name
+    l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required() //last name
 });
 
 const substraightTypeSchema = joi.object({
-    s: joi.bool(),
+    s: joi.bool(), 
     p: joi.bool(),
     rr: joi.bool(),
     sea: joi.bool(),
@@ -60,14 +62,14 @@ const surveyDataSchema = joi.object({
     nextTide: tideDataSchema.required(),
     wind: windDataSchema.required(),
     majorUse: majorUseSchema.required(),
-    numOfP: joi.number().min(0).required(),
+    numOfP: joi.number().min(0).required(),//number of people
     SRSDebris: joi.array().items(debrisData).max(18).optional(),
     ASDebris: joi.array().items(debrisData).max(18).optional()
 });
 
 const beachDataSchema = joi.object({
-    n: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
-    lat: joi.number().min(-85).max(85).required(),
+    n: joi.string().trim().replace(/\s\s+/, " ").max(40).required(), //name
+    lat: joi.number().min(-85).max(85).required(), 
     lon: joi.number().min(-180).max(180).required(),
     nroName: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
     nroDist: joi.number().min(0).required()

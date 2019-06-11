@@ -15,6 +15,7 @@ let managAPI = {
     }
 }
 
+
 let userAPI = {
     body: {
         client_id: "eg6wqMt4RF4wke7rsyK2FC40L9jJUnWb",
@@ -29,6 +30,7 @@ let userAPI = {
 }
 
 function hasPermission (req, res, next) {
+    //check if they have correct permission to access this route
     let hasPermission = req.user.permissions.includes('create:admin');
     if (!hasPermission) {
         return res.status(403).json({ err: "Do not have the right permissions." });
@@ -37,6 +39,7 @@ function hasPermission (req, res, next) {
 }
 
 async function obtainAccessToken (API) {
+    // get access token to use API then store it for later use
     let { body: apiBody, accessToken: currtoken } = API === "user" ? userAPI : managAPI;
     let currentTime = new Date().getTime();
     if (currtoken.token && currtoken.expiresAt < currentTime) {
@@ -58,8 +61,9 @@ module.exports = function(checkJwt) {
     router.use(checkJwt, hasPermission);
 
     router.get("/find", asyncHandler(async (req, res) => {
+        //find the profile connected to the email
         let reqEmail = req.query.e;
-        let resp = { found: false, user: null };
+        let resp = { found: false, user: null }; // the response to get request
         try {
             let token = await obtainAccessToken("manager");
 
@@ -71,12 +75,15 @@ module.exports = function(checkJwt) {
                     authorization: `Bearer ${token}`
                 }
             });
+            //if array is empty no user found
             if (users.length < 1) {
                 return res.json(resp);
             }
+
             resp.found = true;
             resp.user = users[0];
 
+            //get profile roles
             let { data: roles } = await axios.get(`https://marine-plastics-coi.auth0.com/api/v2/users/${resp.user.user_id}/roles`, {
                 headers: {
                     authorization: `Bearer ${token}`
@@ -98,6 +105,7 @@ module.exports = function(checkJwt) {
 
     router.route("/setRole/:id")
         .put(asyncHandler(async (req, res) => {
+            //set roles for a profile
             let { id: userID } = req.params;
 
             try {
@@ -119,6 +127,7 @@ module.exports = function(checkJwt) {
         }))
         .delete(asyncHandler(async (req, res) => {
             let { id: userID } = req.params;
+            //remove role from profile
             let token = await obtainAccessToken("manager");
             try {
                 await axios.delete(`https://marine-plastics-coi.auth0.com/api/v2/users/${userID}/roles`, {
@@ -139,7 +148,7 @@ module.exports = function(checkJwt) {
 
 
     router.get("/getAdmins", asyncHandler(async (req, res) => {
-
+        // get all admins
         try {
             let token = await obtainAccessToken("manager");
             let { data } = await axios.get("https://marine-plastics-coi.auth0.com/api/v2/roles/rol_TeEKH4d1DDLAbCVT/users", {

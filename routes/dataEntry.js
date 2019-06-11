@@ -132,6 +132,7 @@ router.route('/surveys')
 
 
 function checkIfSignedIn (req, res, next) {
+    //checks if the req is logged in or a guest
     let bearer = req.headers['authorization'];
 
     if (bearer != undefined) {
@@ -141,6 +142,7 @@ function checkIfSignedIn (req, res, next) {
             return next();
         }
     }
+    //if guest just continue as usual
     let surveyID = req.params.surveyID;
     surveys.get(surveyID)
         .then(surv => {
@@ -155,7 +157,6 @@ function verifySurveyJWT (checkjwt) {
     router.route('/surveys/:surveyID')
         //get a specific survey for logged in
         .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
-            console.log("GETTING USER INFORMATION YEETYEETUETT");
             let loggedInUser = req.user;
 
             let { userID: clientID } = req.query;
@@ -164,17 +165,18 @@ function verifySurveyJWT (checkjwt) {
             let survey = await surveys.get(surveyID);
             let ownerID = survey.userID;
             survey.userID = undefined;
+            //editable if the survey is the user's or if the user is an admin
             let editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
             let rtnMsg = { survData: survey, e: editable };
             res.json(rtnMsg);
         }))
         //find a specific survey and edit it
         .post(checkjwt, asyncHandler(async (req, res) => {
-            console.log("Im in post for some reason")
             let updateData = req.body;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
+            //editable if the survey is the user's or if the user is an admin
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
             if (!sameUser) {
                 return res.json({ res: "fail" });
@@ -184,11 +186,11 @@ function verifySurveyJWT (checkjwt) {
         }))
         //delete an survey
         .delete(checkjwt, asyncHandler(async (req, res) => {
-            console.log("Delete also lol")
             let { bID, dos: dateOfSub } = req.query;
             let surveyID = req.params.surveyID;
             let surveyCreator = await surveys.getUserID(surveyID);
             surveyCreator = surveyCreator.userID;
+            //deletable if the survey is the user's or if the user is an admin
             let sameUser = req.user.sub.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
             if (!sameUser) {
                 return res.json({ res: "fail" });

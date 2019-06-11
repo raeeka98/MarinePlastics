@@ -151,7 +151,8 @@ class Location extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Entries</h3>
               <ul>
-                {surveys}
+                {surveys}{/** List all surveys under beach */}
+                {/**If they are logged in let them add survey from beach */}
                 {this.state.userProfile ? <li className="uk-link-muted">
                   <Link to={{
                     pathname: `/survey`, state: {
