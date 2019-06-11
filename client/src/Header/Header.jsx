@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import "./Header.css";
 
 // the authentication object is passed through props from App.js
 // which is used to check if the user is currently logged in
@@ -87,19 +88,25 @@ class Menu extends Component {
 
               <li><Link to="/protocol">Protocol</Link></li>
               <li><Link to="/about">About</Link></li>
+
               {this.props.auth.isAuthenticated() && this.state.sa
                 ? <li><Link to='/adminPage'>Admin Page</Link></li>
                 : null
               }
+
             </ul>
           </div>
 
           <div className="uk-navbar-right uk-visible@m">
             <ul className="uk-navbar-nav">
+              <li>
+                <button onClick={this.props.auth.logout} className="logOutBtn">Log Out</button>
+              </li>
               {this.props.auth.isAuthenticated()
                 ? <li><Link to="/profile">Profile</Link></li>
                 : <li><button onClick={this.props.auth.login} className="uk-button uk-button-text">Sign Up</button></li>
               }
+
             </ul>
           </div>
 
