@@ -86,17 +86,19 @@ class SurveyForm extends Component {
                 userID: profile.sub.split("|")[1]
             });
         });
-        let { beachID } = this.props.location.state;
-        if (beachID) {
-            axios.get(`/beaches/${beachID}/info`)
-                .then(res => {
-                    this.setState({
-                        surveyData: { beachID },
-                        autoFilledBeachData: res.data
-                    });
-                    console.log(res.data);
-                    //beachData
-                })
+        if(this.props.location.state) {
+          let { beachID } = this.props.location.state;
+          if (beachID) {
+              axios.get(`/beaches/${beachID}/info`)
+                  .then(res => {
+                      this.setState({
+                          surveyData: { beachID },
+                          autoFilledBeachData: res.data
+                      });
+                      console.log(res.data);
+                      //beachData
+                  })
+          }
         }
     }
 
