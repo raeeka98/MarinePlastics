@@ -66,6 +66,7 @@ class Menu extends Component {
           this.setState({ sa: res, checked: true });
         })
     }
+    
     return (
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">
@@ -99,9 +100,12 @@ class Menu extends Component {
 
           <div className="uk-navbar-right uk-visible@m">
             <ul className="uk-navbar-nav">
-              <li>
-                <button onClick={this.props.auth.logout} className="logOutBtn">Log Out</button>
-              </li>
+              { this.props.auth.isAuthenticated() ? 
+                <li>
+                  <button onClick={this.props.auth.logout} className="logOutBtn">Log Out</button>
+                </li>
+                : null
+              }
               {this.props.auth.isAuthenticated()
                 ? <li><Link to="/profile">Profile</Link></li>
                 : <li><button onClick={this.props.auth.login} className="uk-button uk-button-text">Sign Up</button></li>

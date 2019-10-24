@@ -1,7 +1,9 @@
 import auth0 from 'auth0-js';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/home', for prod
-redirectUri: 'http://localhost:3000/home', for dev*/
+redirectUri: 'http://localhost:3000/home', for dev
+http://localhost:3000/home#error=unauthorized&error_description=Please%20verify%20your%20email%20before%20logging%20in.&state=ekuwcA33LR4i5bAvTiDSorQJg29ovKwt
+*/
 //Redeploy
 export default class Auth {
     auth0 = new auth0.WebAuth({
@@ -16,8 +18,9 @@ export default class Auth {
     userProfile = null;
 
     login = async () => {
-        await this.auth0.authorize();
+        await this.auth0.authorize();   
     }
+    
     handleAuthentication = () => {
         //Check if browser has token
         //if already have token then aquire profile 
@@ -44,6 +47,7 @@ export default class Auth {
                         });
                     window.location.replace('/home');
                 } else if (err) {
+                    alert(err.errorDescription); //Quick fix for the log in issues
                     rej(err.errorDescription);
                 }
             });
