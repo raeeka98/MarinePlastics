@@ -100,11 +100,11 @@ class Menu extends Component {
 
           <div className="uk-navbar-right uk-visible@m">
             <ul className="uk-navbar-nav">
-              { this.props.auth.isAuthenticated() ? 
-                <li>
-                  <button onClick={this.props.auth.logout} className="logOutBtn">Log Out</button>
-                </li>
-                : null
+              { this.props.auth.isAuthenticated() ?
+                  <li>
+                    <button onClick={this.props.auth.logout} className="logOutBtn">Log Out</button>
+                  </li>
+                  : null
               }
               {this.props.auth.isAuthenticated()
                 ? <li><Link to="/profile">Profile</Link></li>
