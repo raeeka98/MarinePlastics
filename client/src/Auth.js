@@ -2,7 +2,6 @@ import auth0 from 'auth0-js';
 
 /*redirectUri: 'https://marineplastics.herokuapp.com/home', for prod
 redirectUri: 'http://localhost:3000/home', for dev
-http://localhost:3000/home#error=unauthorized&error_description=Please%20verify%20your%20email%20before%20logging%20in.&state=ekuwcA33LR4i5bAvTiDSorQJg29ovKwt
 */
 //Redeploy
 export default class Auth {
