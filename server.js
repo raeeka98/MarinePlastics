@@ -45,7 +45,7 @@ app.use(function(err, req, res, next) {
 app.use('/beaches', dataEntryRouter);
 app.use('/auth', auth0Route(jwtUser));
 
-app.get('/pdfs/COIDataSheet_4_16_19.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_4_16_19.pdf')));
+app.get('/pdfs/COIDataSheet_2020.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_4_16_19.pdf')));
 
 app.get('*', (req, res) => res.sendFile(reactPath));
 
