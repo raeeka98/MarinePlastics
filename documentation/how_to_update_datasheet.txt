@@ -1,6 +1,6 @@
 How to : Update Datasheet
 1. Upload new datasheet file as a PDF to pdfs/
-2. In server.js, edit line that starts with
-	app.get('/pdfs/
-   replacing both instances of the previous datasheet path with current datasheet path 
-3. In client/src/Protocol/Protocol.js, 
+2. In server.js, replace both instances of the previous datasheet path
+   with the new datasheet path. 
+3. In client/src/Protocol/Protocol.js, replace the previous datasheet
+   path with the new datasheet path.
