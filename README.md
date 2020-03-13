@@ -22,8 +22,8 @@ If want to update the data sheet, need to contact a developer or COI for a Word 
 ### Deploying
 To deploy to the live site: https://devcenter.heroku.com/articles/git
   1. Sign into Heroku in terminal
-  2. Add a remote to the existing Heroku site
-  4. Deploy with `git push heroku master`
+  2. Add a remote to the existing Heroku site with `heroku git:remote -a marineplastics`
+  3. Deploy with `git push heroku master`
 If the site breaks, view the logs on Heroku for an error
 
 ***
