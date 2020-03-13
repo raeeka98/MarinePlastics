@@ -4,3 +4,6 @@ How to : Update Datasheet
    with the new datasheet path. 
 3. In client/src/Protocol/Protocol.js, replace the previous datasheet
    path with the new datasheet path.
+4. Redeploy. Unfortunately, although you can download the datasheet
+   in development mode, the PDF file becomes corrupted and cannot
+   be open. You have to fully test this in deployment mode.
