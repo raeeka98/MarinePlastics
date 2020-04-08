@@ -40,6 +40,7 @@ export function ProtocolPage() {
         <a href="pdfs/ShorelinePlasticMonitoringFieldGuide.pdf" download>
           View Our Training Field Guide
         </a>
+        <br/>
         <a href="pdfs/COIDataSheet_2020.pdf" download>View Our Data Sheet</a>
       </div>
     </div>
