@@ -1,0 +1,700 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="uk-background-muted uk-padding"
+>
+  <div
+    className="uk-card uk-card-default uk-card-body uk-card-hover"
+  >
+    <h3
+      className="uk-card-title"
+    >
+      Team Information:
+    </h3>
+    <p>
+      Name: 
+      <b>
+        Sean
+         
+        Gibson
+      </b>
+    </p>
+    <p>
+      Organization Name: 
+      <b>
+        Clean Oceans International
+      </b>
+    </p>
+    <p>
+      Organization Location: 
+      <b>
+        Santa Cruz, United States of America
+      </b>
+    </p>
+    <p>
+      Email Address: 
+      <b>
+        
+      </b>
+    </p>
+    <p>
+      Clean Up Date: 
+      <b>
+        2020-03-23
+      </b>
+    </p>
+    <p>
+      Clean Up Start Time: 
+      <b>
+        10:30
+      </b>
+    </p>
+  </div>
+  <br />
+  <div
+    className="uk-card uk-card-default uk-card-body uk-card-hover"
+  >
+    <h3
+      className="uk-card-title"
+    >
+      Survey Area:
+    </h3>
+    <p>
+      Beach Name: 
+      Boardwalk Beach (test)
+    </p>
+    <p>
+      Beach Coordinates: 
+      36
+      °
+      57'12"S  
+      122
+      °
+      2'28"W  
+    </p>
+    <p>
+      Compass Direction: 
+      180
+      <span>
+        °
+      </span>
+    </p>
+    <p>
+      Nearest River Output Name: 
+      Kawa Rivera
+    </p>
+    <p>
+      Nearest River Output Distance: 
+      10
+    </p>
+    <div>
+      <h4>
+        Tide Before:
+      </h4>
+      <p>
+        Type: 
+        Low
+         
+      </p>
+      <p>
+        Height: 
+        10
+      </p>
+      <p>
+        Time: 
+        12:00
+      </p>
+    </div>
+    <div>
+      <h4>
+        Tide After:
+      </h4>
+      <p>
+        Type: 
+        High
+         
+      </p>
+      <p>
+        Height: 
+        10
+      </p>
+      <p>
+        Time: 
+        16:00
+      </p>
+    </div>
+    <p>
+      Wind Speed: 
+      10
+       knots
+    </p>
+    <p>
+      Wind Direction: 
+      s
+    </p>
+    <p>
+      Slope: 
+      Winter
+    </p>
+  </div>
+  <br />
+  <div
+    className="uk-card uk-card-default uk-card-body uk-card-hover"
+  >
+    <h2>
+      Surface Rib Scan
+    </h2>
+    <table
+      className="uk-table uk-table-striped uk-table-middle"
+    >
+      <thead>
+        <tr>
+          <th>
+            Range
+          </th>
+          <th>
+            Rib #1
+          </th>
+          <th>
+            Rib #2
+          </th>
+          <th>
+            Rib #3
+          </th>
+          <th>
+            Rib #4
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        style={
+          Object {
+            "textAlign": "left",
+          }
+        }
+      >
+        <tr>
+          <td>
+            Rib Start
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            10
+          </td>
+          <td>
+            16
+          </td>
+          <td>
+            27
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Rib End
+          </td>
+          <td>
+            50
+          </td>
+          <td>
+            50
+          </td>
+          <td>
+            50
+          </td>
+          <td>
+            50
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table
+      className="uk-table uk-table-striped"
+    >
+      <thead>
+        <tr>
+          <th>
+            Debris Type
+          </th>
+          <th>
+            Rib #1 Fresh
+          </th>
+          <th>
+            Rib #1 Weathered
+          </th>
+          <th>
+            Rib #2 Fresh
+          </th>
+          <th>
+            Rib #2 Weathered
+          </th>
+          <th>
+            Rib #3 Fresh
+          </th>
+          <th>
+            Rib #3 Weathered
+          </th>
+          <th>
+            Rib #4 Fresh
+          </th>
+          <th>
+            Rib #4 Weathered
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Cigarette Butts
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fishing Line / Polypropylene Rope
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Plastic Straws
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Filmed Plastic
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Plastic Bottles / Plastic Caps
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Styrofoam / Urethane
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Plastics
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Food / Organics
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Cotton / Cloth
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Wood / Paper
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <div
+    className="uk-card uk-card-default uk-card-body uk-card-hover"
+  >
+    <h3
+      className="uk-card-title"
+    >
+      Accumulation Survey:
+    </h3>
+    <table
+      className="uk-table uk-table-striped uk-table-middle"
+    >
+      <thead>
+        <tr>
+          <th
+            className="uk-width-small"
+          >
+            Debris Type
+          </th>
+          <th>
+            Fresh
+          </th>
+          <th>
+            Weathered
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        style={
+          Object {
+            "textAlign": "left",
+          }
+        }
+      >
+        <tr>
+          <td>
+            Cigarette Butts
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            10
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Fishing Line / Polypropylene Rope
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Plastic Straws
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            13
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Filmed Plastic
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Plastic Bottles / Plastic Caps
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Styrofoam / Urethane
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            7
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Plastics
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            34
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Food / Organics
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Cotton / Cloth
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Other : Wood / Paper
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <div
+    className="uk-card uk-card-default uk-card-body uk-card-hover"
+  >
+    <h3
+      className="uk-card-title"
+    >
+      Micro Debris Survey:
+    </h3>
+  </div>
+  <br />
+</div>
+`;
