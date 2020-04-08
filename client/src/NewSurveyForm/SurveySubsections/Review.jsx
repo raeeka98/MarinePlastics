@@ -101,8 +101,8 @@ class Review extends Component {
             <h3 className="uk-card-title">Survey Area:</h3>
 
             <p>Beach Name: {d.beachName}</p>
-            <p>Beach Coordinates: {d.latDeg}&#176;{d.latMin.toFixed(2) + "'" + d.latSec.toFixed(2) + '"' + (d.latDir === 1 ? "N  " : "S  ")}
-                                  {d.lonDeg}&#176;{d.lonMin.toFixed(2) + "'" + d.lonSec.toFixed(2) + '"' + (d.lonDir === 1 ? "E  " : "W  ")}
+            <p>Beach Coordinates: {d.latDeg}&#176;{d.latMin + "'" + d.latSec + '"' + (d.latDir === 1 ? "N  " : "S  ")}
+                                  {d.lonDeg}&#176;{d.lonMin + "'" + d.lonSec + '"' + (d.lonDir === 1 ? "E  " : "W  ")}
             </p>
             {s.usage.length > 0 &&
               <p>Major Usage: {s.usage}</p>
