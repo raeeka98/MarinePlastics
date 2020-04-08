@@ -1,2 +1,0 @@
-How to : Add Link
-1. Upload new datasheet file as a PDF to pdfs/

@@ -1,0 +1,9 @@
+How to : Add Download Link
+1. Upload new file as a PDF to pdfs/
+2. In server.js, add the following line along with the rest of the
+   lines starting with app.get:
+   app.get('/pdfs/<new-file-name>',
+   (req, res) => res.sendFile(path.join(__dirname,
+   '/pdfs/<new-file-name>')));
+   where <new-file-name> is the name of the file for which you are
+   creating a link.
