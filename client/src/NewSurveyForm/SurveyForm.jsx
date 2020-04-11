@@ -144,6 +144,7 @@ class SurveyForm extends Component {
             userLast: "Last name",
             orgName: "Organization Name",
             orgLoc: "Organization Location",
+            email: "Email Address",
             cleanUpTime: "Clean Up Time",
             cleanUpDate: "Clean Up Start Time",
             beachName: "Name of Beach",
@@ -173,7 +174,7 @@ class SurveyForm extends Component {
 
         }
 
-        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
+        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName',
             'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
             'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',

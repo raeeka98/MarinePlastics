@@ -90,7 +90,7 @@ class Review extends Component {
             <p>Name: <b>{d.userFirst} {d.userLast}</b></p>
             <p>Organization Name: <b>{d.orgName}</b></p>
             <p>Organization Location: <b>{d.orgLoc}</b></p>
-            <p>Email Address: <b>{this.props.email}</b></p>
+            <p>Email Address: <b>{d.email}</b></p>
             <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
             <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
         </div>

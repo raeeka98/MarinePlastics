@@ -9,6 +9,7 @@ var testSurveyFormState1 = {
         cleanUpDate: "2020-03-23",
         cleanUpTime: "10:30",
         compassDegrees: "180",
+        email: "stgibson@ucsc.edu",
         latDeg: "36",
         latDir: "1",
         latMin: "57",

@@ -1,1 +1,6 @@
 How to : Update Survey
+1. Add new updates in appropriate subsection file of the survey found in
+   MarinePlastics/client/src/NewSurveyForm/SurveySubsections
+2. If you are adding an entire new field, add variable in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx in validate()
+3. Update MarinePlastics/client/src/NewSurveyForm/SurveySubsections/Review.jsx
