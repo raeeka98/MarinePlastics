@@ -169,14 +169,14 @@ class Review extends Component {
                 </thead>
                 <tbody style={{textAlign: 'left'}}>
                   <tr >
-                    <td >Rib Start</td>
+                    <td >SPINE Start</td>
                     <td >{d.rib1Start}</td>
                     <td>{d.rib2Start}</td>
                     <td>{d.rib3Start}</td>
                     <td >{d.rib4Start}</td>
                   </tr>
                   <tr>
-                    <td>Rib End</td>
+                    <td>RIB LENGTH</td>
                     <td>{d.rib1End}</td>
                     <td>{d.rib2End}</td>
                     <td>{d.rib3End}</td>

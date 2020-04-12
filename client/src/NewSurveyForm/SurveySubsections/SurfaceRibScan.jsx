@@ -47,7 +47,7 @@ class SurfaceRibScan extends Component {
                   </div>
 
                   <div className="uk-grid uk-child-width-1-5">
-                    <div><h5>Rib Start Point(m)</h5></div>
+                    <div><h5>SPINE Start Point (m)</h5></div>
                     <div>
                       <input
                         type='string'
@@ -87,7 +87,7 @@ class SurfaceRibScan extends Component {
                   </div>
 
                   <div className="uk-grid uk-child-width-1-5">
-                    <div><h5>Rib End Point(m)</h5></div>
+                    <div><h5>RIB LENGTH (m)</h5></div>
                     <div>
                       <input
                         type='string'

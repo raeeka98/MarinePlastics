@@ -176,7 +176,7 @@ exports[`matches snapshot 1 1`] = `
       >
         <tr>
           <td>
-            Rib Start
+            SPINE Start
           </td>
           <td>
             5
@@ -193,7 +193,7 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Rib End
+            RIB LENGTH
           </td>
           <td>
             50
@@ -875,7 +875,7 @@ exports[`matches snapshot 2 1`] = `
       >
         <tr>
           <td>
-            Rib Start
+            SPINE Start
           </td>
           <td>
             5
@@ -892,7 +892,7 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Rib End
+            RIB LENGTH
           </td>
           <td>
             50
@@ -1578,7 +1578,7 @@ exports[`matches snapshot 3 1`] = `
       >
         <tr>
           <td>
-            Rib Start
+            SPINE Start
           </td>
           <td>
             5
@@ -1595,7 +1595,7 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Rib End
+            RIB LENGTH
           </td>
           <td>
             50
