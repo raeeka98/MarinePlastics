@@ -142,6 +142,9 @@ class Review extends Component {
             {d.windDir &&
               <p>Wind Direction: {d.windDir}</p>
             }
+            {d.windComments &&
+              <p>COMMENTS: {d.windComments}</p>
+            }
             {d.slope &&
               <p>Slope: {this.toTitleCase(d.slope)}</p>
             }

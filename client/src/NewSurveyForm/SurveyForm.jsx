@@ -170,6 +170,7 @@ class SurveyForm extends Component {
             tideHeightB: "Last Tide Height",
             tideTypeB: "Last Tide Type",
             tideTimeB: "Last Tide Time",
+            windComments: "Comments",
             windDir: "Wind Direction",
             windSpeed: "Wind Speed"
 

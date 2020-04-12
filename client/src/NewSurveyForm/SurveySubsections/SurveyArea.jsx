@@ -604,6 +604,15 @@ class SurveyArea extends Component {
                 <option value="w">West</option>
                 <option value="nw">Northwest</option>
               </select>
+
+              <label>COMMENTS:</label>
+              <input
+                type="string"
+                id='windComments'
+                onChange={this.props.updateSurveyState}
+                value={this.props.data.windComments}
+                className='uk-input uk-margin'
+              />
             </div>
             <div>
               <h4>Slope</h4>
