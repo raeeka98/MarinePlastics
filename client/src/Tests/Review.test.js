@@ -6,7 +6,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Review from './../NewSurveyForm/SurveySubsections/Review';
-import { testSurveyFormState1 } from './test-data';
+import { testSurveyFormState1, testSurveyFormState2 } from './test-data';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 import renderer from 'react-test-renderer';
@@ -26,6 +26,21 @@ it("Review renders without crashing", () => {
         />,
         div
     );
+});
+
+it("Review renders without crashing using Remote/Unused option", () => {
+  const div = document.createElement("div");
+  var state = testSurveyFormState2;
+  ReactDOM.render(
+    <Review
+      data={state.surveyData}
+      email={state.email}
+      SRSData={state.SRSData}
+      ASData={state.ASData}
+      displayStrings={state.displayStrings}
+    />,
+    div
+  );
 });
 
 it("matches snapshot", () => {
