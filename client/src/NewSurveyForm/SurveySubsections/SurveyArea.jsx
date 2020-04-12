@@ -362,7 +362,7 @@ class SurveyArea extends Component {
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Recreational
-                    </div>
+              </div>
               <div>
                 <label>
                   <input
@@ -373,7 +373,18 @@ class SurveyArea extends Component {
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Commercial
-                    </div>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type='checkbox'
+                    id='usageRemoteUnused'
+                    className='uk-checkbox'
+                    defaultValue={this.props.data.usageRemoteUnused}
+                    onChange={this.props.updateCheckedState}
+                  />
+                </label> Remote/Unused
+              </div>
               <div>
                 <label>
                   <input
@@ -382,7 +393,7 @@ class SurveyArea extends Component {
                     onClick={e => this.setState({ showOtherUsage: e.target.checked })}
                   />
                 </label> Other
-                    </div>
+              </div>
               {this.state.showOtherUsage &&
                 (
                   <div>
@@ -472,7 +483,7 @@ class SurveyArea extends Component {
               {this.riverNameInput(autoFilledData)}
             </div>
             <div>
-              <label>Approximate Distance (ft)<span className="uk-text-danger">*</span></label>
+              <label>Approximate Distance from "zero" on the Spine (mi)<span className="uk-text-danger">*</span></label>
               {this.riverDistInput(autoFilledData)}
             </div>
           </div>

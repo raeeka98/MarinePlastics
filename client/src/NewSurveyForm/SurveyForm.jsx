@@ -108,6 +108,7 @@ class SurveyForm extends Component {
         let usage = {
             rec: data.usageRecreation ? data.usageRecreation : undefined,
             com: data.usageCommercial ? data.usageCommercial : undefined,
+            rem: data.usageRemoteUnused ? data.usageRemoteUnused : undefined,
             other: data.usageOther ? data.usageOther : undefined
         }
 
@@ -195,6 +196,7 @@ class SurveyForm extends Component {
         //Check for usage
         if (!this.state.surveyData.usageRecreation
             && !this.state.surveyData.usageCommercial
+            && !this.state.surveyData.usageRemoteUnused
             && !this.state.surveyData.usageOther)
             invalid.push(displayIDs.usage);
 
