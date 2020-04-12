@@ -662,7 +662,7 @@ class SurveyArea extends Component {
                     defaultValue={this.props.data.substrateTypeRipRap}
                     className='uk-checkbox'
                   />
-                </label> Rip Rap
+                </label> Rip Rap (large boulders)
               </div>
               <div className="uk-margin">
                 <label>
