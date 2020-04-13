@@ -2,9 +2,12 @@
  * debrisInfo.js
  * Contains information on the categories of trash. Used by
  * SurveySubsections/SurfaceRibScan.jsx,
- * SurveySubsections/AccumulationSurvey.jsx, and SurveySubsections/Review.jsx.
+ * SurveySubsections/AccumulationSurvey.jsx, SurveySubsections/Review.jsx,
+ * ../Location/Location.jsx, ../SurveyEntry/SurveyEntry.jsx,
+ * ../SurveyEntry/editableTable.jsx, and ../SurveyEntry/surveyEntryEdit.jsx.
  */
 
+// maps id to name of category
 const debrisInfo = {
     cigaretteButts: "Cigarette Butts",
     fishingLineRope: "Fishing Line / Polypropylene Rope",
@@ -25,6 +28,7 @@ const debrisInfo = {
     woodPaper: "Wood / Paper"
 }
 
+// maps name of category to id
 const debrisInfoID = {
     "Cigarette Butts": "cigaretteButts",
     "Fishing Line / Polypropylene Rope": "fishingLineRope",
@@ -45,16 +49,31 @@ const debrisInfoID = {
     "Wood / Paper": "woodPaper"
 }
 
+// list of categories of trash
 const debrisNames = Object.values(debrisInfo);
 
-function getDebrisNameById (id) {
+/**
+ * Gets name of category of trash by id
+ * @param {any} id
+ * @return name
+ */
+function getDebrisNameById(id) {
     return debrisInfo[id];
 }
 
+/**
+ * Gets id by name of category of trash
+ * @param {any} debrisName
+ * @return id
+ */
 function getDebrisID (debrisName) {
     return debrisInfoID[debrisName];
 }
 
+/**
+ * Gets mapping of id to name of category of trash
+ * @return const debrisInfo
+ */
 function getDebrisMap () {
     return debrisInfo;
 }
