@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { PieChart } from './SurveyCharts'
-import { getAllDebris } from '../NewSurveyForm/debrisInfo'
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import './surveyEntry.css';
 
-const debrisInfo = getAllDebris();
+const debrisInfo = getDebrisMap();
 
 
 class SurveyEntry extends Component {

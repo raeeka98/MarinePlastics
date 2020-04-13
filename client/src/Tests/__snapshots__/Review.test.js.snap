@@ -305,6 +305,35 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -363,6 +392,35 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -392,48 +450,7 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            2
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
+            Styrofoam
           </td>
           <td>
             1
@@ -442,7 +459,19 @@ exports[`matches snapshot 1 1`] = `
             0
           </td>
           <td>
-            2
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
           </td>
           <td>
             1
@@ -450,7 +479,7 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             2
@@ -479,7 +508,82 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             1
@@ -508,7 +612,94 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             1
@@ -596,6 +787,17 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -618,6 +820,17 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            34
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -629,29 +842,18 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
+            Styrofoam
           </td>
           <td>
-            2
+            1
           </td>
           <td>
-            7
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            0
-          </td>
-          <td>
-            34
+            4
           </td>
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             0
@@ -662,7 +864,40 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            5
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             0
@@ -673,7 +908,40 @@ exports[`matches snapshot 1 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             0
@@ -1004,6 +1272,35 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -1062,6 +1359,35 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -1091,48 +1417,7 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            2
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
+            Styrofoam
           </td>
           <td>
             1
@@ -1141,7 +1426,19 @@ exports[`matches snapshot 2 1`] = `
             0
           </td>
           <td>
-            2
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
           </td>
           <td>
             1
@@ -1149,7 +1446,7 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             2
@@ -1178,7 +1475,94 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             1
@@ -1207,7 +1591,94 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             1
@@ -1295,6 +1766,17 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -1317,6 +1799,17 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            34
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -1328,29 +1821,18 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
+            Styrofoam
           </td>
           <td>
-            2
+            1
           </td>
           <td>
-            7
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            0
-          </td>
-          <td>
-            34
+            4
           </td>
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             0
@@ -1361,7 +1843,40 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            5
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             0
@@ -1372,7 +1887,40 @@ exports[`matches snapshot 2 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             0
@@ -1707,6 +2255,35 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -1765,6 +2342,35 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -1794,48 +2400,7 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            2
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
-          </td>
-          <td>
-            1
+            Styrofoam
           </td>
           <td>
             1
@@ -1844,7 +2409,19 @@ exports[`matches snapshot 3 1`] = `
             0
           </td>
           <td>
-            2
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
           </td>
           <td>
             1
@@ -1852,7 +2429,7 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             2
@@ -1881,7 +2458,94 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             1
@@ -1910,7 +2574,94 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             1
@@ -1998,6 +2749,17 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
+            Plastic Cups
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Straws
           </td>
           <td>
@@ -2020,6 +2782,17 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
+            Misc. Plastic
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            34
+          </td>
+        </tr>
+        <tr>
+          <td>
             Plastic Bottles / Plastic Caps
           </td>
           <td>
@@ -2031,29 +2804,18 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Styrofoam / Urethane
+            Styrofoam
           </td>
           <td>
-            2
+            1
           </td>
           <td>
-            7
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Other : Plastics
-          </td>
-          <td>
-            0
-          </td>
-          <td>
-            34
+            4
           </td>
         </tr>
         <tr>
           <td>
-            Other : Food / Organics
+            Food / Organic
           </td>
           <td>
             0
@@ -2064,7 +2826,40 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Cotton / Cloth
+            Urethane Foam
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Metal
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            5
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Glass
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            2
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cotton / Cloth
           </td>
           <td>
             0
@@ -2075,7 +2870,40 @@ exports[`matches snapshot 3 1`] = `
         </tr>
         <tr>
           <td>
-            Other : Wood / Paper
+            Aluminum Cans
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Hygiene Items
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Tile / Brick
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Wood / Paper
           </td>
           <td>
             0

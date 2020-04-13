@@ -49,7 +49,8 @@ class SurveyForm extends Component {
             displayStrings: {
                 usage: "",
                 locChoice: "",
-                subType: ""
+                subType: "",
+                incompleteSurvey: "",
             },
             isInputting: true,
             isReviewing: false,
@@ -127,11 +128,20 @@ class SurveyForm extends Component {
 
         }
 
+        let incompleteSurvey = {
+            time: data.incompleteSurveyTime ? data.incompleteSurveyTime : undefined,
+            people: data.incompleteSurveyPeople ? data.incompleteSurveyPeople : undefined,
+            area: data.incompleteSurveyArea ? data.incompleteSurveyArea : undefined,
+            trash: data.incompleteSurveyTrash ? data.incompleteSurveyTrash : undefined,
+            other: data.incompleteSurveyOther ? data.incompleteSurveyOther : undefined
+        }
+
         this.setState({
             displayStrings: {
                 usage: usage,
                 locChoice: locChoice,
-                subType: subType
+                subType: subType,
+                incompleteSurvey: incompleteSurvey
             }
         })
     }

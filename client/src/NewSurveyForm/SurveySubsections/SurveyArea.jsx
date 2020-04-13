@@ -605,7 +605,7 @@ class SurveyArea extends Component {
                 <option value="nw">Northwest</option>
               </select>
 
-              <label>COMMENTS:</label>
+              <label>COMMENTS</label>
               <input
                 type="string"
                 id='windComments'

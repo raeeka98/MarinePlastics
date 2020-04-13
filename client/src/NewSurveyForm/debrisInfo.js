@@ -1,30 +1,11 @@
-const DebrisInfo = {
-    cigaretteButts: "Cigarette Butts",
-    fishingLineRope: "Fishing Line / Polypropylene Rope",
-    plasticStraws: "Plastic Straws",
-    filmedPlastic: "Filmed Plastic",
-    plasticBottlesCaps: "Plastic Bottles / Plastic Caps",
-    styrofoamUrethane: "Styrofoam / Urethane",
-    otherPlastics: "Other : Plastics",
-    otherFoodOrganics: "Other : Food / Organics",
-    otherCottonCloth: "Other : Cotton / Cloth",
-    otherWoodPaper: "Other : Wood / Paper"
-}
+/**
+ * debrisInfo.js
+ * Contains information on the categories of trash. Used by
+ * SurveySubsections/SurfaceRibScan.jsx,
+ * SurveySubsections/AccumulationSurvey.jsx, and SurveySubsections/Review.jsx.
+ */
 
-const DebrisInfoID = {
-    "Cigarette Butts": "cigaretteButts",
-    "Fishing Line / Polypropylene Rope": "fishingLineRope",
-    "Plastic Straws": "plasticStraws",
-    "Filmed Plastic": "filmedPlastic",
-    "Plastic Bottles / Plastic Caps": "plasticBottlesCaps",
-    "Styrofoam / Urethane": "styrofoamUrethane",
-    "Other : Plastics": "otherPlastics",
-    "Other : Food / Organics": "otherFoodOrganics",
-    "Other : Cotton / Cloth": "otherCottonCloth",
-    "Other : Wood / Paper": "otherWoodPaper"
-}
-
-const AllDebris = {
+const debrisInfo = {
     cigaretteButts: "Cigarette Butts",
     fishingLineRope: "Fishing Line / Polypropylene Rope",
     plasticCups: "Plastic Cups",
@@ -33,7 +14,6 @@ const AllDebris = {
     miscPlastic: "Misc. Plastic",
     plasticBottlesCaps: "Plastic Bottles / Plastic Caps",
     styrofoam: "Styrofoam",
-    woodPaper: "Wood / Paper",
     foodOrganic: "Food / Organic",
     urethaneFoam: "Urethane Foam",
     metal: "Metal",
@@ -42,15 +22,10 @@ const AllDebris = {
     aluminumCans: "Aluminum Cans",
     hygieneItems: "Hygiene Items",
     tileBrick: "Tile / Brick",
-    styrothane: "Styrofoam / Urethane",
-    otherPlastic: "Other : Plastics",
-    otherFood: "Other : Food / Organics",
-    otherCotton: "Other : Cotton / Cloth",
-    otherWood: "Other : Wood / Paper",
-    misc: "Misc. (general)"
+    woodPaper: "Wood / Paper"
 }
 
-const AllDebrisID = {
+const debrisInfoID = {
     "Cigarette Butts": "cigaretteButts",
     "Fishing Line / Polypropylene Rope": "fishingLineRope",
     "Plastic Cups": "plasticCups",
@@ -59,7 +34,6 @@ const AllDebrisID = {
     "Misc. Plastic": "miscPlastic",
     "Plastic Bottles / Plastic Caps": "plasticBottlesCaps",
     "Styrofoam": "styrofoam",
-    "Wood / Paper": "woodPaper",
     "Food / Organic": "foodOrganic",
     "Urethane Foam": "urethaneFoam",
     "Metal": "metal",
@@ -68,42 +42,26 @@ const AllDebrisID = {
     "Aluminum Cans": "aluminumCans",
     "Hygiene Items": "hygieneItems",
     "Tile / Brick": "tileBrick",
-    "Styrofoam / Urethane": "styrothane",
-    "Other : Plastics": "otherPlastics",
-    "Other : Food / Organics": "otherFoodOrganics",
-    "Other : Cotton / Cloth": "otherCottonCloth",
-    "Other : Wood / Paper": "otherWoodPaper",
+    "Wood / Paper": "woodPaper"
 }
 
-const debrisNames = Object.values(DebrisInfo);
-const allDebrisNames = Object.values(AllDebris);
+const debrisNames = Object.values(debrisInfo);
 
 function getDebrisNameById (id) {
-    return DebrisInfo[id];
+    return debrisInfo[id];
 }
 
 function getDebrisID (debrisName) {
-    return DebrisInfoID[debrisName];
+    return debrisInfoID[debrisName];
 }
 
 function getDebrisMap () {
-    return DebrisInfo;
-}
-
-function getAllDebris () {
-    return AllDebris;
-}
-
-function getAllDebrisID () {
-    return AllDebrisID;
+    return debrisInfo;
 }
 
 export {
     getDebrisNameById,
     getDebrisMap,
     debrisNames,
-    getDebrisID,
-    getAllDebris,
-    getAllDebrisID,
-    allDebrisNames
+    getDebrisID
 }

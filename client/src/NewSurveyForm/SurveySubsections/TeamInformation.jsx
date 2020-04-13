@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import {
-    AccordionItem,
-    AccordionItemTitle,
-    AccordionItemBody,
+  AccordionItem,
+  AccordionItemTitle,
+  AccordionItemBody,
 } from 'react-accessible-accordion';
 
 import '../accordion-styles.css';
