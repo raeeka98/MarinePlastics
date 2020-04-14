@@ -350,7 +350,7 @@ class SurveyArea extends Component {
         </div>
         <div>
           <label>
-            Coordinates (Longitude):<span className="uk-text-danger">*</span>
+            Coordinates (Longitude)<span className="uk-text-danger">*</span>
           </label>
           <div
             className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
