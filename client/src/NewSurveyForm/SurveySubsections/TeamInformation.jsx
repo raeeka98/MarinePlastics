@@ -1,3 +1,7 @@
+/**
+ * TeamInformation.jsx
+ * The team information component for the survey. Used by ../SurveyForm.jsx.
+ */
 import React, { Component } from 'react';
 
 import {
@@ -9,18 +13,24 @@ import {
 import '../accordion-styles.css';
 
 class TeamInformation extends Component {
-
+  /**
+   * JSX code for the team information section. In a dropdown box.
+   * @return the JSX code
+   */
   render() {
     return (
       <AccordionItem className="accordion__item" expanded="true">
-        <AccordionItemTitle className="accordion__title accordion__title--animated">
+        <AccordionItemTitle 
+          className="accordion__title accordion__title--animated">
           <h2>Team Information<span className="uk-text-danger">*</span></h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
         <AccordionItemBody className="accordion__body">
           <div className="uk-child-width-1-2 uk-grid">
             <div>
-              <label>First Name<span className="uk-text-danger">*</span></label>
+              <label>
+                First Name <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='First Name'
@@ -47,7 +57,9 @@ class TeamInformation extends Component {
 
           <div className="uk-child-width-1-2 uk-grid">
             <div>
-              <label>Organization Name<span className="uk-text-danger">*</span></label>
+              <label>
+                Organization Name<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='Organization Name'
@@ -59,7 +71,10 @@ class TeamInformation extends Component {
               />
             </div>
             <div>
-              <label>Organization Location (City, Country)<span className="uk-text-danger">*</span></label>
+              <label>
+                Organization Location (City, Country)
+                <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='Organization Location'
@@ -74,7 +89,9 @@ class TeamInformation extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Email Address<span className="uk-text-danger">*</span></label>
+              <label>
+                Email Address<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='Email Address'
@@ -86,7 +103,9 @@ class TeamInformation extends Component {
               />
             </div>
             <div>
-              <label>Clean Up Date<span className="uk-text-danger">*</span></label>
+              <label>
+                Clean Up Date<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='date'
                 defaultValue={this.props.data.cleanUpDate}
@@ -97,7 +116,9 @@ class TeamInformation extends Component {
               />
             </div>
             <div>
-              <label>Clean Up Start Time<span className="uk-text-danger">*</span></label>
+              <label>
+                Clean Up Start Time<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='time'
                 defaultValue={this.props.data.cleanUpTime}
@@ -109,8 +130,13 @@ class TeamInformation extends Component {
             </div>
           </div>
 
-          <div className="uk-padding-small uk-padding-remove-botom uk-width-1-1">
-            <div className="uk-text uk-text-small uk-text-center uk-text-muted"><span className="uk-text-danger">*</span> = Indicates required field.</div>
+          <div
+            className="uk-padding-small uk-padding-remove-botom uk-width-1-1">
+            <div
+              className="uk-text uk-text-small uk-text-center uk-text-muted">
+              <span
+                className="uk-text-danger">*</span> = Indicates required field.
+            </div>
           </div>
         </AccordionItemBody>
       </AccordionItem>
