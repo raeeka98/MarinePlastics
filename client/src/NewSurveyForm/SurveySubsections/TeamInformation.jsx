@@ -134,8 +134,9 @@ class TeamInformation extends Component {
             className="uk-padding-small uk-padding-remove-botom uk-width-1-1">
             <div
               className="uk-text uk-text-small uk-text-center uk-text-muted">
-              <span
-                className="uk-text-danger">*</span> = Indicates required field.
+              <span className="uk-text-danger">
+                *
+              </span> = Indicates required field.
             </div>
           </div>
         </AccordionItemBody>

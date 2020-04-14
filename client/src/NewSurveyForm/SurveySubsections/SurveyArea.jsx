@@ -50,7 +50,10 @@ class SurveyArea extends Component {
     const lonDir = Math.sign(lonDeg);
     lonDeg = lonDeg * lonDir;
 
-    return { latitude: lat, latDeg, latMin, latSec, latDir, longitude: lon, lonDeg, lonMin, lonSec, lonDir }
+    return {
+      latitude: lat, latDeg, latMin, latSec, latDir,
+      longitude: lon, lonDeg, lonMin, lonSec, lonDir
+    }
 
   }
 
@@ -63,7 +66,8 @@ class SurveyArea extends Component {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
         const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
-        this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
+        this.props.updateCoordState(coordInfo, res.data.nroName,
+          res.data.nroDist);
       }).catch(err => {
         console.log(err);
       });
@@ -336,14 +340,20 @@ class SurveyArea extends Component {
     return (
       <React.Fragment>
         <div>
-          <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
-          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          <label>
+            Coordinates (Latitude)<span className="uk-text-danger">*</span>
+          </label>
+          <div
+            className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
           {latDivs}
           </div>
         </div>
         <div>
-          <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
-          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          <label>
+            Coordinates (Longitude):<span className="uk-text-danger">*</span>
+          </label>
+          <div
+            className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
           {lonDivs}
           </div>
         </div>
@@ -389,7 +399,8 @@ class SurveyArea extends Component {
     let autoFilledData = this.props.autoFilledBeachData;
     return (
       <AccordionItem className="accordion__item">
-        <AccordionItemTitle className="accordion__title accordion__title--animated">
+        <AccordionItemTitle
+          className="accordion__title accordion__title--animated">
           <h2>Survey Area<span className="uk-text-danger">*</span></h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
@@ -400,7 +411,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Beach Name<span className="uk-text-danger">*</span></label>
+              <label>
+                Beach Name<span className="uk-text-danger">*</span>
+              </label>
               {this.beachNameInput(autoFilledData)}
             </div>
             {this.coordsInput(autoFilledData)}
@@ -408,7 +421,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Major Usage<span className="uk-text-danger">*</span></label>
+              <label>
+                Major Usage<span className="uk-text-danger">*</span>
+              </label>
               <div>
                 <label>
                   <input
@@ -447,7 +462,9 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherUsage: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherUsage: e.target.checked
+                    })}
                   />
                 </label> Other
               </div>
@@ -469,7 +486,10 @@ class SurveyArea extends Component {
             </div>
 
             <div>
-              <label>Reason for Location Choice<span className="uk-text-danger">*</span></label>
+              <label>
+                Reason for Location Choice
+                <span className="uk-text-danger">*</span>
+              </label>
               <div>
                 <label>
                   <input
@@ -497,7 +517,9 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherReason: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherReason: e.target.checked
+                    })}
                   />
                 </label> Other
                     </div>
@@ -516,7 +538,10 @@ class SurveyArea extends Component {
               }
             </div>
             <div>
-              <label>Compass Direction (When Facing the Water)<span className="uk-text-danger">*</span></label>
+              <label>
+                Compass Direction (When Facing the Water)
+                <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='number'
                 placeholder='Degrees'
@@ -536,11 +561,16 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>River Name<span className="uk-text-danger">*</span></label>
+              <label>
+                River Name<span className="uk-text-danger">*</span>
+              </label>
               {this.riverNameInput(autoFilledData)}
             </div>
             <div>
-              <label>Approximate Distance from "zero" on the Spine (mi)<span className="uk-text-danger">*</span></label>
+              <label>
+                Approximate Distance from "zero" on the Spine (mi)
+                <span className="uk-text-danger">*</span>
+              </label>
               {this.riverDistInput(autoFilledData)}
             </div>
           </div>
@@ -583,7 +613,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-4">
             <div>
-              <label>Height (ft)<span className="uk-text-danger">*</span></label>
+              <label>
+                Height (ft)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Height"
@@ -605,7 +637,9 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Height (ft)<span className="uk-text-danger">*</span></label>
+              <label>
+                Height (ft)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Height"
@@ -633,7 +667,9 @@ class SurveyArea extends Component {
           <div className="uk-grid uk-child-width-1-3">
             <div>
               <h4>Wind</h4>
-              <label>Speed (knots)<span className="uk-text-danger">*</span></label>
+              <label>
+                Speed (knots)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Speed (knots)"
@@ -737,7 +773,9 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherSubstrate: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherSubstrate: e.target.checked
+                    })}
                   />
                 </label> Other
               </div>
@@ -757,8 +795,14 @@ class SurveyArea extends Component {
             </div>
           </div>
 
-          <div className="uk-padding-large uk-padding-remove-botom uk-width-1-1">
-            <div className="uk-text uk-text-small uk-text-center uk-text-muted"><span className="uk-text-danger">*</span> = Indicates required field.</div>
+          <div
+            className="uk-padding-large uk-padding-remove-botom uk-width-1-1">
+            <div
+              className="uk-text uk-text-small uk-text-center uk-text-muted">
+              <span className="uk-text-danger">
+                *
+              </span> = Indicates required field.
+            </div>
           </div>
 
         </AccordionItemBody>
