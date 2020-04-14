@@ -1,3 +1,7 @@
+/**
+ * AccumulationSurvey.jsx
+ * The accumulation survey component for the survey. Used by ../SurveyForm.jsx.
+ */
 import React, { Component } from 'react';
 
 import {
@@ -20,6 +24,10 @@ class AccumulationSurvey extends Component {
     }
   }
 
+  /**
+   * JSX code for the accumulation survey section. In a dropdown box.
+   * @return the JSX code
+   */
   render() {
 
     let tableRows = [];
@@ -37,13 +45,16 @@ class AccumulationSurvey extends Component {
 
     return(
       <AccordionItem className="accordion__item">
-        <AccordionItemTitle className="accordion__title accordion__title--animated">
+        <AccordionItemTitle
+          className="accordion__title accordion__title--animated">
           <h2>Accumulation Survey</h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
         <AccordionItemBody className="accordion__body">
           <div>
-            <label>If unable to complete an accumulation survey, check box as to why:</label>
+            <label>
+              If unable to complete an accumulation survey, check box as to why
+              </label>
             <div>
               <label>
                 <input
@@ -93,7 +104,9 @@ class AccumulationSurvey extends Component {
                 <input
                   type='checkbox'
                   className='uk-checkbox'
-                  onClick={e => this.setState({ showOtherIncompleteSurvey: e.target.checked })}
+                  onClick={e => this.setState({
+                    showOtherIncompleteSurvey: e.target.checked
+                  })}
                 />
               </label> Other
             </div>
