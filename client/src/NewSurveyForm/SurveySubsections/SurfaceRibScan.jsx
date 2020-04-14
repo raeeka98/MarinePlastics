@@ -1,3 +1,7 @@
+/**
+ * SurfaceRibScan.jsx
+ * The survey area component for the survey. Used by ../SurveyForm.jsx.
+ */
 import React, { Component } from 'react';
 
 import {
@@ -15,7 +19,10 @@ import '../accordion-styles.css';
 
 
 class SurfaceRibScan extends Component {
-
+  /**
+   * JSX code for the surface rib scan section. In a dropdown box.
+   * @return the JSX code
+   */
   render() {
 
     let tableRows = [];
@@ -33,7 +40,8 @@ class SurfaceRibScan extends Component {
 
     return(
       <AccordionItem className="accordion__item">
-        <AccordionItemTitle className="accordion__title accordion__title--animated">
+        <AccordionItemTitle
+          className="accordion__title accordion__title--animated">
           <h2>Surface Rib Scan</h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
