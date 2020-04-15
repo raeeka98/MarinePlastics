@@ -106,48 +106,82 @@ class SurveyForm extends Component {
     updateDisplayStrings() {
         const data = this.state.surveyData;
 
+        // if id exists, set to the correct string, otherwise set to false
         let usage = {
-            rec: data.usageRecreation ? data.usageRecreation : false,
-            com: data.usageCommercial ? data.usageCommercial : false,
-            rem: data.usageRemoteUnused ? data.usageRemoteUnused : false,
+            rec: data.usageRecreation ? "Recreation" : false,
+            com: data.usageCommercial ? "Commercial" : false,
+            rem: data.usageRemoteUnused ? "Remote/Unused" : false,
+            // this field in data is what the user enters when selects other
             other: data.usageOther ? data.usageOther : false
         }
 
         let locChoice = {
-            debris: data.locationChoiceDebris ? data.locationChoiceDebris : false,
-            prox: data.locationChoiceProximity ? data.locationChoiceProximity : false,
+            prox: data.locationChoiceProximity ? "Proximity/Convenience" : false,
+            debris: data.locationChoiceDebris ? "Known for Debris" : false,
             other: data.locationChoiceOther ? data.locationChoiceOther : false
         }
 
         let subType = {
-            s: data.substrateTypeSand ? data.substrateTypeSand : false,
-            p: data.substrateTypePebble ? data.substrateTypePebble : false,
-            rr: data.substrateTypeRipRap ? data.substrateTypeRipRap : false,
-            sea: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false,
+            s: data.substrateTypeSand ? "Sand" : false,
+            p: data.substrateTypePebble ? "Pebble" : false,
+            rr: data.substrateTypeRipRap ? "Rip Rap" : false,
+            sea: data.substrateTypeSeaweed ? "Seaweed" : false,
             other: data.substrateTypeOther ? data.substrateTypeOther : false
 
         }
 
         let incompleteSurvey = {
-            time: data.incompleteSurveyTime ? data.incompleteSurveyTime : false,
-            people: data.incompleteSurveyPeople ? data.incompleteSurveyPeople : false,
-            area: data.incompleteSurveyArea ? data.incompleteSurveyArea : false,
-            trash: data.incompleteSurveyTrash ? data.incompleteSurveyTrash : false,
-            other: data.incompleteSurveyOther ? data.incompleteSurveyOther : false
+            time: data.incompleteSurveyTime ? "Not enough time" : false,
+            people: data.incompleteSurveyPeople ? "Not enough people" : false,
+            area: data.incompleteSurveyArea ? "Too much area" : false,
+            trash: data.incompleteSurveyTrash ? "Too much trash" : false,
+            other:
+              data.incompleteSurveyOther ? data.incompleteSurveyOther : false
         }
 
+        // creates string for each of the above objects
+        function objectToString(obj) {
+            var newString = "";
+            // this is so only add comma after first option
+            var firstOptionFound = false;
+
+            // for each field in object
+            for (var option in obj) {
+                if (obj[option] !== false && !firstOptionFound) {
+                    newString = obj[option];
+                    firstOptionFound = true;
+                }
+                else if (obj[option] !== false) {
+                    newString = newString + ", " + obj[option];
+                }
+            }
+
+            return newString;
+        }
+
+        var usageString = objectToString(usage);
+        var locChoiceString = objectToString(locChoice);
+        var subTypeString = objectToString(subType);
+        var incompleteSurveyString = objectToString(incompleteSurvey);
+
+        // set displayStrings to the new strings
         this.setState({
-          displayStrings: {
-            usage: usage,
-            locChoice: locChoice,
-            subType: subType,
-            incompleteSurvey: incompleteSurvey
-          }
+            displayStrings: {
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            }
         });
 
         // for testing
         if (process.env.NODE_ENV === 'test') {
-          return 0;
+            return {
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            };
         }
     }
 
