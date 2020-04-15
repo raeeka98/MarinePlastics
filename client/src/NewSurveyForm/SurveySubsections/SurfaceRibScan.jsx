@@ -99,7 +99,7 @@ class SurfaceRibScan extends Component {
             <div>
               <input
                 type='string'
-                placeholder='Rib #1 End'
+                placeholder='Rib #1 Length'
                 id='rib1End'
                 className='uk-input uk-margin'
                 onChange={this.props.updateSurveyState}
@@ -108,7 +108,7 @@ class SurfaceRibScan extends Component {
             <div>
               <input
                 type='string'
-                placeholder='Rib #2 End'
+                placeholder='Rib #2 Length'
                 id='rib2End'
                 className='uk-input uk-margin'
                 onChange={this.props.updateSurveyState}
@@ -117,7 +117,7 @@ class SurfaceRibScan extends Component {
             <div>
               <input
                 type='string'
-                placeholder='Rib #3 End'
+                placeholder='Rib #3 Length'
                 id='rib3End'
                 className='uk-input uk-margin'
                 onChange={this.props.updateSurveyState}
@@ -126,7 +126,7 @@ class SurfaceRibScan extends Component {
             <div>
               <input
                 type='string'
-                placeholder='Rib #4 End'
+                placeholder='Rib #4 Length'
                 id='rib4End'
                 className='uk-input uk-margin'
                 onChange={this.props.updateSurveyState}

@@ -242,11 +242,11 @@ class SurveyForm extends Component {
         else {
             this.updateDisplayStrings();
             this.setState({
-                invalidForm: false,
-                isInputting: false,
-                isReviewing: true,
-                isSubmitted: false,
-            })
+              invalidForm: false,
+              isInputting: false,
+              isReviewing: true,
+              isSubmitted: false,
+            });
         }
     }
 
@@ -270,6 +270,7 @@ class SurveyForm extends Component {
      * moveToSubmit: successfully submits the form if the validation in the backend passes
      */
     moveToSubmit() {
+        console.log(this.state);
         const form = this.prepareForm();
 
         axios.post("beaches/surveys", form)
@@ -473,8 +474,14 @@ class SurveyForm extends Component {
     }
 
     updateCheckedState(e) {
+        console.log("updateCheckedState(e) called");
+
         const key = e.target.id;
         const val = e.target.checked;
+
+        console.log("Key: " + key);
+        console.log("Val: " + val);
+
         this.setState(prevState => {
             prevState.surveyData[key] = val;
             return prevState;
@@ -522,6 +529,7 @@ class SurveyForm extends Component {
                         />
                         <AccumulationSurvey
                             data={this.state.ASData}
+                            updateCheckedState={this.updateCheckedState}
                             updateAS={this.updateAS} />
                         <MicroDebrisSurvey
                             data={this.state.surveyData}
