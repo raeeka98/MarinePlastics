@@ -107,16 +107,16 @@ class SurveyForm extends Component {
         const data = this.state.surveyData;
 
         let usage = {
-            rec: data.usageRecreation ? data.usageRecreation : undefined,
-            com: data.usageCommercial ? data.usageCommercial : undefined,
-            rem: data.usageRemoteUnused ? data.usageRemoteUnused : undefined,
-            other: data.usageOther ? data.usageOther : undefined
+            rec: data.usageRecreation ? data.usageRecreation : false,
+            com: data.usageCommercial ? data.usageCommercial : false,
+            rem: data.usageRemoteUnused ? data.usageRemoteUnused : false,
+            other: data.usageOther ? data.usageOther : false
         }
 
         let locChoice = {
-            debris: data.locationChoiceDebris ? data.locationChoiceDebris : undefined,
-            prox: data.locationChoiceProximity ? data.locationChoiceProximity : undefined,
-            other: data.locationChoiceOther ? data.locationChoiceOther : undefined
+            debris: data.locationChoiceDebris ? data.locationChoiceDebris : false,
+            prox: data.locationChoiceProximity ? data.locationChoiceProximity : false,
+            other: data.locationChoiceOther ? data.locationChoiceOther : false
         }
 
         let subType = {
@@ -124,26 +124,31 @@ class SurveyForm extends Component {
             p: data.substrateTypePebble ? data.substrateTypePebble : false,
             rr: data.substrateTypeRipRap ? data.substrateTypeRipRap : false,
             sea: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false,
-            other: data.substrateTypeOther ? data.substrateTypeOther : undefined
+            other: data.substrateTypeOther ? data.substrateTypeOther : false
 
         }
 
         let incompleteSurvey = {
-            time: data.incompleteSurveyTime ? data.incompleteSurveyTime : undefined,
-            people: data.incompleteSurveyPeople ? data.incompleteSurveyPeople : undefined,
-            area: data.incompleteSurveyArea ? data.incompleteSurveyArea : undefined,
-            trash: data.incompleteSurveyTrash ? data.incompleteSurveyTrash : undefined,
-            other: data.incompleteSurveyOther ? data.incompleteSurveyOther : undefined
+            time: data.incompleteSurveyTime ? data.incompleteSurveyTime : false,
+            people: data.incompleteSurveyPeople ? data.incompleteSurveyPeople : false,
+            area: data.incompleteSurveyArea ? data.incompleteSurveyArea : false,
+            trash: data.incompleteSurveyTrash ? data.incompleteSurveyTrash : false,
+            other: data.incompleteSurveyOther ? data.incompleteSurveyOther : false
         }
 
         this.setState({
-            displayStrings: {
-                usage: usage,
-                locChoice: locChoice,
-                subType: subType,
-                incompleteSurvey: incompleteSurvey
-            }
-        })
+          displayStrings: {
+            usage: usage,
+            locChoice: locChoice,
+            subType: subType,
+            incompleteSurvey: incompleteSurvey
+          }
+        });
+
+        // for testing
+        if (process.env.NODE_ENV === 'test') {
+          return 0;
+        }
     }
 
     // returns ID's of invalid elements if invalid, if not, returns empty array;

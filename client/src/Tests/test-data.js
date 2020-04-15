@@ -2,6 +2,8 @@
  * test-data.js
  * Contains sample state variables for automated testing.
  */
+
+// state data for Review.test.js
 var testSurveyFormState1 = {
   surveyData: {
     beachID: null,
@@ -229,29 +231,29 @@ var testSurveyFormState1 = {
   },
   displayStrings: {
     usage: {
-      com: undefined,
-      other: undefined,
+      com: false,
+      other: false,
       rec: true,
-      rem: undefined
+      rem: false
     },
     locChoice: {
       debris: true,
-      other: undefined,
-      prox: undefined
+      other: false,
+      prox: false
     },
     subType: {
-      other: undefined,
+      other: false,
       p: false,
       rr: false,
       s: true,
       sea: false
     },
     incompleteSurvey: {
-      area: undefined,
-      other: undefined,
-      people: undefined,
-      time: undefined,
-      trash: undefined
+      area: false,
+      other: false,
+      people: false,
+      time: false,
+      trash: false
     }
   },
   isInputting: false,
@@ -264,6 +266,7 @@ var testSurveyFormState1 = {
   autoFilledBeachData: null
 }
 
+// tests remote/unused option of major usage
 var testSurveyFormState2 = {
   surveyData: {
     beachID: null,
@@ -491,15 +494,15 @@ var testSurveyFormState2 = {
   },
   displayStrings: {
     usage: {
-      com: undefined,
-      other: undefined,
-      rec: undefined,
+      com: false,
+      other: false,
+      rec: false,
       rem: true
     },
     locChoice: {
       debris: true,
-      other: undefined,
-      prox: undefined
+      other: false,
+      prox: false
     },
     subType: {
       other: undefined,
@@ -509,11 +512,11 @@ var testSurveyFormState2 = {
       sea: false
     },
     incompleteSurvey: {
-      area: undefined,
-      other: undefined,
-      people: undefined,
-      time: undefined,
-      trash: undefined
+      area: false,
+      other: false,
+      people: false,
+      time: false,
+      trash: false
     }
   },
   isInputting: false,
@@ -526,6 +529,7 @@ var testSurveyFormState2 = {
   autoFilledBeachData: null
 }
 
+// tests comments for wind section
 var testSurveyFormState3 = {
   surveyData: {
     beachID: null,
@@ -754,29 +758,29 @@ var testSurveyFormState3 = {
   },
   displayStrings: {
     usage: {
-      com: undefined,
-      other: undefined,
+      com: false,
+      other: false,
       rec: true,
-      rem: undefined
+      rem: false
     },
     locChoice: {
       debris: true,
-      other: undefined,
-      prox: undefined
+      other: false,
+      prox: false
     },
     subType: {
-      other: undefined,
+      other: false,
       p: false,
       rr: false,
       s: true,
       sea: false
     },
     incompleteSurvey: {
-      area: undefined,
-      other: undefined,
-      people: undefined,
-      time: undefined,
-      trash: undefined
+      area: false,
+      other: false,
+      people: false,
+      time: false,
+      trash: false
     }
   },
   isInputting: false,
@@ -789,6 +793,7 @@ var testSurveyFormState3 = {
   autoFilledBeachData: null
 }
 
+// tests option to check why we did not do an accumulation survey
 var testSurveyFormState4 = {
   surveyData: {
     beachID: null,
@@ -983,29 +988,29 @@ var testSurveyFormState4 = {
   },
   displayStrings: {
     usage: {
-      com: undefined,
-      other: undefined,
+      com: false,
+      other: false,
       rec: true,
-      rem: undefined
+      rem: false
     },
     locChoice: {
       debris: true,
-      other: undefined,
-      prox: undefined
+      other: false,
+      prox: false
     },
     subType: {
-      other: undefined,
+      other: false,
       p: false,
       rr: false,
       s: true,
       sea: false
     },
     incompleteSurvey: {
-      area: undefined,
-      other: undefined,
+      area: false,
+      other: false,
       people: true,
-      time: undefined,
-      trash: undefined
+      time: false,
+      trash: false
     }
   },
   isInputting: false,
@@ -1018,9 +1023,408 @@ var testSurveyFormState4 = {
   autoFilledBeachData: null
 }
 
+// survey data for testing updateDisplayString(), this tests one option each
+var testSurveyFormSurveyData1 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  incompleteSurveyPeople: true,
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceDebris: true,
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeSand: true,
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageRecreation: true,
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected1 = {
+  usage: "Recreation",
+  locChoice: "Known for Debris",
+  subType: "Sand",
+  incompleteSurvey: "Not enough people"
+}
+
+// two options selected for each
+var testSurveyFormSurveyData2 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  incompleteSurveyPeople: true,
+  incompleteSurveyTime: true,
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceDebris: true,
+  locationChoiceProximity: true,
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeSand: true,
+  substrateTypeRipRap: true,
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageRecreation: true,
+  usageCommercial: true,
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected2 = {
+  usage: "Recreation, Commercial",
+  locChoice: "Proximity/Convenience, Known for Debris",
+  subType: "Sand, Rip Rap",
+  incompleteSurvey: "Not enough time, Not enough people"
+}
+
+// other selected for each
+var testSurveyFormSurveyData3 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  incompleteSurveyOther: "Storm",
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceOther: "Beautiful place",
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeOther: "Dirt",
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageOther: "Military",
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected3 = {
+  usage: "Military",
+  locChoice: "Beautiful place",
+  subType: "Dirt",
+  incompleteSurvey: "Storm"
+}
+
+// one option and other selected for each
+var testSurveyFormSurveyData4 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  incompleteSurveyOther: "Storm",
+  incompleteSurveyPeople: true,
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceDebris: true,
+  locationChoiceOther: "Beautiful place",
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeOther: "Dirt",
+  substrateTypeSand: true,
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageOther: "Military",
+  usageRecreation: true,
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected4 = {
+  usage: "Recreation, Military",
+  locChoice: "Known for Debris, Beautiful place",
+  subType: "Sand, Dirt",
+  incompleteSurvey: "Not enough people, Storm"
+}
+
+// all options, including other, selected for each
+var testSurveyFormSurveyData5 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  incompleteSurveyArea: true,
+  incompleteSurveyOther: "Storm",
+  incompleteSurveyPeople: true,
+  incompleteSurveyTime: true,
+  incompleteSurveyTrash: true,
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceDebris: true,
+  locationChoiceProximity: true,
+  locationChoiceOther: "Beautiful place",
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeOther: "Dirt",
+  substrateTypePebble: true,
+  substrateTypeRipRap: true,
+  substrateTypeSand: true,
+  substrateTypeSeaweed: true,
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageCommercial: true,
+  usageOther: "Military",
+  usageRecreation: true,
+  usageRemoteUnused: true,
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected5 = {
+  usage: "Recreation, Commercial, Remote/Unused, Military",
+  locChoice: "Proximity/Convenience, Known for Debris, Beautiful place",
+  subType: "Sand, Pebble, Rip Rap, Seaweed, Dirt",
+  incompleteSurvey:
+    "Not enough time, Not enough people, Too much area, Too much trash, Storm"
+}
+
+// incomplete survey options not selected
+var testSurveyFormSurveyData6 = {
+  beachID: null,
+  beachName: "Boardwalk Beach (test)",
+  cleanUpDate: "2020-03-23",
+  cleanUpTime: "10:30",
+  compassDegrees: "180",
+  email: "stgibson@ucsc.edu",
+  latDeg: "36",
+  latDir: "1",
+  latMin: "57",
+  latSec: "12",
+  locationChoiceDebris: true,
+  lonDeg: "122",
+  lonDir: "-1",
+  lonMin: "2",
+  lonSec: "28",
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0",
+  orgLoc: "Santa Cruz, United States of America",
+  orgName: "Clean Oceans International",
+  rib1End: "50",
+  rib1Start: "5",
+  rib2End: "50",
+  rib2Start: "10",
+  rib3End: "50",
+  rib3Start: "16",
+  rib4End: "50",
+  rib4Start: "27",
+  riverDistance: "10",
+  riverName: "Kawa Rivera",
+  slope: "winter",
+  substrateTypeSand: true,
+  tideHeightA: "10",
+  tideHeightB: "10",
+  tideTimeA: "16:00",
+  tideTimeB: "12:00",
+  tideTypeA: "high",
+  tideTypeB: "low",
+  usageRecreation: true,
+  userFirst: "Sean",
+  userLast: "Gibson",
+  windDir: "s",
+  windSpeed: "10"
+}
+
+// expected output for testing updateDisplayString() using above as surveyData
+var updateDisplayStringExpected6 = {
+  usage: "Recreation",
+  locChoice: "Known for Debris",
+  subType: "Sand",
+  incompleteSurvey: ""
+}
+
 export {
   testSurveyFormState1,
   testSurveyFormState2,
   testSurveyFormState3,
-  testSurveyFormState4
+  testSurveyFormState4,
+  testSurveyFormSurveyData1,
+  testSurveyFormSurveyData2,
+  testSurveyFormSurveyData3,
+  testSurveyFormSurveyData4,
+  testSurveyFormSurveyData5,
+  testSurveyFormSurveyData6,
+  updateDisplayStringExpected1,
+  updateDisplayStringExpected2,
+  updateDisplayStringExpected3,
+  updateDisplayStringExpected4,
+  updateDisplayStringExpected5,
+  updateDisplayStringExpected6
 };

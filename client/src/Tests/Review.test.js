@@ -10,7 +10,7 @@ import {
   testSurveyFormState1,
   testSurveyFormState2,
   testSurveyFormState3,
-  testSurveyFormState4,
+  testSurveyFormState4
 } from './test-data';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
@@ -18,7 +18,7 @@ import renderer from 'react-test-renderer';
 
 afterEach(cleanup);
 
-it("Review renders without crashing", () => {
+test("Review renders without crashing", () => {
     const div = document.createElement("div");
     var state = testSurveyFormState1;
     ReactDOM.render(
@@ -33,7 +33,7 @@ it("Review renders without crashing", () => {
     );
 });
 
-it("Review renders without crashing using Remote/Unused option", () => {
+test("Review renders without crashing using Remote/Unused option", () => {
   const div = document.createElement("div");
   var state = testSurveyFormState2;
   ReactDOM.render(
@@ -48,7 +48,7 @@ it("Review renders without crashing using Remote/Unused option", () => {
   );
 });
 
-it("Review renders without crashing using wind comments", () => {
+test("Review renders without crashing using wind comments", () => {
   const div = document.createElement("div");
   var state = testSurveyFormState3;
   ReactDOM.render(
@@ -63,7 +63,7 @@ it("Review renders without crashing using wind comments", () => {
   );
 });
 
-it("Review renders without crashing no accumulation sweep", () => {
+test("Review renders without crashing no accumulation sweep", () => {
   const div = document.createElement("div");
   var state = testSurveyFormState4;
   ReactDOM.render(
@@ -78,7 +78,7 @@ it("Review renders without crashing no accumulation sweep", () => {
   );
 });
 
-it("matches snapshot 1", () => {
+test("matches snapshot 1", () => {
     var state = testSurveyFormState1;
     const tree = renderer.create(
         <Review
@@ -92,7 +92,7 @@ it("matches snapshot 1", () => {
     expect(tree).toMatchSnapshot();
 });
 
-it("matches snapshot 2", () => {
+test("matches snapshot 2", () => {
   var state = testSurveyFormState2;
   const tree = renderer.create(
     <Review
@@ -106,7 +106,7 @@ it("matches snapshot 2", () => {
   expect(tree).toMatchSnapshot();
 });
 
-it("matches snapshot 3", () => {
+test("matches snapshot 3", () => {
   var state = testSurveyFormState3;
   const tree = renderer.create(
     <Review
@@ -120,7 +120,7 @@ it("matches snapshot 3", () => {
   expect(tree).toMatchSnapshot();
 });
 
-it("matches snapshot 4", () => {
+test("matches snapshot 4", () => {
   var state = testSurveyFormState4;
   const tree = renderer.create(
     <Review
