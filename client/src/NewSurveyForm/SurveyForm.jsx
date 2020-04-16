@@ -452,6 +452,7 @@ class SurveyForm extends Component {
                     spd: (data.windSpeed ? data.windSpeed : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
+                incompleteSurvey: (show.incompleteSurvey ? incompleteSurvey : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -568,6 +569,7 @@ class SurveyForm extends Component {
                         />
                         <AccumulationSurvey
                             data={this.state.ASData}
+                            updateSurveyState={this.updateSurveyState}
                             updateCheckedState={this.updateCheckedState}
                             updateAS={this.updateAS} />
                         <MicroDebrisSurvey
