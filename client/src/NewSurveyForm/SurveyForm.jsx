@@ -20,6 +20,7 @@ class SurveyForm extends Component {
         super(props);
         this.url = '/surveys'
         this.auth = this.props.auth;
+	console.log(this.auth);
 
         this.state = {
             surveyData: {
@@ -54,9 +55,9 @@ class SurveyForm extends Component {
             isInputting: true,
             isReviewing: false,
             isSubmitted: false,
-            user: "",
-            email: "",
-            userID: "",
+            user: this.auth.userProfile.name,
+            email: this.auth.userProfile.email,
+            userID: this.auth.userProfile.sub.split("|")[1],
             invalidForm: false,
             autoFilledBeachData: null
         }
@@ -79,13 +80,16 @@ class SurveyForm extends Component {
         }
 
         // set entry user/email from auth0
-        this.auth.getLoggedInProfile((err, profile) => {
+       /* this.auth.getLoggedInProfile((err, profile) => {
+		console.log("getLoginProfile")
             this.setState({
                 user: profile.name,
                 email: profile.email,
                 userID: profile.sub.split("|")[1]
             });
         });
+	*/
+
         if(this.props.location.state) {
           let { beachID } = this.props.location.state;
           if (beachID) {
@@ -265,8 +269,8 @@ class SurveyForm extends Component {
                         isInputting: false,
                         isReviewing: false,
                         isSubmitted: true,
-                        survID: res.data.survID,
-                        beachName:form.beachData.n
+                        survID: res.data.survID
+                        
                     })
                 }
             })
@@ -536,7 +540,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
-                <h3>Click <Link to={`${this.state.beachName}/surveys/${this.state.survID}`} > here</Link> to view your survey.</h3>
+                <h3>Click <Link to= {"home/"} > here</Link> to view your survey.</h3>
                 <div className="submit-button-container">
                     <button className="uk-button uk-button-secondary" onClick={this.moveToReview} >
                         Back to Review
