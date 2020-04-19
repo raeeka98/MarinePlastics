@@ -449,10 +449,11 @@ class SurveyForm extends Component {
                 },
                 wind: {
                     dir: (data.windDir ? data.windDir : ""),
-                    spd: (data.windSpeed ? data.windSpeed : "")
+                    spd: (data.windSpeed ? data.windSpeed : ""),
+                    comment: (data.windComments ? data.windComments : "")
                 },
                 majorUse: (show.usage ? show.usage : ""),
-                incompleteSurvey: (show.incompleteSurvey ? incompleteSurvey : ""),
+                incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : ""),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
