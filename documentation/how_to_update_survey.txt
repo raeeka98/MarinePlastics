@@ -12,3 +12,5 @@ How to : Update Survey
 5. If you are adding/changing the options in the rib scan/accumulation sweep,
    make the changes in MarinePlastics/client/src/NewSurveyForm/debrisInfo.js.
 5. Update MarinePlastics/client/src/NewSurveyForm/SurveySubsections/Review.jsx.
+6. Update prepareForm() in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
