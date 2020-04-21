@@ -15,7 +15,6 @@ import UserProfile from './UserProfile/UserProfile';
 import Protocol from './Protocol/Protocol';
 import About from './About/About';
 import Map from './Map/Map.js';
-import ChooseForm from './SurveyForm/ChooseForm';
 import LocationPage from './Location/Location';
 import PageNotFound from './PageNotFound/PageNotFound';
 import SurveyEntryEdit from "./SurveyEntry/surveyEntryEdit";
@@ -57,7 +56,7 @@ class App extends Component {
   }
 
   render() {
-    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/about', '/map', '/chooseform'];
+    let headerRoutes = ['/home', '/survey', '/newsurvey', '/location/:beachID', '/:beachName/:surveyID', '/profile', '/protocol', '/about', '/map'];
 
     return (
       <div>
@@ -102,8 +101,6 @@ class App extends Component {
                 <Route path='/map' render={() => <Map userProfile={this.state.userProfile} />} />
 
                 <Route exact path='/about' component={About} />
-
-                <Route path='/chooseform' component={ChooseForm} />
 
                 <Route component={PageNotFound} />
               </Switch>
