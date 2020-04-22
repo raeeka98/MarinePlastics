@@ -65,6 +65,7 @@ let locationReason = new Schema({
     debris: {
         type: Boolean,
         default: undefined,
+        alias: "debris"
     },
     other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false })
