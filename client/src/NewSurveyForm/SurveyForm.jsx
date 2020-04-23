@@ -14,6 +14,7 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
+import { isNullOrUndefined } from 'util';
 
 class SurveyForm extends Component {
     constructor(props) {
@@ -51,6 +52,16 @@ class SurveyForm extends Component {
                 locChoice: "",
                 subType: "",
                 incompleteSurvey: "",
+            },
+            checkboxAnswers: {
+              usage: {
+              },
+              locChoice: {
+              },
+              subType: {
+              },
+              incompleteSurvey: {
+              },
             },
             isInputting: true,
             isReviewing: false,
@@ -108,35 +119,35 @@ class SurveyForm extends Component {
 
         // if id exists, set to the correct string, otherwise set to false
         let usage = {
-            rec: data.usageRecreation ? "Recreation" : false,
-            com: data.usageCommercial ? "Commercial" : false,
-            rem: data.usageRemoteUnused ? "Remote/Unused" : false,
+            rec: data.usageRecreation ? "Recreation" : undefined,
+            com: data.usageCommercial ? "Commercial" : undefined,
+            rem: data.usageRemoteUnused ? "Remote/Unused" : undefined,
             // this field in data is what the user enters when selects other
-            other: data.usageOther ? data.usageOther : false
+            other: data.usageOther ? data.usageOther : undefined
         }
 
         let locChoice = {
-            prox: data.locationChoiceProximity ? "Proximity/Convenience" : false,
-            debris: data.locationChoiceDebris ? "Known for Debris" : false,
-            other: data.locationChoiceOther ? data.locationChoiceOther : false
+            prox: data.locationChoiceProximity ? "Proximity/Convenience" : undefined,
+            debris: data.locationChoiceDebris ? "Known for Debris" : undefined,
+            other: data.locationChoiceOther ? data.locationChoiceOther : undefined
         }
 
-        let subType = {
-            s: data.substrateTypeSand ? "Sand" : false,
-            p: data.substrateTypePebble ? "Pebble" : false,
-            rr: data.substrateTypeRipRap ? "Rip Rap" : false,
-            sea: data.substrateTypeSeaweed ? "Seaweed" : false,
-            other: data.substrateTypeOther ? data.substrateTypeOther : false
+      let subType = {
+            s: data.substrateTypeSand ? "Sand" : undefined,
+            p: data.substrateTypePebble ? "Pebble" : undefined,
+            rr: data.substrateTypeRipRap ? "Rip Rap" : undefined,
+            sea: data.substrateTypeSeaweed ? "Seaweed" : undefined,
+            other: data.substrateTypeOther ? data.substrateTypeOther : undefined
 
         }
 
         let incompleteSurvey = {
-            time: data.incompleteSurveyTime ? "Not enough time" : false,
-            people: data.incompleteSurveyPeople ? "Not enough people" : false,
-            area: data.incompleteSurveyArea ? "Too much area" : false,
-            trash: data.incompleteSurveyTrash ? "Too much trash" : false,
+            time: data.incompleteSurveyTime ? "Not enough time" : undefined,
+            people: data.incompleteSurveyPeople ? "Not enough people" : undefined,
+            area: data.incompleteSurveyArea ? "Too much area" : undefined,
+            trash: data.incompleteSurveyTrash ? "Too much trash" : undefined,
             other:
-              data.incompleteSurveyOther ? data.incompleteSurveyOther : false
+              data.incompleteSurveyOther ? data.incompleteSurveyOther : undefined
         }
 
         // creates string for each of the above objects
@@ -147,11 +158,11 @@ class SurveyForm extends Component {
 
             // for each field in object
             for (var option in obj) {
-                if (obj[option] !== false && !firstOptionFound) {
+                if (obj[option] && !firstOptionFound) {
                     newString = obj[option];
                     firstOptionFound = true;
                 }
-                else if (obj[option] !== false) {
+                else if (obj[option]) {
                     newString = newString + ", " + obj[option];
                 }
             }
@@ -159,10 +170,26 @@ class SurveyForm extends Component {
             return newString;
         }
 
+        function changeOptionsToBools(obj) {
+            var newObj = {};
+
+            for (var option in obj) {
+                if (obj[option]) {
+                    newObj[option] = true;
+                }
+            }
+            return newObj;
+        }
+
         var usageString = objectToString(usage);
         var locChoiceString = objectToString(locChoice);
         var subTypeString = objectToString(subType);
         var incompleteSurveyString = objectToString(incompleteSurvey);
+
+        var usageCheckboxAnswer = changeOptionsToBools(usage);
+        var locChoiceCheckboxAnswer = changeOptionsToBools(locChoice);
+        var subTypeCheckboxAnswer = changeOptionsToBools(subType);
+        var incompleteSurveyCheckboxAnswer = changeOptionsToBools(incompleteSurvey);
 
         // set displayStrings to the new strings
         this.setState({
@@ -171,6 +198,12 @@ class SurveyForm extends Component {
                 locChoice: locChoiceString,
                 subType: subTypeString,
                 incompleteSurvey: incompleteSurveyString
+            },
+            checkboxAnswers: {
+              usage: usageCheckboxAnswer,
+              locChoice: locChoiceCheckboxAnswer,
+              subType: subTypeCheckboxAnswer,
+              incompleteSurvey: incompleteSurveyCheckboxAnswer
             }
         });
 
@@ -421,7 +454,7 @@ class SurveyForm extends Component {
         // for that visual AESTHETIC
 
         const data = this.state.surveyData;
-        const show = this.state.displayStrings;
+        const show = this.state.checkboxAnswers;
 
         const form = {
             survData: {

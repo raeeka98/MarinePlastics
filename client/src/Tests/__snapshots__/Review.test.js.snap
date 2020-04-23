@@ -65,13 +65,25 @@ exports[`matches snapshot 1 1`] = `
       Boardwalk Beach (test)
     </p>
     <p>
-      Beach Coordinates: 
-      36
+      Beach Coordinates:
+       36
       °
-      57'12"S  
+      57'
+      12"
+      S  
       122
       °
-      2'28"W  
+      2'
+      28"
+      W
+    </p>
+    <p>
+      Major Usage: 
+      Recreation
+    </p>
+    <p>
+      Reason for Location Choice: 
+      Known for Debris
     </p>
     <p>
       Compass Direction: 
@@ -136,6 +148,10 @@ exports[`matches snapshot 1 1`] = `
     <p>
       Slope: 
       Winter
+    </p>
+    <p>
+      Substrate Type: 
+      Sand
     </p>
   </div>
   <br />
@@ -1044,13 +1060,25 @@ exports[`matches snapshot 2 1`] = `
       Boardwalk Beach (test)
     </p>
     <p>
-      Beach Coordinates: 
-      36
+      Beach Coordinates:
+       36
       °
-      57'12"S  
+      57'
+      12"
+      S  
       122
       °
-      2'28"W  
+      2'
+      28"
+      W
+    </p>
+    <p>
+      Major Usage: 
+      Remote/Unused
+    </p>
+    <p>
+      Reason for Location Choice: 
+      Known for Debris
     </p>
     <p>
       Compass Direction: 
@@ -1115,6 +1143,10 @@ exports[`matches snapshot 2 1`] = `
     <p>
       Slope: 
       Winter
+    </p>
+    <p>
+      Substrate Type: 
+      Sand
     </p>
   </div>
   <br />
@@ -2023,13 +2055,25 @@ exports[`matches snapshot 3 1`] = `
       Boardwalk Beach (test)
     </p>
     <p>
-      Beach Coordinates: 
-      36
+      Beach Coordinates:
+       36
       °
-      57'12"S  
+      57'
+      12"
+      S  
       122
       °
-      2'28"W  
+      2'
+      28"
+      W
+    </p>
+    <p>
+      Major Usage: 
+      Recreation
+    </p>
+    <p>
+      Reason for Location Choice: 
+      Known for Debris
     </p>
     <p>
       Compass Direction: 
@@ -2098,6 +2142,10 @@ exports[`matches snapshot 3 1`] = `
     <p>
       Slope: 
       Winter
+    </p>
+    <p>
+      Substrate Type: 
+      Sand
     </p>
   </div>
   <br />
@@ -3006,13 +3054,25 @@ exports[`matches snapshot 4 1`] = `
       Boardwalk Beach (test)
     </p>
     <p>
-      Beach Coordinates: 
-      36
+      Beach Coordinates:
+       36
       °
-      57'12"S  
+      57'
+      12"
+      S  
       122
       °
-      2'28"W  
+      2'
+      28"
+      W
+    </p>
+    <p>
+      Major Usage: 
+      Recreation
+    </p>
+    <p>
+      Reason for Location Choice: 
+      Known for Debris
     </p>
     <p>
       Compass Direction: 
@@ -3077,6 +3137,10 @@ exports[`matches snapshot 4 1`] = `
     <p>
       Slope: 
       Winter
+    </p>
+    <p>
+      Substrate Type: 
+      Sand
     </p>
   </div>
   <br />
@@ -3691,6 +3755,10 @@ exports[`matches snapshot 4 1`] = `
     >
       Accumulation Survey:
     </h3>
+    <p>
+      Unable to complete accumulation survey because:
+       Not enough people
+    </p>
     <table
       className="uk-table uk-table-striped uk-table-middle"
     >

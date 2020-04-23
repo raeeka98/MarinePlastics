@@ -229,6 +229,18 @@ var testSurveyFormState1 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"        
   },
+  checkboxAnswers: {
+    usage: {
+      rec: true
+    },
+    locChoice: {
+      debris: true
+    },
+    subType: {
+      s: true,
+    },
+    incompleteSurvey: {}
+  },
   displayStrings: {
     usage: "Recreation",
     locChoice: "Known for Debris",
@@ -470,6 +482,18 @@ var testSurveyFormState2 = {
     tileBrick__weathered__accumulation: "3",
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
+  },
+  checkboxAnswers: {
+    usage: {
+      rem: true
+    },
+    locChoice: {
+      debris: true
+    },
+    subType: {
+      s: true,
+    },
+    incompleteSurvey: {}
   },
   displayStrings: {
     usage: "Remote/Unused",
@@ -714,6 +738,18 @@ var testSurveyFormState3 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
+  checkboxAnswers: {
+    usage: {
+      rec: true
+    },
+    locChoice: {
+      debris: true
+    },
+    subType: {
+      s: true,
+    },
+    incompleteSurvey: {}
+  },
   displayStrings: {
     usage: "Recreation",
     locChoice: "Known for Debris",
@@ -922,6 +958,20 @@ var testSurveyFormState4 = {
     woodPaper__weathered__4: "1"
   },
   ASData: {
+  },
+  checkboxAnswers: {
+    usage: {
+      rec: true
+    },
+    locChoice: {
+      debris: true
+    },
+    subType: {
+      s: true,
+    },
+    incompleteSurvey: {
+      people: true
+    }
   },
   displayStrings: {
     usage: "Recreation",
@@ -1336,9 +1386,13 @@ var testSurveyFormForm1 = {
     email: "",
     userID: "",
     org: "Clean Oceans International",
-    reason: "Known for Debris",
+    reason: {
+      debris: true
+    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
-    st: "Sand",
+    st: {
+      s:  true
+    },
     slope: "winter",
     cmpsDir: "180",
     lastTide: {
@@ -1356,8 +1410,10 @@ var testSurveyFormForm1 = {
       spd: "10",
       comment: ""
     },
-    majorUse: "Recreation",
-    incompleteSurvey: "",
+    majorUse: {
+      rec: true
+    },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [
@@ -1622,9 +1678,13 @@ var testSurveyFormForm2 = {
     email: "",
     userID: "",
     org: "Clean Oceans International",
-    reason: "Known for Debris",
+    reason: {
+      debris: true
+    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
-    st: "Sand",
+    st: {
+      s: true
+    },
     slope: "winter",
     cmpsDir: "180",
     lastTide: {
@@ -1642,8 +1702,10 @@ var testSurveyFormForm2 = {
       spd: "10",
       comment: ""
     },
-    majorUse: "Remote/Unused",
-    incompleteSurvey: "",
+    majorUse: {
+      rem: true
+    },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [
@@ -1908,9 +1970,13 @@ var testSurveyFormForm3 = {
     email: "",
     userID: "",
     org: "Clean Oceans International",
-    reason: "Known for Debris",
+    reason: {
+      debris: true
+    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
-    st: "Sand",
+    st: {
+      s: true
+    },
     slope: "winter",
     cmpsDir: "180",
     lastTide: {
@@ -1928,8 +1994,10 @@ var testSurveyFormForm3 = {
       spd: "10",
       comment: "The wind was annoying."
     },
-    majorUse: "Recreation",
-    incompleteSurvey: "",
+    majorUse: {
+      rec: true
+    },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [
@@ -2194,9 +2262,13 @@ var testSurveyFormForm4 = {
     email: "",
     userID: "",
     org: "Clean Oceans International",
-    reason: "Known for Debris",
+    reason: {
+      debris: true
+    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
-    st: "Sand",
+    st: {
+      s: true
+    },
     slope: "winter",
     cmpsDir: "180",
     lastTide: {
@@ -2214,8 +2286,12 @@ var testSurveyFormForm4 = {
       spd: "10",
       comment: ""
     },
-    majorUse: "Recreation",
-    incompleteSurvey: "Not enough people",
+    majorUse: {
+      rec: true  
+    },
+    incompleteSurvey: {
+      people: true
+    },
     numOfP: 0,
     SRSDebris: [
       [
