@@ -1,3 +1,8 @@
+/**
+ * mongooseSchemas.js
+ * Creates schemas that define what collections can be added to the database,
+ * and some functions that can be used on these collections.
+ */
 'use strict';
 //import dependency
 var mongoose = require('mongoose');
@@ -12,11 +17,13 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 let Schema = mongoose.Schema;
 
+// includes total number of a type of trash for a survey (fresh and weathered)
 let newDataSchema = new Schema({
     fresh: { type: Number },
     weathered: { type: Number }
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
+// defines the substrate options for a survey
 let substrateTypeSchema = new Schema({
     s: {
         type: Boolean,
@@ -41,7 +48,7 @@ let substrateTypeSchema = new Schema({
     other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
-
+// defines the usage options for a survey
 let majorUsageSchema = new Schema({
     rec: {
         type: Boolean,
@@ -56,28 +63,29 @@ let majorUsageSchema = new Schema({
     other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
+// defines location reason options for a survey
 let locationReason = new Schema({
     prox: {
         type: Boolean,
         default: undefined,
         alias: "proximity"
     },
+    // no alias because not using an abbreviation
     debris: {
         type: Boolean,
-        default: undefined,
-        alias: "debris"
+        default: undefined
     },
     other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false })
 
-
+// defines description of a low or high tide for a survey
 var tideSchema = new Schema({
     type: String,
     time: String,
     height: Number,
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
-
+// defines a survey, and uses the above schemas
 let surveySchema = new Schema({
     bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
     user: {
@@ -131,6 +139,13 @@ let surveySchema = new Schema({
     asDebrisLength: { type: Number, required: true, min: 0 }
 }, { versionKey: false, validateBeforeSave: false });
 
+/**
+ * Counts the total amount of trash from the surface rib scan of a survey. Also
+ * sets newDebris to an object with types of trash as keys and total trash
+ * (fresh + weathered) as values.
+ * @param newDebris
+ * @return total amount of trash from the surface rib scan
+ */
 surveySchema.methods.getSRSTotal = function(newDebris) {
     let total = 0;
     this.SRSDebris.forEach((trashData, trash, map) => {
@@ -144,6 +159,10 @@ surveySchema.methods.getSRSTotal = function(newDebris) {
     });
     return total;
 }
+
+/**
+ * Counts the total amount of trash from the accumulation sweep of a survey
+ */
 surveySchema.methods.getASTotal = function(newDebris) {
     let total = 0;
     this.ASDebris.forEach((trashData, trash, map) => {
@@ -158,6 +177,7 @@ surveySchema.methods.getASTotal = function(newDebris) {
     return total;
 };
 
+// gets the total amount of trash from a survey (SRS and AS)
 surveySchema.methods.getAllDebris = function() {
     let allDebris = {};
     this.ASDebris.forEach((trashData, trash) => {
@@ -178,6 +198,8 @@ surveySchema.methods.getAllDebris = function() {
     });
     return allDebris;
 };
+
+// gets the total amount of trash from a survey as a negative number
 surveySchema.methods.getAllDebrisNeg = function() {
     let allDebris = {};
     this.ASDebris.forEach((trashData, trash) => {
