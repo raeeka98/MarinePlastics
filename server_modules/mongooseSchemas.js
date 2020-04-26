@@ -53,6 +53,11 @@ let majorUsageSchema = new Schema({
         default: undefined,
         alias: "commercial"
     },
+    rem: {
+        type: Boolean,
+        default: undefined,
+        alias: "remote/unused"
+    },
     other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 

@@ -32,8 +32,9 @@ const tideDataSchema = joi.object({
 const majorUseSchema = joi.object({
     rec: joi.bool(),
     com: joi.bool(),
+    rem: joi.bool(),
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["rec", "com", "other"]);
+}).or(["rec", "com", "rem", "other"]);
 
 const windDataSchema = joi.object({
     dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"]).required(),
