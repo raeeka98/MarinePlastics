@@ -36,10 +36,18 @@ const majorUseSchema = joi.object({
     other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
 }).or(["rec", "com", "rem", "other"]);
 
+const incompleteSurveySchema = joi.object({
+  time: joi.bool(),
+  people: joi.bool(),
+  area: joi.bool(),
+  trash: joi.bool(),
+  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
+});
+
 const windDataSchema = joi.object({
     dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"]).required(),
     spd: joi.number().min(0).required(),
-    comment: joi.string().trim().replace(/\s\s+/, " ")
+    comment: joi.string().trim().replace(/\s\s+/, " ").optional()
 });
 
 const debrisData = joi.array().items(
@@ -64,6 +72,7 @@ const surveyDataSchema = joi.object({
     nextTide: tideDataSchema.required(),
     wind: windDataSchema.required(),
     majorUse: majorUseSchema.required(),
+    incompleteSurvey: incompleteSurveySchema.optional(),
     numOfP: joi.number().min(0).required(),//number of people
     SRSDebris: joi.array().items(debrisData).max(18).optional(),
     ASDebris: joi.array().items(debrisData).max(18).optional()
