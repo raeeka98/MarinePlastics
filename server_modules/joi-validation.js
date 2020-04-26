@@ -38,7 +38,8 @@ const majorUseSchema = joi.object({
 
 const windDataSchema = joi.object({
     dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"]).required(),
-    spd: joi.number().min(0).required()
+    spd: joi.number().min(0).required(),
+    comment: joi.string().trim().replace(/\s\s+/, " ")
 });
 
 const debrisData = joi.array().items(

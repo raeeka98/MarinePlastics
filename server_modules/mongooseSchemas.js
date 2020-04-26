@@ -116,7 +116,8 @@ let surveySchema = new Schema({
     nextTide: tideSchema,
     wind: {
         dir: { type: String },
-        spd: { type: Number }
+        spd: { type: Number },
+        comment: { type: String }
     },
     majorUse: majorUsageSchema,
     numOfP: {
