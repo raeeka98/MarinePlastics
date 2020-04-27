@@ -55,15 +55,17 @@ let surveys = {
      */
     update: async function(surveyID, updatedFields) {
 
-        let { newSRSDebris, newASDebris, oldSRSDebris, oldASDebris, changedInfo } = updatedFields;
+        let { newSRSDebris, newASDebris, newMicroDebris, oldSRSDebris, oldASDebris, oldMicroDebris, changedInfo } = updatedFields;
         
         let update = {
             $set: {
                 ...changedInfo,
                 SRSDebris: newSRSDebris,
                 ASDebris: newASDebris,
+                MicroDebris: newMicroDebris,
                 srsDebrisLength: newSRSDebris.length,
-                asDebrisLength: newASDebris.length
+                asDebrisLength: newASDebris.length,
+                microDebrisLength: newMicroDebris.length
             }
         }
 
@@ -72,6 +74,7 @@ let surveys = {
         let updatePayload = {
             reason: "edit",
             newASTotal: 0,
+            newMDSTotal: 0,
             newSRSTotal: 0,
             newDebrisData: {},
             date: newSurvey.survDate
@@ -82,15 +85,28 @@ let surveys = {
         newASDebris.forEach(val => {
             updatePayload.newASTotal += val[1].fresh + val[1].weathered;
         });
+        newMicroDebris.forEach(val => {
+            updatePayload.newMDSTotal += val[1].fresh + val[1].weathered;
+        });
 
         oldSRSDebris.forEach(oldVal => {
             let index = newSRSDebris.findIndex(val => val[0] === oldVal[0]);
             if (index == -1) {
                 updatePayload.newDebrisData[oldVal[0]] = -oldVal[1].fresh - oldVal[1].weathered;
             } else {
-                updatePayload.newDebrisData[oldVal[0]] = (oldVal[1].fresh + oldVal[1].weathered) -
-                    (newSRSDebris[index][1].fresh + newSRSDebris[index][1].weathered)
+                updatePayload.newDebrisData[oldVal[0]] = (newSRSDebris[index][1].fresh + newSRSDebris[index][1].weathered) -
+                    (oldVal[1].fresh + oldVal[1].weathered)
+                    
             }
+        });
+        oldMicroDebris.forEach(oldVal => {
+          let index = newMicroDebris.findIndex(val => val[0] === oldVal[0]);
+          if (index == -1) {
+              updatePayload.newDebrisData[oldVal[0]] = -oldVal[1].fresh - oldVal[1].weathered;
+          } else {
+              updatePayload.newDebrisData[oldVal[0]] = (newMicroDebris[index][1].fresh + newMicroDebris[index][1].weathered) -
+                  (oldVal[1].fresh + oldVal[1].weathered)
+          }
         });
 
         await beaches.updateStats(newSurvey.bID, updatePayload);
@@ -387,7 +403,7 @@ function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
 function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     //edited survey
     let { TODF: prevDebrisData } = oldStats;
-    let { newDebrisData, newASTotal, newSRSTotal, date } = updatePayload;
+    let { newDebrisData, newASTotal, newMDSTotal, newSRSTotal, date } = updatePayload;
 
     let result = [];
     let path = `m${date.getUTCMonth()}`
@@ -397,6 +413,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$set = {
         [`${path}.$.AST`]: newASTotal,
+        [`${path}.$.MDST`]: newMDSTotal,
         [`${path}.$.SRST`]: newSRSTotal,
     };
     totalsQuery._id = totalsID;
