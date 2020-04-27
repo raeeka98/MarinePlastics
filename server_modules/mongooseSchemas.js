@@ -135,8 +135,13 @@ let surveySchema = new Schema({
         type: Map,
         of: newDataSchema
     },
+    MicroDebris: {
+        type: Map,
+        of: newDataSchema
+    },
     srsDebrisLength: { type: Number, required: true, min: 0 },
-    asDebrisLength: { type: Number, required: true, min: 0 }
+    asDebrisLength: { type: Number, required: true, min: 0 },
+    microDebrisLength: { type: Number, required: true, min: 0 }
 }, { versionKey: false, validateBeforeSave: false });
 
 /**
