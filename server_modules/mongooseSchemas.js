@@ -166,7 +166,11 @@ surveySchema.methods.getSRSTotal = function(newDebris) {
 }
 
 /**
- * Counts the total amount of trash from the accumulation sweep of a survey
+ * Counts the total amount of trash from the accumulation sweep of a survey.
+ * Also sets newDebris to an object with types of trash as keys and total trash
+ * (fresh + weathered) as values.
+ * @param newDebris
+ * @return total amount of trash from the accumulation survey
  */
 surveySchema.methods.getASTotal = function(newDebris) {
     let total = 0;
@@ -182,7 +186,11 @@ surveySchema.methods.getASTotal = function(newDebris) {
     return total;
 };
 
-// gets the total amount of trash from a survey (SRS and AS)
+/**
+ * Returns the total amount of trash from a survey, both from the surface rib
+ * scan and the accumulation survey.
+ * @return total amount of trash
+ */
 surveySchema.methods.getAllDebris = function() {
     let allDebris = {};
     this.ASDebris.forEach((trashData, trash) => {
@@ -204,7 +212,11 @@ surveySchema.methods.getAllDebris = function() {
     return allDebris;
 };
 
-// gets the total amount of trash from a survey as a negative number
+/**
+ * Gets the total amount of trash from a survey as a negative number, for
+ * convenience.
+ * @return total number of trash as a negative number
+ */
 surveySchema.methods.getAllDebrisNeg = function() {
     let allDebris = {};
     this.ASDebris.forEach((trashData, trash) => {
@@ -225,12 +237,15 @@ surveySchema.methods.getAllDebrisNeg = function() {
     });
     return allDebris;
 };
+
+// stores the total trash collected on a certain date, both SRS and AS
 let dayTotalsSchema = new Schema({
     date: { type: Number, index: true },
     AST: { type: Number, required: true, default: 0, min: 0 },
     SRST: { type: Number, required: true, default: 0, min: 0 }
 }, { versionKey: false, _id: false, validateBeforeSave: false })
 
+// stores total trash collected each month in a year, each number is a month
 let yearTotalsSchema = new Schema({
     "0": { type: [dayTotalsSchema], default: undefined },
     "1": { type: [dayTotalsSchema], default: undefined },
@@ -246,12 +261,13 @@ let yearTotalsSchema = new Schema({
     "11": { type: [dayTotalsSchema], default: undefined },
 }, { versionKey: false, validateBeforeSave: false });
 
-
+// stores a survey along with the date the data was collected
 let daySurveySchema = new Schema({
     date: { type: Number, index: true, required: true },
     survey: { type: String }
 }, { versionKey: false, _id: false, validateBeforeSave: false })
 
+// stores surveys done each month in a year, each number is a month
 let yearSurveySchema = new Schema({
     "0": { type: [daySurveySchema], default: undefined },
     "1": { type: [daySurveySchema], default: undefined },
@@ -267,7 +283,7 @@ let yearSurveySchema = new Schema({
     "11": { type: [daySurveySchema], default: undefined },
 }, { versionKey: false, validateBeforeSave: false });
 
-
+// stores data on a beach for auto fill, and for the surveys done on the beach
 let beachSchema = new Schema({
     n: {
         type: String,
@@ -318,6 +334,7 @@ let beachSchema = new Schema({
     }
 }, { versionKey: false, validateBeforeSave: false });
 
+// data on a type of trash
 let trashSchema = new Schema({
     trash_id: {
         type: String,
