@@ -29,7 +29,7 @@ let surveys = {
 
         let surveyUpdate = {
             $pull: {
-                [`${dateOfSub.getUTCMonth()}`]: { date: dateOfSub.getUTCDate() }
+                [`m${dateOfSub.getUTCMonth()}`]: { date: dateOfSub.getUTCDate() }
             }
         };
         let removeFromSurveys = yearSurveyModel.findByIdAndUpdate(surveys[dateOfSub.getUTCFullYear()], surveyUpdate, { new: true }).exec();
@@ -112,7 +112,7 @@ let surveys = {
         if (!surveys.has(`${survDate.getUTCFullYear()}`)) {
             //new year
             let ym = new yearSurveyModel({
-                [survDate.getUTCMonth()]: [surveyEntryData]
+                ["m" + survDate.getUTCMonth()]: [surveyEntryData]
             });
             update.$set = {
                 [`surveys.${survDate.getUTCFullYear()}`]: ym._id,
@@ -123,7 +123,7 @@ let surveys = {
         } else {
             //year already exists
             let yearSurveyID = surveys.get(`${survDate.getUTCFullYear()}`);
-            let path = `${survDate.getUTCMonth()}`;
+            let path = `m${survDate.getUTCMonth()}`;
             let yearSurveyUpdate = {
                 $push: {
                     [path]: surveyEntryData,
@@ -156,11 +156,13 @@ let surveys = {
             reason: 'new',
             date: new Date(survDate.getTime()),
             ASTotal: 0,
+            MDSTotal: 0,
             SRSTotal: 0,
             newDebrisData: {},
         };
 
         updatePayload.ASTotal = survey.getASTotal(updatePayload.newDebrisData);
+        updatePayload.MDSTotal = survey.getMDSTotal(updatePayload.newDebrisData);
         updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebrisData);
         await beaches.updateStats(beachID, updatePayload);
         return rtnMsg;
@@ -377,7 +379,7 @@ function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
     }
     let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$pull = {
-        [`${date.getUTCMonth()}`]: { date: date.getUTCDate() },
+        [`m${date.getUTCMonth()}`]: { date: date.getUTCDate() },
     };
     totalsQuery._id = totalsID;
 }
@@ -388,7 +390,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
     let { newDebrisData, newASTotal, newSRSTotal, date } = updatePayload;
 
     let result = [];
-    let path = `${date.getUTCMonth()}`
+    let path = `m${date.getUTCMonth()}`
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
         update.beachUpdate.$set['stats.TODF'] = result;
     }
@@ -404,7 +406,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
 function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     //new survey
     let { TODF: prevDebrisData } = oldStats;
-    let { newDebrisData, ASTotal, SRSTotal, date } = updatePayload;
+    let { newDebrisData, ASTotal, MDSTotal, SRSTotal, date } = updatePayload;
     let result = [];
     if (compareTrash(newDebrisData, prevDebrisData, result)) {
         update.beachUpdate.$set['stats.TODF'] = result;
@@ -412,7 +414,7 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     if (oldStats.ttls.size <= 0) {
         //create new year
         let totals = new yearTotalsModel({
-            [`${date.getUTCMonth()}`]: [{ date: date.getUTCDate(), AST: ASTotal, SRST: SRSTotal }]
+            [`m${date.getUTCMonth()}`]: [{ date: date.getUTCDate(), AST: ASTotal, MDST: MDSTotal, SRST: SRSTotal }]
         })
         update.beachUpdate.$set[`stats.ttls.${date.getUTCFullYear()}`] = totals._id;
         totals.save();
@@ -420,8 +422,8 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
     }
     let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
     update.totalsUpdate.$push = {
-        [`${date.getUTCMonth()}`]: {
-            $each: [{ date: date.getUTCDate(), AST: ASTotal, SRST: SRSTotal }],
+        [`m${date.getUTCMonth()}`]: {
+            $each: [{ date: date.getUTCDate(), AST: ASTotal, MDST: MDSTotal, SRST: SRSTotal }],
             $sort: {
                 date: 1
             }

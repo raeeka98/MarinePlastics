@@ -153,7 +153,7 @@ let surveySchema = new Schema({
  */
 surveySchema.methods.getSRSTotal = function(newDebris) {
   let total = 0;
-  this.SRSDebris.forEach((trashData, trash, map) => {
+  this.SRSDebris.forEach((trashData, trash) => {
     const trashAmount = trashData.fresh + trashData.weathered;
     total += trashAmount;
     if (newDebris.hasOwnProperty(trash)) {
@@ -174,7 +174,30 @@ surveySchema.methods.getSRSTotal = function(newDebris) {
  */
 surveySchema.methods.getASTotal = function(newDebris) {
   let total = 0;
-  this.ASDebris.forEach((trashData, trash, map) => {
+  this.ASDebris.forEach((trashData, trash) => {
+    const trashAmount = trashData.fresh + trashData.weathered;
+    total += trashAmount;
+    if (newDebris.hasOwnProperty(trash)) {
+      newDebris[trash] += trashAmount;
+    } else {
+      newDebris[trash] = trashAmount;
+    }
+  });
+  return total;
+};
+
+/**
+ * Counts the total amount of trash from the micro debris. Also sets newDebris
+ * to an object with types of trash as keys and total trash
+ * (fresh + weathered) as values. Even though there should only be one type of
+ * trash in micro debris, this keeps the same format as in the other two types
+ * of debris for simplicity.
+ * @param newDebris
+ * @return total amount of trash from micro debris
+ */
+surveySchema.methods.getMDSTotal = function (newDebris) {
+  let total = 0;
+  this.MicroDebris.forEach((trashData, trash) => {
     const trashAmount = trashData.fresh + trashData.weathered;
     total += trashAmount;
     if (newDebris.hasOwnProperty(trash)) {
@@ -242,23 +265,24 @@ surveySchema.methods.getAllDebrisNeg = function() {
 let dayTotalsSchema = new Schema({
   date: { type: Number, index: true },
   AST: { type: Number, required: true, default: 0, min: 0 },
+  MDST: { type: Number, required: true, default: 0, min: 0 },
   SRST: { type: Number, required: true, default: 0, min: 0 }
 }, { versionKey: false, _id: false, validateBeforeSave: false })
 
 // stores total trash collected each month in a year, each number is a month
 let yearTotalsSchema = new Schema({
-  "0": { type: [dayTotalsSchema], default: undefined },
-  "1": { type: [dayTotalsSchema], default: undefined },
-  "2": { type: [dayTotalsSchema], default: undefined },
-  "3": { type: [dayTotalsSchema], default: undefined },
-  "4": { type: [dayTotalsSchema], default: undefined },
-  "5": { type: [dayTotalsSchema], default: undefined },
-  "6": { type: [dayTotalsSchema], default: undefined },
-  "7": { type: [dayTotalsSchema], default: undefined },
-  "8": { type: [dayTotalsSchema], default: undefined },
-  "9": { type: [dayTotalsSchema], default: undefined },
-  "10": { type: [dayTotalsSchema], default: undefined },
-  "11": { type: [dayTotalsSchema], default: undefined },
+  "m0": { type: [dayTotalsSchema], default: undefined },
+  "m1": { type: [dayTotalsSchema], default: undefined },
+  "m2": { type: [dayTotalsSchema], default: undefined },
+  "m3": { type: [dayTotalsSchema], default: undefined },
+  "m4": { type: [dayTotalsSchema], default: undefined },
+  "m5": { type: [dayTotalsSchema], default: undefined },
+  "m6": { type: [dayTotalsSchema], default: undefined },
+  "m7": { type: [dayTotalsSchema], default: undefined },
+  "m8": { type: [dayTotalsSchema], default: undefined },
+  "m9": { type: [dayTotalsSchema], default: undefined },
+  "m10": { type: [dayTotalsSchema], default: undefined },
+  "m11": { type: [dayTotalsSchema], default: undefined },
 }, { versionKey: false, validateBeforeSave: false });
 
 // stores a survey along with the date the data was collected
@@ -269,18 +293,18 @@ let daySurveySchema = new Schema({
 
 // stores surveys done each month in a year, each number is a month
 let yearSurveySchema = new Schema({
-  "0": { type: [daySurveySchema], default: undefined },
-  "1": { type: [daySurveySchema], default: undefined },
-  "2": { type: [daySurveySchema], default: undefined },
-  "3": { type: [daySurveySchema], default: undefined },
-  "4": { type: [daySurveySchema], default: undefined },
-  "5": { type: [daySurveySchema], default: undefined },
-  "6": { type: [daySurveySchema], default: undefined },
-  "7": { type: [daySurveySchema], default: undefined },
-  "8": { type: [daySurveySchema], default: undefined },
-  "9": { type: [daySurveySchema], default: undefined },
-  "10": { type: [daySurveySchema], default: undefined },
-  "11": { type: [daySurveySchema], default: undefined },
+  "m0": { type: [daySurveySchema], default: undefined },
+  "m1": { type: [daySurveySchema], default: undefined },
+  "m2": { type: [daySurveySchema], default: undefined },
+  "m3": { type: [daySurveySchema], default: undefined },
+  "m4": { type: [daySurveySchema], default: undefined },
+  "m5": { type: [daySurveySchema], default: undefined },
+  "m6": { type: [daySurveySchema], default: undefined },
+  "m7": { type: [daySurveySchema], default: undefined },
+  "m8": { type: [daySurveySchema], default: undefined },
+  "m9": { type: [daySurveySchema], default: undefined },
+  "m10": { type: [daySurveySchema], default: undefined },
+  "m11": { type: [daySurveySchema], default: undefined },
 }, { versionKey: false, validateBeforeSave: false });
 
 // stores data on a beach for auto fill, and for the surveys done on the beach
