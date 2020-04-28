@@ -211,12 +211,20 @@ surveySchema.methods.getMDSTotal = function (newDebris) {
 
 /**
  * Returns the total amount of trash from a survey, both from the surface rib
- * scan and the accumulation survey.
+ * scan, the accumulation survey, and the micro debris.
  * @return total amount of trash
  */
 surveySchema.methods.getAllDebris = function() {
   let allDebris = {};
   this.ASDebris.forEach((trashData, trash) => {
+    const trashAmount = trashData.fresh + trashData.weathered;
+    if (allDebris.hasOwnProperty(trash)) {
+      allDebris[trash] += trashAmount;
+    } else {
+      allDebris[trash] = trashAmount;
+    }
+  });
+  this.MicroDebris.forEach((trashData, trash) => {
     const trashAmount = trashData.fresh + trashData.weathered;
     if (allDebris.hasOwnProperty(trash)) {
       allDebris[trash] += trashAmount;
@@ -237,12 +245,21 @@ surveySchema.methods.getAllDebris = function() {
 
 /**
  * Gets the total amount of trash from a survey as a negative number, for
- * convenience.
+ * convenience. Gets total trash from surface rib scan, the accumulation
+ * survey, and the micro debris.
  * @return total number of trash as a negative number
  */
 surveySchema.methods.getAllDebrisNeg = function() {
   let allDebris = {};
   this.ASDebris.forEach((trashData, trash) => {
+    const trashAmount = trashData.fresh + trashData.weathered;
+    if (allDebris.hasOwnProperty(trash)) {
+      allDebris[trash] -= trashAmount;
+    } else {
+      allDebris[trash] = -trashAmount;
+    }
+  });
+  this.MicroDebris.forEach((trashData, trash) => {
     const trashAmount = trashData.fresh + trashData.weathered;
     if (allDebris.hasOwnProperty(trash)) {
       allDebris[trash] -= trashAmount;
@@ -261,7 +278,7 @@ surveySchema.methods.getAllDebrisNeg = function() {
   return allDebris;
 };
 
-// stores the total trash collected on a certain date, both SRS and AS
+// stores the total trash collected on a certain date, both SRS, AS, and MDS
 let dayTotalsSchema = new Schema({
   date: { type: Number, index: true },
   AST: { type: Number, required: true, default: 0, min: 0 },
