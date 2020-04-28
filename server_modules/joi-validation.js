@@ -1,90 +1,111 @@
+/**
+ * joi-validation.js
+ * Used for validating the schemas in mongooseSchemas.js.
+ */
 let joi = require("joi");
 
-/*
- * Check aliases in mongooseSchemas.js
- */
-
+// validates a user has both a first and last name
 const userDataSchema = joi.object({
-    f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(), //first name
-    l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required() //last name
+  //first name
+  f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(),
+  //last name
+  l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required()
 });
 
-const substraightTypeSchema = joi.object({
-    s: joi.bool(), 
-    p: joi.bool(),
-    rr: joi.bool(),
-    sea: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
+// validates at least one option for substrate type is selected
+const substrateTypeSchema = joi.object({
+  s: joi.bool(), 
+  p: joi.bool(),
+  rr: joi.bool(),
+  sea: joi.bool(),
+  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+    .lowercase()
 }).or(["s", "p", "rr", "sea", "other"]);
 
+// validates at least one option for reason is selected
 const reasonTypeSchema = joi.object({
-    prox: joi.bool(),
-    debris: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
-}).or(["prox", "debris", "other"]).error(new Error("Please select one option"));
+  prox: joi.bool(),
+  debris: joi.bool(),
+  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+    .lowercase()
+}).or(["prox", "debris", "other"])
+  .error(new Error("Please select one option"));
 
+// validates valid description of the tide
 const tideDataSchema = joi.object({
-    type: joi.string().valid(['low', 'high']).valid().required(),
-    time: joi.string().regex(/^$|^(([01][0-9])|(2[0-3])):[0-5][0-9]$/).required(),
-    height: joi.number().required()
+  type: joi.string().valid(['low', 'high']).valid().required(),
+  time: joi.string().regex(/^$|^(([01][0-9])|(2[0-3])):[0-5][0-9]$/)
+    .required(),
+  height: joi.number().required()
 });
 
+// validates at least one option for major use is selected
 const majorUseSchema = joi.object({
-    rec: joi.bool(),
-    com: joi.bool(),
-    other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
+  rec: joi.bool(),
+  com: joi.bool(),
+  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+    .lowercase()
 }).or(["rec", "com", "other"]);
 
+// validates valid description of the wind
 const windDataSchema = joi.object({
-    dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"]).required(),
-    spd: joi.number().min(0).required()
+  dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"])
+    .required(),
+  spd: joi.number().min(0).required()
 });
 
+// validates trash type has both fresh and weathered
 const debrisData = joi.array().items(
-    joi.string().required(),
-    joi.object().keys({
-        fresh: joi.number().integer().min(0).required(),
-        weathered: joi.number().integer().min(0).required()
-    }).required()
+  joi.string().required(),
+  joi.object().keys({
+    fresh: joi.number().integer().min(0).required(),
+    weathered: joi.number().integer().min(0).required()
+  }).required()
 );
 
+// validates survey data has correct format
 const surveyDataSchema = joi.object({
-    user: userDataSchema.required(),
-    email: joi.string().email({ minDomainAtoms: 2 }).required(),
-    userID: joi.string().trim().min(3).alphanum().required(),
-    org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required().error(new Error("Error in organization name")),
-    reason: reasonTypeSchema.required(),
-    survDate: joi.date().max('now').greater(1104580800).required(),
-    st: substraightTypeSchema.required(),
-    slope: joi.string().valid(["winter", "summer"]).required(),
-    cmpsDir: joi.number().max(360).min(0).required(),
-    lastTide: tideDataSchema.required(),
-    nextTide: tideDataSchema.required(),
-    wind: windDataSchema.required(),
-    majorUse: majorUseSchema.required(),
-    numOfP: joi.number().min(0).required(),//number of people
-    SRSDebris: joi.array().items(debrisData).max(18).optional(),
-    ASDebris: joi.array().items(debrisData).max(18).optional(),
-    MicroDebris: joi.array().items(debrisData).max(1).optional()
+  user: userDataSchema.required(),
+  email: joi.string().email({ minDomainAtoms: 2 }).required(),
+  userID: joi.string().trim().min(3).alphanum().required(),
+  org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required()
+    .error(new Error("Error in organization name")),
+  reason: reasonTypeSchema.required(),
+  survDate: joi.date().max('now').greater(1104580800).required(),
+  st: substrateTypeSchema.required(),
+  slope: joi.string().valid(["winter", "summer"]).required(),
+  cmpsDir: joi.number().max(360).min(0).required(),
+  lastTide: tideDataSchema.required(),
+  nextTide: tideDataSchema.required(),
+  wind: windDataSchema.required(),
+  majorUse: majorUseSchema.required(),
+  //number of people
+  numOfP: joi.number().min(0).required(),
+  SRSDebris: joi.array().items(debrisData).max(18).optional(),
+  ASDebris: joi.array().items(debrisData).max(18).optional(),
+  MicroDebris: joi.array().items(debrisData).max(1).optional()
 });
 
+// validates beach has correct information for autofill
 const beachDataSchema = joi.object({
-    n: joi.string().trim().replace(/\s\s+/, " ").max(40).required(), //name
-    lat: joi.number().min(-85).max(85).required(), 
-    lon: joi.number().min(-180).max(180).required(),
-    nroName: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
-    nroDist: joi.number().min(0).required()
+  //name
+  n: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
+  lat: joi.number().min(-85).max(85).required(), 
+  lon: joi.number().min(-180).max(180).required(),
+  nroName: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
+  nroDist: joi.number().min(0).required()
 });
 
+// verifies survey comes with data on new beach or ID on old beach
 const bodySchema = joi.object({
-    bID: joi.string().alphanum(),
-    survData: surveyDataSchema.required(),
-    beachData: beachDataSchema
+  bID: joi.string().alphanum(),
+  survData: surveyDataSchema.required(),
+  beachData: beachDataSchema
 }).xor('bID', 'beachData');
 
 module.exports = {
-    beachValidation: beachDataSchema,
-    surveyValidation: bodySchema
+  beachValidation: beachDataSchema,
+  surveyValidation: bodySchema
 }
 
 // let dataTest = {
