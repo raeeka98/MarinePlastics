@@ -276,7 +276,7 @@ class SurveyForm extends Component {
             })
             .catch(err => {
                 console.log(err.response);
-                alert(err.response.data.error.details[0].message);
+                alert(err.response.data.error);
             })
     }
 
@@ -413,6 +413,7 @@ class SurveyForm extends Component {
                 numOfP: 0,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
+                MicroDebris: []
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
