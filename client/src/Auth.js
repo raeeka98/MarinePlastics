@@ -46,7 +46,7 @@ export default class Auth {
                         });
                     window.location.replace('/home');
                 } else if (err) {
-                    alert(err.errorDescription); //Quick fix for the log in issues
+                    alert(err.errorDescription); //Quick fix for login changes
                     rej(err.errorDescription);
                 }
             });
