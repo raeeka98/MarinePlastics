@@ -23,7 +23,16 @@ import {
   testSurveyFormForm1,
   testSurveyFormForm2,
   testSurveyFormForm3,
-  testSurveyFormForm4
+  testSurveyFormForm4,
+  testSurveyFormMDSData1,
+  testSurveyFormMDSData2,
+  testSurveyFormMDSData3,
+  calcTotalsMDSExpected1,
+  calcTotalsMDSExpected2,
+  calcTotalsMDSExpected3,
+  prepareFormMDSExpected1,
+  prepareFormMDSExpected2,
+  prepareFormMDSExpected3
 } from './test-data';
 
 /*
@@ -123,3 +132,30 @@ test("prepare() creates the correct form using incomplete survey", () => {
   expect(surveyForm.prepareForm()).toEqual(testSurveyFormForm4);
 });
 */
+
+test("calcTotalsMDS() returns correct array with no micro debris data", () => {
+  var props = {
+    auth: undefined
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = testSurveyFormMDSData1;
+  expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected1);
+});
+
+test("calcTotalsMDS() returns correct array with micro debris zero", () => {
+  var props = {
+    auth: undefined
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = testSurveyFormMDSData2;
+  expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected2);
+});
+
+test("calcTotalsMDS() returns correct array with micro debris nonzero", () => {
+  var props = {
+    auth: undefined
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = testSurveyFormMDSData3;
+  expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected3);
+});

@@ -2426,6 +2426,947 @@ var testSurveyFormForm4 = {
   bID: undefined
 }
 
+// for testing calcTotalsMDS() and prepareForm() with no micro debris data
+var testSurveyFormMDSData1 = {};
+
+// expected result from using testSurveyFormMDSData1 with calcTotalsMDS()
+var calcTotalsMDSExpected1 = [];
+
+// expected result from using testSurveyFormMDSData1 with prepareForm()
+var prepareFormMDSExpected1 = {
+  survData: {
+    user: {
+      f: "Sean",
+      l: "Gibson"
+    },
+    email: "",
+    userID: "",
+    org: "Clean Oceans International",
+    reason: {
+      debris: true
+    },
+    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    st: {
+      s: true
+    },
+    slope: "winter",
+    cmpsDir: "180",
+    lastTide: {
+      type: "low",
+      time: "12:00",
+      height: "10"
+    },
+    nextTide: {
+      type: "high",
+      time: "16:00",
+      height: "10"
+    },
+    wind: {
+      dir: "s",
+      spd: "10"
+    },
+    majorUse: {
+      rec: true
+    },
+    numOfP: 0,
+    SRSDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 20,
+          weathered: 9
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 10,
+          weathered: 7
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 8,
+          weathered: 12
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 4,
+          weathered: 12
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 6,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 3,
+          weathered: 10
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 5,
+          weathered: 1
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 4,
+          weathered: 8
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 2,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 3,
+          weathered: 1
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 4,
+          weathered: 4
+        }
+      ]
+    ],
+    ASDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 0,
+          weathered: 10
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 0,
+          weathered: 13
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 2,
+          weathered: 3
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 0,
+          weathered: 34
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 1,
+          weathered: 0
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 1,
+          weathered: 4
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 1,
+          weathered: 3
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 2,
+          weathered: 5
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ]
+    ],
+    MicroDebris: [],
+  },
+  beachData: {
+    n: "Boardwalk_Beach_(test)",
+    nroName: "Kawa_Rivera",
+    lat: 36.95333333333333,
+    lon: -122.0411111111111,
+    nroDist: "10"
+  },
+  bID: undefined
+}
+
+// for testing calcTotalsMDS() and prepareForm() with micro debris data all 0's
+var testSurveyFormMDSData2 = {
+  microFreshTotalRib1: 0,
+  microFreshTotalRib2: 0,
+  microFreshTotalRib3: 0,
+  microFreshTotalRib4: 0,
+  microWeatheredTotalRib1: 0,
+  microWeatheredTotalRib2: 0,
+  microWeatheredTotalRib3: 0,
+  microWeatheredTotalRib4: 0
+};
+
+// expected result from using testSurveyFormMDSData2 with calcTotalsMDS()
+var calcTotalsMDSExpected2 = [
+  [
+    "microDebris",
+    {
+      fresh: 0,
+      weathered: 0
+    }
+  ]
+];
+
+// expected result from using testSurveyFormMDSData2 with prepareForm()
+var prepareFormMDSExpected2 = {
+  survData: {
+    user: {
+      f: "Sean",
+      l: "Gibson"
+    },
+    email: "",
+    userID: "",
+    org: "Clean Oceans International",
+    reason: {
+      debris: true
+    },
+    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    st: {
+      s: true
+    },
+    slope: "winter",
+    cmpsDir: "180",
+    lastTide: {
+      type: "low",
+      time: "12:00",
+      height: "10"
+    },
+    nextTide: {
+      type: "high",
+      time: "16:00",
+      height: "10"
+    },
+    wind: {
+      dir: "s",
+      spd: "10"
+    },
+    majorUse: {
+      rec: true
+    },
+    numOfP: 0,
+    SRSDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 20,
+          weathered: 9
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 10,
+          weathered: 7
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 8,
+          weathered: 12
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 4,
+          weathered: 12
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 6,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 3,
+          weathered: 10
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 5,
+          weathered: 1
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 4,
+          weathered: 8
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 2,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 3,
+          weathered: 1
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 4,
+          weathered: 4
+        }
+      ]
+    ],
+    ASDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 0,
+          weathered: 10
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 0,
+          weathered: 13
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 2,
+          weathered: 3
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 0,
+          weathered: 34
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 1,
+          weathered: 0
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 1,
+          weathered: 4
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 1,
+          weathered: 3
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 2,
+          weathered: 5
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ]
+    ],
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ]
+    ],
+  },
+  beachData: {
+    n: "Boardwalk_Beach_(test)",
+    nroName: "Kawa_Rivera",
+    lat: 36.95333333333333,
+    lon: -122.0411111111111,
+    nroDist: "10"
+  },
+  bID: undefined
+}
+
+// for testing calcTotalsMDS() and prepareForm() with micro debris data nonzero
+var testSurveyFormMDSData3 = {
+  microFreshTotalRib1: 1,
+  microFreshTotalRib2: 3,
+  microFreshTotalRib3: 2,
+  microFreshTotalRib4: 1,
+  microWeatheredTotalRib1: 1,
+  microWeatheredTotalRib2: 2,
+  microWeatheredTotalRib3: 2,
+  microWeatheredTotalRib4: 3
+};
+
+// expected result from using testSurveyFormMDSData3 with calcTotalsMDS()
+var calcTotalsMDSExpected3 = [
+  [
+    "microDebris",
+    {
+      fresh: 7,
+      weathered: 8
+    }
+  ]
+];
+
+// expected result from using testSurveyFormMDSData3 with prepareForm()
+var prepareFormMDSExpected3 = {
+  survData: {
+    user: {
+      f: "Sean",
+      l: "Gibson"
+    },
+    email: "",
+    userID: "",
+    org: "Clean Oceans International",
+    reason: {
+      debris: true
+    },
+    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    st: {
+      s: true
+    },
+    slope: "winter",
+    cmpsDir: "180",
+    lastTide: {
+      type: "low",
+      time: "12:00",
+      height: "10"
+    },
+    nextTide: {
+      type: "high",
+      time: "16:00",
+      height: "10"
+    },
+    wind: {
+      dir: "s",
+      spd: "10"
+    },
+    majorUse: {
+      rec: true
+    },
+    numOfP: 0,
+    SRSDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 20,
+          weathered: 9
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 10,
+          weathered: 7
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 8,
+          weathered: 12
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 4,
+          weathered: 12
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 6,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 3,
+          weathered: 10
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 5,
+          weathered: 1
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 2,
+          weathered: 2
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 4,
+          weathered: 8
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 2,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 3,
+          weathered: 1
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 4,
+          weathered: 4
+        }
+      ]
+    ],
+    ASDebris: [
+      [
+        "cigaretteButts",
+        {
+          fresh: 0,
+          weathered: 10
+        }
+      ],
+      [
+        "fishingLineRope",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "plasticCups",
+        {
+          fresh: 2,
+          weathered: 0
+        }
+      ],
+      [
+        "plasticStraws",
+        {
+          fresh: 0,
+          weathered: 13
+        }
+      ],
+      [
+        "filmedPlastic",
+        {
+          fresh: 2,
+          weathered: 3
+        }
+      ],
+      [
+        "miscPlastic",
+        {
+          fresh: 0,
+          weathered: 34
+        }
+      ],
+      [
+        "plasticBottlesCaps",
+        {
+          fresh: 1,
+          weathered: 0
+        }
+      ],
+      [
+        "styrofoam",
+        {
+          fresh: 1,
+          weathered: 4
+        }
+      ],
+      [
+        "foodOrganic",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "urethaneFoam",
+        {
+          fresh: 1,
+          weathered: 3
+        }
+      ],
+      [
+        "metal",
+        {
+          fresh: 2,
+          weathered: 5
+        }
+      ],
+      [
+        "glass",
+        {
+          fresh: 0,
+          weathered: 2
+        }
+      ],
+      [
+        "cottonCloth",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ],
+      [
+        "aluminumCans",
+        {
+          fresh: 1,
+          weathered: 1
+        }
+      ],
+      [
+        "hygieneItems",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "tileBrick",
+        {
+          fresh: 0,
+          weathered: 3
+        }
+      ],
+      [
+        "woodPaper",
+        {
+          fresh: 0,
+          weathered: 0
+        }
+      ]
+    ],
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 7,
+          weathered: 8
+        }
+      ]
+    ],
+  },
+  beachData: {
+    n: "Boardwalk_Beach_(test)",
+    nroName: "Kawa_Rivera",
+    lat: 36.95333333333333,
+    lon: -122.0411111111111,
+    nroDist: "10"
+  },
+  bID: undefined
+}
+
 export {
   testSurveyFormState1,
   testSurveyFormState2,
@@ -2446,5 +3387,14 @@ export {
   testSurveyFormForm1,
   testSurveyFormForm2,
   testSurveyFormForm3,
-  testSurveyFormForm4
+  testSurveyFormForm4,
+  testSurveyFormMDSData1,
+  testSurveyFormMDSData2,
+  testSurveyFormMDSData3,
+  calcTotalsMDSExpected1,
+  calcTotalsMDSExpected2,
+  calcTotalsMDSExpected3,
+  prepareFormMDSExpected1,
+  prepareFormMDSExpected2,
+  prepareFormMDSExpected3
 };
