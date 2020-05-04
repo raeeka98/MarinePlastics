@@ -30,6 +30,9 @@ import {
   calcTotalsMDSExpected1,
   calcTotalsMDSExpected2,
   calcTotalsMDSExpected3,
+  testSurveyFormStateMDS1,
+  testSurveyFormStateMDS2,
+  testSurveyFormStateMDS3,
   prepareFormMDSExpected1,
   prepareFormMDSExpected2,
   prepareFormMDSExpected3
@@ -134,28 +137,43 @@ test("prepare() creates the correct form using incomplete survey", () => {
 */
 
 test("calcTotalsMDS() returns correct array with no micro debris data", () => {
-  var props = {
-    auth: undefined
-  };
+  var props = {};
   var surveyForm = new SurveyForm(props);
   surveyForm.state.MDSData = testSurveyFormMDSData1;
   expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected1);
 });
 
 test("calcTotalsMDS() returns correct array with micro debris zero", () => {
-  var props = {
-    auth: undefined
-  };
+  var props = {};
   var surveyForm = new SurveyForm(props);
   surveyForm.state.MDSData = testSurveyFormMDSData2;
   expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected2);
 });
 
 test("calcTotalsMDS() returns correct array with micro debris nonzero", () => {
-  var props = {
-    auth: undefined
-  };
+  var props = {};
   var surveyForm = new SurveyForm(props);
   surveyForm.state.MDSData = testSurveyFormMDSData3;
   expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected3);
+});
+
+test("prepareForm() returns correct object with no micro debris data", () => {
+  var props = {};
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state = testSurveyFormStateMDS1;
+  expect(surveyForm.prepareForm()).toEqual(prepareFormMDSExpected1);
+});
+
+test("prepareForm() returns correct object with micro debris zero", () => {
+  var props = {};
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state = testSurveyFormStateMDS2;
+  expect(surveyForm.prepareForm()).toEqual(prepareFormMDSExpected2);
+});
+
+test("prepareForm() returns correct object with micro debris nonzero", () => {
+  var props = {};
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state = testSurveyFormStateMDS3;
+  expect(surveyForm.prepareForm()).toEqual(prepareFormMDSExpected3);
 });
