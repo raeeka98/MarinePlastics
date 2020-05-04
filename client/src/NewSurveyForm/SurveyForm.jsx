@@ -47,6 +47,7 @@ class SurveyForm extends Component {
             ASData: {
                 // format for debris is: trash_id + "accumulation" + ("Fresh | Weathered | Total")
             },
+            MDSData: {},
             displayStrings: {
                 usage: "",
                 locChoice: "",
@@ -69,6 +70,7 @@ class SurveyForm extends Component {
         this.prepareForm = this.prepareForm.bind(this);
         this.updateSRS = this.updateSRS.bind(this);
         this.updateAS = this.updateAS.bind(this);
+        this.updateMDS = this.updateMDS.bind(this);
         this.showAlert = this.showAlert.bind(this);
     }
 
@@ -366,6 +368,43 @@ class SurveyForm extends Component {
         }
         return totalsArray;
     }
+    
+    calcTotalsMDS() {
+        let totals = {};
+        let totalsArray = [];
+
+        const data = this.state.MDSData;
+
+        for (const id in data) {
+            // remove "micro", "TotalRib" and rib number
+            const type = id.replace(/micro|TotalRib|1|2|3|4/g, '');
+            const trash_id = "microDebris";
+            if (!totals[trash_id]) {
+                totals[trash_id] = {
+                    fresh: 0,
+                    weathered: 0
+                }
+            }
+            if (type === "Weathered") {
+                totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if (isNaN(totals[trash_id].weathered)) {
+                   totals[trash_id].weathered = 0;
+                }
+            } else {
+                totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if (isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
+            }
+        }
+        for (const id in totals) {
+            totalsArray.push([
+                id,
+                { fresh: totals[id].fresh, weathered: totals[id].weathered }
+            ]);
+        }
+        return totalsArray;
+    }
 
     prepareForm() {
         // for that visual AESTHETIC
@@ -413,7 +452,7 @@ class SurveyForm extends Component {
                 numOfP: 0,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
-                MicroDebris: []
+                MicroDebris: this.calcTotalsMDS()
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
@@ -490,6 +529,21 @@ class SurveyForm extends Component {
         })
     }
 
+    updateMDS(e) {
+        const key = e.target.id;
+        const val = e.target.value
+
+        // if testing, set state directly to avoid any delays
+        if (process.env.NODE_ENV === 'test') {
+            this.state.MDSData[key] = val;
+        } else {
+            this.setState(prevState => {
+                prevState.MDSData[key] = val;
+                return prevState;
+            });
+        }
+    }
+
     showInputPage = () => {
         return (
             <div>
@@ -515,8 +569,8 @@ class SurveyForm extends Component {
                             data={this.state.ASData}
                             updateAS={this.updateAS} />
                         <MicroDebrisSurvey
-                            data={this.state.surveyData}
-                            updateSurveyState={this.updateSurveyState}
+                            data={this.state.MDSData}
+                            updateMDS={this.updateMDS}
                         />
                     </Accordion>
                 </form>
@@ -532,7 +586,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
-                <Review data={this.state.surveyData} email={this.state.email} SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
+                <Review data={this.state.surveyData} email={this.state.email} SRSData={this.state.SRSData} ASData={this.state.ASData} MDSData={this.state.MDSData} displayStrings={this.state.displayStrings} />
                 <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit </button>
             </div>);
     }

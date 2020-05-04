@@ -2704,7 +2704,7 @@ var testSurveyFormStateMDS1 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
-  checkboxAnswers: {
+  displayStrings: {
     usage: {
       rec: true
     },
@@ -2713,21 +2713,14 @@ var testSurveyFormStateMDS1 = {
     },
     subType: {
       s: true,
-    },
-    incompleteSurvey: {}
-  },
-  displayStrings: {
-    usage: "Recreation",
-    locChoice: "Known for Debris",
-    subType: "Sand",
-    incompleteSurvey: ""
+    }
   },
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -2740,8 +2733,8 @@ var prepareFormMDSExpected1 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -3260,7 +3253,7 @@ var testSurveyFormStateMDS2 = {
     microWeatheredTotalRib3: 0,
     microWeatheredTotalRib4: 0
   },
-  checkboxAnswers: {
+  displayStrings: {
     usage: {
       rec: true
     },
@@ -3269,21 +3262,14 @@ var testSurveyFormStateMDS2 = {
     },
     subType: {
       s: true,
-    },
-    incompleteSurvey: {}
-  },
-  displayStrings: {
-    usage: "Recreation",
-    locChoice: "Known for Debris",
-    subType: "Sand",
-    incompleteSurvey: ""
+    }
   },
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -3296,8 +3282,8 @@ var prepareFormMDSExpected2 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -3825,7 +3811,7 @@ var testSurveyFormStateMDS3 = {
     microWeatheredTotalRib3: 2,
     microWeatheredTotalRib4: 3
   },
-  checkboxAnswers: {
+  displayStrings: {
     usage: {
       rec: true
     },
@@ -3834,21 +3820,14 @@ var testSurveyFormStateMDS3 = {
     },
     subType: {
       s: true,
-    },
-    incompleteSurvey: {}
-  },
-  displayStrings: {
-    usage: "Recreation",
-    locChoice: "Known for Debris",
-    subType: "Sand",
-    incompleteSurvey: ""
+    }
   },
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -3860,8 +3839,8 @@ var prepareFormMDSExpected3 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
