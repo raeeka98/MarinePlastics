@@ -1,0 +1,16 @@
+How to : Update Survey
+1. Add new updates in appropriate subsection file of the survey found in
+   MarinePlastics/client/src/NewSurveyForm/SurveySubsections.
+2. If you are adding an entire new field, add variable in validate() in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+3. If you are adding an option to an existing field, add the possibility of it
+   being checked in its corresponding if-statement in validate() in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+4. If you are adding an option to an existing field, add the option in
+   updateDisplayStrings() in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+5. If you are adding/changing the options in the rib scan/accumulation sweep,
+   make the changes in MarinePlastics/client/src/NewSurveyForm/debrisInfo.js.
+5. Update MarinePlastics/client/src/NewSurveyForm/SurveySubsections/Review.jsx.
+6. Update prepareForm() in
+   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.

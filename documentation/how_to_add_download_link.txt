@@ -1,0 +1,15 @@
+How to : Add Download Link
+1. Upload new file as a PDF to pdfs/
+2. In server.js, add the following line along with the rest of the lines
+   starting with app.get:
+   app.get('/pdfs/<new-file-name>',
+   (req, res) => res.sendFile(path.join(__dirname, '/pdfs/<new-file-name>')));
+   where <new-file-name> is the name of the file for which you are creating a
+   link.
+3. In the file for the page where you want the link to be, add the following
+   line:
+   <a href="pdfs/<new-file-name>.pdf" download><description-of-document></a>
+   where <description-of-document> is the clickable text to download the link.
+4. Redeploy. Unfortunately, although you can download the datasheet in
+   development mode, the PDF file becomes corrupted and cannot be open. You
+   have to fully test this in deployment mode.

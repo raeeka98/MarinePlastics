@@ -60,6 +60,11 @@ let majorUsageSchema = new Schema({
     default: undefined,
     alias: "commercial"
   },
+  rem: {
+    type: Boolean,
+    default: undefined,
+    alias: "remote/unused"
+  },
   other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
@@ -74,6 +79,27 @@ let locationReason = new Schema({
   debris: {
     type: Boolean,
     default: undefined
+  },
+  other: String
+}, { versionKey: false, _id: false, validateBeforeSave: false })
+
+// defines reason why accumulation survey couldn't be completed
+let incompleteSurveySchema = new Schema({
+  time: {
+    type: Boolean,
+    default: undefined
+  },
+  people: {
+    type: Boolean,
+    default: undefined,
+  },
+  area: {
+    type: Boolean,
+    default: undefined,
+  },
+  trash: {
+    type: Boolean,
+    default: undefined,
   },
   other: String
 }, { versionKey: false, _id: false, validateBeforeSave: false })
@@ -120,9 +146,11 @@ let surveySchema = new Schema({
   nextTide: tideSchema,
   wind: {
     dir: { type: String },
-    spd: { type: Number }
+    spd: { type: Number },
+    comment: { type: String }
   },
   majorUse: majorUsageSchema,
+  incompleteSurvey: incompleteSurveySchema,
   numOfP: {
     type: Number,
     alias: "NumberOfPeople"

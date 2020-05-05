@@ -8,7 +8,7 @@ const debrisInfo = getDebrisMap();
 class Review extends Component {
 
   componentDidMount() {
-      this.calculateFields();
+    this.calculateFields();
   }
 
   calculateFields() {
@@ -16,7 +16,9 @@ class Review extends Component {
   }
 
   toTitleCase(word) {
-      return word.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+    return word.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
 
   render() {
@@ -86,68 +88,78 @@ class Review extends Component {
     return(
       <div className="uk-background-muted uk-padding">
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Team Information:</h3>
-            <p>Name: <b>{d.userFirst} {d.userLast}</b></p>
-            <p>Organization Name: <b>{d.orgName}</b></p>
-            <p>Organization Location: <b>{d.orgLoc}</b></p>
-            <p>Email Address: <b>{this.props.email}</b></p>
-            <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
-            <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
+          <h3 className="uk-card-title">Team Information:</h3>
+          <p>Name: <b>{d.userFirst} {d.userLast}</b></p>
+          <p>Organization Name: <b>{d.orgName}</b></p>
+          <p>Organization Location: <b>{d.orgLoc}</b></p>
+          <p>Email Address: <b>{d.email}</b></p>
+          <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
+          <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
         </div>
 
         <br></br>
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Survey Area:</h3>
+          <h3 className="uk-card-title">Survey Area:</h3>
 
-            <p>Beach Name: {d.beachName}</p>
-            <p>Beach Coordinates: {d.latDeg}&#176;{d.latMin + "'" + d.latSec + '"' + (d.latDir === 1 ? "N  " : "S  ")}
-                                  {d.lonDeg}&#176;{d.lonMin + "'" + d.lonSec + '"' + (d.lonDir === 1 ? "E  " : "W  ")}
-            </p>
-            {s.usage.length > 0 &&
-              <p>Major Usage: {s.usage}</p>
-            }
-            {s.locChoice.length > 0 &&
-              <p>Reason for Location Choice: {s.locChoice}</p>
-            }
-            {d.compassDegrees &&
-              <p>Compass Direction: {d.compassDegrees}<span>&#176;</span></p>
-            }
-            {d.riverName &&
-              <p>Nearest River Output Name: {d.riverName}</p>
-            }
-            {(d.riverDistance !== undefined) &&
-              <p>Nearest River Output Distance: {d.riverDistance}</p>
-            }
+          <p>Beach Name: {d.beachName}</p>
+          <p>Beach Coordinates:
+            {" " + d.latDeg}&#176;
+            {d.latMin + "'"}
+            {d.latSec + '"'}
+            {(d.latDir === 1 ? "N  " : "S  ")}
+            {d.lonDeg}&#176;
+            {d.lonMin + "'"}
+            {d.lonSec + '"'}
+            {(d.lonDir === 1 ? "E" : "W")}
+          </p>
+          {s.usage !== "" &&
+            <p>Major Usage: {s.usage}</p>
+          }
+          {s.locChoice !== "" &&
+            <p>Reason for Location Choice: {s.locChoice}</p>
+          }
+          {d.compassDegrees &&
+            <p>Compass Direction: {d.compassDegrees}<span>&#176;</span></p>
+          }
+          {d.riverName &&
+            <p>Nearest River Output Name: {d.riverName}</p>
+          }
+          {(d.riverDistance !== undefined) &&
+            <p>Nearest River Output Distance: {d.riverDistance}</p>
+          }
 
-            {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
-              <div>
-                <h4>Tide Before:</h4>
-                <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
-                <p>Height: {d.tideHeightB}</p>
-                <p>Time: {d.tideTimeB}</p>
-              </div>
-            }
-            {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
-              <div>
-                <h4>Tide After:</h4>
-                <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
-                <p>Height: {d.tideHeightA}</p>
-                <p>Time: {d.tideTimeA}</p>
-              </div>
-            }
-            {d.windSpeed &&
-              <p>Wind Speed: {d.windSpeed} knots</p>
-            }
-            {d.windDir &&
-              <p>Wind Direction: {d.windDir}</p>
-            }
-            {d.slope &&
-              <p>Slope: {this.toTitleCase(d.slope)}</p>
-            }
-            {s.subType.length > 0 &&
-              <p>Substrate Type: {s.subType}</p>
-            }
+          {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
+            <div>
+              <h4>Tide Before:</h4>
+              <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
+              <p>Height: {d.tideHeightB}</p>
+              <p>Time: {d.tideTimeB}</p>
+            </div>
+          }
+          {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
+            <div>
+              <h4>Tide After:</h4>
+              <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
+              <p>Height: {d.tideHeightA}</p>
+              <p>Time: {d.tideTimeA}</p>
+            </div>
+          }
+          {d.windSpeed &&
+            <p>Wind Speed: {d.windSpeed} knots</p>
+          }
+          {d.windDir &&
+            <p>Wind Direction: {d.windDir}</p>
+          }
+          {d.windComments &&
+            <p>COMMENTS: {d.windComments}</p>
+          }
+          {d.slope &&
+            <p>Slope: {this.toTitleCase(d.slope)}</p>
+          }
+          {s.subType !== "" &&
+            <p>Substrate Type: {s.subType}</p>
+          }
         </div>
 
         <br></br>
@@ -166,14 +178,14 @@ class Review extends Component {
                 </thead>
                 <tbody style={{textAlign: 'left'}}>
                   <tr >
-                    <td >Rib Start</td>
+                    <td >SPINE Start</td>
                     <td >{d.rib1Start}</td>
                     <td>{d.rib2Start}</td>
                     <td>{d.rib3Start}</td>
                     <td >{d.rib4Start}</td>
                   </tr>
                   <tr>
-                    <td>Rib End</td>
+                    <td>RIB LENGTH</td>
                     <td>{d.rib1End}</td>
                     <td>{d.rib2End}</td>
                     <td>{d.rib3End}</td>
@@ -206,25 +218,31 @@ class Review extends Component {
         <br></br>
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Accumulation Survey:</h3>
-            <table className='uk-table uk-table-striped uk-table-middle'>
-                <thead>
-                  <tr>
-                    <th className='uk-width-small'>Debris Type</th>
-                    <th>Fresh</th>
-                    <th>Weathered</th>
-                  </tr>
-                </thead>
-                <tbody style={{textAlign: "left"}}>
-                  {ASRows}
-                </tbody>
-              </table>
+          <h3 className="uk-card-title">Accumulation Survey:</h3>
+          {s.incompleteSurvey !== "" &&
+            <p>
+              Unable to complete accumulation survey because:
+              {" " + s.incompleteSurvey}
+            </p>
+          }
+          <table className='uk-table uk-table-striped uk-table-middle'>
+            <thead>
+              <tr>
+                <th className='uk-width-small'>Debris Type</th>
+                <th>Fresh</th>
+                <th>Weathered</th>
+              </tr>
+            </thead>
+            <tbody style={{textAlign: "left"}}>
+              {ASRows}
+            </tbody>
+          </table>
         </div>
 
         <br></br>
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
-            <h3 className="uk-card-title">Micro Debris Survey:</h3>
+          <h3 className="uk-card-title">Micro Debris Survey:</h3>
         </div>
 
         <br></br>

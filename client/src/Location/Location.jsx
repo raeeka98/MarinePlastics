@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
-import { getAllDebris } from '../NewSurveyForm/debrisInfo'
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
 // to get the pin styles
 import '../Map/Map.css';
 
-const debrisInfo = getAllDebris();
+const debrisInfo = getDebrisMap();
 
 class Location extends Component {
   constructor(props) {

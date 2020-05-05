@@ -43,15 +43,26 @@ const tideDataSchema = joi.object({
 const majorUseSchema = joi.object({
   rec: joi.bool(),
   com: joi.bool(),
+  rem: joi.bool(),
+  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
+}).or(["rec", "com", "rem", "other"]);
+
+// different options for why accumulation survey was not completed
+const incompleteSurveySchema = joi.object({
+  time: joi.bool(),
+  people: joi.bool(),
+  area: joi.bool(),
+  trash: joi.bool(),
   other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
     .lowercase()
-}).or(["rec", "com", "other"]);
+});
 
 // validates valid description of the wind
 const windDataSchema = joi.object({
   dir: joi.string().valid(["n", "s", "e", "w", "ne", "nw", "se", "sw"])
     .required(),
-  spd: joi.number().min(0).required()
+  spd: joi.number().min(0).required(),
+  comment: joi.string().trim().replace(/\s\s+/, " ").optional()
 });
 
 // validates trash type has both fresh and weathered
@@ -79,6 +90,7 @@ const surveyDataSchema = joi.object({
   nextTide: tideDataSchema.required(),
   wind: windDataSchema.required(),
   majorUse: majorUseSchema.required(),
+  incompleteSurvey: incompleteSurveySchema.optional(),
   //number of people
   numOfP: joi.number().min(0).required(),
   SRSDebris: joi.array().items(debrisData).max(18).optional(),
