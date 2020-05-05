@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { getAllDebris, allDebrisNames, getAllDebrisID,getDebrisID } from '../NewSurveyForm/debrisInfo'
+import {
+  getDebrisMap,
+  debrisNames,
+  getDebrisID } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import EditableTable from './editableTable'
 import './surveyEntry.css';
 import './surveyEdit.css';
 
-const debrisInfo = getAllDebris();
+const debrisInfo = getDebrisMap();
 
 
 class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
-    let srsOptions = allDebrisNames;
-    let asOptions = allDebrisNames;
+    let srsOptions = debrisNames;
+    let asOptions = debrisNames;
 
     let srsDebris = [], asDebris = [];
     let { SRSDebris, ASDebris } = props.location.state.surveyData;
