@@ -579,7 +579,6 @@ class SurveyForm extends Component {
                 </div>
             </div>
         );
-
     }
 
     showReviewPage = () => {

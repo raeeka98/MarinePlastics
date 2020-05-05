@@ -229,6 +229,16 @@ var testSurveyFormState1 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
+  MDSData: {
+    microFreshTotalRib1: 1,
+    microFreshTotalRib2: 3,
+    microFreshTotalRib3: 2,
+    microFreshTotalRib4: 1,
+    microWeatheredTotalRib1: 1,
+    microWeatheredTotalRib2: 2,
+    microWeatheredTotalRib3: 2,
+    microWeatheredTotalRib4: 3
+  },
   checkboxAnswers: {
     usage: {
       rec: true

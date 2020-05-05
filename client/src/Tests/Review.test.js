@@ -36,6 +36,7 @@ it("matches snapshot", () => {
             email={state.email}
             SRSData={state.SRSData}
             ASData={state.ASData}
+            MDSData={state.MDSData}
             displayStrings={state.displayStrings}
         />
     ).toJSON();

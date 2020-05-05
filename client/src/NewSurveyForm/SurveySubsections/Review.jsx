@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
 import ASRowReview from '../TableRows/ASRowReview';
+import MDSRowReview from '../TableRows/MDSRowReview';
 import {getDebrisMap} from '../debrisInfo';
 
 const debrisInfo = getDebrisMap();
@@ -22,6 +23,7 @@ class Review extends Component {
   render() {
     var SRSRows = [];
     var ASRows = [];
+    var MDSRows = [];
     // Parse the row info that we got from the data
     var parsedRows = {};
     /* parsedRows
@@ -78,6 +80,40 @@ class Review extends Component {
           weathered={parsedRows[key].weathered}
         />
       )
+    }
+
+    // gives parsedRows four objects for ribs, each with fresh and weathered
+    parsedRows = {};
+    for (const key in this.props.MDSData) {
+        let type = key.replace(/micro|TotalRib|1|2|3|4/g, '').toLowerCase();
+        let rib = key.replace(/micro|Fresh|Weathered|Total/g, '');
+        let ribNumber = rib.replace(/Rib/, '');
+
+        if (!parsedRows[rib]) {
+            parsedRows[rib] = {
+                rib: ribNumber,
+                fresh: 0,
+                weathered: 0
+            };
+        }
+
+        parsedRows[rib][type] = this.props.MDSData[key];
+    }
+
+    console.log("parsedRows for micro debris:");
+    console.log(parsedRows);
+
+    // render rows for micro debris
+    for (const key in parsedRows) {
+        MDSRows.push(
+            <MDSRowReview
+                id={key}
+                key={key}
+                rib={parsedRows[key].rib}
+                fresh={parsedRows[key].fresh}
+                weathered={parsedRows[key].weathered}
+            />
+        );
     }
 
     const d = this.props.data;
@@ -225,6 +261,18 @@ class Review extends Component {
 
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
             <h3 className="uk-card-title">Micro Debris Survey:</h3>
+            <table className='uk-table uk-table-striped uk-table-middle'>
+            <thead>
+              <tr>
+                    <th className='uk-width-small'>Rib Number</th>
+                    <th>Fresh</th>
+                    <th>Weathered</th>
+                </tr>
+                </thead>
+                <tbody style={{ textAlign: "left" }}>
+                    {MDSRows}
+                </tbody>
+            </table>
         </div>
 
         <br></br>
