@@ -229,6 +229,7 @@ var testSurveyFormState1 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"        
   },
+  MDSData: {},
   checkboxAnswers: {
     usage: {
       rec: true
@@ -250,9 +251,9 @@ var testSurveyFormState1 = {
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -483,6 +484,7 @@ var testSurveyFormState2 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
+  MDSData: {},
   checkboxAnswers: {
     usage: {
       rem: true
@@ -504,9 +506,9 @@ var testSurveyFormState2 = {
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -738,6 +740,7 @@ var testSurveyFormState3 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
+  MDSData: {},
   checkboxAnswers: {
     usage: {
       rec: true
@@ -759,9 +762,9 @@ var testSurveyFormState3 = {
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -957,8 +960,8 @@ var testSurveyFormState4 = {
     woodPaper__weathered__3: "1",
     woodPaper__weathered__4: "1"
   },
-  ASData: {
-  },
+  ASData: {},
+  MDSData: {},
   checkboxAnswers: {
     usage: {
       rec: true
@@ -982,9 +985,9 @@ var testSurveyFormState4 = {
   isInputting: false,
   isReviewing: true,
   isSubmitted: false,
-  user: "",
-  email: "",
-  userID: "",
+  user: "stgibson@ucsc.edu",
+  email: "stgibson@ucsc.edu",
+  userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
 }
@@ -1383,8 +1386,8 @@ var testSurveyFormForm1 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -1407,8 +1410,7 @@ var testSurveyFormForm1 = {
     },
     wind: {
       dir: "s",
-      spd: "10",
-      comment: ""
+      spd: "10"
     },
     majorUse: {
       rec: true
@@ -1656,7 +1658,8 @@ var testSurveyFormForm1 = {
           weathered: 0
         }
       ]
-    ]
+    ],
+    MicroDebris: []
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -1675,8 +1678,8 @@ var testSurveyFormForm2 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -1699,8 +1702,7 @@ var testSurveyFormForm2 = {
     },
     wind: {
       dir: "s",
-      spd: "10",
-      comment: ""
+      spd: "10"
     },
     majorUse: {
       rem: true
@@ -1948,7 +1950,8 @@ var testSurveyFormForm2 = {
           weathered: 0
         }
       ]
-    ]
+    ],
+    MicroDebris: []
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -1967,8 +1970,8 @@ var testSurveyFormForm3 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -2240,7 +2243,8 @@ var testSurveyFormForm3 = {
           weathered: 0
         }
       ]
-    ]
+    ],
+    MicroDebris: []
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -2259,8 +2263,8 @@ var testSurveyFormForm4 = {
       f: "Sean",
       l: "Gibson"
     },
-    email: "",
-    userID: "",
+    email: "stgibson@ucsc.edu",
+    userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
     reason: {
       debris: true
@@ -2283,8 +2287,7 @@ var testSurveyFormForm4 = {
     },
     wind: {
       dir: "s",
-      spd: "10",
-      comment: ""
+      spd: "10"
     },
     majorUse: {
       rec: true  
@@ -2414,7 +2417,8 @@ var testSurveyFormForm4 = {
         }
       ]
     ],
-    ASDebris: []
+    ASDebris: [],
+    MicroDebris: []
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",

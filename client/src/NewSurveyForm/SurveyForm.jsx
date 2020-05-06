@@ -463,34 +463,34 @@ class SurveyForm extends Component {
         const form = {
             survData: {
                 user: {
-                    f: (data.userFirst ? data.userFirst : ""),
-                    l: (data.userLast ? data.userLast : "")
+                    f: (data.userFirst ? data.userFirst : undefined),
+                    l: (data.userLast ? data.userLast : undefined)
                 },
-                email: this.state.email,
+                email: data.email,
                 userID: this.state.userID,
-                org: (data.orgName ? data.orgName : ""),
-                reason: (show.locChoice ? show.locChoice : "No reason"),
+                org: (data.orgName ? data.orgName : undefined),
+                reason: (show.locChoice ? show.locChoice : undefined),
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
-                st: (show.subType ? show.subType : ""),
-                slope: (data.slope ? data.slope : ""),
-                cmpsDir: (data.compassDegrees ? data.compassDegrees : 100),
+                st: (show.subType ? show.subType : undefined),
+                slope: (data.slope ? data.slope : undefined),
+                cmpsDir: (data.compassDegrees ? data.compassDegrees : undefined),
                 lastTide: {
-                    type: (data.tideTypeB ? data.tideTypeB : ""),
-                    time: (data.tideTimeB ? data.tideTimeB : ""),
-                    height: (data.tideHeightB ? data.tideHeightB : "")
+                    type: (data.tideTypeB ? data.tideTypeB : undefined),
+                    time: (data.tideTimeB ? data.tideTimeB : undefined),
+                    height: (data.tideHeightB ? data.tideHeightB : undefined)
                 },
                 nextTide: {
-                    type: (data.tideTypeA ? data.tideTypeA : ""),
-                    time: (data.tideTimeA ? data.tideTimeA : ""),
-                    height: (data.tideHeightA ? data.tideHeightA : "")
+                    type: (data.tideTypeA ? data.tideTypeA : undefined),
+                    time: (data.tideTimeA ? data.tideTimeA : undefined),
+                    height: (data.tideHeightA ? data.tideHeightA : undefined)
                 },
                 wind: {
-                    dir: (data.windDir ? data.windDir : ""),
-                    spd: (data.windSpeed ? data.windSpeed : ""),
-                    comment: (data.windComments ? data.windComments : "")
+                    dir: (data.windDir ? data.windDir : undefined),
+                    spd: (data.windSpeed ? data.windSpeed : undefined),
+                    comment: (data.windComments ? data.windComments : undefined)
                 },
-                majorUse: (show.usage ? show.usage : ""),
-                incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : ""),
+                majorUse: (show.usage ? show.usage : undefined),
+                incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : undefined),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
