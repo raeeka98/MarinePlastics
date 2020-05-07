@@ -41,7 +41,13 @@ import {
 /*
 test("updateDisplayStrings() with one option selected each", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData1;
@@ -51,7 +57,13 @@ test("updateDisplayStrings() with one option selected each", () => {
 
 test("updateDisplayStrings() with two options selected each", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData2;
@@ -61,7 +73,13 @@ test("updateDisplayStrings() with two options selected each", () => {
 
 test("updateDisplayStrings() with other selected each", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData3;
@@ -71,7 +89,13 @@ test("updateDisplayStrings() with other selected each", () => {
 
 test("updateDisplayStrings() with one option and other selected each", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData4;
@@ -81,7 +105,13 @@ test("updateDisplayStrings() with one option and other selected each", () => {
 
 test("updateDisplayStrings() with all options and other selected each", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData5;
@@ -91,7 +121,13 @@ test("updateDisplayStrings() with all options and other selected each", () => {
 
 test("updateDisplayStrings() without incomplete survey selected", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData6;
@@ -101,7 +137,13 @@ test("updateDisplayStrings() without incomplete survey selected", () => {
 
 test("prepare() creates the correct form", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState1;
@@ -110,7 +152,13 @@ test("prepare() creates the correct form", () => {
 
 test("prepare() creates the correct form using remote option in usage", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState2;
@@ -119,7 +167,13 @@ test("prepare() creates the correct form using remote option in usage", () => {
 
 test("prepare() creates the correct form using wind comments", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState3;
@@ -128,7 +182,13 @@ test("prepare() creates the correct form using wind comments", () => {
 
 test("prepare() creates the correct form using incomplete survey", () => {
   var props = {
-    auth: undefined
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState4;
