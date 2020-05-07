@@ -133,6 +133,7 @@ test("prepare() creates the correct form using incomplete survey", () => {
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState4;
   expect(surveyForm.prepareForm()).toEqual(testSurveyFormForm4);
+<<<<<<< HEAD
 });
 */
 

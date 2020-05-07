@@ -2714,7 +2714,7 @@ var testSurveyFormStateMDS1 = {
     woodPaper__fresh__accumulation: "0",
     woodPaper__weathered__accumulation: "0"
   },
-  displayStrings: {
+  checkboxAnswers: {
     usage: {
       rec: true
     },
@@ -2723,7 +2723,14 @@ var testSurveyFormStateMDS1 = {
     },
     subType: {
       s: true,
-    }
+    },
+    incompleteSurvey: {}
+  },
+  displayStrings: {
+    usage: "Recreation",
+    locChoice: "Known for Debris",
+    subType: "Sand",
+    incompleteSurvey: ""
   },
   isInputting: false,
   isReviewing: true,
@@ -2772,6 +2779,7 @@ var prepareFormMDSExpected1 = {
     majorUse: {
       rec: true
     },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [
@@ -3263,7 +3271,7 @@ var testSurveyFormStateMDS2 = {
     microWeatheredTotalRib3: 0,
     microWeatheredTotalRib4: 0
   },
-  displayStrings: {
+  checkboxAnswers: {
     usage: {
       rec: true
     },
@@ -3272,7 +3280,14 @@ var testSurveyFormStateMDS2 = {
     },
     subType: {
       s: true,
-    }
+    },
+    incompleteSurvey: {}
+  },
+  displayStrings: {
+    usage: "Recreation",
+    locChoice: "Known for Debris",
+    subType: "Sand",
+    incompleteSurvey: ""
   },
   isInputting: false,
   isReviewing: true,
@@ -3321,6 +3336,7 @@ var prepareFormMDSExpected2 = {
     majorUse: {
       rec: true
     },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [
@@ -3821,7 +3837,7 @@ var testSurveyFormStateMDS3 = {
     microWeatheredTotalRib3: 2,
     microWeatheredTotalRib4: 3
   },
-  displayStrings: {
+  checkboxAnswers: {
     usage: {
       rec: true
     },
@@ -3830,7 +3846,14 @@ var testSurveyFormStateMDS3 = {
     },
     subType: {
       s: true,
-    }
+    },
+    incompleteSurvey: {}
+  },
+  displayStrings: {
+    usage: "Recreation",
+    locChoice: "Known for Debris",
+    subType: "Sand",
+    incompleteSurvey: ""
   },
   isInputting: false,
   isReviewing: true,
@@ -3878,6 +3901,7 @@ var prepareFormMDSExpected3 = {
     majorUse: {
       rec: true
     },
+    incompleteSurvey: {},
     numOfP: 0,
     SRSDebris: [
       [

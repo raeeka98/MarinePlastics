@@ -15,19 +15,23 @@
 If want to update the data sheet, need to contact a developer or COI for a Word doc version.
 
 ### Installing
-1. Clone the repo: `git clone https://github.com/noll115/MarinePlastics.git`
+1. Clone the repo: `git clone https://github.com/raeeka98/MarinePlastics.git`
 2. Install the dependencies: `npm install` then `cd client && npm install`
 3. Run the development environment in marineplastics folder: `npm run dev`
 
 ### Testing
 1. In the client folder, run `npm test <name-of-test-file>`, where name-of-test-file
-  is the .test.js file you want to run.
+   is the .test.js file you want to run.
 
 ### Deploying
 To deploy to the live site: https://devcenter.heroku.com/articles/git
   1. Sign into Heroku in terminal
-  2. Add a remote to the existing Heroku site with `heroku git:remote -a marineplastics`
-  3. Deploy with `git push heroku master`
+  2. Clone the repo: `git clone https://github.com/raeeka98/MarinePlastics.git`
+  3. Run `cd MarinePlastics`
+  4. Make sure all changes are in the master branch on your local directory.
+     You may have to merge the Development branch with the master branch.
+  5. Add a remote to the existing Heroku site with `heroku git:remote -a marineplastics`
+  6. Deploy with `git push heroku master`
 If the site breaks, view the logs on Heroku for an error
 
 ***

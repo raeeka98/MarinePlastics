@@ -14,6 +14,7 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
+import { isNullOrUndefined } from 'util';
 
 class SurveyForm extends Component {
     constructor(props) {
@@ -51,7 +52,14 @@ class SurveyForm extends Component {
             displayStrings: {
                 usage: "",
                 locChoice: "",
-                subType: ""
+                subType: "",
+                incompleteSurvey: "",
+            },
+            checkboxAnswers: {
+              usage: {},
+              locChoice: {},
+              subType: {},
+              incompleteSurvey: {},
             },
             isInputting: true,
             isReviewing: false,
@@ -111,34 +119,105 @@ class SurveyForm extends Component {
     updateDisplayStrings() {
         const data = this.state.surveyData;
 
+        // if id exists, set to the correct string, otherwise set to false
         let usage = {
-            rec: data.usageRecreation ? data.usageRecreation : undefined,
-            com: data.usageCommercial ? data.usageCommercial : undefined,
+            rec: data.usageRecreation ? "Recreation" : undefined,
+            com: data.usageCommercial ? "Commercial" : undefined,
+            rem: data.usageRemoteUnused ? "Remote/Unused" : undefined,
+            // this field in data is what the user enters when selects other
             other: data.usageOther ? data.usageOther : undefined
         }
 
         let locChoice = {
-            debris: data.locationChoiceDebris ? data.locationChoiceDebris : undefined,
-            prox: data.locationChoiceProximity ? data.locationChoiceProximity : undefined,
+            prox: data.locationChoiceProximity ? "Proximity/Convenience" : undefined,
+            debris: data.locationChoiceDebris ? "Known for Debris" : undefined,
             other: data.locationChoiceOther ? data.locationChoiceOther : undefined
         }
 
-        let subType = {
-            s: data.substrateTypeSand ? data.substrateTypeSand : false,
-            p: data.substrateTypePebble ? data.substrateTypePebble : false,
-            rr: data.substrateTypeRipRap ? data.substrateTypeRipRap : false,
-            sea: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false,
+      let subType = {
+            s: data.substrateTypeSand ? "Sand" : undefined,
+            p: data.substrateTypePebble ? "Pebble" : undefined,
+            rr: data.substrateTypeRipRap ? "Rip Rap" : undefined,
+            sea: data.substrateTypeSeaweed ? "Seaweed" : undefined,
             other: data.substrateTypeOther ? data.substrateTypeOther : undefined
 
         }
 
+        let incompleteSurvey = {
+            time: data.incompleteSurveyTime ? "Not enough time" : undefined,
+            people: data.incompleteSurveyPeople ? "Not enough people" : undefined,
+            area: data.incompleteSurveyArea ? "Too much area" : undefined,
+            trash: data.incompleteSurveyTrash ? "Too much trash" : undefined,
+            other:
+              data.incompleteSurveyOther ? data.incompleteSurveyOther : undefined
+        }
+
+        // creates string for each of the above objects
+        function objectToString(obj) {
+            var newString = "";
+            // this is so only add comma after first option
+            var firstOptionFound = false;
+
+            // for each field in object
+            for (var option in obj) {
+                if (obj[option] && !firstOptionFound) {
+                    newString = obj[option];
+                    firstOptionFound = true;
+                }
+                else if (obj[option]) {
+                    newString = newString + ", " + obj[option];
+                }
+            }
+
+            return newString;
+        }
+
+        function changeOptionsToBools(obj) {
+            var newObj = {};
+
+            for (var option in obj) {
+                if (obj[option]) {
+                    newObj[option] = true;
+                }
+            }
+            return newObj;
+        }
+
+        var usageString = objectToString(usage);
+        var locChoiceString = objectToString(locChoice);
+        var subTypeString = objectToString(subType);
+        var incompleteSurveyString = objectToString(incompleteSurvey);
+
+        var usageCheckboxAnswer = changeOptionsToBools(usage);
+        var locChoiceCheckboxAnswer = changeOptionsToBools(locChoice);
+        var subTypeCheckboxAnswer = changeOptionsToBools(subType);
+        var incompleteSurveyCheckboxAnswer = changeOptionsToBools(incompleteSurvey);
+
+        // set displayStrings to the new strings
         this.setState({
             displayStrings: {
-                usage: usage,
-                locChoice: locChoice,
-                subType: subType
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            },
+            checkboxAnswers: {
+              usage: usageCheckboxAnswer,
+              locChoice: locChoiceCheckboxAnswer,
+              subType: subTypeCheckboxAnswer,
+              incompleteSurvey: incompleteSurveyCheckboxAnswer
             }
-        })
+        });
+
+        // for testing
+        if (process.env.NODE_ENV === 'test') {
+            return {
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            };
+        }
     }
 
     // returns ID's of invalid elements if invalid, if not, returns empty array;
@@ -150,6 +229,7 @@ class SurveyForm extends Component {
             userLast: "Last name",
             orgName: "Organization Name",
             orgLoc: "Organization Location",
+            email: "Email Address",
             cleanUpTime: "Clean Up Time",
             cleanUpDate: "Clean Up Start Time",
             beachName: "Name of Beach",
@@ -174,12 +254,13 @@ class SurveyForm extends Component {
             tideHeightB: "Last Tide Height",
             tideTypeB: "Last Tide Type",
             tideTimeB: "Last Tide Time",
+            windComments: "Comments",
             windDir: "Wind Direction",
             windSpeed: "Wind Speed"
 
         }
 
-        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
+        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName',
             'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
             'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
@@ -200,6 +281,7 @@ class SurveyForm extends Component {
         //Check for usage
         if (!this.state.surveyData.usageRecreation
             && !this.state.surveyData.usageCommercial
+            && !this.state.surveyData.usageRemoteUnused
             && !this.state.surveyData.usageOther)
             invalid.push(displayIDs.usage);
 
@@ -234,11 +316,11 @@ class SurveyForm extends Component {
         else {
             this.updateDisplayStrings();
             this.setState({
-                invalidForm: false,
-                isInputting: false,
-                isReviewing: true,
-                isSubmitted: false,
-            })
+              invalidForm: false,
+              isInputting: false,
+              isReviewing: true,
+              isSubmitted: false,
+            });
         }
     }
 
@@ -262,6 +344,7 @@ class SurveyForm extends Component {
      * moveToSubmit: successfully submits the form if the validation in the backend passes
      */
     moveToSubmit() {
+        console.log(this.state);
         const form = this.prepareForm();
 
         axios.post("beaches/surveys", form)
@@ -410,37 +493,39 @@ class SurveyForm extends Component {
         // for that visual AESTHETIC
 
         const data = this.state.surveyData;
-        const show = this.state.displayStrings;
+        const show = this.state.checkboxAnswers;
 
         const form = {
             survData: {
                 user: {
-                    f: (data.userFirst ? data.userFirst : ""),
-                    l: (data.userLast ? data.userLast : "")
+                    f: (data.userFirst ? data.userFirst : undefined),
+                    l: (data.userLast ? data.userLast : undefined)
                 },
                 email: this.state.email,
                 userID: this.state.userID,
-                org: (data.orgName ? data.orgName : ""),
-                reason: (show.locChoice ? show.locChoice : "No reason"),
+                org: (data.orgName ? data.orgName : undefined),
+                reason: (show.locChoice ? show.locChoice : undefined),
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
-                st: (show.subType ? show.subType : ""),
-                slope: (data.slope ? data.slope : ""),
+                st: (show.subType ? show.subType : undefined),
+                slope: (data.slope ? data.slope : undefined),
                 cmpsDir: (data.compassDegrees ? data.compassDegrees : 100),
                 lastTide: {
-                    type: (data.tideTypeB ? data.tideTypeB : ""),
-                    time: (data.tideTimeB ? data.tideTimeB : ""),
-                    height: (data.tideHeightB ? data.tideHeightB : "")
+                    type: (data.tideTypeB ? data.tideTypeB : undefined),
+                    time: (data.tideTimeB ? data.tideTimeB : undefined),
+                    height: (data.tideHeightB ? data.tideHeightB : undefined)
                 },
                 nextTide: {
-                    type: (data.tideTypeA ? data.tideTypeA : ""),
-                    time: (data.tideTimeA ? data.tideTimeA : ""),
-                    height: (data.tideHeightA ? data.tideHeightA : "")
+                    type: (data.tideTypeA ? data.tideTypeA : undefined),
+                    time: (data.tideTimeA ? data.tideTimeA : undefined),
+                    height: (data.tideHeightA ? data.tideHeightA : undefined)
                 },
                 wind: {
-                    dir: (data.windDir ? data.windDir : ""),
-                    spd: (data.windSpeed ? data.windSpeed : "")
+                    dir: (data.windDir ? data.windDir : undefined),
+                    spd: (data.windSpeed ? data.windSpeed : undefined),
+                    comment: (data.windComments ? data.windComments : undefined)
                 },
-                majorUse: (show.usage ? show.usage : ""),
+                majorUse: (show.usage ? show.usage : undefined),
+                incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : undefined),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -503,8 +588,14 @@ class SurveyForm extends Component {
     }
 
     updateCheckedState(e) {
+        console.log("updateCheckedState(e) called");
+
         const key = e.target.id;
         const val = e.target.checked;
+
+        console.log("Key: " + key);
+        console.log("Val: " + val);
+
         this.setState(prevState => {
             prevState.surveyData[key] = val;
             return prevState;
@@ -567,6 +658,8 @@ class SurveyForm extends Component {
                         />
                         <AccumulationSurvey
                             data={this.state.ASData}
+                            updateSurveyState={this.updateSurveyState}
+                            updateCheckedState={this.updateCheckedState}
                             updateAS={this.updateAS} />
                         <MicroDebrisSurvey
                             data={this.state.MDSData}

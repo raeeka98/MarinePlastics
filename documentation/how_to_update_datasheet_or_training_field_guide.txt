@@ -1,0 +1,12 @@
+How to : Update Datasheet
+1. Upload new datasheet file as a PDF to pdfs/
+2. In server.js, replace both instances of the previous datasheet path with the
+   new datasheet path. 
+3. In client/src/Protocol/Protocol.js, replace the previous datasheet path with
+   the new datasheet path.
+4. Redeploy. Unfortunately, although you can download the datasheet in
+   development mode, the PDF file becomes corrupted and cannot be open. You
+   have to fully test this in deployment mode.
+
+Note: updating training field guide is almost identical to the above
+instructions.
