@@ -31,7 +31,6 @@ class MicroDebrisSurvey extends Component {
             <div><h4>Fresh Total</h4></div>
             <div><h4>Weathered Total</h4></div>
           </div>
-
           <div className="uk-grid uk-child-width-1-3">
             <div><h4>Rib #1</h4></div>
             <div>
@@ -41,7 +40,7 @@ class MicroDebrisSurvey extends Component {
                 id={"microFreshTotalRib1"}
                 value={this.props.data.microFreshTotalRib1}
                 className="uk-input"
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
             <div>
@@ -51,7 +50,7 @@ class MicroDebrisSurvey extends Component {
                 id="microWeatheredTotalRib1"
                 className="uk-input"
                 defaultValue={this.props.data.microWeatheredTotalRib1}
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
           </div>
@@ -65,7 +64,7 @@ class MicroDebrisSurvey extends Component {
                 id={"microFreshTotalRib2"}
                 defaultValue={this.props.data.microFreshTotalRib2}
                 className="uk-input"
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
             <div>
@@ -75,7 +74,7 @@ class MicroDebrisSurvey extends Component {
                 id="microWeatheredTotalRib2"
                 className="uk-input"
                 defaultValue={this.props.data.microWeatheredTotalRib2}
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
           </div>
@@ -89,7 +88,7 @@ class MicroDebrisSurvey extends Component {
                 id={"microFreshTotalRib3"}
                 defaultValue={this.props.data.microFreshTotalRib3}
                 className="uk-input"
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
             <div>
@@ -99,7 +98,7 @@ class MicroDebrisSurvey extends Component {
                 id="microWeatheredTotalRib3"
                 className="uk-input"
                 defaultValue={this.props.data.microWeatheredTotalRib3}
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
           </div>
@@ -113,7 +112,7 @@ class MicroDebrisSurvey extends Component {
                 id={"microFreshTotalRib4"}
                 defaultValue={this.props.data.microFreshTotalRib4}
                 className="uk-input"
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
             <div>
@@ -123,7 +122,7 @@ class MicroDebrisSurvey extends Component {
                 id="microWeatheredTotalRib4"
                 className="uk-input"
                 defaultValue={this.props.data.microWeatheredTotalRib4}
-                onChange={this.props.updateSurveyState}
+                onChange={this.props.updateMDS}
               />
             </div>
           </div>

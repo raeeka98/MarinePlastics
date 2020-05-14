@@ -86,6 +86,7 @@ test("matches snapshot 1", () => {
             email={state.email}
             SRSData={state.SRSData}
             ASData={state.ASData}
+            MDSData={state.MDSData}
             displayStrings={state.displayStrings}
         />
     ).toJSON();
