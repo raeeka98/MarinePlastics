@@ -179,6 +179,9 @@ class SurveyForm extends Component {
                 if (obj[option] && option !== "other") {
                     newObj[option] = true;
                 }
+                else {
+                    newObj[option] = obj[option];
+                }
             }
             return newObj;
         }
