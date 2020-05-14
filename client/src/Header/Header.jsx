@@ -66,6 +66,7 @@ class Menu extends Component {
           this.setState({ sa: res, checked: true });
         })
     }
+    
     return (
       <div className="uk-padding-small uk-padding-remove-top">
         <nav className="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom-small">

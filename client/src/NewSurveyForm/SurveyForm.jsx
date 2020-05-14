@@ -14,12 +14,14 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
+import { isNullOrUndefined } from 'util';
 
 class SurveyForm extends Component {
     constructor(props) {
         super(props);
         this.url = '/surveys'
         this.auth = this.props.auth;
+	console.log(this.auth);
 
         this.state = {
             surveyData: {
@@ -46,17 +48,25 @@ class SurveyForm extends Component {
             ASData: {
                 // format for debris is: trash_id + "accumulation" + ("Fresh | Weathered | Total")
             },
+            MDSData: {},
             displayStrings: {
                 usage: "",
                 locChoice: "",
-                subType: ""
+                subType: "",
+                incompleteSurvey: "",
+            },
+            checkboxAnswers: {
+              usage: {},
+              locChoice: {},
+              subType: {},
+              incompleteSurvey: {},
             },
             isInputting: true,
             isReviewing: false,
             isSubmitted: false,
-            user: "",
-            email: "",
-            userID: "",
+            user: this.auth.userProfile.name,
+            email: this.auth.userProfile.email,
+            userID: this.auth.userProfile.sub.split("|")[1],
             invalidForm: false,
             autoFilledBeachData: null
         }
@@ -68,6 +78,7 @@ class SurveyForm extends Component {
         this.prepareForm = this.prepareForm.bind(this);
         this.updateSRS = this.updateSRS.bind(this);
         this.updateAS = this.updateAS.bind(this);
+        this.updateMDS = this.updateMDS.bind(this);
         this.showAlert = this.showAlert.bind(this);
     }
 
@@ -79,13 +90,16 @@ class SurveyForm extends Component {
         }
 
         // set entry user/email from auth0
-        this.auth.getLoggedInProfile((err, profile) => {
+       /* this.auth.getLoggedInProfile((err, profile) => {
+		console.log("getLoginProfile")
             this.setState({
                 user: profile.name,
                 email: profile.email,
                 userID: profile.sub.split("|")[1]
             });
         });
+	*/
+
         if(this.props.location.state) {
           let { beachID } = this.props.location.state;
           if (beachID) {
@@ -105,34 +119,108 @@ class SurveyForm extends Component {
     updateDisplayStrings() {
         const data = this.state.surveyData;
 
+        // if id exists, set to the correct string, otherwise set to false
         let usage = {
-            rec: data.usageRecreation ? data.usageRecreation : undefined,
-            com: data.usageCommercial ? data.usageCommercial : undefined,
+            rec: data.usageRecreation ? "Recreation" : undefined,
+            com: data.usageCommercial ? "Commercial" : undefined,
+            rem: data.usageRemoteUnused ? "Remote/Unused" : undefined,
+            // this field in data is what the user enters when selects other
             other: data.usageOther ? data.usageOther : undefined
         }
 
         let locChoice = {
-            debris: data.locationChoiceDebris ? data.locationChoiceDebris : undefined,
-            prox: data.locationChoiceProximity ? data.locationChoiceProximity : undefined,
+            prox: data.locationChoiceProximity ? "Proximity/Convenience" : undefined,
+            debris: data.locationChoiceDebris ? "Known for Debris" : undefined,
             other: data.locationChoiceOther ? data.locationChoiceOther : undefined
         }
 
-        let subType = {
-            s: data.substrateTypeSand ? data.substrateTypeSand : false,
-            p: data.substrateTypePebble ? data.substrateTypePebble : false,
-            rr: data.substrateTypeRipRap ? data.substrateTypeRipRap : false,
-            sea: data.substrateTypeSeaweed ? data.substrateTypeSeaweed : false,
+      let subType = {
+            s: data.substrateTypeSand ? "Sand" : undefined,
+            p: data.substrateTypePebble ? "Pebble" : undefined,
+            rr: data.substrateTypeRipRap ? "Rip Rap" : undefined,
+            sea: data.substrateTypeSeaweed ? "Seaweed" : undefined,
             other: data.substrateTypeOther ? data.substrateTypeOther : undefined
 
         }
 
+        let incompleteSurvey = {
+            time: data.incompleteSurveyTime ? "Not enough time" : undefined,
+            people: data.incompleteSurveyPeople ? "Not enough people" : undefined,
+            area: data.incompleteSurveyArea ? "Too much area" : undefined,
+            trash: data.incompleteSurveyTrash ? "Too much trash" : undefined,
+            other:
+              data.incompleteSurveyOther ? data.incompleteSurveyOther : undefined
+        }
+
+        // creates string for each of the above objects
+        function objectToString(obj) {
+            var newString = "";
+            // this is so only add comma after first option
+            var firstOptionFound = false;
+
+            // for each field in object
+            for (var option in obj) {
+                if (obj[option] && !firstOptionFound) {
+                    newString = obj[option];
+                    firstOptionFound = true;
+                }
+                else if (obj[option]) {
+                    newString = newString + ", " + obj[option];
+                }
+            }
+
+            return newString;
+        }
+
+        function changeOptionsToBools(obj) {
+            var newObj = {};
+
+            for (var option in obj) {
+                if (obj[option] && option !== "other") {
+                    newObj[option] = true;
+                }
+                else {
+                    newObj[option] = obj[option];
+                }
+            }
+            return newObj;
+        }
+
+        var usageString = objectToString(usage);
+        var locChoiceString = objectToString(locChoice);
+        var subTypeString = objectToString(subType);
+        var incompleteSurveyString = objectToString(incompleteSurvey);
+
+        var usageCheckboxAnswer = changeOptionsToBools(usage);
+        var locChoiceCheckboxAnswer = changeOptionsToBools(locChoice);
+        var subTypeCheckboxAnswer = changeOptionsToBools(subType);
+        var incompleteSurveyCheckboxAnswer = changeOptionsToBools(incompleteSurvey);
+
+        // set displayStrings to the new strings
         this.setState({
             displayStrings: {
-                usage: usage,
-                locChoice: locChoice,
-                subType: subType
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            },
+            checkboxAnswers: {
+              usage: usageCheckboxAnswer,
+              locChoice: locChoiceCheckboxAnswer,
+              subType: subTypeCheckboxAnswer,
+              incompleteSurvey: incompleteSurveyCheckboxAnswer
             }
-        })
+        });
+
+        // for testing
+        if (process.env.NODE_ENV === 'test') {
+            return {
+                usage: usageString,
+                locChoice: locChoiceString,
+                subType: subTypeString,
+                incompleteSurvey: incompleteSurveyString
+            };
+        }
     }
 
     // returns ID's of invalid elements if invalid, if not, returns empty array;
@@ -144,6 +232,7 @@ class SurveyForm extends Component {
             userLast: "Last name",
             orgName: "Organization Name",
             orgLoc: "Organization Location",
+            email: "Email Address",
             cleanUpTime: "Clean Up Time",
             cleanUpDate: "Clean Up Start Time",
             beachName: "Name of Beach",
@@ -168,12 +257,13 @@ class SurveyForm extends Component {
             tideHeightB: "Last Tide Height",
             tideTypeB: "Last Tide Type",
             tideTimeB: "Last Tide Time",
+            windComments: "Comments",
             windDir: "Wind Direction",
             windSpeed: "Wind Speed"
 
         }
 
-        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc',
+        const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
             'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName',
             'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
             'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
@@ -194,6 +284,7 @@ class SurveyForm extends Component {
         //Check for usage
         if (!this.state.surveyData.usageRecreation
             && !this.state.surveyData.usageCommercial
+            && !this.state.surveyData.usageRemoteUnused
             && !this.state.surveyData.usageOther)
             invalid.push(displayIDs.usage);
 
@@ -228,11 +319,11 @@ class SurveyForm extends Component {
         else {
             this.updateDisplayStrings();
             this.setState({
-                invalidForm: false,
-                isInputting: false,
-                isReviewing: true,
-                isSubmitted: false,
-            })
+              invalidForm: false,
+              isInputting: false,
+              isReviewing: true,
+              isSubmitted: false,
+            });
         }
     }
 
@@ -256,6 +347,7 @@ class SurveyForm extends Component {
      * moveToSubmit: successfully submits the form if the validation in the backend passes
      */
     moveToSubmit() {
+        console.log(this.state);
         const form = this.prepareForm();
 
         axios.post("beaches/surveys", form)
@@ -265,14 +357,14 @@ class SurveyForm extends Component {
                         isInputting: false,
                         isReviewing: false,
                         isSubmitted: true,
-                        survID: res.data.survID,
-                        beachName:form.beachData.n
+                        survID: res.data.survID
+                        
                     })
                 }
             })
             .catch(err => {
                 console.log(err.response);
-                alert(err.response.data.error.details[0].message);
+                alert(err.response.data.error);
             })
     }
 
@@ -362,42 +454,81 @@ class SurveyForm extends Component {
         }
         return totalsArray;
     }
+    
+    calcTotalsMDS() {
+        let totals = {};
+        let totalsArray = [];
+
+        const data = this.state.MDSData;
+
+        for (const id in data) {
+            // remove "micro", "TotalRib" and rib number
+            const type = id.replace(/micro|TotalRib|1|2|3|4/g, '');
+            const trash_id = "microDebris";
+            if (!totals[trash_id]) {
+                totals[trash_id] = {
+                    fresh: 0,
+                    weathered: 0
+                }
+            }
+            if (type === "Weathered") {
+                totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+                if (isNaN(totals[trash_id].weathered)) {
+                   totals[trash_id].weathered = 0;
+                }
+            } else {
+                totals[trash_id].fresh = totals[trash_id].fresh + parseInt(data[id]);
+                if (isNaN(totals[trash_id].fresh)) {
+                    totals[trash_id].fresh = 0;
+                }
+            }
+        }
+        for (const id in totals) {
+            totalsArray.push([
+                id,
+                { fresh: totals[id].fresh, weathered: totals[id].weathered }
+            ]);
+        }
+        return totalsArray;
+    }
 
     prepareForm() {
         // for that visual AESTHETIC
 
         const data = this.state.surveyData;
-        const show = this.state.displayStrings;
+        const show = this.state.checkboxAnswers;
 
         const form = {
             survData: {
                 user: {
-                    f: (data.userFirst ? data.userFirst : ""),
-                    l: (data.userLast ? data.userLast : "")
+                    f: (data.userFirst ? data.userFirst : undefined),
+                    l: (data.userLast ? data.userLast : undefined)
                 },
-                email: this.state.email,
+                email: data.email,
                 userID: this.state.userID,
-                org: (data.orgName ? data.orgName : ""),
-                reason: (show.locChoice ? show.locChoice : "No reason"),
+                org: (data.orgName ? data.orgName : undefined),
+                reason: (show.locChoice ? show.locChoice : undefined),
                 survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
-                st: (show.subType ? show.subType : ""),
-                slope: (data.slope ? data.slope : ""),
-                cmpsDir: (data.compassDegrees ? data.compassDegrees : 100),
+                st: (show.subType ? show.subType : undefined),
+                slope: (data.slope ? data.slope : undefined),
+                cmpsDir: (data.compassDegrees ? data.compassDegrees : undefined),
                 lastTide: {
-                    type: (data.tideTypeB ? data.tideTypeB : ""),
-                    time: (data.tideTimeB ? data.tideTimeB : ""),
-                    height: (data.tideHeightB ? data.tideHeightB : "")
+                    type: (data.tideTypeB ? data.tideTypeB : undefined),
+                    time: (data.tideTimeB ? data.tideTimeB : undefined),
+                    height: (data.tideHeightB ? data.tideHeightB : undefined)
                 },
                 nextTide: {
-                    type: (data.tideTypeA ? data.tideTypeA : ""),
-                    time: (data.tideTimeA ? data.tideTimeA : ""),
-                    height: (data.tideHeightA ? data.tideHeightA : "")
+                    type: (data.tideTypeA ? data.tideTypeA : undefined),
+                    time: (data.tideTimeA ? data.tideTimeA : undefined),
+                    height: (data.tideHeightA ? data.tideHeightA : undefined)
                 },
                 wind: {
-                    dir: (data.windDir ? data.windDir : ""),
-                    spd: (data.windSpeed ? data.windSpeed : "")
+                    dir: (data.windDir ? data.windDir : undefined),
+                    spd: (data.windSpeed ? data.windSpeed : undefined),
+                    comment: (data.windComments ? data.windComments : undefined)
                 },
-                majorUse: (show.usage ? show.usage : ""),
+                majorUse: (show.usage ? show.usage : undefined),
+                incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : undefined),
                 /* SRSDebris: [
                     [cigaretteButts, {
                         fresh (total):
@@ -409,6 +540,7 @@ class SurveyForm extends Component {
                 numOfP: 0,
                 SRSDebris: this.calcTotalsSRS(),
                 ASDebris: this.calcTotalsAS(),
+                MicroDebris: this.calcTotalsMDS()
             },
             bID: data.beachID ? data.beachID : undefined,
             beachData: data.beachID ? undefined : {
@@ -459,8 +591,14 @@ class SurveyForm extends Component {
     }
 
     updateCheckedState(e) {
+        console.log("updateCheckedState(e) called");
+
         const key = e.target.id;
         const val = e.target.checked;
+
+        console.log("Key: " + key);
+        console.log("Val: " + val);
+
         this.setState(prevState => {
             prevState.surveyData[key] = val;
             return prevState;
@@ -483,6 +621,21 @@ class SurveyForm extends Component {
             prevState.ASData[key] = val;
             return prevState;
         })
+    }
+
+    updateMDS(e) {
+        const key = e.target.id;
+        const val = e.target.value
+
+        // if testing, set state directly to avoid any delays
+        if (process.env.NODE_ENV === 'test') {
+            this.state.MDSData[key] = val;
+        } else {
+            this.setState(prevState => {
+                prevState.MDSData[key] = val;
+                return prevState;
+            });
+        }
     }
 
     showInputPage = () => {
@@ -508,10 +661,12 @@ class SurveyForm extends Component {
                         />
                         <AccumulationSurvey
                             data={this.state.ASData}
+                            updateSurveyState={this.updateSurveyState}
+                            updateCheckedState={this.updateCheckedState}
                             updateAS={this.updateAS} />
                         <MicroDebrisSurvey
-                            data={this.state.surveyData}
-                            updateSurveyState={this.updateSurveyState}
+                            data={this.state.MDSData}
+                            updateMDS={this.updateMDS}
                         />
                     </Accordion>
                 </form>
@@ -520,14 +675,13 @@ class SurveyForm extends Component {
                 </div>
             </div>
         );
-
     }
 
     showReviewPage = () => {
         return (
             <div>
                 <button className="uk-button uk-button-secondary" onClick={this.moveToInput} >Back to Input</button>
-                <Review data={this.state.surveyData} email={this.state.email} SRSData={this.state.SRSData} ASData={this.state.ASData} displayStrings={this.state.displayStrings} />
+                <Review data={this.state.surveyData} email={this.state.email} SRSData={this.state.SRSData} ASData={this.state.ASData} MDSData={this.state.MDSData} displayStrings={this.state.displayStrings} />
                 <button className="uk-button uk-button-disabled" onClick={this.moveToSubmit}>Submit </button>
             </div>);
     }
@@ -536,7 +690,7 @@ class SurveyForm extends Component {
         return (
             <div>
                 <h1>Your survey was successfully submitted!</h1>
-                <h3>Click <Link to={`${this.state.beachName}/surveys/${this.state.survID}`} > here</Link> to view your survey.</h3>
+                <h3>Click <Link to= {"home/"} > here</Link> to view your survey.</h3>
                 <div className="submit-button-container">
                     <button className="uk-button uk-button-secondary" onClick={this.moveToReview} >
                         Back to Review

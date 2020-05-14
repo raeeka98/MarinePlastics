@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { debrisNames } from '../NewSurveyForm/debrisInfo'
+// import { debrisNames } from '../NewSurveyForm/debrisInfo'
 
 
 class EditableTable extends Component {

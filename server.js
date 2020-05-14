@@ -45,7 +45,13 @@ app.use(function(err, req, res, next) {
 app.use('/beaches', dataEntryRouter);
 app.use('/auth', auth0Route(jwtUser));
 
-app.get('/pdfs/COIDataSheet_4_16_19.pdf', (req, res) => res.sendFile(path.join(__dirname, '/pdfs/COIDataSheet_4_16_19.pdf')));
+// the following documents can now be made as links
+app.get('/pdfs/COIDataSheet_2020.pdf',
+  (req, res) => res.sendFile(path.join(__dirname,
+  '/pdfs/COIDataSheet_2020.pdf')));
+app.get('/pdfs/ShorelinePlasticMonitoringFieldGuide.pdf',
+  (req, res) => res.sendFile(path.join(__dirname,
+  '/pdfs/ShorelinePlasticMonitoringFieldGuide.pdf')));
 
 app.get('*', (req, res) => res.sendFile(reactPath));
 

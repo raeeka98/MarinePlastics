@@ -1,3 +1,7 @@
+/**
+ * SurveyArea.jsx
+ * The survey area component for the survey. Used by ../SurveyForm.jsx.
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -14,6 +18,7 @@ import BeachSearch from '../BeachSearch';
 class SurveyArea extends Component {
   constructor(props) {
     super(props);
+    // this is for displaying textbox when select other option
     this.state = {
       showOtherUsage: false,
       showOtherReason: false,
@@ -21,7 +26,14 @@ class SurveyArea extends Component {
     }
   }
 
-
+  /**
+   * Takes in latitude and longitude as decimals and converts them to degrees,
+   * minutes, and seconds.
+   * @params lat, lon
+   * @return object of two fields, latitude and longitude, which each contain
+   * lat and lon, as well as their respective degrees, minutes, seconds, and
+   * direction
+   */
   updateLatLonFront = (lat, lon) => {
 
     let latDeg = Math.floor(lat);
@@ -38,23 +50,36 @@ class SurveyArea extends Component {
     const lonDir = Math.sign(lonDeg);
     lonDeg = lonDeg * lonDir;
 
-    return { latitude: lat, latDeg, latMin, latSec, latDir, longitude: lon, lonDeg, lonMin, lonSec, lonDir }
+    return {
+      latitude: lat, latDeg, latMin, latSec, latDir,
+      longitude: lon, lonDeg, lonMin, lonSec, lonDir
+    }
 
   }
 
-  // ID to attribute
-
-
+  /**
+   * Gets existing info on beach based on id, and updates the survey with this
+   * info.
+   * @param beachID
+   */
   autofill = (beachID) => {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
         const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
-        this.props.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
+        this.props.updateCoordState(coordInfo, res.data.nroName,
+          res.data.nroDist);
       }).catch(err => {
         console.log(err);
       });
   };
 
+  /**
+   * If a beach from the database has been selected in the dropdown, this
+   * displays the name of the beach. Otherwise, uses BeachSearch from
+   * ../BeachSearch.jsx.
+   * @param autoFilled
+   * @return selected beach name if autoFilled is true, otherwise BeachSearch
+   */
   beachNameInput = (autoFilled) => {
 
     if (autoFilled) {
@@ -74,6 +99,14 @@ class SurveyArea extends Component {
     );
   }
 
+  /**
+   * If a beach from the database has been selected in the dropdown, this
+   * displays the names of the river nearest the beach. Otherwise, displays an
+   * input textbox to enter the name of the river nearest to the beach.
+   * @param autoFilled
+   * @return name of river closest to selected beach if autoFilled is true,
+   * otherwise input textbox
+   */
   riverNameInput = (autoFilled) => {
     if (autoFilled) {
       return (
@@ -96,6 +129,15 @@ class SurveyArea extends Component {
     )
   }
 
+  /**
+   * Converts inputted latitude and longitude from decimal to degrees, minutes,
+   * and seconds. This differs from updateLatLonFront(lat, lon) in that this
+   * only returns the degrees, minutes, seconds, and direction as a letter,
+   * not as a sign.
+   * @params lat, lon
+   * @return object of two fields, lat and lon, which each contain their
+   * respective degrees, minutes, seconds, and direction as a letter
+   */
   latLongToDMS = (lat, lon) => {
     let latDeg = Math.floor(lat);
     let tempDecimal = (lat - latDeg) * 60;
@@ -122,6 +164,14 @@ class SurveyArea extends Component {
     }
   }
 
+  /**
+  * If a beach from the database has been selected in the dropdown, this
+  * displays the coordinates of the beach in the input boxes. Otherwise,
+  * displays input textboxes to enter the coordinates of the beach.
+  * @param autoFilled
+  * @return coordinates of the beach in the input boxes if autoFilled is true,
+  * otherwise input textbox
+  */
   coordsInput = (autoFilled) => {
     let latDivs, lonDivs;
     if (autoFilled) {
@@ -290,14 +340,20 @@ class SurveyArea extends Component {
     return (
       <React.Fragment>
         <div>
-          <label>Coordinates (Latitude)<span className="uk-text-danger">*</span></label>
-          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          <label>
+            Coordinates (Latitude)<span className="uk-text-danger">*</span>
+          </label>
+          <div
+            className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
           {latDivs}
           </div>
         </div>
         <div>
-          <label>Coordinates (Longitude):<span className="uk-text-danger">*</span></label>
-          <div className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
+          <label>
+            Coordinates (Longitude)<span className="uk-text-danger">*</span>
+          </label>
+          <div
+            className="uk-grid uk-grid-collapse uk-margin uk-child-width-1-4">
           {lonDivs}
           </div>
         </div>
@@ -305,6 +361,14 @@ class SurveyArea extends Component {
     )
   }
 
+  /**
+   * If a beach from the database has been selected in the dropdown, this
+   * displays the distance from the river nearest the beach to the start of the
+   * spine. Otherwise, displays an input textbox to enter the distance.
+   * @param autoFilled
+   * @return distance from river closest to selected beach to the start of the
+   * spine if autoFilled is true, otherwise input textbox
+   */
   riverDistInput = (autoFilled) => {
     if (autoFilled) {
       return (
@@ -327,12 +391,16 @@ class SurveyArea extends Component {
     );
   }
 
-
+  /**
+   * JSX code for the survey area section. In a dropdown box.
+   * @return the JSX code
+   */
   render() {
     let autoFilledData = this.props.autoFilledBeachData;
     return (
       <AccordionItem className="accordion__item">
-        <AccordionItemTitle className="accordion__title accordion__title--animated">
+        <AccordionItemTitle
+          className="accordion__title accordion__title--animated">
           <h2>Survey Area<span className="uk-text-danger">*</span></h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
@@ -343,7 +411,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Beach Name<span className="uk-text-danger">*</span></label>
+              <label>
+                Beach Name<span className="uk-text-danger">*</span>
+              </label>
               {this.beachNameInput(autoFilledData)}
             </div>
             {this.coordsInput(autoFilledData)}
@@ -351,7 +421,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-3">
             <div>
-              <label>Major Usage<span className="uk-text-danger">*</span></label>
+              <label>
+                Major Usage<span className="uk-text-danger">*</span>
+              </label>
               <div>
                 <label>
                   <input
@@ -362,7 +434,7 @@ class SurveyArea extends Component {
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Recreational
-                    </div>
+              </div>
               <div>
                 <label>
                   <input
@@ -373,16 +445,29 @@ class SurveyArea extends Component {
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Commercial
-                    </div>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type='checkbox'
+                    id='usageRemoteUnused'
+                    className='uk-checkbox'
+                    defaultValue={this.props.data.usageRemoteUnused}
+                    onChange={this.props.updateCheckedState}
+                  />
+                </label> Remote/Unused
+              </div>
               <div>
                 <label>
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherUsage: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherUsage: e.target.checked
+                    })}
                   />
                 </label> Other
-                    </div>
+              </div>
               {this.state.showOtherUsage &&
                 (
                   <div>
@@ -401,7 +486,10 @@ class SurveyArea extends Component {
             </div>
 
             <div>
-              <label>Reason for Location Choice<span className="uk-text-danger">*</span></label>
+              <label>
+                Reason for Location Choice
+                <span className="uk-text-danger">*</span>
+              </label>
               <div>
                 <label>
                   <input
@@ -429,7 +517,9 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherReason: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherReason: e.target.checked
+                    })}
                   />
                 </label> Other
                     </div>
@@ -448,7 +538,10 @@ class SurveyArea extends Component {
               }
             </div>
             <div>
-              <label>Compass Direction (When Facing the Water)<span className="uk-text-danger">*</span></label>
+              <label>
+                Compass Direction (When Facing the Water)
+                <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='number'
                 placeholder='Degrees'
@@ -468,11 +561,16 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>River Name<span className="uk-text-danger">*</span></label>
+              <label>
+                River Name<span className="uk-text-danger">*</span>
+              </label>
               {this.riverNameInput(autoFilledData)}
             </div>
             <div>
-              <label>Approximate Distance (ft)<span className="uk-text-danger">*</span></label>
+              <label>
+                Approximate Distance from "zero" on the Spine (mi)
+                <span className="uk-text-danger">*</span>
+              </label>
               {this.riverDistInput(autoFilledData)}
             </div>
           </div>
@@ -515,7 +613,9 @@ class SurveyArea extends Component {
 
           <div className="uk-grid uk-child-width-1-4">
             <div>
-              <label>Height (ft)<span className="uk-text-danger">*</span></label>
+              <label>
+                Height (ft)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Height"
@@ -537,7 +637,9 @@ class SurveyArea extends Component {
               />
             </div>
             <div>
-              <label>Height (ft)<span className="uk-text-danger">*</span></label>
+              <label>
+                Height (ft)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Height"
@@ -565,7 +667,9 @@ class SurveyArea extends Component {
           <div className="uk-grid uk-child-width-1-3">
             <div>
               <h4>Wind</h4>
-              <label>Speed (knots)<span className="uk-text-danger">*</span></label>
+              <label>
+                Speed (knots)<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Speed (knots)"
@@ -593,6 +697,15 @@ class SurveyArea extends Component {
                 <option value="w">West</option>
                 <option value="nw">Northwest</option>
               </select>
+
+              <label>COMMENTS</label>
+              <input
+                type="string"
+                id='windComments'
+                onChange={this.props.updateSurveyState}
+                value={this.props.data.windComments}
+                className='uk-input uk-margin'
+              />
             </div>
             <div>
               <h4>Slope</h4>
@@ -642,7 +755,7 @@ class SurveyArea extends Component {
                     defaultValue={this.props.data.substrateTypeRipRap}
                     className='uk-checkbox'
                   />
-                </label> Rip Rap
+                </label> Rip Rap (large boulders)
               </div>
               <div className="uk-margin">
                 <label>
@@ -660,7 +773,9 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({ showOtherSubstrate: e.target.checked })}
+                    onClick={e => this.setState({
+                      showOtherSubstrate: e.target.checked
+                    })}
                   />
                 </label> Other
               </div>
@@ -680,8 +795,14 @@ class SurveyArea extends Component {
             </div>
           </div>
 
-          <div className="uk-padding-large uk-padding-remove-botom uk-width-1-1">
-            <div className="uk-text uk-text-small uk-text-center uk-text-muted"><span className="uk-text-danger">*</span> = Indicates required field.</div>
+          <div
+            className="uk-padding-large uk-padding-remove-botom uk-width-1-1">
+            <div
+              className="uk-text uk-text-small uk-text-center uk-text-muted">
+              <span className="uk-text-danger">
+                *
+              </span> = Indicates required field.
+            </div>
           </div>
 
         </AccordionItemBody>
