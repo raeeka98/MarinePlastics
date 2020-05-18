@@ -1,0 +1,167 @@
+DESIGN DOCUMENT
+
+This document describes each of the files in MarinePlastics pertaining to the
+website development of the website.
+
+client/src/_helpers/ChartHelpers.js
+Helper functions for client/src/Location/Charts.jsx and
+client/src/SurveyEntry/SurveyCharts.jsx
+
+client/src/_helpers/SortHelper.js
+Helper functions for client/src/Home/Home.jsx
+
+client/src/About/0.png
+Logo for Clean Oceans International (not used)
+
+client/src/About/About.js
+Code for the About page
+
+client/src/About/bottle.jpg
+Image of an empty plastic water bottle that appears on the About page
+
+client/src/About/COI.png
+Logo for Clean Oceans International that appears on the About page
+
+client/src/admin/AdminListChild.jsx
+
+client/src/admin/adminPage.css
+
+client/src/admin/AdminPage.jsx
+
+client/src/admin/ProfileViewer.jsx
+
+client/src/Footer/Footer.js
+
+client/src/Header/Header.css
+
+client/src/Header/Header.jsx
+
+client/src/Home/home.css
+
+client/src/Home/Home.jsx
+
+client/src/Home/LocationBar.jsx
+
+client/src/Landing/beach-edit.jpg
+
+client/src/Landing/landing.css
+
+client/src/Landing/Landing.js
+
+client/src/Landing/nat_bridges.jpg
+
+client/src/Location/Charts.jsx
+
+client/src/Location/Location.jsx
+
+client/src/Map/Map.css
+
+client/src/Map/Map.js
+
+client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx
+
+client/src/NewSurveyForm/SurveySubsections/MicroDebrisSurvey.jsx
+
+client/src/NewSurveyForm/SurveySubsections/Review.jsx
+
+client/src/NewSurveyForm/SurveySubsections/SurfaceRibScan.jsx
+
+client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx
+
+client/src/NewSurveyForm/SurveySubsections/TeamInformation.jsx
+
+client/src/NewSurveyForm/SurveySubsections/Totals.jsx
+
+client/src/NewSurveyForm/TableRows/AccumulationSurveyRow.jsx
+
+client/src/NewSurveyForm/TableRows/ASRowReview.js
+
+client/src/NewSurveyForm/TableRows/MDSRowReview.js
+
+client/src/NewSurveyForm/TableRows/ReviewTable.js
+
+client/src/NewSurveyForm/TableRows/RibScanRow.jsx
+
+client/src/NewSurveyForm/accordion-styles.css
+
+client/src/NewSurveyForm/BeachSearch.jsx
+
+client/src/NewSurveyForm/debrisInfo.js
+
+client/src/NewSurveyForm/SurveyForm.jsx
+
+client/src/PageNotFound/notFound.css
+
+client/src/PageNotFound/PageNotFound.js
+
+client/src/Protocol/COI.png
+
+client/src/Protocol/Protocol.js
+
+client/src/SurveyEntry/editableTable.jsx
+
+client/src/SurveyEntry/SurveyCharts.jsx
+
+client/src/SurveyEntry/surveyEdit.css
+
+client/src/SurveyEntry/surveyEntry.css
+
+client/src/SurveyEntry/SurveyEntry.jsx
+
+client/src/SurveyEntry/surveyEntryEdit.jsx
+
+client/src/SurveyEntry/SurveyTableRow.jsx
+
+client/src/Tests/Review.test.js
+
+client/src/Tests/SurveyForm.test.js
+
+client/src/Tests/test-data.js
+
+client/src/UserProfile/UserProfile.jsx
+
+client/src/App.css
+
+client/src/App.jsx
+The main component from which the website is rendered, and handles all of the
+client-side routing
+
+client/src/Auth.js
+Contains the configuration code for implementing to auth0's WebAuth class, and
+handles authentification as well as authorization and role checking, and
+obtaining profile information
+
+client/src/index.js
+
+client/src/serviceWorker.js
+
+pdfs/COIDataSheet_2020.pdf
+
+pdfs/COIDataSheet_4_16_19.pdf
+
+pdfs/COIDataSheet_Oct_24.pdf
+
+pdfs/ShorelinePlasticMonitoringFieldGuide.pdf
+
+routes/auth0.js
+Handles user permission calls, role changes, and profile searches for admins
+
+routes/dataEntry.js
+Handles all endpoints that are related to beach and survey queries, as well as
+any updates to any survey data
+
+server_modules/joi-validation.js
+Handles all of the form validation functions to ensure that the data is
+sanitized and within proper constraints. Adding new debris categories may need
+to be reflected here by adjusting the maximum size of the SRSDebris and ASDebris
+categories.
+
+server_modules/mongoose.js
+Exports functions used in /routes/dataEntry.js to create, read, update, and
+delete form and beach data
+
+server_modules/mongooseSchemas.js
+Defines the schemas used to store survey and beach data. If any changes need to
+be made to the form (excluding the debris types), it would need to be made here.
+
+server.js
