@@ -8,3 +8,8 @@ match the 2020 data sheet.
    removeOther(category) in client/src/NewSurveyForm/SurveyForm.jsx and calling
    this method whenever the checkbox option other is unchecked in each checkbox
    section.
+3. Added units after numerical data to the Review page in
+   client/src/NewSurveyForm/SurveySubsections/Review.jsx.
+4. Changed wind direction info in Review page by adding and calling
+   calculateWindDirection(direction) in
+   client/src/NewSurveyForm/SurveySubsections/Review.jsx.

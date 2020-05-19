@@ -13,7 +13,7 @@ class Review extends Component {
   }
 
   calculateFields() {
-
+    
   }
 
   toTitleCase(word) {
@@ -21,6 +21,38 @@ class Review extends Component {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+
+  calculateWindDirection(direction) {
+    switch (direction) {
+      case 'n':
+        return 'North';
+        break;
+      case 'ne':
+        return 'Northeast';
+        break;
+      case 'e':
+        return 'East';
+        break;
+      case 'se':
+        return 'Southeast';
+        break;
+      case 's':
+        return 'South';
+        break;
+      case 'sw':
+        return 'Southwest';
+        break;
+      case 'w':
+        return 'West';
+        break;
+      case 'nw':
+        return 'Northwest';
+        break;
+      // should never be called
+      default:
+        return 'No wind';
+    }
+  }
 
   render() {
     var SRSRows = [];
@@ -162,22 +194,22 @@ class Review extends Component {
             <p>Nearest River Output Name: {d.riverName}</p>
           }
           {(d.riverDistance !== undefined) &&
-            <p>Nearest River Output Distance: {d.riverDistance}</p>
+            <p>Nearest River Output Distance: {d.riverDistance} mi</p>
           }
 
           {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
             <div>
               <h4>Tide Before:</h4>
-              <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
-              <p>Height: {d.tideHeightB}</p>
+              <p>Type: {this.toTitleCase(d.tideTypeB)}</p>
+              <p>Height: {d.tideHeightB} ft</p>
               <p>Time: {d.tideTimeB}</p>
             </div>
           }
           {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
             <div>
               <h4>Tide After:</h4>
-              <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
-              <p>Height: {d.tideHeightA}</p>
+              <p>Type: {this.toTitleCase(d.tideTypeA)}</p>
+              <p>Height: {d.tideHeightA} ft</p>
               <p>Time: {d.tideTimeA}</p>
             </div>
           }
@@ -185,7 +217,7 @@ class Review extends Component {
             <p>Wind Speed: {d.windSpeed} knots</p>
           }
           {d.windDir &&
-            <p>Wind Direction: {d.windDir}</p>
+            <p>Wind Direction: {this.calculateWindDirection(d.windDir)}</p>
           }
           {d.windComments &&
             <p>COMMENTS: {d.windComments}</p>
@@ -214,14 +246,14 @@ class Review extends Component {
                 </thead>
                 <tbody style={{textAlign: 'left'}}>
                   <tr >
-                    <td >SPINE Start</td>
+                    <td >SPINE Start Point (m)</td>
                     <td >{d.rib1Start}</td>
                     <td>{d.rib2Start}</td>
                     <td>{d.rib3Start}</td>
                     <td >{d.rib4Start}</td>
                   </tr>
                   <tr>
-                    <td>RIB LENGTH</td>
+                    <td>RIB LENGTH (m)</td>
                     <td>{d.rib1End}</td>
                     <td>{d.rib2End}</td>
                     <td>{d.rib3End}</td>
