@@ -54,7 +54,7 @@ class AccumulationSurvey extends Component {
           <div>
             <label>
               If unable to complete an accumulation survey, check box as to why
-              </label>
+            </label>
             <div>
               <label>
                 <input
@@ -104,9 +104,15 @@ class AccumulationSurvey extends Component {
                 <input
                   type='checkbox'
                   className='uk-checkbox'
-                  onClick={e => this.setState({
-                    showOtherIncompleteSurvey: e.target.checked
-                  })}
+                  onClick={e => {
+                      this.setState({
+                        showOtherIncompleteSurvey: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.props.removeOther('incomplete');
+                      }
+                    }
+                  }
                 />
               </label> Other
             </div>

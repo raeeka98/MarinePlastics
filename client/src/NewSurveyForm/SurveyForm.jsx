@@ -636,6 +636,30 @@ class SurveyForm extends Component {
             });
         }
     }
+    
+    removeOther = (category) => {
+        if (category === 'usage') {
+            this.setState(prevState => {
+                prevState.surveyData.usageOther = undefined;
+                return prevState;
+            });
+        } else if (category === 'reason') {
+            this.setState(prevState => {
+                prevState.surveyData.locationChoiceOther = undefined;
+                return prevState;
+            });
+        } else if (category === 'substrate') {
+            this.setState(prevState => {
+                prevState.surveyData.substrateTypeOther = undefined;
+                return prevState;
+            });
+        } else if (category === 'incomplete') {
+            this.setState(prevState => {
+                prevState.surveyData.incompleteSurveyOther = undefined;
+                return prevState;
+            });
+        }
+    }
 
     showInputPage = () => {
         return (
@@ -651,6 +675,7 @@ class SurveyForm extends Component {
                             updateSurveyState={this.updateSurveyState}
                             updateCheckedState={this.updateCheckedState}
                             updateCoordState={this.updateCoordState}
+                            removeOther={this.removeOther}
                         />
                         <SurfaceRibScan
                             data={this.state.surveyData}
@@ -662,7 +687,9 @@ class SurveyForm extends Component {
                             data={this.state.ASData}
                             updateSurveyState={this.updateSurveyState}
                             updateCheckedState={this.updateCheckedState}
-                            updateAS={this.updateAS} />
+                            updateAS={this.updateAS}
+                            removeOther={this.removeOther}
+                        />
                         <MicroDebrisSurvey
                             data={this.state.MDSData}
                             updateMDS={this.updateMDS}
