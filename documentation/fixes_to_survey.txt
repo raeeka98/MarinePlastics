@@ -1,0 +1,4 @@
+This lists the changes made to the survey format after updating the survey to
+match the 2020 data sheet.
+
+1. Users can now enter numerical figures and punctuation in text fields.

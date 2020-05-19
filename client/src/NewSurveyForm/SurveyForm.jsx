@@ -14,7 +14,6 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
-import { isNullOrUndefined } from 'util';
 
 class SurveyForm extends Component {
     constructor(props) {
