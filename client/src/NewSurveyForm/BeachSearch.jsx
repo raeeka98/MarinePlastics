@@ -1,20 +1,26 @@
+/**
+ * BeachSearch.jsx
+ * Used in Survey Area section in SurveySubsections/SurveyArea.jsx to suggest
+ * beaches while typing.
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 
-/**
- * Beach Search Component
- * Used in SurveyArea to suggest beaches while typing
- */
-
 class BeachSearch extends Component {
   state = {
-    query: '', //what gets sent to the backend
-    results: [], //list of beaches
-    timeout: null, //prevents pinging backend too much
-    showItems: false, //if true, show suggestions
+    //what gets sent to the backend
+    query: '',
+    //list of beaches
+    results: [],
+    //prevents pinging backend too much
+    timeout: null,
+    //if true, show suggestions
+    showItems: false,
   }
 
-  //ping backend for results
+  /**
+   * Ping backend for results.
+   */
   getInfo = () => {
     if (this.state.query) {
       axios.get("/beaches/search", { params: { q: this.state.query } })
@@ -28,7 +34,9 @@ class BeachSearch extends Component {
     }
   }
 
-  //called when the input is changed
+  /**
+   * Called when the input is changed.
+   */
   handleInputChange = () => {
     this.props.setSurveyData('beachName', this.search.value);
     this.props.setSurveyData('beachID', null);
@@ -40,7 +48,9 @@ class BeachSearch extends Component {
     }, 250)});
   }
 
-  //called when a suggestion is clicked
+  /**
+   * Called when a suggestion is clicked so entries can be autofilled.
+   */
   onSuggestionClick = (res) => {
     this.search.value = res.n;
     this.props.autofill(res._id);
@@ -49,8 +59,11 @@ class BeachSearch extends Component {
     this.setState({ query: res.n, showItems: false});
   }
 
+  /**
+   * List of suggestions.
+   * @return JSX code for dropdown
+   */
   render() {
-    //List of suggestions
     const Suggestions = (props) => {
       const options = props.results.map(r => (
         <li key={r._id}>
@@ -74,7 +87,7 @@ class BeachSearch extends Component {
           ref={input => this.search = input}
           defaultValue={this.props.defaultValue}
           onChange={()=>this.handleInputChange()}
-          />
+        />
         {this.state.showItems && this.state.query
           ? <Suggestions results={this.state.results} />
           : null}
