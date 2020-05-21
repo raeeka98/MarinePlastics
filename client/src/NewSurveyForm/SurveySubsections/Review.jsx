@@ -1,3 +1,7 @@
+/**
+ * Review.jsx
+ * Code for the review page.
+ */
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
 import ASRowReview from '../TableRows/ASRowReview';
@@ -7,53 +11,54 @@ import {getDebrisMap} from '../debrisInfo';
 const debrisInfo = getDebrisMap();
 
 class Review extends Component {
-
-  componentDidMount() {
-    this.calculateFields();
-  }
-
-  calculateFields() {
-    
-  }
-
+  /**
+   * Capitalizes first character in word and makes all other characters lower
+   * case.
+   * @param {any} word
+   * @return word with first character upper case and rest of characters lower
+   * case
+   */
   toTitleCase(word) {
     return word.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
 
+  /**
+   * Based on the abbreviation for the wind direction given by direction,
+   * returns the full name of the direction.
+   * @param {any} direction
+   * @return full name of direction
+   */
   calculateWindDirection(direction) {
     switch (direction) {
       case 'n':
         return 'North';
-        break;
       case 'ne':
         return 'Northeast';
-        break;
       case 'e':
         return 'East';
-        break;
       case 'se':
         return 'Southeast';
-        break;
       case 's':
         return 'South';
-        break;
       case 'sw':
         return 'Southwest';
-        break;
       case 'w':
         return 'West';
-        break;
       case 'nw':
         return 'Northwest';
-        break;
       // should never be called
       default:
         return 'No wind';
     }
   }
 
+  /**
+   * JSX code for Review page, and code to calculate data to display in the
+   * Review page.
+   * @return the JSX code
+   */
   render() {
     var SRSRows = [];
     var ASRows = [];
