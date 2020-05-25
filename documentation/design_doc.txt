@@ -14,13 +14,15 @@ client/src/About/0.png
 Logo for Clean Oceans International (not used)
 
 client/src/About/About.js
-Code for the About page
+Code for the About page The About page explains the Marine Plastics Monitor and
+Clean Oceans International. It also has a link to the Clean Oceans International
+website.
 
 client/src/About/bottle.jpg
 Image of an empty plastic water bottle that appears on the About page
 
 client/src/About/COI.png
-Logo for Clean Oceans International that appears on the About page
+Logo for Clean Oceans International that appears on the About page.
 
 client/src/admin/AdminListChild.jsx
 
