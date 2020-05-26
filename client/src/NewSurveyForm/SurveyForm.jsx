@@ -75,6 +75,9 @@ class SurveyForm extends Component {
       email: this.auth.userProfile.email,
       userID: this.auth.userProfile.sub.split("|")[1],
       invalidForm: false,
+      invalidSRS: false,
+      invalidAS: false,
+      invalidMDS: false,
       autoFilledBeachData: null
     }
     this.moveToReview = this.moveToReview.bind(this);
@@ -284,7 +287,7 @@ class SurveyForm extends Component {
 
     //Check for fields that need just a single entry
     for (const id of requiredIDs) {
-      if (this.state.surveyData[id] === undefined) {
+      if (this.state.surveyData[id] === undefined || this.state.surveyData[id] === "") {
         invalid.push(displayIDs[id]);
         if (document.getElementById(id))
           document.getElementById(id).classList.add('invalidInput');
@@ -386,24 +389,43 @@ class SurveyForm extends Component {
    * been input by the user.
    */
   moveToReview() {
-    console.log("State variables");
-    console.log(this.state);
-
     const invalidInput = this.validateSurveyData();
     const SRSDataIsValid = this.validateSRSData();
     const ASDataIsValid = this.validateASData();
     const MDSDataIsValid = this.validateMDSData();
+
+    // gives invalid input in first two sections highest priority
     if (invalidInput && invalidInput.length) {
-      this.setState({ invalidForm: true });
+      this.setState({
+        invalidForm: true,
+        invalidSRS: false,
+        invalidAS: false,
+        invalidMDS: false
+      });
     }
     else if (SRSDataIsValid === false) {
-      this.setState({ invalidForm: true });
+      this.setState({
+        invalidForm: true,
+        invalidSRS: true,
+        invalidAS: false,
+        invalidMDS: false
+      });
     }
     else if (ASDataIsValid === false) {
-      this.setState({ invalidForm: true });
+      this.setState({
+        invalidForm: true,
+        invalidSRS: false,
+        invalidAS: true,
+        invalidMDS: false
+      });
     }
     else if (MDSDataIsValid === false) {
-      this.setState({ invalidForm: true });
+      this.setState({
+        invalidForm: true,
+        invalidSRS: false,
+        invalidAS: false,
+        invalidMDS: true
+      });
     }
     else {
       this.updateDisplayStringsAndCheckboxAnswers();
@@ -417,17 +439,53 @@ class SurveyForm extends Component {
   }
 
   /**
-   * Explains to use that they need to fill out the rest of the required fields.
+   * Explains to user what errors they need to correct in order to submit the
+   * survey.
    */
   showAlert() {
-    return (
-      <div className="uk-alert-danger uk-padding-small">
-        <p>
-          Whoops! Looks like you didn't fill out some required fields. Please
-          go back and fill them out.
+    if (this.state.invalidSRS) {
+      return (
+        <div className="uk-alert-danger uk-padding-small">
+          <p>
+            Whoops! Looks like some of the entries in the Surface Rib Scan
+            section are invalid. Please make sure they are only positive
+            integers or zero.
+          </p>
+        </div>
+      )
+    }
+    else if (this.state.invalidAS) {
+      return (
+        <div className="uk-alert-danger uk-padding-small">
+          <p>
+            Whoops! Looks like some of the entries in the Accumulation Survey
+            section are invalid. Please make sure they are only positive
+            integers or zero.
+          </p>
+        </div>
+      )
+    }
+    else if (this.state.invalidMDS) {
+      return (
+        <div className="uk-alert-danger uk-padding-small">
+          <p>
+            Whoops! Looks like some of the entries in the Micro Debris Survey
+            section are invalid. Please make sure they are only positive
+            integers or zero.
+          </p>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="uk-alert-danger uk-padding-small">
+          <p>
+            Whoops! Looks like you didn't fill out some required fields. Please
+            go back and fill them out.
         </p>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 
 /*
