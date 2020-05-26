@@ -14,91 +14,164 @@ client/src/About/0.png
 Logo for Clean Oceans International (not used)
 
 client/src/About/About.js
-Code for the About page The About page explains the Marine Plastics Monitor and
-Clean Oceans International. It also has a link to the Clean Oceans International
-website.
+Code for the about page. The about page explains the Marine Plastics Monitor and
+Clean Oceans International.
 
 client/src/About/bottle.jpg
-Image of an empty plastic water bottle that appears on the About page
+Image of an empty plastic water bottle that appears on the about page
 
 client/src/About/COI.png
-Logo for Clean Oceans International that appears on the About page.
+Logo for Clean Oceans International that appears on the about page
 
 client/src/admin/AdminListChild.jsx
+Shows on the admin page one entry in a list of current admins. Admins can remove
+admin privileges.
 
 client/src/admin/adminPage.css
+Style sheet for the admin page
 
 client/src/admin/AdminPage.jsx
+Code for the admin page. The admin page can only be viewed by users with admin
+privileges. It allows for admins to edit user privileges.
 
 client/src/admin/ProfileViewer.jsx
+Shows the profile for a user when an admin searches for a user by their email
 
 client/src/Footer/Footer.js
+The footer for all pages except the landing page. It is a link to the website
+for Clean Oceans International.
 
 client/src/Header/Header.css
+Style sheet for header for pages
 
 client/src/Header/Header.jsx
+The header for all pages except the landing page. Includes links to each of the
+pages the user is allowed to go to. These links include the link to the home
+page, the survey add survey page if the user is logged in, the protocol page,
+the about page, the admin page if the user is an admin, the profile page if the
+user is logged in, and either a link to log in or log out.
 
 client/src/Home/home.css
+Style sheet for the home page
 
 client/src/Home/Home.jsx
+Code for the home page. The home page has a list on the left side of the beaches
+where surveys have been conducted and submitted. On the right side is a map that
+shows the location of the different beaches. Users can search beaches, change
+how the beaches are ordered, or choose to only view the list of beaches or the
+map.
 
 client/src/Home/LocationBar.jsx
+Displays the list of beaches on the home page. Shows the coordinates of the
+beach. If the user clicks on the box of a beach, it shows a list of dates of the
+surveys that have been submitted, and a link to the location page for the beach.
 
 client/src/Landing/beach-edit.jpg
+The background picture that displays on the landing page. It is an image of
+waves on a beach.
 
 client/src/Landing/landing.css
+Style sheet for the landing page
 
 client/src/Landing/Landing.js
+Code for the landing page, which is the first page a user arrives to. It has a
+link for the user to either log in or continue as a guest, or just continue if
+the user is already logged in.
 
 client/src/Landing/nat_bridges.jpg
+Image of the ocean at natural bridges (not used)
 
 client/src/Location/Charts.jsx
+Histogram and pie chart describing the total amount of trash per type of survey
+found on a specific beach and the percentage of each type of debris,
+respectively. On the location page.
 
 client/src/Location/Location.jsx
+Code for the location page. Includes histogram, pie chart, and list of surveys
+made on the beach, given by the survey date. Also shows map of the beach
+location.
 
 client/src/Map/Map.css
+Style sheet for map
 
 client/src/Map/Map.js
+Code for Google Map used on home page and location page. Has markers displaying
+the locations of the beaches.
 
 client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx
+Code for the accumulation survey subsection of the add survey page
 
 client/src/NewSurveyForm/SurveySubsections/MicroDebrisSurvey.jsx
+Code for the micro debris survey subsection of the add survey page
 
 client/src/NewSurveyForm/SurveySubsections/Review.jsx
+Code for the review page. Allows users to review
+the information entered in the survey before submitting it.
 
 client/src/NewSurveyForm/SurveySubsections/SurfaceRibScan.jsx
+Code for the surface rib scan subsection of the add survey page
 
 client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx
+Code for the survey area subsection of the add survey page
 
 client/src/NewSurveyForm/SurveySubsections/TeamInformation.jsx
+Code for the team information subsection of the add survey page
 
 client/src/NewSurveyForm/SurveySubsections/Totals.jsx
+Code for the totals subsection of the add survey page
 
 client/src/NewSurveyForm/TableRows/AccumulationSurveyRow.jsx
+One row for the accumulation survey subsection
 
 client/src/NewSurveyForm/TableRows/ASRowReview.js
+One row for the data entered from the accumulation survey, in the review page
 
 client/src/NewSurveyForm/TableRows/MDSRowReview.js
+One row for the data entered from the micro debris survey, in the review page
 
 client/src/NewSurveyForm/TableRows/ReviewTable.js
+One row for the data entered from the surface rib scan, in the review page
 
 client/src/NewSurveyForm/TableRows/RibScanRow.jsx
+One row for the surface rib scan subsection
 
 client/src/NewSurveyForm/accordion-styles.css
+Style sheet for the accordion of survey subsections on the add survey page
 
 client/src/NewSurveyForm/BeachSearch.jsx
+The dropdown box of a list of beaches that have surveys submitted for
+autofilling information in the survey area subsection
 
 client/src/NewSurveyForm/debrisInfo.js
+List of the different types of debris for the surface rib scan and accumulation
+survey subsections
 
 client/src/NewSurveyForm/SurveyForm.jsx
+Code for the add survey page. It first shows an accordion of the different
+survey subsections and a review button. When the user clicks on the review
+button, if the data entered is invalid, a message at the top of the page
+explains what errors the user needs to fix. If the data entered is valid, the
+page then displays all of the information entered on a review page, along with
+a submit button at the bottom and a button at the top to go back to the input
+page to change the information entered. When the user clicks on the submit
+button, the survey is submitted to the database, a confirmation is displayed,
+along with a link to the home page and a button to add another survey.
 
 client/src/PageNotFound/notFound.css
+Style sheet for the page not found page
 
 client/src/PageNotFound/PageNotFound.js
+Code for the page not found page that explains that the user tried to access a
+page that doesn't exist. Also includes a link back to the home page.
 
 client/src/Protocol/COI.png
+Logo for Clean Oceans International on the protocol page
 
 client/src/Protocol/Protocol.js
+Code for the protocol page. Explains the importance of the project and why it is
+important to follow the protocol found in the link to the shoreline plastic
+monitoring field guide. also has a link to the most current data sheet to
+conduct a survey.
 
 client/src/SurveyEntry/editableTable.jsx
 
@@ -114,15 +187,33 @@ client/src/SurveyEntry/surveyEntryEdit.jsx
 
 client/src/SurveyEntry/SurveyTableRow.jsx
 
+client/src/Tests/__snapshots__/Review.test.js.snap
+Snapshot for testing rendering the Review component at
+client/src/NewSurveyForm/SurveySubsections/Review.jsx using
 client/src/Tests/Review.test.js
 
-client/src/Tests/SurveyForm.test.js
+client/src/Tests/Review.test.js
+Tests the Review component at
+client/src/NewSurveyForm/SurveySubsections/Review.jsx using
+client/src/Tests/Review-test-data.js
 
-client/src/Tests/test-data.js
+client/src/Tests/Review-test-data.js
+Test variables for client/src/Tests/Review.test.js
+
+client/src/Tests/SurveyForm.test.js
+Tests the methods in the SurveyForm component at
+client/src/NewSurveyForm/SurveyForm.jsx using
+client/src/Tests/SurveyForm-test-data.js
+
+client/src/Tests/SurveyForm-test-data.js
+Test variables for client/src/Tests/SurveyForm.test.js
 
 client/src/UserProfile/UserProfile.jsx
+Code for the profile page. Shows image for user, user's email, and a button to
+log out
 
 client/src/App.css
+Main style sheet for the website
 
 client/src/App.jsx
 The main component from which the website is rendered, and handles all of the
@@ -134,16 +225,24 @@ handles authentification as well as authorization and role checking, and
 obtaining profile information
 
 client/src/index.js
+First file that is run, which calls the App component from client/src/App.jsx.
+Controls whether or not the app allows user to work on it offline. Currently
+that option is disabled.
 
 client/src/serviceWorker.js
+Code that controls how the website runs in production
 
 pdfs/COIDataSheet_2020.pdf
+Most recent data sheet linked on the protocol page
 
 pdfs/COIDataSheet_4_16_19.pdf
+Outdated data sheet (not used)
 
 pdfs/COIDataSheet_Oct_24.pdf
+Outdated data sheet (not used)
 
 pdfs/ShorelinePlasticMonitoringFieldGuide.pdf
+Instructions on how to conduct a survey linked on the protocol page
 
 routes/auth0.js
 Handles user permission calls, role changes, and profile searches for admins
@@ -167,3 +266,5 @@ Defines the schemas used to store survey and beach data. If any changes need to
 be made to the form (excluding the debris types), it would need to be made here.
 
 server.js
+Sets up the different software parts of the app, including the database and
+linking
