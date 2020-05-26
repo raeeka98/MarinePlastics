@@ -11,7 +11,7 @@ import {
   testSurveyFormState2,
   testSurveyFormState3,
   testSurveyFormState4
-} from './test-data';
+} from './Review-test-data';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 import renderer from 'react-test-renderer';

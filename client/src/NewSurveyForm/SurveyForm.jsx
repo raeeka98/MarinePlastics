@@ -235,7 +235,7 @@ class SurveyForm extends Component {
    * submission.
    * @return ID's of invalid elements if invalid, if not, returns empty array;
    */
-  validate() {
+  validateSurveyData() {
     let invalid = [];
 
     const displayIDs = {
@@ -312,6 +312,68 @@ class SurveyForm extends Component {
   }
 
   /**
+   * Validates that entry is a positive integer.
+   * @param {any} entry
+   * @return true if entry is a positive integer, false otherwise
+   */
+  validateEntry(entry) {
+    // first check if empty string, which happens if non-number entered
+    if (entry === "") {
+      return false;
+    }
+
+    // number is invalid if not a number, is negative, or is a decimal
+    var entryNumber = Number(entry);
+    if (isNaN(entryNumber) || entryNumber < 0 ||
+      Math.trunc(entryNumber) !== entryNumber) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Validates that all the entries for the surface rib scan are valid.
+   * @return false if at least one entry is invalid, true otherwise
+   */
+  validateSRSData() {
+    // check each item in SRSData using validateEntry(entry)
+    for (var entry in this.state.SRSData) {
+      if (!this.validateEntry(this.state.SRSData[entry])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Validates that all the entries for the accumulation survey are valid.
+   * @return false if at least one entry is invalid, true otherwise
+   */
+  validateASData() {
+    // check each item in ASData using validateEntry(entry)
+    for (var entry in this.state.ASData) {
+      if (!this.validateEntry(this.state.ASData[entry])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Validates that all the entries for the micro debris survey are valid.
+   * @return false if at least one entry is invalid, true otherwise
+   */
+  validateMDSData() {
+    // check each item in MDSData using validateEntry(entry)
+    for (var entry in this.state.MDSData) {
+      if (!this.validateEntry(this.state.MDSData[entry])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
    * Alerts the user that they need to fill out a mandatory part of the form.
    * @param {any} ids
    */
@@ -324,9 +386,24 @@ class SurveyForm extends Component {
    * been input by the user.
    */
   moveToReview() {
-    const invalidInput = this.validate();
+    console.log("State variables");
+    console.log(this.state);
+
+    const invalidInput = this.validateSurveyData();
+    const SRSDataIsValid = this.validateSRSData();
+    const ASDataIsValid = this.validateASData();
+    const MDSDataIsValid = this.validateMDSData();
     if (invalidInput && invalidInput.length) {
-      this.setState({ invalidForm: true })
+      this.setState({ invalidForm: true });
+    }
+    else if (SRSDataIsValid === false) {
+      this.setState({ invalidForm: true });
+    }
+    else if (ASDataIsValid === false) {
+      this.setState({ invalidForm: true });
+    }
+    else if (MDSDataIsValid === false) {
+      this.setState({ invalidForm: true });
     }
     else {
       this.updateDisplayStringsAndCheckboxAnswers();
@@ -663,14 +740,8 @@ class SurveyForm extends Component {
    * @param {any} e
    */
   updateCheckedState(e) {
-    console.log("updateCheckedState(e) called");
-
     const key = e.target.id;
     const val = e.target.checked;
-
-    console.log("Key: " + key);
-    console.log("Val: " + val);
-
     this.setState(prevState => {
       prevState.surveyData[key] = val;
       return prevState;
@@ -687,7 +758,7 @@ class SurveyForm extends Component {
     this.setState(prevState => {
       prevState.SRSData[key] = val;
       return prevState;
-    })
+    });
   }
 
   /**

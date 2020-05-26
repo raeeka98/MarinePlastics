@@ -14,12 +14,12 @@ import {
   testSurveyFormSurveyData4,
   testSurveyFormSurveyData5,
   testSurveyFormSurveyData6,
-  updateDisplayStringExpected1,
-  updateDisplayStringExpected2,
-  updateDisplayStringExpected3,
-  updateDisplayStringExpected4,
-  updateDisplayStringExpected5,
-  updateDisplayStringExpected6,
+  updateDisplayStringAndCheckboxAnswersExpected1,
+  updateDisplayStringAndCheckboxAnswersExpected2,
+  updateDisplayStringAndCheckboxAnswersExpected3,
+  updateDisplayStringAndCheckboxAnswersExpected4,
+  updateDisplayStringAndCheckboxAnswersExpected5,
+  updateDisplayStringAndCheckboxAnswersExpected6,
   testSurveyFormForm1,
   testSurveyFormForm2,
   testSurveyFormForm3,
@@ -35,11 +35,26 @@ import {
   testSurveyFormStateMDS3,
   prepareFormMDSExpected1,
   prepareFormMDSExpected2,
-  prepareFormMDSExpected3
-} from './test-data';
+  prepareFormMDSExpected3,
+  validateSRSData1,
+  validateSRSData2,
+  validateSRSData3,
+  validateSRSData4,
+  validateSRSData5,
+  validateASData1,
+  validateASData2,
+  validateASData3,
+  validateASData4,
+  validateASData5,
+  validateMDSData1,
+  validateMDSData2,
+  validateMDSData3,
+  validateMDSData4,
+  validateMDSData5
+} from './SurveyForm-test-data';
 
-/*
-test("updateDisplayStrings() with one option selected each", () => {
+test("updateDisplayStringsAndCheckboxAnswers() 1 option selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -51,11 +66,12 @@ test("updateDisplayStrings() with one option selected each", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData1;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected1);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected1);
 });
 
-test("updateDisplayStrings() with two options selected each", () => {
+test("updateDisplayStringsAndCheckboxAnswers() 2 options selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -67,11 +83,12 @@ test("updateDisplayStrings() with two options selected each", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData2;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected2);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected2);
 });
 
-test("updateDisplayStrings() with other selected each", () => {
+test("updateDisplayStringsAndCheckboxAnswers() other selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -83,11 +100,12 @@ test("updateDisplayStrings() with other selected each", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData3;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected3);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected3);
 });
 
-test("updateDisplayStrings() with one option and other selected each", () => {
+test("updateDisplayStringsAndCheckboxAnswers() 1 option & other selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -99,11 +117,12 @@ test("updateDisplayStrings() with one option and other selected each", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData4;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected4);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected4);
 });
 
-test("updateDisplayStrings() with all options and other selected each", () => {
+test("updateDisplayStringsAndCheckboxAnswers() all options & other selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -115,11 +134,12 @@ test("updateDisplayStrings() with all options and other selected each", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData5;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected5);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected5);
 });
 
-test("updateDisplayStrings() without incomplete survey selected", () => {
+test("updateDisplayStringsAndCheckboxAnswers() no incomplete survey selected",
+  () => {
   var props = {
     auth: {
       userProfile: {
@@ -131,8 +151,8 @@ test("updateDisplayStrings() without incomplete survey selected", () => {
   };
   var surveyForm = new SurveyForm(props);
   surveyForm.state.surveyData = testSurveyFormSurveyData6;
-  expect(surveyForm.updateDisplayStrings())
-    .toEqual(updateDisplayStringExpected6);
+  expect(surveyForm.updateDisplayStringsAndCheckboxAnswers())
+    .toEqual(updateDisplayStringAndCheckboxAnswersExpected6);
 });
 
 test("prepare() creates the correct form", () => {
@@ -193,9 +213,7 @@ test("prepare() creates the correct form using incomplete survey", () => {
   var surveyForm = new SurveyForm(props);
   surveyForm.state = testSurveyFormState4;
   expect(surveyForm.prepareForm()).toEqual(testSurveyFormForm4);
-<<<<<<< HEAD
 });
-*/
 
 test("calcTotalsMDS() returns correct array with no micro debris data", () => {
   var props = {
@@ -241,7 +259,6 @@ test("calcTotalsMDS() returns correct array with micro debris nonzero", () => {
   surveyForm.state.MDSData = testSurveyFormMDSData3;
   expect(surveyForm.calcTotalsMDS()).toEqual(calcTotalsMDSExpected3);
 });
-
 
 test("prepareForm() returns correct object with no micro debris data", () => {
   var props = {
@@ -478,4 +495,299 @@ test("updateMDS(e) updates weathered rib 4", () => {
   };
   surveyForm.updateMDS(e);
   expect(surveyForm.state.MDSData).toEqual(expectedMDSData)
+});
+
+test("validateEntry(entryNumber) for a letter", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  expect(surveyForm.validateEntry("s")).toBeFalsy();
+});
+
+test("validateEntry(entryNumber) for a negative number", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  expect(surveyForm.validateEntry("-1")).toBeFalsy();
+});
+
+test("validateEntry(entryNumber) for a decimal", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  expect(surveyForm.validateEntry("2.3")).toBeFalsy();
+});
+
+test("validateEntry(entryNumber) for 0", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  expect(surveyForm.validateEntry("0")).toBeTruthy();
+});
+
+test("validateEntry(entryNumber) for a positive number", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  expect(surveyForm.validateEntry("4")).toBeTruthy();
+});
+
+test("validateSRSData() for no items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.SRSData = validateSRSData1;
+  expect(surveyForm.validateSRSData()).toBeTruthy();
+});
+
+test("validateSRSData() for one valid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.SRSData = validateSRSData2;
+  expect(surveyForm.validateSRSData()).toBeTruthy();
+});
+
+test("validateSRSData() for one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.SRSData = validateSRSData3;
+  expect(surveyForm.validateSRSData()).toBeFalsy();
+});
+
+test("validateSRSData() for one valid item and one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.SRSData = validateSRSData4;
+  expect(surveyForm.validateSRSData()).toBeFalsy();
+});
+
+test("validateSRSData() for three valid items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.SRSData = validateSRSData5;
+  expect(surveyForm.validateSRSData()).toBeTruthy();
+});
+
+test("validateASData() for no items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.ASData = validateASData1;
+  expect(surveyForm.validateASData()).toBeTruthy();
+});
+
+test("validateASData() for one valid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.ASData = validateASData2;
+  expect(surveyForm.validateASData()).toBeTruthy();
+});
+
+test("validateASData() for one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.ASData = validateASData3;
+  expect(surveyForm.validateASData()).toBeFalsy();
+});
+
+test("validateASData() for one valid item and one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.ASData = validateASData4;
+  expect(surveyForm.validateASData()).toBeFalsy();
+});
+
+test("validateASData() for three valid items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.ASData = validateASData5;
+  expect(surveyForm.validateASData()).toBeTruthy();
+});
+
+test("validateMDSData() for no items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = validateMDSData1;
+  expect(surveyForm.validateMDSData()).toBeTruthy();
+});
+
+test("validateMDSData() for one valid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = validateMDSData2;
+  expect(surveyForm.validateMDSData()).toBeTruthy();
+});
+
+test("validateMDSData() for one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = validateMDSData3;
+  expect(surveyForm.validateMDSData()).toBeFalsy();
+});
+
+test("validateMDSData() for one valid item and one invalid item", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = validateMDSData4;
+  expect(surveyForm.validateMDSData()).toBeFalsy();
+});
+
+test("validateMDSData() for three valid items", () => {
+  var props = {
+    auth: {
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
+  };
+  var surveyForm = new SurveyForm(props);
+  surveyForm.state.MDSData = validateMDSData5;
+  expect(surveyForm.validateMDSData()).toBeTruthy();
 });
