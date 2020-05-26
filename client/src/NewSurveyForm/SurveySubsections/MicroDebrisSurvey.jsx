@@ -38,7 +38,7 @@ class MicroDebrisSurvey extends Component {
                 type="number"
                 min="0"
                 id={"microFreshTotalRib1"}
-                value={this.props.data.microFreshTotalRib1 || 0}
+                defaultValue={this.props.data.microFreshTotalRib1 || 0}
                 className="uk-input"
                 onChange={this.props.updateMDS}
               />
