@@ -165,7 +165,7 @@ Logo for Clean Oceans International on the protocol page
 client/src/Protocol/Protocol.js
 Code for the protocol page. Explains the importance of the project and why it is
 important to follow the protocol found in the link to the shoreline plastic
-monitoring field guide. also has a link to the most current data sheet to
+monitoring field guide. Also has a link to the most current data sheet to
 conduct a survey.
 
 client/src/SurveyEntry/editableTable.jsx
