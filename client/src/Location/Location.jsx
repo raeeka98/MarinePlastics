@@ -1,9 +1,15 @@
+/**
+ * Location.jsx
+ * Code for the location page. Includes histogram, pie chart, and list of
+ * surveys made on the beach, given by the survey date. Also shows map of the
+ * beach location.
+ */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
-import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
+import { getDebrisMap } from '../NewSurveyForm/debrisInfo';
 // to get the pin styles
 import '../Map/Map.css';
 
@@ -12,8 +18,7 @@ const debrisInfo = getDebrisMap();
 class Location extends Component {
   constructor(props) {
     super(props);
-    // the data is passed from ../Home/Home.js from the Link
-    // this.props.location.state is where the Link passes the state to
+    // data is passed from ../Home/Home.js from the link to this page
     let beachData = this.props.location.state.data;
     let userProfile = this.props.location.state.userProfile;
 
@@ -28,34 +33,29 @@ class Location extends Component {
     this.getLatLon = this.getLatLon.bind(this);
   }
 
-  /*
-   * getStats():
-   *  This function gets all the survey IDs using the given location's ID.
-   *  Once it gets the survey IDs, it will then loop through each ID to obtain the actual
-   *  survey contents that are stored in the database. These will be used for displaying the
-   *  chart data as well as provide the data when the use clicks the links on the side of
-   *  the page.
-   *
-   *  Arguments: none (retrieves beach IDs stored in state)
-   *
-   *  Returns: No return values, but it will store an array of survey information in this.state.surveys
-   *
-   *  Raises: none
-  */
+  /**
+   * Gets all the survey IDs using the given location's ID. Once it gets the
+   * survey IDs, it will then loop through each ID to obtain the actual survey
+   * contents that are stored in the database. These will be used for
+   * displaying the chart data as well as provide the data when the user clicks
+   * the links on the side of the page. Stores array of survey information in
+   * state.
+   */
   getStats = () => {
     axios.get(`/beaches/${this.state.beachData._id}`)
       .then(res => {
         this.setState({ surveyIDs: res.data });
       })
       .then(() => {
-        //Here, we're gonna need to make a promise so that we'll get the surveys in order
+        // make a promise so that we'll get the surveys in order
         let promise = [];
         let trueSurveys = [];
         for (var i = 0; i < this.state.surveyIDs.length; i++) {
-          promise.push(axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
+          promise.push(
+            axios.get(`/beaches/surveys/${this.state.surveyIDs[i].survey}`));
 
         }
-        // Then, take that promise and fill the surveys field in the correct order
+        // take that promise and fill the surveys field in the correct order
         axios.all(promise)
           .then((response) => {
             response.map(res => {
@@ -65,7 +65,7 @@ class Location extends Component {
           })
           .then(() => this.setState({ surveys: trueSurveys }));
       });
-    // Then, grab the stats for the beach
+    // then, grab the stats for the beach
     axios.get(`/beaches/${this.state.beachData._id}/stats`)
       .then(res => {
         var categories = res.data.typesOfDebrisFound;
@@ -88,6 +88,9 @@ class Location extends Component {
 
   }
 
+  /**
+   * Gets the latitude and longitude for the beach.
+   */
   getLatLon() {
     axios.get(`/beaches/${this.state.beachData._id}/coords`)
       .then(res => {
@@ -99,6 +102,9 @@ class Location extends Component {
 
   }
 
+  /**
+   * When the component mounts, calls getStats() getLatLon(), if needed.
+   */
   componentDidMount() {
     this.getStats();
     // There's no latitude or longitude, we need to fetch it from the server
@@ -108,7 +114,10 @@ class Location extends Component {
 
   }
 
-
+  /**
+   * Creates JSX code to render the location page.
+   * @return JSX code
+   */
   render() {
     let { lat, lon, name: beachName } = this.state.beachData;
     let surveys = [];
@@ -124,8 +133,14 @@ class Location extends Component {
             to={{
               pathname: `/surveys/${entry._id.replace(' ', '-')}`,
               state: {
-                beachName: this.state.beachData.n, surveyID: entry._id, info: this.state.beachData,
-                userProfile: this.state.userProfile/*, getUserProfile: this.state.getUserProfile, isAuth:this.state.isAuth*/
+                beachName: this.state.beachData.n,
+                surveyID: entry._id,
+                info: this.state.beachData,
+                userProfile: this.state.userProfile
+                /**
+                 * getUserProfile: this.state.getUserProfile, 
+                 * isAuth:this.state.isAuth
+                 */
               }
             }}>
 
@@ -141,10 +156,13 @@ class Location extends Component {
       return isInRange;
     }
     // the marker for the location on the map
-    const CustomMarker = ({ name }) => <div className="custom-marker"><p>{name}</p></div>;
+    const CustomMarker = ({ name }) =>
+      <div className="custom-marker"><p>{name}</p></div>;
     return (
       <div className="uk-container">
-        <h1 className="uk-text-primary uk-heading-primary">{this.state.beachData.n}</h1>
+        <h1 className="uk-text-primary uk-heading-primary">
+          {this.state.beachData.n}
+        </h1>
         <div className="uk-grid uk-grid-match">
           <ColumnChart chartData={this.state.surveys} />
           <div className="uk-width-1-4">
@@ -168,24 +186,29 @@ class Location extends Component {
           <div className='uk-grid-margin uk-width-1-3'>
             {
               lat && lon && checkRange(lat, true) && checkRange(lon, false) ?
-                (<div style={{ height: '550px', width: '500px' }} className="uk-card uk-card-default uk-card-body">
-                  <GoogleMapReact
-                    defaultCenter={{
-                      lat: lat,
-                      lng: lon,
-                    }}
-                    defaultZoom={13}
-                    bootstrapURLKeys={{
-                      key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
-                    }}
+                (
+                  <div
+                    style={{ height: '550px', width: '500px' }}
+                    className="uk-card uk-card-default uk-card-body"
                   >
-                    <CustomMarker
-                      lat={lat}
-                      lng={lon}
-                      name={beachName}
-                    />
-                  </GoogleMapReact>
-                </div>) : null
+                    <GoogleMapReact
+                      defaultCenter={{
+                        lat: lat,
+                        lng: lon,
+                      }}
+                      defaultZoom={13}
+                      bootstrapURLKeys={{
+                        key: ['AIzaSyC0KMFMCzYY0TZKQSSGyJ7gDW6dfBIDIDA']
+                      }}
+                    >
+                      <CustomMarker
+                        lat={lat}
+                        lng={lon}
+                        name={beachName}
+                      />
+                    </GoogleMapReact>
+                  </div>
+                ) : null
             }
           </div>
           <div className="uk-grid-margin uk-width-2-3">
