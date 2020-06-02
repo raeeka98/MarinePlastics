@@ -1,6 +1,17 @@
+/**
+ * Protocol.js
+ * Code for the protocol page. Explains the importance of the project and why
+ * it is important to follow the protocol found in the link to the shoreline
+ * plastic monitoring field guide. Also has a link to the most current data
+ * sheet to conduct a survey.
+ */
 import React from 'react';
 import coi from './COI.png'
 
+/**
+ * Creates protocol page.
+ * @return JSX code for protocol page
+ */
 export function ProtocolPage() {
   return (
     <div className= "uk-padding uk-padding-remove-vertical">
