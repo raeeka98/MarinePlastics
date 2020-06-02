@@ -10,9 +10,6 @@ client/src/SurveyEntry/SurveyCharts.jsx
 client/src/_helpers/SortHelper.js
 Helper functions for client/src/Home/Home.jsx
 
-client/src/About/0.png
-Logo for Clean Oceans International (not used)
-
 client/src/About/About.js
 Code for the about page. The about page explains the Marine Plastics Monitor and
 Clean Oceans International.
@@ -77,9 +74,6 @@ client/src/Landing/Landing.js
 Code for the landing page, which is the first page a user arrives to. It has a
 link for the user to either log in or continue as a guest, or just continue if
 the user is already logged in.
-
-client/src/Landing/nat_bridges.jpg
-Image of the ocean at natural bridges (not used)
 
 client/src/Location/Charts.jsx
 Histogram and pie chart describing the total amount of trash per type of survey
@@ -234,12 +228,6 @@ Code that controls how the website runs in production
 
 pdfs/COIDataSheet_2020.pdf
 Most recent data sheet linked on the protocol page
-
-pdfs/COIDataSheet_4_16_19.pdf
-Outdated data sheet (not used)
-
-pdfs/COIDataSheet_Oct_24.pdf
-Outdated data sheet (not used)
 
 pdfs/ShorelinePlasticMonitoringFieldGuide.pdf
 Instructions on how to conduct a survey linked on the protocol page
