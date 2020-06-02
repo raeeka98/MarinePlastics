@@ -57,8 +57,8 @@ class AdminPage extends Component {
         })
         .catch(err => {
           this.setState({ loading: false });
-        })
-    })
+        });
+    });
   }
 
   /**
@@ -102,7 +102,7 @@ class AdminPage extends Component {
         >
           Search
         </button>
-    )
+    );
   }
 
   /**
@@ -137,7 +137,7 @@ class AdminPage extends Component {
         "uk-button uk-button-default uk-button-primary uk-margin-small-top"
       >
         Give Admin Privileges
-      </button>
+      </button>;
   }
 
   /**
@@ -174,11 +174,11 @@ class AdminPage extends Component {
     } else if (!profile && !loading) {
       return (
         <div><b>NO PROFILE FOUND</b></div>
-      )
+      );
     } else {
       return (
         <div><b>LOADING PROFILE</b></div>
-      )
+      );
     }
   }
 
@@ -202,7 +202,7 @@ class AdminPage extends Component {
               [...this.state.admins, this.state.currFoundUser];
             this.setState({ currFoundUser: user, admins: newAdminList });
           }
-        })
+        });
     }
   }
 
@@ -246,7 +246,7 @@ class AdminPage extends Component {
     })
       .then(({ data }) => {
         this.setState({ admins: data });
-      })
+      });
   }
 
   /**
@@ -260,10 +260,10 @@ class AdminPage extends Component {
     if (!admins) {
       return (
         <b>OBTAINING ADMINS</b>
-      )
+      );
     }
     return admins.map(user => {
-      if (user.name === "Marine Plastics") { return null }
+      if (user.name === "Marine Plastics") { return null; }
       return (
         <AdminListChild
           key={user.user_id}
@@ -271,8 +271,8 @@ class AdminPage extends Component {
           removePriv={this.removePriv}
           viewProf={this.viewProfBtn}
         />
-      )
-    })
+      );
+    });
   }
 
   /**
