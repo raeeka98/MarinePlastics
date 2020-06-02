@@ -1,4 +1,15 @@
-export function sumDebrisTypes (surveys) {
+/**
+ * ChartHelpers.js
+ * Functions used in ../Location/Charts.jsx.
+ */
+
+/**
+ * Adds fresh and weathered for each type of debris and puts in object res.
+ * Only does this for SRS and is not used.
+ * @param {any} surveys
+ * @return res
+ */
+export function sumDebrisTypes(surveys) {
     let res = {};
     for (const survey in surveys) {
         const srsDebris = surveys[survey].SRSDebris;
@@ -13,7 +24,14 @@ export function sumDebrisTypes (surveys) {
     return res;
 }
 
-export function sumTotals (surveys, isSRS) {
+/**
+ * Sums the total debris for each survey and creates object res, which maps
+ * survey date with its total debris. The total debris calculated is for SRS if
+ * isSRS is true, and AS if isSRS is false.
+ * @params {any} surveys, {any} isSRS
+ * @return res
+ */
+export function sumTotals(surveys, isSRS) {
     let res = {};
     let date = new Date(0);
     let attr = isSRS ? 'SRSDebris' : 'ASDebris';
@@ -30,10 +48,15 @@ export function sumTotals (surveys, isSRS) {
         }
     }
     return res;
-
 }
 
-export function getTotalPounds (data) {
+/**
+ * Calculates the total weight in pounds in data and puts it in res. This
+ * function is unused.
+ * @param {any} data
+ * @return res
+ */
+export function getTotalPounds(data) {
     let res = 0;
     for (let i = 0; i < data.length; i++) {
         if (data[i].weight) res += data[i].weight;
