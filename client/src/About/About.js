@@ -16,7 +16,10 @@ export function AboutPage() {
     <div>
       <div
         className=
-        "uk-width-1-1 uk-padding-large uk-padding-remove-bottom uk-flex uk-flex-row"
+        "uk-width-1-1 
+        uk-padding-large
+        uk-padding-remove-bottom
+        uk-flex uk-flex-row"
       >
         <div className="uk-width-1-4">
           <img
