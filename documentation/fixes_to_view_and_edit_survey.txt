@@ -1,0 +1,4 @@
+This lists the changes made to fix the location, survey, and survey edit pages.
+
+1. Edited sumTotals(surveys, type) to be able to calculate total micro debris.
+2. 
