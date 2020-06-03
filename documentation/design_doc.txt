@@ -169,18 +169,32 @@ monitoring field guide. Also has a link to the most current data sheet to
 conduct a survey.
 
 client/src/SurveyEntry/editableTable.jsx
+Creates table for data on surface rib scan or accumulation survey, where user
+can edit the data. Used in surveyEntryEdit.jsx.
 
 client/src/SurveyEntry/SurveyCharts.jsx
+Creates bar chart and pie chart to display on survey page. Uses 
+../_helpers/ChartHelpers.js. Used in SurveyEntry.jsx.
 
 client/src/SurveyEntry/surveyEdit.css
+Style sheet for the survey edit page
 
 client/src/SurveyEntry/surveyEntry.css
+Style sheet for the survey edit page and the survey page
 
 client/src/SurveyEntry/SurveyEntry.jsx
+Code for the survey page that displays all of the data on a survey, including a
+pie chart showing the percentages of each type of data for the surface rib scan
+or the accumulation survey. Uses SurveyCharts.jsx and SurveyTableRow.jsx.
 
 client/src/SurveyEntry/surveyEntryEdit.jsx
+Code for survey edit page, that allows users to edit the survey. Accessible by
+clicking on the edit survey button in the survey page. Uses editableTable.jsx
+and SurveyTableRow.jsx. 
 
 client/src/SurveyEntry/SurveyTableRow.jsx
+Code to create a row for the surface rib scan or accumulation survey data. Used
+by SurveyEntry.jsx and surveyEntryEdit.jsx.
 
 client/src/Tests/__snapshots__/Review.test.js.snap
 Snapshot for testing rendering the Review component at
