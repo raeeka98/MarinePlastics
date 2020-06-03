@@ -33,7 +33,7 @@ class SurveyTableRow extends Component {
    */
   render() {
     return (
-      <tr >
+      <tr>
         <td className={this.props.edit ? "editable" : null}>
           {this.props.edit ?
             <span

@@ -396,10 +396,12 @@ class SurveyEntry extends Component {
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
+    let MDSRow = [];
 
     // if there is data (which is once the component mounts)
-    if (this.state.surveyData.SRSDebris) {
-      let { SRSDebris, ASDebris } = this.state.surveyData;
+    if (this.state.surveyData.SRSDebris || this.state.surveyData.ASDebris ||
+      this.state.surveyData.MicroDebris) {
+      let { SRSDebris, ASDebris, MicroDebris } = this.state.surveyData;
       // for each type of trash, return surveyTableRow component with the data
       for (const trash in SRSDebris) {
         const trashData = SRSDebris[trash];
@@ -425,10 +427,26 @@ class SurveyEntry extends Component {
         );
       }
 
+      const mdsData = MicroDebris['microDebris'];
+      if (mdsData) {
+        MDSRow.push(
+          <tr>
+            <td>
+              {mdsData.fresh}
+            </td>
+            <td>
+              {mdsData.weathered}
+            </td>
+          </tr>
+        );
+      }
+
       document.getElementById('SRS-section').style.display =
         this.state.surveyData.SRSDebris ? 'block' : 'none';
       document.getElementById('AS-section').style.display =
         this.state.surveyData.ASDebris ? 'block' : 'none';
+      document.getElementById('MDS-section').style.display =
+        this.state.surveyData.MicroDebris ? 'block' : 'none';
     }
 
     if (this.state.surveyData.weight || this.state.surveyData.numOfP) {
@@ -701,6 +719,26 @@ class SurveyEntry extends Component {
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+
+        {/* MDS SECTION */}
+        <div id="MDS-section" style={{ display: 'none' }}>
+          <div
+            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+          >
+            <h3>Micro Debris Survey</h3>
+            <table className="uk-table uk-table-striped">
+              <thead>
+                <tr>
+                  <th>Amount Fresh</th>
+                  <th>Amount Weathered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MDSRow}
+              </tbody>
+            </table>
           </div>
         </div>
 
