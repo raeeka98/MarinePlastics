@@ -4,3 +4,5 @@ This lists the changes made to fix the location, survey, and survey edit pages.
    able to calculate total micro debris.
 2. Edited all methods in client/src/Location/Charts.jsx and added new method
    showBarData() to show a bar chart for micro debris data.
+3. Edited all methods in client/src/SurveyEntry/SurveyCharts.jsx and added new
+   method showBarData() to show a bar chart for micro debris data.

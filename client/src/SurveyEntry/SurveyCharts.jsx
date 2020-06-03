@@ -13,10 +13,11 @@ class ColumnChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSRSData: true,
-      srsBarData: sumTotals(this.props.chartData, true),
-      asBarData: sumTotals(this.props.chartData, false)
-    }
+      showData: 'srs',
+      srsBarData: sumTotals(this.props.chartData, 'SRS'),
+      asBarData: sumTotals(this.props.chartData, 'AS'),
+      mdsBarData: sumTotals(this.props.chartData, 'MDS')
+    };
   }
 
   /**
@@ -27,8 +28,9 @@ class ColumnChart extends Component {
    */
   componentWillReceiveProps({ chartData }) {
     this.setState({
-      srsBarData: sumTotals(chartData, true),
-      asBarData: sumTotals(chartData, false)
+      srsBarData: sumTotals(chartData, 'SRS'),
+      asBarData: sumTotals(chartData, 'AS'),
+      mdsBarData: sumTotals(chartData, 'MDS')
     });
   }
 
@@ -37,7 +39,25 @@ class ColumnChart extends Component {
    * accumulation survey.
    */
   changeBarGraph = (e) => {
-    this.setState({ showSRSData: e.target.value === 'srs' });
+    this.setState({ showData: e.target.value });
+  }
+
+  /**
+   * Determines which survey to show data on in the bar chart, based on what
+   * the user selected.
+   * @return the correct bar data
+   */
+  showBarData = () => {
+    switch (this.state.showData) {
+      case 'srs':
+        return this.state.srsBarData;
+      case 'as':
+        return this.state.asBarData;
+      case 'mds':
+        return this.state.mdsBarData;
+      default:
+        return {};
+    }
   }
 
   /**
@@ -59,11 +79,11 @@ class ColumnChart extends Component {
           >
             <option value="srs">in Surface Rib Scan Surveys</option>
             <option value="as">in Accumulation Sweep Surveys</option>
+            <option value="mds">in Micro Debris Surveys</option>
           </select>
           <div className="uk-align-center" style={{ width: '45vw' }}>
             <BarChart
-              data={this.state.showSRSData ? this.state.srsBarData :
-                this.state.asBarData}
+              data={this.showBarData()}
               library={{ animation: { animateScale: true } }}
             />
           </div>
