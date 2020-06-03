@@ -35,7 +35,7 @@ export function sumTotals(surveys, type) {
   let res = {};
   let date = new Date(0);
   let attr = '';
-  switch (type) {
+  switch(type) {
     case 'SRS':
       attr = 'SRSDebris';
       break;

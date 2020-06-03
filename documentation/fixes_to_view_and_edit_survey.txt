@@ -1,4 +1,6 @@
 This lists the changes made to fix the location, survey, and survey edit pages.
 
-1. Edited sumTotals(surveys, type) to be able to calculate total micro debris.
-2. 
+1. Edited sumTotals(surveys, type) in client/src/_helpers/ChartHelpers.js to be
+   able to calculate total micro debris.
+2. Edited all methods in client/src/Location/Charts.jsx and added new method
+   showBarData() to show a bar chart for micro debris data.
