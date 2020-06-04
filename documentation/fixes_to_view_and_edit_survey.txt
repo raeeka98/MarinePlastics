@@ -8,3 +8,5 @@ This lists the changes made to fix the location, survey, and survey edit pages.
    method showBarData() to show a bar chart for micro debris data.
 4. Added information on micro debris to display on survey page by modifying
    render() in client/src/SurveyEntry/SurveyEntry.jsx.
+5. Added information on micro debris to display but not yet edit on survey edit
+   page by modifying constructor(props), save(), and render().

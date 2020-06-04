@@ -147,6 +147,18 @@ let surveys = {
           (oldVal[1].fresh + oldVal[1].weathered);
       }
     });
+    // calculates what the types of trash for the beach should now be
+    oldASDebris.forEach(oldVal => {
+      let index = newASDebris.findIndex(val => val[0] === oldVal[0]);
+      if (index == -1) {
+        updatePayload.newDebrisData[oldVal[0]] =
+          -oldVal[1].fresh - oldVal[1].weathered;
+      } else {
+        updatePayload.newDebrisData[oldVal[0]] =
+          (newASDebris[index][1].fresh + newASDebris[index][1].weathered) -
+          (oldVal[1].fresh + oldVal[1].weathered);
+      }
+    });
     // not sure, but I think ASDebris should also be accounted for
     oldMicroDebris.forEach(oldVal => {
       let index = newMicroDebris.findIndex(val => val[0] === oldVal[0]);

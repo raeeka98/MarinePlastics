@@ -26,7 +26,7 @@ class SurveyEntryEdit extends Component {
     let asOptions = debrisNames;
 
     let srsDebris = [], asDebris = [];
-    let { SRSDebris, ASDebris } = props.location.state.surveyData;
+    let { SRSDebris, ASDebris, MicroDebris } = props.location.state.surveyData;
     for (const trashID in SRSDebris) {
       const trashData = SRSDebris[trashID];
       const trashName = debrisInfo[trashID];
@@ -40,6 +40,9 @@ class SurveyEntryEdit extends Component {
       asDebris.push({ trashName, trashID, ...trashData });
     }
 
+    // not creating an array, since only one object
+    const mdsDebris = MicroDebris['microDebris'];
+
     this.state = {
       surveyData: props.location.state.surveyData,
       beachName: props.location.state.beachName,
@@ -48,8 +51,10 @@ class SurveyEntryEdit extends Component {
       newData: {},
       origSRSDebris: [...srsDebris],
       origASDebris: [...asDebris],
+      origMDSDebris: mdsDebris,
       srsDebris,
       asDebris,
+      mdsDebris,
       asOptions,
       srsOptions,
       editedSurveyData: false
@@ -191,6 +196,8 @@ class SurveyEntryEdit extends Component {
    * Updates database with new changes to survey.
    */
   save = () => {
+    console.log("save() called");
+
     let newASDebris = [];
     this.state.asDebris.forEach(val => {
       newASDebris.push([val.trashID, {
@@ -214,15 +221,49 @@ class SurveyEntryEdit extends Component {
       fresh: val.fresh,
       weathered: val.weathered
     }]);
+
+    // for micro debris
+    let newMicroDebris = [
+      [
+        "microDebris",
+        {
+          fresh: this.state.mdsDebris.fresh,
+          weathered: this.state.mdsDebris.weathered
+        }
+      ]
+    ];
+
+    let oldMicroDebris = [
+      [
+        "microDebris",
+        {
+          fresh: this.state.origMDSDebris.fresh,
+          weathered: this.state.origMDSDebris.weathered
+        }
+      ]
+    ];
+
     let finalData = {
       newSRSDebris,
       newASDebris,
+      newMicroDebris,
       oldSRSDebris,
       oldASDebris,
+      oldMicroDebris,
       changedInfo: { ...this.state.newData }
     }
+
+    let userID = this.state.userProfile ?
+      this.state.userProfile.sub : undefined;
+
+    console.log("finalData");
+    console.log(finalData);
+
     axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
       finalData, {
+        params: {
+          userID
+        },
         headers: {
           Authorization: `Bearer ${this.props.auth.getAccessToken()}`
         }
@@ -257,6 +298,7 @@ class SurveyEntryEdit extends Component {
     // initializes to null because when component mounts, there is no data yet
     let SRSRows = [];
     let ASRows = [];
+    let MDSRow = [];
 
     // if there is data (which is once the component mounts)
     // for every type of trash, return a surveyTableRow component with the data
@@ -276,7 +318,6 @@ class SurveyEntryEdit extends Component {
       );
     });
 
-
     this.state.srsDebris.forEach(debrisData => {
       SRSRows.push(
         <SurveyTableRow
@@ -292,6 +333,31 @@ class SurveyEntryEdit extends Component {
         />
       );
     })
+
+    const mdsDebris = this.state.mdsDebris;
+    // if there is any micro debris data
+    if (mdsDebris) {
+      MDSRow.push(
+        <tr>
+          <td>
+            <input
+              className="uk-input uk-form-small"
+              type="number"
+              name="fresh"
+              defaultValue={mdsDebris.fresh}
+            />
+          </td>
+          <td>
+            <input
+              className="uk-input uk-form-small"
+              type="number"
+              name="weathered"
+              defaultValue={mdsDebris.weathered}
+            />
+          </td>
+        </tr>
+      )
+    }
 
     return (
       <div className="uk-container">
@@ -697,6 +763,27 @@ class SurveyEntryEdit extends Component {
             rows={ASRows}
           />
         </div>
+
+        {/* MDS SECTION */}
+        <div id="MDS-section">
+          <div
+            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+          >
+            <h3>Micro Debris Survey</h3>
+            <table className="uk-table uk-table-striped">
+              <thead>
+                <tr>
+                  <th>Amount Fresh</th>
+                  <th>Amount Weathered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MDSRow}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <button className="uk-button button-active" onClick={this.save}
           data-uk-toggle="target: #modal">
           Save Edits
