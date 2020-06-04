@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import {
-  getDebrisMap,
+  getAllDebrisMap,
   debrisNames,
   getDebrisID
 } from '../NewSurveyForm/debrisInfo';
@@ -17,7 +17,7 @@ import EditableTable from './editableTable';
 import './surveyEntry.css';
 import './surveyEdit.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebrisMap();
 
 class SurveyEntryEdit extends Component {
   constructor(props) {
@@ -40,8 +40,12 @@ class SurveyEntryEdit extends Component {
       asDebris.push({ trashName, trashID, ...trashData });
     }
 
+    const mdsDebris = {};
+
     // not creating an array, since only one object
-    const mdsDebris = MicroDebris['microDebris'];
+    if (MicroDebris && MicroDebris['microDebris']) {
+      mdsDebris = MicroDebris['microDebris'];
+    }
 
     this.state = {
       surveyData: props.location.state.surveyData,
@@ -223,25 +227,30 @@ class SurveyEntryEdit extends Component {
     }]);
 
     // for micro debris
-    let newMicroDebris = [
-      [
-        "microDebris",
-        {
-          fresh: this.state.mdsDebris.fresh,
-          weathered: this.state.mdsDebris.weathered
-        }
-      ]
-    ];
+    let newMicroDebris = [];
+    let oldMicroDebris = [];
 
-    let oldMicroDebris = [
-      [
-        "microDebris",
-        {
-          fresh: this.state.origMDSDebris.fresh,
-          weathered: this.state.origMDSDebris.weathered
-        }
-      ]
-    ];
+    if (this.state.mdsDebris.fresh || this.state.mdsDebris.weathered) {
+      newMicroDebris = [
+        [
+          "microDebris",
+          {
+            fresh: this.state.mdsDebris.fresh,
+            weathered: this.state.mdsDebris.weathered
+          }
+        ]
+      ];
+
+      oldMicroDebris = [
+        [
+          "microDebris",
+          {
+            fresh: this.state.origMDSDebris.fresh,
+            weathered: this.state.origMDSDebris.weathered
+          }
+        ]
+      ];
+    }
 
     let finalData = {
       newSRSDebris,

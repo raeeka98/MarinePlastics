@@ -8,12 +8,12 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { PieChart } from './SurveyCharts'
-import { getDebrisMap } from '../NewSurveyForm/debrisInfo'
+import { getAllDebrisMap } from '../NewSurveyForm/debrisInfo'
 
 import SurveyTableRow from './SurveyTableRow';
 import './surveyEntry.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebrisMap();
 
 class SurveyEntry extends Component {
   constructor(props) {
@@ -427,18 +427,21 @@ class SurveyEntry extends Component {
         );
       }
 
-      const mdsData = MicroDebris['microDebris'];
-      if (mdsData) {
-        MDSRow.push(
-          <tr>
-            <td>
-              {mdsData.fresh}
-            </td>
-            <td>
-              {mdsData.weathered}
-            </td>
-          </tr>
-        );
+      // failsafe since surveys use to not have micro debris
+      if (MicroDebris && MicroDebris['microDebris']) {
+        const mdsData = MicroDebris['microDebris'];
+        if (mdsData) {
+          MDSRow.push(
+            <tr>
+              <td>
+                {mdsData.fresh}
+              </td>
+              <td>
+                {mdsData.weathered}
+              </td>
+            </tr>
+          );
+        }
       }
 
       document.getElementById('SRS-section').style.display =
@@ -495,7 +498,7 @@ class SurveyEntry extends Component {
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <p><strong>Team Leader:</strong>
+              <p><strong>Team Leader: </strong>
                 {this.state.surveyData.user ? this.state.surveyData.user.f
                 + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
@@ -509,7 +512,7 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.numOfP !== 0 ?
                   <p>
-                    <strong>Number of People:</strong>
+                    <strong>Number of People: </strong>
                     {this.state.surveyData.numOfP}
                   </p>
                   : null
@@ -517,7 +520,7 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.weight ?
                   <p>
-                    <strong>Total Weight:</strong>
+                    <strong>Total Weight: </strong>
                     {this.state.surveyData.weight}
                   </p>
                   : null
@@ -532,11 +535,13 @@ class SurveyEntry extends Component {
               {
                 this.state.info.lat && this.state.info.lon ?
                   <p>
-                    <strong>GPS Coordinates:</strong>
-                    {this.state.lat[0]}&deg; {this.state.lat[1]}'
-                    {this.state.lat[2]}''{(this.state.lat[3] === 1) ? 'N' : 'S'},
-                    {this.state.lon[0]}&deg; {this.state.lon[1]}'
-                    {this.state.lon[2]}''{(this.state.lon[3] === 1) ? 'E' : 'W'}
+                    <strong>GPS Coordinates: </strong>
+                    {this.state.lat[0]}&deg; {this.state.lat[1]}'{" "}
+                    {this.state.lat[2]}''{" "}
+                    {(this.state.lat[3] === 1) ? 'N' : 'S'},{" "}
+                    {this.state.lon[0]}&deg; {this.state.lon[1]}'{" "}
+                    {this.state.lon[2]}''{" "}
+                    {(this.state.lon[3] === 1) ? 'E' : 'W'}
                   </p>
                   : null
               }
@@ -574,7 +579,7 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.slope ?
                   <p>
-                    <strong>Beach Slope:</strong>
+                    <strong>Beach Slope: </strong>
                     {this.toTitleCase(this.state.surveyData.slope)}
                   </p>
                   : null
@@ -582,7 +587,7 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.aspect ?
                   <p>
-                    <strong>Beach Aspect:</strong>
+                    <strong>Beach Aspect: </strong>
                     {this.state.surveyData.aspect}
                   </p>
                   : null
@@ -607,7 +612,7 @@ class SurveyEntry extends Component {
               {
                 this.state.info.nroName ?
                   <p>
-                    <strong>Nearest River:</strong>
+                    <strong>Nearest River: </strong>
                     {this.state.info.nroName}
                   </p>
                   : null
@@ -615,7 +620,7 @@ class SurveyEntry extends Component {
               {
                 this.state.info.nroDist ?
                   <p>
-                    <strong>Distance to Nearest River:</strong>
+                    <strong>Distance to Nearest River: </strong>
                     {this.state.info.nroDist}mi
                   </p>
                   : null
@@ -623,7 +628,7 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.cmpsDir ?
                   <p>
-                    <strong>Compass Direction:</strong>
+                    <strong>Compass Direction: </strong>
                     {this.state.surveyData.cmpsDir}
                     Degrees
                   </p>
@@ -663,15 +668,15 @@ class SurveyEntry extends Component {
                   this.state.surveyData.lastTide ?
                     (<div>
                       <p>
-                        <strong>Type:</strong>
+                        <strong>Type: </strong>
                         {this.toTitleCase(this.state.surveyData.lastTide.type)}
                       </p>
                       <p>
-                        <strong>Time:</strong>
+                        <strong>Time: </strong>
                         {this.state.surveyData.lastTide.time}
                       </p>
                       <p>
-                        <strong>Height:</strong>
+                        <strong>Height: </strong>
                         {this.state.surveyData.lastTide.height}
                       </p>
                     </div>) : null
@@ -683,15 +688,15 @@ class SurveyEntry extends Component {
                   this.state.surveyData.nextTide ?
                     (<div>
                       <p>
-                        <strong>Type:</strong>
+                        <strong>Type: </strong>
                         {this.toTitleCase(this.state.surveyData.nextTide.type)}
                       </p>
                       <p>
-                        <strong>Time:</strong>
+                        <strong>Time: </strong>
                         {this.state.surveyData.nextTide.time}
                       </p>
                       <p>
-                        <strong>Height:</strong>
+                        <strong>Height: </strong>
                         {this.state.surveyData.nextTide.height}
                       </p>
                     </div>) : null
