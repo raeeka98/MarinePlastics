@@ -133,14 +133,28 @@ router.route('/surveys')
  * @params {any} req, {any} res, {any} next
  * @return next only if user is logged in
  */
-function checkIfSignedIn (req, res, next) {
+function checkIfSignedIn(req, res, next) {
   let bearer = req.headers['authorization'];
 
   if (bearer != undefined) {
     let tokens = bearer.split(' ');
 
-    if (tokens.length == 2 && (tokens[1] != 'undefined' &&  tokens[1] != 'null')) {
-      return next();
+    if (tokens.length == 2 && (tokens[1] != 'undefined' && tokens[1] != 'null')) {
+      let loggedInUser = req.user;
+
+      let { userID: clientID } = req.query;
+      let surveyID = req.params.surveyID;
+
+      surveys.get(surveyID)
+        .then(survey => {
+          let ownerID = survey.userID;
+          // survey.userID = undefined;
+          // editable if the survey is the user's or if the user is an admin
+          let editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
+          let rtnMsg = { survData: survey, e: editable };
+          res.json(rtnMsg);
+        });
+      // return next();
     }
   }
   // if guest just continue as usual
@@ -162,6 +176,8 @@ function verifySurveyJWT (checkjwt) {
   router.route('/surveys/:surveyID')
     // gets a specific survey for logged in
     .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
+      // moved to checkIfSignedIn
+      /*
       let loggedInUser = req.user;
 
       let { userID: clientID } = req.query;
@@ -174,6 +190,7 @@ function verifySurveyJWT (checkjwt) {
       let editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
       let rtnMsg = { survData: survey, e: editable };
       res.json(rtnMsg);
+      */
     }))
     // finds a specific survey and edits it
     .post(checkjwt, asyncHandler(async (req, res) => {
