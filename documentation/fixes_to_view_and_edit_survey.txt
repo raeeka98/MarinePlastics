@@ -22,3 +22,5 @@ This lists the changes made to fix the location, survey, and survey edit pages.
    weathered values for debris from string to decimal if needed, so the total
    trash stored in the collection yeartotals is not a bunch of numbers
    concatenated, but rather added arithmetically.
+9. Added check in getStats() in client/src/Location/Location.jsx to not include
+   micro debris as part of pie chart on location page.

@@ -75,13 +75,15 @@ class Location extends Component {
           total += categories[trash];
         }
         for (const trash in categories) {
-          categories[trash] /= total;
-          let infoEntry = debrisInfo[trash];
-          if (infoEntry === "Fishing Line / Polypropylene Rope")
-            infoEntry = "Fishing Line";
-          if (infoEntry === "Plastic Bottles / Plastic Caps")
-            infoEntry = "Plastic Bottles";
-          cleanCategories[infoEntry] = Math.round(categories[trash] * 100);
+          if (trash !== 'microDebris') {
+            categories[trash] /= total;
+            let infoEntry = debrisInfo[trash];
+            if (infoEntry === "Fishing Line / Polypropylene Rope")
+              infoEntry = "Fishing Line";
+            if (infoEntry === "Plastic Bottles / Plastic Caps")
+              infoEntry = "Plastic Bottles";
+            cleanCategories[infoEntry] = Math.round(categories[trash] * 100);
+          }
         }
         this.setState({ beachStats: cleanCategories });
       });
