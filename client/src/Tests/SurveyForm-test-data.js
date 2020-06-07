@@ -2449,14 +2449,14 @@ var calcTotalsMDSExpected1 = [];
 
 // for testing calcTotalsMDS() with micro debris data all 0's
 var testSurveyFormMDSData2 = {
-  microFreshTotalRib1: 0,
-  microFreshTotalRib2: 0,
-  microFreshTotalRib3: 0,
-  microFreshTotalRib4: 0,
-  microWeatheredTotalRib1: 0,
-  microWeatheredTotalRib2: 0,
-  microWeatheredTotalRib3: 0,
-  microWeatheredTotalRib4: 0
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0"
 };
 
 // expected result from using testSurveyFormMDSData2 with calcTotalsMDS()
@@ -2472,14 +2472,14 @@ var calcTotalsMDSExpected2 = [
 
 // for testing calcTotalsMDS() with micro debris data nonzero
 var testSurveyFormMDSData3 = {
-  microFreshTotalRib1: 1,
-  microFreshTotalRib2: 3,
-  microFreshTotalRib3: 2,
-  microFreshTotalRib4: 1,
-  microWeatheredTotalRib1: 1,
-  microWeatheredTotalRib2: 2,
-  microWeatheredTotalRib3: 2,
-  microWeatheredTotalRib4: 3
+  microFreshTotalRib1: "1",
+  microFreshTotalRib2: "3",
+  microFreshTotalRib3: "2",
+  microFreshTotalRib4: "1",
+  microWeatheredTotalRib1: "1",
+  microWeatheredTotalRib2: "2",
+  microWeatheredTotalRib3: "2",
+  microWeatheredTotalRib4: "3"
 };
 
 // expected result from using testSurveyFormMDSData3 with calcTotalsMDS()
@@ -3267,14 +3267,14 @@ var testSurveyFormStateMDS2 = {
     woodPaper__weathered__accumulation: "0"
   },
   MDSData: {
-    microFreshTotalRib1: 0,
-    microFreshTotalRib2: 0,
-    microFreshTotalRib3: 0,
-    microFreshTotalRib4: 0,
-    microWeatheredTotalRib1: 0,
-    microWeatheredTotalRib2: 0,
-    microWeatheredTotalRib3: 0,
-    microWeatheredTotalRib4: 0
+    microFreshTotalRib1: "0",
+    microFreshTotalRib2: "0",
+    microFreshTotalRib3: "0",
+    microFreshTotalRib4: "0",
+    microWeatheredTotalRib1: "0",
+    microWeatheredTotalRib2: "0",
+    microWeatheredTotalRib3: "0",
+    microWeatheredTotalRib4: "0"
   },
   checkboxAnswers: {
     usage: {
@@ -3833,14 +3833,14 @@ var testSurveyFormStateMDS3 = {
     woodPaper__weathered__accumulation: "0"
   },
   MDSData: {
-    microFreshTotalRib1: 1,
-    microFreshTotalRib2: 3,
-    microFreshTotalRib3: 2,
-    microFreshTotalRib4: 1,
-    microWeatheredTotalRib1: 1,
-    microWeatheredTotalRib2: 2,
-    microWeatheredTotalRib3: 2,
-    microWeatheredTotalRib4: 3
+    microFreshTotalRib1: "1",
+    microFreshTotalRib2: "3",
+    microFreshTotalRib3: "2",
+    microFreshTotalRib4: "1",
+    microWeatheredTotalRib1: "1",
+    microWeatheredTotalRib2: "2",
+    microWeatheredTotalRib3: "2",
+    microWeatheredTotalRib4: "3"
   },
   checkboxAnswers: {
     usage: {
