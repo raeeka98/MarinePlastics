@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
-import { getDebrisMap } from '../NewSurveyForm/debrisInfo';
+import { getAllDebrisMap } from '../NewSurveyForm/debrisInfo';
 // to get the pin styles
 import '../Map/Map.css';
 
-const debrisInfo = getDebrisMap();
+const debrisInfo = getAllDebrisMap();
 
 class Location extends Component {
   constructor(props) {
@@ -75,7 +75,7 @@ class Location extends Component {
           total += categories[trash];
         }
         for (const trash in categories) {
-          if (trash !== 'microDebris') {
+          if (trash !== 'microDebris' && debrisInfo[trash]) {
             categories[trash] /= total;
             let infoEntry = debrisInfo[trash];
             if (infoEntry === "Fishing Line / Polypropylene Rope")
