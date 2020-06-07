@@ -193,7 +193,7 @@ function verifySurveyJWT (checkjwt) {
       */
     }))
     // finds a specific survey and edits it
-    .post(checkjwt, asyncHandler(async (req, res) => {
+    .post(/*checkjwt, */asyncHandler(async (req, res) => {
       let updateData = req.body;
       let { userID } = req.query;
       let surveyID = req.params.surveyID;
@@ -208,7 +208,7 @@ function verifySurveyJWT (checkjwt) {
       res.json({ res: "success", surveyData: updatedSurvey });
     }))
     // delete an survey
-    .delete(checkjwt, asyncHandler(async (req, res) => {
+    .delete(/*checkjwt, */asyncHandler(async (req, res) => {
       let { bID, dos: dateOfSub } = req.query;
       let { userID } = req.query;
       let surveyID = req.params.surveyID;

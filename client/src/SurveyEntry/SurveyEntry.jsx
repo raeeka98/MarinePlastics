@@ -629,8 +629,8 @@ class SurveyEntry extends Component {
                 this.state.surveyData.cmpsDir ?
                   <p>
                     <strong>Compass Direction: </strong>
-                    {this.state.surveyData.cmpsDir}
-                    Degrees
+                    {this.state.surveyData.cmpsDir}{" "}
+                    degrees
                   </p>
                   : null
               }

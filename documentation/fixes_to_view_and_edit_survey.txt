@@ -10,3 +10,15 @@ This lists the changes made to fix the location, survey, and survey edit pages.
    render() in client/src/SurveyEntry/SurveyEntry.jsx.
 5. Added information on micro debris to display but not yet edit on survey edit
    page by modifying constructor(props), save(), and render().
+6. Added allDebrisInfo, allDebrisInfoID, allDebrisNames,
+   getAllDebrisNameById(), getAllDebrisID(debrisName), and getAllDebrisMap() to
+   client/src/NewSurveyForm/debrisInfo.js, and import getAllDebrisMap into
+   client/src/SurveyEntry/SurveyEntry.jsx and
+   client/src/SurveyEntry/surveyEntryEdit.jsx to display categories of debris
+   for old surveys that have been renamed.
+7. Added editMDSData() in client/src/SurveyEntry/surveyEntryEdit.jsx for
+   editing micro debris.
+8. Edited surveys.update in server_modules/mongoose.js so converts fresh and
+   weathered values for debris from string to decimal if needed, so the total
+   trash stored in the collection yeartotals is not a bunch of numbers
+   concatenated, but rather added arithmetically.

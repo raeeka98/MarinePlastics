@@ -40,11 +40,24 @@ class SurveyEntryEdit extends Component {
       asDebris.push({ trashName, trashID, ...trashData });
     }
 
-    const mdsDebris = {};
+    let origMDSDebris = {};
 
     // not creating an array, since only one object
     if (MicroDebris && MicroDebris['microDebris']) {
-      mdsDebris = MicroDebris['microDebris'];
+      origMDSDebris = {
+        fresh: MicroDebris['microDebris']['fresh'],
+        weathered: MicroDebris['microDebris']['weathered']
+      }
+    }
+
+    let mdsDebris = {};
+
+    // do both separate so not pointing to the same object
+    if (MicroDebris && MicroDebris['microDebris']) {
+      mdsDebris = {
+        fresh: MicroDebris['microDebris']['fresh'],
+        weathered: MicroDebris['microDebris']['weathered']
+      }
     }
 
     this.state = {
@@ -55,7 +68,7 @@ class SurveyEntryEdit extends Component {
       newData: {},
       origSRSDebris: [...srsDebris],
       origASDebris: [...asDebris],
-      origMDSDebris: mdsDebris,
+      origMDSDebris,
       srsDebris,
       asDebris,
       mdsDebris,
@@ -174,6 +187,20 @@ class SurveyEntryEdit extends Component {
   }
 
   /**
+   * Changes micro debris data when user changes its value.
+   * @param {any} e
+   */
+  editMDSData = (e) => {
+    // find out if fresh or weathered
+    let freshOrWeathered = e.target.name;
+    let oldMDSDebris = this.state.mdsDebris;
+    oldMDSDebris[freshOrWeathered] = e.target.value;
+    this.setState({
+      mdsDebris: oldMDSDebris
+    });
+  }
+
+  /**
    * Changes data that was created by checkbox.
    * @param {any} e
    */
@@ -200,8 +227,6 @@ class SurveyEntryEdit extends Component {
    * Updates database with new changes to survey.
    */
   save = () => {
-    console.log("save() called");
-
     let newASDebris = [];
     this.state.asDebris.forEach(val => {
       newASDebris.push([val.trashID, {
@@ -211,7 +236,6 @@ class SurveyEntryEdit extends Component {
     });
     let newSRSDebris = [];
     this.state.srsDebris.forEach(val => {
-      console.log(val);
       newSRSDebris.push([val.trashID, {
         fresh: val.fresh,
         weathered: val.weathered
@@ -354,6 +378,7 @@ class SurveyEntryEdit extends Component {
               type="number"
               name="fresh"
               defaultValue={mdsDebris.fresh}
+              onChange={this.editMDSData}
             />
           </td>
           <td>
@@ -362,6 +387,7 @@ class SurveyEntryEdit extends Component {
               type="number"
               name="weathered"
               defaultValue={mdsDebris.weathered}
+              onChange={this.editMDSData}
             />
           </td>
         </tr>

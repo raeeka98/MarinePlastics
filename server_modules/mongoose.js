@@ -126,49 +126,162 @@ let surveys = {
     };
     // calculates the new total debris for the updated survey
     newSRSDebris.forEach(val => {
-      updatePayload.newSRSTotal += val[1].fresh + val[1].weathered;
+      let fresh = val[1].fresh;
+      let weathered = val[1].weathered;
+
+      // convert from string to number to prevent concatenation
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered != 'number') {
+        weathered = Number(weathered);
+      }
+      updatePayload.newSRSTotal += fresh + weathered;
     });
     newASDebris.forEach(val => {
-      updatePayload.newASTotal += val[1].fresh + val[1].weathered;
+      let fresh = val[1].fresh;
+      let weathered = val[1].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      updatePayload.newASTotal += fresh + weathered;
     });
     newMicroDebris.forEach(val => {
-      updatePayload.newMDSTotal += val[1].fresh + val[1].weathered;
+      let fresh = val[1].fresh;
+      let weathered = val[1].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+      updatePayload.newMDSTotal += fresh + weathered;
     });
 
     // calculates what the types of trash for the beach should now be
     oldSRSDebris.forEach(oldVal => {
       let index = newSRSDebris.findIndex(val => val[0] === oldVal[0]);
       if (index == -1) {
+        let fresh = oldVal[1].fresh;
+        let weathered = oldVal[1].weathered;
+
+        if (typeof fresh !== 'number') {
+          fresh = Number(fresh);
+        }
+        if (typeof weathered !== 'number') {
+          weathered = Number(weathered);
+        }
+
         updatePayload.newDebrisData[oldVal[0]] =
-          -oldVal[1].fresh - oldVal[1].weathered;
+          -fresh - weathered;
       } else {
+        let oldFresh = oldVal[1].fresh;
+        let oldWeathered = oldVal[1].weathered;
+        let newFresh = newSRSDebris[index][1].fresh;
+        let newWeathered = newSRSDebris[index][1].weathered;
+
+        if (typeof oldFresh !== 'number') {
+          oldFresh = Number(oldFresh);
+        }
+        if (typeof oldWeathered !== 'number') {
+          oldWeathered = Number(oldWeathered);
+        }
+        if (typeof newFresh !== 'number') {
+          newFresh = Number(newFresh);
+        }
+        if (typeof newWeathered !== 'number') {
+          newWeathered = Number(newWeathered);
+        }
+
         updatePayload.newDebrisData[oldVal[0]] =
-          (newSRSDebris[index][1].fresh + newSRSDebris[index][1].weathered) -
-          (oldVal[1].fresh + oldVal[1].weathered);
+          (newFresh + newWeathered) -
+          (oldFresh + oldWeathered);
       }
     });
     // calculates what the types of trash for the beach should now be
     oldASDebris.forEach(oldVal => {
       let index = newASDebris.findIndex(val => val[0] === oldVal[0]);
       if (index == -1) {
+        let fresh = oldVal[1].fresh;
+        let weathered = oldVal[1].weathered;
+
+        if (typeof fresh !== 'number') {
+          fresh = Number(fresh);
+        }
+        if (typeof weathered !== 'number') {
+          weathered = Number(weathered);
+        }
+
         updatePayload.newDebrisData[oldVal[0]] =
-          -oldVal[1].fresh - oldVal[1].weathered;
+          -fresh - weathered;
       } else {
+        let oldFresh = oldVal[1].fresh;
+        let oldWeathered = oldVal[1].weathered;
+        let newFresh = newASDebris[index][1].fresh;
+        let newWeathered = newASDebris[index][1].weathered;
+
+        if (typeof oldFresh !== 'number') {
+          oldFresh = Number(oldFresh);
+        }
+        if (typeof oldWeathered !== 'number') {
+          oldWeathered = Number(oldWeathered);
+        }
+        if (typeof newFresh !== 'number') {
+          newFresh = Number(newFresh);
+        }
+        if (typeof newWeathered !== 'number') {
+          newWeathered = Number(newWeathered);
+        }
+        
         updatePayload.newDebrisData[oldVal[0]] =
-          (newASDebris[index][1].fresh + newASDebris[index][1].weathered) -
-          (oldVal[1].fresh + oldVal[1].weathered);
+          (newFresh + newWeathered) -
+          (oldFresh + oldWeathered);
       }
     });
     // not sure, but I think ASDebris should also be accounted for
     oldMicroDebris.forEach(oldVal => {
       let index = newMicroDebris.findIndex(val => val[0] === oldVal[0]);
       if (index == -1) {
+        let fresh = oldVal[1].fresh;
+        let weathered = oldVal[1].weathered;
+
+        if (typeof fresh !== 'number') {
+          fresh = Number(fresh);
+        }
+        if (typeof weathered !== 'number') {
+          weathered = Number(weathered);
+        }
+
         updatePayload.newDebrisData[oldVal[0]] =
-          -oldVal[1].fresh - oldVal[1].weathered;
+          -fresh - weathered;
       } else {
+        let oldFresh = oldVal[1].fresh;
+        let oldWeathered = oldVal[1].weathered;
+        let newFresh = newMicroDebris[index][1].fresh;
+        let newWeathered = newMicroDebris[index][1].weathered;
+
+        if (typeof oldFresh !== 'number') {
+          oldFresh = Number(oldFresh);
+        }
+        if (typeof oldWeathered !== 'number') {
+          oldWeathered = Number(oldWeathered);
+        }
+        if (typeof newFresh !== 'number') {
+          newFresh = Number(newFresh);
+        }
+        if (typeof newWeathered !== 'number') {
+          newWeathered = Number(newWeathered);
+        }
+
         updatePayload.newDebrisData[oldVal[0]] =
-          (newMicroDebris[index][1].fresh + newMicroDebris[index][1].weathered)
-          - (oldVal[1].fresh + oldVal[1].weathered);
+          (newFresh + newWeathered)
+          - (oldFresh + oldWeathered);
       }
     });
 
