@@ -133,87 +133,104 @@ router.route('/surveys')
  * @params {any} req, {any} res, {any} next
  * @return next only if user is logged in
  */
-function checkIfSignedIn (req, res, next) {
-  let bearer = req.headers['authorization'];
-
-  if (bearer != undefined) {
-    let tokens = bearer.split(' ');
-
-    if (tokens.length == 2 && (tokens[1] != 'undefined' &&  tokens[1] != 'null')) {
-      return next();
-    }
-  }
-  // if guest just continue as usual
+function checkIfSignedIn(req, res) {
+  let { userID: clientID } = req.query;
   let surveyID = req.params.surveyID;
-  surveys.get(surveyID)
-    .then(surv => {
-      surv.userID = undefined;
-      let rtnMsg = { survData: surv, e: false };
-      res.json(rtnMsg);
-    });
+
+  if (clientID) {
+    surveys.get(surveyID)
+      .then(survey => {
+        let ownerID = survey.userID;
+        let editable = false;
+        if (req.user && req.user.permissions) {
+          editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
+        }
+        else {
+          editable = ownerID == clientID;
+        }
+        let rtnMsg = { survData: survey, e: editable };
+        res.json(rtnMsg);
+      });
+  }
+
+  else {
+    surveys.get(surveyID)
+      .then(surv => {
+        let rtnMsg = { survData: surv, e: false };
+        res.json(rtnMsg);
+      });
+  }
 }
 
-/**
- * A collection of requests that can only be fulfilled if the user is
- * authorized to make such requests.
- * @param {any} checkjwt
- */
-function verifySurveyJWT (checkjwt) {
-  router.route('/surveys/:surveyID')
-    // gets a specific survey for logged in
-    .get(checkIfSignedIn, checkjwt, asyncHandler(async (req, res) => {
-      let loggedInUser = req.user;
+router.route('/surveys/:surveyID')
+  // gets a specific survey for logged in
+  .get(asyncHandler(async (req, res) => {
+    let { userID: clientID, userRoles } = req.query;
+    let surveyID = req.params.surveyID;
 
-      let { userID: clientID } = req.query;
-      let surveyID = req.params.surveyID;
-
-      let survey = await surveys.get(surveyID);
-      let ownerID = survey.userID;
-      survey.userID = undefined;
-      // editable if the survey is the user's or if the user is an admin
-      let editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
-      let rtnMsg = { survData: survey, e: editable };
-      res.json(rtnMsg);
-    }))
-    // finds a specific survey and edits it
-    .post(checkjwt, asyncHandler(async (req, res) => {
-      let updateData = req.body;
-      let { userID } = req.query;
-      let surveyID = req.params.surveyID;
-      let surveyCreator = await surveys.getUserID(surveyID);
-      surveyCreator = surveyCreator.userID;
-      // editable if the survey is the user's or if the user is an admin
-      let sameUser = userID.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-      if (!sameUser) {
-        return res.json({ res: "fail" });
+    let survey = await surveys.get(surveyID);
+    let ownerID = survey.userID;
+    let editable = ownerID == clientID;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        // editable if the survey is an admin
+        editable = true;
       }
-      let updatedSurvey = await surveys.update(surveyID, updateData);
-      res.json({ res: "success", surveyData: updatedSurvey });
-    }))
-    // delete an survey
-    .delete(checkjwt, asyncHandler(async (req, res) => {
-      let { bID, dos: dateOfSub } = req.query;
-      let { userID } = req.query;
-      let surveyID = req.params.surveyID;
-      let surveyCreator = await surveys.getUserID(surveyID);
-      surveyCreator = surveyCreator.userID;
-      // deletable if the survey is the user's or if the user is an admin
-      let sameUser = userID.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
-      if (!sameUser) {
-        return res.json({ res: "fail" });
-      }
-      await surveys.remove(bID, surveyID, dateOfSub);
-      res.json({ res: "success" })
-    }));
+    }
 
-  router.route('/surveys/:surveyID/date')
-    // gets date for a survey
-    .get(asyncHandler(async (req, res) => {
-      let sID = req.params.surveyID;
-      let date = await surveys.getDateCreated(sID);
-      res.json(date);
-    }));
-}
+    let rtnMsg = { survData: survey, e: editable };
+    res.json(rtnMsg);
+  }))
+  // finds a specific survey and edits it
+  .post(asyncHandler(async (req, res) => {
+    let updateData = req.body;
+    let { userID, userRoles } = req.query;
+    let surveyID = req.params.surveyID;
+    let surveyCreator = await surveys.getUserID(surveyID);
+    surveyCreator = surveyCreator.userID;
+    // editable if the survey is the user's or if the user is an admin
+    let sameUser = userID.split('|')[1] == surveyCreator;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        sameUser = true;
+      }
+    }
+
+    if (!sameUser) {
+      return res.json({ res: "fail" });
+    }
+    let updatedSurvey = await surveys.update(surveyID, updateData);
+    res.json({ res: "success", surveyData: updatedSurvey });
+  }))
+  // delete an survey
+  .delete(asyncHandler(async (req, res) => {
+    let { bID, dos: dateOfSub, userRoles } = req.query;
+    let { userID } = req.query;
+    let surveyID = req.params.surveyID;
+    let surveyCreator = await surveys.getUserID(surveyID);
+    surveyCreator = surveyCreator.userID;
+    // deletable if the survey is the user's or if the user is an admin
+    let sameUser = userID.split('|')[1] == surveyCreator;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        sameUser = true;
+      }
+    }
+
+    if (!sameUser) {
+      return res.json({ res: "fail" });
+    }
+    await surveys.remove(bID, surveyID, dateOfSub);
+    res.json({ res: "success" })
+  }));
+
+router.route('/surveys/:surveyID/date')
+  // gets date for a survey
+  .get(asyncHandler(async (req, res) => {
+    let sID = req.params.surveyID;
+    let date = await surveys.getDateCreated(sID);
+    res.json(date);
+  }));
 
 router.route('/:beachID')
   // supposed to get all surveys submited in the year then month
@@ -269,4 +286,4 @@ router.route('/:beachID/info')
     res.json(data);
   }));
 
-module.exports = { router, verifySurveyJWT };
+module.exports = { router };

@@ -11,26 +11,39 @@ import {
   testSurveyFormState2,
   testSurveyFormState3,
   testSurveyFormState4
-} from './test-data';
+} from './Review-test-data';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 import renderer from 'react-test-renderer';
 
 afterEach(cleanup);
 
+test("calculateWindDirection(direction)", () => {
+  var review = new Review();
+
+  expect(review.calculateWindDirection('n')).toBe('North');
+  expect(review.calculateWindDirection('ne')).toBe('Northeast');
+  expect(review.calculateWindDirection('e')).toBe('East');
+  expect(review.calculateWindDirection('se')).toBe('Southeast');
+  expect(review.calculateWindDirection('s')).toBe('South');
+  expect(review.calculateWindDirection('sw')).toBe('Southwest');
+  expect(review.calculateWindDirection('w')).toBe('West');
+  expect(review.calculateWindDirection('nw')).toBe('Northwest');
+});
+
 test("Review renders without crashing", () => {
-    const div = document.createElement("div");
-    var state = testSurveyFormState1;
-    ReactDOM.render(
-        <Review
-            data={state.surveyData}
-            email={state.email}
-            SRSData={state.SRSData}
-            ASData={state.ASData}
-            displayStrings={state.displayStrings}
-        />,
-        div
-    );
+  const div = document.createElement("div");
+  var state = testSurveyFormState1;
+  ReactDOM.render(
+    <Review
+      data={state.surveyData}
+      email={state.email}
+      SRSData={state.SRSData}
+      ASData={state.ASData}
+      displayStrings={state.displayStrings}
+    />,
+    div
+  );
 });
 
 test("Review renders without crashing using Remote/Unused option", () => {

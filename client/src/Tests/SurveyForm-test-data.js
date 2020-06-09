@@ -1,6 +1,7 @@
 ﻿/**
- * test-data.js
- * Contains sample state variables for automated testing.
+ * SurveyForm-test-data.js
+ * Contains sample state variables for automated testing. Used by
+ * SurveyForm.test.js.
  */
 
 // state data for Review.test.js
@@ -1055,8 +1056,8 @@ var testSurveyFormSurveyData1 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected1 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected1 = {
   usage: "Recreation",
   locChoice: "Known for Debris",
   subType: "Sand",
@@ -1120,8 +1121,8 @@ var testSurveyFormSurveyData2 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected2 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected2 = {
   usage: "Recreation, Commercial",
   locChoice: "Proximity/Convenience, Known for Debris",
   subType: "Sand, Rip Rap",
@@ -1181,8 +1182,8 @@ var testSurveyFormSurveyData3 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected3 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected3 = {
   usage: "Military",
   locChoice: "Beautiful place",
   subType: "Dirt",
@@ -1246,8 +1247,8 @@ var testSurveyFormSurveyData4 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected4 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected4 = {
   usage: "Recreation, Military",
   locChoice: "Known for Debris, Beautiful place",
   subType: "Sand, Dirt",
@@ -1320,8 +1321,8 @@ var testSurveyFormSurveyData5 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected5 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected5 = {
   usage: "Recreation, Commercial, Remote/Unused, Military",
   locChoice: "Proximity/Convenience, Known for Debris, Beautiful place",
   subType: "Sand, Pebble, Rip Rap, Seaweed, Dirt",
@@ -1381,8 +1382,8 @@ var testSurveyFormSurveyData6 = {
   windSpeed: "10"
 }
 
-// expected output for testing updateDisplayString() using above as surveyData
-var updateDisplayStringExpected6 = {
+// expected output for testing updateDisplayStringAndCheckboxAnswers()
+var updateDisplayStringAndCheckboxAnswersExpected6 = {
   usage: "Recreation",
   locChoice: "Known for Debris",
   subType: "Sand",
@@ -2448,14 +2449,14 @@ var calcTotalsMDSExpected1 = [];
 
 // for testing calcTotalsMDS() with micro debris data all 0's
 var testSurveyFormMDSData2 = {
-  microFreshTotalRib1: 0,
-  microFreshTotalRib2: 0,
-  microFreshTotalRib3: 0,
-  microFreshTotalRib4: 0,
-  microWeatheredTotalRib1: 0,
-  microWeatheredTotalRib2: 0,
-  microWeatheredTotalRib3: 0,
-  microWeatheredTotalRib4: 0
+  microFreshTotalRib1: "0",
+  microFreshTotalRib2: "0",
+  microFreshTotalRib3: "0",
+  microFreshTotalRib4: "0",
+  microWeatheredTotalRib1: "0",
+  microWeatheredTotalRib2: "0",
+  microWeatheredTotalRib3: "0",
+  microWeatheredTotalRib4: "0"
 };
 
 // expected result from using testSurveyFormMDSData2 with calcTotalsMDS()
@@ -2471,14 +2472,14 @@ var calcTotalsMDSExpected2 = [
 
 // for testing calcTotalsMDS() with micro debris data nonzero
 var testSurveyFormMDSData3 = {
-  microFreshTotalRib1: 1,
-  microFreshTotalRib2: 3,
-  microFreshTotalRib3: 2,
-  microFreshTotalRib4: 1,
-  microWeatheredTotalRib1: 1,
-  microWeatheredTotalRib2: 2,
-  microWeatheredTotalRib3: 2,
-  microWeatheredTotalRib4: 3
+  microFreshTotalRib1: "1",
+  microFreshTotalRib2: "3",
+  microFreshTotalRib3: "2",
+  microFreshTotalRib4: "1",
+  microWeatheredTotalRib1: "1",
+  microWeatheredTotalRib2: "2",
+  microWeatheredTotalRib3: "2",
+  microWeatheredTotalRib4: "3"
 };
 
 // expected result from using testSurveyFormMDSData3 with calcTotalsMDS()
@@ -2744,7 +2745,7 @@ var testSurveyFormStateMDS1 = {
   userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
-}
+};
 
 // expected result from using testSurveyFormStateMDS1 with prepareForm()
 // modify after merging with Development branch to match updated survey
@@ -3037,7 +3038,7 @@ var prepareFormMDSExpected1 = {
     nroDist: "10"
   },
   bID: undefined
-}
+};
 
 // state for testing prepareForm() with micro debris calc and micro debris 0
 var testSurveyFormStateMDS2 = {
@@ -3266,14 +3267,14 @@ var testSurveyFormStateMDS2 = {
     woodPaper__weathered__accumulation: "0"
   },
   MDSData: {
-    microFreshTotalRib1: 0,
-    microFreshTotalRib2: 0,
-    microFreshTotalRib3: 0,
-    microFreshTotalRib4: 0,
-    microWeatheredTotalRib1: 0,
-    microWeatheredTotalRib2: 0,
-    microWeatheredTotalRib3: 0,
-    microWeatheredTotalRib4: 0
+    microFreshTotalRib1: "0",
+    microFreshTotalRib2: "0",
+    microFreshTotalRib3: "0",
+    microFreshTotalRib4: "0",
+    microWeatheredTotalRib1: "0",
+    microWeatheredTotalRib2: "0",
+    microWeatheredTotalRib3: "0",
+    microWeatheredTotalRib4: "0"
   },
   checkboxAnswers: {
     usage: {
@@ -3301,7 +3302,7 @@ var testSurveyFormStateMDS2 = {
   userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
-}
+};
 
 // expected result from using testSurveyFormStateMDS2 with prepareForm()
 // modify after merging with Development branch to match updated survey
@@ -3602,7 +3603,7 @@ var prepareFormMDSExpected2 = {
     nroDist: "10"
   },
   bID: undefined
-}
+};
 
 // state for testing prepareForm() with micro debris calc and micro debris non0
 // modify after merging with Development branch to match updated survey
@@ -3832,14 +3833,14 @@ var testSurveyFormStateMDS3 = {
     woodPaper__weathered__accumulation: "0"
   },
   MDSData: {
-    microFreshTotalRib1: 1,
-    microFreshTotalRib2: 3,
-    microFreshTotalRib3: 2,
-    microFreshTotalRib4: 1,
-    microWeatheredTotalRib1: 1,
-    microWeatheredTotalRib2: 2,
-    microWeatheredTotalRib3: 2,
-    microWeatheredTotalRib4: 3
+    microFreshTotalRib1: "1",
+    microFreshTotalRib2: "3",
+    microFreshTotalRib3: "2",
+    microFreshTotalRib4: "1",
+    microWeatheredTotalRib1: "1",
+    microWeatheredTotalRib2: "2",
+    microWeatheredTotalRib3: "2",
+    microWeatheredTotalRib4: "3"
   },
   checkboxAnswers: {
     usage: {
@@ -3867,7 +3868,7 @@ var testSurveyFormStateMDS3 = {
   userID: "5e2f29b0285a700e93a1a53a",
   invalidForm: false,
   autoFilledBeachData: null
-}
+};
 
 // expected result from using testSurveyFormStateMDS3 with prepareForm()
 var prepareFormMDSExpected3 = {
@@ -4167,7 +4168,85 @@ var prepareFormMDSExpected3 = {
     nroDist: "10"
   },
   bID: undefined
-}
+};
+
+// SRSData for testing validateSRSData() with no items
+var validateSRSData1 = {};
+
+// SRSData for testing validateSRSData() with 1 valid item
+var validateSRSData2 = {
+  cigaretteButts__fresh__1: "3"
+};
+
+// SRSData for testing validateSRSData() with 1 invalid item
+var validateSRSData3 = {
+  cigaretteButts__fresh__1: "-3"
+};
+
+// SRSData for testing validateSRSData() with 1 valid item and 1 invalid item
+var validateSRSData4 = {
+  cigaretteButts__fresh__1: "3",
+  cigaretteButts__weathered__1: "-3"
+};
+
+// SRSData for testing validateSRSData() with 3 valid items
+var validateSRSData5 = {
+  cigaretteButts__fresh__1: "3",
+  cigaretteButts__weathered__1: "2",
+  fishingLineRope__fresh__3: "1"
+};
+
+// ASData for testing validateASData() with no items
+var validateASData1 = {};
+
+// ASData for testing validateASData() with 1 valid item
+var validateASData2 = {
+  cigaretteButts__fresh__accumulation: "3"
+};
+
+// ASData for testing validateASData() with 1 invalid item
+var validateASData3 = {
+  cigaretteButts__fresh__accumulation: "-3"
+};
+
+// ASData for testing validateASData() with 1 valid item and 1 invalid item
+var validateASData4 = {
+  cigaretteButts__fresh__accumulation: "3",
+  cigaretteButts__weathered__accumulation: "-3"
+};
+
+// ASData for testing validateASData() with 3 valid items
+var validateASData5 = {
+  cigaretteButts__fresh__accumulation: "3",
+  cigaretteButts__weathered__accumulation: "2",
+  fishingLineRope__fresh__accumulation: "1"
+};
+
+// MDSData for testing validateMDSData() with no items
+var validateMDSData1 = {};
+
+// MDSData for testing validateMDSData() with 1 valid item
+var validateMDSData2 = {
+  microFreshTotalRib1: "3"
+};
+
+// MDSData for testing validateMDSData() with 1 invalid item
+var validateMDSData3 = {
+  microWeatheredTotalRib1: "-3"
+};
+
+// MDSData for testing validateMDSData() with 1 valid item and 1 invalid item
+var validateMDSData4 = {
+  microFreshTotalRib1: "3",
+  microWeatheredTotalRib1: "-3"
+};
+
+// MDSData for testing validateMDSData() with 3 valid items
+var validateMDSData5 = {
+  microFreshTotalRib1: "3",
+  microWeatheredTotalRib1: "2",
+  microFreshTotalRib2: "1"
+};
 
 export {
   testSurveyFormState1,
@@ -4180,12 +4259,12 @@ export {
   testSurveyFormSurveyData4,
   testSurveyFormSurveyData5,
   testSurveyFormSurveyData6,
-  updateDisplayStringExpected1,
-  updateDisplayStringExpected2,
-  updateDisplayStringExpected3,
-  updateDisplayStringExpected4,
-  updateDisplayStringExpected5,
-  updateDisplayStringExpected6,
+  updateDisplayStringAndCheckboxAnswersExpected1,
+  updateDisplayStringAndCheckboxAnswersExpected2,
+  updateDisplayStringAndCheckboxAnswersExpected3,
+  updateDisplayStringAndCheckboxAnswersExpected4,
+  updateDisplayStringAndCheckboxAnswersExpected5,
+  updateDisplayStringAndCheckboxAnswersExpected6,
   testSurveyFormForm1,
   testSurveyFormForm2,
   testSurveyFormForm3,
@@ -4201,5 +4280,20 @@ export {
   testSurveyFormStateMDS3,
   prepareFormMDSExpected1,
   prepareFormMDSExpected2,
-  prepareFormMDSExpected3
+  prepareFormMDSExpected3,
+  validateSRSData1,
+  validateSRSData2,
+  validateSRSData3,
+  validateSRSData4,
+  validateSRSData5,
+  validateASData1,
+  validateASData2,
+  validateASData3,
+  validateASData4,
+  validateASData5,
+  validateMDSData1,
+  validateMDSData2,
+  validateMDSData3,
+  validateMDSData4,
+  validateMDSData5
 };

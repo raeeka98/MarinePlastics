@@ -7,9 +7,9 @@ let joi = require("joi");
 // validates a user has both a first and last name
 const userDataSchema = joi.object({
   //first name
-  f: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required(),
+  f: joi.string().min(1).max(30).trim().required(),
   //last name
-  l: joi.string().regex(/^[a-zA-Z]*$/).min(1).max(30).trim().required()
+  l: joi.string().min(1).max(30).trim().required()
 });
 
 // validates at least one option for substrate type is selected
@@ -18,7 +18,7 @@ const substrateTypeSchema = joi.object({
   p: joi.bool(),
   rr: joi.bool(),
   sea: joi.bool(),
-  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+  other: joi.string().trim().replace(/\s\s+/, " ")
     .lowercase()
 }).or(["s", "p", "rr", "sea", "other"]);
 
@@ -26,7 +26,7 @@ const substrateTypeSchema = joi.object({
 const reasonTypeSchema = joi.object({
   prox: joi.bool(),
   debris: joi.bool(),
-  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+  other: joi.string().trim().replace(/\s\s+/, " ")
     .lowercase()
 }).or(["prox", "debris", "other"])
   .error(new Error("Please select one option"));
@@ -44,7 +44,7 @@ const majorUseSchema = joi.object({
   rec: joi.bool(),
   com: joi.bool(),
   rem: joi.bool(),
-  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ").lowercase()
+  other: joi.string().trim().replace(/\s\s+/, " ").lowercase()
 }).or(["rec", "com", "rem", "other"]);
 
 // different options for why accumulation survey was not completed
@@ -53,7 +53,7 @@ const incompleteSurveySchema = joi.object({
   people: joi.bool(),
   area: joi.bool(),
   trash: joi.bool(),
-  other: joi.string().trim().regex(/^[a-zA-Z\s]*$/).replace(/\s\s+/, " ")
+  other: joi.string().trim().replace(/\s\s+/, " ")
     .lowercase()
 });
 
