@@ -45,6 +45,7 @@ export function sumTotals(surveys, type) {
     case 'MDS':
       attr = 'MicroDebris';
       break;
+    default: attr = '';
   }
   for (const surveyDate in surveys) {
     const data = surveys[surveyDate][attr];

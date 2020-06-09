@@ -115,9 +115,16 @@ class SurveyEntry extends Component {
     let userID = this.state.userProfile ?
       this.state.userProfile.sub.split("|")[1] : undefined;
 
+    let userRoles = this.state.userProfile ?
+      this.state.userProfile['https://marineplastics.com/roles'] : undefined
+
+    console.log("my user role");
+    console.log(userRoles);
+
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
-        userID
+        userID,
+        userRoles
       },
       headers: {
         Authorization: `Bearer ${this.props.auth.getAccessToken()}`
@@ -228,7 +235,10 @@ class SurveyEntry extends Component {
         {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
-          userID: this.state.userProfile ? this.state.userProfile.sub : ''
+          userID: this.state.userProfile ? this.state.userProfile.sub : '',
+          userRoles: this.state.userProfile ?
+            this.state.userProfile['https://marineplastics.com/roles'] :
+            undefined
         },
         headers: {
           Authorization: `Bearer ${this.props.auth.getAccessToken()}`

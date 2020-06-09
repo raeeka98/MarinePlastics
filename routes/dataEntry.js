@@ -165,29 +165,37 @@ function checkIfSignedIn(req, res) {
 router.route('/surveys/:surveyID')
   // gets a specific survey for logged in
   .get(asyncHandler(async (req, res) => {
-    let { userID: clientID } = req.query;
+    let { userID: clientID, userRoles } = req.query;
     let surveyID = req.params.surveyID;
 
     let survey = await surveys.get(surveyID);
     let ownerID = survey.userID;
-    let editable = false;
-    if (req.user && req.user.permissions) {
-      // editable if the survey is the user's or if the user is an admin
-      editable = ownerID == clientID || req.user.permissions.includes('edit:anySurvey');
+    let editable = ownerID == clientID;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        // editable if the survey is an admin
+        editable = true;
+      }
     }
-    editable = ownerID == clientID;
+
     let rtnMsg = { survData: survey, e: editable };
     res.json(rtnMsg);
   }))
   // finds a specific survey and edits it
   .post(asyncHandler(async (req, res) => {
     let updateData = req.body;
-    let { userID } = req.query;
+    let { userID, userRoles } = req.query;
     let surveyID = req.params.surveyID;
     let surveyCreator = await surveys.getUserID(surveyID);
     surveyCreator = surveyCreator.userID;
     // editable if the survey is the user's or if the user is an admin
-    let sameUser = userID.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+    let sameUser = userID.split('|')[1] == surveyCreator;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        sameUser = true;
+      }
+    }
+
     if (!sameUser) {
       return res.json({ res: "fail" });
     }
@@ -196,13 +204,19 @@ router.route('/surveys/:surveyID')
   }))
   // delete an survey
   .delete(asyncHandler(async (req, res) => {
-    let { bID, dos: dateOfSub } = req.query;
+    let { bID, dos: dateOfSub, userRoles } = req.query;
     let { userID } = req.query;
     let surveyID = req.params.surveyID;
     let surveyCreator = await surveys.getUserID(surveyID);
     surveyCreator = surveyCreator.userID;
     // deletable if the survey is the user's or if the user is an admin
-    let sameUser = userID.split('|')[1] == surveyCreator || req.user.permissions.includes('edit:anySurvey');
+    let sameUser = userID.split('|')[1] == surveyCreator;
+    if (userRoles && userRoles.length > 0) {
+      if (userRoles.includes('Admin')) {
+        sameUser = true;
+      }
+    }
+
     if (!sameUser) {
       return res.json({ res: "fail" });
     }

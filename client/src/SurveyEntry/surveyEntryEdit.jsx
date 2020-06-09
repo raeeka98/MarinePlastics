@@ -289,13 +289,14 @@ class SurveyEntryEdit extends Component {
     let userID = this.state.userProfile ?
       this.state.userProfile.sub : undefined;
 
-    console.log("finalData");
-    console.log(finalData);
+    let userRoles = this.state.userProfile ?
+      this.state.userProfile['https://marineplastics.com/roles'] : undefined;
 
     axios.post(`/beaches/surveys/${this.state.surveyData._id}`,
       finalData, {
         params: {
-          userID
+          userID,
+          userRoles
         },
         headers: {
           Authorization: `Bearer ${this.props.auth.getAccessToken()}`
