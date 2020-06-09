@@ -462,9 +462,15 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({
-                      showOtherUsage: e.target.checked
-                    })}
+                    onClick={e => {
+                        this.setState({
+                          showOtherUsage: e.target.checked
+                        });
+                        if (!e.target.checked) {
+                          this.props.removeOther('usage');
+                        }
+                      }
+                    }
                   />
                 </label> Other
               </div>
@@ -517,9 +523,15 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({
-                      showOtherReason: e.target.checked
-                    })}
+                    onClick={e => {
+                        this.setState({
+                          showOtherReason: e.target.checked
+                        });
+                        if (!e.target.checked) {
+                          this.props.removeOther('reason');
+                        }
+                      }
+                    }
                   />
                 </label> Other
                     </div>
@@ -773,9 +785,15 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => this.setState({
-                      showOtherSubstrate: e.target.checked
-                    })}
+                    onClick={e => {
+                        this.setState({
+                          showOtherSubstrate: e.target.checked
+                        });
+                        if (!e.target.checked) {
+                          this.props.removeOther('substrate');
+                        }
+                      }
+                    }
                   />
                 </label> Other
               </div>
