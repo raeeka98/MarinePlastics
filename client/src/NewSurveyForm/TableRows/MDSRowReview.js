@@ -10,6 +10,7 @@ export default class MDSRowReview extends Component {
    * Renders the row. First column is rib number, second column is number of
    * fresh micro debris in the rib, and third column is number of weathered
    * debris in the rib.
+   * @return JSX code
    */
   render() {
     return (

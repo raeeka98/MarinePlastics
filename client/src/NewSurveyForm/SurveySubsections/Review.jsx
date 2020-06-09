@@ -1,3 +1,7 @@
+/**
+ * Review.jsx
+ * Code for the review page.
+ */
 import React, { Component } from 'react';
 import RibScanRowReview from '../TableRows/ReviewTable';
 import ASRowReview from '../TableRows/ASRowReview';
@@ -7,21 +11,54 @@ import {getDebrisMap} from '../debrisInfo';
 const debrisInfo = getDebrisMap();
 
 class Review extends Component {
-
-  componentDidMount() {
-    this.calculateFields();
-  }
-
-  calculateFields() {
-
-  }
-
+  /**
+   * Capitalizes first character in word and makes all other characters lower
+   * case.
+   * @param {any} word
+   * @return word with first character upper case and rest of characters lower
+   * case
+   */
   toTitleCase(word) {
     return word.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
 
+  /**
+   * Based on the abbreviation for the wind direction given by direction,
+   * returns the full name of the direction.
+   * @param {any} direction
+   * @return full name of direction
+   */
+  calculateWindDirection(direction) {
+    switch (direction) {
+      case 'n':
+        return 'North';
+      case 'ne':
+        return 'Northeast';
+      case 'e':
+        return 'East';
+      case 'se':
+        return 'Southeast';
+      case 's':
+        return 'South';
+      case 'sw':
+        return 'Southwest';
+      case 'w':
+        return 'West';
+      case 'nw':
+        return 'Northwest';
+      // should never be called
+      default:
+        return 'No wind';
+    }
+  }
+
+  /**
+   * JSX code for Review page, and code to calculate data to display in the
+   * Review page.
+   * @return the JSX code
+   */
   render() {
     var SRSRows = [];
     var ASRows = [];
@@ -162,22 +199,22 @@ class Review extends Component {
             <p>Nearest River Output Name: {d.riverName}</p>
           }
           {(d.riverDistance !== undefined) &&
-            <p>Nearest River Output Distance: {d.riverDistance}</p>
+            <p>Nearest River Output Distance: {d.riverDistance} mi</p>
           }
 
           {d.tideTypeB && d.tideTimeB && d.tideHeightB &&
             <div>
               <h4>Tide Before:</h4>
-              <p>Type: {this.toTitleCase(d.tideTypeB)} </p>
-              <p>Height: {d.tideHeightB}</p>
+              <p>Type: {this.toTitleCase(d.tideTypeB)}</p>
+              <p>Height: {d.tideHeightB} ft</p>
               <p>Time: {d.tideTimeB}</p>
             </div>
           }
           {d.tideTypeA && d.tideTimeA && d.tideHeightA &&
             <div>
               <h4>Tide After:</h4>
-              <p>Type: {this.toTitleCase(d.tideTypeA)} </p>
-              <p>Height: {d.tideHeightA}</p>
+              <p>Type: {this.toTitleCase(d.tideTypeA)}</p>
+              <p>Height: {d.tideHeightA} ft</p>
               <p>Time: {d.tideTimeA}</p>
             </div>
           }
@@ -185,7 +222,7 @@ class Review extends Component {
             <p>Wind Speed: {d.windSpeed} knots</p>
           }
           {d.windDir &&
-            <p>Wind Direction: {d.windDir}</p>
+            <p>Wind Direction: {this.calculateWindDirection(d.windDir)}</p>
           }
           {d.windComments &&
             <p>COMMENTS: {d.windComments}</p>
@@ -214,14 +251,14 @@ class Review extends Component {
                 </thead>
                 <tbody style={{textAlign: 'left'}}>
                   <tr >
-                    <td >SPINE Start</td>
+                    <td >SPINE Start Point (m)</td>
                     <td >{d.rib1Start}</td>
                     <td>{d.rib2Start}</td>
                     <td>{d.rib3Start}</td>
                     <td >{d.rib4Start}</td>
                   </tr>
                   <tr>
-                    <td>RIB LENGTH</td>
+                    <td>RIB LENGTH (m)</td>
                     <td>{d.rib1End}</td>
                     <td>{d.rib2End}</td>
                     <td>{d.rib3End}</td>

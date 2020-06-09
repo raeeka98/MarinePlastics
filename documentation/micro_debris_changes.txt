@@ -1,0 +1,32 @@
+The following is a list of changes made to allow surveys to submit micro debris data:
+  First:
+    Deleted MarinePlastics/client/src/SurveyForm/. This was an older folder that is no longer in use.
+    Removed the import of MarinePlastics/client/src/SurveyForm/ChooseForm.jsx, in MarinePlastics/client/src/App.jsx. 
+    Removed ‘/chooseform’ from headerRoutes in MarinePlastics/client/src/App.jsx.
+    Removed path creation using ChooseForm in MarinePlastics/client/src/App.jsx.
+  Added the following in MarinePlastics/mongooseSchemas.js:
+    getMDSTotal
+  Edited the following in MarinePlastics/mongooseSchemas.js:
+    surveySchema
+    surveySchema.methods.getAllDebris
+    surveySchema.methods.getAllDebrisNeg
+    dayTotalsSchema
+  Edited the following in MarinePlastics/mongoose.js:
+    surveys.update
+    surveys.addToBeach
+    editedSurvey
+    createdSurvey
+  Edited the following in MarinePlastics/joi-validation.js:
+    surveyDataSchema
+  Added the following in MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx:
+    calcTotalsMDS()
+    updateMDS(e)
+  Edited the following in MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx:
+    constructor(props)
+    prepareForm()
+    showInputPage()
+    showReviewPage()
+  Edited the following in MarinePlastics/client/src/NewSurveyForm/SurveySubsections/MicroDebrisSurvey.jsx:
+    render()
+  Edited the following in MarinePlastics/client/src/NewSurveyForm/SurveySubsections/Review.jsx:
+    render()

@@ -1,0 +1,15 @@
+This lists the changes made to the survey format after updating the survey to
+match the 2020 data sheet.
+
+1. Users can now enter numerical figures and punctuation in text fields. Did
+   this by making changes to server_modules/joi-validation.js.
+2. Now when uncheck the other option for the checkbox options, the other
+   information doesn't get sent to the database. Did this by adding
+   removeOther(category) in client/src/NewSurveyForm/SurveyForm.jsx and calling
+   this method whenever the checkbox option other is unchecked in each checkbox
+   section.
+3. Added units after numerical data to the Review page in
+   client/src/NewSurveyForm/SurveySubsections/Review.jsx.
+4. Changed wind direction info in Review page by adding and calling
+   calculateWindDirection(direction) in
+   client/src/NewSurveyForm/SurveySubsections/Review.jsx.

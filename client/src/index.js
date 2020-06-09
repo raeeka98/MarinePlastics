@@ -1,3 +1,7 @@
+/**
+ * index.js
+ * First file that runs when website is opened. Calls App component.
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
