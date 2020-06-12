@@ -204,6 +204,26 @@ let surveys = {
           (oldFresh + oldWeathered);
       }
     });
+
+    // add new debris that is in newSRSDebris but not oldSRSDebris
+    newSRSDebris.forEach(newVal => {
+      let index = oldSRSDebris.findIndex(val => val[0] === newVal[0]);
+
+      // if debris in newSRSDebris that isn't in oldSRSDebris, add it
+      let fresh = newVal[1].fresh;
+      let weathered = newVal[1].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      updatePayload.newDebrisData[newVal[0]] = fresh + weathered;
+    });
+
+
     // calculates what the types of trash for the beach should now be
     oldASDebris.forEach(oldVal => {
       let index = newASDebris.findIndex(val => val[0] === oldVal[0]);
@@ -244,7 +264,6 @@ let surveys = {
           (oldFresh + oldWeathered);
       }
     });
-    // not sure, but I think ASDebris should also be accounted for
     oldMicroDebris.forEach(oldVal => {
       let index = newMicroDebris.findIndex(val => val[0] === oldVal[0]);
       if (index == -1) {
