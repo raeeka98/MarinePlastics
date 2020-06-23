@@ -48,7 +48,9 @@ var testFindDiffDebrisNewDebris3 = [];
 
 var testFindDiffDebrisDiff3 = {};
 
-var expectedFindDiffDebrisDiff3 = {};
+var expectedFindDiffDebrisDiff3 = {
+  "cigaretteButts": -29
+};
 
 // oldDebris: 3 items; newDebris: same 3 items; diff: empty
 var testFindDiffDebrisOldDebris4 = [
