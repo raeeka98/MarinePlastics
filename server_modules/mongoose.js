@@ -786,12 +786,79 @@ function compareTrash (newDebrisData, prevDebrisData, result) {
 /**
  * Finds differences between the old debris and the new debris for determining
  * how to change the beach stats on total types of debris. Stores these
- * differences in diff. This is to be called for surface rib scan and
- * accumulation survey.
+ * differences in diff. This is to be called for surface rib scan,
+ * accumulation survey, and micro debris survey
  * @params {any} oldDebris, {any} newDebris, {any} diff
  */
 function findDiffDebris(oldDebris, newDebris, diff) {
-  // TODO
+  // for each type of debris in newDebris
+  newDebris.forEach(newVal => {
+    let index = oldDebris.findIndex(val => val[0] === newVal[0]);
+    // if type of debris in oldDebris
+    if (index !== -1) {
+      var oldFresh = oldDebris[newVal[0]].fresh;
+      var oldWeathered = oldDebris[newVal[0]].weathered;
+      var newFresh = newDebris[newVal[0]].fresh;
+      var newWeathered = newDebris[newVal[0]].weathered;
+
+      // in case data is in strings, not numbers, this prevents concatenation
+      if (typeof oldFresh !== 'number') {
+        oldFresh = Number(oldFresh);
+      }
+      if (typeof oldWeathered !== 'number') {
+        oldWeathered = Number(oldWeathered);
+      }
+      if (typeof newFresh !== 'number') {
+        newFresh = Number(newFresh);
+      }
+      if (typeof newWeathered !== 'number') {
+        newWeathered = Number(newWeathered);
+      }
+
+      // add difference of newDebris and oldDebris to type of debris in diff
+      diff[newVal[0]] += (newFresh + newWeathered - oldFresh - oldWeathered);
+    }
+    // if type of debris is not in oldDebris (was added)
+    else {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(newVal[0] in diff)) {
+        diff[newVal[0]] = 0;
+      }
+
+      var fresh = newDebris[newVal[0]].fresh;
+      var weathered = newDebris[newVal[0]].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      // add value of type of debris from newDebris to type of debris in diff
+      diff[newVal[0]] += (fresh + weathered);
+    }
+  });
+
+  // for each type of debris in oldDebris (to get any types of debris missed)
+  oldDebris.forEach(oldVal => {
+    let index = newDebris.findIndex(val => val[0] === oldVal[0]);
+    // if type of debris not in newDebris (was deleted)
+    if (index === -1) {
+      var fresh = oldDebris[oldVal[0]].fresh;
+      var weathered = oldDebris[oldVal[0]].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      // minus value of type of debris from oldDebris to type of debris in diff
+      diff[oldVal[0]] += (-fresh - weathered);
+    }
+  });
 }
 
 async function test1 () {
