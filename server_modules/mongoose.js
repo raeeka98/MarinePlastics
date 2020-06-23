@@ -783,6 +783,16 @@ function compareTrash (newDebrisData, prevDebrisData, result) {
   return true;
 }
 
+/**
+ * Finds differences between the old debris and the new debris for determining
+ * how to change the beach stats on total types of debris. Stores these
+ * differences in diff. This is to be called for surface rib scan and
+ * accumulation survey.
+ * @params {any} oldDebris, {any} newDebris, {any} diff
+ */
+function findDiffDebris(oldDebris, newDebris, diff) {
+  // TODO
+}
 
 async function test1 () {
   let sur = {
@@ -858,5 +868,8 @@ async function test1 () {
 module.exports = {
   beaches,
   surveys,
-  trash
+  trash,
+  // for testing
+  compareTrash,
+  findDiffDebris
 };
