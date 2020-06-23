@@ -758,7 +758,7 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
  * @params {any} newDebrisData, {any} prevDebrisData, {any} result
  * @return true if the trash was not deleted, false otherwise
  */
-function compareTrash (newDebrisData, prevDebrisData, result) {
+function compareTrash(newDebrisData, prevDebrisData, result) {
   let trash = Object.keys(newDebrisData);
   if (trash.length > 0) {
     trash.forEach(trashName => {
@@ -796,6 +796,11 @@ function findDiffDebris(oldDebris, newDebris, diff) {
     let index = oldDebris.findIndex(val => val[0] === newVal[0]);
     // if type of debris in oldDebris
     if (index !== -1) {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(newVal[0] in diff)) {
+        diff[newVal[0]] = 0;
+      }
+
       var oldFresh = oldDebris[index][1].fresh;
       var oldWeathered = oldDebris[index][1].weathered;
       var newFresh = newVal[1].fresh;
@@ -845,6 +850,11 @@ function findDiffDebris(oldDebris, newDebris, diff) {
     let index = newDebris.findIndex(val => val[0] === oldVal[0]);
     // if type of debris not in newDebris (was deleted)
     if (index === -1) {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(oldVal[0] in diff)) {
+        diff[oldVal[0]] = 0;
+      }
+
       var fresh = oldVal[1].fresh;
       var weathered = oldVal[1].weathered;
 
