@@ -796,10 +796,10 @@ function findDiffDebris(oldDebris, newDebris, diff) {
     let index = oldDebris.findIndex(val => val[0] === newVal[0]);
     // if type of debris in oldDebris
     if (index !== -1) {
-      var oldFresh = oldDebris[newVal[0]].fresh;
-      var oldWeathered = oldDebris[newVal[0]].weathered;
-      var newFresh = newDebris[newVal[0]].fresh;
-      var newWeathered = newDebris[newVal[0]].weathered;
+      var oldFresh = oldDebris[index][1].fresh;
+      var oldWeathered = oldDebris[index][1].weathered;
+      var newFresh = newVal[1].fresh;
+      var newWeathered = newVal[1].weathered;
 
       // in case data is in strings, not numbers, this prevents concatenation
       if (typeof oldFresh !== 'number') {
@@ -825,8 +825,8 @@ function findDiffDebris(oldDebris, newDebris, diff) {
         diff[newVal[0]] = 0;
       }
 
-      var fresh = newDebris[newVal[0]].fresh;
-      var weathered = newDebris[newVal[0]].weathered;
+      var fresh = newVal[1].fresh;
+      var weathered = newVal[1].weathered;
 
       if (typeof fresh !== 'number') {
         fresh = Number(fresh);
@@ -845,8 +845,8 @@ function findDiffDebris(oldDebris, newDebris, diff) {
     let index = newDebris.findIndex(val => val[0] === oldVal[0]);
     // if type of debris not in newDebris (was deleted)
     if (index === -1) {
-      var fresh = oldDebris[oldVal[0]].fresh;
-      var weathered = oldDebris[oldVal[0]].weathered;
+      var fresh = oldVal[1].fresh;
+      var weathered = oldVal[1].weathered;
 
       if (typeof fresh !== 'number') {
         fresh = Number(fresh);

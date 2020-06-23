@@ -57,3 +57,13 @@ test("findDiffDebris(oldDebris, newDebris, diff) case 1", () => {
 
   expect(diff).toEqual(expectedFindDiffDebrisDiff1);
 });
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 2", () => {
+  var oldDebris = testFindDiffDebrisOldDebris2;
+  var newDebris = testFindDiffDebrisNewDebris2;
+  var diff = testFindDiffDebrisDiff2;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff2);
+});
