@@ -77,3 +77,63 @@ test("findDiffDebris(oldDebris, newDebris, diff) case 3", () => {
 
   expect(diff).toEqual(expectedFindDiffDebrisDiff3);
 });
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 4", () => {
+  var oldDebris = testFindDiffDebrisOldDebris4;
+  var newDebris = testFindDiffDebrisNewDebris4;
+  var diff = testFindDiffDebrisDiff4;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff4);
+});
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 5", () => {
+  var oldDebris = testFindDiffDebrisOldDebris5;
+  var newDebris = testFindDiffDebrisNewDebris5;
+  var diff = testFindDiffDebrisDiff5;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff5);
+});
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 6", () => {
+  var oldDebris = testFindDiffDebrisOldDebris6;
+  var newDebris = testFindDiffDebrisNewDebris6;
+  var diff = testFindDiffDebrisDiff6;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff6);
+});
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 7", () => {
+  var oldDebris = testFindDiffDebrisOldDebris7;
+  var newDebris = testFindDiffDebrisNewDebris7;
+  var diff = testFindDiffDebrisDiff7;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff7);
+});
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 8", () => {
+  var oldDebris = testFindDiffDebrisOldDebris8;
+  var newDebris = testFindDiffDebrisNewDebris8;
+  var diff = testFindDiffDebrisDiff8;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff8);
+});
+
+test("findDiffDebris(oldDebris, newDebris, diff) case 9", () => {
+  var oldDebris = testFindDiffDebrisOldDebris9;
+  var newDebris = testFindDiffDebrisNewDebris9;
+  var diff = testFindDiffDebrisDiff9;
+
+  findDiffDebris(oldDebris, newDebris, diff);
+
+  expect(diff).toEqual(expectedFindDiffDebrisDiff9);
+});

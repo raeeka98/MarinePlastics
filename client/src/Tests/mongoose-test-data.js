@@ -299,7 +299,7 @@ var testFindDiffDebrisDiff9 = {
 var expectedFindDiffDebrisDiff9 = {
   "cigaretteButts": 1,
   "fishingLineRope": 2,
-  "plasticCups": -22,
+  "plasticCups": -18,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
