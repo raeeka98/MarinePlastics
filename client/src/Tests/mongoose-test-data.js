@@ -166,18 +166,18 @@ var expectedFindDiffDebrisDiff5 = {
 };
 
 // oldDebris, newDebris: empty; diff: not empty
-var testFindDiffDebrisOldDebris1 = [];
+var testFindDiffDebrisOldDebris6 = [];
 
-var testFindDiffDebrisNewDebris1 = [];
+var testFindDiffDebrisNewDebris6 = [];
 
-var testFindDiffDebrisDiff1 = {
+var testFindDiffDebrisDiff6 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
 
-var expectedFindDiffDebrisDiff1 = {
+var expectedFindDiffDebrisDiff6 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
@@ -185,9 +185,9 @@ var expectedFindDiffDebrisDiff1 = {
 };
 
 // oldDebris: empty; newDebris: 1 item, diff: not empty
-var testFindDiffDebrisOldDebris2 = [];
+var testFindDiffDebrisOldDebris7 = [];
 
-var testFindDiffDebrisNewDebris2 = [
+var testFindDiffDebrisNewDebris7 = [
   [
     "cigaretteButts",
     {
@@ -197,14 +197,14 @@ var testFindDiffDebrisNewDebris2 = [
   ]
 ];
 
-var testFindDiffDebrisDiff2 = {
+var testFindDiffDebrisDiff7 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
 
-var expectedFindDiffDebrisDiff2 = {
+var expectedFindDiffDebrisDiff7 = {
   "cigaretteButts": 12,
   "plasticCups": -20,
   "plasticStraws": 16,
@@ -212,7 +212,7 @@ var expectedFindDiffDebrisDiff2 = {
 };
 
 // newDebris: empty; oldDebris: 1 item; diff: not empty
-var testFindDiffDebrisOldDebris3 = [
+var testFindDiffDebrisOldDebris8 = [
   [
     "cigaretteButts",
     {
@@ -222,16 +222,16 @@ var testFindDiffDebrisOldDebris3 = [
   ]
 ];
 
-var testFindDiffDebrisNewDebris3 = [];
+var testFindDiffDebrisNewDebris8 = [];
 
-var testFindDiffDebrisDiff3 = {
+var testFindDiffDebrisDiff8 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
 
-var expectedFindDiffDebrisDiff3 = {
+var expectedFindDiffDebrisDiff8 = {
   "cigaretteButts": -8,
   "plasticCups": -20,
   "plasticStraws": 16,
@@ -239,7 +239,7 @@ var expectedFindDiffDebrisDiff3 = {
 };
 
 // oldDebris: 3 items; newDebris: same 3 items; diff: not empty
-var testFindDiffDebrisOldDebris4 = [
+var testFindDiffDebrisOldDebris9 = [
   [
     "cigaretteButts",
     {
@@ -263,7 +263,7 @@ var testFindDiffDebrisOldDebris4 = [
   ]
 ];
 
-var testFindDiffDebrisNewDebris4 = [
+var testFindDiffDebrisNewDebris9 = [
   [
     "cigaretteButts",
     {
@@ -287,14 +287,14 @@ var testFindDiffDebrisNewDebris4 = [
   ]
 ];
 
-var testFindDiffDebrisDiff4 = {
+var testFindDiffDebrisDiff9 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
 
-var expectedFindDiffDebrisDiff4 = {
+var expectedFindDiffDebrisDiff9 = {
   "cigaretteButts": 1,
   "fishingLineRope": 2,
   "plasticCups": -22,
@@ -303,7 +303,7 @@ var expectedFindDiffDebrisDiff4 = {
 };
 
 // oldDebris: 3 items; newDebris: 2 items in oldDebris, 1 new item; diff: !mt
-var testFindDiffDebrisOldDebris5 = [
+var testFindDiffDebrisOldDebris10 = [
   [
     "cigaretteButts",
     {
@@ -327,7 +327,7 @@ var testFindDiffDebrisOldDebris5 = [
   ]
 ];
 
-var testFindDiffDebrisNewDebris5 = [
+var testFindDiffDebrisNewDebris10 = [
   [
     "cigaretteButts",
     {
@@ -351,17 +351,60 @@ var testFindDiffDebrisNewDebris5 = [
   ]
 ];
 
-var testFindDiffDebrisDiff5 = {
+var testFindDiffDebrisDiff10 = {
   "cigaretteButts": 2,
   "plasticCups": -20,
   "plasticStraws": 16,
   "filmedPlastic": 3
 };
 
-var expectedFindDiffDebrisDiff5 = {
+var expectedFindDiffDebrisDiff10 = {
   "cigaretteButts": 1,
   "fishingLineRope": 2,
   "plasticCups": -2,
   "plasticStraws": 13,
   "filmedPlastic": 3
+};
+
+export {
+  testFindDiffDebrisOldDebris1,
+  testFindDiffDebrisOldDebris2,
+  testFindDiffDebrisOldDebris3,
+  testFindDiffDebrisOldDebris4,
+  testFindDiffDebrisOldDebris5,
+  testFindDiffDebrisOldDebris6,
+  testFindDiffDebrisOldDebris7,
+  testFindDiffDebrisOldDebris8,
+  testFindDiffDebrisOldDebris9,
+  testFindDiffDebrisOldDebris10,
+  testFindDiffDebrisNewDebris1,
+  testFindDiffDebrisNewDebris2,
+  testFindDiffDebrisNewDebris3,
+  testFindDiffDebrisNewDebris4,
+  testFindDiffDebrisNewDebris5,
+  testFindDiffDebrisNewDebris6,
+  testFindDiffDebrisNewDebris7,
+  testFindDiffDebrisNewDebris8,
+  testFindDiffDebrisNewDebris9,
+  testFindDiffDebrisNewDebris10,
+  testFindDiffDebrisDiff1,
+  testFindDiffDebrisDiff2,
+  testFindDiffDebrisDiff3,
+  testFindDiffDebrisDiff4,
+  testFindDiffDebrisDiff5,
+  testFindDiffDebrisDiff6,
+  testFindDiffDebrisDiff7,
+  testFindDiffDebrisDiff8,
+  testFindDiffDebrisDiff9,
+  testFindDiffDebrisDiff10,
+  expectedFindDiffDebrisDiff1,
+  expectedFindDiffDebrisDiff2,
+  expectedFindDiffDebrisDiff3,
+  expectedFindDiffDebrisDiff4,
+  expectedFindDiffDebrisDiff5,
+  expectedFindDiffDebrisDiff6,
+  expectedFindDiffDebrisDiff7,
+  expectedFindDiffDebrisDiff8,
+  expectedFindDiffDebrisDiff9,
+  expectedFindDiffDebrisDiff10
 };
