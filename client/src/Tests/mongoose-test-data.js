@@ -57,22 +57,22 @@ var testFindDiffDebrisOldDebris4 = [
   [
     "cigaretteButts",
     {
-      fresh: 20,
-      weathered: 9
+      fresh: "20",
+      weathered: "9"
     }
   ],
   [
     "fishingLineRope",
     {
-      fresh: 10,
-      weathered: 7
+      fresh: "10",
+      weathered: "7"
     }
   ],
   [
     "plasticCups",
     {
-      fresh: 8,
-      weathered: 12
+      fresh: "8",
+      weathered: "12"
     }
   ]
 ];
@@ -81,22 +81,22 @@ var testFindDiffDebrisNewDebris4 = [
   [
     "cigaretteButts",
     {
-      fresh: 22,
-      weathered: 9
+      fresh: "22",
+      weathered: "9"
     }
   ],
   [
     "fishingLineRope",
     {
-      fresh: 6,
-      weathered: 7
+      fresh: "6",
+      weathered: "7"
     }
   ],
   [
     "plasticCups",
     {
-      fresh: 8,
-      weathered: 2
+      fresh: "8",
+      weathered: "2"
     }
   ]
 ];
@@ -309,22 +309,22 @@ var testFindDiffDebrisOldDebris10 = [
   [
     "cigaretteButts",
     {
-      fresh: 0,
-      weathered: 10
+      fresh: "0",
+      weathered: "10"
     }
   ],
   [
     "fishingLineRope",
     {
-      fresh: 0,
-      weathered: 2
+      fresh: "0",
+      weathered: "2"
     }
   ],
   [
     "plasticCups",
     {
-      fresh: 2,
-      weathered: 0
+      fresh: "2",
+      weathered: "0"
     }
   ]
 ];
@@ -333,22 +333,22 @@ var testFindDiffDebrisNewDebris10 = [
   [
     "cigaretteButts",
     {
-      fresh: 0,
-      weathered: 9
+      fresh: "0",
+      weathered: "9"
     }
   ],
   [
     "fishingLineRope",
     {
-      fresh: 2,
-      weathered: 2
+      fresh: "2",
+      weathered: "2"
     }
   ],
   [
     "plasticStraws",
     {
-      fresh: 0,
-      weathered: 13
+      fresh: "0",
+      weathered: "13"
     }
   ]
 ];
