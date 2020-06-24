@@ -368,6 +368,98 @@ var expectedFindDiffDebrisDiff10 = {
   "filmedPlastic": 3
 };
 
+// variables to test compareTrash(diff, prevDebrisData, result)
+
+// diff and prevDebrisData empty
+var testCompareTrashDiff1 = {};
+
+var testCompareTrashPrevDebrisData1 = {};
+
+var expectedCompareTrashResult1 = [];
+
+// diff 1 item, prevDebrisData empty
+var testCompareTrashDiff2 = {
+  "cigaretteButts": 29
+};
+
+var testCompareTrashPrevDebrisData2 = {};
+
+var expectedCompareTrashResult2 = [
+  [
+    "cigaretteButts",
+    29
+  ]
+];
+
+// diff empty, prevDebrisData 1 item
+var testCompareTrashDiff3 = {};
+
+var testCompareTrashPrevDebrisData3 = {
+  "cigaretteButts": 29
+};
+
+var expectedCompareTrashResult3 = [];
+
+// diff 3 items, prevDebrisData 3 items
+var testCompareTrashDiff4 = {
+  "cigaretteButts": 2,
+  "fishingLineRope": -4,
+  "plasticCups": -10
+};
+
+var testCompareTrashPrevDebrisData4 = {
+  "cigaretteButts": 29,
+  "fishingLineRope": 17,
+  "plasticCups": 20
+};
+
+var expectedCompareTrashResult4 = [
+  [
+    "cigaretteButts",
+    31
+  ],
+  [
+    "fishingLineRope",
+    13
+  ],
+  [
+    "plasticCups",
+    10
+  ]
+];
+
+// diff 3 items, prevDebrisData, 3 items, one item not shared between two vars.
+var testCompareTrashDiff5 = {
+  "cigaretteButts": 2,
+  "fishingLineRope": -4,
+  "plasticStraws": 16
+};
+
+var testCompareTrashPrevDebrisData5 = {
+  "cigaretteButts": 29,
+  "fishingLineRope": 17,
+  "plasticCups": 20
+};
+
+var expectedCompareTrashResult5 = [
+  [
+    "cigaretteButts",
+    31
+  ],
+  [
+    "fishingLineRope",
+    13
+  ],
+  [
+    "plasticCups",
+    20
+  ],
+  [
+    "plasticStraws",
+    16
+  ]
+];
+
 export {
   testFindDiffDebrisOldDebris1,
   testFindDiffDebrisOldDebris2,
