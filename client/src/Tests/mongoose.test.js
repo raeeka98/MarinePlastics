@@ -45,7 +45,22 @@ import {
   expectedFindDiffDebrisDiff7,
   expectedFindDiffDebrisDiff8,
   expectedFindDiffDebrisDiff9,
-  expectedFindDiffDebrisDiff10
+  expectedFindDiffDebrisDiff10,
+  testCompareTrashDiff1,
+  testCompareTrashDiff2,
+  testCompareTrashDiff3,
+  testCompareTrashDiff4,
+  testCompareTrashDiff5,
+  testCompareTrashPrevDebrisData1,
+  testCompareTrashPrevDebrisData2,
+  testCompareTrashPrevDebrisData3,
+  testCompareTrashPrevDebrisData4,
+  testCompareTrashPrevDebrisData5,
+  expectedCompareTrashResult1,
+  expectedCompareTrashResult2,
+  expectedCompareTrashResult3,
+  expectedCompareTrashResult4,
+  expectedCompareTrashResult5
 } from './mongoose-test-data';
 
 test("findDiffDebris(oldDebris, newDebris, diff) case 1", () => {
@@ -146,4 +161,55 @@ test("findDiffDebris(oldDebris, newDebris, diff) case 10", () => {
   findDiffDebris(oldDebris, newDebris, diff);
 
   expect(diff).toEqual(expectedFindDiffDebrisDiff10);
+});
+
+test("compareTrash(diff, prevDebrisData, result) case 1", () => {
+  var diff = testCompareTrashDiff1;
+  var prevDebrisData = testCompareTrashPrevDebrisData1;
+  var result = [];
+
+  compareTrash(diff, prevDebrisData, result);
+
+  expect(result).toEqual(expectedCompareTrashResult1);
+});
+
+
+test("compareTrash(diff, prevDebrisData, result) case 2", () => {
+  var diff = testCompareTrashDiff2;
+  var prevDebrisData = testCompareTrashPrevDebrisData2;
+  var result = [];
+
+  compareTrash(diff, prevDebrisData, result);
+
+  expect(result).toEqual(expectedCompareTrashResult2);
+});
+
+test("compareTrash(diff, prevDebrisData, result) case 3", () => {
+  var diff = testCompareTrashDiff3;
+  var prevDebrisData = testCompareTrashPrevDebrisData3;
+  var result = [];
+
+  compareTrash(diff, prevDebrisData, result);
+
+  expect(result).toEqual(expectedCompareTrashResult3);
+});
+
+test("compareTrash(diff, prevDebrisData, result) case 4", () => {
+  var diff = testCompareTrashDiff4;
+  var prevDebrisData = testCompareTrashPrevDebrisData4;
+  var result = [];
+
+  compareTrash(diff, prevDebrisData, result);
+
+  expect(result).toEqual(expectedCompareTrashResult4);
+});
+
+test("compareTrash(diff, prevDebrisData, result) case 5", () => {
+  var diff = testCompareTrashDiff5;
+  var prevDebrisData = testCompareTrashPrevDebrisData5;
+  var result = [];
+
+  compareTrash(diff, prevDebrisData, result);
+
+  expect(result).toEqual(expectedCompareTrashResult5);
 });

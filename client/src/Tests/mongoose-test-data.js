@@ -373,7 +373,8 @@ var expectedFindDiffDebrisDiff10 = {
 // diff and prevDebrisData empty
 var testCompareTrashDiff1 = {};
 
-var testCompareTrashPrevDebrisData1 = {};
+// when retrieved from database, shows up as Map
+var testCompareTrashPrevDebrisData1 = new Map();
 
 var expectedCompareTrashResult1 = [];
 
@@ -382,7 +383,7 @@ var testCompareTrashDiff2 = {
   "cigaretteButts": 29
 };
 
-var testCompareTrashPrevDebrisData2 = {};
+var testCompareTrashPrevDebrisData2 = new Map();
 
 var expectedCompareTrashResult2 = [
   [
@@ -394,9 +395,8 @@ var expectedCompareTrashResult2 = [
 // diff empty, prevDebrisData 1 item
 var testCompareTrashDiff3 = {};
 
-var testCompareTrashPrevDebrisData3 = {
-  "cigaretteButts": 29
-};
+var testCompareTrashPrevDebrisData3 = new Map();
+testCompareTrashPrevDebrisData3.set("cigaretteButts", 29);
 
 var expectedCompareTrashResult3 = [];
 
@@ -407,11 +407,10 @@ var testCompareTrashDiff4 = {
   "plasticCups": -10
 };
 
-var testCompareTrashPrevDebrisData4 = {
-  "cigaretteButts": 29,
-  "fishingLineRope": 17,
-  "plasticCups": 20
-};
+var testCompareTrashPrevDebrisData4 = new Map();
+testCompareTrashPrevDebrisData4.set("cigaretteButts", 29);
+testCompareTrashPrevDebrisData4.set("fishingLineRope", 17);
+testCompareTrashPrevDebrisData4.set("plasticCups", 20);
 
 var expectedCompareTrashResult4 = [
   [
@@ -435,11 +434,10 @@ var testCompareTrashDiff5 = {
   "plasticStraws": 16
 };
 
-var testCompareTrashPrevDebrisData5 = {
-  "cigaretteButts": 29,
-  "fishingLineRope": 17,
-  "plasticCups": 20
-};
+var testCompareTrashPrevDebrisData5 = new Map();
+testCompareTrashPrevDebrisData5.set("cigaretteButts", 29);
+testCompareTrashPrevDebrisData5.set("fishingLineRope", 17);
+testCompareTrashPrevDebrisData5.set("plasticCups", 20);
 
 var expectedCompareTrashResult5 = [
   [
@@ -451,12 +449,12 @@ var expectedCompareTrashResult5 = [
     13
   ],
   [
-    "plasticCups",
-    20
-  ],
-  [
     "plasticStraws",
     16
+  ],
+  [
+    "plasticCups",
+    20
   ]
 ];
 
@@ -500,5 +498,20 @@ export {
   expectedFindDiffDebrisDiff7,
   expectedFindDiffDebrisDiff8,
   expectedFindDiffDebrisDiff9,
-  expectedFindDiffDebrisDiff10
+  expectedFindDiffDebrisDiff10,
+  testCompareTrashDiff1,
+  testCompareTrashDiff2,
+  testCompareTrashDiff3,
+  testCompareTrashDiff4,
+  testCompareTrashDiff5,
+  testCompareTrashPrevDebrisData1,
+  testCompareTrashPrevDebrisData2,
+  testCompareTrashPrevDebrisData3,
+  testCompareTrashPrevDebrisData4,
+  testCompareTrashPrevDebrisData5,
+  expectedCompareTrashResult1,
+  expectedCompareTrashResult2,
+  expectedCompareTrashResult3,
+  expectedCompareTrashResult4,
+  expectedCompareTrashResult5
 };

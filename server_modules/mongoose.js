@@ -165,6 +165,11 @@ let surveys = {
     });
 
     // calculates what the types of trash for the beach should now be
+    findDiffDebris(oldSRSDebris, newSRSDebris, updatePayload.newDebrisData);
+    findDiffDebris(oldASDebris, newASDebris, updatePayload.newDebrisData);
+    findDiffDebris(oldMicroDebris, newMicroDebris, updatePayload.newDebrisData);
+
+    /*
     oldSRSDebris.forEach(oldVal => {
       let index = newSRSDebris.findIndex(val => val[0] === oldVal[0]);
       if (index == -1) {
@@ -303,6 +308,7 @@ let surveys = {
           - (oldFresh + oldWeathered);
       }
     });
+    */
 
     // update beach data for types of trash and total trash per survey
     await beaches.updateStats(newSurvey.bID, updatePayload);
@@ -754,32 +760,41 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 }
 
 /**
- * Check what trash was deleted or removed, and add the results in result.
- * @params {any} newDebrisData, {any} prevDebrisData, {any} result
+ * Check what trash was deleted or removed using diff, and add the results in
+ * result.
+ * @params {any} diffs, {any} prevDebrisData, {any} result
  * @return true if the trash was not deleted, false otherwise
  */
-function compareTrash(newDebrisData, prevDebrisData, result) {
-  let trash = Object.keys(newDebrisData);
-  if (trash.length > 0) {
-    trash.forEach(trashName => {
-      let newTrashAmnt = newDebrisData[trashName];
-      if (prevDebrisData.has(trashName)) {
-        let origAmnt = prevDebrisData.get(trashName);
-        prevDebrisData.delete(trashName);
-        let newTotal = newTrashAmnt + origAmnt;
-        if (newTotal != 0) {
-            result.push([trashName, newTotal]);;
-        }
-      } else {
-        result.push([trashName, newTrashAmnt]);;
-      }
-    });
-    prevDebrisData.forEach((val, key) => {
-      result.push([key, val]);
-    });
-  } else {
+function compareTrash(diffs, prevDebrisData, result) {
+  let trash = Object.keys(diffs);
+  // if nothing from diff, no changes were made, so no need to update stats
+  if (trash.length === 0) {
     return false;
   }
+
+  // for each item from diff
+  trash.forEach(trashName => {
+    let diff = diffs[trashName];
+    // if trashName is in prevDebrisData, add the two together
+    if (prevDebrisData.has(trashName)) {
+      let origAmnt = prevDebrisData.get(trashName);
+      // remove, since going to copy unaltered trash data later
+      prevDebrisData.delete(trashName);
+      let newTotal = diff + origAmnt;
+      // remove trashName from stats if 0
+      if (newTotal != 0) {
+          result.push([trashName, newTotal]);;
+      }
+    } else {
+      result.push([trashName, diff]);;
+    }
+  });
+
+  // copy all remaining elements of prevDebrisData to result
+  prevDebrisData.forEach((val, key) => {
+    result.push([key, val]);
+  });
+  
   return true;
 }
 
