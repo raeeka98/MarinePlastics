@@ -4,53 +4,53 @@
  * compareTrash(diff, prevDebrisData, result) in
  * ../../../server_modules/mongoose.js.
  */
-import { findDiffDebris, compareTrash } from './../../../server_modules/mongoose';
+import { findDiffsDebris, compareTrash } from './../../../server_modules/mongoose';
 import {
-  testFindDiffDebrisOldDebris1,
-  testFindDiffDebrisOldDebris2,
-  testFindDiffDebrisOldDebris3,
-  testFindDiffDebrisOldDebris4,
-  testFindDiffDebrisOldDebris5,
-  testFindDiffDebrisOldDebris6,
-  testFindDiffDebrisOldDebris7,
-  testFindDiffDebrisOldDebris8,
-  testFindDiffDebrisOldDebris9,
-  testFindDiffDebrisOldDebris10,
-  testFindDiffDebrisNewDebris1,
-  testFindDiffDebrisNewDebris2,
-  testFindDiffDebrisNewDebris3,
-  testFindDiffDebrisNewDebris4,
-  testFindDiffDebrisNewDebris5,
-  testFindDiffDebrisNewDebris6,
-  testFindDiffDebrisNewDebris7,
-  testFindDiffDebrisNewDebris8,
-  testFindDiffDebrisNewDebris9,
-  testFindDiffDebrisNewDebris10,
-  testFindDiffDebrisDiff1,
-  testFindDiffDebrisDiff2,
-  testFindDiffDebrisDiff3,
-  testFindDiffDebrisDiff4,
-  testFindDiffDebrisDiff5,
-  testFindDiffDebrisDiff6,
-  testFindDiffDebrisDiff7,
-  testFindDiffDebrisDiff8,
-  testFindDiffDebrisDiff9,
-  testFindDiffDebrisDiff10,
-  expectedFindDiffDebrisDiff1,
-  expectedFindDiffDebrisDiff2,
-  expectedFindDiffDebrisDiff3,
-  expectedFindDiffDebrisDiff4,
-  expectedFindDiffDebrisDiff5,
-  expectedFindDiffDebrisDiff6,
-  expectedFindDiffDebrisDiff7,
-  expectedFindDiffDebrisDiff8,
-  expectedFindDiffDebrisDiff9,
-  expectedFindDiffDebrisDiff10,
-  testCompareTrashDiff1,
-  testCompareTrashDiff2,
-  testCompareTrashDiff3,
-  testCompareTrashDiff4,
-  testCompareTrashDiff5,
+  testFindDiffsDebrisOldDebris1,
+  testFindDiffsDebrisOldDebris2,
+  testFindDiffsDebrisOldDebris3,
+  testFindDiffsDebrisOldDebris4,
+  testFindDiffsDebrisOldDebris5,
+  testFindDiffsDebrisOldDebris6,
+  testFindDiffsDebrisOldDebris7,
+  testFindDiffsDebrisOldDebris8,
+  testFindDiffsDebrisOldDebris9,
+  testFindDiffsDebrisOldDebris10,
+  testFindDiffsDebrisNewDebris1,
+  testFindDiffsDebrisNewDebris2,
+  testFindDiffsDebrisNewDebris3,
+  testFindDiffsDebrisNewDebris4,
+  testFindDiffsDebrisNewDebris5,
+  testFindDiffsDebrisNewDebris6,
+  testFindDiffsDebrisNewDebris7,
+  testFindDiffsDebrisNewDebris8,
+  testFindDiffsDebrisNewDebris9,
+  testFindDiffsDebrisNewDebris10,
+  testFindDiffsDebrisDiffs1,
+  testFindDiffsDebrisDiffs2,
+  testFindDiffsDebrisDiffs3,
+  testFindDiffsDebrisDiffs4,
+  testFindDiffsDebrisDiffs5,
+  testFindDiffsDebrisDiffs6,
+  testFindDiffsDebrisDiffs7,
+  testFindDiffsDebrisDiffs8,
+  testFindDiffsDebrisDiffs9,
+  testFindDiffsDebrisDiffs10,
+  expectedFindDiffsDebrisDiffs1,
+  expectedFindDiffsDebrisDiffs2,
+  expectedFindDiffsDebrisDiffs3,
+  expectedFindDiffsDebrisDiffs4,
+  expectedFindDiffsDebrisDiffs5,
+  expectedFindDiffsDebrisDiffs6,
+  expectedFindDiffsDebrisDiffs7,
+  expectedFindDiffsDebrisDiffs8,
+  expectedFindDiffsDebrisDiffs9,
+  expectedFindDiffsDebrisDiffs10,
+  testCompareTrashDiffs1,
+  testCompareTrashDiffs2,
+  testCompareTrashDiffs3,
+  testCompareTrashDiffs4,
+  testCompareTrashDiffs5,
   testCompareTrashPrevDebrisData1,
   testCompareTrashPrevDebrisData2,
   testCompareTrashPrevDebrisData3,
@@ -63,153 +63,153 @@ import {
   expectedCompareTrashResult5
 } from './mongoose-test-data';
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 1", () => {
-  var oldDebris = testFindDiffDebrisOldDebris1;
-  var newDebris = testFindDiffDebrisNewDebris1;
-  var diff = testFindDiffDebrisDiff1;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 1", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris1;
+  var newDebris = testFindDiffsDebrisNewDebris1;
+  var diffs = testFindDiffsDebrisDiffs1;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff1);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs1);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 2", () => {
-  var oldDebris = testFindDiffDebrisOldDebris2;
-  var newDebris = testFindDiffDebrisNewDebris2;
-  var diff = testFindDiffDebrisDiff2;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 2", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris2;
+  var newDebris = testFindDiffsDebrisNewDebris2;
+  var diffs = testFindDiffsDebrisDiffs2;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff2);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs2);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 3", () => {
-  var oldDebris = testFindDiffDebrisOldDebris3;
-  var newDebris = testFindDiffDebrisNewDebris3;
-  var diff = testFindDiffDebrisDiff3;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 3", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris3;
+  var newDebris = testFindDiffsDebrisNewDebris3;
+  var diffs = testFindDiffsDebrisDiffs3;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff3);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs3);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 4", () => {
-  var oldDebris = testFindDiffDebrisOldDebris4;
-  var newDebris = testFindDiffDebrisNewDebris4;
-  var diff = testFindDiffDebrisDiff4;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 4", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris4;
+  var newDebris = testFindDiffsDebrisNewDebris4;
+  var diffs = testFindDiffsDebrisDiffs4;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff4);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs4);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 5", () => {
-  var oldDebris = testFindDiffDebrisOldDebris5;
-  var newDebris = testFindDiffDebrisNewDebris5;
-  var diff = testFindDiffDebrisDiff5;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 5", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris5;
+  var newDebris = testFindDiffsDebrisNewDebris5;
+  var diffs = testFindDiffsDebrisDiffs5;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff5);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs5);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 6", () => {
-  var oldDebris = testFindDiffDebrisOldDebris6;
-  var newDebris = testFindDiffDebrisNewDebris6;
-  var diff = testFindDiffDebrisDiff6;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 6", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris6;
+  var newDebris = testFindDiffsDebrisNewDebris6;
+  var diffs = testFindDiffsDebrisDiffs6;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff6);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs6);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 7", () => {
-  var oldDebris = testFindDiffDebrisOldDebris7;
-  var newDebris = testFindDiffDebrisNewDebris7;
-  var diff = testFindDiffDebrisDiff7;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 7", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris7;
+  var newDebris = testFindDiffsDebrisNewDebris7;
+  var diffs = testFindDiffsDebrisDiffs7;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff7);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs7);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 8", () => {
-  var oldDebris = testFindDiffDebrisOldDebris8;
-  var newDebris = testFindDiffDebrisNewDebris8;
-  var diff = testFindDiffDebrisDiff8;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 8", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris8;
+  var newDebris = testFindDiffsDebrisNewDebris8;
+  var diffs = testFindDiffsDebrisDiffs8;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff8);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs8);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 9", () => {
-  var oldDebris = testFindDiffDebrisOldDebris9;
-  var newDebris = testFindDiffDebrisNewDebris9;
-  var diff = testFindDiffDebrisDiff9;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 9", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris9;
+  var newDebris = testFindDiffsDebrisNewDebris9;
+  var diffs = testFindDiffsDebrisDiffs9;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff9);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs9);
 });
 
-test("findDiffDebris(oldDebris, newDebris, diff) case 10", () => {
-  var oldDebris = testFindDiffDebrisOldDebris10;
-  var newDebris = testFindDiffDebrisNewDebris10;
-  var diff = testFindDiffDebrisDiff10;
+test("findDiffsDebris(oldDebris, newDebris, diffs) case 10", () => {
+  var oldDebris = testFindDiffsDebrisOldDebris10;
+  var newDebris = testFindDiffsDebrisNewDebris10;
+  var diffs = testFindDiffsDebrisDiffs10;
 
-  findDiffDebris(oldDebris, newDebris, diff);
+  findDiffsDebris(oldDebris, newDebris, diffs);
 
-  expect(diff).toEqual(expectedFindDiffDebrisDiff10);
+  expect(diffs).toEqual(expectedFindDiffsDebrisDiffs10);
 });
 
-test("compareTrash(diff, prevDebrisData, result) case 1", () => {
-  var diff = testCompareTrashDiff1;
+test("compareTrash(diffs, prevDebrisData, result) case 1", () => {
+  var diffs = testCompareTrashDiffs1;
   var prevDebrisData = testCompareTrashPrevDebrisData1;
   var result = [];
 
-  compareTrash(diff, prevDebrisData, result);
+  compareTrash(diffs, prevDebrisData, result);
 
   expect(result).toEqual(expectedCompareTrashResult1);
 });
 
 
-test("compareTrash(diff, prevDebrisData, result) case 2", () => {
-  var diff = testCompareTrashDiff2;
+test("compareTrash(diffs, prevDebrisData, result) case 2", () => {
+  var diffs = testCompareTrashDiffs2;
   var prevDebrisData = testCompareTrashPrevDebrisData2;
   var result = [];
 
-  compareTrash(diff, prevDebrisData, result);
+  compareTrash(diffs, prevDebrisData, result);
 
   expect(result).toEqual(expectedCompareTrashResult2);
 });
 
-test("compareTrash(diff, prevDebrisData, result) case 3", () => {
-  var diff = testCompareTrashDiff3;
+test("compareTrash(diffs, prevDebrisData, result) case 3", () => {
+  var diffs = testCompareTrashDiffs3;
   var prevDebrisData = testCompareTrashPrevDebrisData3;
   var result = [];
 
-  compareTrash(diff, prevDebrisData, result);
+  compareTrash(diffs, prevDebrisData, result);
 
   expect(result).toEqual(expectedCompareTrashResult3);
 });
 
-test("compareTrash(diff, prevDebrisData, result) case 4", () => {
-  var diff = testCompareTrashDiff4;
+test("compareTrash(diffs, prevDebrisData, result) case 4", () => {
+  var diffs = testCompareTrashDiffs4;
   var prevDebrisData = testCompareTrashPrevDebrisData4;
   var result = [];
 
-  compareTrash(diff, prevDebrisData, result);
+  compareTrash(diffs, prevDebrisData, result);
 
   expect(result).toEqual(expectedCompareTrashResult4);
 });
 
-test("compareTrash(diff, prevDebrisData, result) case 5", () => {
-  var diff = testCompareTrashDiff5;
+test("compareTrash(diffs, prevDebrisData, result) case 5", () => {
+  var diffs = testCompareTrashDiffs5;
   var prevDebrisData = testCompareTrashPrevDebrisData5;
   var result = [];
 
-  compareTrash(diff, prevDebrisData, result);
+  compareTrash(diffs, prevDebrisData, result);
 
   expect(result).toEqual(expectedCompareTrashResult5);
 });

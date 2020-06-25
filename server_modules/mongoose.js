@@ -165,9 +165,9 @@ let surveys = {
     });
 
     // calculates what the types of trash for the beach should now be
-    findDiffDebris(oldSRSDebris, newSRSDebris, updatePayload.newDebrisData);
-    findDiffDebris(oldASDebris, newASDebris, updatePayload.newDebrisData);
-    findDiffDebris(oldMicroDebris, newMicroDebris, updatePayload.newDebrisData);
+    findDiffsDebris(oldSRSDebris, newSRSDebris, updatePayload.newDebrisData);
+    findDiffsDebris(oldASDebris, newASDebris, updatePayload.newDebrisData);
+    findDiffsDebris(oldMicroDebris, newMicroDebris, updatePayload.newDebrisData);
 
     /*
     oldSRSDebris.forEach(oldVal => {
@@ -801,19 +801,19 @@ function compareTrash(diffs, prevDebrisData, result) {
 /**
  * Finds differences between the old debris and the new debris for determining
  * how to change the beach stats on total types of debris. Stores these
- * differences in diff. This is to be called for surface rib scan,
+ * differences in diffs. This is to be called for surface rib scan,
  * accumulation survey, and micro debris survey
- * @params {any} oldDebris, {any} newDebris, {any} diff
+ * @params {any} oldDebris, {any} newDebris, {any} diffs
  */
-function findDiffDebris(oldDebris, newDebris, diff) {
+function findDiffsDebris(oldDebris, newDebris, diffs) {
   // for each type of debris in newDebris
   newDebris.forEach(newVal => {
     let index = oldDebris.findIndex(val => val[0] === newVal[0]);
     // if type of debris in oldDebris
     if (index !== -1) {
       // if type of debris not in diff, add to diff with value 0
-      if (!(newVal[0] in diff)) {
-        diff[newVal[0]] = 0;
+      if (!(newVal[0] in diffs)) {
+        diffs[newVal[0]] = 0;
       }
 
       var oldFresh = oldDebris[index][1].fresh;
@@ -836,13 +836,13 @@ function findDiffDebris(oldDebris, newDebris, diff) {
       }
 
       // add difference of newDebris and oldDebris to type of debris in diff
-      diff[newVal[0]] += (newFresh + newWeathered - oldFresh - oldWeathered);
+      diffs[newVal[0]] += (newFresh + newWeathered - oldFresh - oldWeathered);
     }
     // if type of debris is not in oldDebris (was added)
     else {
       // if type of debris not in diff, add to diff with value 0
-      if (!(newVal[0] in diff)) {
-        diff[newVal[0]] = 0;
+      if (!(newVal[0] in diffs)) {
+        diffs[newVal[0]] = 0;
       }
 
       var fresh = newVal[1].fresh;
@@ -856,7 +856,7 @@ function findDiffDebris(oldDebris, newDebris, diff) {
       }
 
       // add value of type of debris from newDebris to type of debris in diff
-      diff[newVal[0]] += (fresh + weathered);
+      diffs[newVal[0]] += (fresh + weathered);
     }
   });
 
@@ -866,8 +866,8 @@ function findDiffDebris(oldDebris, newDebris, diff) {
     // if type of debris not in newDebris (was deleted)
     if (index === -1) {
       // if type of debris not in diff, add to diff with value 0
-      if (!(oldVal[0] in diff)) {
-        diff[oldVal[0]] = 0;
+      if (!(oldVal[0] in diffs)) {
+        diffs[oldVal[0]] = 0;
       }
 
       var fresh = oldVal[1].fresh;
@@ -881,7 +881,7 @@ function findDiffDebris(oldDebris, newDebris, diff) {
       }
 
       // minus value of type of debris from oldDebris to type of debris in diff
-      diff[oldVal[0]] += (-fresh - weathered);
+      diffs[oldVal[0]] += (-fresh - weathered);
     }
   });
 }
@@ -963,5 +963,5 @@ module.exports = {
   trash,
   // for testing
   compareTrash,
-  findDiffDebris
+  findDiffsDebris
 };
