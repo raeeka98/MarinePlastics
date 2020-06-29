@@ -1,7 +1,17 @@
 This lists further changes to the website after the changes made that are
 listed in the fixes_to_view_and_edit_survey.txt.
 
-1. Changed Sign Up button on landing page to the Sign Up/Log In button by
+Changed all instances on website of Sign Up to Sign Up/Login
+1. Changed Sign Up button on landing page to the Sign Up/Login button by
    modifying LandingPage(props) in client/src/Landing/Landing.js.
-2. Changed Sign Up link in header to Sign Up/Log In by modifying Menu.render()
+2. Changed Sign Up link in header to Sign Up/Login by modifying Menu.render()
    in client/src/Header/Header.jsx.
+   
+Fixed bug where editing survey data won't update beach stats correctly
+1. Added findDiffsDebris(oldDebris, newDebris, diffs) to
+   server_modules/mongoose.js
+2. Call findDiffsDebris(oldDebris, newDebris, diffs) in surveys.update instead
+   of doing the calculations for updating the total types of debris in the
+   method itself
+3. Modified compareTrash(diffs, prevDebrisData, result) to reflect change of
+   calling findDiffsDebris(oldDebris, newDebris, diffs)
