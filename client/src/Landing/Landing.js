@@ -68,7 +68,7 @@ export function LandingPage(props) {
                   "uk-button uk-button-primary uk-button-large sign-up-button"
                   onClick={ props.auth.login }
                 >
-                  Sign Up
+                  Sign Up/Log In
                 </button>
               )
             }

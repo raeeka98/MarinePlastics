@@ -76,10 +76,10 @@ let surveys = {
 
     let updatePayload = {
       reason: "remove",
-      newDebrisData: {},
+      diffs: {},
       date: dateOfSub
     };
-    updatePayload.newDebrisData = removedSurvey.getAllDebrisNeg();
+    updatePayload.diffs = removedSurvey.getAllDebrisNeg();
     let statsUpdate = beaches.updateStats(beachID, updatePayload);
 
     return await Promise.all([removeFromSurveys, statsUpdate]);
@@ -121,7 +121,7 @@ let surveys = {
       newASTotal: 0,
       newMDSTotal: 0,
       newSRSTotal: 0,
-      newDebrisData: {},
+      diffs: {},
       date: newSurvey.survDate
     };
     // calculates the new total debris for the updated survey
@@ -165,125 +165,9 @@ let surveys = {
     });
 
     // calculates what the types of trash for the beach should now be
-    oldSRSDebris.forEach(oldVal => {
-      let index = newSRSDebris.findIndex(val => val[0] === oldVal[0]);
-      if (index == -1) {
-        let fresh = oldVal[1].fresh;
-        let weathered = oldVal[1].weathered;
-
-        if (typeof fresh !== 'number') {
-          fresh = Number(fresh);
-        }
-        if (typeof weathered !== 'number') {
-          weathered = Number(weathered);
-        }
-
-        updatePayload.newDebrisData[oldVal[0]] =
-          -fresh - weathered;
-      } else {
-        let oldFresh = oldVal[1].fresh;
-        let oldWeathered = oldVal[1].weathered;
-        let newFresh = newSRSDebris[index][1].fresh;
-        let newWeathered = newSRSDebris[index][1].weathered;
-
-        if (typeof oldFresh !== 'number') {
-          oldFresh = Number(oldFresh);
-        }
-        if (typeof oldWeathered !== 'number') {
-          oldWeathered = Number(oldWeathered);
-        }
-        if (typeof newFresh !== 'number') {
-          newFresh = Number(newFresh);
-        }
-        if (typeof newWeathered !== 'number') {
-          newWeathered = Number(newWeathered);
-        }
-
-        updatePayload.newDebrisData[oldVal[0]] =
-          (newFresh + newWeathered) -
-          (oldFresh + oldWeathered);
-      }
-    });
-    // calculates what the types of trash for the beach should now be
-    oldASDebris.forEach(oldVal => {
-      let index = newASDebris.findIndex(val => val[0] === oldVal[0]);
-      if (index == -1) {
-        let fresh = oldVal[1].fresh;
-        let weathered = oldVal[1].weathered;
-
-        if (typeof fresh !== 'number') {
-          fresh = Number(fresh);
-        }
-        if (typeof weathered !== 'number') {
-          weathered = Number(weathered);
-        }
-
-        updatePayload.newDebrisData[oldVal[0]] =
-          -fresh - weathered;
-      } else {
-        let oldFresh = oldVal[1].fresh;
-        let oldWeathered = oldVal[1].weathered;
-        let newFresh = newASDebris[index][1].fresh;
-        let newWeathered = newASDebris[index][1].weathered;
-
-        if (typeof oldFresh !== 'number') {
-          oldFresh = Number(oldFresh);
-        }
-        if (typeof oldWeathered !== 'number') {
-          oldWeathered = Number(oldWeathered);
-        }
-        if (typeof newFresh !== 'number') {
-          newFresh = Number(newFresh);
-        }
-        if (typeof newWeathered !== 'number') {
-          newWeathered = Number(newWeathered);
-        }
-        
-        updatePayload.newDebrisData[oldVal[0]] =
-          (newFresh + newWeathered) -
-          (oldFresh + oldWeathered);
-      }
-    });
-    // not sure, but I think ASDebris should also be accounted for
-    oldMicroDebris.forEach(oldVal => {
-      let index = newMicroDebris.findIndex(val => val[0] === oldVal[0]);
-      if (index == -1) {
-        let fresh = oldVal[1].fresh;
-        let weathered = oldVal[1].weathered;
-
-        if (typeof fresh !== 'number') {
-          fresh = Number(fresh);
-        }
-        if (typeof weathered !== 'number') {
-          weathered = Number(weathered);
-        }
-
-        updatePayload.newDebrisData[oldVal[0]] =
-          -fresh - weathered;
-      } else {
-        let oldFresh = oldVal[1].fresh;
-        let oldWeathered = oldVal[1].weathered;
-        let newFresh = newMicroDebris[index][1].fresh;
-        let newWeathered = newMicroDebris[index][1].weathered;
-
-        if (typeof oldFresh !== 'number') {
-          oldFresh = Number(oldFresh);
-        }
-        if (typeof oldWeathered !== 'number') {
-          oldWeathered = Number(oldWeathered);
-        }
-        if (typeof newFresh !== 'number') {
-          newFresh = Number(newFresh);
-        }
-        if (typeof newWeathered !== 'number') {
-          newWeathered = Number(newWeathered);
-        }
-
-        updatePayload.newDebrisData[oldVal[0]] =
-          (newFresh + newWeathered)
-          - (oldFresh + oldWeathered);
-      }
-    });
+    findDiffsDebris(oldSRSDebris, newSRSDebris, updatePayload.diffs);
+    findDiffsDebris(oldASDebris, newASDebris, updatePayload.diffs);
+    findDiffsDebris(oldMicroDebris, newMicroDebris, updatePayload.diffs);
 
     // update beach data for types of trash and total trash per survey
     await beaches.updateStats(newSurvey.bID, updatePayload);
@@ -357,13 +241,13 @@ let surveys = {
       ASTotal: 0,
       MDSTotal: 0,
       SRSTotal: 0,
-      newDebrisData: {},
+      diffs: {},
     };
 
     // calc total debris
-    updatePayload.ASTotal = survey.getASTotal(updatePayload.newDebrisData);
-    updatePayload.MDSTotal = survey.getMDSTotal(updatePayload.newDebrisData);
-    updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.newDebrisData);
+    updatePayload.ASTotal = survey.getASTotal(updatePayload.diffs);
+    updatePayload.MDSTotal = survey.getMDSTotal(updatePayload.diffs);
+    updatePayload.SRSTotal = survey.getSRSTotal(updatePayload.diffs);
     // update beach types of debris and total trash for the survey (yearTotals)
     await beaches.updateStats(beachID, updatePayload);
     return rtnMsg;
@@ -649,10 +533,10 @@ let beaches = {
  */
 function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
   let { TODF: prevDebrisData } = oldStats;
-  let { newDebrisData, date } = updatePayload;
+  let { diffs, date } = updatePayload;
   let result = [];
 
-  if (compareTrash(newDebrisData, prevDebrisData, result)) {
+  if (compareTrash(diffs, prevDebrisData, result)) {
     update.beachUpdate.$set['stats.TODF'] = result;
   }
   let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
@@ -669,7 +553,7 @@ function removedSurvey (update, totalsQuery, updatePayload, oldStats) {
 function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
   let { TODF: prevDebrisData } = oldStats;
   let {
-    newDebrisData,
+    diffs,
     newASTotal,
     newMDSTotal,
     newSRSTotal,
@@ -678,7 +562,7 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
 
   let result = [];
   let path = `m${date.getUTCMonth()}`
-  if (compareTrash(newDebrisData, prevDebrisData, result)) {
+  if (compareTrash(diffs, prevDebrisData, result)) {
     update.beachUpdate.$set['stats.TODF'] = result;
   }
   let totalsID = oldStats.ttls.get(`${date.getUTCFullYear()}`);
@@ -697,9 +581,9 @@ function editedSurvey (update, totalsQuery, updatePayload, oldStats) {
  */
 function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
   let { TODF: prevDebrisData } = oldStats;
-  let { newDebrisData, ASTotal, MDSTotal, SRSTotal, date } = updatePayload;
+  let { diffs, ASTotal, MDSTotal, SRSTotal, date } = updatePayload;
   let result = [];
-  if (compareTrash(newDebrisData, prevDebrisData, result)) {
+  if (compareTrash(diffs, prevDebrisData, result)) {
     update.beachUpdate.$set['stats.TODF'] = result;
   }
   if (oldStats.ttls.size <= 0) {
@@ -735,35 +619,131 @@ function createdSurvey (update, totalsQuery, updatePayload, oldStats) {
 }
 
 /**
- * Check what trash was deleted or removed, and add the results in result.
- * @params {any} newDebrisData, {any} prevDebrisData, {any} result
+ * Check what trash was deleted or removed using diff, and add the results in
+ * result.
+ * @params {any} diffs, {any} prevDebrisData, {any} result
  * @return true if the trash was not deleted, false otherwise
  */
-function compareTrash (newDebrisData, prevDebrisData, result) {
-  let trash = Object.keys(newDebrisData);
-  if (trash.length > 0) {
-    trash.forEach(trashName => {
-      let newTrashAmnt = newDebrisData[trashName];
-      if (prevDebrisData.has(trashName)) {
-        let origAmnt = prevDebrisData.get(trashName);
-        prevDebrisData.delete(trashName);
-        let newTotal = newTrashAmnt + origAmnt;
-        if (newTotal != 0) {
-            result.push([trashName, newTotal]);;
-        }
-      } else {
-        result.push([trashName, newTrashAmnt]);;
-      }
-    });
-    prevDebrisData.forEach((val, key) => {
-      result.push([key, val]);
-    });
-  } else {
+function compareTrash(diffs, prevDebrisData, result) {
+  let trash = Object.keys(diffs);
+  // if nothing from diff, no changes were made, so no need to update stats
+  if (trash.length === 0) {
     return false;
   }
+
+  // for each item from diff
+  trash.forEach(trashName => {
+    let diff = diffs[trashName];
+    // if trashName is in prevDebrisData, add the two together
+    if (prevDebrisData.has(trashName)) {
+      let origAmnt = prevDebrisData.get(trashName);
+      // remove, since going to copy unaltered trash data later
+      prevDebrisData.delete(trashName);
+      let newTotal = diff + origAmnt;
+      // remove trashName from stats if 0
+      if (newTotal != 0) {
+          result.push([trashName, newTotal]);;
+      }
+    } else {
+      result.push([trashName, diff]);;
+    }
+  });
+
+  // copy all remaining elements of prevDebrisData to result
+  prevDebrisData.forEach((val, key) => {
+    result.push([key, val]);
+  });
+  
   return true;
 }
 
+/**
+ * Finds differences between the old debris and the new debris for determining
+ * how to change the beach stats on total types of debris. Stores these
+ * differences in diffs. This is to be called for surface rib scan,
+ * accumulation survey, and micro debris survey
+ * @params {any} oldDebris, {any} newDebris, {any} diffs
+ */
+function findDiffsDebris(oldDebris, newDebris, diffs) {
+  // for each type of debris in newDebris
+  newDebris.forEach(newVal => {
+    let index = oldDebris.findIndex(val => val[0] === newVal[0]);
+    // if type of debris in oldDebris
+    if (index !== -1) {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(newVal[0] in diffs)) {
+        diffs[newVal[0]] = 0;
+      }
+
+      var oldFresh = oldDebris[index][1].fresh;
+      var oldWeathered = oldDebris[index][1].weathered;
+      var newFresh = newVal[1].fresh;
+      var newWeathered = newVal[1].weathered;
+
+      // in case data is in strings, not numbers, this prevents concatenation
+      if (typeof oldFresh !== 'number') {
+        oldFresh = Number(oldFresh);
+      }
+      if (typeof oldWeathered !== 'number') {
+        oldWeathered = Number(oldWeathered);
+      }
+      if (typeof newFresh !== 'number') {
+        newFresh = Number(newFresh);
+      }
+      if (typeof newWeathered !== 'number') {
+        newWeathered = Number(newWeathered);
+      }
+
+      // add difference of newDebris and oldDebris to type of debris in diff
+      diffs[newVal[0]] += (newFresh + newWeathered - oldFresh - oldWeathered);
+    }
+    // if type of debris is not in oldDebris (was added)
+    else {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(newVal[0] in diffs)) {
+        diffs[newVal[0]] = 0;
+      }
+
+      var fresh = newVal[1].fresh;
+      var weathered = newVal[1].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      // add value of type of debris from newDebris to type of debris in diff
+      diffs[newVal[0]] += (fresh + weathered);
+    }
+  });
+
+  // for each type of debris in oldDebris (to get any types of debris missed)
+  oldDebris.forEach(oldVal => {
+    let index = newDebris.findIndex(val => val[0] === oldVal[0]);
+    // if type of debris not in newDebris (was deleted)
+    if (index === -1) {
+      // if type of debris not in diff, add to diff with value 0
+      if (!(oldVal[0] in diffs)) {
+        diffs[oldVal[0]] = 0;
+      }
+
+      var fresh = oldVal[1].fresh;
+      var weathered = oldVal[1].weathered;
+
+      if (typeof fresh !== 'number') {
+        fresh = Number(fresh);
+      }
+      if (typeof weathered !== 'number') {
+        weathered = Number(weathered);
+      }
+
+      // minus value of type of debris from oldDebris to type of debris in diff
+      diffs[oldVal[0]] += (-fresh - weathered);
+    }
+  });
+}
 
 async function test1 () {
   let sur = {
@@ -839,5 +819,8 @@ async function test1 () {
 module.exports = {
   beaches,
   surveys,
-  trash
+  trash,
+  // for testing
+  compareTrash,
+  findDiffsDebris
 };
