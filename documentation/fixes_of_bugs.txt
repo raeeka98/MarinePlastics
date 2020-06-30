@@ -1,0 +1,7 @@
+This lists further changes to the website after the changes made that are
+listed in the fixes_to_view_and_edit_survey.txt.
+
+1. Changed Sign Up button on landing page to the Sign Up/Log In button by
+   modifying LandingPage(props) in client/src/Landing/Landing.js.
+2. Changed Sign Up link in header to Sign Up/Log In by modifying Menu.render()
+   in client/src/Header/Header.jsx.
