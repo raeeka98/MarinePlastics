@@ -570,6 +570,7 @@ class SurveyEntry extends Component {
                   <p><strong>Major Use: </strong>
                     {this.state.surveyData.majorUse.rec ? "Recreation" :
                     this.state.surveyData.majorUse.com ? "Commercial" :
+                    this.state.surveyData.majorUse.rem ? "Remote/Unused" :
                     this.state.surveyData.majorUse.other}
                   </p> : null
               }
