@@ -629,12 +629,34 @@ class SurveyEntryEdit extends Component {
                   />
                   <span className="uk-margin-left uk-text-small">Pebble</span>
                 </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.rr"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.rr}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Rip Rap (large boulders)
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.sea"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.sea}
+                  />
+                  <span className="uk-margin-left uk-text-small">Seaweed</span>
+                </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
                     <input
                       className="uk-checkbox"
                       type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
+                      defaultChecked={this.state.surveyData.st.other ?
                         true : false}
                     />
                   </div>
