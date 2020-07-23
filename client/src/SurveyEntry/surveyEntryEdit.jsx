@@ -573,6 +573,18 @@ class SurveyEntryEdit extends Component {
                     Commercial
                   </span>
                 </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="majorUse.rem"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.majorUse.rem}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Remote/Unused
+                  </span>
+                </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
                     <input
