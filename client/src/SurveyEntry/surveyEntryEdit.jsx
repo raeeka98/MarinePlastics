@@ -509,7 +509,7 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.prox"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.rec}
+                    defaultChecked={this.state.surveyData.reason.prox}
                   />
                   <span className="uk-margin-left uk-text-small">
                     Proximity
@@ -521,7 +521,7 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.debris"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.com}
+                    defaultChecked={this.state.surveyData.reason.debris}
                   />
                   <span className="uk-margin-left uk-text-small">Debris</span>
                 </div>
@@ -530,7 +530,7 @@ class SurveyEntryEdit extends Component {
                     <input
                       className="uk-checkbox"
                       type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
+                      defaultChecked={this.state.surveyData.reason.other ?
                         true : false}
                     />
                   </div>
@@ -538,9 +538,9 @@ class SurveyEntryEdit extends Component {
                     <input
                       className="uk-input uk-form-small"
                       type="text"
-                      name="majorUse.reason.other"
+                      name="reason.other"
                       onChange={this.editSurveyData}
-                      defaultValue={this.state.surveyData.majorUse.other}
+                      defaultValue={this.state.surveyData.reason.other}
                       placeholder="Other"
                     />
                   </div>
