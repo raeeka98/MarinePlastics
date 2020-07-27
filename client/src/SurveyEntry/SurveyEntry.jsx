@@ -118,9 +118,6 @@ class SurveyEntry extends Component {
     let userRoles = this.state.userProfile ?
       this.state.userProfile['https://marineplastics.com/roles'] : undefined
 
-    console.log("my user role");
-    console.log(userRoles);
-
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID,

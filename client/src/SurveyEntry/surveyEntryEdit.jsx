@@ -220,7 +220,13 @@ class SurveyEntryEdit extends Component {
     this.setState(prev => ({
       surveyData: oldData,
       newData: sendingData
-    }))
+    }));
+
+    // for testing
+    console.log("after calling editSurveyCheckBoxes(e)");
+    console.log("e.target.name: " + e.target.name);
+    console.log(oldData);
+    console.log(sendingData);
   }
 
   /**
