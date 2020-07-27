@@ -118,9 +118,6 @@ class SurveyEntry extends Component {
     let userRoles = this.state.userProfile ?
       this.state.userProfile['https://marineplastics.com/roles'] : undefined
 
-    console.log("my user role");
-    console.log(userRoles);
-
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID,
@@ -570,6 +567,7 @@ class SurveyEntry extends Component {
                   <p><strong>Major Use: </strong>
                     {this.state.surveyData.majorUse.rec ? "Recreation" :
                     this.state.surveyData.majorUse.com ? "Commercial" :
+                    this.state.surveyData.majorUse.rem ? "Remote/Unused" :
                     this.state.surveyData.majorUse.other}
                   </p> : null
               }
@@ -579,7 +577,8 @@ class SurveyEntry extends Component {
                     {
                       this.state.surveyData.st.s ? "Sand" :
                       this.state.surveyData.st.p ? "Pebbles" :
-                      this.state.surveyData.st.rr ? "Rip rap" :
+                      this.state.surveyData.st.rr ? 
+                        "Rip Rap (large boulders)" :
                       this.state.surveyData.st.sea ? "Seaweed" :
                       this.state.surveyData.st.other
                     }

@@ -220,7 +220,13 @@ class SurveyEntryEdit extends Component {
     this.setState(prev => ({
       surveyData: oldData,
       newData: sendingData
-    }))
+    }));
+
+    // for testing
+    console.log("after calling editSurveyCheckBoxes(e)");
+    console.log("e.target.name: " + e.target.name);
+    console.log(oldData);
+    console.log(sendingData);
   }
 
   /**
@@ -509,7 +515,7 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.prox"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.rec}
+                    defaultChecked={this.state.surveyData.reason.prox}
                   />
                   <span className="uk-margin-left uk-text-small">
                     Proximity
@@ -521,7 +527,7 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.debris"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.com}
+                    defaultChecked={this.state.surveyData.reason.debris}
                   />
                   <span className="uk-margin-left uk-text-small">Debris</span>
                 </div>
@@ -530,7 +536,7 @@ class SurveyEntryEdit extends Component {
                     <input
                       className="uk-checkbox"
                       type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
+                      defaultChecked={this.state.surveyData.reason.other ?
                         true : false}
                     />
                   </div>
@@ -538,9 +544,9 @@ class SurveyEntryEdit extends Component {
                     <input
                       className="uk-input uk-form-small"
                       type="text"
-                      name="majorUse.reason.other"
+                      name="reason.other"
                       onChange={this.editSurveyData}
-                      defaultValue={this.state.surveyData.majorUse.other}
+                      defaultValue={this.state.surveyData.reason.other}
                       placeholder="Other"
                     />
                   </div>
@@ -577,7 +583,7 @@ class SurveyEntryEdit extends Component {
                   <input
                     className="uk-checkbox"
                     type="checkbox"
-                    name="majorUse.rec"
+                    name="majorUse.rem"
                     onChange={this.editSurveyCheckBoxes}
                     defaultChecked={this.state.surveyData.majorUse.rem}
                   />
@@ -629,12 +635,34 @@ class SurveyEntryEdit extends Component {
                   />
                   <span className="uk-margin-left uk-text-small">Pebble</span>
                 </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.rr"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.rr}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Rip Rap (large boulders)
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.sea"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.sea}
+                  />
+                  <span className="uk-margin-left uk-text-small">Seaweed</span>
+                </div>
                 <div className="uk-grid uk-margin-small-top otherInput">
                   <div className="uk-width-auto">
                     <input
                       className="uk-checkbox"
                       type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
+                      defaultChecked={this.state.surveyData.st.other ?
                         true : false}
                     />
                   </div>
