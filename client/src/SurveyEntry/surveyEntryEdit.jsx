@@ -22,6 +22,10 @@ const debrisInfo = getAllDebrisMap();
 class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
+
+    // for testing only
+    console.log(props);
+
     let srsOptions = debrisNames;
     let asOptions = debrisNames;
 
@@ -223,10 +227,9 @@ class SurveyEntryEdit extends Component {
     }));
 
     // for testing
-    console.log("after calling editSurveyCheckBoxes(e)");
-    console.log("e.target.name: " + e.target.name);
-    console.log(oldData);
-    console.log(sendingData);
+    if (process.env.NODE_ENV === 'test') {
+      return oldData, sendingData
+    }
   }
 
   /**

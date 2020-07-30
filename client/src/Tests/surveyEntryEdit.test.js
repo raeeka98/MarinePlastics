@@ -70,3 +70,27 @@ import {
   editSurveyCheckBoxesExpectedSendingData18
 } from './surveyEntryEdit-test-data';
 
+test("editSurveyCheckBoxes(e) case 1", () => {
+    var props = {
+      location: {
+        state: {
+          beachName: "Coy Beach",
+          info: {},
+          surveyData: {
+            editSurveyCheckBoxesSurveyData1,
+            SRSDebris: {},
+            ASDebris: {},
+            MicroDebris: {}
+          },
+          userProfile: {
+            name: "stgibson@ucsc.edu",
+            email: "stgibson@ucsc.edu",
+            sub: "auth0|5e2f29b0285a700e93a1a53a"
+          }
+        }
+      }
+    };
+    var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEReasonProx))
+    .toEqual(editSurveyCheckBoxesExpectedOldData1, editSurveyCheckBoxesExpectedSendingData1);
+  });
