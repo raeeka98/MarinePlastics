@@ -7,63 +7,63 @@
 // for testing editSurveyCheckBoxes(e) on clicking reason.prox checkbox
 var editSurveyCheckBoxesEReasonProx = {
   target: {
-    name = "reason.prox"
+    name: "reason.prox"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking reason.debris checkbox
 var editSurveyCheckBoxesEReasonDebris = {
   target: {
-    name = "reason.debris"
+    name: "reason.debris"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking majorUse.rec checkbox
 var editSurveyCheckBoxesEMajorUseRec = {
   target: {
-    name = "majorUse.rec"
+    name: "majorUse.rec"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking majorUse.com checkbox
 var editSurveyCheckBoxesEMajorUseCom = {
   target: {
-    name = "majorUse.com"
+    name: "majorUse.com"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking majorUse.rem checkbox
 var editSurveyCheckBoxesEMajorUseRem = {
   target: {
-    name = "majorUse.rem"
+    name: "majorUse.rem"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking st.s checkbox
 var editSurveyCheckBoxesEStS = {
   target: {
-    name = "st.s"
+    name: "st.s"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking st.p checkbox
 var editSurveyCheckBoxesEStP = {
   target: {
-    name = "st.p"
+    name: "st.p"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking st.rr checkbox
 var editSurveyCheckBoxesEStRr = {
   target: {
-    name = "st.rr"
+    name: "st.rr"
   }
 };
 
 // for testing editSurveyCheckBoxes(e) on clicking st.sea checkbox
 var editSurveyCheckBoxesEStSea = {
   target: {
-    name = "st.sea"
+    name: "st.sea"
   }
 };
 
@@ -195,9 +195,7 @@ var editSurveyCheckBoxesSurveyData18 = {
 
 // expected value of oldData.reason.prox when it is unchecked
 var editSurveyCheckBoxesExpectedOldData1 = {
-  reason: {
-    prox: false
-  }
+  "reason.prox": false
 };
 
 // expected value of oldData.reason.prox when it is checked
@@ -321,9 +319,7 @@ var editSurveyCheckBoxesExpectedOldData18 = {
 
 // expected value of sendingData.reason.prox when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData1 = {
-  reason: {
-    prox: false
-  }
+  "reason.prox": false
 };
 
 // expected value of sendingData.reason.prox when it is checked

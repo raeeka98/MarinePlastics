@@ -3,7 +3,7 @@
  * Uses test variables from surveyEntryEdit-test-data.js to test
  * editSurveyCheckBoxes(e) from ../SurveyEntry/surveyEntryEdit.jsx.
  */
-import SurveyEntryEdit from './../SurveEntry/surveyEntryEdit';
+import SurveyEntryEdit from './../SurveyEntry/surveyEntryEdit';
 import {
   editSurveyCheckBoxesEReasonProx,
   editSurveyCheckBoxesEReasonDebris,
@@ -71,26 +71,28 @@ import {
 } from './surveyEntryEdit-test-data';
 
 test("editSurveyCheckBoxes(e) case 1", () => {
-    var props = {
-      location: {
-        state: {
-          beachName: "Coy Beach",
-          info: {},
-          surveyData: {
-            editSurveyCheckBoxesSurveyData1,
-            SRSDebris: {},
-            ASDebris: {},
-            MicroDebris: {}
+  var props = {
+    location: {
+      state: {
+        beachName: "Coy Beach",
+        info: {},
+        surveyData: {
+          reason: {
+            prox: true
           },
-          userProfile: {
-            name: "stgibson@ucsc.edu",
-            email: "stgibson@ucsc.edu",
-            sub: "auth0|5e2f29b0285a700e93a1a53a"
-          }
+          SRSDebris: {},
+          ASDebris: {},
+          MicroDebris: {}
+        },
+        userProfile: {
+          name: "stgibson@ucsc.edu",
+          email: "stgibson@ucsc.edu",
+          sub: "auth0|5e2f29b0285a700e93a1a53a"
         }
       }
-    };
-    var surveyEntryEdit = new SurveyEntryEdit(props);
+    }
+  };
+  var surveyEntryEdit = new SurveyEntryEdit(props);
   expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEReasonProx))
     .toEqual(editSurveyCheckBoxesExpectedOldData1, editSurveyCheckBoxesExpectedSendingData1);
-  });
+});
