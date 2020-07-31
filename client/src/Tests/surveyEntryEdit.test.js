@@ -74,5 +74,150 @@ test("editSurveyCheckBoxes(e) case 1", () => {
   var props = editSurveyCheckBoxesProps1;
   var surveyEntryEdit = new SurveyEntryEdit(props);
   expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEReasonProx))
-    .toEqual(editSurveyCheckBoxesExpectedOldData1, editSurveyCheckBoxesExpectedSendingData1);
+    .toEqual(editSurveyCheckBoxesExpectedOldData1,
+      editSurveyCheckBoxesExpectedSendingData1);
+});
+
+test("editSurveyCheckBoxes(e) case 2", () => {
+  var props = editSurveyCheckBoxesProps2;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEReasonProx))
+    .toEqual(editSurveyCheckBoxesExpectedOldData2,
+      editSurveyCheckBoxesExpectedSendingData2);
+});
+
+test("editSurveyCheckBoxes(e) case 3", () => {
+  var props = editSurveyCheckBoxesProps3;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEReasonDebris))
+    .toEqual(editSurveyCheckBoxesExpectedOldData3,
+      editSurveyCheckBoxesExpectedSendingData3);
+});
+
+test("editSurveyCheckBoxes(e) case 4", () => {
+  var props = editSurveyCheckBoxesProps4;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEReasonDebris))
+    .toEqual(editSurveyCheckBoxesExpectedOldData4,
+      editSurveyCheckBoxesExpectedSendingData4);
+});
+
+test("editSurveyCheckBoxes(e) case 5", () => {
+  var props = editSurveyCheckBoxesProps5;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseRec))
+    .toEqual(editSurveyCheckBoxesExpectedOldData5,
+      editSurveyCheckBoxesExpectedSendingData5);
+});
+
+test("editSurveyCheckBoxes(e) case 6", () => {
+  var props = editSurveyCheckBoxesProps6;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseRec))
+    .toEqual(editSurveyCheckBoxesExpectedOldData6,
+      editSurveyCheckBoxesExpectedSendingData6);
+});
+
+test("editSurveyCheckBoxes(e) case 7", () => {
+  var props = editSurveyCheckBoxesProps7;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseCom))
+    .toEqual(editSurveyCheckBoxesExpectedOldData7,
+      editSurveyCheckBoxesExpectedSendingData7);
+});
+
+test("editSurveyCheckBoxes(e) case 8", () => {
+  var props = editSurveyCheckBoxesProps8;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseCom))
+    .toEqual(editSurveyCheckBoxesExpectedOldData8,
+      editSurveyCheckBoxesExpectedSendingData8);
+});
+
+test("editSurveyCheckBoxes(e) case 9", () => {
+  var props = editSurveyCheckBoxesProps9;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseRem))
+    .toEqual(editSurveyCheckBoxesExpectedOldData9,
+      editSurveyCheckBoxesExpectedSendingData9);
+});
+
+test("editSurveyCheckBoxes(e) case 10", () => {
+  var props = editSurveyCheckBoxesProps10;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit
+    .editSurveyCheckBoxes(editSurveyCheckBoxesEMajorUseRem))
+    .toEqual(editSurveyCheckBoxesExpectedOldData10,
+      editSurveyCheckBoxesExpectedSendingData10);
+});
+
+test("editSurveyCheckBoxes(e) case 11", () => {
+  var props = editSurveyCheckBoxesProps11;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStS))
+    .toEqual(editSurveyCheckBoxesExpectedOldData11,
+      editSurveyCheckBoxesExpectedSendingData11);
+});
+
+test("editSurveyCheckBoxes(e) case 12", () => {
+  var props = editSurveyCheckBoxesProps12;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStS))
+    .toEqual(editSurveyCheckBoxesExpectedOldData12,
+      editSurveyCheckBoxesExpectedSendingData12);
+});
+
+test("editSurveyCheckBoxes(e) case 13", () => {
+  var props = editSurveyCheckBoxesProps13;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStP))
+    .toEqual(editSurveyCheckBoxesExpectedOldData13,
+      editSurveyCheckBoxesExpectedSendingData13);
+});
+
+test("editSurveyCheckBoxes(e) case 14", () => {
+  var props = editSurveyCheckBoxesProps14;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStP))
+    .toEqual(editSurveyCheckBoxesExpectedOldData14,
+      editSurveyCheckBoxesExpectedSendingData14);
+});
+
+test("editSurveyCheckBoxes(e) case 15", () => {
+  var props = editSurveyCheckBoxesProps15;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStRr))
+    .toEqual(editSurveyCheckBoxesExpectedOldData15,
+      editSurveyCheckBoxesExpectedSendingData15);
+});
+
+test("editSurveyCheckBoxes(e) case 16", () => {
+  var props = editSurveyCheckBoxesProps16;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStRr))
+    .toEqual(editSurveyCheckBoxesExpectedOldData16,
+      editSurveyCheckBoxesExpectedSendingData16);
+});
+
+test("editSurveyCheckBoxes(e) case 17", () => {
+  var props = editSurveyCheckBoxesProps17;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStSea))
+    .toEqual(editSurveyCheckBoxesExpectedOldData17,
+      editSurveyCheckBoxesExpectedSendingData17);
+});
+
+test("editSurveyCheckBoxes(e) case 18", () => {
+  var props = editSurveyCheckBoxesProps18;
+  var surveyEntryEdit = new SurveyEntryEdit(props);
+  expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEStSea))
+    .toEqual(editSurveyCheckBoxesExpectedOldData18,
+      editSurveyCheckBoxesExpectedSendingData18);
 });

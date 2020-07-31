@@ -488,121 +488,87 @@ var editSurveyCheckBoxesExpectedOldData1 = {
 
 // expected value of oldData.reason.prox when it is checked
 var editSurveyCheckBoxesExpectedOldData2 = {
-  reason: {
-    prox: true
-  }
+  "reason.prox": true
 };
 
 // expected value of oldData.reason.debris when it is unchecked
 var editSurveyCheckBoxesExpectedOldData3 = {
-  reason: {
-    debris: false
-  }
+  "reason.debris": false
 };
 
 // expected value of oldData.reason.debris when it is checked
 var editSurveyCheckBoxesExpectedOldData4 = {
-  reason: {
-    debris: true
-  }
+  "reason.debris": true
 };
 
 // expected value of oldData.majorUse.rec when it is unchecked
 var editSurveyCheckBoxesExpectedOldData5 = {
-  majorUse: {
-    rec: false
-  }
+  "majorUse.rec": false
 };
 
 // expected value of oldData.majorUse.rec when it is checked
 var editSurveyCheckBoxesExpectedOldData6 = {
-  majorUse: {
-    rec: true
-  }
+  "majorUse.rec": true
 };
 
 // expected value of oldData.majorUse.com when it is unchecked
 var editSurveyCheckBoxesExpectedOldData7 = {
-  majorUse: {
-    com: false
-  }
+  "majorUse.com": false
 };
 
 // expected value of oldData.majorUse.com when it is checked
 var editSurveyCheckBoxesExpectedOldData8 = {
-  majorUse: {
-    com: true
-  }
+  "majorUse.com": true
 };
 
 // expected value of oldData.majorUse.rem when it is unchecked
 var editSurveyCheckBoxesExpectedOldData9 = {
-  majorUse: {
-    rem: false
-  }
+  "majorUse.rem": false
 };
 
 // expected value of oldData.majorUse.rem when it is checked
 var editSurveyCheckBoxesExpectedOldData10 = {
-  majorUse: {
-    rem: true
-  }
+  "majorUse.rem": true
 };
 
 // expected value of oldData.st.s when it is unchecked
 var editSurveyCheckBoxesExpectedOldData11 = {
-  st: {
-    s: false
-  }
+  "st.s": false
 };
 
 // expected value of oldData.st.s when it is checked
 var editSurveyCheckBoxesExpectedOldData12 = {
-  st: {
-    s: true
-  }
+  "st.s": true
 };
 
 // expected value of oldData.st.p when it is unchecked
 var editSurveyCheckBoxesExpectedOldData13 = {
-  st: {
-    p: false
-  }
+  "st.p": false
 };
 
 // expected value of oldData.st.p when it is checked
 var editSurveyCheckBoxesExpectedOldData14 = {
-  st: {
-    p: true
-  }
+  "st.p": true
 };
 
 // expected value of oldData.st.rr when it is unchecked
 var editSurveyCheckBoxesExpectedOldData15 = {
-  st: {
-    rr: false
-  }
+  "st.rr": false
 };
 
 // expected value of oldData.st.rr when it is checked
 var editSurveyCheckBoxesExpectedOldData16 = {
-  st: {
-    rr: true
-  }
+  "st.rr": true
 };
 
 // expected value of oldData.st.sea when it is unchecked
 var editSurveyCheckBoxesExpectedOldData17 = {
-  st: {
-    sea: false
-  }
+  "st.sea": false
 };
 
 // expected value of oldData.st.sea when it is checked
 var editSurveyCheckBoxesExpectedOldData18 = {
-  st: {
-    sea: true
-  }
+  "st.sea": true
 };
 
 // expected value of sendingData.reason.prox when it is unchecked
@@ -612,121 +578,87 @@ var editSurveyCheckBoxesExpectedSendingData1 = {
 
 // expected value of sendingData.reason.prox when it is checked
 var editSurveyCheckBoxesExpectedSendingData2 = {
-  reason: {
-    prox: true
-  }
+  "reason.prox": true
 };
 
 // expected value of sendingData.reason.debris when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData3 = {
-  reason: {
-    debris: false
-  }
+  "reason.debris": false
 };
 
 // expected value of sendingData.reason.debris when it is checked
 var editSurveyCheckBoxesExpectedSendingData4 = {
-  reason: {
-    debris: true
-  }
+  "reason.debris": true
 };
 
 // expected value of sendingData.majorUse.rec when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData5 = {
-  majorUse: {
-    rec: false
-  }
+  "majorUse.rec": false
 };
 
 // expected value of sendingData.majorUse.rec when it is checked
 var editSurveyCheckBoxesExpectedSendingData6 = {
-  majorUse: {
-    rec: true
-  }
+  "majorUse.rec": true
 };
 
 // expected value of sendingData.majorUse.com when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData7 = {
-  majorUse: {
-    com: false
-  }
+  "majorUse.com": false
 };
 
 // expected value of sendingData.majorUse.com when it is checked
 var editSurveyCheckBoxesExpectedSendingData8 = {
-  majorUse: {
-    com: true
-  }
+  "majorUse.com": true
 };
 
 // expected value of sendingData.majorUse.rem when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData9 = {
-  majorUse: {
-    rem: false
-  }
+  "majorUse.rem": false
 };
 
 // expected value of sendingData.majorUse.rem when it is checked
 var editSurveyCheckBoxesExpectedSendingData10 = {
-  majorUse: {
-    rem: true
-  }
+  "majorUse.rem": true
 };
 
 // expected value of sendingData.st.s when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData11 = {
-  st: {
-    s: false
-  }
+  "st.s": false
 };
 
 // expected value of sendingData.st.s when it is checked
 var editSurveyCheckBoxesExpectedSendingData12 = {
-  st: {
-    s: true
-  }
+  "st.s": true
 };
 
 // expected value of sendingData.st.p when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData13 = {
-  st: {
-    p: false
-  }
+  "st.p": false
 };
 
 // expected value of sendingData.st.p when it is checked
 var editSurveyCheckBoxesExpectedSendingData14 = {
-  st: {
-    p: true
-  }
+  "st.p": true
 };
 
 // expected value of sendingData.st.rr when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData15 = {
-  st: {
-    rr: false
-  }
+  "st.rr": false
 };
 
 // expected value of sendingData.st.rr when it is checked
 var editSurveyCheckBoxesExpectedSendingData16 = {
-  st: {
-    rr: true
-  }
+  "st.rr": true
 };
 
 // expected value of sendingData.st.sea when it is unchecked
 var editSurveyCheckBoxesExpectedSendingData17 = {
-  st: {
-    sea: false
-  }
+  "st.sea": false
 };
 
 // expected value of sendingData.st.sea when it is checked
 var editSurveyCheckBoxesExpectedSendingData18 = {
-  st: {
-    sea: true
-  }
+  "st.sea": true
 };
 
 export {
