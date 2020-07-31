@@ -23,9 +23,6 @@ class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
 
-    // for testing only
-    console.log(props);
-
     let srsOptions = debrisNames;
     let asOptions = debrisNames;
 
