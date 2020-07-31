@@ -215,11 +215,11 @@ class SurveyEntryEdit extends Component {
     let sendingData = { ...this.state.newData };
     if (path.length === 2) {
       oldData[path[0]][path[1]] = !oldData[path[0]][path[1]];
-      sendingData[pathStr] = !oldData[path[0]][path[1]];
+      sendingData[pathStr] = oldData[path[0]][path[1]];
 
     } else {
-      oldData[path[0]] = oldData[path[0]];
-      sendingData[path[0]] = !oldData[path[0]];
+      oldData[path[0]] = !oldData[path[0]];
+      sendingData[path[0]] = oldData[path[0]];
     }
     this.setState(prev => ({
       surveyData: oldData,
