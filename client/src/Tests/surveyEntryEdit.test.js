@@ -14,24 +14,24 @@ import {
   editSurveyCheckBoxesEStP,
   editSurveyCheckBoxesEStRr,
   editSurveyCheckBoxesEStSea,
-  editSurveyCheckBoxesSurveyData1,
-  editSurveyCheckBoxesSurveyData2,
-  editSurveyCheckBoxesSurveyData3,
-  editSurveyCheckBoxesSurveyData4,
-  editSurveyCheckBoxesSurveyData5,
-  editSurveyCheckBoxesSurveyData6,
-  editSurveyCheckBoxesSurveyData7,
-  editSurveyCheckBoxesSurveyData8,
-  editSurveyCheckBoxesSurveyData9,
-  editSurveyCheckBoxesSurveyData10,
-  editSurveyCheckBoxesSurveyData11,
-  editSurveyCheckBoxesSurveyData12,
-  editSurveyCheckBoxesSurveyData13,
-  editSurveyCheckBoxesSurveyData14,
-  editSurveyCheckBoxesSurveyData15,
-  editSurveyCheckBoxesSurveyData16,
-  editSurveyCheckBoxesSurveyData17,
-  editSurveyCheckBoxesSurveyData18,
+  editSurveyCheckBoxesProps1,
+  editSurveyCheckBoxesProps2,
+  editSurveyCheckBoxesProps3,
+  editSurveyCheckBoxesProps4,
+  editSurveyCheckBoxesProps5,
+  editSurveyCheckBoxesProps6,
+  editSurveyCheckBoxesProps7,
+  editSurveyCheckBoxesProps8,
+  editSurveyCheckBoxesProps9,
+  editSurveyCheckBoxesProps10,
+  editSurveyCheckBoxesProps11,
+  editSurveyCheckBoxesProps12,
+  editSurveyCheckBoxesProps13,
+  editSurveyCheckBoxesProps14,
+  editSurveyCheckBoxesProps15,
+  editSurveyCheckBoxesProps16,
+  editSurveyCheckBoxesProps17,
+  editSurveyCheckBoxesProps18,
   editSurveyCheckBoxesExpectedOldData1,
   editSurveyCheckBoxesExpectedOldData2,
   editSurveyCheckBoxesExpectedOldData3,
@@ -71,27 +71,7 @@ import {
 } from './surveyEntryEdit-test-data';
 
 test("editSurveyCheckBoxes(e) case 1", () => {
-  var props = {
-    location: {
-      state: {
-        beachName: "Coy Beach",
-        info: {},
-        surveyData: {
-          reason: {
-            prox: true
-          },
-          SRSDebris: {},
-          ASDebris: {},
-          MicroDebris: {}
-        },
-        userProfile: {
-          name: "stgibson@ucsc.edu",
-          email: "stgibson@ucsc.edu",
-          sub: "auth0|5e2f29b0285a700e93a1a53a"
-        }
-      }
-    }
-  };
+  var props = editSurveyCheckBoxesProps1;
   var surveyEntryEdit = new SurveyEntryEdit(props);
   expect(surveyEntryEdit.editSurveyCheckBoxes(editSurveyCheckBoxesEReasonProx))
     .toEqual(editSurveyCheckBoxesExpectedOldData1, editSurveyCheckBoxesExpectedSendingData1);

@@ -67,129 +67,417 @@ var editSurveyCheckBoxesEStSea = {
   }
 };
 
-// state.surveyData for reason.prox when it is checked
-var editSurveyCheckBoxesSurveyData1 = {
-  reason: {
-    prox: true
+// props for SurveyEntryEdit(props) when reason.prox is checked
+var editSurveyCheckBoxesProps1 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        reason: {
+          prox: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking reason.prox when it is unchecked
-var editSurveyCheckBoxesSurveyData2 = {
-  reason: {
-    prox: false
+// props for SurveyEntryEdit(props) when reason.prox is unchecked
+var editSurveyCheckBoxesProps2 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        reason: {
+          prox: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking reason.debris when it is checked
-var editSurveyCheckBoxesSurveyData3 = {
-  reason: {
-    debris: true
+// props for SurveyEntryEdit(props) when reason.debris is checked
+var editSurveyCheckBoxesProps3 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        reason: {
+          debris: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking reason.debris when it is unchecked
-var editSurveyCheckBoxesSurveyData4 = {
-  reason: {
-    debris: false
+// props for SurveyEntryEdit(props) when reason.debris is unchecked
+var editSurveyCheckBoxesProps4 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        reason: {
+          debris: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.rec when it is checked
-var editSurveyCheckBoxesSurveyData5 = {
-  major: {
-    rec: true
+// props for SurveyEntryEdit(props) when majorUse.rec is checked
+var editSurveyCheckBoxesProps5 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          rec: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.rec when it is unchecked
-var editSurveyCheckBoxesSurveyData6 = {
-  majorUse: {
-    rec: false
+// props for SurveyEntryEdit(props) when majorUse.rec is unchecked
+var editSurveyCheckBoxesProps6 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          rec: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.com when it is checked
-var editSurveyCheckBoxesSurveyData7 = {
-  majorUse: {
-    com: true
+// props for SurveyEntryEdit(props) when majorUse.com is checked
+var editSurveyCheckBoxesProps7 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          com: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.com when it is unchecked
-var editSurveyCheckBoxesSurveyData8 = {
-  majorUse: {
-    com: false
+// props for SurveyEntryEdit(props) when majorUse.com is unchecked
+var editSurveyCheckBoxesProps8 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          com: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.rem when it is checked
-var editSurveyCheckBoxesSurveyData9 = {
-  majorUse: {
-    rem: true
+// props for SurveyEntryEdit(props) when majorUse.rem is checked
+var editSurveyCheckBoxesProps9 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          rem: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking majorUse.rem when it is unchecked
-var editSurveyCheckBoxesSurveyData10 = {
-  majorUse: {
-    rem: false
+// props for SurveyEntryEdit(props) when majorUse.rem is unchecked
+var editSurveyCheckBoxesProps10 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        majorUse: {
+          rem: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.s when it is checked
-var editSurveyCheckBoxesSurveyData11 = {
-  st: {
-    s: true
+// props for SurveyEntryEdit(props) when st.s is checked
+var editSurveyCheckBoxesProps11 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          s: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.s when it is unchecked
-var editSurveyCheckBoxesSurveyData12 = {
-  st: {
-    s: false
+// props for SurveyEntryEdit(props) when st.s is unchecked
+var editSurveyCheckBoxesProps12 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          s: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.p when it is checked
-var editSurveyCheckBoxesSurveyData13 = {
-  st: {
-    p: true
+// props for SurveyEntryEdit(props) when st.p is checked
+var editSurveyCheckBoxesProps13 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          p: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.p when it is unchecked
-var editSurveyCheckBoxesSurveyData14 = {
-  st: {
-    p: false
+// props for SurveyEntryEdit(props) when st.p is unchecked
+var editSurveyCheckBoxesProps14 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          p: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.rr when it is checked
-var editSurveyCheckBoxesSurveyData15 = {
-  st: {
-    rr: true
+// props for SurveyEntryEdit(props) when st.rr is checked
+var editSurveyCheckBoxesProps15 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          rr: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.rr when it is unchecked
-var editSurveyCheckBoxesSurveyData16 = {
-  st: {
-    rr: false
+// props for SurveyEntryEdit(props) when st.rr is unchecked
+var editSurveyCheckBoxesProps16 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          rr: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.sea when it is checked
-var editSurveyCheckBoxesSurveyData17 = {
-  st: {
-    sea: true
+// props for SurveyEntryEdit(props) when st.sea is checked
+var editSurveyCheckBoxesProps17 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          sea: true
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
-// state.surveyData for clicking st.sea when it is unchecked
-var editSurveyCheckBoxesSurveyData18 = {
-  st: {
-    sea: false
+// props for SurveyEntryEdit(props) when st.sea is unchecked
+var editSurveyCheckBoxesProps18 = {
+  location: {
+    state: {
+      beachName: "",
+      info: {},
+      surveyData: {
+        st: {
+          sea: false
+        },
+        SRSDebris: {},
+        ASDebris: {},
+        MicroDebris: {}
+      },
+      userProfile: {
+        name: "stgibson@ucsc.edu",
+        email: "stgibson@ucsc.edu",
+        sub: "auth0|5e2f29b0285a700e93a1a53a"
+      }
+    }
   }
 };
 
@@ -451,24 +739,24 @@ export {
   editSurveyCheckBoxesEStP,
   editSurveyCheckBoxesEStRr,
   editSurveyCheckBoxesEStSea,
-  editSurveyCheckBoxesSurveyData1,
-  editSurveyCheckBoxesSurveyData2,
-  editSurveyCheckBoxesSurveyData3,
-  editSurveyCheckBoxesSurveyData4,
-  editSurveyCheckBoxesSurveyData5,
-  editSurveyCheckBoxesSurveyData6,
-  editSurveyCheckBoxesSurveyData7,
-  editSurveyCheckBoxesSurveyData8,
-  editSurveyCheckBoxesSurveyData9,
-  editSurveyCheckBoxesSurveyData10,
-  editSurveyCheckBoxesSurveyData11,
-  editSurveyCheckBoxesSurveyData12,
-  editSurveyCheckBoxesSurveyData13,
-  editSurveyCheckBoxesSurveyData14,
-  editSurveyCheckBoxesSurveyData15,
-  editSurveyCheckBoxesSurveyData16,
-  editSurveyCheckBoxesSurveyData17,
-  editSurveyCheckBoxesSurveyData18,
+  editSurveyCheckBoxesProps1,
+  editSurveyCheckBoxesProps2,
+  editSurveyCheckBoxesProps3,
+  editSurveyCheckBoxesProps4,
+  editSurveyCheckBoxesProps5,
+  editSurveyCheckBoxesProps6,
+  editSurveyCheckBoxesProps7,
+  editSurveyCheckBoxesProps8,
+  editSurveyCheckBoxesProps9,
+  editSurveyCheckBoxesProps10,
+  editSurveyCheckBoxesProps11,
+  editSurveyCheckBoxesProps12,
+  editSurveyCheckBoxesProps13,
+  editSurveyCheckBoxesProps14,
+  editSurveyCheckBoxesProps15,
+  editSurveyCheckBoxesProps16,
+  editSurveyCheckBoxesProps17,
+  editSurveyCheckBoxesProps18,
   editSurveyCheckBoxesExpectedOldData1,
   editSurveyCheckBoxesExpectedOldData2,
   editSurveyCheckBoxesExpectedOldData3,
