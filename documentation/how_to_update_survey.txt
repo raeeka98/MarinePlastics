@@ -17,4 +17,8 @@ How to : Update Survey
 7. Update schemas in MarinePlastics/server_modules/mongooseSchemas.js. If you
    created a new section for checkboxes, you should create a new schema for it,
    and add it to surveySchema.
-8. Update joi-validation.js to accept the new changes.
+8. Update MarinePlastics/server_modules/joi-validation.js to accept the new
+   changes.
+9. Update MarinePlastics/client/src/SurveyEntry/SurveyEntry.jsx and
+   MarinePlastics/client/src/SurveyEntry/surveyEntryEdit.jsx to display the
+   updated parts of the survey.
