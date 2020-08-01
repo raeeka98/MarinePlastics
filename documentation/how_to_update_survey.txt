@@ -16,6 +16,6 @@ How to : Update Survey
    section for checkboxes, you should create a new schema for it, and add it to
    surveySchema.
 8. Update server_modules/joi-validation.js to accept the new changes.
-9. Update MarinePlastics/client/src/SurveyEntry/SurveyEntry.jsx and
+9. Update client/src/SurveyEntry/SurveyEntry.jsx and
    client/src/SurveyEntry/surveyEntryEdit.jsx to display the updated parts of
    the survey.
