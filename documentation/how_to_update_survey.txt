@@ -1,24 +1,21 @@
 How to : Update Survey
 1. Add new updates in appropriate subsection file of the survey found in
-   MarinePlastics/client/src/NewSurveyForm/SurveySubsections.
+   client/src/NewSurveyForm/SurveySubsections.
 2. If you are adding an entire new field, add variable in validate() in
-   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+   client/src/NewSurveyForm/SurveyForm.jsx.
 3. If you are adding an option to an existing field, add the possibility of it
    being checked in its corresponding if-statement in validate() in
-   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+   client/src/NewSurveyForm/SurveyForm.jsx.
 4. If you are adding an option to an existing field, add the option in
-   updateDisplayStrings() in
-   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
+   updateDisplayStrings() in client/src/NewSurveyForm/SurveyForm.jsx.
 5. If you are adding/changing the options in the rib scan/accumulation sweep,
-   make the changes in MarinePlastics/client/src/NewSurveyForm/debrisInfo.js.
-5. Update MarinePlastics/client/src/NewSurveyForm/SurveySubsections/Review.jsx.
-6. Update prepareForm() in
-   MarinePlastics/client/src/NewSurveyForm/SurveyForm.jsx.
-7. Update schemas in MarinePlastics/server_modules/mongooseSchemas.js. If you
-   created a new section for checkboxes, you should create a new schema for it,
-   and add it to surveySchema.
-8. Update MarinePlastics/server_modules/joi-validation.js to accept the new
-   changes.
+   make the changes in client/src/NewSurveyForm/debrisInfo.js.
+5. Update client/src/NewSurveyForm/SurveySubsections/Review.jsx.
+6. Update prepareForm() in client/src/NewSurveyForm/SurveyForm.jsx.
+7. Update schemas in server_modules/mongooseSchemas.js. If you created a new
+   section for checkboxes, you should create a new schema for it, and add it to
+   surveySchema.
+8. Update server_modules/joi-validation.js to accept the new changes.
 9. Update MarinePlastics/client/src/SurveyEntry/SurveyEntry.jsx and
-   MarinePlastics/client/src/SurveyEntry/surveyEntryEdit.jsx to display the
-   updated parts of the survey.
+   client/src/SurveyEntry/surveyEntryEdit.jsx to display the updated parts of
+   the survey.
