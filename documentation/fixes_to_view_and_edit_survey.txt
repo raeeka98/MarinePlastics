@@ -24,3 +24,9 @@ This lists the changes made to fix the location, survey, and survey edit pages.
    concatenated, but rather added arithmetically.
 9. Added check in getStats() in client/src/Location/Location.jsx to not include
    micro debris as part of pie chart on location page.
+10. Added possibility to display Remote/Unused on survey page by editing
+    render() in client/src/SurveyEntry/SurveyEntry.jsx.
+11. Added checkbox options for Remote/Unused, Rip Rap, and Seaweed for editing
+    surveys in render() in client/src/SurveyEntry/surveyEntryEdit.jsx.
+12. Fixed error editSurveyCheckBoxes(e) so can successfully edit checkbox
+    options.
