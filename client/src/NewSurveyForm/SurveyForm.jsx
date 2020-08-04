@@ -281,34 +281,40 @@ class SurveyForm extends Component {
       'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
       'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
       'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName',
-      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir'
+      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
+      'lonDir'
     ];
 
 
-    //Check for fields that need just a single entry
+    // check for fields that need just a single entry
     for (const id of requiredIDs) {
-      if (this.state.surveyData[id] === undefined || this.state.surveyData[id] === "") {
+      if (this.state.surveyData[id] === undefined
+        || this.state.surveyData[id] === "") {
         invalid.push(displayIDs[id]);
         if (document.getElementById(id))
           document.getElementById(id).classList.add('invalidInput');
       }
     }
 
-    //Check for usage
+    // check for usage
     if (!this.state.surveyData.usageRecreation
       && !this.state.surveyData.usageCommercial
       && !this.state.surveyData.usageRemoteUnused
       && !this.state.surveyData.usageOther)
       invalid.push(displayIDs.usage);
 
-    //Check if the user filled out the reason for location choice
-    if (!this.state.surveyData.locationChoiceDebris && !this.state.surveyData.locationChoiceProximity
+    // check if the user filled out the reason for location choice
+    if (!this.state.surveyData.locationChoiceDebris
+      && !this.state.surveyData.locationChoiceProximity
       && !this.state.surveyData.locationChoiceOther)
       invalid.push(displayIDs.locChoice);
 
-    // Check if the user filled out the substrate type
-    if (!this.state.surveyData.substrateTypeSand && !this.state.surveyData.substrateTypePebble && !this.state.surveyData.substrateTypeRipRap
-      && !this.state.surveyData.substrateTypeSeaweed && !this.state.surveyData.substrateTypeOther)
+    // check if the user filled out the substrate type
+    if (!this.state.surveyData.substrateTypeSand
+      && !this.state.surveyData.substrateTypePebble
+      && !this.state.surveyData.substrateTypeRipRap
+      && !this.state.surveyData.substrateTypeSeaweed
+      && !this.state.surveyData.substrateTypeOther)
       invalid.push(displayIDs.subType);
 
     return invalid;
