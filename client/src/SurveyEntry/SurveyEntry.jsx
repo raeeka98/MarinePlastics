@@ -577,8 +577,7 @@ class SurveyEntry extends Component {
                     {
                       this.state.surveyData.st.s ? "Sand" :
                       this.state.surveyData.st.p ? "Pebbles" :
-                      this.state.surveyData.st.rr ? 
-                        "Rip Rap (large boulders)" :
+                      this.state.surveyData.st.rr ? "Rip Rap" :
                       this.state.surveyData.st.sea ? "Seaweed" :
                       this.state.surveyData.st.other
                     }
