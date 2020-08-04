@@ -581,7 +581,8 @@ class SurveyForm extends Component {
         }
       }
       if (type === "weathered") {
-        totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+        totals[trash_id].weathered = totals[trash_id].weathered +
+          parseInt(data[id]);
         if (isNaN(totals[trash_id].weathered)) {
           totals[trash_id].weathered = 0;
         }
@@ -625,7 +626,8 @@ class SurveyForm extends Component {
         }
       }
       if (type === "weathered") {
-        totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+        totals[trash_id].weathered = totals[trash_id].weathered +
+          parseInt(data[id]);
         if (isNaN(totals[trash_id].weathered)) {
           totals[trash_id].weathered = 0;
         }
@@ -669,7 +671,8 @@ class SurveyForm extends Component {
         }
       }
       if (type === "Weathered") {
-        totals[trash_id].weathered = totals[trash_id].weathered + parseInt(data[id]);
+        totals[trash_id].weathered = totals[trash_id].weathered +
+          parseInt(data[id]);
         if (isNaN(totals[trash_id].weathered)) {
           totals[trash_id].weathered = 0;
         }
@@ -727,7 +730,8 @@ class SurveyForm extends Component {
           comment: (data.windComments ? data.windComments : undefined)
         },
         majorUse: (show.usage ? show.usage : undefined),
-        incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey : undefined),
+        incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey :
+          undefined),
         /* SRSDebris: [
             [cigaretteButts, {
                 fresh (total):
@@ -745,8 +749,10 @@ class SurveyForm extends Component {
       beachData: data.beachID ? undefined : {
         n: data.beachName.replace(/\s/g, "_"),
         nroName: data.riverName.replace(/\s/g, "_"),
-        lat: this.convertToDecimalDegrees(data.latDeg, data.latMin, data.latSec, data.latDir),
-        lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin, data.lonSec, data.lonDir),
+        lat: this.convertToDecimalDegrees(data.latDeg, data.latMin,
+          data.latSec, data.latDir),
+        lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin,
+          data.lonSec, data.lonDir),
         nroDist: data.riverDistance
       }
     }
@@ -776,7 +782,10 @@ class SurveyForm extends Component {
    * @params {any} key, {any} val
    */
   setSurveyData = (key, val) => {
-    this.setState(prevState => { prevState.surveyData[key] = val; return prevState });
+    this.setState(prevState => {
+      prevState.surveyData[key] = val;
+      return prevState;
+    });
   }
 
   /**
@@ -792,7 +801,7 @@ class SurveyForm extends Component {
       return prevState;
     })
 
-    // Remove the invalid input styling if they are coming back from review step
+    // Removeinvalid input styling if they are coming back from review step.
     let element = document.getElementById(key);
     if (val && element.classList.contains('invalidInput')) {
       if (element) { element.classList.remove('invalidInput'); }
@@ -939,7 +948,8 @@ class SurveyForm extends Component {
   }
 
   /**
-   * Shows the page where the user can review the information entered before submitting the survey.
+   * Shows the page where the user can review the information entered before
+   * submitting the survey.
    * @return JSX code that displays the review page
    */
   showReviewPage = () => {
