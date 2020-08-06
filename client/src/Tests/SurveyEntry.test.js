@@ -69,9 +69,6 @@ test("Testing getCheckBoxData(category) case 1", () => {
   }
   var surveyEntry = new SurveyEntry(props);
   surveyEntry.state.surveyData = getCheckBoxDataSurveyData1;
-  expect(0).toEqual(0);
-  /*
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected1);
-    */
 });
