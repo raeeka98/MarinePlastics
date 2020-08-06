@@ -55,13 +55,13 @@ import {
 
 test("Testing getCheckBoxData(category) case 1", () => {
   var props = {
-    match = {
-      params = {
-        surveyID = ""
+    match: {
+      params: {
+        surveyID: ""
       }
     },
-    location = {
-      state = {
+    location: {
+      state: {
         info: {},
         userProfile: {}
       }
