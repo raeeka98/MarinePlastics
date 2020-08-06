@@ -107,6 +107,159 @@ class SurveyEntry extends Component {
     }
   }
 
+  /*
+   * Returns string representation of checked answers for category.
+   * @param category
+   * @return string data
+   */
+  getCheckBoxData(category) {
+    var data = "";
+    // true if should add comma and space to data to separate different options
+    var addComma = false;
+
+    // determine which object in SurveyData to get checked options
+    if (category == "reason") {
+      var option = this.state.surveyData.reason;
+
+      if (option.prox) {
+        // addComma becomes true to separate with any future options checked
+        var addComma = true;
+        data = "Proximity";
+      }
+      if (option.debris) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Debris";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category == "majorUse") {
+      var option = this.state.surveyData.majorUse;
+
+      if (option.rec) {
+        addComma = true;
+        data = "Recreation";
+      }
+      if (option.com) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Commercial";
+      }
+      if (option.rem) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Remote/Unused";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category == "st") {
+      var option = this.state.surveyData.st;
+
+      if (option.s) {
+        addComma = true;
+        data = "Sand";
+      }
+      if (option.p) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Pebble";
+      }
+      if (option.rr) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Rip Rap";
+      }
+      if (option.sea) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Seaweed";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category == "incompleteSurvey") {
+      var option = this.state.surveyData.incompleteSurvey;
+
+      if (option.time) {
+        addComma = true;
+        data = "Not enough time";
+      }
+      if (option.people) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Not enough people";
+      }
+      if (option.area) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Too much area";
+      }
+      if (option.trash) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Too much trash";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+
+    return data;
+  }
+
   /**
    * Gets data on survey and whether the user has permission to edit or delete
    * the survey or not, and then gets data for the pie chart and beach data.
