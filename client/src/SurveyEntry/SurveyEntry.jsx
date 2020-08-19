@@ -711,33 +711,34 @@ class SurveyEntry extends Component {
                 this.state.surveyData.reason ?
                   <p><strong>Reason for Location Choice: </strong>
                     {this.getCheckBoxData("reason")}
-                    {
-                      /*
-                      this.state.surveyData.reason.prox ? "Proximity" :
-                      this.state.surveyData.reason.debris ? "Debris" :
-                      this.state.surveyData.reason.other
-                      */
-                    }
                   </p> : null
               }
               {
                 this.state.surveyData.majorUse ?
                   <p><strong>Major Use: </strong>
-                    {this.state.surveyData.majorUse.rec ? "Recreation" :
-                    this.state.surveyData.majorUse.com ? "Commercial" :
-                    this.state.surveyData.majorUse.rem ? "Remote/Unused" :
-                    this.state.surveyData.majorUse.other}
+                    {this.getCheckBoxData("majorUse")}
+                    {
+                      /*
+                      this.state.surveyData.majorUse.rec ? "Recreation" :
+                      this.state.surveyData.majorUse.com ? "Commercial" :
+                      this.state.surveyData.majorUse.rem ? "Remote/Unused" :
+                      this.state.surveyData.majorUse.other
+                      */
+                    }
                   </p> : null
               }
               {
                 this.state.surveyData.st ?
                   <p><strong>Substrate Type: </strong>
+                    {this.getCheckBoxData("st")}
                     {
+                      /*
                       this.state.surveyData.st.s ? "Sand" :
                       this.state.surveyData.st.p ? "Pebbles" :
                       this.state.surveyData.st.rr ? "Rip Rap" :
                       this.state.surveyData.st.sea ? "Seaweed" :
                       this.state.surveyData.st.other
+                      */
                     }
                   </p>
                   : null
