@@ -117,13 +117,15 @@ class SurveyEntry extends Component {
     // true if should add comma and space to data to separate different options
     var addComma = false;
 
+    var option = null;
+
     // determine which object in SurveyData to get checked options
-    if (category == "reason") {
-      var option = this.state.surveyData.reason;
+    if (category === "reason") {
+      option = this.state.surveyData.reason;
 
       if (option.prox) {
         // addComma becomes true to separate with any future options checked
-        var addComma = true;
+        addComma = true;
         data = "Proximity";
       }
       if (option.debris) {
@@ -142,8 +144,8 @@ class SurveyEntry extends Component {
         data += option.other;
       }
     }
-    else if (category == "majorUse") {
-      var option = this.state.surveyData.majorUse;
+    else if (category === "majorUse") {
+      option = this.state.surveyData.majorUse;
 
       if (option.rec) {
         addComma = true;
@@ -174,8 +176,8 @@ class SurveyEntry extends Component {
         data += option.other;
       }
     }
-    else if (category == "st") {
-      var option = this.state.surveyData.st;
+    else if (category === "st") {
+      option = this.state.surveyData.st;
 
       if (option.s) {
         addComma = true;
@@ -215,8 +217,8 @@ class SurveyEntry extends Component {
         data += option.other;
       }
     }
-    else if (category == "incompleteSurvey") {
-      var option = this.state.surveyData.incompleteSurvey;
+    else if (category === "incompleteSurvey") {
+      option = this.state.surveyData.incompleteSurvey;
 
       if (option.time) {
         addComma = true;
@@ -708,10 +710,13 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.reason ?
                   <p><strong>Reason for Location Choice: </strong>
+                    {this.getCheckBoxData("reason")}
                     {
+                      /*
                       this.state.surveyData.reason.prox ? "Proximity" :
                       this.state.surveyData.reason.debris ? "Debris" :
                       this.state.surveyData.reason.other
+                      */
                     }
                   </p> : null
               }
