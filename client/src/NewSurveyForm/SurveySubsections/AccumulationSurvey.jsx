@@ -105,14 +105,13 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   className='uk-checkbox'
                   onClick={e => {
-                      this.setState({
-                        showOtherIncompleteSurvey: e.target.checked
-                      });
-                      if (!e.target.checked) {
-                        this.props.removeOther('incomplete');
-                      }
+                    this.setState({
+                      showOtherIncompleteSurvey: e.target.checked
+                    });
+                    if (!e.target.checked) {
+                      this.props.removeOther('incomplete');
                     }
-                  }
+                  }}
                 />
               </label> Other
             </div>
