@@ -19,7 +19,6 @@ const substrateTypeSchema = joi.object({
   rr: joi.bool(),
   sea: joi.bool(),
   other: joi.string().trim().replace(/\s\s+/, " ")
-    .lowercase()
 }).or(["s", "p", "rr", "sea", "other"]);
 
 // validates at least one option for reason is selected
@@ -27,7 +26,6 @@ const reasonTypeSchema = joi.object({
   prox: joi.bool(),
   debris: joi.bool(),
   other: joi.string().trim().replace(/\s\s+/, " ")
-    .lowercase()
 }).or(["prox", "debris", "other"])
   .error(new Error("Please select one option"));
 
@@ -44,7 +42,7 @@ const majorUseSchema = joi.object({
   rec: joi.bool(),
   com: joi.bool(),
   rem: joi.bool(),
-  other: joi.string().trim().replace(/\s\s+/, " ").lowercase()
+  other: joi.string().trim().replace(/\s\s+/, " ")
 }).or(["rec", "com", "rem", "other"]);
 
 // different options for why accumulation survey was not completed
@@ -54,7 +52,6 @@ const incompleteSurveySchema = joi.object({
   area: joi.bool(),
   trash: joi.bool(),
   other: joi.string().trim().replace(/\s\s+/, " ")
-    .lowercase()
 });
 
 // validates valid description of the wind
