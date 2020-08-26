@@ -531,25 +531,34 @@ class SurveyEntryEdit extends Component {
                   />
                   <span className="uk-margin-left uk-text-small">Debris</span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.reason.other ?
-                        true : false}
-                    />
-                  </div>
-                  <div className="uk-width-expand">
-                    <input
-                      className="uk-input uk-form-small"
-                      type="text"
-                      name="reason.other"
-                      onChange={this.editSurveyData}
-                      defaultValue={this.state.surveyData.reason.other}
-                      placeholder="Other"
-                    />
-                  </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherReason: e.target.checked
+                      });
+                    }}
+                    defaultChecked={this.state.surveyData.reason.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                <div>
+                  {this.state.showOtherReason &&
+                    <div className="uk-width-expand">
+                      <input
+                        className="uk-input uk-form-small"
+                        type="text"
+                        name="reason.other"
+                        onChange={this.editSurveyData}
+                        defaultValue={this.state.surveyData.reason.other}
+                      />
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -591,25 +600,32 @@ class SurveyEntryEdit extends Component {
                     Remote/Unused
                   </span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
-                        true : false}
-                    />
-                  </div>
-                  <div className="uk-width-expand">
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherUsage: e.target.checked
+                      });
+                    }}
+                    defaultChecked={this.state.surveyData.majorUse.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                <div className="uk-width-expand">
+                  {this.state.showOtherUsage &&
                     <input
                       className="uk-input uk-form-small"
                       type="text"
                       name="majorUse.other"
                       onChange={this.editSurveyData}
                       defaultValue={this.state.surveyData.majorUse.other}
-                      placeholder="Other"
                     />
-                  </div>
+                  }
                 </div>
               </div>
 
@@ -657,15 +673,23 @@ class SurveyEntryEdit extends Component {
                   />
                   <span className="uk-margin-left uk-text-small">Seaweed</span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.st.other ?
-                        true : false}
-                    />
-                  </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherSubstrate: e.target.checked
+                      });
+                    }}
+                    defaultChecked={this.state.surveyData.st.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                {this.state.showOtherSubstrate && 
                   <div className="uk-width-expand">
                     <input
                       className="uk-input uk-form-small"
@@ -673,10 +697,9 @@ class SurveyEntryEdit extends Component {
                       name="st.other"
                       onChange={this.editSurveyData}
                       defaultValue={this.state.surveyData.st.other}
-                      placeholder="Other"
                     />
                   </div>
-                </div>
+                }
               </div>
 
               <div className="uk-padding-small uk-padding-remove-horizontal">
