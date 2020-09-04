@@ -29,3 +29,7 @@ Fixed bugs with checkboxes for editing surveys
 4. Modified render() in client/src/SurveyEntry/surveyEntryEdit.jsx so that the
    textboxes for the "other" options in the checkbox sections are only visible
    when the "other" checkbox is checked.
+5. Modified server_modules/mongooseSchemas.js and
+   server_modules/joi-validation.js to allow surveys to have a property called
+   showOthers, which keeps track of which "Other" options for the checkboxes
+   have been selected by the user.
