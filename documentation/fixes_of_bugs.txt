@@ -33,3 +33,6 @@ Fixed bugs with checkboxes for editing surveys
    server_modules/joi-validation.js to allow surveys to have a property called
    showOthers, which keeps track of which "Other" options for the checkboxes
    have been selected by the user.
+6. Added updateShowOthers(e) in client/src/NewSurveyForm/SurveyForm.jsx to
+   keep track of which "other" options to display in the survey and survey edit
+   pages.

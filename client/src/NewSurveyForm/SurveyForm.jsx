@@ -785,7 +785,7 @@ class SurveyForm extends Component {
     });
 
     // for testing
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV === "test") {
       return {
         usage: usageString,
         locChoice: locChoiceString,
@@ -801,16 +801,40 @@ class SurveyForm extends Component {
    */
   updateMDS(e) {
     const key = e.target.id;
-    const val = e.target.value
+    const val = e.target.value;
 
     // if testing, set state directly to avoid any delays
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV === "test") {
       this.state.MDSData[key] = val;
     } else {
       this.setState(prevState => {
         prevState.MDSData[key] = val;
         return prevState;
       });
+    }
+  }
+
+  /**
+   * Updates state.surveyData.showOthers so that the survey and survey edit
+   * pages know whether or not the "other" option of each category should be
+   * shown.
+   * @param {any} e
+   * @return only for testing purposes, state.surveyData.showOthers
+   */
+  updateShowOthers(e) {
+    const key = e.target.id;
+    const val = e.target.checked;
+
+    const newShowOthers = this.state.showOthers ? this.state.showOthers : {}
+    newShowOthers[key] = val;
+
+    this.setState(prevState => {
+      prevState.showOthers = newShowOthers;
+    });
+
+    // if testing, returns showOthers instead of setting state
+    if (process.env.NODE_ENV === "test") {
+      return newShowOthers;
     }
   }
 
