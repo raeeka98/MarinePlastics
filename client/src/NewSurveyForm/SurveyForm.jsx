@@ -370,6 +370,7 @@ class SurveyForm extends Component {
   /**
    * Removes the other option user entered if the other checkbox is unchecked,
    * so that the option doesn't get submitted to the database.
+   * @param {any} category
    */
   removeOther = (category) => {
     if (category === 'usage') {
