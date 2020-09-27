@@ -126,7 +126,7 @@ class SurveyEntry extends Component {
       if (option.prox) {
         // addComma becomes true to separate with any future options checked
         addComma = true;
-        data = "Proximity";
+        data = "Proximity/Convenience";
       }
       if (option.debris) {
         if (addComma) {

@@ -518,7 +518,7 @@ class SurveyEntryEdit extends Component {
                     defaultChecked={this.state.surveyData.reason.prox}
                   />
                   <span className="uk-margin-left uk-text-small">
-                    Proximity
+                    Proximity/Convenience
                   </span>
                 </div>
                 <div>
