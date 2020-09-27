@@ -230,6 +230,35 @@ class SurveyEntryEdit extends Component {
   }
 
   /**
+   * Removes the other option user entered if the other checkbox is unchecked,
+   * so that the option doesn't get submitted to the database.
+   * @param {any} category
+   */
+  removeOther = (category) => {
+    let oldData = { ...this.state.surveyData };
+    let sendingData = { ...this.state.newData };
+    if (category === 'usage') {
+      // set to quotes, cause undefined won't update data
+      oldData.majorUse.other = "";
+      sendingData["majorUse.other"] = "";
+    } else if (category === 'reason') {
+      oldData.reason.other = "";
+      sendingData["reason.other"] = "";
+    } else if (category === 'substrate') {
+      oldData.st.other = "";
+      sendingData["st.other"] = "";
+    } else if (category === 'incomplete') {
+      oldData.incompleteSurvey.other = "";
+      sendingData["incompleteSurvey.other"] = "";
+    }
+
+    this.setState({
+      surveyData: oldData,
+      newData: sendingData
+    });
+  }
+
+  /**
    * Updates database with new changes to survey.
    */
   save = () => {
@@ -291,6 +320,8 @@ class SurveyEntryEdit extends Component {
       oldMicroDebris,
       changedInfo: { ...this.state.newData }
     }
+
+    console.log("finalData", finalData);
 
     let userID = this.state.userProfile ?
       this.state.userProfile.sub : undefined;
@@ -539,6 +570,9 @@ class SurveyEntryEdit extends Component {
                       this.setState({
                         showOtherReason: e.target.checked
                       });
+                      if (!e.target.checked) {
+                        this.removeOther('reason');
+                      }
                     }}
                     defaultChecked={this.state.surveyData.reason.other ?
                       true : false}
@@ -608,6 +642,9 @@ class SurveyEntryEdit extends Component {
                       this.setState({
                         showOtherUsage: e.target.checked
                       });
+                      if (!e.target.checked) {
+                        this.removeOther('usage');
+                      }
                     }}
                     defaultChecked={this.state.surveyData.majorUse.other ?
                       true : false}
@@ -681,6 +718,9 @@ class SurveyEntryEdit extends Component {
                       this.setState({
                         showOtherSubstrate: e.target.checked
                       });
+                      if (!e.target.checked) {
+                        this.removeOther('substrate');
+                      }
                     }}
                     defaultChecked={this.state.surveyData.st.other ?
                       true : false}
