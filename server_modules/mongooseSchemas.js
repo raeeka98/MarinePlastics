@@ -112,26 +112,6 @@ let tideSchema = new Schema({
   height: Number,
 }, { versionKey: false, _id: false, validateBeforeSave: false });
 
-// for displaying "other" option of checkboxes
-let showOthersSchema = new Schema({
-  usage: {
-    type: Boolean,
-    default: undefined
-  },
-  reason: {
-    type: Boolean,
-    default: undefined
-  },
-  st: {
-    type: Boolean,
-    default: undefined
-  },
-  incompleteSurvey: {
-    type: Boolean,
-    default: undefined
-  }
-}, { versionKey: false, _id: false, validateBeforeSave: false });
-
 // defines a survey, and uses the above schemas
 let surveySchema = new Schema({
   bID: { type: mongoose.Types.ObjectId, ref: 'Beaches', index: true },
@@ -172,7 +152,6 @@ let surveySchema = new Schema({
   },
   majorUse: majorUsageSchema,
   incompleteSurvey: incompleteSurveySchema,
-  showOthers: showOthersSchema,
   numOfP: {
     type: Number,
     alias: "NumberOfPeople"

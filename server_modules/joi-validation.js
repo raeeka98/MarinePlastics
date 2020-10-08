@@ -62,14 +62,6 @@ const windDataSchema = joi.object({
   comment: joi.string().trim().replace(/\s\s+/, " ").optional()
 });
 
-// validate showOthersSchema
-const showOthersSchema = joi.object({
-  usage: joi.bool().optional(),
-  reason: joi.bool().optional(),
-  st: joi.bool().optional(),
-  incompleteSurvey: joi.bool().optional()
-});
-
 // validates trash type has both fresh and weathered
 const debrisData = joi.array().items(
   joi.string().required(),
@@ -96,7 +88,6 @@ const surveyDataSchema = joi.object({
   wind: windDataSchema.required(),
   majorUse: majorUseSchema.required(),
   incompleteSurvey: incompleteSurveySchema.optional(),
-  showOthers: showOthersSchema.optional(),
   //number of people
   numOfP: joi.number().min(0).required(),
   SRSDebris: joi.array().items(debrisData).max(18).optional(),

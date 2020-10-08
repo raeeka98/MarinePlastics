@@ -816,30 +816,6 @@ class SurveyForm extends Component {
   }
 
   /**
-   * Updates state.surveyData.showOthers so that the survey and survey edit
-   * pages know whether or not the "other" option of each category should be
-   * shown.
-   * @param {any} e
-   * @return only for testing purposes, state.surveyData.showOthers
-   */
-  updateShowOthers(e) {
-    const key = e.target.id;
-    const val = e.target.checked;
-
-    const newShowOthers = this.state.showOthers ? this.state.showOthers : {}
-    newShowOthers[key] = val;
-
-    this.setState(prevState => {
-      prevState.showOthers = newShowOthers;
-    });
-
-    // if testing, returns showOthers instead of setting state
-    if (process.env.NODE_ENV === "test") {
-      return newShowOthers;
-    }
-  }
-
-  /**
    * Updates data on surface rib scan.
    * @param {any} e
    */
