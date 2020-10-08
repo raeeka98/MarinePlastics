@@ -582,7 +582,8 @@ class SurveyEntryEdit extends Component {
                   </span>
                 </div>
                 <div>
-                  {this.state.showOtherReason &&
+                  {(this.state.showOtherReason ||
+                    this.state.surveyData.reason.other !== "") &&
                     <div className="uk-width-expand">
                       <input
                         className="uk-input uk-form-small"
@@ -654,7 +655,8 @@ class SurveyEntryEdit extends Component {
                   </span>
                 </div>
                 <div className="uk-width-expand">
-                  {this.state.showOtherUsage &&
+                  {(this.state.showOtherUsage ||
+                    this.state.surveyData.majorUse.other !== "") &&
                     <input
                       className="uk-input uk-form-small"
                       type="text"
@@ -729,7 +731,8 @@ class SurveyEntryEdit extends Component {
                     Other
                   </span>
                 </div>
-                {this.state.showOtherSubstrate && 
+                {(this.state.showOtherSubstrate ||
+                    this.state.surveyData.st.other !== "") && 
                   <div className="uk-width-expand">
                     <input
                       className="uk-input uk-form-small"
