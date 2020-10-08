@@ -10,9 +10,9 @@ Changed all instances on website of Sign Up to Sign Up/Login
 Fixed bug where editing survey data won't update beach stats correctly
 1. Added findDiffsDebris(oldDebris, newDebris, diffs) to
    server_modules/mongoose.js
-2. Called findDiffsDebris(oldDebris, newDebris, diffs) in surveys.update instead
-   of doing the calculations for updating the total types of debris in the
-   method itself
+2. Called findDiffsDebris(oldDebris, newDebris, diffs) in surveys.update
+   instead of doing the calculations for updating the total types of debris in
+   the method itself
 3. Modified compareTrash(diffs, prevDebrisData, result) to reflect change of
    calling findDiffsDebris(oldDebris, newDebris, diffs)
 
@@ -36,3 +36,6 @@ Fixed bugs with checkboxes for editing surveys
 6. Added updateShowOthers(e) in client/src/NewSurveyForm/SurveyForm.jsx to
    keep track of which "other" options to display in the survey and survey edit
    pages.
+7. Added removeOther(category) in client/src/SurveyEntry/surveyEntryEdit.jsx so
+   the user can remove an "other" option by unchecking the option instead of
+   deleting the text.
