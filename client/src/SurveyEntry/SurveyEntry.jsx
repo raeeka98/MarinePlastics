@@ -553,6 +553,8 @@ class SurveyEntry extends Component {
    * @return rendered react component to display page
    */
   render() {
+    console.log(this.state.surveyData);
+
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     // initializes to null because when component mounts, there is no data yet
@@ -861,6 +863,14 @@ class SurveyEntry extends Component {
               className="uk-card uk-card-default uk-card-body uk-margin-bottom"
             >
               <h3>Accumulation Survey</h3>
+              {
+                (this.state.surveyData.incompleteSurvey &&
+                  Object.keys(this.state.surveyData.incompleteSurvey).length
+                  !== 0) ?
+                  <p><strong>Why unable to complete survey: </strong>
+                    {this.getCheckBoxData("incompleteSurvey")}
+                  </p> : null
+              }            
               <table className="uk-table uk-table-striped">
                 <thead>
                   <tr>
