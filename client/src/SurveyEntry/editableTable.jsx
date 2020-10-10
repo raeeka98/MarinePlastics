@@ -88,7 +88,7 @@ class EditableTable extends Component {
   render() {
     return (
       <div id={`${this.props.type}-section`} >
-        <div className="uk-card uk-card-default uk-card-body">
+        <div className="uk-card uk-card-default uk-card-body uk-margin-bottom">
           <h3>
             {this.props.type === "SRS" ? "Surface Rib Scan Survey" :
               "Accumulation Survey"}

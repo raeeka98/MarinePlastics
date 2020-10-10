@@ -451,7 +451,7 @@ class SurveyEntryEdit extends Component {
           </span>
         </h2>
 
-        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS/MDS */}
         <div
           data-uk-grid="masonry: true"
           className=
@@ -732,7 +732,7 @@ class SurveyEntryEdit extends Component {
                   </span>
                 </div>
                 {(this.state.showOtherSubstrate ||
-                    this.state.surveyData.st.other !== "") && 
+                  this.state.surveyData.st.other !== "") && 
                   <div className="uk-width-expand">
                     <input
                       className="uk-input uk-form-small"
@@ -903,29 +903,129 @@ class SurveyEntryEdit extends Component {
             options={this.state.asOptions}
             type="AS"
             rows={ASRows}
+            incompleteSurvey={this.state.surveyData.incompleteSurvey}
           />
-        </div>
-
-        {/* MDS SECTION */}
-        <div id="MDS-section">
-          <div
-            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
-          >
-            <h3>Micro Debris Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MDSRow}
-              </tbody>
-            </table>
+          {/* INCOMPLETE SURVEY SECTION*/}
+          <div id="incomplete-survey-section">
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3 className="uk-card-title">Incomplete Survey</h3>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Why unable to complete survey</p>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.time"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.time
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Not enough time
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.people"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.people
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Not enough people
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.area"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.area
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Too much area
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.trash"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.trash
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Too much trash
+                  </span>
+                </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherIncompleteSurvey: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.removeOther('incomplete');
+                      }
+                    }}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                {console.log(this.state.showOtherIncompleteSurvey)}
+                {
+                (this.state.showOtherIncompleteSurvey ||
+                  this.state.surveyData.incompleteSurvey.other !== "") &&
+                  <div className="uk-width-expand">
+                    <input
+                      className="uk-input uk-form-small"
+                      type="text"
+                      name="incompleteSurvey.other"
+                      onChange={this.editSurveyData}
+                      defaultValue={this.state.surveyData.incompleteSurvey.other}
+                    />
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+          {/* MDS SECTION */}
+          <div id="MDS-section">
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3>Micro Debris Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MDSRow}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-
         <button className="uk-button button-active" onClick={this.save}
           data-uk-toggle="target: #modal">
           Save Edits

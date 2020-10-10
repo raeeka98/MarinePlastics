@@ -653,7 +653,7 @@ class SurveyEntry extends Component {
           </span>
         </h2>
 
-        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS/MDS */}
         <div
           data-uk-grid="masonry: true"
           className=
@@ -865,8 +865,7 @@ class SurveyEntry extends Component {
               <h3>Accumulation Survey</h3>
               {
                 (this.state.surveyData.incompleteSurvey &&
-                  Object.keys(this.state.surveyData.incompleteSurvey).length
-                  !== 0) ?
+                  Object.values(this.state.surveyData.incompleteSurvey).some(val => val)) ?
                   <p><strong>Why unable to complete survey: </strong>
                     {this.getCheckBoxData("incompleteSurvey")}
                   </p> : null
@@ -885,25 +884,24 @@ class SurveyEntry extends Component {
               </table>
             </div>
           </div>
-        </div>
-
-        {/* MDS SECTION */}
-        <div id="MDS-section" style={{ display: 'none' }}>
-          <div
-            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
-          >
-            <h3>Micro Debris Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MDSRow}
-              </tbody>
-            </table>
+          {/* MDS SECTION */}
+          <div id="MDS-section" style={{ display: 'none' }}>
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3>Micro Debris Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MDSRow}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 

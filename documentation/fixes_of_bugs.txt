@@ -37,3 +37,6 @@ Fixed bugs with checkboxes for editing surveys
    checkbox section shows if the survey originally had "other" checked
 7. Added incomplete survey section for the survey page by modifying render() in
    client/src/SurveyEntry/SurveyEntry.jsx.
+8. Added functionality in render() in
+   client/src/SurveyEntry/surveyEntryEdit.jsx to allow users to edit the
+   incomplete survey section of their surveys.
