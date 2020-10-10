@@ -160,15 +160,15 @@ var getCheckBoxDataSurveyData21 = {
 };
 
 // expected return values from getCheckBoxData(category)
-var getCheckBoxDataExpected1 = "Proximity";
+var getCheckBoxDataExpected1 = "Proximity/Convenience";
 
-var getCheckBoxDataExpected2 = "Proximity, Debris";
+var getCheckBoxDataExpected2 = "Proximity/Convenience, Debris";
 
 var getCheckBoxDataExpected3 = "Beautiful";
 
-var getCheckBoxDataExpected4 = "Proximity, Beautiful";
+var getCheckBoxDataExpected4 = "Proximity/Convenience, Beautiful";
 
-var getCheckBoxDataExpected5 = "Proximity, Debris, Beautiful";
+var getCheckBoxDataExpected5 = "Proximity/Convenience, Debris, Beautiful";
 
 var getCheckBoxDataExpected6 = "Recreation";
 
