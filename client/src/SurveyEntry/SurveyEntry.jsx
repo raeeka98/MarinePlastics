@@ -107,6 +107,161 @@ class SurveyEntry extends Component {
     }
   }
 
+  /*
+   * Returns string representation of checked answers for category.
+   * @param category
+   * @return string data
+   */
+  getCheckBoxData(category) {
+    var data = "";
+    // true if should add comma and space to data to separate different options
+    var addComma = false;
+
+    var option = null;
+
+    // determine which object in SurveyData to get checked options
+    if (category === "reason") {
+      option = this.state.surveyData.reason;
+
+      if (option.prox) {
+        // addComma becomes true to separate with any future options checked
+        addComma = true;
+        data = "Proximity/Convenience";
+      }
+      if (option.debris) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Debris";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category === "majorUse") {
+      option = this.state.surveyData.majorUse;
+
+      if (option.rec) {
+        addComma = true;
+        data = "Recreation";
+      }
+      if (option.com) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Commercial";
+      }
+      if (option.rem) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Remote/Unused";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category === "st") {
+      option = this.state.surveyData.st;
+
+      if (option.s) {
+        addComma = true;
+        data = "Sand";
+      }
+      if (option.p) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Pebble";
+      }
+      if (option.rr) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Rip Rap";
+      }
+      if (option.sea) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Seaweed";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+    else if (category === "incompleteSurvey") {
+      option = this.state.surveyData.incompleteSurvey;
+
+      if (option.time) {
+        addComma = true;
+        data = "Not enough time";
+      }
+      if (option.people) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Not enough people";
+      }
+      if (option.area) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Too much area";
+      }
+      if (option.trash) {
+        if (addComma) {
+          data += ", ";
+        }
+        else {
+          addComma = true;
+        }
+        data += "Too much trash";
+      }
+      if (option.other) {
+        if (addComma) {
+          data += ", ";
+        }
+        data += option.other;
+      }
+    }
+
+    return data;
+  }
+
   /**
    * Gets data on survey and whether the user has permission to edit or delete
    * the survey or not, and then gets data for the pie chart and beach data.
@@ -117,9 +272,6 @@ class SurveyEntry extends Component {
 
     let userRoles = this.state.userProfile ?
       this.state.userProfile['https://marineplastics.com/roles'] : undefined
-
-    console.log("my user role");
-    console.log(userRoles);
 
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
@@ -401,6 +553,8 @@ class SurveyEntry extends Component {
    * @return rendered react component to display page
    */
   render() {
+    console.log(this.state.surveyData);
+
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     // initializes to null because when component mounts, there is no data yet
@@ -499,7 +653,7 @@ class SurveyEntry extends Component {
           </span>
         </h2>
 
-        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS/MDS */}
         <div
           data-uk-grid="masonry: true"
           className=
@@ -558,31 +712,19 @@ class SurveyEntry extends Component {
               {
                 this.state.surveyData.reason ?
                   <p><strong>Reason for Location Choice: </strong>
-                    {
-                      this.state.surveyData.reason.prox ? "Proximity" :
-                      this.state.surveyData.reason.debris ? "Debris" :
-                      this.state.surveyData.reason.other
-                    }
+                    {this.getCheckBoxData("reason")}
                   </p> : null
               }
               {
                 this.state.surveyData.majorUse ?
                   <p><strong>Major Use: </strong>
-                    {this.state.surveyData.majorUse.rec ? "Recreation" :
-                    this.state.surveyData.majorUse.com ? "Commercial" :
-                    this.state.surveyData.majorUse.other}
+                    {this.getCheckBoxData("majorUse")}
                   </p> : null
               }
               {
                 this.state.surveyData.st ?
                   <p><strong>Substrate Type: </strong>
-                    {
-                      this.state.surveyData.st.s ? "Sand" :
-                      this.state.surveyData.st.p ? "Pebbles" :
-                      this.state.surveyData.st.rr ? "Rip rap" :
-                      this.state.surveyData.st.sea ? "Seaweed" :
-                      this.state.surveyData.st.other
-                    }
+                    {this.getCheckBoxData("st")}
                   </p>
                   : null
               }
@@ -721,6 +863,13 @@ class SurveyEntry extends Component {
               className="uk-card uk-card-default uk-card-body uk-margin-bottom"
             >
               <h3>Accumulation Survey</h3>
+              {
+                (this.state.surveyData.incompleteSurvey &&
+                  Object.values(this.state.surveyData.incompleteSurvey).some(val => val)) ?
+                  <p><strong>Why unable to complete survey: </strong>
+                    {this.getCheckBoxData("incompleteSurvey")}
+                  </p> : null
+              }            
               <table className="uk-table uk-table-striped">
                 <thead>
                   <tr>
@@ -735,25 +884,24 @@ class SurveyEntry extends Component {
               </table>
             </div>
           </div>
-        </div>
-
-        {/* MDS SECTION */}
-        <div id="MDS-section" style={{ display: 'none' }}>
-          <div
-            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
-          >
-            <h3>Micro Debris Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MDSRow}
-              </tbody>
-            </table>
+          {/* MDS SECTION */}
+          <div id="MDS-section" style={{ display: 'none' }}>
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3>Micro Debris Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MDSRow}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 

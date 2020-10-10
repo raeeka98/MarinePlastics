@@ -3,15 +3,40 @@ listed in the fixes_to_view_and_edit_survey.txt.
 
 Changed all instances on website of Sign Up to Sign Up/Login
 1. Changed Sign Up button on landing page to the Sign Up/Login button by
-   modifying LandingPage(props) in client/src/Landing/Landing.js.
+   modifying LandingPage(props) in client/src/Landing/Landing.js
 2. Changed Sign Up link in header to Sign Up/Login by modifying Menu.render()
-   in client/src/Header/Header.jsx.
+   in client/src/Header/Header.jsx
    
 Fixed bug where editing survey data won't update beach stats correctly
 1. Added findDiffsDebris(oldDebris, newDebris, diffs) to
    server_modules/mongoose.js
-2. Call findDiffsDebris(oldDebris, newDebris, diffs) in surveys.update instead
-   of doing the calculations for updating the total types of debris in the
-   method itself
+2. Called findDiffsDebris(oldDebris, newDebris, diffs) in surveys.update
+   instead of doing the calculations for updating the total types of debris in
+   the method itself
 3. Modified compareTrash(diffs, prevDebrisData, result) to reflect change of
    calling findDiffsDebris(oldDebris, newDebris, diffs)
+
+Fixed bugs with checkboxes for editing surveys
+1. Added missing options for the major use and substrate type sections in the
+   render() methods for client/src/SurveyEntry/SurveyEntry.jsx and
+   client/src/SurveyEntry/surveyEntryEdit.jsx
+2. Corrected  editSurveyCheckBoxes(e) in
+   client/src/SurveyEntry/surveyEntryEdit.jsx so it modifies checkbox answers
+   correctly
+3. Added and called getCheckBoxData(category) in
+   client/src/SurveyEntry/surveyEntryEdit.jsx so multiple checkbox answers that
+   were checked may be visible
+4. Modified render() in client/src/SurveyEntry/surveyEntryEdit.jsx so that the
+   textboxes for the "other" options in the checkbox sections are only visible
+   when the "other" checkbox is checked
+5. Added removeOther(category) in client/src/SurveyEntry/surveyEntryEdit.jsx so
+   the user can remove an "other" option by unchecking the option instead of
+   deleting the text
+6. Added functionality in render() in
+   client/src/SurveyEntry/surveyEntryEdit.jsx so that the "other" textbox for a
+   checkbox section shows if the survey originally had "other" checked
+7. Added incomplete survey section for the survey page by modifying render() in
+   client/src/SurveyEntry/SurveyEntry.jsx.
+8. Added functionality in render() in
+   client/src/SurveyEntry/surveyEntryEdit.jsx to allow users to edit the
+   incomplete survey section of their surveys.

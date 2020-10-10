@@ -6,6 +6,7 @@
 'use strict';
 //import dependency
 var mongoose = require('mongoose');
+const { bool } = require('joi');
 const mongoDB = process.env.DB_URL;
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
@@ -81,7 +82,7 @@ let locationReason = new Schema({
     default: undefined
   },
   other: String
-}, { versionKey: false, _id: false, validateBeforeSave: false })
+}, { versionKey: false, _id: false, validateBeforeSave: false });
 
 // defines reason why accumulation survey couldn't be completed
 let incompleteSurveySchema = new Schema({
@@ -91,21 +92,21 @@ let incompleteSurveySchema = new Schema({
   },
   people: {
     type: Boolean,
-    default: undefined,
+    default: undefined
   },
   area: {
     type: Boolean,
-    default: undefined,
+    default: undefined
   },
   trash: {
     type: Boolean,
-    default: undefined,
+    default: undefined
   },
   other: String
-}, { versionKey: false, _id: false, validateBeforeSave: false })
+}, { versionKey: false, _id: false, validateBeforeSave: false });
 
 // defines description of a low or high tide for a survey
-var tideSchema = new Schema({
+let tideSchema = new Schema({
   type: String,
   time: String,
   height: Number,

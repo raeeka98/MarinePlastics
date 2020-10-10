@@ -139,8 +139,6 @@ class Review extends Component {
         parsedRows[rib][type] = this.props.MDSData[key];
     }
 
-    console.log("parsedRows for micro debris:");
-    console.log(parsedRows);
 
     // render rows for micro debris
     for (const key in parsedRows) {

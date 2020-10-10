@@ -22,6 +22,7 @@ const debrisInfo = getAllDebrisMap();
 class SurveyEntryEdit extends Component {
   constructor(props) {
     super(props);
+
     let srsOptions = debrisNames;
     let asOptions = debrisNames;
 
@@ -211,16 +212,50 @@ class SurveyEntryEdit extends Component {
     let sendingData = { ...this.state.newData };
     if (path.length === 2) {
       oldData[path[0]][path[1]] = !oldData[path[0]][path[1]];
-      sendingData[pathStr] = !oldData[path[0]][path[1]];
+      sendingData[pathStr] = oldData[path[0]][path[1]];
 
     } else {
-      oldData[path[0]] = oldData[path[0]];
-      sendingData[path[0]] = !oldData[path[0]];
+      oldData[path[0]] = !oldData[path[0]];
+      sendingData[path[0]] = oldData[path[0]];
     }
     this.setState(prev => ({
       surveyData: oldData,
       newData: sendingData
-    }))
+    }));
+
+    // for testing
+    if (process.env.NODE_ENV === 'test') {
+      return oldData, sendingData
+    }
+  }
+
+  /**
+   * Removes the other option user entered if the other checkbox is unchecked,
+   * so that the option doesn't get submitted to the database.
+   * @param {any} category
+   */
+  removeOther = (category) => {
+    let oldData = { ...this.state.surveyData };
+    let sendingData = { ...this.state.newData };
+    if (category === 'usage') {
+      // set to quotes, cause undefined won't update data
+      oldData.majorUse.other = "";
+      sendingData["majorUse.other"] = "";
+    } else if (category === 'reason') {
+      oldData.reason.other = "";
+      sendingData["reason.other"] = "";
+    } else if (category === 'substrate') {
+      oldData.st.other = "";
+      sendingData["st.other"] = "";
+    } else if (category === 'incomplete') {
+      oldData.incompleteSurvey.other = "";
+      sendingData["incompleteSurvey.other"] = "";
+    }
+
+    this.setState({
+      surveyData: oldData,
+      newData: sendingData
+    });
   }
 
   /**
@@ -285,6 +320,8 @@ class SurveyEntryEdit extends Component {
       oldMicroDebris,
       changedInfo: { ...this.state.newData }
     }
+
+    console.log("finalData", finalData);
 
     let userID = this.state.userProfile ?
       this.state.userProfile.sub : undefined;
@@ -414,7 +451,7 @@ class SurveyEntryEdit extends Component {
           </span>
         </h2>
 
-        {/* DATA SECTION CONTAINING SURVEY/SRS/AS */}
+        {/* DATA SECTION CONTAINING SURVEY/SRS/AS/MDS */}
         <div
           data-uk-grid="masonry: true"
           className=
@@ -509,10 +546,10 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.prox"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.rec}
+                    defaultChecked={this.state.surveyData.reason.prox}
                   />
                   <span className="uk-margin-left uk-text-small">
-                    Proximity
+                    Proximity/Convenience
                   </span>
                 </div>
                 <div>
@@ -521,29 +558,42 @@ class SurveyEntryEdit extends Component {
                     type="checkbox"
                     name="reason.debris"
                     onChange={this.editSurveyCheckBoxes}
-                    defaultChecked={this.state.surveyData.majorUse.com}
+                    defaultChecked={this.state.surveyData.reason.debris}
                   />
                   <span className="uk-margin-left uk-text-small">Debris</span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
-                        true : false}
-                    />
-                  </div>
-                  <div className="uk-width-expand">
-                    <input
-                      className="uk-input uk-form-small"
-                      type="text"
-                      name="majorUse.reason.other"
-                      onChange={this.editSurveyData}
-                      defaultValue={this.state.surveyData.majorUse.other}
-                      placeholder="Other"
-                    />
-                  </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherReason: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.removeOther('reason');
+                      }
+                    }}
+                    defaultChecked={this.state.surveyData.reason.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                <div>
+                  {(this.state.showOtherReason ||
+                    this.state.surveyData.reason.other !== "") &&
+                    <div className="uk-width-expand">
+                      <input
+                        className="uk-input uk-form-small"
+                        type="text"
+                        name="reason.other"
+                        onChange={this.editSurveyData}
+                        defaultValue={this.state.surveyData.reason.other}
+                      />
+                    </div>
+                  }
                 </div>
               </div>
 
@@ -573,25 +623,48 @@ class SurveyEntryEdit extends Component {
                     Commercial
                   </span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
-                        true : false}
-                    />
-                  </div>
-                  <div className="uk-width-expand">
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="majorUse.rem"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.majorUse.rem}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Remote/Unused
+                  </span>
+                </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherUsage: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.removeOther('usage');
+                      }
+                    }}
+                    defaultChecked={this.state.surveyData.majorUse.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                <div className="uk-width-expand">
+                  {(this.state.showOtherUsage ||
+                    this.state.surveyData.majorUse.other !== "") &&
                     <input
                       className="uk-input uk-form-small"
                       type="text"
                       name="majorUse.other"
                       onChange={this.editSurveyData}
                       defaultValue={this.state.surveyData.majorUse.other}
-                      placeholder="Other"
                     />
-                  </div>
+                  }
                 </div>
               </div>
 
@@ -617,15 +690,49 @@ class SurveyEntryEdit extends Component {
                   />
                   <span className="uk-margin-left uk-text-small">Pebble</span>
                 </div>
-                <div className="uk-grid uk-margin-small-top otherInput">
-                  <div className="uk-width-auto">
-                    <input
-                      className="uk-checkbox"
-                      type="checkbox"
-                      defaultChecked={this.state.surveyData.majorUse.other ?
-                        true : false}
-                    />
-                  </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.rr"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.rr}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Rip Rap (large boulders)
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="st.sea"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={this.state.surveyData.st.sea}
+                  />
+                  <span className="uk-margin-left uk-text-small">Seaweed</span>
+                </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherSubstrate: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.removeOther('substrate');
+                      }
+                    }}
+                    defaultChecked={this.state.surveyData.st.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                {(this.state.showOtherSubstrate ||
+                  this.state.surveyData.st.other !== "") && 
                   <div className="uk-width-expand">
                     <input
                       className="uk-input uk-form-small"
@@ -633,10 +740,9 @@ class SurveyEntryEdit extends Component {
                       name="st.other"
                       onChange={this.editSurveyData}
                       defaultValue={this.state.surveyData.st.other}
-                      placeholder="Other"
                     />
                   </div>
-                </div>
+                }
               </div>
 
               <div className="uk-padding-small uk-padding-remove-horizontal">
@@ -797,29 +903,129 @@ class SurveyEntryEdit extends Component {
             options={this.state.asOptions}
             type="AS"
             rows={ASRows}
+            incompleteSurvey={this.state.surveyData.incompleteSurvey}
           />
-        </div>
-
-        {/* MDS SECTION */}
-        <div id="MDS-section">
-          <div
-            className="uk-card uk-card-default uk-card-body uk-margin-bottom"
-          >
-            <h3>Micro Debris Survey</h3>
-            <table className="uk-table uk-table-striped">
-              <thead>
-                <tr>
-                  <th>Amount Fresh</th>
-                  <th>Amount Weathered</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MDSRow}
-              </tbody>
-            </table>
+          {/* INCOMPLETE SURVEY SECTION*/}
+          <div id="incomplete-survey-section">
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3 className="uk-card-title">Incomplete Survey</h3>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Why unable to complete survey</p>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.time"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.time
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Not enough time
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.people"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.people
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Not enough people
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.area"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.area
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Too much area
+                  </span>
+                </div>
+                <div>
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    name="incompleteSurvey.trash"
+                    onChange={this.editSurveyCheckBoxes}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.trash
+                    }
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Too much trash
+                  </span>
+                </div>
+                <div className="uk-width-auto">
+                  <input
+                    className="uk-checkbox"
+                    type="checkbox"
+                    onChange={e => {
+                      this.setState({
+                        showOtherIncompleteSurvey: e.target.checked
+                      });
+                      if (!e.target.checked) {
+                        this.removeOther('incomplete');
+                      }
+                    }}
+                    defaultChecked={
+                      this.state.surveyData.incompleteSurvey.other ?
+                      true : false}
+                  />
+                  <span className="uk-margin-left uk-text-small">
+                    Other
+                  </span>
+                </div>
+                {console.log(this.state.showOtherIncompleteSurvey)}
+                {
+                (this.state.showOtherIncompleteSurvey ||
+                  this.state.surveyData.incompleteSurvey.other !== "") &&
+                  <div className="uk-width-expand">
+                    <input
+                      className="uk-input uk-form-small"
+                      type="text"
+                      name="incompleteSurvey.other"
+                      onChange={this.editSurveyData}
+                      defaultValue={this.state.surveyData.incompleteSurvey.other}
+                    />
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+          {/* MDS SECTION */}
+          <div id="MDS-section">
+            <div
+              className="uk-card uk-card-default uk-card-body uk-margin-bottom"
+            >
+              <h3>Micro Debris Survey</h3>
+              <table className="uk-table uk-table-striped">
+                <thead>
+                  <tr>
+                    <th>Amount Fresh</th>
+                    <th>Amount Weathered</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MDSRow}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-
         <button className="uk-button button-active" onClick={this.save}
           data-uk-toggle="target: #modal">
           Save Edits

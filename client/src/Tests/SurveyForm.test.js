@@ -1,3 +1,4 @@
+import { describe } from 'joi';
 /**
  * SurveyForm.test.js
  * Tests updateDisplayStrings() ../NewSurveyForm/SurveyForm.jsx.

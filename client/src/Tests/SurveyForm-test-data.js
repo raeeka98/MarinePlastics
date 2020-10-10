@@ -4295,5 +4295,5 @@ export {
   validateMDSData2,
   validateMDSData3,
   validateMDSData4,
-  validateMDSData5
+  validateMDSData5,
 };
