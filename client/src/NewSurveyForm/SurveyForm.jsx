@@ -953,14 +953,21 @@ class SurveyForm extends Component {
       windSpeed: "Wind Speed"
     }
 
-    const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
-      'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName',
-      'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
-      'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
-      'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName',
+    const beachDataIDs = ['beachName', 'riverName', 'riverDistance',
       'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
       'lonDir'
     ];
+
+    const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
+      'cleanUpTime', 'cleanUpDate', 'compassDegrees', 'slope',
+      'tideHeightA', 'tideHeightB', 'tideTimeA', 'tideTimeB', 'tideTypeA',
+      'tideTypeB', 'windDir', 'windSpeed'
+    ];
+
+    // only add beach data if no beach ID was provided when page loaded
+    if (!this.state.surveyData.beachID) {
+      requiredIDs.push(...beachDataIDs);
+    }
 
     // check for fields that need just a single entry
     for (const id of requiredIDs) {
@@ -971,6 +978,17 @@ class SurveyForm extends Component {
           document.getElementById(id).classList.add('invalidInput');
       }
     }
+
+    // remove beach data if beach ID was provided
+    // if (this.state.surveyData.beachID) {
+    //   console.log("invalid before filter", invalid);
+    //   const beachDataIDs = ['beachName', 'riverName', 'riverDistance',
+    //     'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
+    //     'lonDir'
+    //   ];
+    //   invalid = invalid.filter(id => beachDataIDs.indexOf(id) === -1);
+    //   console.log("invalid after filter", invalid);
+    // }
 
     // check for usage
     if (!this.state.surveyData.usageRecreation
