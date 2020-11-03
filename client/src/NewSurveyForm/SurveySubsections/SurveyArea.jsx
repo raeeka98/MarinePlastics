@@ -27,37 +27,6 @@ class SurveyArea extends Component {
   }
 
   /**
-   * Takes in latitude and longitude as decimals and converts them to degrees,
-   * minutes, and seconds.
-   * @params lat, lon
-   * @return object of two fields, latitude and longitude, which each contain
-   * lat and lon, as well as their respective degrees, minutes, seconds, and
-   * direction
-   */
-  updateLatLonFront = (lat, lon) => {
-
-    let latDeg = Math.floor(lat);
-    let tempDecimal = (lat - latDeg) * 60;
-    const latMin = Math.floor(tempDecimal);
-    const latSec = (tempDecimal - latMin) * 60;
-    const latDir = Math.sign(latDeg);
-    latDeg = latDeg * latDir;
-
-    let lonDeg = Math.floor(lon);
-    tempDecimal = (lon - lonDeg) * 60;
-    const lonMin = Math.floor(tempDecimal);
-    const lonSec = (tempDecimal - lonMin) * 60;
-    const lonDir = Math.sign(lonDeg);
-    lonDeg = lonDeg * lonDir;
-
-    return {
-      latitude: lat, latDeg, latMin, latSec, latDir,
-      longitude: lon, lonDeg, lonMin, lonSec, lonDir
-    }
-
-  }
-
-  /**
    * Gets existing info on beach based on id, and updates the survey with this
    * info.
    * @param beachID
@@ -65,7 +34,7 @@ class SurveyArea extends Component {
   autofill = (beachID) => {
     axios.get("/beaches/" + beachID + "/info")
       .then(res => {
-        const coordInfo = this.updateLatLonFront(res.data.lat, res.data.lon);
+        const coordInfo = this.props.updateLatLonFront(res.data.lat, res.data.lon);
         this.props.updateCoordState(coordInfo, res.data.nroName,
           res.data.nroDist);
       }).catch(err => {

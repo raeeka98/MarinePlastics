@@ -47,3 +47,6 @@ link on the location page to add a survey
    it only checks for beach data inputted by the user if there is no beach ID,
    in other words, the user didn't navigate to the add survey page from the
    location page.
+2. Moved updateLatLonFront(lat, lon) from
+   client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx to
+   client/src/NewSurveyForm/SurveyForm.jsx.

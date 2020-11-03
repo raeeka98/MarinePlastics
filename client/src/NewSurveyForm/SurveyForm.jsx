@@ -80,16 +80,17 @@ class SurveyForm extends Component {
       invalidMDS: false,
       autoFilledBeachData: null
     }
-    this.moveToReview = this.moveToReview.bind(this);
     this.moveToInput = this.moveToInput.bind(this);
+    this.moveToReview = this.moveToReview.bind(this);
     this.moveToSubmit = this.moveToSubmit.bind(this);
-    this.updateSurveyState = this.updateSurveyState.bind(this);
-    this.updateCheckedState = this.updateCheckedState.bind(this);
     this.prepareForm = this.prepareForm.bind(this);
-    this.updateSRS = this.updateSRS.bind(this);
-    this.updateAS = this.updateAS.bind(this);
-    this.updateMDS = this.updateMDS.bind(this);
     this.showAlert = this.showAlert.bind(this);
+    this.updateAS = this.updateAS.bind(this);
+    this.updateCheckedState = this.updateCheckedState.bind(this);
+    this.updateLatLonFront = this.updateLatLonFront.bind(this);
+    this.updateMDS = this.updateMDS.bind(this);
+    this.updateSRS = this.updateSRS.bind(this);
+    this.updateSurveyState = this.updateSurveyState.bind(this);
   }
 
   /**
@@ -546,6 +547,7 @@ class SurveyForm extends Component {
               updateSurveyState={this.updateSurveyState}
               updateCheckedState={this.updateCheckedState}
               updateCoordState={this.updateCoordState}
+              updateLatLonFront={this.updateLatLonFront}
               removeOther={this.removeOther}
             />
             <SurfaceRibScan
@@ -793,6 +795,35 @@ class SurveyForm extends Component {
         subType: subTypeString,
         incompleteSurvey: incompleteSurveyString
       };
+    }
+  }
+  
+  /**
+   * Takes in latitude and longitude as decimals and converts them to degrees,
+   * minutes, and seconds.
+   * @params lat, lon
+   * @return object of two fields, latitude and longitude, which each contain
+   * lat and lon, as well as their respective degrees, minutes, seconds, and
+   * direction
+   */
+  updateLatLonFront(lat, lon) {
+    let latDeg = Math.floor(lat);
+    let tempDecimal = (lat - latDeg) * 60;
+    const latMin = Math.floor(tempDecimal);
+    const latSec = (tempDecimal - latMin) * 60;
+    const latDir = Math.sign(latDeg);
+    latDeg = latDeg * latDir;
+
+    let lonDeg = Math.floor(lon);
+    tempDecimal = (lon - lonDeg) * 60;
+    const lonMin = Math.floor(tempDecimal);
+    const lonSec = (tempDecimal - lonMin) * 60;
+    const lonDir = Math.sign(lonDeg);
+    lonDeg = lonDeg * lonDir;
+
+    return {
+      latitude: lat, latDeg, latMin, latSec, latDir,
+      longitude: lon, lonDeg, lonMin, lonSec, lonDir
     }
   }
 
