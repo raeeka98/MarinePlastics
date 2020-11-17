@@ -32,7 +32,7 @@ class SurveyArea extends Component {
    * @param beachID
    */
   autofill = (beachID) => {
-    axios.get("/beaches/" + beachID + "/info")
+    axios.get(`/beaches/${beachID}/info`)
       .then(res => {
         const coordInfo = this.props.updateLatLonFront(res.data.lat, res.data.lon);
         this.props.updateCoordState(coordInfo, res.data.nroName,

@@ -115,8 +115,12 @@ class SurveyForm extends Component {
               autoFilledBeachData: res.data
             });
             console.log(res.data);
-            //beachData
-          })
+            const coordInfo =
+              this.updateLatLonFront(res.data.lat, res.data.lon);
+            this.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
+          }).catch(err => {
+            console.log(err);
+          });
       }
     }
   }
