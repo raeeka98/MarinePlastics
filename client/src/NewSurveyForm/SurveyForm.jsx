@@ -111,7 +111,7 @@ class SurveyForm extends Component {
         axios.get(`/beaches/${beachID}/info`)
           .then(res => {
             this.setState({
-              surveyData: { beachID },
+              surveyData: { beachID, beachName: res.data.n },
               autoFilledBeachData: res.data
             });
             console.log(res.data);
@@ -951,6 +951,8 @@ class SurveyForm extends Component {
    * @return ID's of invalid elements if invalid, if not, returns empty array;
    */
   validateSurveyData() {
+    console.log("survey", this.state.surveyData);
+
     let invalid = [];
 
     const displayIDs = {
@@ -988,21 +990,13 @@ class SurveyForm extends Component {
       windSpeed: "Wind Speed"
     }
 
-    const beachDataIDs = ['beachName', 'riverName', 'riverDistance',
-      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
-      'lonDir'
-    ];
-
     const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
-      'cleanUpTime', 'cleanUpDate', 'compassDegrees', 'slope',
-      'tideHeightA', 'tideHeightB', 'tideTimeA', 'tideTimeB', 'tideTypeA',
-      'tideTypeB', 'windDir', 'windSpeed'
+      'cleanUpTime', 'cleanUpDate', 'beachName', 'latDeg', 'latMin', 'latSec',
+      'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir', 'compassDegrees',
+      'riverName', 'riverDistance', 'slope', 'tideHeightA', 'tideHeightB',
+      'tideTimeA', 'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir',
+      'windSpeed'
     ];
-
-    // only add beach data if no beach ID was provided when page loaded
-    if (!this.state.surveyData.beachID) {
-      requiredIDs.push(...beachDataIDs);
-    }
 
     // check for fields that need just a single entry
     for (const id of requiredIDs) {
@@ -1013,17 +1007,6 @@ class SurveyForm extends Component {
           document.getElementById(id).classList.add('invalidInput');
       }
     }
-
-    // remove beach data if beach ID was provided
-    // if (this.state.surveyData.beachID) {
-    //   console.log("invalid before filter", invalid);
-    //   const beachDataIDs = ['beachName', 'riverName', 'riverDistance',
-    //     'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
-    //     'lonDir'
-    //   ];
-    //   invalid = invalid.filter(id => beachDataIDs.indexOf(id) === -1);
-    //   console.log("invalid after filter", invalid);
-    // }
 
     // check for usage
     if (!this.state.surveyData.usageRecreation
