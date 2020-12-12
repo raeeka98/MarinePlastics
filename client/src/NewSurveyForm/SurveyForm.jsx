@@ -24,7 +24,6 @@ class SurveyForm extends Component {
     super(props);
     this.url = '/surveys'
     this.auth = this.props.auth;
-	  console.log(this.auth);
 
     this.state = {
       surveyData: {
@@ -114,7 +113,6 @@ class SurveyForm extends Component {
               surveyData: { beachID, beachName: res.data.n },
               autoFilledBeachData: res.data
             });
-            console.log(res.data);
             const coordInfo =
               this.updateLatLonFront(res.data.lat, res.data.lon);
             this.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
@@ -344,7 +342,6 @@ class SurveyForm extends Component {
    * Shows the submit page.
    */
   moveToSubmit() {
-    console.log(this.state);
     const form = this.prepareForm();
 
     axios.post("beaches/surveys", form)
@@ -951,8 +948,6 @@ class SurveyForm extends Component {
    * @return ID's of invalid elements if invalid, if not, returns empty array;
    */
   validateSurveyData() {
-    console.log("survey", this.state.surveyData);
-
     let invalid = [];
 
     const displayIDs = {
