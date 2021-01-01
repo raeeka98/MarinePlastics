@@ -5,7 +5,7 @@ Changed all instances on website of Sign Up to Sign Up/Login
 1. Changed Sign Up button on landing page to the Sign Up/Login button by
    modifying LandingPage(props) in client/src/Landing/Landing.js
 2. Changed Sign Up link in header to Sign Up/Login by modifying Menu.render()
-   in client/src/Header/Header.jsx
+   in client/src/Header/Header.jsx.
    
 Fixed bug where editing survey data won't update beach stats correctly
 1. Added findDiffsDebris(oldDebris, newDebris, diffs) to
@@ -40,3 +40,11 @@ Fixed bugs with checkboxes for editing surveys
 8. Added functionality in render() in
    client/src/SurveyEntry/surveyEntryEdit.jsx to allow users to edit the
    incomplete survey section of their surveys.
+
+Fixed bug where couldn't submit a survey if the user clicks the "Add Survey"
+link on the location page to add a survey
+1. Moved updateLatLonFront(lat, lon) from
+   client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx to
+   client/src/NewSurveyForm/SurveyForm.jsx.
+2. Modified componentDidMount() so if a beachID is passed via props, add the
+   beach data to the survey data.
