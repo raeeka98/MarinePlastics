@@ -40,3 +40,13 @@ Fixed bugs with checkboxes for editing surveys
 8. Added functionality in render() in
    client/src/SurveyEntry/surveyEntryEdit.jsx to allow users to edit the
    incomplete survey section of their surveys.
+
+Fixed bug where couldn't submit a survey if the user clicks the "Add Survey"
+link on the location page to add a survey
+1. Modified validateSurveyData() in client/src/NewSurveyForm/SurveyForm.jsx so
+   it only checks for beach data inputted by the user if there is no beach ID,
+   in other words, the user didn't navigate to the add survey page from the
+   location page.
+2. Moved updateLatLonFront(lat, lon) from
+   client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx to
+   client/src/NewSurveyForm/SurveyForm.jsx.

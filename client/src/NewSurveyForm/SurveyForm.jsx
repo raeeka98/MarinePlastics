@@ -24,7 +24,6 @@ class SurveyForm extends Component {
     super(props);
     this.url = '/surveys'
     this.auth = this.props.auth;
-	  console.log(this.auth);
 
     this.state = {
       surveyData: {
@@ -80,16 +79,17 @@ class SurveyForm extends Component {
       invalidMDS: false,
       autoFilledBeachData: null
     }
-    this.moveToReview = this.moveToReview.bind(this);
     this.moveToInput = this.moveToInput.bind(this);
+    this.moveToReview = this.moveToReview.bind(this);
     this.moveToSubmit = this.moveToSubmit.bind(this);
-    this.updateSurveyState = this.updateSurveyState.bind(this);
-    this.updateCheckedState = this.updateCheckedState.bind(this);
     this.prepareForm = this.prepareForm.bind(this);
-    this.updateSRS = this.updateSRS.bind(this);
-    this.updateAS = this.updateAS.bind(this);
-    this.updateMDS = this.updateMDS.bind(this);
     this.showAlert = this.showAlert.bind(this);
+    this.updateAS = this.updateAS.bind(this);
+    this.updateCheckedState = this.updateCheckedState.bind(this);
+    this.updateLatLonFront = this.updateLatLonFront.bind(this);
+    this.updateMDS = this.updateMDS.bind(this);
+    this.updateSRS = this.updateSRS.bind(this);
+    this.updateSurveyState = this.updateSurveyState.bind(this);
   }
 
   /**
@@ -110,12 +110,15 @@ class SurveyForm extends Component {
         axios.get(`/beaches/${beachID}/info`)
           .then(res => {
             this.setState({
-              surveyData: { beachID },
+              surveyData: { beachID, beachName: res.data.n },
               autoFilledBeachData: res.data
             });
-            console.log(res.data);
-            //beachData
-          })
+            const coordInfo =
+              this.updateLatLonFront(res.data.lat, res.data.lon);
+            this.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
+          }).catch(err => {
+            console.log(err);
+          });
       }
     }
   }
@@ -339,7 +342,6 @@ class SurveyForm extends Component {
    * Shows the submit page.
    */
   moveToSubmit() {
-    console.log(this.state);
     const form = this.prepareForm();
 
     axios.post("beaches/surveys", form)
@@ -546,6 +548,7 @@ class SurveyForm extends Component {
               updateSurveyState={this.updateSurveyState}
               updateCheckedState={this.updateCheckedState}
               updateCoordState={this.updateCoordState}
+              updateLatLonFront={this.updateLatLonFront}
               removeOther={this.removeOther}
             />
             <SurfaceRibScan
@@ -795,6 +798,35 @@ class SurveyForm extends Component {
       };
     }
   }
+  
+  /**
+   * Takes in latitude and longitude as decimals and converts them to degrees,
+   * minutes, and seconds.
+   * @params lat, lon
+   * @return object of two fields, latitude and longitude, which each contain
+   * lat and lon, as well as their respective degrees, minutes, seconds, and
+   * direction
+   */
+  updateLatLonFront(lat, lon) {
+    let latDeg = Math.floor(lat);
+    let tempDecimal = (lat - latDeg) * 60;
+    const latMin = Math.floor(tempDecimal);
+    const latSec = (tempDecimal - latMin) * 60;
+    const latDir = Math.sign(latDeg);
+    latDeg = latDeg * latDir;
+
+    let lonDeg = Math.floor(lon);
+    tempDecimal = (lon - lonDeg) * 60;
+    const lonMin = Math.floor(tempDecimal);
+    const lonSec = (tempDecimal - lonMin) * 60;
+    const lonDir = Math.sign(lonDeg);
+    lonDeg = lonDeg * lonDir;
+
+    return {
+      latitude: lat, latDeg, latMin, latSec, latDir,
+      longitude: lon, lonDeg, lonMin, lonSec, lonDir
+    }
+  }
 
   /**
    * Updates data on surface rib scan.
@@ -954,12 +986,11 @@ class SurveyForm extends Component {
     }
 
     const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
-      'cleanUpTime', 'cleanUpDate', 'beachName', 'compassDegrees', 'riverName',
-      'riverDistance', 'slope', 'tideHeightA', 'tideHeightB', 'tideTimeA',
-      'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir', 'windSpeed',
-      'cleanUpTime', 'cleanUpDate', 'beachName', 'riverName',
-      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
-      'lonDir'
+      'cleanUpTime', 'cleanUpDate', 'beachName', 'latDeg', 'latMin', 'latSec',
+      'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir', 'compassDegrees',
+      'riverName', 'riverDistance', 'slope', 'tideHeightA', 'tideHeightB',
+      'tideTimeA', 'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir',
+      'windSpeed'
     ];
 
     // check for fields that need just a single entry
