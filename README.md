@@ -25,13 +25,10 @@ If want to update the data sheet, need to contact a developer or COI for a Word 
 
 ### Deploying
 To deploy to the live site: https://devcenter.heroku.com/articles/git
-  1. Sign into Heroku in terminal
-  2. Clone the repo: `git clone https://github.com/raeeka98/MarinePlastics.git`
-  3. Run `cd MarinePlastics`
-  4. Make sure all changes are in the master branch on your local directory.
-     You may have to merge the Development branch with the master branch.
-  5. Add a remote to the existing Heroku site with `heroku git:remote -a marineplastics`
-  6. Deploy with `git push heroku master`
+  1. In the repo, sign into Heroku in terminal.
+  2. Make sure you are on the master branch and that it is up-to-date.
+  3. Add a remote to the existing Heroku site with `heroku git:remote -a marineplastics`
+  4. Deploy with `git push heroku master`
 If the site breaks, view the logs on Heroku for an error
 
 ***

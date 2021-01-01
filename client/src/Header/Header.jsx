@@ -155,7 +155,7 @@ class Menu extends Component {
                     onClick={this.props.auth.login}
                     className="uk-button uk-button-text"
                   >
-                    Sign Up/Log In
+                    Sign Up/Login
                   </button>
                 </li>
               }
