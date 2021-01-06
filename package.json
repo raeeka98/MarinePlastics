@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/noll115/MarinePlastics#readme",
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.21.1",
         "concurrently": "^4.1.0",
         "dotenv": "^6.2.0",
         "express": "^4.16.4",
