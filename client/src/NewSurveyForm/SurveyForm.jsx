@@ -272,6 +272,26 @@ class SurveyForm extends Component {
       (parseFloat(sec) / 3600.0));
   }
 
+  /**
+   * Gets structure of beach data
+   * @return beach data
+   */
+  getBeachData() {
+    if (this.state.autoFilledBeachData) {
+      return this.state.autoFilledBeachData;
+    }
+    const data = this.state.surveyData;
+    return {
+      n: data.beachName.replace(/\s/g, "_"),
+      nroName: data.riverName.replace(/\s/g, "_"),
+      lat: this.convertToDecimalDegrees(data.latDeg, data.latMin,
+        data.latSec, data.latDir),
+      lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin,
+        data.lonSec, data.lonDir),
+      nroDist: data.riverDistance
+    };
+  }
+
   /*
    * Switches to the input state.
    */
@@ -616,10 +636,23 @@ class SurveyForm extends Component {
    * @return JSX code that displays the submit page
    */
   showSubmitPage = () => {
+    const beachData = this.getBeachData();
+
     return (
       <div>
         <h1>Your survey was successfully submitted!</h1>
-        <h3>Click <Link to={"home/"} > here</Link> to view your survey.</h3>
+        <h3>Click <Link to={{
+            pathname: `surveys/${this.state.survID.replace(' ', '-')}`,
+            state: {
+              beachName: beachData.n,
+              surveyID: this.state.survID,
+              info: beachData,
+              userProfile: this.auth.userProfile
+            }
+          }}>
+            here
+          </Link> to view your survey.</h3>
+        <h3>Click <Link to={"home/"} > here</Link> to return to the home page.</h3>
         <div className="submit-button-container">
           <button
             className="uk-button uk-button-secondary"
