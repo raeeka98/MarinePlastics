@@ -55,5 +55,5 @@ the user gets a choice on whether to navigate to the home page or to the page
 for the new survey.
 1. Added getBeachData() to client/src/NewSurveyForm/SurveyForm.jsx
 2. Used getBeachData() in showSubmitPage() in
-client/src/NewSurveyForm/SurveyForm.jsx to generate links to home page and the
-survey page for the new survey
+   client/src/NewSurveyForm/SurveyForm.jsx to generate links to home page and
+   the survey page for the new survey
