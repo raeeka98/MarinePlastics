@@ -124,6 +124,7 @@ class App extends Component {
                   render={props =>
                     <LocationPage
                       {...props}
+                      auth={this.auth}
                     />}
                   auth={this.auth}
                 />

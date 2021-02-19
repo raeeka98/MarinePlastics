@@ -406,7 +406,7 @@ class SurveyEntry extends Component {
           })
           let closeModal = document.getElementById('closeModalButton');
           closeModal.click();
-          alert("Survey deleted successfully.");
+          setTimeout(() => alert("Survey deleted successfully."), 750);
         }
       })
       .catch(err => {

@@ -57,3 +57,11 @@ for the new survey.
 2. Used getBeachData() in showSubmitPage() in
    client/src/NewSurveyForm/SurveyForm.jsx to generate links to home page and
    the survey page for the new survey
+
+Allow admins only to delete beaches
+1. Modified DELETE function for /beaches/:beachID route in routes/dataEntry.js
+   so only admins can delete beaches
+2. Pass auth in props to Location in client/src/App.jsx
+3. Added button on location page to delete beach if user is an admin by adding
+   deleteBeach() and deleteBtn() and by modifying render() in
+   client/src/Location/Location.jsx
