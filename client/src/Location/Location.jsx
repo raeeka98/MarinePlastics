@@ -5,7 +5,7 @@
  * beach location.
  */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
@@ -21,16 +21,103 @@ class Location extends Component {
     // data is passed from ../Home/Home.js from the link to this page
     let beachData = this.props.location.state.data;
     let userProfile = this.props.location.state.userProfile;
+    let auth = this.props.auth;
 
     this.state = {
       beachData,
       pieChartData: {},
       surveys: null,
       userProfile,
+      deletedComment: false
       // getUserProfile,
       // isAuth
     }
     this.getLatLon = this.getLatLon.bind(this);
+  }
+
+  /**
+   * Requests to delete beach, and tells user if beach was successfully
+   * deleted or not.
+   */
+  deleteBeach = () => {
+    axios.delete(`/beaches/${this.state.beachData._id}`,
+      {
+        params:
+        {
+          userRoles: this.state.userProfile ?
+            this.state.userProfile['https://marineplastics.com/roles'] : []
+        },
+        headers: {
+          Authorization: `Bearer ${this.props.auth.getAccessToken()}`
+        }
+      })
+      .then(res => {
+        if (res.data.res === "fail") {
+          alert("Beach deleted failed.");
+        }
+        else {
+          this.setState({
+            deletedComment: true
+          });
+          let closeModal = document.getElementById('closeModalButton');
+          closeModal.click();
+          setTimeout(() => alert("Beach deleted successfully."), 750);
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+
+  deleteBtn = () => {
+    return (
+      <React.Fragment>
+        {
+          <button
+            className="uk-button button-active uk-margin-top"
+            data-uk-toggle="target: #modal"
+          >
+            Delete Beach
+          </button>
+        }
+        
+        {/* The modal that is opened by clicking on the delete buttons */}
+        <div id="modal" data-uk-modal>
+          <div className="uk-modal-dialog uk-modal-body">
+            <div>
+              <h2>Are you sure you want to delete this beach?</h2>
+              <p>
+                This action cannot be undone. All surveys on this beach
+                will also be deleted, along with all their data.
+              </p>
+            </div>
+
+            <p className="uk-text-right">
+              <div>
+                <button
+                  className="uk-button uk-button-danger uk-margin-left"
+                  onClick={this.deleteBeach}
+                >
+                  Delete
+                </button>
+                <button
+                  className="uk-button uk-button-default uk-modal-close"
+                >
+                  Cancel
+                </button>
+              </div>
+            </p>
+
+            <button
+              id="closeModalButton"
+              className="uk-modal-close-default"
+              data-uk-close
+            >
+            </button>
+          </div>
+        </div>
+      </React.Fragment>
+    )
   }
 
   /**
@@ -121,6 +208,9 @@ class Location extends Component {
    * @return JSX code
    */
   render() {
+    // redirect if data change actions are being taken
+    if (this.state.deletedComment) return <Redirect to="/home" />
+
     let { lat, lon, name: beachName } = this.state.beachData;
     let surveys = [];
     // for every entry, returns a link to the entry page
@@ -160,6 +250,10 @@ class Location extends Component {
     // the marker for the location on the map
     const CustomMarker = ({ name }) =>
       <div className="custom-marker"><p>{name}</p></div>;
+
+    // gets userRoles to determine if should show delete button or not
+    let userRoles = this.state.userProfile ?
+      this.state.userProfile['https://marineplastics.com/roles'] : []
     return (
       <div className="uk-container">
         <h1 className="uk-text-primary uk-heading-primary">
@@ -216,6 +310,11 @@ class Location extends Component {
           <div className="uk-grid-margin uk-width-2-3">
             <PieChart chartData={this.state.beachStats} />
           </div>
+        </div>
+        <div>
+          {
+            userRoles.includes('Admin') ? this.deleteBtn() : null
+          }
         </div>
       </div>
     );

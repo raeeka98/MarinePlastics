@@ -253,8 +253,14 @@ router.route('/:beachID')
   //delete a beach with all surveys under it
   .delete(asyncHandler(async (req, res) => {
     let bID = req.params.beachID;
-    await beaches.remove(bID);
-    res.json({ res: "Successfully deleted beach" });
+    let { userRoles } = req.query;
+    if (userRoles && userRoles.includes('Admin')) {
+      await beaches.remove(bID);
+      res.json({ res: "Successfully deleted beach" });
+    }
+    else {
+      res.status(401).json({ res: "fail" });
+    }
   }));
 
 router.route('/:beachID/stats')
