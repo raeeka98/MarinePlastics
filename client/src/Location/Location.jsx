@@ -5,7 +5,7 @@
  * beach location.
  */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import GoogleMapReact from 'google-map-react';
 import { ColumnChart, PieChart } from "./Charts";
 import axios from 'axios';
@@ -28,6 +28,7 @@ class Location extends Component {
       pieChartData: {},
       surveys: null,
       userProfile,
+      deletedComment: false
       // getUserProfile,
       // isAuth
     }
@@ -55,9 +56,12 @@ class Location extends Component {
           alert("Beach deleted failed.");
         }
         else {
+          this.setState({
+            deletedComment: true
+          });
           let closeModal = document.getElementById('closeModalButton');
           closeModal.click();
-          alert("Beach deleted successfully.");
+          setTimeout(() => alert("Beach deleted successfully."), 750);
         }
       })
       .catch(err => {
@@ -204,6 +208,9 @@ class Location extends Component {
    * @return JSX code
    */
   render() {
+    // redirect if data change actions are being taken
+    if (this.state.deletedComment) return <Redirect to="/home" />
+
     let { lat, lon, name: beachName } = this.state.beachData;
     let surveys = [];
     // for every entry, returns a link to the entry page
