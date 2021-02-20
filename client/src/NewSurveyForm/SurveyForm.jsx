@@ -18,6 +18,7 @@ import {
 } from 'react-accessible-accordion';
 
 import './accordion-styles.css';
+import './SurveyForm.css';
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -596,6 +597,11 @@ class SurveyForm extends Component {
             onClick={this.moveToReview}>
             Review
           </button>
+          <p id="instructions">
+            Click the Review button to review your submitted data. Then click
+            the Submit button at the bottom of the review page to submit and
+            save your data.
+          </p>
         </div>
       </div>
     );
