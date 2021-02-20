@@ -4,6 +4,8 @@
  */
 import React, { Component } from 'react';
 
+import { StickyContainer, Sticky } from 'react-sticky';
+
 import {
   AccordionItem,
   AccordionItemTitle,
@@ -16,7 +18,7 @@ import { getDebrisNameById, getDebrisMap } from '../debrisInfo';
 
 
 import '../accordion-styles.css';
-
+import './SurveySubsections.css';
 
 class SurfaceRibScan extends Component {
   /**
@@ -144,7 +146,7 @@ class SurfaceRibScan extends Component {
 
           <hr></hr>
 
-          <div className="uk-grid data-uk-sticky">
+          <div id="trash-header" className="uk-grid">
             <div className="uk-width-1-5"></div>
             <div className="uk-width-1-5">
               <div className="uk-grid">

@@ -15,6 +15,7 @@ import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
 import { getDebrisNameById, getDebrisMap } from '../debrisInfo';
 
 import '../accordion-styles.css';
+import './SurveySubsections.css';
 
 class AccumulationSurvey extends Component {
   constructor(props) {
@@ -129,7 +130,7 @@ class AccumulationSurvey extends Component {
               )
             }
           </div>
-          <div className="uk-grid uk-child-width-1-3">
+          <div id="trash-header" className="uk-grid uk-child-width-1-3">
             <div></div>
             <div><h4>Pieces Fresh</h4></div>
             <div><h4>Pieces Weathered</h4></div>

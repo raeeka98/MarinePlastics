@@ -1,0 +1,11 @@
+/**
+ * Makes headers for surface rib scan and accumulation survey tables sticky
+ * and non-transparent. Learned how to make an element sticky with CSS at
+ * https://www.npmjs.com/package/react-sticky.
+ */
+#trash-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
