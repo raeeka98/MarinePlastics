@@ -65,3 +65,10 @@ Allow admins only to delete beaches
 3. Added button on location page to delete beach if user is an admin by adding
    deleteBeach() and deleteBtn() and by modifying render() in
    client/src/Location/Location.jsx
+
+Made headers of tables for Surface Rib Scan and Accumulation Survey on Add
+Survey page stick to the top
+1. Created client/src/NewSurveyForm/SurveySubsections/SurveySubsections.css
+2. Used this stylesheet in render() in
+   client/src/NewSurveyForm/SurveySubsections/SurfaceRibScan.jsx and render()
+   in client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx
