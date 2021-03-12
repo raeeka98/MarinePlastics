@@ -4,8 +4,6 @@
  */
 import React, { Component } from 'react';
 
-import { StickyContainer, Sticky } from 'react-sticky';
-
 import {
   AccordionItem,
   AccordionItemTitle,
