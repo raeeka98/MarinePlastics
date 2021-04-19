@@ -65,3 +65,40 @@ Allow admins only to delete beaches
 3. Added button on location page to delete beach if user is an admin by adding
    deleteBeach() and deleteBtn() and by modifying render() in
    client/src/Location/Location.jsx
+
+Made headers of tables for Surface Rib Scan and Accumulation Survey on Add
+Survey page stick to the top
+1. Created client/src/NewSurveyForm/SurveySubsections/SurveySubsections.css
+2. Used this stylesheet in render() in
+   client/src/NewSurveyForm/SurveySubsections/SurfaceRibScan.jsx and render()
+   in client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx
+
+4/19/21
+Added Major Usage, Reason for Location Choice, and Compass Direction sections
+to be autofilled
+1. Moved majorUse, reason, and cmpsDir from surveySchema to beachSchema in
+   server_modules/mongooseSchemas.js
+2. Updated surveyDataSchema and beachDataSchema in
+   server_modules/joi-validation.js to reflect the changes made in the previous
+   step
+3. Added majorUse, reason, and cmpsDir in beaches.getInfo(beachID) in
+   server_modules/mongoose.js as values to return
+4. Changed updateCoordStates(coordInfo, riverName, riverDist) to
+   updateBeachState(coordInfo, majorUse, reason, cmpsDir, riverName, riverDist)
+   in client/src/NewSurveyForm/SurveyForm.jsx to also update state for usage,
+   locChoice, and compassDirection
+5. Modified autofill(beachID) in
+   client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx to call
+   updateBeachState(coordInfo, majorUse, reason, cmpsDir, riverName, riverDist)
+   and to update showOtherUsage and showOtherReason
+6. Modified prepareForm() in client/src/NewSurveyForm/SurveyForm.jsx to move
+   majorUse, reason, and cmpsDir from survData to beachData
+7. Modified getCheckBoxData(category) and render() in
+   client/src/SurveyEntry/SurveyEntry.jsx so that majorUse, reason, and cmpsDir
+   are retrieved from info and not surveyData
+8. Commented out editing majorUse, reason, and cmpsDir in render() in
+   client/src/SurveyEntry/surveyEntryEdit.jsx
+9. Set checkboxes to use checked attribute, not defaultValue or value, in
+   render() in client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx and
+   render() in
+   client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx

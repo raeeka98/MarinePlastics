@@ -34,9 +34,23 @@ class SurveyArea extends Component {
   autofill = (beachID) => {
     axios.get(`/beaches/${beachID}/info`)
       .then(res => {
-        const coordInfo = this.props.updateLatLonFront(res.data.lat, res.data.lon);
-        this.props.updateCoordState(coordInfo, res.data.nroName,
-          res.data.nroDist);
+        const coordInfo =
+          this.props.updateLatLonFront(res.data.lat, res.data.lon);
+        this.props.updateBeachState(
+          coordInfo,
+          res.data.majorUse,
+          res.data.reason,
+          res.data.cmpsDir,
+          res.data.nroName,
+          res.data.nroDist
+        );
+        // check if need to show other
+        if (res.data.majorUse.other) {
+          this.setState({ showOtherUsage: true });
+        }
+        if (res.data.reason.other) {
+          this.setState({ showOtherReason: true });
+        }
       }).catch(err => {
         console.log(err);
       });
@@ -399,7 +413,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='usageRecreation'
                     className='uk-checkbox'
-                    defaultValue={this.props.data.usageRecreation}
+                    checked={this.props.data.usageRecreation}
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Recreational
@@ -410,7 +424,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='usageCommercial'
                     className='uk-checkbox'
-                    defaultValue={this.props.data.usageCommercial}
+                    checked={this.props.data.usageCommercial}
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Commercial
@@ -421,7 +435,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='usageRemoteUnused'
                     className='uk-checkbox'
-                    defaultValue={this.props.data.usageRemoteUnused}
+                    checked={this.props.data.usageRemoteUnused}
                     onChange={this.props.updateCheckedState}
                   />
                 </label> Remote/Unused
@@ -431,7 +445,8 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => {
+                    checked={this.state.showOtherUsage}
+                    onChange={e => {
                       this.setState({
                         showOtherUsage: e.target.checked
                       });
@@ -449,7 +464,7 @@ class SurveyArea extends Component {
                       type='string'
                       id='usageOther'
                       className='uk-input'
-                      defaultValue={this.props.data.usageOther}
+                      value={this.props.data.usageOther}
                       onChange={this.props.updateSurveyState}
                     />
                   </div>
@@ -470,7 +485,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='locationChoiceProximity'
                     onChange={this.props.updateCheckedState}
-                    defaultValue={this.props.data.locationChoiceDebris}
+                    checked={this.props.data.locationChoiceProximity}
                     className='uk-checkbox'
                   />
                 </label> Proximity/Convenience
@@ -481,7 +496,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='locationChoiceDebris'
                     onClick={this.props.updateCheckedState}
-                    defaultValue={this.props.data.locationChoiceProximity}
+                    checked={this.props.data.locationChoiceDebris}
                     className='uk-checkbox'
                   />
                 </label> Known for Debris
@@ -491,7 +506,8 @@ class SurveyArea extends Component {
                   <input
                     type='checkbox'
                     className='uk-checkbox'
-                    onClick={e => {
+                    checked={this.state.showOtherReason}
+                    onChange={e => {
                       this.setState({
                         showOtherReason: e.target.checked
                       });
@@ -709,7 +725,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='substrateTypeSand'
                     onChange={this.props.updateCheckedState}
-                    defaultValue={this.props.data.substrateTypeSand}
+                    checked={this.props.data.substrateTypeSand}
                     className='uk-checkbox'
                   />
                 </label> Sand
@@ -720,7 +736,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='substrateTypePebble'
                     onChange={this.props.updateCheckedState}
-                    defaultValue={this.props.data.substrateTypePebble}
+                    checked={this.props.data.substrateTypePebble}
                     className='uk-checkbox'
                   />
                 </label> Pebble
@@ -731,7 +747,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='substrateTypeRipRap'
                     onChange={this.props.updateCheckedState}
-                    defaultValue={this.props.data.substrateTypeRipRap}
+                    checked={this.props.data.substrateTypeRipRap}
                     className='uk-checkbox'
                   />
                 </label> Rip Rap (large boulders)
@@ -742,7 +758,7 @@ class SurveyArea extends Component {
                     type='checkbox'
                     id='substrateTypeSeaweed'
                     onChange={this.props.updateCheckedState}
-                    defaultValue={this.props.data.substrateTypeSeaweed}
+                    checked={this.props.data.substrateTypeSeaweed}
                     className='uk-checkbox'
                   />
                 </label> Seaweed

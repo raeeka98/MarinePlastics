@@ -15,6 +15,7 @@ import AccumulationSurveyRow from '../TableRows/AccumulationSurveyRow';
 import { getDebrisNameById, getDebrisMap } from '../debrisInfo';
 
 import '../accordion-styles.css';
+import './SurveySubsections.css';
 
 class AccumulationSurvey extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyTime'
                   className='uk-checkbox'
-                  defaultValue={this.props.data.incompleteSurveyTime}
+                  checked={this.props.data.incompleteSurveyTime}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Not enough time
@@ -72,7 +73,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyPeople'
                   className='uk-checkbox'
-                  defaultValue={this.props.data.incompleteSurveyPeople}
+                  checked={this.props.data.incompleteSurveyPeople}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Not enough people
@@ -83,7 +84,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyArea'
                   className='uk-checkbox'
-                  defaultValue={this.props.data.incompleteSurveyArea}
+                  checked={this.props.data.incompleteSurveyArea}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Too much area
@@ -94,7 +95,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyTrash'
                   className='uk-checkbox'
-                  defaultValue={this.props.data.incompleteSurveyTrash}
+                  checked={this.props.data.incompleteSurveyTrash}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Too much trash
@@ -129,7 +130,7 @@ class AccumulationSurvey extends Component {
               )
             }
           </div>
-          <div className="uk-grid uk-child-width-1-3">
+          <div id="trash-header" className="uk-grid uk-child-width-1-3">
             <div></div>
             <div><h4>Pieces Fresh</h4></div>
             <div><h4>Pieces Weathered</h4></div>

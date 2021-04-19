@@ -9,6 +9,16 @@ import {
   getCheckBoxDataCategoryMajorUse,
   getCheckBoxDataCategorySt,
   getCheckBoxDataCategoryIncompleteSurvey,
+  getCheckBoxDataInfo1,
+  getCheckBoxDataInfo2,
+  getCheckBoxDataInfo3,
+  getCheckBoxDataInfo4,
+  getCheckBoxDataInfo5,
+  getCheckBoxDataInfo6,
+  getCheckBoxDataInfo7,
+  getCheckBoxDataInfo8,
+  getCheckBoxDataInfo9,
+  getCheckBoxDataInfo10,
   getCheckBoxDataSurveyData1,
   getCheckBoxDataSurveyData2,
   getCheckBoxDataSurveyData3,
@@ -20,16 +30,6 @@ import {
   getCheckBoxDataSurveyData9,
   getCheckBoxDataSurveyData10,
   getCheckBoxDataSurveyData11,
-  getCheckBoxDataSurveyData12,
-  getCheckBoxDataSurveyData13,
-  getCheckBoxDataSurveyData14,
-  getCheckBoxDataSurveyData15,
-  getCheckBoxDataSurveyData16,
-  getCheckBoxDataSurveyData17,
-  getCheckBoxDataSurveyData18,
-  getCheckBoxDataSurveyData19,
-  getCheckBoxDataSurveyData20,
-  getCheckBoxDataSurveyData21,
   getCheckBoxDataExpected1,
   getCheckBoxDataExpected2,
   getCheckBoxDataExpected3,
@@ -68,7 +68,7 @@ test("Testing getCheckBoxData(category) case 1", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData1;
+  surveyEntry.state.info = getCheckBoxDataInfo1;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected1);
 });
@@ -88,7 +88,7 @@ test("Testing getCheckBoxData(category) case 2", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData2;
+  surveyEntry.state.info = getCheckBoxDataInfo2;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected2);
 });
@@ -108,7 +108,7 @@ test("Testing getCheckBoxData(category) case 3", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData3;
+  surveyEntry.state.info = getCheckBoxDataInfo3;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected3);
 });
@@ -128,7 +128,7 @@ test("Testing getCheckBoxData(category) case 4", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData4;
+  surveyEntry.state.info = getCheckBoxDataInfo4;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected4);
 });
@@ -148,7 +148,7 @@ test("Testing getCheckBoxData(category) case 5", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData5;
+  surveyEntry.state.info = getCheckBoxDataInfo5;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryReason))
     .toEqual(getCheckBoxDataExpected5);
 });
@@ -168,7 +168,7 @@ test("Testing getCheckBoxData(category) case 6", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData6;
+  surveyEntry.state.info = getCheckBoxDataInfo6;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryMajorUse))
     .toEqual(getCheckBoxDataExpected6);
 });
@@ -188,7 +188,7 @@ test("Testing getCheckBoxData(category) case 7", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData7;
+  surveyEntry.state.info = getCheckBoxDataInfo7;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryMajorUse))
     .toEqual(getCheckBoxDataExpected7);
 });
@@ -208,7 +208,7 @@ test("Testing getCheckBoxData(category) case 8", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData8;
+  surveyEntry.state.info = getCheckBoxDataInfo8;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryMajorUse))
     .toEqual(getCheckBoxDataExpected8);
 });
@@ -228,7 +228,7 @@ test("Testing getCheckBoxData(category) case 9", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData9;
+  surveyEntry.state.info = getCheckBoxDataInfo9;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryMajorUse))
     .toEqual(getCheckBoxDataExpected9);
 });
@@ -248,7 +248,7 @@ test("Testing getCheckBoxData(category) case 10", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData10;
+  surveyEntry.state.info = getCheckBoxDataInfo10;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryMajorUse))
     .toEqual(getCheckBoxDataExpected10);
 });
@@ -268,7 +268,7 @@ test("Testing getCheckBoxData(category) case 11", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData11;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData1;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategorySt))
     .toEqual(getCheckBoxDataExpected11);
 });
@@ -288,7 +288,7 @@ test("Testing getCheckBoxData(category) case 12", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData12;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData2;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategorySt))
     .toEqual(getCheckBoxDataExpected12);
 });
@@ -308,7 +308,7 @@ test("Testing getCheckBoxData(category) case 13", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData13;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData3;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategorySt))
     .toEqual(getCheckBoxDataExpected13);
 });
@@ -328,7 +328,7 @@ test("Testing getCheckBoxData(category) case 14", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData14;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData4;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategorySt))
     .toEqual(getCheckBoxDataExpected14);
 });
@@ -348,7 +348,7 @@ test("Testing getCheckBoxData(category) case 15", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData15;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData5;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategorySt))
     .toEqual(getCheckBoxDataExpected15);
 });
@@ -368,7 +368,7 @@ test("Testing getCheckBoxData(category) case 16", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData16;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData6;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected16);
 });
@@ -388,7 +388,7 @@ test("Testing getCheckBoxData(category) case 17", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData17;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData7;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected17);
 });
@@ -408,7 +408,7 @@ test("Testing getCheckBoxData(category) case 18", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData18;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData8;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected18);
 });
@@ -428,7 +428,7 @@ test("Testing getCheckBoxData(category) case 19", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData19;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData9;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected19);
 });
@@ -448,7 +448,7 @@ test("Testing getCheckBoxData(category) case 20", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData20;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData10;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected20);
 });
@@ -468,7 +468,7 @@ test("Testing getCheckBoxData(category) case 21", () => {
     }
   }
   var surveyEntry = new SurveyEntry(props);
-  surveyEntry.state.surveyData = getCheckBoxDataSurveyData21;
+  surveyEntry.state.surveyData = getCheckBoxDataSurveyData11;
   expect(surveyEntry.getCheckBoxData(getCheckBoxDataCategoryIncompleteSurvey))
     .toEqual(getCheckBoxDataExpected21);
 });

@@ -61,7 +61,7 @@ class Location extends Component {
           });
           let closeModal = document.getElementById('closeModalButton');
           closeModal.click();
-          setTimeout(() => alert("Beach deleted successfully."), 750);
+          setTimeout(() => alert("Beach deleted successfully."), 1000);
         }
       })
       .catch(err => {
