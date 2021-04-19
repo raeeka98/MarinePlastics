@@ -116,7 +116,14 @@ class SurveyForm extends Component {
             });
             const coordInfo =
               this.updateLatLonFront(res.data.lat, res.data.lon);
-            this.updateCoordState(coordInfo, res.data.nroName, res.data.nroDist);
+            this.updateBeachState(
+              coordInfo,
+              res.data.majorUse,
+              res.data.reason,
+              res.data.cmpsDir,
+              res.data.nroName,
+              res.data.nroDist
+            );
           }).catch(err => {
             console.log(err);
           });
@@ -436,11 +443,9 @@ class SurveyForm extends Component {
         email: data.email,
         userID: this.state.userID,
         org: (data.orgName ? data.orgName : undefined),
-        reason: (show.locChoice ? show.locChoice : undefined),
         survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
         st: (show.subType ? show.subType : undefined),
         slope: (data.slope ? data.slope : undefined),
-        cmpsDir: (data.compassDegrees ? data.compassDegrees : undefined),
         lastTide: {
           type: (data.tideTypeB ? data.tideTypeB : undefined),
           time: (data.tideTimeB ? data.tideTimeB : undefined),
@@ -456,7 +461,6 @@ class SurveyForm extends Component {
           spd: (data.windSpeed ? data.windSpeed : undefined),
           comment: (data.windComments ? data.windComments : undefined)
         },
-        majorUse: (show.usage ? show.usage : undefined),
         incompleteSurvey: (show.incompleteSurvey ? show.incompleteSurvey :
           undefined),
         /* SRSDebris: [
@@ -475,11 +479,14 @@ class SurveyForm extends Component {
       bID: data.beachID ? data.beachID : undefined,
       beachData: data.beachID ? undefined : {
         n: data.beachName.replace(/\s/g, "_"),
-        nroName: data.riverName.replace(/\s/g, "_"),
         lat: this.convertToDecimalDegrees(data.latDeg, data.latMin,
           data.latSec, data.latDir),
         lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin,
           data.lonSec, data.lonDir),
+        majorUse: (show.usage ? show.usage : undefined),
+        reason: (show.locChoice ? show.locChoice : undefined),
+        cmpsDir: (data.compassDegrees ? data.compassDegrees : undefined),
+        nroName: data.riverName.replace(/\s/g, "_"),
         nroDist: data.riverDistance
       }
     }
@@ -568,7 +575,7 @@ class SurveyForm extends Component {
               setSurveyData={this.setSurveyData}
               updateSurveyState={this.updateSurveyState}
               updateCheckedState={this.updateCheckedState}
-              updateCoordState={this.updateCoordState}
+              updateBeachState={this.updateBeachState}
               updateLatLonFront={this.updateLatLonFront}
               removeOther={this.removeOther}
             />
@@ -714,11 +721,54 @@ class SurveyForm extends Component {
    * river.
    * @params {any} coordInfo, {any} riverName, {any} riverDist
    */
-  updateCoordState = (coordInfo, riverName, riverDist) => {
+  updateBeachState = (coordInfo, majorUse, reason, cmpsDir, riverName, riverDist) => {
     this.setState(prevState => {
       for (const key in coordInfo) {
         prevState.surveyData[key] = coordInfo[key];
       }
+      if (majorUse.rec) {
+        prevState.surveyData.usageRecreation = true;
+      }
+      else {
+        prevState.surveyData.usageRecreation = false;
+      }
+      if (majorUse.com) {
+        prevState.surveyData.usageCommercial = true;
+      }
+      else {
+        prevState.surveyData.usageCommercial = false;
+      }
+      if (majorUse.rem) {
+        prevState.surveyData.usageRemoteUnused = true;
+      }
+      else {
+        prevState.surveyData.usageRemoteUnused = false;
+      }
+      if (majorUse.other) {
+        prevState.surveyData.usageOther = majorUse.other;
+      }
+      else {
+        prevState.surveyData.usageOther = "";
+      }
+      if (reason.prox) {
+        prevState.surveyData.locationChoiceProximity = true;
+      }
+      else {
+        prevState.surveyData.locationChoiceProximity = false;
+      }
+      if (reason.debris) {
+        prevState.surveyData.locationChoiceDebris = true;
+      }
+      else {
+        prevState.surveyData.locationChoiceDebris = false;
+      }
+      if (reason.other) {
+        prevState.surveyData.locationChoiceOther = reason.other;
+      }
+      else {
+        prevState.surveyData.locationChoiceOther = "";
+      }
+      prevState.surveyData.compassDegrees = cmpsDir;
       prevState.surveyData.riverName = riverName;
       prevState.surveyData.riverDistance = riverDist;
 

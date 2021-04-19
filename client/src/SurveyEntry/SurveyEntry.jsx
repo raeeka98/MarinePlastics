@@ -121,7 +121,7 @@ class SurveyEntry extends Component {
 
     // determine which object in SurveyData to get checked options
     if (category === "reason") {
-      option = this.state.surveyData.reason;
+      option = this.state.info.reason;
 
       if (option.prox) {
         // addComma becomes true to separate with any future options checked
@@ -145,7 +145,7 @@ class SurveyEntry extends Component {
       }
     }
     else if (category === "majorUse") {
-      option = this.state.surveyData.majorUse;
+      option = this.state.info.majorUse;
 
       if (option.rec) {
         addComma = true;
@@ -622,13 +622,16 @@ class SurveyEntry extends Component {
 
     if (
       this.state.surveyData.lat || this.state.surveyData.lon ||
-      this.state.surveyData.reason || this.state.surveyData.st ||
+      this.state.info.reason || this.state.surveyData.st ||
       this.state.surveyData.slope || this.state.surveyData.aspect ||
-      this.state.surveyData.majorUse || this.state.surveyData.lastTide ||
+      this.state.info.majorUse || this.state.surveyData.lastTide ||
       this.state.surveyData.nextTide || this.state.surveyData.nroDist ||
       this.state.surveyData.nroName || this.state.surveyData.windDir
     ) {
-      document.getElementById('survey-area-section').style.display = 'block';
+      const surveyAreaSection = document.getElementById('survey-area-section');
+      if (surveyAreaSection) {
+        surveyAreaSection.style.display = 'block';
+      }
     }
 
     if (this.state.surveyData.lastTide || this.state.surveyData.nextTide) {
@@ -710,13 +713,13 @@ class SurveyEntry extends Component {
                   : null
               }
               {
-                this.state.surveyData.reason ?
+                this.state.info.reason ?
                   <p><strong>Reason for Location Choice: </strong>
                     {this.getCheckBoxData("reason")}
                   </p> : null
               }
               {
-                this.state.surveyData.majorUse ?
+                this.state.info.majorUse ?
                   <p><strong>Major Use: </strong>
                     {this.getCheckBoxData("majorUse")}
                   </p> : null
@@ -778,10 +781,10 @@ class SurveyEntry extends Component {
                   : null
               }
               {
-                this.state.surveyData.cmpsDir ?
+                this.state.info.cmpsDir ?
                   <p>
                     <strong>Compass Direction: </strong>
-                    {this.state.surveyData.cmpsDir}{" "}
+                    {this.state.info.cmpsDir}{" "}
                     degrees
                   </p>
                   : null

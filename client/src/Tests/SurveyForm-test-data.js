@@ -1400,15 +1400,11 @@ var testSurveyFormForm1 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -1422,9 +1418,6 @@ var testSurveyFormForm1 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -1674,9 +1667,16 @@ var testSurveyFormForm1 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined
@@ -1692,15 +1692,11 @@ var testSurveyFormForm2 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -1714,9 +1710,6 @@ var testSurveyFormForm2 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rem: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -1966,9 +1959,16 @@ var testSurveyFormForm2 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rem: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined
@@ -1984,15 +1984,11 @@ var testSurveyFormForm3 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -2007,9 +2003,6 @@ var testSurveyFormForm3 = {
       dir: "s",
       spd: "10",
       comment: "The wind was annoying."
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -2259,9 +2252,16 @@ var testSurveyFormForm3 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined
@@ -2277,15 +2277,11 @@ var testSurveyFormForm4 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -2299,9 +2295,6 @@ var testSurveyFormForm4 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {
       people: true
@@ -2433,9 +2426,16 @@ var testSurveyFormForm4 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined
@@ -2758,15 +2758,11 @@ var prepareFormMDSExpected1 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -2780,9 +2776,6 @@ var prepareFormMDSExpected1 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -3032,9 +3025,16 @@ var prepareFormMDSExpected1 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined
@@ -3315,15 +3315,11 @@ var prepareFormMDSExpected2 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -3337,9 +3333,6 @@ var prepareFormMDSExpected2 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -3598,6 +3591,13 @@ var prepareFormMDSExpected2 = {
   beachData: {
     n: "Boardwalk_Beach_(test)",
     nroName: "Kawa_Rivera",
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
     nroDist: "10"
@@ -3880,15 +3880,11 @@ var prepareFormMDSExpected3 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    reason: {
-      debris: true
-    },
     survDate: new Date("2020-03-23T17:30:00.000Z"),
     st: {
       s: true
     },
     slope: "winter",
-    cmpsDir: "180",
     lastTide: {
       type: "low",
       time: "12:00",
@@ -3902,9 +3898,6 @@ var prepareFormMDSExpected3 = {
     wind: {
       dir: "s",
       spd: "10"
-    },
-    majorUse: {
-      rec: true
     },
     incompleteSurvey: {},
     numOfP: 0,
@@ -4162,9 +4155,16 @@ var prepareFormMDSExpected3 = {
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
-    nroName: "Kawa_Rivera",
     lat: 36.95333333333333,
     lon: -122.0411111111111,
+    majorUse: {
+      rec: true
+    },
+    reason: {
+      debris: true
+    },
+    cmpsDir: "180",
+    nroName: "Kawa_Rivera",
     nroDist: "10"
   },
   bID: undefined

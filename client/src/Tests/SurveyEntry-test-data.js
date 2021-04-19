@@ -13,34 +13,34 @@ var getCheckBoxDataCategorySt = "st";
 
 var getCheckBoxDataCategoryIncompleteSurvey = "incompleteSurvey";
 
-// state var surveyData for testing getCheckBoxData(category)
-var getCheckBoxDataSurveyData1 = {
+// state var for testing getCheckBoxData(category)
+var getCheckBoxDataInfo1 = {
   reason: {
     prox: true
   }
 };
 
-var getCheckBoxDataSurveyData2 = {
+var getCheckBoxDataInfo2 = {
   reason: {
     prox: true,
     debris: true
   }
 };
 
-var getCheckBoxDataSurveyData3 = {
+var getCheckBoxDataInfo3 = {
   reason: {
     other: "Beautiful"
   }
 };
 
-var getCheckBoxDataSurveyData4 = {
+var getCheckBoxDataInfo4 = {
   reason: {
     prox: true,
     other: "Beautiful"
   }
 };
 
-var getCheckBoxDataSurveyData5 = {
+var getCheckBoxDataInfo5 = {
   reason: {
     prox: true,
     debris: true,
@@ -48,33 +48,33 @@ var getCheckBoxDataSurveyData5 = {
   }
 };
 
-var getCheckBoxDataSurveyData6 = {
+var getCheckBoxDataInfo6 = {
   majorUse: {
     rec: true
   }
 };
 
-var getCheckBoxDataSurveyData7 = {
+var getCheckBoxDataInfo7 = {
   majorUse: {
     rec: true,
     com: true
   }
 };
 
-var getCheckBoxDataSurveyData8 = {
+var getCheckBoxDataInfo8 = {
   majorUse: {
     other: "Military"
   }
 };
 
-var getCheckBoxDataSurveyData9 = {
+var getCheckBoxDataInfo9 = {
   majorUse: {
     rec: true,
     other: "Military"
   }
 };
 
-var getCheckBoxDataSurveyData10 = {
+var getCheckBoxDataInfo10 = {
   majorUse: {
     rec: true,
     com: true,
@@ -83,33 +83,33 @@ var getCheckBoxDataSurveyData10 = {
   }
 };
 
-var getCheckBoxDataSurveyData11 = {
+var getCheckBoxDataSurveyData1 = {
   st: {
     s: true
   }
 };
 
-var getCheckBoxDataSurveyData12 = {
+var getCheckBoxDataSurveyData2 = {
   st: {
     s: true,
     p: true
   }
 };
 
-var getCheckBoxDataSurveyData13 = {
+var getCheckBoxDataSurveyData3 = {
   st: {
     other: "Dirt"
   }
 };
 
-var getCheckBoxDataSurveyData14 = {
+var getCheckBoxDataSurveyData4 = {
   st: {
     s: true,
     other: "Dirt"
   }
 };
 
-var getCheckBoxDataSurveyData15 = {
+var getCheckBoxDataSurveyData5 = {
   st: {
     s: true,
     p: true,
@@ -119,37 +119,37 @@ var getCheckBoxDataSurveyData15 = {
   }
 };
 
-var getCheckBoxDataSurveyData16 = {
+var getCheckBoxDataSurveyData6 = {
   incompleteSurvey: {}
 };
 
-var getCheckBoxDataSurveyData17 = {
+var getCheckBoxDataSurveyData7 = {
   incompleteSurvey: {
     time: true
   }
 };
 
-var getCheckBoxDataSurveyData18 = {
+var getCheckBoxDataSurveyData8 = {
   incompleteSurvey: {
     time: true,
     people: true
   }
 };
 
-var getCheckBoxDataSurveyData19 = {
+var getCheckBoxDataSurveyData9 = {
   incompleteSurvey: {
     other: "Storm"
   }
 };
 
-var getCheckBoxDataSurveyData20 = {
+var getCheckBoxDataSurveyData10 = {
   incompleteSurvey: {
     time: true,
     other: "Storm"
   }
 };
 
-var getCheckBoxDataSurveyData21 = {
+var getCheckBoxDataSurveyData11 = {
   incompleteSurvey: {
     time: true,
     people: true,
@@ -209,6 +209,16 @@ export {
   getCheckBoxDataCategoryMajorUse,
   getCheckBoxDataCategorySt,
   getCheckBoxDataCategoryIncompleteSurvey,
+  getCheckBoxDataInfo1,
+  getCheckBoxDataInfo2,
+  getCheckBoxDataInfo3,
+  getCheckBoxDataInfo4,
+  getCheckBoxDataInfo5,
+  getCheckBoxDataInfo6,
+  getCheckBoxDataInfo7,
+  getCheckBoxDataInfo8,
+  getCheckBoxDataInfo9,
+  getCheckBoxDataInfo10,
   getCheckBoxDataSurveyData1,
   getCheckBoxDataSurveyData2,
   getCheckBoxDataSurveyData3,
@@ -220,16 +230,6 @@ export {
   getCheckBoxDataSurveyData9,
   getCheckBoxDataSurveyData10,
   getCheckBoxDataSurveyData11,
-  getCheckBoxDataSurveyData12,
-  getCheckBoxDataSurveyData13,
-  getCheckBoxDataSurveyData14,
-  getCheckBoxDataSurveyData15,
-  getCheckBoxDataSurveyData16,
-  getCheckBoxDataSurveyData17,
-  getCheckBoxDataSurveyData18,
-  getCheckBoxDataSurveyData19,
-  getCheckBoxDataSurveyData20,
-  getCheckBoxDataSurveyData21,
   getCheckBoxDataExpected1,
   getCheckBoxDataExpected2,
   getCheckBoxDataExpected3,

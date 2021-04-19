@@ -78,15 +78,12 @@ const surveyDataSchema = joi.object({
   userID: joi.string().trim().min(3).alphanum().required(),
   org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required()
     .error(new Error("Error in organization name")),
-  reason: reasonTypeSchema.required(),
   survDate: joi.date().max('now').greater(1104580800).required(),
   st: substrateTypeSchema.required(),
   slope: joi.string().valid(["winter", "summer"]).required(),
-  cmpsDir: joi.number().max(360).min(0).required(),
   lastTide: tideDataSchema.required(),
   nextTide: tideDataSchema.required(),
   wind: windDataSchema.required(),
-  majorUse: majorUseSchema.required(),
   incompleteSurvey: incompleteSurveySchema.optional(),
   //number of people
   numOfP: joi.number().min(0).required(),
@@ -101,6 +98,9 @@ const beachDataSchema = joi.object({
   n: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
   lat: joi.number().min(-85).max(85).required(), 
   lon: joi.number().min(-180).max(180).required(),
+  majorUse: majorUseSchema.required(),
+  reason: reasonTypeSchema.required(),
+  cmpsDir: joi.number().max(360).min(0).required(),
   nroName: joi.string().trim().replace(/\s\s+/, " ").max(40).required(),
   nroDist: joi.number().min(0).required()
 });

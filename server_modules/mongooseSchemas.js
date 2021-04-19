@@ -132,17 +132,12 @@ let surveySchema = new Schema({
   org: {
     type: String,
   },
-  reason: locationReason,
   survDate: {
     type: Date,
   },
   st: substrateTypeSchema,
   slope: String,
   weight: Number,
-  cmpsDir: {
-    type: Number,
-    alias: "compassDirection"
-  },
   lastTide: tideSchema,
   nextTide: tideSchema,
   wind: {
@@ -150,7 +145,6 @@ let surveySchema = new Schema({
     spd: { type: Number },
     comment: { type: String }
   },
-  majorUse: majorUsageSchema,
   incompleteSurvey: incompleteSurveySchema,
   numOfP: {
     type: Number,
@@ -373,6 +367,12 @@ let beachSchema = new Schema({
     required: true,
     min: -180,
     max: 180
+  },
+  majorUse: majorUsageSchema,
+  reason: locationReason,
+  cmpsDir: {
+    type: Number,
+    alias: "compassDirection"
   },
   lastMod: { type: Date, default: Date.now, index: true },
   nroName: String,
