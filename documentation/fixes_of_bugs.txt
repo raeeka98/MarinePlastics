@@ -100,4 +100,5 @@ to be autofilled
    client/src/SurveyEntry/surveyEntryEdit.jsx
 9. Set checkboxes to use checked attribute, not defaultValue or value, in
    render() in client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx and
+   render() in
    client/src/NewSurveyForm/SurveySubsections/AccumulationSurvey.jsx
