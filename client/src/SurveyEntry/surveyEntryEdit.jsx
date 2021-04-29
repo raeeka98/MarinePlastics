@@ -538,7 +538,7 @@ class SurveyEntryEdit extends Component {
                 <p className="uk-text-small uk-margin-small-left">Lat: <span className="uk-text-muted">{this.state.info.lat}</span></p>
                 <p className="uk-text-small uk-margin-small-left">Lon: <span className="uk-text-muted">{this.state.info.lon}</span></p>
               </div> */}
-              <div className="uk-padding-small uk-padding-remove-horizontal">
+              {/* <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Reason for Location Choice</p>
                 <div>
                   <input
@@ -666,7 +666,7 @@ class SurveyEntryEdit extends Component {
                     />
                   }
                 </div>
-              </div>
+              </div> */}
 
               <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Substrate Type</p>
@@ -800,7 +800,7 @@ class SurveyEntryEdit extends Component {
                 <p>Distance to Nearest River (mi)</p>
                 <input className="uk-input uk-form-small" type="text" name="info.nroDist" onChange={this.editSurveyData} defaultValue={this.state.info.nroDist} />
               </div> */}
-              <div className="uk-padding-small uk-padding-remove-horizontal">
+              {/* <div className="uk-padding-small uk-padding-remove-horizontal">
                 <p>Compass Direction (degrees)</p>
                 <input
                   className="uk-input uk-form-small"
@@ -809,7 +809,7 @@ class SurveyEntryEdit extends Component {
                   onChange={this.editSurveyData}
                   defaultValue={this.state.surveyData.cmpsDir}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 

@@ -486,7 +486,7 @@ let beaches = {
    */
   getInfo: async function(beachID) {
     return await beachModel.findById(beachID)
-      .select("n lat lon nroName nroDist lastMod").exec();
+      .select("n lat lon majorUse reason cmpsDir nroName nroDist lastMod").exec();
   },
   /**
    * Uses the Law of Cosines to find the beaches in the database within a five
