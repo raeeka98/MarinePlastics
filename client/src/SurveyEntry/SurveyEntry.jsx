@@ -665,7 +665,7 @@ class SurveyEntry extends Component {
           <div>
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
-              <p><strong>Team Leader: </strong>
+              <p><strong>Surveyor's Full Name: </strong>
                 {this.state.surveyData.user ? this.state.surveyData.user.f
                 + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>

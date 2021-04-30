@@ -461,7 +461,7 @@ class SurveyEntryEdit extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Team Information</h3>
               <div className="uk-padding-small uk-padding-remove-horizontal">
-                <p>Team Leader</p>
+                <p>Surveyor's Full Name</p>
                 <input
                   className="uk-input uk-form-small uk-margin-small-bottom"
                   type="text"

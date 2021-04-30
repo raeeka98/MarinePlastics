@@ -29,7 +29,7 @@ class TeamInformation extends Component {
           <div className="uk-child-width-1-2 uk-grid">
             <div>
               <label>
-                First Name <span className="uk-text-danger">*</span>
+                Surveyor's First Name <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
@@ -42,7 +42,9 @@ class TeamInformation extends Component {
               />
             </div>
             <div>
-              <label>Last Name<span className="uk-text-danger">*</span></label>
+              <label>
+                Surveyor's Last Name<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='Last Name'
