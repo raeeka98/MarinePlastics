@@ -296,6 +296,9 @@ class SurveyForm extends Component {
         data.latSec, data.latDir),
       lon: this.convertToDecimalDegrees(data.lonDeg, data.lonMin,
         data.lonSec, data.lonDir),
+      majorUse: data.majorUse,
+      reason: data.reason,
+      cmpsDir: data.cmpsDir,
       nroDist: data.riverDistance
     };
   }

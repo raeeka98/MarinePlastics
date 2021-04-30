@@ -117,3 +117,6 @@ to be autofilled
 10. Added majorUseInput(autoFilled), reasonInput(autoFilled), and
     compassDirectionInput(autoFilled) and used in render() in
     client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx
+11. Modified getBeachData() in client/src/NewSurveyForm/SurveyForm.jsx so all
+    beach data is sent to survey page when user navigates to it after
+    submitting a survey
