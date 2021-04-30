@@ -52,7 +52,7 @@ export function ProtocolPage() {
           View Our Training Field Guide
         </a>
         <br/>
-        <a href="pdfs/COIDataSheet_2020.pdf" download>View Our Data Sheet</a>
+        <a href="pdfs/COIDataSheet_2021.pdf" download>View Our Data Sheet</a>
       </div>
     </div>
     );
