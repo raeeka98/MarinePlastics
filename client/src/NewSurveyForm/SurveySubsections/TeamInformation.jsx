@@ -60,7 +60,8 @@ class TeamInformation extends Component {
           <div className="uk-child-width-1-2 uk-grid">
             <div>
               <label>
-                Organization Name<span className="uk-text-danger">*</span>
+                Organization Name (if applicable)
+                <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
