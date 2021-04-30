@@ -118,5 +118,5 @@ to be autofilled
     compassDirectionInput(autoFilled) and used in render() in
     client/src/NewSurveyForm/SurveySubsections/SurveyArea.jsx
 11. Modified getBeachData() in client/src/NewSurveyForm/SurveyForm.jsx so all
-    beach data is sent to location page when user navigates to it after
+    beach data is sent to survey page when user navigates to it after
     submitting a survey
