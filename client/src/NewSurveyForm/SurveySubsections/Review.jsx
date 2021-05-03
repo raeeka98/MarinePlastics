@@ -161,8 +161,8 @@ class Review extends Component {
         <div className="uk-card uk-card-default uk-card-body uk-card-hover">
           <h3 className="uk-card-title">Team Information:</h3>
           <p>Surveyor's Full Name: <b>{d.userFirst} {d.userLast}</b></p>
-          <p>Organization Name: <b>{d.orgName}</b></p>
-          <p>Organization Location: <b>{d.orgLoc}</b></p>
+          {d.orgName && <p>Organization Name: <b>{d.orgName}</b></p>}
+          {d.orgLoc && <p>Organization Location: <b>{d.orgLoc}</b></p>}
           <p>Email Address: <b>{d.email}</b></p>
           <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
           <p>Clean Up Start Time: <b>{d.cleanUpStartTime}</b></p>

@@ -668,7 +668,7 @@ class SurveyEntry extends Component {
               <p><strong>Surveyor's Full Name: </strong>
                 {this.state.surveyData.user ? this.state.surveyData.user.f
                 + " " + this.state.surveyData.user.l : ""}</p>
-              <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
+              {this.state.surveyData.org && <p><strong>Organization:</strong> {this.state.surveyData.org}</p>}
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
               <p>
                 <strong>

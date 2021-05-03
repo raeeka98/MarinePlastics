@@ -61,7 +61,6 @@ class TeamInformation extends Component {
             <div>
               <label>
                 Organization Name (if applicable)
-                <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
@@ -70,13 +69,11 @@ class TeamInformation extends Component {
                 onChange={this.props.updateSurveyState}
                 id='orgName'
                 className='uk-input uk-margin'
-                required
               />
             </div>
             <div>
               <label>
                 Organization Location (City, Country)
-                <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
@@ -85,7 +82,6 @@ class TeamInformation extends Component {
                 onChange={this.props.updateSurveyState}
                 id='orgLoc'
                 className='uk-input uk-margin'
-                required
               />
             </div>
           </div>

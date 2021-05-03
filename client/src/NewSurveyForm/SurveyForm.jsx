@@ -1079,12 +1079,12 @@ class SurveyForm extends Component {
       windSpeed: "Wind Speed"
     }
 
-    const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
-      'cleanUpStartTime', 'cleanUpEndTime', 'cleanUpDate', 'beachName',
-      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
-      'lonDir', 'compassDegrees', 'riverName', 'riverDistance', 'slope',
-      'tideHeightA', 'tideHeightB', 'tideTimeA', 'tideTimeB', 'tideTypeA',
-      'tideTypeB', 'windDir', 'windSpeed'
+    const requiredIDs = ['userFirst', 'userLast', 'email', 'cleanUpStartTime',
+      'cleanUpEndTime', 'cleanUpDate', 'beachName', 'latDeg', 'latMin',
+      'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir',
+      'compassDegrees', 'riverName', 'riverDistance', 'slope', 'tideHeightA',
+      'tideHeightB', 'tideTimeA', 'tideTimeB', 'tideTypeA', 'tideTypeB',
+      'windDir', 'windSpeed'
     ];
 
     // check for fields that need just a single entry
