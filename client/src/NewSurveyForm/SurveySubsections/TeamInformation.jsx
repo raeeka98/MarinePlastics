@@ -90,7 +90,7 @@ class TeamInformation extends Component {
             </div>
           </div>
 
-          <div className="uk-grid uk-child-width-1-3">
+          <div className="uk-grid uk-child-width-1-4">
             <div>
               <label>
                 Email Address<span className="uk-text-danger">*</span>
@@ -124,9 +124,22 @@ class TeamInformation extends Component {
               </label>
               <input
                 type='time'
-                defaultValue={this.props.data.cleanUpTime}
+                defaultValue={this.props.data.cleanUpStartTime}
                 onChange={this.props.updateSurveyState}
-                id='cleanUpTime'
+                id='cleanUpStartTime'
+                className='uk-input uk-margin'
+                required
+              />
+            </div>
+            <div>
+              <label>
+                Clean Up End Time<span className="uk-text-danger">*</span>
+              </label>
+              <input
+                type='time'
+                defaultValue={this.props.data.cleanUpEndTime}
+                onChange={this.props.updateSurveyState}
+                id='cleanUpEndTime'
                 className='uk-input uk-margin'
                 required
               />

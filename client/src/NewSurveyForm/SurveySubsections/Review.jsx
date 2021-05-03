@@ -165,7 +165,8 @@ class Review extends Component {
           <p>Organization Location: <b>{d.orgLoc}</b></p>
           <p>Email Address: <b>{d.email}</b></p>
           <p>Clean Up Date: <b>{d.cleanUpDate}</b></p>
-          <p>Clean Up Start Time: <b>{d.cleanUpTime}</b></p>
+          <p>Clean Up Start Time: <b>{d.cleanUpStartTime}</b></p>
+          <p>Clean Up End Time: <b>{d.cleanUpEndTime}</b></p>
         </div>
 
         <br></br>

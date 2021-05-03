@@ -446,7 +446,9 @@ class SurveyForm extends Component {
         email: data.email,
         userID: this.state.userID,
         org: (data.orgName ? data.orgName : undefined),
-        survDate: new Date(data.cleanUpDate + "T" + data.cleanUpTime),
+        survDate: new Date(data.cleanUpDate + "T00:00"),
+        survStartTime: data.cleanUpStartTime,
+        survEndTime: data.cleanUpEndTime,
         st: (show.subType ? show.subType : undefined),
         slope: (data.slope ? data.slope : undefined),
         lastTide: {
@@ -1048,8 +1050,8 @@ class SurveyForm extends Component {
       orgName: "Organization Name",
       orgLoc: "Organization Location",
       email: "Email Address",
-      cleanUpTime: "Clean Up Time",
-      cleanUpDate: "Clean Up Start Time",
+      cleanUpStartTime: "Clean Up Start Time",
+      cleanUpEndTime: "Clean Up End Time",
       beachName: "Name of Beach",
       latDir: "Latitude Direction",
       lonDir: "Longitude Direction",
@@ -1078,11 +1080,11 @@ class SurveyForm extends Component {
     }
 
     const requiredIDs = ['userFirst', 'userLast', 'orgName', 'orgLoc', 'email',
-      'cleanUpTime', 'cleanUpDate', 'beachName', 'latDeg', 'latMin', 'latSec',
-      'latDir', 'lonDeg', 'lonMin', 'lonSec', 'lonDir', 'compassDegrees',
-      'riverName', 'riverDistance', 'slope', 'tideHeightA', 'tideHeightB',
-      'tideTimeA', 'tideTimeB', 'tideTypeA', 'tideTypeB', 'windDir',
-      'windSpeed'
+      'cleanUpStartTime', 'cleanUpEndTime', 'cleanUpDate', 'beachName',
+      'latDeg', 'latMin', 'latSec', 'latDir', 'lonDeg', 'lonMin', 'lonSec',
+      'lonDir', 'compassDegrees', 'riverName', 'riverDistance', 'slope',
+      'tideHeightA', 'tideHeightB', 'tideTimeA', 'tideTimeB', 'tideTypeA',
+      'tideTypeB', 'windDir', 'windSpeed'
     ];
 
     // check for fields that need just a single entry

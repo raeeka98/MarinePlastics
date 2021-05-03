@@ -79,6 +79,8 @@ const surveyDataSchema = joi.object({
   org: joi.string().trim().min(1).max(60).replace(/\s\s+/, " ").required()
     .error(new Error("Error in organization name")),
   survDate: joi.date().max('now').greater(1104580800).required(),
+  survStartTime: joi.string().required(),
+  survEndTime: joi.string().required(),
   st: substrateTypeSchema.required(),
   slope: joi.string().valid(["winter", "summer"]).required(),
   lastTide: tideDataSchema.required(),

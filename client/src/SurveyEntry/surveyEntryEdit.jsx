@@ -498,6 +498,26 @@ class SurveyEntryEdit extends Component {
                   defaultValue={this.state.surveyData.email}
                 />
               </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Clean Up Start Time</p>
+                <input
+                  className="uk-input uk-form-small"
+                  type="time"
+                  name="survStartTime"
+                  onChange={this.editSurveyData}
+                  defaultValue={this.state.surveyData.survStartTime}
+                />
+              </div>
+              <div className="uk-padding-small uk-padding-remove-horizontal">
+                <p>Clean Up End Time</p>
+                <input
+                  className="uk-input uk-form-small"
+                  type="time"
+                  name="survEndTime"
+                  onChange={this.editSurveyData}
+                  defaultValue={this.state.surveyData.survEndTime}
+                />
+              </div>
             </div>
           </div>
 

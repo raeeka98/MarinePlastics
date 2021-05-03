@@ -670,6 +670,16 @@ class SurveyEntry extends Component {
                 + " " + this.state.surveyData.user.l : ""}</p>
               <p><strong>Organization:</strong> {this.state.surveyData.org}</p>
               <p><strong>Email:</strong> {this.state.surveyData.email}</p>
+              <p>
+                <strong>
+                  Clean Up Start Time
+                </strong> {this.state.surveyData.survStartTime}
+              </p>
+              <p>
+                <strong>
+                  Clean Up End Time
+                </strong> {this.state.surveyData.survEndTime}
+              </p>
             </div>
           </div>
 
