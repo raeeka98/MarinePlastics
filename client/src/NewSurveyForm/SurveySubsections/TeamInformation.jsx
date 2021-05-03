@@ -29,7 +29,7 @@ class TeamInformation extends Component {
           <div className="uk-child-width-1-2 uk-grid">
             <div>
               <label>
-                First Name <span className="uk-text-danger">*</span>
+                Surveyor's First Name <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
@@ -42,7 +42,9 @@ class TeamInformation extends Component {
               />
             </div>
             <div>
-              <label>Last Name<span className="uk-text-danger">*</span></label>
+              <label>
+                Surveyor's Last Name<span className="uk-text-danger">*</span>
+              </label>
               <input
                 type='string'
                 placeholder='Last Name'
@@ -58,7 +60,7 @@ class TeamInformation extends Component {
           <div className="uk-child-width-1-2 uk-grid">
             <div>
               <label>
-                Organization Name<span className="uk-text-danger">*</span>
+                Organization Name (if applicable)
               </label>
               <input
                 type='string'
@@ -67,13 +69,11 @@ class TeamInformation extends Component {
                 onChange={this.props.updateSurveyState}
                 id='orgName'
                 className='uk-input uk-margin'
-                required
               />
             </div>
             <div>
               <label>
                 Organization Location (City, Country)
-                <span className="uk-text-danger">*</span>
               </label>
               <input
                 type='string'
@@ -82,12 +82,11 @@ class TeamInformation extends Component {
                 onChange={this.props.updateSurveyState}
                 id='orgLoc'
                 className='uk-input uk-margin'
-                required
               />
             </div>
           </div>
 
-          <div className="uk-grid uk-child-width-1-3">
+          <div className="uk-grid uk-child-width-1-4">
             <div>
               <label>
                 Email Address<span className="uk-text-danger">*</span>
@@ -121,9 +120,22 @@ class TeamInformation extends Component {
               </label>
               <input
                 type='time'
-                defaultValue={this.props.data.cleanUpTime}
+                defaultValue={this.props.data.cleanUpStartTime}
                 onChange={this.props.updateSurveyState}
-                id='cleanUpTime'
+                id='cleanUpStartTime'
+                className='uk-input uk-margin'
+                required
+              />
+            </div>
+            <div>
+              <label>
+                Clean Up End Time<span className="uk-text-danger">*</span>
+              </label>
+              <input
+                type='time'
+                defaultValue={this.props.data.cleanUpEndTime}
+                onChange={this.props.updateSurveyState}
+                id='cleanUpEndTime'
                 className='uk-input uk-margin'
                 required
               />
