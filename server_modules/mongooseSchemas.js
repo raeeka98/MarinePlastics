@@ -135,6 +135,12 @@ let surveySchema = new Schema({
   survDate: {
     type: Date,
   },
+  survStartTime: {
+    type: String
+  },
+  survEndTime: {
+    type: String
+  },
   st: substrateTypeSchema,
   slope: String,
   weight: Number,

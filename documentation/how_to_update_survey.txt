@@ -1,10 +1,10 @@
 How to : Update Survey
 1. Add new updates in appropriate subsection file of the survey found in
    client/src/NewSurveyForm/SurveySubsections.
-2. If you are adding an entire new field, add variable in validate() in
-   client/src/NewSurveyForm/SurveyForm.jsx.
+2. If you are adding an entire new field, add variable in
+   validateSurveyData() in client/src/NewSurveyForm/SurveyForm.jsx.
 3. If you are adding an option to an existing field, add the possibility of it
-   being checked in its corresponding if-statement in validate() in
+   being checked in its corresponding if-statement in validateSurveyData() in
    client/src/NewSurveyForm/SurveyForm.jsx.
 4. If you are adding an option to an existing field, add the option in
    updateDisplayStrings() in client/src/NewSurveyForm/SurveyForm.jsx.
