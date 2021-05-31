@@ -272,7 +272,6 @@ class SurveyEntry extends Component {
 
     let userRoles = this.state.userProfile ?
       this.state.userProfile['https://marineplastics.com/roles'] : undefined
-
     axios.get(`/beaches/surveys/${this.state.surveyID}`, {
       params: {
         userID,
@@ -387,7 +386,7 @@ class SurveyEntry extends Component {
         {
           bID: this.state.surveyData.bID,
           dos: this.state.surveyData.survDate,
-          userID: this.state.userProfile ? this.state.userProfile.sub : '',
+          userID: this.state.userProfile ? this.state.userProfile.sub.split('|')[1] : '',
           userRoles: this.state.userProfile ?
             this.state.userProfile['https://marineplastics.com/roles'] :
             undefined
@@ -553,8 +552,6 @@ class SurveyEntry extends Component {
    * @return rendered react component to display page
    */
   render() {
-    console.log(this.state.surveyData);
-
     // redirect if data change actions are being taken
     if (this.state.deletedComment) return <Redirect to="/home" />
     // initializes to null because when component mounts, there is no data yet

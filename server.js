@@ -29,6 +29,8 @@ const jwtUser = jwt({
   algorithms: ['RS256']
 });
 
+verifySurveyJWT(jwtUser);
+
 // sets port to either a predetermined port number if it is set up, or 3001
 app.use(express.static(path.join(__dirname, 'client/build')));
 let reactPath = path.join(__dirname, "/client/build/index.html");
