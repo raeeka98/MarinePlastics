@@ -324,7 +324,7 @@ class SurveyEntryEdit extends Component {
     console.log("finalData", finalData);
 
     let userID = this.state.userProfile ?
-      this.state.userProfile.sub : undefined;
+      this.state.userProfile.sub.split("|")[1] : undefined;
 
     let userRoles = this.state.userProfile ?
       this.state.userProfile['https://marineplastics.com/roles'] : undefined;
