@@ -1,16 +1,17 @@
-﻿/**
+/**
  * SurveyForm-test-data.js
  * Contains sample state variables for automated testing. Used by
  * SurveyForm.test.js.
  */
 
-// state data for Review.test.js
+// state data for SurveyForm.test.js
 var testSurveyFormState1 = {
   surveyData: {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -22,14 +23,6 @@ var testSurveyFormState1 = {
     lonDir: "-1",
     lonMin: "2",
     lonSec: "28",
-    microFreshTotalRib1: "0",
-    microFreshTotalRib2: "0",
-    microFreshTotalRib3: "0",
-    microFreshTotalRib4: "0",
-    microWeatheredTotalRib1: "0",
-    microWeatheredTotalRib2: "0",
-    microWeatheredTotalRib3: "0",
-    microWeatheredTotalRib4: "0",
     orgLoc: "Santa Cruz, United States of America",
     orgName: "Clean Oceans International",
     rib1End: "50",
@@ -65,22 +58,30 @@ var testSurveyFormState1 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -89,14 +90,14 @@ var testSurveyFormState1 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -105,30 +106,22 @@ var testSurveyFormState1 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -137,98 +130,78 @@ var testSurveyFormState1 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
   MDSData: {
     microFreshTotalRib1: 1,
@@ -240,7 +213,6 @@ var testSurveyFormState1 = {
     microWeatheredTotalRib3: 2,
     microWeatheredTotalRib4: 3
   },
-  MDSData: {},
   checkboxAnswers: {
     usage: {
       rec: true
@@ -275,7 +247,8 @@ var testSurveyFormState2 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -287,14 +260,6 @@ var testSurveyFormState2 = {
     lonDir: "-1",
     lonMin: "2",
     lonSec: "28",
-    microFreshTotalRib1: "0",
-    microFreshTotalRib2: "0",
-    microFreshTotalRib3: "0",
-    microFreshTotalRib4: "0",
-    microWeatheredTotalRib1: "0",
-    microWeatheredTotalRib2: "0",
-    microWeatheredTotalRib3: "0",
-    microWeatheredTotalRib4: "0",
     orgLoc: "Santa Cruz, United States of America",
     orgName: "Clean Oceans International",
     rib1End: "50",
@@ -330,22 +295,30 @@ var testSurveyFormState2 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -354,14 +327,14 @@ var testSurveyFormState2 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -370,30 +343,22 @@ var testSurveyFormState2 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -402,100 +367,89 @@ var testSurveyFormState2 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
-  MDSData: {},
+  MDSData: {
+    microFreshTotalRib1: 1,
+    microFreshTotalRib2: 3,
+    microFreshTotalRib3: 2,
+    microFreshTotalRib4: 1,
+    microWeatheredTotalRib1: 1,
+    microWeatheredTotalRib2: 2,
+    microWeatheredTotalRib3: 2,
+    microWeatheredTotalRib4: 3
+  },
   checkboxAnswers: {
     usage: {
       rem: true
@@ -530,7 +484,8 @@ var testSurveyFormState3 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -542,14 +497,6 @@ var testSurveyFormState3 = {
     lonDir: "-1",
     lonMin: "2",
     lonSec: "28",
-    microFreshTotalRib1: "0",
-    microFreshTotalRib2: "0",
-    microFreshTotalRib3: "0",
-    microFreshTotalRib4: "0",
-    microWeatheredTotalRib1: "0",
-    microWeatheredTotalRib2: "0",
-    microWeatheredTotalRib3: "0",
-    microWeatheredTotalRib4: "0",
     orgLoc: "Santa Cruz, United States of America",
     orgName: "Clean Oceans International",
     rib1End: "50",
@@ -586,22 +533,30 @@ var testSurveyFormState3 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -610,14 +565,14 @@ var testSurveyFormState3 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -626,30 +581,22 @@ var testSurveyFormState3 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -658,100 +605,89 @@ var testSurveyFormState3 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
-  MDSData: {},
+  MDSData: {
+    microFreshTotalRib1: 1,
+    microFreshTotalRib2: 3,
+    microFreshTotalRib3: 2,
+    microFreshTotalRib4: 1,
+    microWeatheredTotalRib1: 1,
+    microWeatheredTotalRib2: 2,
+    microWeatheredTotalRib3: 2,
+    microWeatheredTotalRib4: 3
+  },
   checkboxAnswers: {
     usage: {
       rec: true
@@ -786,7 +722,8 @@ var testSurveyFormState4 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     incompleteSurveyPeople: true,
@@ -799,14 +736,6 @@ var testSurveyFormState4 = {
     lonDir: "-1",
     lonMin: "2",
     lonSec: "28",
-    microFreshTotalRib1: "0",
-    microFreshTotalRib2: "0",
-    microFreshTotalRib3: "0",
-    microFreshTotalRib4: "0",
-    microWeatheredTotalRib1: "0",
-    microWeatheredTotalRib2: "0",
-    microWeatheredTotalRib3: "0",
-    microWeatheredTotalRib4: "0",
     orgLoc: "Santa Cruz, United States of America",
     orgName: "Clean Oceans International",
     rib1End: "50",
@@ -842,22 +771,30 @@ var testSurveyFormState4 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -866,14 +803,14 @@ var testSurveyFormState4 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -882,30 +819,22 @@ var testSurveyFormState4 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -914,65 +843,58 @@ var testSurveyFormState4 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {},
-  MDSData: {},
+  MDSData: {
+    microFreshTotalRib1: 1,
+    microFreshTotalRib2: 3,
+    microFreshTotalRib3: 2,
+    microFreshTotalRib4: 1,
+    microWeatheredTotalRib1: 1,
+    microWeatheredTotalRib2: 2,
+    microWeatheredTotalRib3: 2,
+    microWeatheredTotalRib4: 3
+  },
   checkboxAnswers: {
     usage: {
       rec: true
@@ -1008,7 +930,8 @@ var testSurveyFormSurveyData1 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   incompleteSurveyPeople: true,
@@ -1021,14 +944,6 @@ var testSurveyFormSurveyData1 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1069,7 +984,8 @@ var testSurveyFormSurveyData2 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   incompleteSurveyPeople: true,
@@ -1084,14 +1000,6 @@ var testSurveyFormSurveyData2 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1134,7 +1042,8 @@ var testSurveyFormSurveyData3 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   incompleteSurveyOther: "Storm",
@@ -1147,14 +1056,6 @@ var testSurveyFormSurveyData3 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1195,7 +1096,8 @@ var testSurveyFormSurveyData4 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   incompleteSurveyOther: "Storm",
@@ -1210,14 +1112,6 @@ var testSurveyFormSurveyData4 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1260,7 +1154,8 @@ var testSurveyFormSurveyData5 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   incompleteSurveyArea: true,
@@ -1279,14 +1174,6 @@ var testSurveyFormSurveyData5 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1335,7 +1222,8 @@ var testSurveyFormSurveyData6 = {
   beachID: null,
   beachName: "Boardwalk Beach (test)",
   cleanUpDate: "2020-03-23",
-  cleanUpTime: "10:30",
+  cleanUpStartTime: "10:30",
+  cleanUpEndTime: "11:30",
   compassDegrees: "180",
   email: "stgibson@ucsc.edu",
   latDeg: "36",
@@ -1347,14 +1235,6 @@ var testSurveyFormSurveyData6 = {
   lonDir: "-1",
   lonMin: "2",
   lonSec: "28",
-  microFreshTotalRib1: "0",
-  microFreshTotalRib2: "0",
-  microFreshTotalRib3: "0",
-  microFreshTotalRib4: "0",
-  microWeatheredTotalRib1: "0",
-  microWeatheredTotalRib2: "0",
-  microWeatheredTotalRib3: "0",
-  microWeatheredTotalRib4: "0",
   orgLoc: "Santa Cruz, United States of America",
   orgName: "Clean Oceans International",
   rib1End: "50",
@@ -1400,7 +1280,9 @@ var testSurveyFormForm1 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -1417,10 +1299,12 @@ var testSurveyFormForm1 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -1430,14 +1314,21 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -1451,7 +1342,7 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -1465,24 +1356,17 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -1493,49 +1377,35 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -1551,14 +1421,21 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -1572,7 +1449,7 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -1586,24 +1463,17 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -1614,56 +1484,50 @@ var testSurveyFormForm1 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
         }
       ]
     ],
-    MicroDebris: []
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 7,
+          weathered: 8
+        }
+      ]
+    ]
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -1692,7 +1556,9 @@ var testSurveyFormForm2 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -1709,10 +1575,12 @@ var testSurveyFormForm2 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -1722,14 +1590,21 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -1743,7 +1618,7 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -1757,24 +1632,17 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -1785,49 +1653,35 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -1843,14 +1697,21 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -1864,7 +1725,7 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -1878,24 +1739,17 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -1906,56 +1760,50 @@ var testSurveyFormForm2 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
         }
       ]
     ],
-    MicroDebris: []
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 7,
+          weathered: 8
+        }
+      ]
+    ]
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -1984,7 +1832,9 @@ var testSurveyFormForm3 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -2006,6 +1856,7 @@ var testSurveyFormForm3 = {
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -2015,14 +1866,21 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -2036,7 +1894,7 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -2050,24 +1908,17 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -2078,49 +1929,35 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -2136,14 +1973,21 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -2157,7 +2001,7 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -2171,24 +2015,17 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -2199,56 +2036,50 @@ var testSurveyFormForm3 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
         }
       ]
     ],
-    MicroDebris: []
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 7,
+          weathered: 8
+        }
+      ]
+    ]
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -2277,7 +2108,9 @@ var testSurveyFormForm4 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -2294,12 +2127,14 @@ var testSurveyFormForm4 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {
       people: true
     },
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -2309,14 +2144,21 @@ var testSurveyFormForm4 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -2330,7 +2172,7 @@ var testSurveyFormForm4 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -2344,24 +2186,17 @@ var testSurveyFormForm4 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -2372,49 +2207,35 @@ var testSurveyFormForm4 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -2422,7 +2243,15 @@ var testSurveyFormForm4 = {
       ]
     ],
     ASDebris: [],
-    MicroDebris: []
+    MicroDebris: [
+      [
+        "microDebris",
+        {
+          fresh: 7,
+          weathered: 8
+        }
+      ]
+    ]
   },
   beachData: {
     n: "Boardwalk_Beach_(test)",
@@ -2499,7 +2328,8 @@ var testSurveyFormStateMDS1 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -2511,14 +2341,6 @@ var testSurveyFormStateMDS1 = {
     lonDir: "-1",
     lonMin: "2",
     lonSec: "28",
-    microFreshTotalRib1: "0",
-    microFreshTotalRib2: "0",
-    microFreshTotalRib3: "0",
-    microFreshTotalRib4: "0",
-    microWeatheredTotalRib1: "0",
-    microWeatheredTotalRib2: "0",
-    microWeatheredTotalRib3: "0",
-    microWeatheredTotalRib4: "0",
     orgLoc: "Santa Cruz, United States of America",
     orgName: "Clean Oceans International",
     rib1End: "50",
@@ -2554,22 +2376,30 @@ var testSurveyFormStateMDS1 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -2578,14 +2408,14 @@ var testSurveyFormStateMDS1 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -2594,30 +2424,22 @@ var testSurveyFormStateMDS1 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -2626,98 +2448,78 @@ var testSurveyFormStateMDS1 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
   checkboxAnswers: {
     usage: {
@@ -2748,7 +2550,6 @@ var testSurveyFormStateMDS1 = {
 };
 
 // expected result from using testSurveyFormStateMDS1 with prepareForm()
-// modify after merging with Development branch to match updated survey
 var prepareFormMDSExpected1 = {
   survData: {
     user: {
@@ -2758,7 +2559,9 @@ var prepareFormMDSExpected1 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -2775,10 +2578,12 @@ var prepareFormMDSExpected1 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -2788,14 +2593,21 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -2809,7 +2621,7 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -2823,24 +2635,17 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -2851,49 +2656,35 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -2909,14 +2700,21 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -2930,7 +2728,7 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -2944,24 +2742,17 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -2972,49 +2763,35 @@ var prepareFormMDSExpected1 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
@@ -3046,7 +2823,8 @@ var testSurveyFormStateMDS2 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -3101,22 +2879,30 @@ var testSurveyFormStateMDS2 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -3125,14 +2911,14 @@ var testSurveyFormStateMDS2 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -3141,30 +2927,22 @@ var testSurveyFormStateMDS2 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -3173,98 +2951,78 @@ var testSurveyFormStateMDS2 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
   MDSData: {
     microFreshTotalRib1: "0",
@@ -3315,7 +3073,9 @@ var prepareFormMDSExpected2 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -3332,10 +3092,12 @@ var prepareFormMDSExpected2 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -3345,14 +3107,21 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -3366,7 +3135,7 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -3380,24 +3149,17 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -3408,49 +3170,35 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -3466,14 +3214,21 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -3487,7 +3242,7 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -3501,24 +3256,17 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -3529,49 +3277,35 @@ var prepareFormMDSExpected2 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
@@ -3612,7 +3346,8 @@ var testSurveyFormStateMDS3 = {
     beachID: null,
     beachName: "Boardwalk Beach (test)",
     cleanUpDate: "2020-03-23",
-    cleanUpTime: "10:30",
+    cleanUpStartTime: "10:30",
+    cleanUpEndTime: "11:30",
     compassDegrees: "180",
     email: "stgibson@ucsc.edu",
     latDeg: "36",
@@ -3667,22 +3402,30 @@ var testSurveyFormStateMDS3 = {
     cigaretteButts__weathered__2: "0",
     cigaretteButts__weathered__3: "3",
     cigaretteButts__weathered__4: "3",
-    fishingLineRope__fresh__1: "1",
-    fishingLineRope__fresh__2: "2",
-    fishingLineRope__fresh__3: "4",
-    fishingLineRope__fresh__4: "3",
-    fishingLineRope__weathered__1: "3",
-    fishingLineRope__weathered__2: "4",
-    fishingLineRope__weathered__3: "0",
-    fishingLineRope__weathered__4: "0",
-    plasticCups__fresh__1: "2",
-    plasticCups__fresh__2: "2",
-    plasticCups__fresh__3: "2",
-    plasticCups__fresh__4: "2",
-    plasticCups__weathered__1: "3",
-    plasticCups__weathered__2: "3",
-    plasticCups__weathered__3: "3",
-    plasticCups__weathered__4: "3",
+    fishingLine__fresh__1: "1",
+    fishingLine__fresh__2: "1",
+    fishingLine__fresh__3: "2",
+    fishingLine__fresh__4: "1",
+    fishingLine__weathered__1: "2",
+    fishingLine__weathered__2: "2",
+    fishingLine__weathered__3: "0",
+    fishingLine__weathered__4: "0",
+    polypropyleneRope__fresh__1: "0",
+    polypropyleneRope__fresh__2: "1",
+    polypropyleneRope__fresh__3: "2",
+    polypropyleneRope__fresh__4: "2",
+    polypropyleneRope__weathered__1: "1",
+    polypropyleneRope__weathered__2: "2",
+    polypropyleneRope__weathered__3: "0",
+    polypropyleneRope__weathered__4: "0",
+    plasticCupsLids__fresh__1: "2",
+    plasticCupsLids__fresh__2: "2",
+    plasticCupsLids__fresh__3: "2",
+    plasticCupsLids__fresh__4: "2",
+    plasticCupsLids__weathered__1: "3",
+    plasticCupsLids__weathered__2: "3",
+    plasticCupsLids__weathered__3: "3",
+    plasticCupsLids__weathered__4: "3",
     plasticStraws__fresh__1: "0",
     plasticStraws__fresh__2: "0",
     plasticStraws__fresh__3: "1",
@@ -3691,14 +3434,14 @@ var testSurveyFormStateMDS3 = {
     plasticStraws__weathered__2: "6",
     plasticStraws__weathered__3: "3",
     plasticStraws__weathered__4: "2",
-    filmedPlastic__fresh__1: "0",
-    filmedPlastic__fresh__2: "0",
-    filmedPlastic__fresh__3: "0",
-    filmedPlastic__fresh__4: "0",
-    filmedPlastic__weathered__1: "0",
-    filmedPlastic__weathered__2: "0",
-    filmedPlastic__weathered__3: "0",
-    filmedPlastic__weathered__4: "0",
+    filmPlastic__fresh__1: "0",
+    filmPlastic__fresh__2: "0",
+    filmPlastic__fresh__3: "0",
+    filmPlastic__fresh__4: "0",
+    filmPlastic__weathered__1: "0",
+    filmPlastic__weathered__2: "0",
+    filmPlastic__weathered__3: "0",
+    filmPlastic__weathered__4: "0",
     miscPlastic__fresh__1: "2",
     miscPlastic__fresh__2: "1",
     miscPlastic__fresh__3: "1",
@@ -3707,30 +3450,22 @@ var testSurveyFormStateMDS3 = {
     miscPlastic__weathered__2: "1",
     miscPlastic__weathered__3: "0",
     miscPlastic__weathered__4: "1",
-    plasticBottlesCaps__fresh__1: "1",
-    plasticBottlesCaps__fresh__2: "1",
-    plasticBottlesCaps__fresh__3: "1",
-    plasticBottlesCaps__fresh__4: "0",
-    plasticBottlesCaps__weathered__1: "2",
-    plasticBottlesCaps__weathered__2: "4",
-    plasticBottlesCaps__weathered__3: "3",
-    plasticBottlesCaps__weathered__4: "1",
-    styrofoam__fresh__1: "1",
-    styrofoam__fresh__2: "1",
-    styrofoam__fresh__3: "0",
-    styrofoam__fresh__4: "0",
-    styrofoam__weathered__1: "0",
-    styrofoam__weathered__2: "0",
-    styrofoam__weathered__3: "1",
-    styrofoam__weathered__4: "1",
-    foodOrganic__fresh__1: "2",
-    foodOrganic__fresh__2: "0",
-    foodOrganic__fresh__3: "1",
-    foodOrganic__fresh__4: "2",
-    foodOrganic__weathered__1: "1",
-    foodOrganic__weathered__2: "0",
-    foodOrganic__weathered__3: "0",
-    foodOrganic__weathered__4: "0",
+    plasticBottles__fresh__1: "1",
+    plasticBottles__fresh__2: "1",
+    plasticBottles__fresh__3: "1",
+    plasticBottles__fresh__4: "0",
+    plasticBottles__weathered__1: "2",
+    plasticBottles__weathered__2: "4",
+    plasticBottles__weathered__3: "3",
+    plasticBottles__weathered__4: "1",
+    plasticMetalBottleCaps__fresh__1: "1",
+    plasticMetalBottleCaps__fresh__2: "0",
+    plasticMetalBottleCaps__fresh__3: "0",
+    plasticMetalBottleCaps__fresh__4: "0",
+    plasticMetalBottleCaps__weathered__1: "0",
+    plasticMetalBottleCaps__weathered__2: "0",
+    plasticMetalBottleCaps__weathered__3: "0",
+    plasticMetalBottleCaps__weathered__4: "0",
     urethaneFoam__fresh__1: "0",
     urethaneFoam__fresh__2: "0",
     urethaneFoam__fresh__3: "1",
@@ -3739,98 +3474,78 @@ var testSurveyFormStateMDS3 = {
     urethaneFoam__weathered__2: "1",
     urethaneFoam__weathered__3: "0",
     urethaneFoam__weathered__4: "0",
-    metal__fresh__1: "0",
-    metal__fresh__2: "0",
-    metal__fresh__3: "0",
-    metal__fresh__4: "0",
-    metal__weathered__1: "0",
-    metal__weathered__2: "0",
-    metal__weathered__3: "1",
-    metal__weathered__4: "0",
-    glass__fresh__1: "1",
-    glass__fresh__2: "1",
-    glass__fresh__3: "0",
-    glass__fresh__4: "0",
-    glass__weathered__1: "0",
-    glass__weathered__2: "0",
-    glass__weathered__3: "0",
-    glass__weathered__4: "0",
-    cottonCloth__fresh__1: "1",
-    cottonCloth__fresh__2: "1",
-    cottonCloth__fresh__3: "0",
-    cottonCloth__fresh__4: "2",
-    cottonCloth__weathered__1: "2",
-    cottonCloth__weathered__2: "2",
-    cottonCloth__weathered__3: "4",
-    cottonCloth__weathered__4: "0",
-    aluminumCans__fresh__1: "1",
-    aluminumCans__fresh__2: "0",
-    aluminumCans__fresh__3: "0",
-    aluminumCans__fresh__4: "1",
-    aluminumCans__weathered__1: "0",
-    aluminumCans__weathered__2: "0",
-    aluminumCans__weathered__3: "0",
-    aluminumCans__weathered__4: "1",
-    hygieneItems__fresh__1: "0",
-    hygieneItems__fresh__2: "0",
-    hygieneItems__fresh__3: "0",
-    hygieneItems__fresh__4: "1",
-    hygieneItems__weathered__1: "0",
-    hygieneItems__weathered__2: "0",
-    hygieneItems__weathered__3: "0",
-    hygieneItems__weathered__4: "1",
-    tileBrick__fresh__1: "0",
-    tileBrick__fresh__2: "1",
-    tileBrick__fresh__3: "2",
-    tileBrick__fresh__4: "0",
-    tileBrick__weathered__1: "0",
-    tileBrick__weathered__2: "1",
-    tileBrick__weathered__3: "0",
-    tileBrick__weathered__4: "0",
-    woodPaper__fresh__1: "1",
-    woodPaper__fresh__2: "1",
-    woodPaper__fresh__3: "1",
-    woodPaper__fresh__4: "1",
-    woodPaper__weathered__1: "1",
-    woodPaper__weathered__2: "1",
-    woodPaper__weathered__3: "1",
-    woodPaper__weathered__4: "1"
+    styrofoam__fresh__1: "1",
+    styrofoam__fresh__2: "1",
+    styrofoam__fresh__3: "0",
+    styrofoam__fresh__4: "0",
+    styrofoam__weathered__1: "0",
+    styrofoam__weathered__2: "0",
+    styrofoam__weathered__3: "1",
+    styrofoam__weathered__4: "1",
+    plasticCloth__fresh__1: "1",
+    plasticCloth__fresh__2: "1",
+    plasticCloth__fresh__3: "0",
+    plasticCloth__fresh__4: "2",
+    plasticCloth__weathered__1: "2",
+    plasticCloth__weathered__2: "2",
+    plasticCloth__weathered__3: "4",
+    plasticCloth__weathered__4: "0",
+    plasticHygieneItems__fresh__1: "0",
+    plasticHygieneItems__fresh__2: "0",
+    plasticHygieneItems__fresh__3: "0",
+    plasticHygieneItems__fresh__4: "1",
+    plasticHygieneItems__weathered__1: "0",
+    plasticHygieneItems__weathered__2: "0",
+    plasticHygieneItems__weathered__3: "0",
+    plasticHygieneItems__weathered__4: "1",
+    plasticPPE__fresh__1: "0",
+    plasticPPE__fresh__2: "1",
+    plasticPPE__fresh__3: "2",
+    plasticPPE__fresh__4: "0",
+    plasticPPE__weathered__1: "0",
+    plasticPPE__weathered__2: "1",
+    plasticPPE__weathered__3: "0",
+    plasticPPE__weathered__4: "0",
+    other__fresh__1: "1",
+    other__fresh__2: "1",
+    other__fresh__3: "1",
+    other__fresh__4: "1",
+    other__weathered__1: "1",
+    other__weathered__2: "1",
+    other__weathered__3: "1",
+    other__weathered__4: "1"
   },
   ASData: {
     cigaretteButts__fresh__accumulation: "0",
     cigaretteButts__weathered__accumulation: "10",
-    fishingLineRope__fresh__accumulation: "0",
-    fishingLineRope__weathered__accumulation: "2",
-    plasticCups__fresh__accumulation: "2",
-    plasticCups__weathered__accumulation: "0",
+    fishingLine__fresh__accumulation: "0",
+    fishingLine__weathered__accumulation: "1",
+    polypropyleneRope__fresh__accumulation: "0",
+    polypropyleneRope__weathered__accumulation: "1",
+    plasticCupsLids__fresh__accumulation: "2",
+    plasticCupsLids__weathered__accumulation: "0",
     plasticStraws__fresh__accumulation: "0",
     plasticStraws__weathered__accumulation: "13",
-    filmedPlastic__fresh__accumulation: "2",
-    filmedPlastic__weathered__accumulation: "3",
+    filmPlastic__fresh__accumulation: "2",
+    filmPlastic__weathered__accumulation: "3",
     miscPlastic__fresh__accumulation: "0",
     miscPlastic__weathered__accumulation: "34",
-    plasticBottlesCaps__fresh__accumulation: "1",
-    plasticBottlesCaps__weathered__accumulation: "0",
-    styrofoam__fresh__accumulation: "1",
-    styrofoam__weathered__accumulation: "4",
-    foodOrganic__fresh__accumulation: "0",
-    foodOrganic__weathered__accumulation: "3",
+    plasticBottles__fresh__accumulation: "1",
+    plasticBottles__weathered__accumulation: "0",
+    plasticMetalBottleCaps__fresh__accumulation: "0",
+    plasticMetalBottleCaps__weathered__accumulation: "1",
     urethaneFoam__fresh__accumulation: "1",
     urethaneFoam__weathered__accumulation: "3",
-    metal__fresh__accumulation: "2",
-    metal__weathered__accumulation: "5",
-    glass__fresh__accumulation: "0",
-    glass__weathered__accumulation: "2",
-    cottonCloth__fresh__accumulation: "0",
-    cottonCloth__weathered__accumulation: "0",
-    aluminumCans__fresh__accumulation: "1",
-    aluminumCans__weathered__accumulation: "1",
-    hygieneItems__fresh__accumulation: "0",
-    hygieneItems__weathered__accumulation: "1",
-    tileBrick__fresh__accumulation: "0",
-    tileBrick__weathered__accumulation: "3",
-    woodPaper__fresh__accumulation: "0",
-    woodPaper__weathered__accumulation: "0"
+    styrofoam__fresh__accumulation: "1",
+    styrofoam__weathered__accumulation: "4",
+    plasticCloth__fresh__accumulation: "0",
+    plasticCloth__weathered__accumulation: "0",
+    plasticHygieneItems__fresh__accumulation: "0",
+    plasticHygieneItems__weathered__accumulation: "1",
+    plasticPPE__fresh__accumulation: "0",
+    plasticPPE__weathered__accumulation: "3",
+    other__fresh__accumulation: "0",
+    other__weathered__accumulation: "0"
   },
   MDSData: {
     microFreshTotalRib1: "1",
@@ -3880,7 +3595,9 @@ var prepareFormMDSExpected3 = {
     email: "stgibson@ucsc.edu",
     userID: "5e2f29b0285a700e93a1a53a",
     org: "Clean Oceans International",
-    survDate: new Date("2020-03-23T17:30:00.000Z"),
+    survDate: new Date("2020-03-23T00:00"),
+    survStartTime: "10:30",
+    survEndTime: "11:30",
     st: {
       s: true
     },
@@ -3897,10 +3614,12 @@ var prepareFormMDSExpected3 = {
     },
     wind: {
       dir: "s",
-      spd: "10"
+      spd: "10",
+      comment: undefined
     },
     incompleteSurvey: {},
     numOfP: 0,
+    weight: undefined,
     SRSDebris: [
       [
         "cigaretteButts",
@@ -3910,14 +3629,21 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
-          fresh: 10,
-          weathered: 7
+          fresh: 5,
+          weathered: 4
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 5,
+          weathered: 3
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 8,
           weathered: 12
@@ -3931,7 +3657,7 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 0,
           weathered: 0
@@ -3945,24 +3671,17 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 3,
           weathered: 10
         }
       ],
       [
-        "styrofoam",
+        "plasticMetalBottleCaps",
         {
-          fresh: 2,
-          weathered: 2
-        }
-      ],
-      [
-        "foodOrganic",
-        {
-          fresh: 5,
-          weathered: 1
+          fresh: 1,
+          weathered: 0
         }
       ],
       [
@@ -3973,49 +3692,35 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "metal",
-        {
-          fresh: 0,
-          weathered: 1
-        }
-      ],
-      [
-        "glass",
+        "styrofoam",
         {
           fresh: 2,
-          weathered: 0
+          weathered: 2
         }
       ],
       [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 4,
           weathered: 8
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 2,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 1,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 3,
           weathered: 1
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 4,
           weathered: 4
@@ -4031,14 +3736,21 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "fishingLineRope",
+        "fishingLine",
         {
           fresh: 0,
-          weathered: 2
+          weathered: 1
         }
       ],
       [
-        "plasticCups",
+        "polypropyleneRope",
+        {
+          fresh: 0,
+          weathered: 1
+        }
+      ],
+      [
+        "plasticCupsLids",
         {
           fresh: 2,
           weathered: 0
@@ -4052,7 +3764,7 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "filmedPlastic",
+        "filmPlastic",
         {
           fresh: 2,
           weathered: 3
@@ -4066,24 +3778,17 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "plasticBottlesCaps",
+        "plasticBottles",
         {
           fresh: 1,
           weathered: 0
         }
       ],
       [
-        "styrofoam",
-        {
-          fresh: 1,
-          weathered: 4
-        }
-      ],
-      [
-        "foodOrganic",
+        "plasticMetalBottleCaps",
         {
           fresh: 0,
-          weathered: 3
+          weathered: 1
         }
       ],
       [
@@ -4094,49 +3799,35 @@ var prepareFormMDSExpected3 = {
         }
       ],
       [
-        "metal",
+        "styrofoam",
         {
-          fresh: 2,
-          weathered: 5
+          fresh: 1,
+          weathered: 4
         }
       ],
       [
-        "glass",
-        {
-          fresh: 0,
-          weathered: 2
-        }
-      ],
-      [
-        "cottonCloth",
+        "plasticCloth",
         {
           fresh: 0,
           weathered: 0
         }
       ],
       [
-        "aluminumCans",
-        {
-          fresh: 1,
-          weathered: 1
-        }
-      ],
-      [
-        "hygieneItems",
+        "plasticHygieneItems",
         {
           fresh: 0,
           weathered: 1
         }
       ],
       [
-        "tileBrick",
+        "plasticPPE",
         {
           fresh: 0,
           weathered: 3
         }
       ],
       [
-        "woodPaper",
+        "other",
         {
           fresh: 0,
           weathered: 0
@@ -4193,7 +3884,7 @@ var validateSRSData4 = {
 var validateSRSData5 = {
   cigaretteButts__fresh__1: "3",
   cigaretteButts__weathered__1: "2",
-  fishingLineRope__fresh__3: "1"
+  fishingLine__fresh__3: "1"
 };
 
 // ASData for testing validateASData() with no items
@@ -4219,7 +3910,7 @@ var validateASData4 = {
 var validateASData5 = {
   cigaretteButts__fresh__accumulation: "3",
   cigaretteButts__weathered__accumulation: "2",
-  fishingLineRope__fresh__accumulation: "1"
+  fishingLine__fresh__accumulation: "1"
 };
 
 // MDSData for testing validateMDSData() with no items

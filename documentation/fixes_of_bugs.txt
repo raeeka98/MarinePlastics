@@ -120,3 +120,5 @@ to be autofilled
 11. Modified getBeachData() in client/src/NewSurveyForm/SurveyForm.jsx so all
     beach data is sent to survey page when user navigates to it after
     submitting a survey
+
+For future changes, see updates/ directory

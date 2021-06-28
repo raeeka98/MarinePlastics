@@ -16,12 +16,9 @@ class Submenu extends Component {
    */
   render() {
     return (
-      <nav className=
-        "uk-navbar 
-        uk-navbar-container
-        uk-navbar-transparent
-        uk-margin-bottom-small
-        uk-dropdown-nav"
+      <nav
+        className="uk-navbar uk-navbar-container uk-navbar-transparent
+          uk-margin-bottom-small uk-dropdown-nav"
       >
         <div className="uk-navbar-left">
           <ul className="nav__submenu uk-nav uk-dropdown-nav ">
@@ -31,11 +28,16 @@ class Submenu extends Component {
             </li>
 
             {this.props.auth.isAuthenticated()
-              ?
-              <li className="nav__submenu-item ">
-                <Link to='/survey'>Add Survey</Link>
-              </li>
-              : null
+              ? (
+                <>
+                  <li className="nav__submenu-item ">
+                    <Link to='/survey'>Add Survey</Link>
+                  </li>
+                  <li className="nav__submenu-item ">
+                    <Link to='/survey/basic'>Basic Survey</Link>
+                  </li>
+                </>
+              ) : null
             }
 
             <li className="nav__submenu-item ">
@@ -102,11 +104,9 @@ class Menu extends Component {
     
     return (
       <div className="uk-padding-small uk-padding-remove-top">
-        <nav className=
-          "uk-navbar 
-          uk-navbar-container
-          uk-navbar-transparent
-          uk-margin-bottom-small"
+        <nav
+          className="uk-navbar uk-navbar-container uk-navbar-transparent
+            uk-margin-bottom-small"
         >
           <div className="uk-navbar-left uk-visible">
             <ul className="uk-navbar-nav">
@@ -120,8 +120,12 @@ class Menu extends Component {
               <li><Link to="/home">Home</Link></li>
 
               {this.props.auth.isAuthenticated()
-                ? <li><Link to='/survey'>Add Survey</Link></li>
-                : null
+                ? (
+                  <>
+                    <li><Link to='/survey'>Add Survey</Link></li>
+                    <li><Link to='/basic-survey'>Basic Survey</Link></li>
+                  </>
+                ) : null
               }
 
               <li><Link to="/protocol">Protocol</Link></li>
