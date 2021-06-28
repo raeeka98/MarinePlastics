@@ -89,6 +89,7 @@ const surveyDataSchema = joi.object({
   incompleteSurvey: incompleteSurveySchema.optional(),
   //number of people
   numOfP: joi.number().min(0).required(),
+  weight: joi.number().min(0).optional(),
   SRSDebris: joi.array().items(debrisData).max(18).optional(),
   ASDebris: joi.array().items(debrisData).max(18).optional(),
   MicroDebris: joi.array().items(debrisData).max(1).optional()
