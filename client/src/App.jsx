@@ -56,7 +56,6 @@ class App extends Component {
       })
       .catch(err => {
         this.setState({ err });
-
       })
   }
 
@@ -68,6 +67,7 @@ class App extends Component {
     let headerRoutes = [
       '/home',
       '/survey',
+      '/basic-survey',
       '/newsurvey',
       '/location/:beachID',
       '/:beachName/:surveyID',
@@ -112,11 +112,20 @@ class App extends Component {
 
                 {/* for testing new component: */}
                 <Route
-                  path='/survey'
+                  exact path='/survey'
                   render={props =>
                     <SurveyForm
                       {...props}
                       auth={this.auth}
+                    />}
+                />
+                <Route
+                  exact path='/basic-survey'
+                  render={props =>
+                    <SurveyForm
+                      {...props}
+                      auth={this.auth}
+                      basic={ true }
                     />}
                 />
                 <Route

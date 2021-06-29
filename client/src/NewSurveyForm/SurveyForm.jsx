@@ -11,6 +11,7 @@ import MicroDebrisSurvey from './SurveySubsections/MicroDebrisSurvey';
 import SurfaceRibScan from './SurveySubsections/SurfaceRibScan';
 import SurveyArea from './SurveySubsections/SurveyArea';
 import TeamInformation from './SurveySubsections/TeamInformation';
+import Totals from './SurveySubsections/Totals';
 import Review from './SurveySubsections/Review';
 
 import {
@@ -25,6 +26,7 @@ class SurveyForm extends Component {
     super(props);
     this.url = '/surveys'
     this.auth = this.props.auth;
+    this.basic = this.props.basic || false;
 
     this.state = {
       surveyData: {
@@ -320,10 +322,6 @@ class SurveyForm extends Component {
    */
   moveToReview() {
     const invalidInput = this.validateSurveyData();
-    const SRSDataIsValid = this.validateSRSData();
-    const ASDataIsValid = this.validateASData();
-    const MDSDataIsValid = this.validateMDSData();
-
     // gives invalid input in first two sections highest priority
     if (invalidInput && invalidInput.length) {
       this.setState({
@@ -333,38 +331,62 @@ class SurveyForm extends Component {
         invalidMDS: false
       });
     }
-    else if (SRSDataIsValid === false) {
-      this.setState({
-        invalidForm: true,
-        invalidSRS: true,
-        invalidAS: false,
-        invalidMDS: false
-      });
-    }
-    else if (ASDataIsValid === false) {
-      this.setState({
-        invalidForm: true,
-        invalidSRS: false,
-        invalidAS: true,
-        invalidMDS: false
-      });
-    }
-    else if (MDSDataIsValid === false) {
-      this.setState({
-        invalidForm: true,
-        invalidSRS: false,
-        invalidAS: false,
-        invalidMDS: true
-      });
-    }
     else {
-      this.updateDisplayStringsAndCheckboxAnswers();
-      this.setState({
-        invalidForm: false,
-        isInputting: false,
-        isReviewing: true,
-        isSubmitted: false,
-      });
+      // validate form differently based on type of survey
+      if (this.basic) {
+        const invalidBasicSurveyInput = this.validateBasicSurveyData();
+        if (invalidBasicSurveyInput && invalidBasicSurveyInput.length) {
+          this.setState({ invalidForm: true });
+        }
+        else {
+          this.updateDisplayStringsAndCheckboxAnswers();
+          this.setState({
+            invalidForm: false,
+            isInputting: false,
+            isReviewing: true,
+            isSubmitted: false
+          });
+        }
+      }
+      else {
+        const SRSDataIsValid = this.validateSRSData();
+        const ASDataIsValid = this.validateASData();
+        const MDSDataIsValid = this.validateMDSData();
+
+        if (SRSDataIsValid === false) {
+          this.setState({
+            invalidForm: true,
+            invalidSRS: true,
+            invalidAS: false,
+            invalidMDS: false
+          });
+        }
+        else if (ASDataIsValid === false) {
+          this.setState({
+            invalidForm: true,
+            invalidSRS: false,
+            invalidAS: true,
+            invalidMDS: false
+          });
+        }
+        else if (MDSDataIsValid === false) {
+          this.setState({
+            invalidForm: true,
+            invalidSRS: false,
+            invalidAS: false,
+            invalidMDS: true
+          });
+        }
+        else {
+          this.updateDisplayStringsAndCheckboxAnswers();
+          this.setState({
+            invalidForm: false,
+            isInputting: false,
+            isReviewing: true,
+            isSubmitted: false
+          });
+        }
+      }
     }
   }
 
@@ -374,6 +396,8 @@ class SurveyForm extends Component {
    */
   moveToSubmit() {
     const form = this.prepareForm();
+
+    console.log("form", form);
 
     axios.post("beaches/surveys", form)
       .then(res => {
@@ -476,7 +500,8 @@ class SurveyForm extends Component {
             ...
         ]
         */
-        numOfP: 0,
+        numOfP: (data.numPeople ? data.numPeople : 0),
+        weight: (data.weight ? data.weight : undefined),
         SRSDebris: this.calcTotalsSRS(),
         ASDebris: this.calcTotalsAS(),
         MicroDebris: this.calcTotalsMDS()
@@ -584,23 +609,34 @@ class SurveyForm extends Component {
               updateLatLonFront={this.updateLatLonFront}
               removeOther={this.removeOther}
             />
-            <SurfaceRibScan
-              data={this.state.surveyData}
-              SRSData={this.state.SRSData}
-              updateSurveyState={this.updateSurveyState}
-              updateSRS={this.updateSRS}
-            />
-            <AccumulationSurvey
-              data={this.state.ASData}
-              updateSurveyState={this.updateSurveyState}
-              updateCheckedState={this.updateCheckedState}
-              updateAS={this.updateAS}
-              removeOther={this.removeOther}
-            />
-            <MicroDebrisSurvey
-              data={this.state.MDSData}
-              updateMDS={this.updateMDS}
-            />
+            {
+              this.basic ? (
+                <Totals
+                  data={this.state.surveyData}
+                  updateSurveyState={this.updateSurveyState}
+                />
+              ) : (
+                <>
+                  <SurfaceRibScan
+                    data={this.state.surveyData}
+                    SRSData={this.state.SRSData}
+                    updateSurveyState={this.updateSurveyState}
+                    updateSRS={this.updateSRS}
+                  />
+                  <AccumulationSurvey
+                    data={this.state.ASData}
+                    updateSurveyState={this.updateSurveyState}
+                    updateCheckedState={this.updateCheckedState}
+                    updateAS={this.updateAS}
+                    removeOther={this.removeOther}
+                  />
+                  <MicroDebrisSurvey
+                    data={this.state.MDSData}
+                    updateMDS={this.updateMDS}
+                  />
+                </>
+              )
+            }
           </Accordion>
         </form>
         <div className="submit-button-container" >
@@ -639,6 +675,7 @@ class SurveyForm extends Component {
           ASData={this.state.ASData}
           MDSData={this.state.MDSData}
           displayStrings={this.state.displayStrings}
+          basic={this.basic}
         />
         <button
           className="uk-button uk-button-disabled"
@@ -986,6 +1023,30 @@ class SurveyForm extends Component {
       }
     }
     return true;
+  }
+
+  validateBasicSurveyData() {
+    let invalid = [];
+
+    const displayIDs = {
+      "numPeople": "Total Number of People",
+      "weight": "Total Weight"
+    }
+
+    const requiredIDs = ["numPeople", "weight"];
+
+    // check for fields that need just a single entry
+    for (const id of requiredIDs) {
+      if (this.state.surveyData[id] === undefined
+        || this.state.surveyData[id] === "") {
+        console.log(`invalid id: ${id}`);
+        invalid.push(displayIDs[id]);
+        if (document.getElementById(id))
+          document.getElementById(id).classList.add('invalidInput');
+      }
+    }
+
+    return invalid;
   }
 
   /**

@@ -23,7 +23,7 @@ class Totals extends Component {
       <AccordionItem className="accordion__item">
         <AccordionItemTitle
           className="accordion__title accordion__title--animated">
-          <h2>Totals</h2>
+          <h2>Totals<span className="uk-text-danger">*</span></h2>
           <div className="accordion__arrow" role="presentation" />
         </AccordionItemTitle>
         <AccordionItemBody className="accordion__body">
@@ -32,6 +32,7 @@ class Totals extends Component {
               <label>Total Number of People:</label>
               <input
                 type="number"
+                placeholder="Number of People"
                 min="0"
                 id="numPeople"
                 className="uk-input uk-margin"
