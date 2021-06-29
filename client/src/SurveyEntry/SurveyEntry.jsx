@@ -695,7 +695,7 @@ class SurveyEntry extends Component {
                 this.state.surveyData.weight ?
                   <p>
                     <strong>Total Weight: </strong>
-                    {this.state.surveyData.weight}
+                    {this.state.surveyData.weight} lb
                   </p>
                   : null
               }
