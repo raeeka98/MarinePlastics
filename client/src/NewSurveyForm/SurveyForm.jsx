@@ -58,6 +58,10 @@ class SurveyForm extends Component {
         //   trash_id + "accumulation" + ("Fresh | Weathered | Total")
       },
       MDSData: {},
+      // to denote if should show other text boxes
+      showOtherUsage: false,
+      showOtherReason: false,
+      showOtherSubstrate: false,
       displayStrings: {
         usage: "",
         locChoice: "",
@@ -746,24 +750,11 @@ class SurveyForm extends Component {
   }
 
   /**
-   * Updates survey state when the user checks or unchecks a checkbox.
-   * @param {any} e
-   */
-  updateCheckedState(e) {
-    const key = e.target.id;
-    const val = e.target.checked;
-    this.setState(prevState => {
-      prevState.surveyData[key] = val;
-      return prevState;
-    })
-  }
-
-  /**
    * Updates information to be autofilled, coordinates and info on nearest
    * river.
    * @params {any} coordInfo, {any} riverName, {any} riverDist
    */
-  updateBeachState = (coordInfo, majorUse, reason, cmpsDir, riverName, riverDist) => {
+   updateBeachState = (coordInfo, majorUse, reason, cmpsDir, riverName, riverDist) => {
     this.setState(prevState => {
       for (const key in coordInfo) {
         prevState.surveyData[key] = coordInfo[key];
@@ -816,6 +807,19 @@ class SurveyForm extends Component {
 
       return prevState;
     });
+  }
+
+  /**
+   * Updates survey state when the user checks or unchecks a checkbox.
+   * @param {any} e
+   */
+  updateCheckedState(e) {
+    const key = e.target.id;
+    const val = e.target.checked;
+    this.setState(prevState => {
+      prevState.surveyData[key] = val;
+      return prevState;
+    })
   }
 
   /**
