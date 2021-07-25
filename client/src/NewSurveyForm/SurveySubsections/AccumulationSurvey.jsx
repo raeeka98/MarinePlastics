@@ -20,9 +20,6 @@ import './SurveySubsections.css';
 class AccumulationSurvey extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showOtherIncompleteSurvey: false
-    }
   }
 
   /**
@@ -62,7 +59,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyTime'
                   className='uk-checkbox'
-                  checked={this.props.data.incompleteSurveyTime}
+                  checked={this.props.surveyData.incompleteSurveyTime}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Not enough time
@@ -73,7 +70,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyPeople'
                   className='uk-checkbox'
-                  checked={this.props.data.incompleteSurveyPeople}
+                  checked={this.props.surveyData.incompleteSurveyPeople}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Not enough people
@@ -84,7 +81,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyArea'
                   className='uk-checkbox'
-                  checked={this.props.data.incompleteSurveyArea}
+                  checked={this.props.surveyData.incompleteSurveyArea}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Too much area
@@ -95,7 +92,7 @@ class AccumulationSurvey extends Component {
                   type='checkbox'
                   id='incompleteSurveyTrash'
                   className='uk-checkbox'
-                  checked={this.props.data.incompleteSurveyTrash}
+                  checked={this.props.surveyData.incompleteSurveyTrash}
                   onChange={this.props.updateCheckedState}
                 />
               </label> Too much trash
@@ -104,26 +101,21 @@ class AccumulationSurvey extends Component {
               <label>
                 <input
                   type='checkbox'
+                  id='showOtherIncomplete'
                   className='uk-checkbox'
-                  onClick={e => {
-                    this.setState({
-                      showOtherIncompleteSurvey: e.target.checked
-                    });
-                    if (!e.target.checked) {
-                      this.props.removeOther('incomplete');
-                    }
-                  }}
+                  checked={this.props.showOthers.showOtherIncomplete}
+                  onChange={this.props.updateShowOthers}
                 />
               </label> Other
             </div>
-            {this.state.showOtherIncompleteSurvey &&
+            {this.props.showOthers.showOtherIncomplete &&
               (
                 <div>
                   <input
                     type='string'
                     id='incompleteSurveyOther'
                     className='uk-input'
-                    defaultValue={this.props.data.incompleteSurveyOther}
+                    value={this.props.surveyData.incompleteSurveyOther}
                     onChange={this.props.updateSurveyState}
                   />
                 </div>

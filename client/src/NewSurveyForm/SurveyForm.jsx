@@ -58,6 +58,13 @@ class SurveyForm extends Component {
         //   trash_id + "accumulation" + ("Fresh | Weathered | Total")
       },
       MDSData: {},
+      // to denote if should show other text boxes
+      showOthers: {
+        showOtherUsage: false,
+        showOtherReason: false,
+        showOtherSubstrate: false,
+        showOtherIncomplete: false
+      },
       displayStrings: {
         usage: "",
         locChoice: "",
@@ -91,6 +98,7 @@ class SurveyForm extends Component {
     this.updateCheckedState = this.updateCheckedState.bind(this);
     this.updateLatLonFront = this.updateLatLonFront.bind(this);
     this.updateMDS = this.updateMDS.bind(this);
+    this.updateShowOthers = this.updateShowOthers.bind(this);
     this.updateSRS = this.updateSRS.bind(this);
     this.updateSurveyState = this.updateSurveyState.bind(this);
   }
@@ -430,22 +438,24 @@ class SurveyForm extends Component {
    * @param {any} category
    */
   removeOther = (category) => {
-    if (category === 'usage') {
+    const strippedCategory = category.split("showOther")[1].toLowerCase();
+
+    if (strippedCategory === 'usage') {
       this.setState(prevState => {
         prevState.surveyData.usageOther = undefined;
         return prevState;
       });
-    } else if (category === 'reason') {
+    } else if (strippedCategory === 'reason') {
       this.setState(prevState => {
         prevState.surveyData.locationChoiceOther = undefined;
         return prevState;
       });
-    } else if (category === 'substrate') {
+    } else if (strippedCategory === 'substrate') {
       this.setState(prevState => {
         prevState.surveyData.substrateTypeOther = undefined;
         return prevState;
       });
-    } else if (category === 'incomplete') {
+    } else if (strippedCategory === 'incomplete') {
       this.setState(prevState => {
         prevState.surveyData.incompleteSurveyOther = undefined;
         return prevState;
@@ -603,11 +613,12 @@ class SurveyForm extends Component {
               data={this.state.surveyData}
               autoFilledBeachData={this.state.autoFilledBeachData}
               setSurveyData={this.setSurveyData}
+              showOthers={this.state.showOthers}
+              updateShowOthers={this.updateShowOthers}
               updateSurveyState={this.updateSurveyState}
               updateCheckedState={this.updateCheckedState}
               updateBeachState={this.updateBeachState}
               updateLatLonFront={this.updateLatLonFront}
-              removeOther={this.removeOther}
             />
             {
               this.basic ? (
@@ -625,10 +636,12 @@ class SurveyForm extends Component {
                   />
                   <AccumulationSurvey
                     data={this.state.ASData}
+                    surveyData={this.state.surveyData}
+                    showOthers={this.state.showOthers}
+                    updateShowOthers={this.updateShowOthers}
                     updateSurveyState={this.updateSurveyState}
                     updateCheckedState={this.updateCheckedState}
                     updateAS={this.updateAS}
-                    removeOther={this.removeOther}
                   />
                   <MicroDebrisSurvey
                     data={this.state.MDSData}
@@ -746,24 +759,11 @@ class SurveyForm extends Component {
   }
 
   /**
-   * Updates survey state when the user checks or unchecks a checkbox.
-   * @param {any} e
-   */
-  updateCheckedState(e) {
-    const key = e.target.id;
-    const val = e.target.checked;
-    this.setState(prevState => {
-      prevState.surveyData[key] = val;
-      return prevState;
-    })
-  }
-
-  /**
    * Updates information to be autofilled, coordinates and info on nearest
    * river.
    * @params {any} coordInfo, {any} riverName, {any} riverDist
    */
-  updateBeachState = (coordInfo, majorUse, reason, cmpsDir, riverName, riverDist) => {
+   updateBeachState = (coordInfo, majorUse, reason, cmpsDir, riverName, riverDist) => {
     this.setState(prevState => {
       for (const key in coordInfo) {
         prevState.surveyData[key] = coordInfo[key];
@@ -788,6 +788,7 @@ class SurveyForm extends Component {
       }
       if (majorUse.other) {
         prevState.surveyData.usageOther = majorUse.other;
+        prevState.showOthers.showOtherUsage = true;
       }
       else {
         prevState.surveyData.usageOther = "";
@@ -806,6 +807,7 @@ class SurveyForm extends Component {
       }
       if (reason.other) {
         prevState.surveyData.locationChoiceOther = reason.other;
+        prevState.showOthers.showOtherReason = true;
       }
       else {
         prevState.surveyData.locationChoiceOther = "";
@@ -816,6 +818,19 @@ class SurveyForm extends Component {
 
       return prevState;
     });
+  }
+
+  /**
+   * Updates survey state when the user checks or unchecks a checkbox.
+   * @param {any} e
+   */
+  updateCheckedState(e) {
+    const key = e.target.id;
+    const val = e.target.checked;
+    this.setState(prevState => {
+      prevState.surveyData[key] = val;
+      return prevState;
+    })
   }
 
   /**
@@ -975,6 +990,19 @@ class SurveyForm extends Component {
         prevState.MDSData[key] = val;
         return prevState;
       });
+    }
+  }
+
+  updateShowOthers(e) {
+    const key = e.target.id;
+    const checked = e.target.checked;
+    this.setState(prevState => {
+      prevState.showOthers[key] = checked;
+      return prevState;
+    });
+    // if unchecked, delete other text
+    if (!e.target.checked) {
+      this.removeOther(key);
     }
   }
 
