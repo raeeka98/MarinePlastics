@@ -36,7 +36,7 @@ class TeamInformation extends Component {
                 placeholder='First Name'
                 id='userFirst'
                 className='uk-input uk-margin'
-                defaultValue={this.props.data.userFirst}
+                value={this.props.data.userFirst}
                 onChange={this.props.updateSurveyState}
                 required
               />
@@ -50,7 +50,7 @@ class TeamInformation extends Component {
                 placeholder='Last Name'
                 id='userLast'
                 className='uk-input uk-margin'
-                defaultValue={this.props.data.userLast}
+                value={this.props.data.userLast}
                 onChange={this.props.updateSurveyState}
                 required
               />
@@ -65,7 +65,7 @@ class TeamInformation extends Component {
               <input
                 type='string'
                 placeholder='Organization Name'
-                defaultValue={this.props.data.orgName}
+                value={this.props.data.orgName}
                 onChange={this.props.updateSurveyState}
                 id='orgName'
                 className='uk-input uk-margin'
@@ -78,7 +78,7 @@ class TeamInformation extends Component {
               <input
                 type='string'
                 placeholder='Organization Location'
-                defaultValue={this.props.data.orgLoc}
+                value={this.props.data.orgLoc}
                 onChange={this.props.updateSurveyState}
                 id='orgLoc'
                 className='uk-input uk-margin'
@@ -94,7 +94,7 @@ class TeamInformation extends Component {
               <input
                 type='string'
                 placeholder='Email Address'
-                defaultValue={this.props.data.email}
+                value={this.props.data.email}
                 onChange={this.props.updateSurveyState}
                 id='email'
                 className='uk-input uk-margin'
@@ -107,7 +107,7 @@ class TeamInformation extends Component {
               </label>
               <input
                 type='date'
-                defaultValue={this.props.data.cleanUpDate}
+                value={this.props.data.cleanUpDate}
                 onChange={this.props.updateSurveyState}
                 id='cleanUpDate'
                 className='uk-input uk-margin'
@@ -120,7 +120,7 @@ class TeamInformation extends Component {
               </label>
               <input
                 type='time'
-                defaultValue={this.props.data.cleanUpStartTime}
+                value={this.props.data.cleanUpStartTime}
                 onChange={this.props.updateSurveyState}
                 id='cleanUpStartTime'
                 className='uk-input uk-margin'
@@ -133,7 +133,7 @@ class TeamInformation extends Component {
               </label>
               <input
                 type='time'
-                defaultValue={this.props.data.cleanUpEndTime}
+                value={this.props.data.cleanUpEndTime}
                 onChange={this.props.updateSurveyState}
                 id='cleanUpEndTime'
                 className='uk-input uk-margin'

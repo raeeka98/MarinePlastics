@@ -62,7 +62,7 @@ class SurveyArea extends Component {
       return (
         <input
           className="uk-input uk-margin"
-          defaultValue={autoFilled.n}
+          value={autoFilled.n}
           disabled>
         </input>);
     }
@@ -71,7 +71,7 @@ class SurveyArea extends Component {
         id="beachName"
         autofill={this.autofill}
         setSurveyData={this.props.setSurveyData}
-        defaultValue={this.props.data.beachName} />
+        value={this.props.data.beachName} />
     );
   }
 
@@ -87,7 +87,7 @@ class SurveyArea extends Component {
     if (autoFilled) {
       return (
         <input
-          defaultValue={autoFilled.nroName}
+          value={autoFilled.nroName}
           className='uk-input uk-margin'
           disabled
         />
@@ -98,7 +98,7 @@ class SurveyArea extends Component {
         type='string'
         placeholder='Nearest River Output Name'
         id='riverName'
-        defaultValue={this.props.data.riverName}
+        value={this.props.data.riverName}
         onChange={this.props.updateSurveyState}
         className='uk-input uk-margin'
       />
@@ -157,28 +157,28 @@ class SurveyArea extends Component {
         <React.Fragment>
           <div>
             <input
-              defaultValue={lat.latDeg}
+              value={lat.latDeg}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lat.latMin}
+              value={lat.latMin}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lat.latSec}
+              value={lat.latSec}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lat.latDir}
+              value={lat.latDir}
               className='uk-input uk-margin'
               disabled
             >
@@ -190,28 +190,28 @@ class SurveyArea extends Component {
         <React.Fragment>
           <div>
             <input
-              defaultValue={lon.lonDeg}
+              value={lon.lonDeg}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lon.lonMin}
+              value={lon.lonMin}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lon.lonSec}
+              value={lon.lonSec}
               className='uk-input uk-margin'
               disabled
             />
           </div>
           <div>
             <input
-              defaultValue={lon.lonDir}
+              value={lon.lonDir}
               className='uk-input uk-margin'
               disabled
             >
@@ -228,7 +228,7 @@ class SurveyArea extends Component {
               placeholder='&#176;'
               id='latDeg'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.latDeg}
+              value={this.props.data.latDeg}
               className='uk-input uk-margin'
             />
           </div>
@@ -238,7 +238,7 @@ class SurveyArea extends Component {
               placeholder="'"
               id='latMin'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.latMin}
+              value={this.props.data.latMin}
               className='uk-input uk-margin'
             />
           </div>
@@ -248,7 +248,7 @@ class SurveyArea extends Component {
               placeholder='"'
               id='latSec'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.latSec}
+              value={this.props.data.latSec}
               className='uk-input uk-margin'
             />
           </div>
@@ -274,7 +274,7 @@ class SurveyArea extends Component {
               placeholder='&#176;'
               id='lonDeg'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.lonDeg}
+              value={this.props.data.lonDeg}
               className='uk-input uk-margin'
             />
           </div>
@@ -284,7 +284,7 @@ class SurveyArea extends Component {
               placeholder="'"
               id='lonMin'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.lonMin}
+              value={this.props.data.lonMin}
               className='uk-input uk-margin'
             />
           </div>
@@ -294,7 +294,7 @@ class SurveyArea extends Component {
               placeholder='"'
               id='lonSec'
               onChange={this.props.updateSurveyState}
-              defaultValue={this.props.data.lonSec}
+              value={this.props.data.lonSec}
               className='uk-input uk-margin'
             />
           </div>
@@ -557,7 +557,7 @@ class SurveyArea extends Component {
                 type='string'
                 id='locationChoiceOther'
                 className='uk-input'
-                defaultValue={this.props.data.locationChoiceOther}
+                value={this.props.data.locationChoiceOther}
                 onChange={this.props.updateSurveyState}
               />
             </div>
@@ -584,7 +584,7 @@ class SurveyArea extends Component {
         type='number'
         placeholder='Degrees'
         id='compassDegrees'
-        defaultValue={this.props.data.compassDegrees}
+        value={this.props.data.compassDegrees}
         onChange={this.props.updateSurveyState}
         className='uk-input uk-margin'
       />
@@ -603,7 +603,7 @@ class SurveyArea extends Component {
     if (autoFilled) {
       return (
         <input
-          defaultValue={autoFilled.nroDist}
+          value={autoFilled.nroDist}
           className='uk-input uk-margin'
           disabled
         />
@@ -614,7 +614,7 @@ class SurveyArea extends Component {
         type='number'
         placeholder='Nearest River Output Distance'
         id='riverDistance'
-        defaultValue={this.props.data.riverDistance}
+        value={this.props.data.riverDistance}
         onChange={this.props.updateSurveyState}
         className='uk-input uk-margin'
       />
@@ -742,7 +742,7 @@ class SurveyArea extends Component {
                 id='tideHeightB'
                 className='uk-input uk-margin'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideHeightB}
+                value={this.props.data.tideHeightB}
               />
             </div>
             <div>
@@ -751,7 +751,7 @@ class SurveyArea extends Component {
                 type="time"
                 id='tideTimeB'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideTimeB}
+                value={this.props.data.tideTimeB}
                 className='uk-input uk-margin'
 
               />
@@ -765,7 +765,7 @@ class SurveyArea extends Component {
                 placeholder="Height"
                 id='tideHeightA'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideHeightA}
+                value={this.props.data.tideHeightA}
                 className='uk-input uk-margin'
               />
             </div>
@@ -775,7 +775,7 @@ class SurveyArea extends Component {
                 type="time"
                 id='tideTimeA'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.tideTimeA}
+                value={this.props.data.tideTimeA}
                 className='uk-input uk-margin'
 
               />
@@ -795,7 +795,7 @@ class SurveyArea extends Component {
                 placeholder="Speed (knots)"
                 id='windSpeed'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.windSpeed}
+                value={this.props.data.windSpeed}
                 className='uk-input uk-margin'
 
               />
@@ -906,7 +906,7 @@ class SurveyArea extends Component {
                       type='string'
                       id='substrateTypeOther'
                       className='uk-input'
-                      defaultValue={this.props.data.substrateTypeOther}
+                      value={this.props.data.substrateTypeOther}
                       onChange={this.props.updateSurveyState}
                     />
                   </div>
