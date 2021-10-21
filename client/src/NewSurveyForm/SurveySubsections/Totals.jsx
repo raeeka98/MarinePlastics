@@ -36,7 +36,7 @@ class Totals extends Component {
                 min="0"
                 id="numPeople"
                 className="uk-input uk-margin"
-                defaultValue={this.props.data.numPeople}
+                value={this.props.data.numPeople}
                 onChange={this.props.updateSurveyState}
               />
             </div>
@@ -47,7 +47,7 @@ class Totals extends Component {
                 placeholder='Total Weight'
                 id='weight'
                 onChange={this.props.updateSurveyState}
-                defaultValue={this.props.data.weight}
+                value={this.props.data.weight}
                 className='uk-input uk-margin'
               />
             </div>
