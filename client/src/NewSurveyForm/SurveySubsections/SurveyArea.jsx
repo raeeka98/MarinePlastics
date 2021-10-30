@@ -777,7 +777,6 @@ class SurveyArea extends Component {
                 onChange={this.props.updateSurveyState}
                 value={this.props.data.tideTimeA}
                 className='uk-input uk-margin'
-
               />
             </div>
           </div>
@@ -797,7 +796,6 @@ class SurveyArea extends Component {
                 onChange={this.props.updateSurveyState}
                 value={this.props.data.windSpeed}
                 className='uk-input uk-margin'
-
               />
 
               <label>Direction<span className="uk-text-danger">*</span></label>
@@ -837,7 +835,6 @@ class SurveyArea extends Component {
                 value={this.props.data.slope}
               >
                 {(!this.props.data.slope) && <option>Please Select</option>}
-
                 <option value="winter">Winter Profile</option>
                 <option value="summer">Summer Profile</option>
               </select>
