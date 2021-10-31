@@ -1,6 +1,11 @@
 /**
  * SurveyForm.jsx
  * Code for the page to add surveys.
+ *
+ *   SRS: rib1Start, rib2Start, rib3Start, rib4Start,
+ *        rib1End, rib2End, rib3End, rib4End
+ * SRSData: trash_id + ("FreshRib" | "WeatheredRib") + ribNumber
+ * ASData: trash_id + "accumulation" + ("Fresh | Weathered | Total")
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,74 +26,76 @@ import {
 import './accordion-styles.css';
 import './SurveyForm.css';
 
+const initBasicSurveyData = {
+  userFirst: "",
+  userLast: "",
+  orgName: "",
+  orgLoc: "",
+  email: "",
+  cleanUpDate: "",
+  cleanUpStartTime: "",
+  cleanUpEndTime: "",
+  beachName: "",
+  latDeg: 0,
+  latMin: 0,
+  latSec: 0,
+  latDir: "",
+  lonDeg: 0,
+  lonMin: 0,
+  lonSec: 0,
+  lonDir: "",
+  usageRecreation: false,
+  usageCommercial: false,
+  usageRemoteUnused: false,
+  usageOther: "",
+  locationChoiceProximity: false,
+  locationChoiceDebris: false,
+  locationChoiceOther: "",
+  compassDegrees: 0,
+  riverName: "",
+  riverDistance: 0,
+  tideTypeB: "",
+  tideTypeA: "",
+  tideHeightB: 0,
+  tideTimeB: "",
+  tideHeightA: 0,
+  tideTimeA: "",
+  windSpeed: 0,
+  windDir: "",
+  windComments: "",
+  slope: "",
+  substrateTypeSand: false,
+  substrateTypePebble: false,
+  substrateTypeRipRap: false,
+  substrateTypeSeaweed: false,
+  substrateTypeOther: ""
+};
+
+const initSurveyData = {
+  ...initBasicSurveyData,
+  rib1Start: "",
+  rib2Start: "",
+  rib3Start: "",
+  rib4Start: "",
+  rib1End: "",
+  rib2End: "",
+  rib3End: "",
+  rib4End: "",
+  incompleteSurveyTime: false,
+  incompleteSurveyPeople: false,
+  incompleteSurveyArea: false,
+  incompleteSurveyTrash: false,
+  incompleteSurveyOther: ""
+};
+
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
     this.url = '/surveys'
     this.auth = this.props.auth;
-    this.basic = this.props.basic || false;
 
-    this.state = {
-      surveyData: {
-        // fields (id's) :
-        // TI: userFirst, userLast,
-        //     orgName, orgLoc,
-        //     email, cleanUpTime, cleanUpDate
-        // SA: beachName, latitude, longitude,
-        //     {usageRecreation, usageCommercial, usageRemoteUnused,
-        //     usageOther}
-        //     {locationChoiceProximity, locationChoiceDebris,
-        //     locationChoiceOther}
-        //     compassDegrees, riverName, riverDistance,
-        //     {tideTypeB, tideHeightB, tideTimeB},
-        //     {tideTypeA, tideHeightA, tideTimeA},
-        //     windSpeed, windDir, windComment
-        //     {substrateTypeSand, substrateTypePebble, substrateTypeRipRap,
-        //     substrateTypeSeaweed, substrateTypeOther}
-        //
-        // SRS: rib1Start, rib2Start, rib3Start, rib4Start,
-        //      rib1End, rib2End, rib3End, rib4End
-      },
-      SRSData: {
-        // format for debris is:
-        //   trash_id + ("FreshRib" | "WeatheredRib") + ribNumber
-      },
-      ASData: {
-        // format for debris is:
-        //   trash_id + "accumulation" + ("Fresh | Weathered | Total")
-      },
-      MDSData: {},
-      // to denote if should show other text boxes
-      showOthers: {
-        showOtherUsage: false,
-        showOtherReason: false,
-        showOtherSubstrate: false,
-        showOtherIncomplete: false
-      },
-      displayStrings: {
-        usage: "",
-        locChoice: "",
-        subType: "",
-        incompleteSurvey: "",
-      },
-      checkboxAnswers: {
-        usage: {},
-        locChoice: {},
-        subType: {},
-        incompleteSurvey: {},
-      },
-      isInputting: true,
-      isReviewing: false,
-      isSubmitted: false,
-      user: this.auth.userProfile.name,
-      email: this.auth.userProfile.email,
-      userID: this.auth.userProfile.sub.split("|")[1],
-      invalidForm: false,
-      invalidSRS: false,
-      invalidAS: false,
-      invalidMDS: false,
-      autoFilledBeachData: null
-    }
+    this.state = this.getInitState();
+    
     this.moveToInput = this.moveToInput.bind(this);
     this.moveToReview = this.moveToReview.bind(this);
     this.moveToSubmit = this.moveToSubmit.bind(this);
@@ -138,6 +145,12 @@ class SurveyForm extends Component {
             console.log(err);
           });
       }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.basic !== prevProps.basic) {
+      this.state = this.getInitState();
     }
   }
 
@@ -290,6 +303,16 @@ class SurveyForm extends Component {
       (parseFloat(sec) / 3600.0));
   }
 
+  generateInitASData() {
+    // TODO
+    return {};
+  }
+
+  generateInitSRSData() {
+    // TODO
+    return {};
+  }
+
   /**
    * Gets structure of beach data
    * @return beach data
@@ -311,6 +334,81 @@ class SurveyForm extends Component {
       cmpsDir: data.cmpsDir,
       nroDist: data.riverDistance
     };
+  }
+
+  /**
+   * Gets initial state for component
+   * @return {Object} initial state
+   */
+  getInitState() {
+    if (this.props.basic) {
+      return {
+        surveyData: initBasicSurveyData,
+        // to denote if should show other text boxes
+        showOthers: {
+          showOtherUsage: false,
+          showOtherReason: false,
+          showOtherSubstrate: false,
+          showOtherIncomplete: false
+        },
+        displayStrings: {
+          usage: "",
+          locChoice: "",
+          subType: "",
+          incompleteSurvey: "",
+        },
+        checkboxAnswers: {
+          usage: {},
+          locChoice: {},
+          subType: {},
+          incompleteSurvey: {},
+        },
+        isInputting: true,
+        isReviewing: false,
+        isSubmitted: false,
+        user: this.auth.userProfile.name,
+        email: this.auth.userProfile.email,
+        userID: this.auth.userProfile.sub.split("|")[1],
+        invalidForm: false,
+        autoFilledBeachData: null
+      }
+    }
+    return {
+      surveyData: initSurveyData,
+      SRSData: this.generateInitSRSData,
+      ASData: this.generateInitASData,
+      MDSData: { /* TODO */ },
+      // to denote if should show other text boxes
+      showOthers: {
+        showOtherUsage: false,
+        showOtherReason: false,
+        showOtherSubstrate: false,
+        showOtherIncomplete: false
+      },
+      displayStrings: {
+        usage: "",
+        locChoice: "",
+        subType: "",
+        incompleteSurvey: "",
+      },
+      checkboxAnswers: {
+        usage: {},
+        locChoice: {},
+        subType: {},
+        incompleteSurvey: {},
+      },
+      isInputting: true,
+      isReviewing: false,
+      isSubmitted: false,
+      user: this.auth.userProfile.name,
+      email: this.auth.userProfile.email,
+      userID: this.auth.userProfile.sub.split("|")[1],
+      invalidForm: false,
+      invalidSRS: false,
+      invalidAS: false,
+      invalidMDS: false,
+      autoFilledBeachData: null
+    }
   }
 
   /*
@@ -341,7 +439,7 @@ class SurveyForm extends Component {
     }
     else {
       // validate form differently based on type of survey
-      if (this.basic) {
+      if (this.props.basic) {
         const invalidBasicSurveyInput = this.validateBasicSurveyData();
         if (invalidBasicSurveyInput && invalidBasicSurveyInput.length) {
           this.setState({ invalidForm: true });
@@ -621,7 +719,7 @@ class SurveyForm extends Component {
               updateLatLonFront={this.updateLatLonFront}
             />
             {
-              this.basic ? (
+              this.props.basic ? (
                 <Totals
                   data={this.state.surveyData}
                   updateSurveyState={this.updateSurveyState}
@@ -688,7 +786,7 @@ class SurveyForm extends Component {
           ASData={this.state.ASData}
           MDSData={this.state.MDSData}
           displayStrings={this.state.displayStrings}
-          basic={this.basic}
+          basic={this.props.basic}
         />
         <button
           className="uk-button uk-button-disabled"
