@@ -20,7 +20,7 @@ const RibScanCell = (props) => {
           min="0"
           id={props.id + "__fresh__" + props.ribNumber}
           className="uk-input"
-          defaultValue={
+          value={
             props.data[props.id + "__fresh__" + props.ribNumber] || 0
           }
           onChange={props.updateSRS}
@@ -31,7 +31,7 @@ const RibScanCell = (props) => {
           type="number"
           min="0"
           id={props.id + "__weathered__" + props.ribNumber}
-          defaultValue={
+          value={
             props.data[props.id + "__weathered__" + props.ribNumber] || 0
           }
           className="uk-input"

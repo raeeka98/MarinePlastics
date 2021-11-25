@@ -34,7 +34,7 @@ class Submenu extends Component {
                     <Link to='/survey'>Add Survey</Link>
                   </li>
                   <li className="nav__submenu-item ">
-                    <Link to='/survey/basic'>Basic Survey</Link>
+                    <Link to='/basic-survey'>Basic Survey</Link>
                   </li>
                 </>
               ) : null

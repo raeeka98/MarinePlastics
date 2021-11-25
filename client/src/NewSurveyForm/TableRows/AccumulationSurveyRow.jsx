@@ -22,7 +22,7 @@ class AccumulationSurveyRow extends Component {
             min="0"
             id={this.props.id + "__fresh__accumulation"}
             className="uk-input"
-            defaultValue={
+            value={
               this.props.data[this.props.id + "__fresh__accumulation"] || 0
             }
             onChange={this.props.updateAS}
@@ -34,7 +34,7 @@ class AccumulationSurveyRow extends Component {
             min="0"
             id={this.props.id + "__weathered__accumulation"}
             className="uk-input"
-            defaultValue={
+            value={
               this.props.data[this.props.id + "__weathered__accumulation"] || 0
             }
             onChange={this.props.updateAS}
