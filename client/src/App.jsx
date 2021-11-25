@@ -117,6 +117,7 @@ class App extends Component {
                     <SurveyForm
                       {...props}
                       auth={this.auth}
+                      basic={ false }
                     />}
                 />
                 <Route
