@@ -23,10 +23,12 @@ import {
   Accordion,
 } from 'react-accessible-accordion';
 
+import { getDebrisMap } from './debrisInfo';
+
 import './accordion-styles.css';
 import './SurveyForm.css';
 
-const initBasicSurveyData = {
+const initSurveyDataIntersection = {
   userFirst: "",
   userLast: "",
   orgName: "",
@@ -71,8 +73,14 @@ const initBasicSurveyData = {
   substrateTypeOther: ""
 };
 
+const initBasicSurveyData = {
+  ...initSurveyDataIntersection,
+  numPeople: 0,
+  weight: 0
+};
+
 const initSurveyData = {
-  ...initBasicSurveyData,
+  ...initSurveyDataIntersection,
   rib1Start: "",
   rib2Start: "",
   rib3Start: "",
@@ -93,7 +101,6 @@ class SurveyForm extends Component {
     super(props);
     this.url = '/surveys'
     this.auth = this.props.auth;
-
     this.state = this.getInitState();
     
     this.moveToInput = this.moveToInput.bind(this);
@@ -148,9 +155,16 @@ class SurveyForm extends Component {
     }
   }
 
+  /**
+   * If the user switches surveys, reset state
+   * @param {Object} prevProps 
+   */
   componentDidUpdate(prevProps) {
     if (this.props.basic !== prevProps.basic) {
-      this.state = this.getInitState();
+      console.log("Resetting state");
+      const newInitState = this.getInitState();
+      console.log(newInitState);
+      this.setState(() => newInitState);
     }
   }
 
@@ -303,14 +317,53 @@ class SurveyForm extends Component {
       (parseFloat(sec) / 3600.0));
   }
 
+  /**
+   * Generates default values for inputs in accumulation survey
+   * @return initial accumulation survey data
+   */
   generateInitASData() {
-    // TODO
-    return {};
+    const initASData = {};
+
+    for (let id in getDebrisMap()) {
+      initASData[`${id}__fresh__accumulation`] = 0;
+      initASData[`${id}__weathered__accumulation`] = 0;
+    }
+
+    return initASData;
   }
 
+  /**
+   * Generates default values for inputs in micro debris survey
+   * @return initial micro debris survey data
+   */
+  generateInitMDSData() {
+    const initMDSData = {};
+
+    const numOfRibs = 4;
+    for (let rib = 1; rib <= numOfRibs; rib++) {
+      initMDSData[`microFreshTotalRib${rib}`] = 0;
+      initMDSData[`microWeatheredTotalRib${rib}`] = 0;
+    }
+
+    return initMDSData;
+  }
+
+  /**
+   * Generates default values for inputs in surface rib scan
+   * @return initial surface rib scan data
+   */
   generateInitSRSData() {
-    // TODO
-    return {};
+    const initSRSData = {};
+    
+    const numOfRibs = 4;
+    for (let id in getDebrisMap()) {
+      for (let rib = 1; rib <= numOfRibs; rib++) {
+        initSRSData[`${id}__fresh__${rib}`] = 0;
+        initSRSData[`${id}__weathered__${rib}`] = 0;
+      }
+    }
+
+    return initSRSData;
   }
 
   /**
@@ -343,7 +396,10 @@ class SurveyForm extends Component {
   getInitState() {
     if (this.props.basic) {
       return {
-        surveyData: initBasicSurveyData,
+        surveyData: { ...initBasicSurveyData },
+        SRSData: {},
+        ASData: {},
+        MDSData: {},
         // to denote if should show other text boxes
         showOthers: {
           showOtherUsage: false,
@@ -374,10 +430,10 @@ class SurveyForm extends Component {
       }
     }
     return {
-      surveyData: initSurveyData,
-      SRSData: this.generateInitSRSData,
-      ASData: this.generateInitASData,
-      MDSData: { /* TODO */ },
+      surveyData: { ...initSurveyData },
+      SRSData: this.generateInitSRSData(),
+      ASData: this.generateInitASData(),
+      MDSData: this.generateInitMDSData(),
       // to denote if should show other text boxes
       showOthers: {
         showOtherUsage: false,
@@ -610,9 +666,9 @@ class SurveyForm extends Component {
         */
         numOfP: (data.numPeople ? data.numPeople : 0),
         weight: (data.weight ? data.weight : undefined),
-        SRSDebris: this.calcTotalsSRS(),
-        ASDebris: this.calcTotalsAS(),
-        MicroDebris: this.calcTotalsMDS()
+        SRSDebris: (this.props.basic ? [] : this.calcTotalsSRS()),
+        ASDebris: (this.props.basic ? [] : this.calcTotalsAS()),
+        MicroDebris: (this.props.basic ? [] : this.calcTotalsMDS())
       },
       bID: data.beachID ? data.beachID : undefined,
       beachData: data.beachID ? undefined : {
