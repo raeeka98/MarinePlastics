@@ -43,12 +43,13 @@ class Totals extends Component {
             <div>
               <label>Total Weight of all Trash Pieces (lb):</label>
               <input
-                type='string'
-                placeholder='Total Weight'
-                id='weight'
+                type="number"
+                placeholder="Total Weight"
+                min="0"
+                id="weight"
                 onChange={this.props.updateSurveyState}
                 value={this.props.data.weight}
-                className='uk-input uk-margin'
+                className="uk-input uk-margin"
               />
             </div>
           </div>
