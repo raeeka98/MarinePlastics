@@ -533,7 +533,7 @@ class SurveyArea extends Component {
             <input
               type='checkbox'
               id='locationChoiceDebris'
-              onClick={this.props.updateCheckedState}
+              onChange={this.props.updateCheckedState}
               checked={this.props.data.locationChoiceDebris}
               className='uk-checkbox'
             />
