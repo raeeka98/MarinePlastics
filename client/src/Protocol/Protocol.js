@@ -49,11 +49,11 @@ export function ProtocolPage() {
           Download and read the Training Field Guide and the field form linked
           below to get started.
         </p>
-        <a href={`pdfs/${pdf_paths.training_field_guide}`} download>
+        <a href={`/pdfs/${pdf_paths.training_field_guide}`} download>
           View Our Training Field Guide
         </a>
         <br/>
-        <a href={`pdfs/${pdf_paths.data_sheet}`} download>View Our Data Sheet</a>
+        <a href={`/pdfs/${pdf_paths.data_sheet}`} download>View Our Data Sheet</a>
       </div>
     </div>
     );
