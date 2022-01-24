@@ -6,7 +6,8 @@
  * sheet to conduct a survey.
  */
 import React from 'react';
-import coi from './COI.png'
+import coi from './COI.png';
+import pdf_paths from './pdf_names.json';
 
 /**
  * Creates protocol page.
@@ -48,11 +49,11 @@ export function ProtocolPage() {
           Download and read the Training Field Guide and the field form linked
           below to get started.
         </p>
-        <a href="pdfs/ShorelinePlasticMonitoringFieldGuide.pdf" download>
+        <a href={`/pdfs/${pdf_paths.training_field_guide}`} download>
           View Our Training Field Guide
         </a>
         <br/>
-        <a href="pdfs/COIDataSheet_2021.pdf" download>View Our Data Sheet</a>
+        <a href={`/pdfs/${pdf_paths.data_sheet}`} download>View Our Data Sheet</a>
       </div>
     </div>
     );
