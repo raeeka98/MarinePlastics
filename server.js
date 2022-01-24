@@ -51,12 +51,13 @@ app.use('/beaches', dataEntryRouter);
 app.use('/auth', auth0Route(jwtUser));
 
 // the following documents can now be made as links
-app.get('/pdfs/COIDataSheet_2021.pdf',
+const pdf_paths = require('./client/src/Protocol/pdf_names.json');
+app.get(`/pdfs/${pdf_paths.data_sheet}`,
   (req, res) => res.sendFile(path.join(__dirname,
-  '/pdfs/COIDataSheet_2021.pdf')));
-app.get('/pdfs/ShorelinePlasticMonitoringFieldGuide.pdf',
+  `/pdfs/${pdf_paths.data_sheet}`)));
+app.get(`/pdfs/${pdf_paths.training_field_guide}`,
   (req, res) => res.sendFile(path.join(__dirname,
-  '/pdfs/ShorelinePlasticMonitoringFieldGuide.pdf')));
+  `/pdfs/${pdf_paths.training_field_guide}`)));
 
 app.get('*', (req, res) => res.sendFile(reactPath));
 
