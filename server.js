@@ -51,7 +51,7 @@ app.use('/beaches', dataEntryRouter);
 app.use('/auth', auth0Route(jwtUser));
 
 // the following documents can now be made as links
-const pdf_paths = require('./pdf_names.json');
+const pdf_paths = require('./client/src/Protocol/pdf_names.json');
 app.get(`/pdfs/${pdf_paths.data_sheet}`,
   (req, res) => res.sendFile(path.join(__dirname,
   `/pdfs/${pdf_paths.data_sheet}`)));

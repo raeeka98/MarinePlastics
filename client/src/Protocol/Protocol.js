@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import coi from './COI.png';
-import pdf_paths from '../../../pdf_names.json';
+import pdf_paths from './pdf_names.json';
 
 /**
  * Creates protocol page.
