@@ -29,7 +29,9 @@ class Totals extends Component {
         <AccordionItemBody className="accordion__body">
           <div className="uk-grid uk-child-width-1-2">
             <div>
-              <label>Total Number of People:</label>
+              <label>
+                Total Number of People <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Number of People"
@@ -41,7 +43,9 @@ class Totals extends Component {
               />
             </div>
             <div>
-              <label>Total Weight of all Trash Pieces (lb):</label>
+              <label>
+                Total Weight of all Trash Pieces (lb) <span className="uk-text-danger">*</span>
+              </label>
               <input
                 type="number"
                 placeholder="Total Weight"
