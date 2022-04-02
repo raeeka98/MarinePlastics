@@ -75,8 +75,8 @@ const initSurveyDataIntersection = {
 
 const initBasicSurveyData = {
   ...initSurveyDataIntersection,
-  numPeople: 0,
-  weight: 0
+  numPeople: '0',
+  weight: '0'
 };
 
 const initSurveyData = {
@@ -664,7 +664,7 @@ class SurveyForm extends Component {
             ...
         ]
         */
-        numOfP: (data.numPeople ? data.numPeople : 0),
+        numOfP: (data.numPeople ? data.numPeople : undefined),
         weight: (data.weight ? data.weight : undefined),
         SRSDebris: (this.props.basic ? [] : this.calcTotalsSRS()),
         ASDebris: (this.props.basic ? [] : this.calcTotalsAS()),
@@ -1186,7 +1186,7 @@ class SurveyForm extends Component {
       return prevState;
     })
 
-    // Removeinvalid input styling if they are coming back from review step.
+    // Remove invalid input styling if they are coming back from review step.
     let element = document.getElementById(key);
     if (val && element.classList.contains('invalidInput')) {
       if (element) { element.classList.remove('invalidInput'); }
@@ -1208,6 +1208,7 @@ class SurveyForm extends Component {
   }
 
   validateBasicSurveyData() {
+
     let invalid = [];
 
     const displayIDs = {
@@ -1217,14 +1218,15 @@ class SurveyForm extends Component {
 
     const requiredIDs = ["numPeople", "weight"];
 
-    // check for fields that need just a single entry
+    // don't allow 0 in totals section
     for (const id of requiredIDs) {
       if (this.state.surveyData[id] === undefined
-        || this.state.surveyData[id] === "") {
+        || this.state.surveyData[id] === '0') {
         console.log(`invalid id: ${id}`);
         invalid.push(displayIDs[id]);
-        if (document.getElementById(id))
+        if (document.getElementById(id)) {
           document.getElementById(id).classList.add('invalidInput');
+        }
       }
     }
 
