@@ -707,7 +707,8 @@ class SurveyEntry extends Component {
             <div className="uk-card uk-card-default uk-card-body">
               <h3 className="uk-card-title">Survey Area</h3>
               {
-                this.state.info.lat && this.state.info.lon ?
+                (this.state.info.lat || this.state.info.lat === 0)
+                    && (this.state.info.lon || this.state.info.lon === 0) ?
                   <p>
                     <strong>GPS Coordinates: </strong>
                     {this.state.lat[0]}&deg; {this.state.lat[1]}'{" "}
@@ -780,7 +781,7 @@ class SurveyEntry extends Component {
                   : null
               }
               {
-                this.state.info.nroDist ?
+                (this.state.info.nroDist || this.state.info.nroDist === 0) ?
                   <p>
                     <strong>Distance to Nearest River: </strong>
                     {this.state.info.nroDist}mi
@@ -788,7 +789,7 @@ class SurveyEntry extends Component {
                   : null
               }
               {
-                this.state.info.cmpsDir ?
+                (this.state.info.cmpsDir || this.state.info.cmpsDir === 0) ?
                   <p>
                     <strong>Compass Direction: </strong>
                     {this.state.info.cmpsDir}{" "}
